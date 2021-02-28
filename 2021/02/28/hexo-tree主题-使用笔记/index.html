@@ -176,7 +176,13 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<h1 id="先说坑点"><a href="#先说坑点" class="headerlink" title="先说坑点"></a>先说坑点</h1><p>可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是<code>ctrl+shift+del</code>，firefox勾选<code>Cache</code>即可，chrome勾选<code>缓存的图片和文件</code>即可。如果有更方便的方式欢迎评论区发言/狗头</p>
+	<h1 id="先说坑点"><a href="#先说坑点" class="headerlink" title="先说坑点"></a>先说坑点</h1><ul>
+<li>刷新才可查看最新内容</li>
+</ul>
+<p>可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是<code>ctrl+shift+del</code>，firefox勾选<code>Cache</code>即可，chrome勾选<code>缓存的图片和文件</code>即可。如果有更方便的方式欢迎评论区发言/狗头</p>
+<ul>
+<li>gitee.io每次部署后都需要手动update才能生效。</li>
+</ul>
 <h1 id="使用hexo-代码托管平台搭建博客的优劣"><a href="#使用hexo-代码托管平台搭建博客的优劣" class="headerlink" title="使用hexo+代码托管平台搭建博客的优劣"></a>使用hexo+代码托管平台搭建博客的优劣</h1><p>优势：</p>
 <ul>
 <li>可以灵活选择主题</li>
@@ -202,25 +208,14 @@ var _hmt = _hmt || [];
 <p>在浏览器地址栏输入<code>http://localhost:4000</code>或者在终端<code>ctrl+左键</code>这个链接（如果终端支持的话）就可以预览博客了。</p>
 <h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><p>在blog根目录下的<code>_config.yml</code>里可以修改title、author等配置，然后在文档的最后更改<code>Deployment</code>设置，把之前创建的gitee和github的代码仓库放上去，我的设置如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">    <span class="attr">gitee:</span> <span class="string">git@gitee.com:searchstar/searchstar.git,master</span></span><br><span class="line">    <span class="attr">github:</span> <span class="string">git@github.com:seekstar/seekstar.github.io.git,master</span></span><br></pre></td></tr></table></figure>
-
-<p>然后就可以生成博客网站并推送到代码托管平台了：</p>
+<p>新版本github中master可能要改成main。</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>先生成博客网站并部署到代码托管平台：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
 
-<h1 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h1><p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
-<p>建议使用<code>tree</code>主题，它有如下优点：</p>
-<ul>
-<li>可以把博客以文件夹的形式组织</li>
-<li>左边的索引可以收起来，防止占用屏幕空间</li>
-<li>上部有<code>标签</code>和<code>分类</code>的入口，进入网站即可点击</li>
-<li>header随着页面往下翻可以收起来，防止占用屏幕空间</li>
-</ul>
-<p>缺点也很明显：</p>
-<ul>
-<li>手机版上<code>标签</code>和<code>分类</code>入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</li>
-<li>访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</li>
-</ul>
-<h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>这里选择tree主题。在<code>themes</code>下执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wujun234/hexo-theme-tree tree</span><br><span class="line">cd tree</span><br><span class="line">rm -rf .git</span><br></pre></td></tr></table></figure>
+<p>会自动推送到gitee和github。</p>
+<p>然后到github的网站仓库<code>用户名.github.io</code>里开启github pages：进入仓库设置，<code>Options</code>里往下划，可以看到<code>GitHub Pages</code>，选择branch为master（或main），然后<code>Save</code>就好了。进入<code>https://用户名.github.io</code>即可查看。</p>
+<p>然后到gitee的网站仓库<code>用户名</code>里开启gitee pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>Gitee Pages</code>，同样选择branch为master，并勾选<code>Enforce HTTPS</code>，然后点击<code>Update</code>，等一段时间即可。进入<code>https://用户名.gitee.io</code>即可查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 选择主题</span><br><span class="line"></span><br><span class="line">默认主题不好用。&lt;https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;&gt;可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</span><br><span class="line"></span><br><span class="line">建议使用&#96;&#96;&#96;tree&#96;&#96;&#96;主题，它有如下优点：</span><br><span class="line"></span><br><span class="line">- 可以把博客以文件夹的形式组织</span><br><span class="line">- 左边的索引可以收起来，防止占用屏幕空间</span><br><span class="line">- 上部有&#96;&#96;&#96;标签&#96;&#96;&#96;和&#96;&#96;&#96;分类&#96;&#96;&#96;的入口，进入网站即可点击</span><br><span class="line">- header随着页面往下翻可以收起来，防止占用屏幕空间</span><br><span class="line"></span><br><span class="line">缺点也很明显：</span><br><span class="line"></span><br><span class="line">- 手机版上&#96;&#96;&#96;标签&#96;&#96;&#96;和&#96;&#96;&#96;分类&#96;&#96;&#96;入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</span><br><span class="line">- 访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</span><br><span class="line"></span><br><span class="line"># 更换主题</span><br><span class="line"></span><br><span class="line">这里选择tree主题。在&#96;&#96;&#96;themes&#96;&#96;&#96;下执行</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;wujun234&#x2F;hexo-theme-tree tree</span><br><span class="line">cd tree</span><br><span class="line">rm -rf .git</span><br></pre></td></tr></table></figure>
 
 <p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>然后再在<code>_config.yml</code>里把默认的</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br></pre></td></tr></table></figure>
