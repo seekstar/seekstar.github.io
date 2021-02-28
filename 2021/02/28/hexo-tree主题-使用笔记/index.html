@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	
+	<!-- title -->
+	
+	<title>
+	
+		hexo-tree主题-使用笔记 | 
+	 
+	searchstar
+	</title>
+	
+	<!-- keywords,description -->
+	 
+
+	<!-- favicon -->
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+	
+
+
+	<!-- search -->
+	<script>
+		var searchEngine = "https://www.google.com/search?q=";
+		if(typeof searchEngine == "undefined" || searchEngine == null || searchEngine == ""){
+			searchEngine = "https://www.google.com/search?q=";
+		}
+		var homeHost = "https://gitee.com/searchstar/";
+		if(typeof homeHost == "undefined" || homeHost == null || homeHost == ""){
+			homeHost = window.location.host;
+		}
+	</script>
+
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+	
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/darcula.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+	
+		
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+
+		
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+	
+	
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+	<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3efe99c287df5a1d6f0d02d187e403c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<header id="header">
+    <a id="title" href="/" class="logo">searchstar</a>
+
+	<ul id="menu">
+		<li class="menu-item">
+			<a href="/about" class="menu-item-link">ABOUT</a>
+		</li>
+	
+		<li class="menu-item">
+			<a href="/tags" class="menu-item-link">标签</a>
+		</li>
+	
+
+	
+		<li class="menu-item">
+			<a href="/categories" class="menu-item-link">分类</a>
+		</li>
+	
+
+		<li class="menu-item">
+			<a href="https://github.com/seekstar" class="menu-item-link" target="_blank">
+				<i class="fa fa-github fa-2x"></i>
+			</a>
+		</li>
+	</ul>
+</header>
+
+	
+<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<div id="tree">
+			
+
+			
+							<ul>
+								<li class="file">
+									<a href="/2021/02/02/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
+										Linux-kernel-kthread用法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file active">
+									<a href="/2021/02/28/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+										hexo-tree主题-使用笔记
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<!-- 引入正文 -->
+	<div id="content">
+		<h1 id="article-title">
+
+	hexo-tree主题-使用笔记
+</h1>
+<div class="article-meta">
+	
+		<span>
+			阅读量:<span id="/2021/02/28/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="hexo-tree主题-使用笔记"></span>
+		</span>
+	
+	<span>searchstar</span>
+	<span>2021-02-28 13:59:30</span>
+		<div id="article-categories">
+    
+		<span>Categories：</span>
+            
+    
+
+    
+		<span>Tags：</span>
+            
+    
+		</div>
+
+</div>
+
+<div id="article-content">
+	<h1 id="先说坑点"><a href="#先说坑点" class="headerlink" title="先说坑点"></a>先说坑点</h1><p>可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是<code>ctrl+shift+del</code>，firefox勾选<code>Cache</code>即可，chrome勾选<code>缓存的图片和文件</code>即可。如果有更方便的方式欢迎评论区发言/狗头</p>
+<h1 id="使用hexo-代码托管平台搭建博客的优劣"><a href="#使用hexo-代码托管平台搭建博客的优劣" class="headerlink" title="使用hexo+代码托管平台搭建博客的优劣"></a>使用hexo+代码托管平台搭建博客的优劣</h1><p>优势：</p>
+<ul>
+<li>可以灵活选择主题</li>
+<li>博客内容本地云端同时备份，不用担心某个公司倒闭导致博客丢失</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li>代码托管平台（如gitee）可能有容量限制，导致不能随心所欲放图片</li>
+<li>手机写博客及其不方便（甚至不可能？）</li>
+</ul>
+<h1 id="新建代码仓库"><a href="#新建代码仓库" class="headerlink" title="新建代码仓库"></a>新建代码仓库</h1><p>最好建立两个代码仓库，一个存放网站，一个存放生成网站的博客源码。存放网站的代码仓库可以自动同时push到gitee和github上。博客源码的代码仓库只能手动push，所以最好只放到一个代码托管平台上（非得写脚本一起push当我没说）。由于gitee国内访问比较稳定，所以我选择把博客源码放到gitee上。</p>
+<h2 id="gitee"><a href="#gitee" class="headerlink" title="gitee"></a>gitee</h2><p>新建一个名字同自己的用户名的仓库用来存放网站。新建一个任意名字（我的叫blog）的代码仓库用来放博客源码。</p>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>新建名字为<code>自己用户名.github.io</code>的仓库。</p>
+<h1 id="初始化博客"><a href="#初始化博客" class="headerlink" title="初始化博客"></a>初始化博客</h1><p>在本地新建一个<code>blog</code>空文件夹（不要clone），然后执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>就初始化了目录结构。然后才能<code>git init</code>，把gitee上的remote加上去。<br>再执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+<p>就会编译并且在本地<code>4000</code>端口开一个网站</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http:&#x2F;&#x2F;localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器地址栏输入<code>http://localhost:4000</code>或者在终端<code>ctrl+左键</code>这个链接（如果终端支持的话）就可以预览博客了。</p>
+<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><p>在blog根目录下的<code>_config.yml</code>里可以修改title、author等配置，然后在文档的最后更改<code>Deployment</code>设置，把之前创建的gitee和github的代码仓库放上去，我的设置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repository:</span></span><br><span class="line">    <span class="attr">gitee:</span> <span class="string">git@gitee.com:searchstar/searchstar.git,master</span></span><br><span class="line">    <span class="attr">github:</span> <span class="string">git@github.com:seekstar/seekstar.github.io.git,master</span></span><br></pre></td></tr></table></figure>
+
+<p>然后就可以生成博客网站并推送到代码托管平台了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+
+<h1 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h1><p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
+<p>建议使用<code>tree</code>主题，它有如下优点：</p>
+<ul>
+<li>可以把博客以文件夹的形式组织</li>
+<li>左边的索引可以收起来，防止占用屏幕空间</li>
+<li>上部有<code>标签</code>和<code>分类</code>的入口，进入网站即可点击</li>
+<li>header随着页面往下翻可以收起来，防止占用屏幕空间</li>
+</ul>
+<p>缺点也很明显：</p>
+<ul>
+<li>手机版上<code>标签</code>和<code>分类</code>入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</li>
+<li>访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</li>
+</ul>
+<h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>这里选择tree主题。在<code>themes</code>下执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/wujun234/hexo-theme-tree tree</span><br><span class="line">cd tree</span><br><span class="line">rm -rf .git</span><br></pre></td></tr></table></figure>
+
+<p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>然后再在<code>_config.yml</code>里把默认的</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br></pre></td></tr></table></figure>
+
+<p>改成</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">tree</span></span><br></pre></td></tr></table></figure>
+
+<p>然后<code>hexo g &amp;&amp; hexo s</code>预览一下就可以看到主题换了。</p>
+<p>主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
+<h1 id="修改header"><a href="#修改header" class="headerlink" title="修改header"></a>修改header</h1><p>默认的header里有一个作者自己的项目<code>UidGenerator</code>，并且github的链接也是作者自己的。</p>
+<p>打开<code>themes/tree/layout/_partial/header.ejs</code>，找到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;menu-item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://github.com/wujun234/uid-generator-spring-boot-starter&quot;</span> <span class="attr">class</span>=<span class="string">&quot;menu-item-link&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><br><span class="line">        UidGenerator</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
+<p>找到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;menu-item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://github.com/wujun234&quot;</span> <span class="attr">class</span>=<span class="string">&quot;menu-item-link&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa fa-github fa-2x&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>把作者的链接<code>https://github.com/wujun234</code>换成自己的github链接。</p>
+<p>然后可以<code>hexo g &amp;&amp; hexo s</code>预览一下。</p>
+<h1 id="开启标签和分类"><a href="#开启标签和分类" class="headerlink" title="开启标签和分类"></a>开启标签和分类</h1><p>在<code>themes/tree/_config.yml</code>的最后把这两行取消注释：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tags:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">categories:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>source</code>目录下执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后编辑<code>source/tags/index.md</code>，在<code>date</code>后面加上</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">type:</span> <span class="string">&quot;tags&quot;</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">&quot;tags&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-02-26 16:36:55</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">layout: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>同样，在<code>source</code>目录下执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后编辑<code>source/categories/index.md</code>，在<code>date</code>后面加上</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">type:</span> <span class="string">&quot;categories&quot;</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后可以<code>hexo g &amp;&amp; hexo s</code>预览一下，就能看到右上角多了<code>标签</code>和<code>分类</code>。</p>
+<h1 id="开启评论，统计访问量"><a href="#开启评论，统计访问量" class="headerlink" title="开启评论，统计访问量"></a>开启评论，统计访问量</h1><p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
+<p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/">https://www.leancloud.cn/</a><br>点击免费试用，然后注册就好了。有一定的免费额度。</p>
+<p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>themes/tree/_config.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># valine </span></span><br><span class="line"><span class="attr">valine:</span></span><br><span class="line">    <span class="comment"># 评论</span></span><br><span class="line">    <span class="attr">enableComment:</span> <span class="literal">true</span> </span><br><span class="line">    <span class="comment"># 阅读量</span></span><br><span class="line">    <span class="attr">enableCounter:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># valine appID</span></span><br><span class="line">    <span class="attr">appID:</span> <span class="string">xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span><br><span class="line">    <span class="comment"># valine appKey</span></span><br><span class="line">    <span class="attr">appKey:</span> <span class="string">xxxxxxxxxxxxxxxxxxxxxxxx</span></span><br><span class="line">    <span class="attr">placeholder:</span> <span class="string">请输入评论</span></span><br><span class="line">    <span class="attr">avatar:</span> <span class="string">retro</span></span><br></pre></td></tr></table></figure>
+
+<p>然后<code>hexo g &amp;&amp; hexo s</code>预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
+<p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
+<h1 id="修改底部版权开始年份"><a href="#修改底部版权开始年份" class="headerlink" title="修改底部版权开始年份"></a>修改底部版权开始年份</h1><figure class="highlight plain"><figcaption><span>2019```修改成你想要的年份。结束年份会自己计算出来。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 写博客</span><br><span class="line"></span><br><span class="line">在项目根目录执行</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">hexo new &#39;博客标题&#39;</span><br></pre></td></tr></table></figure>
+
+<p>会在<code>source/_posts</code>下生成<code>博客标题.md</code>。<br>用你喜欢的工具编辑之（例如vscode），然后可以<code>hexo g &amp;&amp; hexo s</code>预览一下，如果没什么问题的话就<code>hexo d -g</code>把它部署到gitee和github上。</p>
+<p>最后记得还要<code>git push</code>博客源码到代码仓库里，不然换了一台机器博客源码就丢失了。</p>
+<h1 id="换一台机器写博客"><a href="#换一台机器写博客" class="headerlink" title="换一台机器写博客"></a>换一台机器写博客</h1><p>把gitee上的博客源码仓库clone下来，然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。</p>
+
+</div>
+
+
+    <div class="post-guide">
+        <div class="item left">
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/2021/02/02/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
+                Linux-kernel-kthread用法
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
+	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
+			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+    // 显示次数
+		function showTime(Counter) {
+			var query = new AV.Query("Counter");
+			if($(".leancloud_visitors").length > 0){
+				var url = $(".leancloud_visitors").attr('id').trim();
+				// where field
+				query.equalTo("words", url);
+				// count
+				query.count().then(function (number) {
+					// There are number instances of MyClass where words equals url.
+					$(document.getElementById(url)).text(number?  number : '--');
+				}, function (error) {
+					// error is an instance of AVError.
+				});
+			}
+		}
+		// 追加pv
+		function addCount(Counter) {
+			var url = $(".leancloud_visitors").length > 0 ? $(".leancloud_visitors").attr('id').trim() : 'wujun234.github.io';
+			var Counter = AV.Object.extend("Counter");
+			var query = new Counter;
+			query.save({
+				words: url
+			}).then(function (object) {
+			})
+		}
+		$(function () {
+			var Counter = AV.Object.extend("Counter");
+			addCount(Counter);
+			showTime(Counter);
+		});
+	
+</script>
+	</div>
+	<div id="footer">
+	<p>
+	©2021-<span id="footerYear"></span> 
+	<a href="/">searchstar</a> 
+	
+	
+		|
+		<span id="busuanzi_container_site_pv">
+			pv
+			<span id="busuanzi_value_site_pv"></span>
+		</span>
+		|
+		<span id="busuanzi_container_site_uv"> 
+			uv
+			<span id="busuanzi_value_site_uv"></span>
+		</span>
+	
+	<br>
+	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
+	by <a href="//github.com/wujun234" target="_blank">WuJun</a>
+	Powered by <a href="//hexo.io" target="_blank">Hexo</a>
+	</p>
+</div>
+<script type="text/javascript"> 
+	document.getElementById('footerYear').innerHTML = new Date().getFullYear() + '';
+</script>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+</body>
+</html>
