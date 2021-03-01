@@ -9,7 +9,7 @@
 	
 	<title>
 	
-		tags | 
+		打印行宽 | 
 	 
 	searchstar
 	</title>
@@ -173,7 +173,7 @@ var _hmt = _hmt || [];
 									</a>
 									
 							<ul>
-								<li class="file">
+								<li class="file active">
 									<a href="/2021/03/01/latex/%E6%89%93%E5%8D%B0%E8%A1%8C%E5%AE%BD/">
 										打印行宽
 									</a>
@@ -192,18 +192,113 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-	<i class="fa fa-tags" aria-hidden="true"></i>TAGS
-</h1>
-<h2 id="article-title">
-	目前共计 0 个标签
-</h2>
 
+	打印行宽
+</h1>
+<div class="article-meta">
+	
+		<span>
+			阅读量:<span id="/2021/03/01/latex/%E6%89%93%E5%8D%B0%E8%A1%8C%E5%AE%BD/" class="leancloud_visitors" data-flag-title="打印行宽"></span>
+		</span>
+	
+	<span>searchstar</span>
+	<span>2021-03-01 14:52:25</span>
+		<div id="article-categories">
+    
+		<span>Categories：</span>
+            
+    
+
+    
+		<span>Tags：</span>
+            
+    
+		</div>
+
+</div>
 
 <div id="article-content">
-	<ul>
-      
-	</ul>
+	<p>翻自：<a target="_blank" rel="noopener" href="https://www.alecjacobson.com/weblog/?p=2576">https://www.alecjacobson.com/weblog/?p=2576</a></p>
+<pre><code class="tex">\usepackage&#123;layouts&#125;
+</code></pre>
+<p>然后在文章中想要打印的地方插入</p>
+<pre><code class="tex">textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\textwidth&#125;
+linewidth: \printinunitsof&#123;in&#125;\prntlen&#123;\linewidth&#125;
+</code></pre>
+<p>然后编译一下，对应的地方就会以英寸为单位打印出<code>textwidth</code>和<code>linewidth</code>了。</p>
+
 </div>
+
+
+    <div class="post-guide">
+        <div class="item left">
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/2021/02/28/hexo/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                hexo-tree主题-使用笔记
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+
+	<div id="vcomments"></div>
+
+
+<script>
+	
+		// 评论
+		new Valine({
+			av: AV,
+			el: '#vcomments',
+			notify: false,
+			verify: false,
+			path: window.location.pathname,
+			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
+			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
+			placeholder: '请输入评论',
+			avatar: 'retro',
+			recordIP: false
+		})
+	
+	
+    // 显示次数
+		function showTime(Counter) {
+			var query = new AV.Query("Counter");
+			if($(".leancloud_visitors").length > 0){
+				var url = $(".leancloud_visitors").attr('id').trim();
+				// where field
+				query.equalTo("words", url);
+				// count
+				query.count().then(function (number) {
+					// There are number instances of MyClass where words equals url.
+					$(document.getElementById(url)).text(number?  number : '--');
+				}, function (error) {
+					// error is an instance of AVError.
+				});
+			}
+		}
+		// 追加pv
+		function addCount(Counter) {
+			var url = $(".leancloud_visitors").length > 0 ? $(".leancloud_visitors").attr('id').trim() : 'wujun234.github.io';
+			var Counter = AV.Object.extend("Counter");
+			var query = new Counter;
+			query.save({
+				words: url
+			}).then(function (object) {
+			})
+		}
+		$(function () {
+			var Counter = AV.Object.extend("Counter");
+			addCount(Counter);
+			showTime(Counter);
+		});
+	
+</script>
 	</div>
 	<div id="footer">
 	<p>

@@ -126,12 +126,23 @@ var _hmt = _hmt || [];
 
 			
 							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										hexo
+									</a>
+									
+							<ul>
 								<li class="file">
-									<a href="/2021/02/28/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+									<a href="/2021/02/28/hexo/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
 										hexo-tree主题-使用笔记
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
 							</ul>
 			
 							<ul>
@@ -145,6 +156,26 @@ var _hmt = _hmt || [];
 								<li class="file active">
 									<a href="/2021/02/02/kernel/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
 										Linux-kernel-kthread用法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										latex
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2021/03/01/latex/%E6%89%93%E5%8D%B0%E8%A1%8C%E5%AE%BD/">
+										打印行宽
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -189,26 +220,168 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<p>先说巨坑：如果<code>kthread_run</code>之后立马<code>kthread_stop</code>，<code>threadfn</code>可能不会被执行，<code>kthread_stop</code>返回<code>-EINTR</code>。这一点网上的教程很少有提及。<br>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65987208/kthread-stopped-without-running">https://stackoverflow.com/questions/65987208/kthread-stopped-without-running</a></p>
 <h1 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h1><p>可以用<code>kthread_create</code>和<code>kthread_run</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * kthread_create - create a kthread on the current node</span></span><br><span class="line"><span class="comment"> * @threadfn: the function to run in the thread</span></span><br><span class="line"><span class="comment"> * @data: data pointer for @threadfn()</span></span><br><span class="line"><span class="comment"> * @namefmt: printf-style format string for the thread name</span></span><br><span class="line"><span class="comment"> * @arg...: arguments for @namefmt.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This macro will create a kthread on the current node, leaving it in</span></span><br><span class="line"><span class="comment"> * the stopped state.  This is just a helper for kthread_create_on_node();</span></span><br><span class="line"><span class="comment"> * see the documentation there for more details.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> kthread_create(threadfn, data, namefmt, arg...) \</span></span><br><span class="line">	kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, #<span class="meta">#arg)</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * kthread_run - create and wake a thread.</span></span><br><span class="line"><span class="comment"> * @threadfn: the function to run until signal_pending(current).</span></span><br><span class="line"><span class="comment"> * @data: data ptr for @threadfn.</span></span><br><span class="line"><span class="comment"> * @namefmt: printf-style name for the thread.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Description: Convenient wrapper for kthread_create() followed by</span></span><br><span class="line"><span class="comment"> * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> kthread_run(threadfn, data, namefmt, ...)			   \</span></span><br><span class="line">(&#123;									   \</span><br><span class="line">	struct task_struct *__k						   \</span><br><span class="line">		= kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \</span><br><span class="line">	<span class="keyword">if</span> (!IS_ERR(__k))						   \</span><br><span class="line">		wake_up_process(__k);					   \</span><br><span class="line">	__k;								   \</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="c">/**
+ * kthread_create - create a kthread on the current node
+ * @threadfn: the function to run in the thread
+ * @data: data pointer for @threadfn()
+ * @namefmt: printf-style format string for the thread name
+ * @arg...: arguments for @namefmt.
+ *
+ * This macro will create a kthread on the current node, leaving it in
+ * the stopped state.  This is just a helper for kthread_create_on_node();
+ * see the documentation there for more details.
+ */
+#define kthread_create(threadfn, data, namefmt, arg...) \
+    kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)
+</code></pre>
+<pre><code class="c">/**
+ * kthread_run - create and wake a thread.
+ * @threadfn: the function to run until signal_pending(current).
+ * @data: data ptr for @threadfn.
+ * @namefmt: printf-style name for the thread.
+ *
+ * Description: Convenient wrapper for kthread_create() followed by
+ * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).
+ */
+#define kthread_run(threadfn, data, namefmt, ...)               \
+(&#123;                                       \
+    struct task_struct *__k                           \
+        = kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \
+    if (!IS_ERR(__k))                           \
+        wake_up_process(__k);                       \
+    __k;                                   \
+&#125;)
+</code></pre>
 <p>例子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">t1</span> =</span> kthread_create(threadfn, data, <span class="string">&quot;name%d&quot;</span>, i);</span><br><span class="line"><span class="keyword">if</span> (!IS_ERR(t1))</span><br><span class="line">	wake_up_process(t1);</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">t2</span> =</span> kthread_run(threadfn, data, <span class="string">&quot;name%d&quot;</span>, i);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c">struct task_struct *t1 = kthread_create(threadfn, data, &quot;name%d&quot;, i);
+if (!IS_ERR(t1))
+    wake_up_process(t1);
+</code></pre>
+<pre><code class="c">struct task_struct *t2 = kthread_run(threadfn, data, &quot;name%d&quot;, i);
+</code></pre>
 <h1 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h1><p>其实可以不终止线程，就让它跑完自己return，但是return之后它会自己<code>do_exit</code>，貌似会把<code>task_struct</code>释放掉，导致无法获取返回值。所以如果要获取返回值，必须要手动终止。</p>
 <p>开头提到，如果<code>kthread_run</code>后直接<code>kthread_stop</code>，很容易导致在开始执行<code>threadfn</code>前被stop。所以可以传一个<code>struct completion</code>进去，然后在<code>threadfn</code>开头<code>complete</code>，而调用者<code>wait_for_completion</code>，然后再<code>kthread_stop</code>就好了。</p>
 <p>例子</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/delay.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/spinlock.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">para</span> &#123;</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *msg;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">completion</span> <span class="title">entered</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">void</span> *__para)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">para</span> *<span class="title">para</span> =</span> (struct para *)__para;</span><br><span class="line">	complete(&amp;para-&gt;entered);</span><br><span class="line">	<span class="comment">// Do something here</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Wait for kthread_stop */</span></span><br><span class="line">	set_current_state(TASK_INTERRUPTIBLE);</span><br><span class="line">	<span class="keyword">while</span> (!kthread_should_stop()) &#123;</span><br><span class="line">		schedule();</span><br><span class="line">		set_current_state(TASK_INTERRUPTIBLE);</span><br><span class="line">	&#125;</span><br><span class="line">	set_current_state(TASK_RUNNING);</span><br><span class="line">	printk(<span class="string">&quot;%s %s return\n&quot;</span>, __func__, para-&gt;msg);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> __init <span class="title">start_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">t1</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">para</span> <span class="title">para</span>;</span></span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line"></span><br><span class="line">	printk(KERN_INFO <span class="string">&quot;Thread Creating...\n&quot;</span>);</span><br><span class="line">	para.msg = <span class="string">&quot;t1&quot;</span>;</span><br><span class="line">	init_completion(&amp;para.entered);</span><br><span class="line">	t1 = kthread_run(func, &amp;para, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (IS_ERR(t1)) &#123;</span><br><span class="line">		WARN_ON(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	wait_for_completion(&amp;para.entered);</span><br><span class="line">	ret = kthread_stop(t1);</span><br><span class="line">	printk(<span class="string">&quot;t1 stopped, exit code %d\n&quot;</span>, ret);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> __exit <span class="title">end_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(start_init)</span><br><span class="line">module_exit(end_exit)</span><br></pre></td></tr></table></figure>
+<pre><code class="c">#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/delay.h&gt;
+#include &lt;linux/kthread.h&gt;
+#include &lt;linux/sched.h&gt;
+#include &lt;linux/semaphore.h&gt;
+#include &lt;linux/spinlock.h&gt;
 
+MODULE_LICENSE(&quot;GPL&quot;);
+
+struct para &#123;
+    const char *msg;
+    struct completion entered;
+&#125;;
+static int func(void *__para)
+&#123;
+    struct para *para = (struct para *)__para;
+    complete(&amp;para-&gt;entered);
+    // Do something here
+
+    /* Wait for kthread_stop */
+    set_current_state(TASK_INTERRUPTIBLE);
+    while (!kthread_should_stop()) &#123;
+        schedule();
+        set_current_state(TASK_INTERRUPTIBLE);
+    &#125;
+    set_current_state(TASK_RUNNING);
+    printk(&quot;%s %s return\n&quot;, __func__, para-&gt;msg);
+    return 0;
+&#125;
+static int __init start_init(void)
+&#123;
+    struct task_struct *t1;
+    struct para para;
+    int ret;
+
+    printk(KERN_INFO &quot;Thread Creating...\n&quot;);
+    para.msg = &quot;t1&quot;;
+    init_completion(&amp;para.entered);
+    t1 = kthread_run(func, &amp;para, &quot;t1&quot;);
+    if (IS_ERR(t1)) &#123;
+        WARN_ON(1);
+        return 0;
+    &#125;
+    wait_for_completion(&amp;para.entered);
+    ret = kthread_stop(t1);
+    printk(&quot;t1 stopped, exit code %d\n&quot;, ret);
+
+    return 0;
+&#125;
+
+static void __exit end_exit(void)
+&#123;
+&#125;
+
+module_init(start_init)
+module_exit(end_exit)
+</code></pre>
 <h1 id="清理kthread-create的线程"><a href="#清理kthread-create的线程" class="headerlink" title="清理kthread_create的线程"></a>清理<code>kthread_create</code>的线程</h1><p>为什么要在执行<code>threadfn</code>前检查一下<code>kthread_should_stop</code>呢？就是为了在<code>kthread_create</code>之后，在<code>wake_up_process</code>之前，可以取消运行这个线程。</p>
 <p>一个典型的应用就是需要申请很多个线程时，先申请，再<code>wake_up_process</code>。如果申请失败，就直接<code>kthread_stop</code>其他申请成功的线程，它们就在运行<code>threadfn</code>前就停掉，防止了资源的浪费。</p>
 <p>例子</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">static int __init start_init(void)</span><br><span class="line">&#123;</span><br><span class="line">    struct task_struct *t1 = NULL, *t2 = NULL;</span><br><span class="line">    struct para para1, para2;</span><br><span class="line">    int ret;</span><br><span class="line"></span><br><span class="line">    printk(KERN_INFO &quot;Thread Creating...\n&quot;);</span><br><span class="line">    para1.msg = &quot;t1&quot;;</span><br><span class="line">    para2.msg = &quot;t2&quot;;</span><br><span class="line">    init_completion(&amp;para1.entered);</span><br><span class="line">    init_completion(&amp;para2.entered);</span><br><span class="line">    t1 = kthread_create(func, &amp;para1, &quot;t1&quot;);</span><br><span class="line">    if (IS_ERR(t1)) &#123;</span><br><span class="line">        WARN_ON(1);</span><br><span class="line">        ret = PTR_ERR(t1);</span><br><span class="line">        t1 = NULL;</span><br><span class="line">        goto cancel;</span><br><span class="line">    &#125;</span><br><span class="line">    t2 = kthread_create(func, &amp;para2, &quot;t2&quot;);</span><br><span class="line">    if (IS_ERR(t2)) &#123;</span><br><span class="line">        WARN_ON(1);</span><br><span class="line">        ret = PTR_ERR(t2);</span><br><span class="line">        t2 = NULL;</span><br><span class="line">        goto cancel;</span><br><span class="line">    &#125;</span><br><span class="line">    wake_up_process(t1);</span><br><span class="line">    wake_up_process(t2);</span><br><span class="line">    wait_for_completion(&amp;para1.entered);</span><br><span class="line">    ret = kthread_stop(t1);</span><br><span class="line">    printk(&quot;t1 stopped, exit code %d\n&quot;, ret);</span><br><span class="line">    wait_for_completion(&amp;para2.entered);</span><br><span class="line">    ret = kthread_stop(t2);</span><br><span class="line">    printk(&quot;t2 stopped, exit code %d\n&quot;, ret);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">cancel:</span><br><span class="line">    if (t1)</span><br><span class="line">        printk(&quot;t1 stopped, exit code %d\n&quot;,</span><br><span class="line">            kthread_stop(t1));</span><br><span class="line">    if (t2)</span><br><span class="line">        printk(&quot;t2 stopped, exit code %d\n&quot;,</span><br><span class="line">            kthread_stop(t2));</span><br><span class="line"></span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">static int __init start_init(void)
+&#123;
+    struct task_struct *t1 = NULL, *t2 = NULL;
+    struct para para1, para2;
+    int ret;
+
+    printk(KERN_INFO &quot;Thread Creating...\n&quot;);
+    para1.msg = &quot;t1&quot;;
+    para2.msg = &quot;t2&quot;;
+    init_completion(&amp;para1.entered);
+    init_completion(&amp;para2.entered);
+    t1 = kthread_create(func, &amp;para1, &quot;t1&quot;);
+    if (IS_ERR(t1)) &#123;
+        WARN_ON(1);
+        ret = PTR_ERR(t1);
+        t1 = NULL;
+        goto cancel;
+    &#125;
+    t2 = kthread_create(func, &amp;para2, &quot;t2&quot;);
+    if (IS_ERR(t2)) &#123;
+        WARN_ON(1);
+        ret = PTR_ERR(t2);
+        t2 = NULL;
+        goto cancel;
+    &#125;
+    wake_up_process(t1);
+    wake_up_process(t2);
+    wait_for_completion(&amp;para1.entered);
+    ret = kthread_stop(t1);
+    printk(&quot;t1 stopped, exit code %d\n&quot;, ret);
+    wait_for_completion(&amp;para2.entered);
+    ret = kthread_stop(t2);
+    printk(&quot;t2 stopped, exit code %d\n&quot;, ret);
+
+    return 0;
+cancel:
+    if (t1)
+        printk(&quot;t1 stopped, exit code %d\n&quot;,
+            kthread_stop(t1));
+    if (t2)
+        printk(&quot;t2 stopped, exit code %d\n&quot;,
+            kthread_stop(t2));
+
+    return ret;
+&#125;
+</code></pre>
 <p>跑一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ 1689.490109] Thread Creating...</span><br><span class="line">[ 1689.490478] func t1 return</span><br><span class="line">[ 1689.490484] t1 stopped, exit code 0</span><br><span class="line">[ 1689.490487] func t2 return</span><br><span class="line">[ 1689.490491] t2 stopped, exit code 0</span><br></pre></td></tr></table></figure>
+<pre><code>[ 1689.490109] Thread Creating...
+[ 1689.490478] func t1 return
+[ 1689.490484] t1 stopped, exit code 0
+[ 1689.490487] func t2 return
+[ 1689.490491] t2 stopped, exit code 0
+</code></pre>
 <p>可以看到正常运行，然后返回。</p>
 <p>在<code>wake_up_process(t1);</code>前插入<code>goto cancel;</code>，看看cancel的效果怎么样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ 1793.442321] Thread Creating...</span><br><span class="line">[ 1793.442840] t1 stopped, exit code -4</span><br><span class="line">[ 1793.442851] t2 stopped, exit code -4</span><br></pre></td></tr></table></figure>
+<pre><code>[ 1793.442321] Thread Creating...
+[ 1793.442840] t1 stopped, exit code -4
+[ 1793.442851] t2 stopped, exit code -4
+</code></pre>
 <p>可以看到<code>threadfn</code>（在这里是<code>func</code>）没有运行，直接就stop了，并且返回了<code>-4</code>，查表知它就是<code>-EINTR</code>。</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>do_exit貌似会自己清理task_struct:<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10177641/proper-way-of-handling-threads-in-kernel">https://stackoverflow.com/questions/10177641/proper-way-of-handling-threads-in-kernel</a></p>
 
@@ -218,9 +391,9 @@ var _hmt = _hmt || [];
     <div class="post-guide">
         <div class="item left">
             
-              <a href="/2021/02/28/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+              <a href="/2021/02/28/hexo/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
                   <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  
+                  hexo-tree主题-使用笔记
               </a>
             
         </div>
