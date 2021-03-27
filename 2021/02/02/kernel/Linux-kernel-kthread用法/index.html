@@ -262,7 +262,8 @@ if (!IS_ERR(t1))
 <h1 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h1><p>其实可以不终止线程，就让它跑完自己return，但是return之后它会自己<code>do_exit</code>，貌似会把<code>task_struct</code>释放掉，导致无法获取返回值。所以如果要获取返回值，必须要手动终止。</p>
 <p>开头提到，如果<code>kthread_run</code>后直接<code>kthread_stop</code>，很容易导致在开始执行<code>threadfn</code>前被stop。所以可以传一个<code>struct completion</code>进去，然后在<code>threadfn</code>开头<code>complete</code>，而调用者<code>wait_for_completion</code>，然后再<code>kthread_stop</code>就好了。</p>
 <p>例子</p>
-<pre><code class="c">#include &lt;linux/module.h&gt;
+<pre><code class="c">// test1.c
+#include &lt;linux/module.h&gt;
 #include &lt;linux/kernel.h&gt;
 #include &lt;linux/delay.h&gt;
 #include &lt;linux/kthread.h&gt;
@@ -319,6 +320,22 @@ static void __exit end_exit(void)
 
 module_init(start_init)
 module_exit(end_exit)
+</code></pre>
+<p>Makefile:</p>
+<pre><code class="Makefile">obj-m += test1.o
+all:
+        $(MAKE) -C /lib/modules/$(shell uname -r)/build M=`pwd`
+clean:
+        $(MAKE) -C /lib/modules/$(shell uname -r)/build M=`pwd` clean
+</code></pre>
+<p>跑一下</p>
+<pre><code class="shell">make
+sudo insmod test1.ko
+</code></pre>
+<p>输出：</p>
+<pre><code>[379459.914962] Thread Creating...
+[379459.915181] func t1 return
+[379459.915187] t1 stopped, exit code 0
 </code></pre>
 <h1 id="清理kthread-create的线程"><a href="#清理kthread-create的线程" class="headerlink" title="清理kthread_create的线程"></a>清理<code>kthread_create</code>的线程</h1><p>为什么要在执行<code>threadfn</code>前检查一下<code>kthread_should_stop</code>呢？就是为了在<code>kthread_create</code>之后，在<code>wake_up_process</code>之前，可以取消运行这个线程。</p>
 <p>一个典型的应用就是需要申请很多个线程时，先申请，再<code>wake_up_process</code>。如果申请失败，就直接<code>kthread_stop</code>其他申请成功的线程，它们就在运行<code>threadfn</code>前就停掉，防止了资源的浪费。</p>
