@@ -488,11 +488,9 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>一种常见解法见链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gscsdlz/article/details/51886094">https://blog.csdn.net/gscsdlz/article/details/51886094</a><br>
-我<s>数学不好</s>想到了一个与众不同的解法。</p>
-<p>求结果的前三位时，由于后面的数位对前三位的影响很小，所以不太重要，所以我们只要保证前若干位是精确的即可。这让我们想到可以用浮点数代替整数进行运算，后面不重要的数位会被自然舍弃，只保留前面的数位。<br>
-但是有一个问题，那就是浮点数能表示的数是有上限的，如果连续乘太多次会上溢。因此我们可以定义一个函数To1，将输入的double类型的x变成[1,10)上的数。</p>
-<pre><code class="language-cpp">template&lt;typename T&gt;
+	<p>一种常见解法见链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gscsdlz/article/details/51886094">https://blog.csdn.net/gscsdlz/article/details/51886094</a><br>我<del>数学不好</del>想到了一个与众不同的解法。</p>
+<p>求结果的前三位时，由于后面的数位对前三位的影响很小，所以不太重要，所以我们只要保证前若干位是精确的即可。这让我们想到可以用浮点数代替整数进行运算，后面不重要的数位会被自然舍弃，只保留前面的数位。<br>但是有一个问题，那就是浮点数能表示的数是有上限的，如果连续乘太多次会上溢。因此我们可以定义一个函数To1，将输入的double类型的x变成[1,10)上的数。</p>
+<pre><code class="cpp">template&lt;typename T&gt;
 void To1(T&amp; x)&#123;
     while(x &gt;= 1)&#123;
         x /= 10;
@@ -501,11 +499,11 @@ void To1(T&amp; x)&#123;
 &#125;
 </code></pre>
 <p>每次运算完之后都把它重新放缩到[1,10)，就可以防止上溢啦。最后结果的前三个十进制数字即为所求。</p>
-<pre><code class="language-cpp">int solve3(int x, int ex)&#123;
-	double base = x;
+<pre><code class="cpp">int solve3(int x, int ex)&#123;
+    double base = x;
     To1(base);
     double ans = 1;
-	while(ex)&#123;
+    while(ex)&#123;
         if(ex &amp; 1)&#123;
             To1(ans *= base);
         &#125;
@@ -517,7 +515,7 @@ void To1(T&amp; x)&#123;
     return (int)(ans / 10);
 </code></pre>
 <p>但是，放缩会丢失大小信息，如果结果本身没有达到1000，那最后结果就会被过度放大，比如n = 2, k = 8时，结果是64，但是该函数会返回640。所以一开始先检查一下结果是否大于1000，如果不是则直接返回该结果。完整的函数如下：</p>
-<pre><code class="language-cpp">int solve3(int x, int ex)&#123;
+<pre><code class="cpp">int solve3(int x, int ex)&#123;
     LL tmp = 1;
     for(int i = 1; i &lt;= ex; ++i)&#123;
         tmp *= x;
@@ -544,7 +542,7 @@ void To1(T&amp; x)&#123;
 &#125;
 </code></pre>
 <p>其中的Remain3函数提取出输入参数的前三个有效数字：</p>
-<pre><code class="language-cpp">template&lt;typename T&gt;
+<pre><code class="cpp">template&lt;typename T&gt;
 void Remain3(T&amp; x)&#123;
     while(x &gt;= 1000)&#123;
         x /= 10;
@@ -552,7 +550,7 @@ void Remain3(T&amp; x)&#123;
 &#125;
 </code></pre>
 <p>求出结果的后三位有效数字用普通的快速幂对1000取模即可。完整AC代码如下：</p>
-<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+<pre><code class="cpp">#include &lt;stdio.h&gt;
 #include &lt;limits.h&gt;
 
 using namespace std;
@@ -642,7 +640,7 @@ int main() &#123;
 &#125;
 </code></pre>
 <p>第一次写题解，如有不妥欢迎指出~</p>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+
 </div>
 
 
