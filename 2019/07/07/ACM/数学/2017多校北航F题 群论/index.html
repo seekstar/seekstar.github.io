@@ -489,11 +489,20 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<p>cf链接：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/102253/problem/F">https://codeforces.com/gym/102253/problem/F</a></p>
-<p>把a和b都看成函数，那么表达式转化为<br>$$f(i) = b(f(a(i)))$$</p>
-<p>显然f(i)可以由f(a(i))确定。表达式可以等价地转化为<br>$$f(a(i)) = b^-1 * (f(i))$$<br>显然f(a(i))可以由f(i)确定。<br>本来的思路是扫一遍a数组，把i和a[i]用并查集放到同一个等价类中，然后每一个等价类都可以取出一个元素，随便赋上0~m-1的值，就可以把整个等价类中的取值确定，这样最终答案就是m^等价类个数，但是WA了。后来想到a可能形成环，所以有可能会出现矛盾的情况，要把矛盾的情况去掉。<br>可以证明a和b中的环是一个完整的环，不会出现6字型的环，因为不可能有两个不同的点指向同一个点。因此可以先预处理出b中所有的环的长度，统计出所有长度为i的环的节点的总个数cnt[i]。然后在a中找出所有的环，假如找到一个长度为siz的环，那么答案就乘上<br>$$\prod_{j | siz}(cnt[j])$$</p>
+<p>把a和b都看成函数，那么表达式转化为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>i</mi><mo>)</mo><mo>=</mo><mi>b</mi><mo>(</mo><mi>f</mi><mo>(</mo><mi>a</mi><mo>(</mo><mi>i</mi><mo>)</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f(i) = b(f(a(i)))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">b</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<p>显然f(i)可以由f(a(i))确定。表达式可以等价地转化为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>a</mi><mo>(</mo><mi>i</mi><mo>)</mo><mo>)</mo><mo>=</mo><msup><mi>b</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>∗</mo><mo>(</mo><mi>f</mi><mo>(</mo><mi>i</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f(a(i)) = b^{-1} * (f(i))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.864108em;"></span><span class="strut bottom" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">b</span><span class="vlist"><span style="top:-0.41300000000000003em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">∗</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<p>显然f(a(i))可以由f(i)确定。<br>
+本来的思路是扫一遍a数组，把i和a[i]用并查集放到同一个等价类中，然后每一个等价类都可以取出一个元素，随便赋上0~m-1的值，就可以把整个等价类中的取值确定，这样最终答案就是m^等价类个数，但是WA了。后来想到a可能形成环，所以有可能会出现矛盾的情况，要把矛盾的情况去掉。<br>
+可以证明a和b中的环是一个完整的环，不会出现6字型的环，因为不可能有两个不同的点指向同一个点。因此可以先预处理出b中所有的环的长度，统计出所有长度为i的环的节点的总个数cnt[i]。然后在a中找出所有的环，假如找到一个长度为siz的环，那么答案就乘上</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo>∏</mo><mrow><mi>j</mi><mi mathvariant="normal">∣</mi><mi>s</mi><mi>i</mi><mi>z</mi></mrow></msub><mo>(</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">\prod_{j | siz}(cnt[j])
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.050005em;"></span><span class="strut bottom" style="height:2.5660100000000003em;vertical-align:-1.516005em;"></span><span class="base displaystyle textstyle uncramped"><span class="mop op-limits"><span class="vlist"><span style="top:1.241005em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mord mathrm">∣</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span><span style="top:-0.000005000000000032756em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span><span class="op-symbol large-op mop">∏</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
 <p>因为取长度为siz的环中的某个节点，可以把它赋值为b中长度j整除siz的环中的任意一个节点，这样a绕一圈之后对应b绕 siz/j 圈，不会出现错位。</p>
 <p>代码：</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;algorithm&gt;
 
@@ -508,71 +517,71 @@ typedef LL lint;
 const lint p = 1000000007;
 
 int main() &#123;
-    static int a[MAXN], b[MAXM];
-    int n, m;
+	static int a[MAXN], b[MAXM];
+	int n, m;
 
-    static bool vis[MAXM];
-    static int cnt[MAXM];    //cnt[i] is the number of points which forms a circle in b whose length is i
+	static bool vis[MAXM];
+	static int cnt[MAXM];	//cnt[i] is the number of points which forms a circle in b whose length is i
 
-    int Ti = 0;
-    while (~scanf(&quot;%d%d&quot;, &amp;n, &amp;m)) &#123;
-        int maxnm = max(n, m) + 1;
-        memset(vis, 0, (m+1) * sizeof(vis[0]));
-        memset(cnt, 0, maxnm * sizeof(cnt[0]));
-        for (int i = 1; i &lt;= n; ++i) &#123;
-            scanf(&quot;%d&quot;, a+i);
-            ++a[i];
-        &#125;
-        for (int i = 1; i &lt;= m; ++i) &#123;
-            scanf(&quot;%d&quot;, b+i);
-            ++b[i];
-        &#125;
+	int Ti = 0;
+	while (~scanf(&quot;%d%d&quot;, &amp;n, &amp;m)) &#123;
+		int maxnm = max(n, m) + 1;
+		memset(vis, 0, (m+1) * sizeof(vis[0]));
+		memset(cnt, 0, maxnm * sizeof(cnt[0]));
+		for (int i = 1; i &lt;= n; ++i) &#123;
+			scanf(&quot;%d&quot;, a+i);
+			++a[i];
+		&#125;
+		for (int i = 1; i &lt;= m; ++i) &#123;
+			scanf(&quot;%d&quot;, b+i);
+			++b[i];
+		&#125;
 
-        for (int i = 1; i &lt;= m; ++i) &#123;
-            if (vis[i]) continue;
-            vis[i] = true;
-            int now = b[i], t = 1;
-            while (now != i) &#123;
-                vis[now] = true;
-                now = b[now];
-                ++t;
-            &#125;
-            cnt[t] += t;
-        &#125;
+		for (int i = 1; i &lt;= m; ++i) &#123;
+			if (vis[i]) continue;
+			vis[i] = true;
+			int now = b[i], t = 1;
+			while (now != i) &#123;
+				vis[now] = true;
+				now = b[now];
+				++t;
+			&#125;
+			cnt[t] += t;
+		&#125;
 
-        LL now_ans = 1;
-        memset(vis, 0, (n+1) * sizeof(bool));
-        for (int i = 1; i &lt;= n; ++i) &#123;
-            if (vis[i]) continue;
-            vis[i] = true;
-            int t = 1, now = a[i];
-            while (now != i) &#123;
-                vis[now] = true;
-                now = a[now];
-                ++t;
-            &#125;
-            int siz = t;
-            lint points = 0;
-            int j;
-            for (j = 1; j * j &lt; siz; ++j) &#123;
-                if (siz % j == 0) &#123;
-                    points += cnt[j];
-                    points += cnt[siz / j];
-                &#125;
-            &#125;
-            if (j * j == siz) &#123;
-                points += cnt[j];
-            &#125;
-            (now_ans *= points) %= p;
-        &#125;
+		LL now_ans = 1;
+		memset(vis, 0, (n+1) * sizeof(bool));
+		for (int i = 1; i &lt;= n; ++i) &#123;
+			if (vis[i]) continue;
+			vis[i] = true;
+			int t = 1, now = a[i];
+			while (now != i) &#123;
+				vis[now] = true;
+				now = a[now];
+				++t;
+			&#125;
+			int siz = t;
+			lint points = 0;
+			int j;
+			for (j = 1; j * j &lt; siz; ++j) &#123;
+				if (siz % j == 0) &#123;
+					points += cnt[j];
+					points += cnt[siz / j];
+				&#125;
+			&#125;
+			if (j * j == siz) &#123;
+				points += cnt[j];
+			&#125;
+			(now_ans *= points) %= p;
+		&#125;
 
-        printf(&quot;Case #%d: %d\n&quot;, ++Ti, (int)now_ans);
-    &#125;
+		printf(&quot;Case #%d: %d\n&quot;, ++Ti, (int)now_ans);
+	&#125;
 
-    return 0;
+	return 0;
 &#125;
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

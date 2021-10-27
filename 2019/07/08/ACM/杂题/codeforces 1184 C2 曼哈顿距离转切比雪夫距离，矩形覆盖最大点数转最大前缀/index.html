@@ -489,12 +489,15 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<p>题意是给300000个点，点的横坐标和纵坐标范围为[-1e6, 1e6]，找一点A，使得与A的曼哈顿距离 &lt;= r的点数最大，并输出最大点数。</p>
-<p>观察可知，与A曼哈顿距离&lt;=r的点构成了一个菱形。注意到菱形的边界的函数为x + y = k和x - y = k，因此想到可以把点(x, y)的坐标变成(x + y, x - y)，从而使得这些点构成一个正方形，正方形的边长为2 * r。注意，这里边长为r的意思是这条边能容纳r+1个格点。<br>//事实上，在新的坐标系下，切比雪夫距离就是曼哈顿距离。</p>
+<p>观察可知，与A曼哈顿距离&lt;=r的点构成了一个菱形。注意到菱形的边界的函数为x + y = k和x - y = k，因此想到可以把点(x, y)的坐标变成(x + y, x - y)，从而使得这些点构成一个正方形，正方形的边长为2 * r。注意，这里边长为r的意思是这条边能容纳r+1个格点。<br>
+//事实上，在新的坐标系下，切比雪夫距离就是曼哈顿距离。</p>
 <p>于是问题转化为找到一个边长为r的正方形，使得被该正方形包含的点的数目最大。</p>
 <p>假设某个点在(x, y)处，我们可以把这个点拆成(x + 1, y + 1, 1)，(x - r, y - r, 1)，(x - r, y + 1, -1)，(x + 1, y - r, -1)。第三个维度是权值。</p>
-<p>假设正方形的左下角为(x0, y0)，那么当原先的点被该正方形覆盖，则(x0, y0)的前缀和就会加上1，否则加上0。<br>于是正方形框住的点数就是新图中正方形左下角所在点的前缀和，原问题转化为求最大前缀和。<br>构造一个线段树，支持区间加和查询区间最大值，元素初始化为0。先对所有点按x和y排序（x优先），然后从下往上，逐行处理，每读到一个点(x1, y1, v)，就在线段树中对区间[y1, maxy] 减v。处理完一行后，线段树中的值就是每个点的前缀和，查询整个区间的最大值并更新答案。所有行处理完后答案就出来了。</p>
+<p>假设正方形的左下角为(x0, y0)，那么当原先的点被该正方形覆盖，则(x0, y0)的前缀和就会加上1，否则加上0。<br>
+于是正方形框住的点数就是新图中正方形左下角所在点的前缀和，原问题转化为求最大前缀和。<br>
+构造一个线段树，支持区间加和查询区间最大值，元素初始化为0。先对所有点按x和y排序（x优先），然后从下往上，逐行处理，每读到一个点(x1, y1, v)，就在线段树中对区间[y1, maxy] 减v。处理完一行后，线段树中的值就是每个点的前缀和，查询整个区间的最大值并更新答案。所有行处理完后答案就出来了。</p>
 <p>code:</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
 
 using namespace std;
@@ -513,93 +516,93 @@ const int maxx = MAXX - 5;
 const int maxy = MAXY - 5;
 
 struct P &#123;
-    int x, y, w;
-    bool operator &lt; (const P&amp; rhs) const &#123;
-        return x != rhs.x ? x &lt; rhs.x : (y != rhs.y ? y &lt; rhs.y : false);
-        //return y != rhs.y ? y &lt; rhs.y : (x != rhs.x ? x &lt; rhs.x : false);
-    &#125;
+	int x, y, w;
+	bool operator &lt; (const P&amp; rhs) const &#123;
+		return x != rhs.x ? x &lt; rhs.x : (y != rhs.y ? y &lt; rhs.y : false);
+		//return y != rhs.y ? y &lt; rhs.y : (x != rhs.x ? x &lt; rhs.x : false);
+	&#125;
 &#125;;
 
 #define MAX_NODE_SEGTREE (MAXY &lt;&lt; 2)
 struct SegTree &#123;
-    int maxi[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];
+	int maxi[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];
 
-    inline int ls(int rt) &#123;
-        return rt &lt;&lt; 1;
-    &#125;
-    inline int rs(int rt) &#123;
-        return rt &lt;&lt; 1 | 1;
-    &#125;
-    void PushUp(int rt) &#123;
-        maxi[rt] = max(maxi[ls(rt)], maxi[rs(rt)]);
-    &#125;
-    void PushDown(int rt) &#123;
-        if (lazy[rt]) &#123;
-            lazy[ls(rt)] += lazy[rt];
-            lazy[rs(rt)] += lazy[rt];
-            maxi[ls(rt)] += lazy[rt];
-            maxi[rs(rt)] += lazy[rt];
-            lazy[rt] = 0;
-        &#125;
-    &#125;
-    void Add(int rt, int l, int r, int L, int R, int v) &#123;
-        if (L &lt;= l &amp;&amp; r &lt;= R) &#123;
-            lazy[rt] += v;
-            maxi[rt] += v;
-        &#125; else &#123;
-            int mid = (l + r) &gt;&gt; 1;
-            PushDown(rt);
-            if (L &lt;= mid)
-                Add(ls(rt), l, mid, L, R, v);
-            if (mid &lt; R)
-                Add(rs(rt), mid+1, r, L, R, v);
-            PushUp(rt);
-        &#125;
-    &#125;
-    int Max() &#123;
-        return maxi[1];
-    &#125;
+	inline int ls(int rt) &#123;
+		return rt &lt;&lt; 1;
+	&#125;
+	inline int rs(int rt) &#123;
+		return rt &lt;&lt; 1 | 1;
+	&#125;
+	void PushUp(int rt) &#123;
+		maxi[rt] = max(maxi[ls(rt)], maxi[rs(rt)]);
+	&#125;
+	void PushDown(int rt) &#123;
+		if (lazy[rt]) &#123;
+			lazy[ls(rt)] += lazy[rt];
+			lazy[rs(rt)] += lazy[rt];
+			maxi[ls(rt)] += lazy[rt];
+			maxi[rs(rt)] += lazy[rt];
+			lazy[rt] = 0;
+		&#125;
+	&#125;
+	void Add(int rt, int l, int r, int L, int R, int v) &#123;
+		if (L &lt;= l &amp;&amp; r &lt;= R) &#123;
+			lazy[rt] += v;
+			maxi[rt] += v;
+		&#125; else &#123;
+			int mid = (l + r) &gt;&gt; 1;
+			PushDown(rt);
+			if (L &lt;= mid)
+				Add(ls(rt), l, mid, L, R, v);
+			if (mid &lt; R)
+				Add(rs(rt), mid+1, r, L, R, v);
+			PushUp(rt);
+		&#125;
+	&#125;
+	int Max() &#123;
+		return maxi[1];
+	&#125;
 &#125;;
 
 int main() &#123;
-    int n, r;
-    static P points[MAXN * 4];
-    static SegTree sgt;
+	int n, r;
+	static P points[MAXN * 4];
+	static SegTree sgt;
 
-    scanf(&quot;%d%d&quot;, &amp;n, &amp;r);
-    r &lt;&lt;= 1;
-    for (int i = 0; i &lt; n; ++i) &#123;
-        int x, y;
-        scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
-        x += offsetx;
-        y += offsety;
-        points[i] = P&#123;r + x + y + 1, r + x - y + offsety2 + 1, 1&#125;;
-    &#125;
-    for (int i = 0; i &lt; n; ++i) &#123;
-        points[i+n] = P&#123;points[i].x - r, points[i].y - r, 1&#125;;
-        points[i+2*n] = P&#123;points[i].x - r, points[i].y + 1, -1&#125;;
-        points[i+3*n] = P&#123;points[i].x + 1, points[i].y - r, -1&#125;;
-        ++points[i].x;
-        ++points[i].y;
-    &#125;
-    n &lt;&lt;= 2;
-    sort(points, points + n);
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;r);
+	r &lt;&lt;= 1;
+	for (int i = 0; i &lt; n; ++i) &#123;
+		int x, y;
+		scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+		x += offsetx;
+		y += offsety;
+		points[i] = P&#123;r + x + y + 1, r + x - y + offsety2 + 1, 1&#125;;
+	&#125;
+	for (int i = 0; i &lt; n; ++i) &#123;
+		points[i+n] = P&#123;points[i].x - r, points[i].y - r, 1&#125;;
+		points[i+2*n] = P&#123;points[i].x - r, points[i].y + 1, -1&#125;;
+		points[i+3*n] = P&#123;points[i].x + 1, points[i].y - r, -1&#125;;
+		++points[i].x;
+		++points[i].y;
+	&#125;
+	n &lt;&lt;= 2;
+	sort(points, points + n);
 
-    int ans = 0;
-    int i = 0;
-    while (i &lt; n) &#123;
-        int nowx = points[i].x;
-        for (; i &lt; n &amp;&amp; points[i].x == nowx; ++i) &#123;
-            sgt.Add(1, 1, maxy, points[i].y, maxy, points[i].w);
-        &#125;
-        ans = max(ans, sgt.Max());
-    &#125;
-    printf(&quot;%d&quot;, ans);
-    
-    return 0;
+	int ans = 0;
+	int i = 0;
+	while (i &lt; n) &#123;
+		int nowx = points[i].x;
+		for (; i &lt; n &amp;&amp; points[i].x == nowx; ++i) &#123;
+			sgt.Add(1, 1, maxy, points[i].y, maxy, points[i].w);
+		&#125;
+		ans = max(ans, sgt.Max());
+	&#125;
+	printf(&quot;%d&quot;, ans);
+	
+	return 0;
 &#125;
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

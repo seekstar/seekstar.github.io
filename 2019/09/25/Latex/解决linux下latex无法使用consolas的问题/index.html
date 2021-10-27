@@ -488,17 +488,21 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>在网上找了好久都没有合适的解决方案TT。<br>结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的相关文件夹替换成/usr/local/texlive/2019中的相关文件夹即可。<br>代码如下：</p>
-<pre><code class="bash">sudo trash-put /usr/share/texlive/texmf-dist/tex/latex
+	<p>在网上找了好久都没有合适的解决方案TT。<br>
+结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的相关文件夹替换成/usr/local/texlive/2019中的相关文件夹即可。<br>
+代码如下：</p>
+<pre><code class="language-bash">sudo trash-put /usr/share/texlive/texmf-dist/tex/latex
 ln -s /usr/local/texlive/2019/texmf-dist/tex/latex/ /usr/share/texlive/texmf-dist/tex/latex
 sudo trash-put /usr/share/texlive/texmf-dist/fonts
 ln -s /usr/local/texlive/2019/texmf-dist/fonts/ /usr/share/texlive/texmf-dist/fonts
-sudo mktexlsr    #refresh sty
+sudo mktexlsr	#refresh sty
 #or sudo texhash
 </code></pre>
-<p>其中trash-put 是trash-cli中的一个命令。通过<br>sudo apt-get install trash-cli<br>安装</p>
+<p>其中trash-put 是trash-cli中的一个命令。通过<br>
+sudo apt-get install trash-cli<br>
+安装</p>
 <p>示例代码：</p>
-<pre><code class="tex">% !TEX program = xelatex
+<pre><code class="language-tex">% !TEX program = xelatex
 
 \documentclass[UTF8]&#123;ctexart&#125;
 \title&#123;test&#125;
@@ -509,17 +513,18 @@ sudo mktexlsr    #refresh sty
 \usepackage&#123;inconsolata&#125;
 
 \fontspec&#123;inconsolata&#125;
-\setmonofont[StylisticSet=1]&#123;inconsolata&#125;    %这里StylisticSet=1时&quot;l&quot;是卷的。（有时候等于3的时候是卷的。玄学）
+\setmonofont[StylisticSet=1]&#123;inconsolata&#125;	%这里StylisticSet=1时&quot;l&quot;是卷的。（有时候等于3的时候是卷的。玄学）
 
 \begin&#123;document&#125;
-    \maketitle
+	\maketitle
 
-    \ttfamily&#123;00000 Hello consolas!&#125;
+	\ttfamily&#123;00000 Hello consolas!&#125;
 
 \end&#123;document&#125;
 </code></pre>
-<p>效果：<br><img src="https://img-blog.csdnimg.cn/20190925022903920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTYxNDU5,size_16,color_FFFFFF,t_70">这样就可以愉快地使用consolas了。</p>
-
+<p>效果：<br>
+<img src="https://img-blog.csdnimg.cn/20190925022903920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxOTYxNDU5,size_16,color_FFFFFF,t_70" alt="">这样就可以愉快地使用consolas了。</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

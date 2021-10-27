@@ -488,14 +488,16 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<h1 id="先说坑点"><a href="#先说坑点" class="headerlink" title="先说坑点"></a>先说坑点</h1><ul>
+	<h1 id="先说坑点"><a class="header-anchor" href="#先说坑点">¶</a> 先说坑点</h1>
+<ul>
 <li>刷新才可查看最新内容</li>
 </ul>
 <p>可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是<code>ctrl+shift+del</code>，firefox勾选<code>Cache</code>即可，chrome勾选<code>缓存的图片和文件</code>即可。如果有更方便的方式欢迎评论区发言/狗头</p>
 <ul>
 <li>gitee.io每次部署后都需要手动update才能生效。</li>
 </ul>
-<h1 id="使用hexo-代码托管平台搭建博客的优劣"><a href="#使用hexo-代码托管平台搭建博客的优劣" class="headerlink" title="使用hexo+代码托管平台搭建博客的优劣"></a>使用hexo+代码托管平台搭建博客的优劣</h1><p>优势：</p>
+<h1 id="使用hexo+代码托管平台搭建博客的优劣"><a class="header-anchor" href="#使用hexo+代码托管平台搭建博客的优劣">¶</a> 使用hexo+代码托管平台搭建博客的优劣</h1>
+<p>优势：</p>
 <ul>
 <li>可以灵活选择主题</li>
 <li>博客内容本地云端同时备份，不用担心某个公司倒闭导致博客丢失</li>
@@ -506,14 +508,19 @@ var _hmt = _hmt || [];
 <li>手机写博客及其不方便（甚至不可能？）</li>
 <li>并非所见即所得，有时在编辑器里写好的markdown文档放到博客上就有点不太一样了。</li>
 </ul>
-<h1 id="新建代码仓库"><a href="#新建代码仓库" class="headerlink" title="新建代码仓库"></a>新建代码仓库</h1><p>最好建立两个代码仓库，一个存放网站，一个存放生成网站的博客源码。存放网站的代码仓库可以自动同时push到gitee和github上。博客源码的代码仓库只能手动push，所以最好只放到一个代码托管平台上（非得写脚本一起push当我没说）。由于gitee国内访问比较稳定，所以我选择把博客源码放到gitee上。</p>
-<h2 id="gitee"><a href="#gitee" class="headerlink" title="gitee"></a>gitee</h2><p>新建一个名字同自己的用户名的仓库用来存放网站。新建一个任意名字（我的叫blog）的代码仓库用来放博客源码。</p>
-<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>新建名字为<code>自己用户名.github.io</code>的仓库。</p>
-<h1 id="初始化博客"><a href="#初始化博客" class="headerlink" title="初始化博客"></a>初始化博客</h1><p>在本地新建一个<code>blog</code>空文件夹（不要clone），然后执行</p>
-<pre><code class="shell">hexo init
+<h1 id="新建代码仓库"><a class="header-anchor" href="#新建代码仓库">¶</a> 新建代码仓库</h1>
+<p>最好建立两个代码仓库，一个存放网站，一个存放生成网站的博客源码。存放网站的代码仓库可以自动同时push到gitee和github上。博客源码的代码仓库只能手动push，所以最好只放到一个代码托管平台上（非得写脚本一起push当我没说）。由于gitee国内访问比较稳定，所以我选择把博客源码放到gitee上。</p>
+<h2 id="gitee"><a class="header-anchor" href="#gitee">¶</a> gitee</h2>
+<p>新建一个名字同自己的用户名的仓库用来存放网站。新建一个任意名字（我的叫blog）的代码仓库用来放博客源码。</p>
+<h2 id="github"><a class="header-anchor" href="#github">¶</a> github</h2>
+<p>新建名字为<code>自己用户名.github.io</code>的仓库。</p>
+<h1 id="初始化博客"><a class="header-anchor" href="#初始化博客">¶</a> 初始化博客</h1>
+<p>在本地新建一个<code>blog</code>空文件夹（不要clone），然后执行</p>
+<pre><code class="language-shell">hexo init
 </code></pre>
 <p>就初始化了目录结构。然后才能<code>git init</code>，把gitee上的remote加上去。</p>
-<h1 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h1><pre><code class="shell">hexo g &amp;&amp; hexo s
+<h1 id="预览"><a class="header-anchor" href="#预览">¶</a> 预览</h1>
+<pre><code class="language-shell">hexo g &amp;&amp; hexo s
 </code></pre>
 <p>就会编译并且在本地<code>4000</code>端口开一个网站</p>
 <pre><code>INFO  Validating config
@@ -521,22 +528,25 @@ INFO  Start processing
 INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
 </code></pre>
 <p>在浏览器地址栏输入<code>http://localhost:4000</code>或者在终端<code>ctrl+左键</code>这个链接（如果终端支持的话）就可以预览博客了。当本地的文件改变之后，预览的博客会自动更新。</p>
-<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><p>在blog根目录下的<code>_config.yml</code>里可以修改title、author等配置，然后在文档的最后更改<code>Deployment</code>设置，把之前创建的gitee和github的代码仓库放上去，我的设置如下：</p>
-<pre><code class="yml">deploy:
-  type: &#39;git&#39;
+<h1 id="修改配置"><a class="header-anchor" href="#修改配置">¶</a> 修改配置</h1>
+<p>在blog根目录下的<code>_config.yml</code>里可以修改title、author等配置，然后在文档的最后更改<code>Deployment</code>设置，把之前创建的gitee和github的代码仓库放上去，我的设置如下：</p>
+<pre><code class="language-yml">deploy:
+  type: 'git'
   repository:
     gitee: git@gitee.com:searchstar/searchstar.git,master
     github: git@github.com:seekstar/seekstar.github.io.git,master
 </code></pre>
 <p>新版本github中master可能要改成main。</p>
-<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>先生成博客网站并部署到代码托管平台：</p>
-<pre><code class="shell">hexo d -g
+<h1 id="部署"><a class="header-anchor" href="#部署">¶</a> 部署</h1>
+<p>先生成博客网站并部署到代码托管平台：</p>
+<pre><code class="language-shell">hexo d -g
 </code></pre>
 <p>会自动推送到gitee和github。</p>
 <p>然后到github的网站仓库<code>用户名.github.io</code>里开启github pages：进入仓库设置，<code>Options</code>里往下划，可以看到<code>GitHub Pages</code>，选择branch为master（或main），然后<code>Save</code>就好了。进入<code>https://用户名.github.io</code>即可查看。</p>
 <p>然后到gitee的网站仓库<code>用户名</code>里开启gitee pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>Gitee Pages</code>，同样选择branch为master，并勾选<code>Enforce HTTPS</code>，然后点击<code>Update</code>，等一段时间即可。进入<code>https://用户名.gitee.io</code>即可查看。</p>
 <p><code>github.io</code>部署后等一段时间会自动更新，但是<code>gitee.io</code>每次部署都必须手动<code>Update</code>才能生效，有点恶心。</p>
-<h1 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h1><p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
+<h1 id="选择主题"><a class="header-anchor" href="#选择主题">¶</a> 选择主题</h1>
+<p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
 <p>建议使用<code>tree</code>主题，它有如下优点：</p>
 <ul>
 <li>可以把博客以文件夹的形式组织</li>
@@ -549,22 +559,25 @@ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
 <li>手机版上<code>标签</code>和<code>分类</code>入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</li>
 <li>访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</li>
 </ul>
-<h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>这里选择tree主题。在<code>themes</code>下执行</p>
-<pre><code class="shell">git clone https://github.com/wujun234/hexo-theme-tree tree
+<h1 id="更换主题"><a class="header-anchor" href="#更换主题">¶</a> 更换主题</h1>
+<p>这里选择tree主题。在<code>themes</code>下执行</p>
+<pre><code class="language-shell">git clone https://github.com/wujun234/hexo-theme-tree tree
 cd tree
 rm -rf .git
 </code></pre>
-<p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>然后再在<code>_config.yml</code>里把默认的</p>
-<pre><code class="yml">theme: landscape
+<p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>
+然后再在<code>_config.yml</code>里把默认的</p>
+<pre><code class="language-yml">theme: landscape
 </code></pre>
 <p>改成</p>
-<pre><code class="yml">theme: tree
+<pre><code class="language-yml">theme: tree
 </code></pre>
 <p>然后预览一下就可以看到主题换了。</p>
 <p>主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
-<h1 id="修改header"><a href="#修改header" class="headerlink" title="修改header"></a>修改header</h1><p>默认的header里有一个作者自己的项目<code>UidGenerator</code>，并且github的链接也是作者自己的。</p>
+<h1 id="修改header"><a class="header-anchor" href="#修改header">¶</a> 修改header</h1>
+<p>默认的header里有一个作者自己的项目<code>UidGenerator</code>，并且github的链接也是作者自己的。</p>
 <p>打开<code>themes/tree/layout/_partial/header.ejs</code>，找到</p>
-<pre><code class="html">&lt;li class=&quot;menu-item&quot;&gt;
+<pre><code class="language-html">&lt;li class=&quot;menu-item&quot;&gt;
     &lt;a href=&quot;https://github.com/wujun234/uid-generator-spring-boot-starter&quot; class=&quot;menu-item-link&quot; target=&quot;_blank&quot;&gt;
         UidGenerator
     &lt;/a&gt;
@@ -572,26 +585,27 @@ rm -rf .git
 </code></pre>
 <p>删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
 <p>找到</p>
-<pre><code class="html">&lt;li class=&quot;menu-item&quot;&gt;
+<pre><code class="language-html">&lt;li class=&quot;menu-item&quot;&gt;
     &lt;a href=&quot;https://github.com/wujun234&quot; class=&quot;menu-item-link&quot; target=&quot;_blank&quot;&gt;
         &lt;i class=&quot;fa fa-github fa-2x&quot;&gt;&lt;/i&gt;
     &lt;/a&gt;
 &lt;/li&gt;
 </code></pre>
 <p>把作者的链接<code>https://github.com/wujun234</code>换成自己的github链接。</p>
-<h1 id="开启标签和分类"><a href="#开启标签和分类" class="headerlink" title="开启标签和分类"></a>开启标签和分类</h1><p>在<code>themes/tree/_config.yml</code>的最后把这两行取消注释：</p>
-<pre><code class="yml">tags: true
+<h1 id="开启标签和分类"><a class="header-anchor" href="#开启标签和分类">¶</a> 开启标签和分类</h1>
+<p>在<code>themes/tree/_config.yml</code>的最后把这两行取消注释：</p>
+<pre><code class="language-yml">tags: true
 categories: true
 </code></pre>
 <p>然后在<code>source</code>目录下执行</p>
-<pre><code class="shell">hexo new page &quot;tags&quot;
+<pre><code class="language-shell">hexo new page &quot;tags&quot;
 </code></pre>
 <p>然后编辑<code>source/tags/index.md</code>，在<code>date</code>后面加上</p>
-<pre><code class="yml">type: &quot;tags&quot;
+<pre><code class="language-yml">type: &quot;tags&quot;
 layout: &quot;tags&quot;
 </code></pre>
 <p>如</p>
-<pre><code class="md">---
+<pre><code class="language-md">---
 title: tags
 date: 2021-02-26 16:36:55
 type: &quot;tags&quot;
@@ -599,17 +613,19 @@ layout: &quot;tags&quot;
 ---
 </code></pre>
 <p>同样，在<code>source</code>目录下执行</p>
-<pre><code class="shell">hexo new page &quot;categories&quot;
+<pre><code class="language-shell">hexo new page &quot;categories&quot;
 </code></pre>
 <p>然后编辑<code>source/categories/index.md</code>，在<code>date</code>后面加上</p>
-<pre><code class="yml">type: &quot;categories&quot;
+<pre><code class="language-yml">type: &quot;categories&quot;
 layout: &quot;categories&quot;
 </code></pre>
 <p>然后预览一下，就能看到右上角多了<code>标签</code>和<code>分类</code>。</p>
-<h1 id="开启评论，统计访问量"><a href="#开启评论，统计访问量" class="headerlink" title="开启评论，统计访问量"></a>开启评论，统计访问量</h1><p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
-<p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/">https://www.leancloud.cn/</a><br>点击免费试用，然后注册就好了。有一定的免费额度。</p>
+<h1 id="开启评论，统计访问量"><a class="header-anchor" href="#开启评论，统计访问量">¶</a> 开启评论，统计访问量</h1>
+<p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
+<p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/">https://www.leancloud.cn/</a><br>
+点击免费试用，然后注册就好了。有一定的免费额度。</p>
 <p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>themes/tree/_config.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
-<pre><code class="yml"># valine 
+<pre><code class="language-yml"># valine 
 valine:
     # 评论
     enableComment: true 
@@ -624,26 +640,37 @@ valine:
 </code></pre>
 <p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
 <p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
-<h1 id="修改底部版权开始年份"><a href="#修改底部版权开始年份" class="headerlink" title="修改底部版权开始年份"></a>修改底部版权开始年份</h1><p><code>themes/tree/_config.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
-<h1 id="安装Markdown-it"><a href="#安装Markdown-it" class="headerlink" title="安装Markdown-it"></a>安装Markdown-it</h1><p>自带的markdown没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。改成<code>Markdown-it</code>就好了。</p>
+<h1 id="修改底部版权开始年份"><a class="header-anchor" href="#修改底部版权开始年份">¶</a> 修改底部版权开始年份</h1>
+<p><code>themes/tree/_config.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
+<h1 id="安装Markdown-it"><a class="header-anchor" href="#安装Markdown-it">¶</a> 安装Markdown-it</h1>
+<p>自带的markdown没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。改成<code>Markdown-it</code>就好了。</p>
 <p>在项目根目录执行</p>
-<pre><code class="shell">npm install markdown-it --save
+<pre><code class="language-shell">npm install markdown-it --save
 </code></pre>
 <p>然后在<code>_config.yml</code>中把默认的highlight关掉：</p>
-<pre><code class="yml">highlight:
+<pre><code class="language-yml">highlight:
   enable: false
   line_number: false
   auto_detect: false
-  tab_replace: &#39;&#39;
+  tab_replace: ''
 </code></pre>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
-<h1 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h1><p>在项目根目录执行</p>
-<pre><code class="shell">hexo new &#39;博客标题&#39;
+<h1 id="支持Latex风格的公式编辑"><a class="header-anchor" href="#支持Latex风格的公式编辑">¶</a> 支持Latex风格的公式编辑</h1>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/wujun234/hexo-theme-tree/issues/14">https://github.com/wujun234/hexo-theme-tree/issues/14</a></p>
+<pre><code class="language-shell">npm un hexo-renderer-marked --save
+npm i hexo-renderer-markdown --save
 </code></pre>
-<p>会在<code>source/_posts</code>下生成<code>博客标题.md</code>。<br>用你喜欢的工具编辑之（例如vscode），然后预览一下，如果没什么问题的话就<code>hexo d -g</code>把它部署到gitee和github上。</p>
+<p>但是hexo-renderer-markdown好像有high severity vulnerabilities。</p>
+<h1 id="写博客"><a class="header-anchor" href="#写博客">¶</a> 写博客</h1>
+<p>在项目根目录执行</p>
+<pre><code class="language-shell">hexo new '博客标题'
+</code></pre>
+<p>会在<code>source/_posts</code>下生成<code>博客标题.md</code>。<br>
+用你喜欢的工具编辑之（例如vscode），然后预览一下，如果没什么问题的话就<code>hexo d -g</code>把它部署到gitee和github上。</p>
 <p>最后记得还要<code>git push</code>博客源码到代码仓库里，不然换了一台机器博客源码就丢失了。</p>
-<h1 id="换一台机器写博客"><a href="#换一台机器写博客" class="headerlink" title="换一台机器写博客"></a>换一台机器写博客</h1><p>把gitee上的博客源码仓库clone下来，然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。</p>
-
+<h1 id="换一台机器写博客"><a class="header-anchor" href="#换一台机器写博客">¶</a> 换一台机器写博客</h1>
+<p>把gitee上的博客源码仓库clone下来，然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

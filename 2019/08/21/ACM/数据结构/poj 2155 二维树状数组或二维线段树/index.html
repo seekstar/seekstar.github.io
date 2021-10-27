@@ -488,11 +488,12 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>题目链接：poj.org/problem?id=2155</p>
+	<p>题目链接：<a target="_blank" rel="noopener" href="http://poj.org/problem?id=2155">poj.org/problem?id=2155</a></p>
 <p>大意：一个初始值全为0的01矩阵，有两种操作，一种是将某个矩形区域的值都取反，另一种是查询某一单点的值。</p>
-<p>受到另一题启发：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/95101380">https://blog.csdn.net/qq_41961459/article/details/95101380</a><br>我们定义另一个矩阵C，使得原矩阵的某一个点的值为C的前缀异或，那么如果我们要将原矩阵的左下角为(x1, y1), 右上角为(x2, y2)的矩形区域的值取反，只需要将C矩阵的点(x1, y1), (x1, y2 + 1), (x2 + 1, y1), (x2 + 1, y2 + 1)的值取反即可。</p>
+<p>受到另一题启发：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/95101380">https://blog.csdn.net/qq_41961459/article/details/95101380</a><br>
+我们定义另一个矩阵C，使得原矩阵的某一个点的值为C的前缀异或，那么如果我们要将原矩阵的左下角为(x1, y1), 右上角为(x2, y2)的矩形区域的值取反，只需要将C矩阵的点(x1, y1), (x1, y2 + 1), (x2 + 1, y1), (x2 + 1, y2 + 1)的值取反即可。</p>
 <p>代码：</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;cctype&gt;
 
 using namespace std;
@@ -501,76 +502,76 @@ using namespace std;
 #define ONLINE_JUDGE
 
 int lowbit(int x) &#123;
-    return x &amp; -x;
+	return x &amp; -x;
 &#125;
 template &lt;typename T&gt;
 struct BIT_2DIM &#123;
-    const static int maxn1 = 1010, maxn2 = 1010;
-    T s[maxn1][maxn2];
-    int n1, n2;
+	const static int maxn1 = 1010, maxn2 = 1010;
+	T s[maxn1][maxn2];
+	int n1, n2;
 
-    void Init(int _n1, int _n2) &#123;
-        n1 = _n1;
-        n2 = _n2;
-        for (int i = 0; i &lt;= n1; ++i)
-            for (int j = 0; j &lt;= n2; ++j)
-                s[i][j] = 0;
-    &#125;
-    void Add(int x1, int x2, T v) &#123;
-        for (int t = x2; x1 &lt;= n1; x1 += lowbit(x1))
-            for (x2 = t; x2 &lt;= n2; x2 += lowbit(x2))
-                s[x1][x2] ^= v;
-    &#125;
-    T Sum(int x1, int x2) &#123;
-        T ans = 0;
-        for (int t = x2; x1; x1 ^= lowbit(x1))
-            for (x2 = t; x2; x2 ^= lowbit(x2))
-                ans ^= s[x1][x2];
-        return ans;
-    &#125;
+	void Init(int _n1, int _n2) &#123;
+		n1 = _n1;
+		n2 = _n2;
+		for (int i = 0; i &lt;= n1; ++i)
+			for (int j = 0; j &lt;= n2; ++j)
+				s[i][j] = 0;
+	&#125;
+	void Add(int x1, int x2, T v) &#123;
+		for (int t = x2; x1 &lt;= n1; x1 += lowbit(x1))
+			for (x2 = t; x2 &lt;= n2; x2 += lowbit(x2))
+				s[x1][x2] ^= v;
+	&#125;
+	T Sum(int x1, int x2) &#123;
+		T ans = 0;
+		for (int t = x2; x1; x1 ^= lowbit(x1))
+			for (x2 = t; x2; x2 ^= lowbit(x2))
+				ans ^= s[x1][x2];
+		return ans;
+	&#125;
 &#125;;
 
 int main() &#123;
 #ifndef ONLINE_JUDGE
-    freopen(&quot;in.in&quot;, &quot;r&quot;, stdin);
-    freopen(&quot;out.out&quot;, &quot;w&quot;, stdout);
+	freopen(&quot;in.in&quot;, &quot;r&quot;, stdin);
+	freopen(&quot;out.out&quot;, &quot;w&quot;, stdout);
 #endif
-    int T;
-    static BIT_2DIM&lt;bool&gt; bit;
-    bool first = true;
+	int T;
+	static BIT_2DIM&lt;bool&gt; bit;
+	bool first = true;
 
-    scanf(&quot;%d&quot;, &amp;T);
-    while (T--) &#123;
-        if (first) first = false;
-        else putchar(&#39;\n&#39;);
+	scanf(&quot;%d&quot;, &amp;T);
+	while (T--) &#123;
+		if (first) first = false;
+		else putchar('\n');
 
-        int n, m;
+		int n, m;
 
-        scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-        bit.Init(n + 5, n + 5);
-        while (m--) &#123;
-            getchar();
-            char op = getchar();
-            if (&#39;C&#39; == op) &#123;
-                int x1, y1, x2, y2;
-                scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
-                bit.Add(x1, y1, 1);
-                bit.Add(x1, y2 + 1, 1);
-                bit.Add(x2 + 1, y1, 1);
-                bit.Add(x2 + 1, y2 + 1, 1);
-            &#125; else &#123;
-                int x, y;
-                scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
-                printf(&quot;%d\n&quot;, bit.Sum(x, y));
-            &#125;
-        &#125;
-    &#125;
-    
-    return 0;
+		scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+		bit.Init(n + 5, n + 5);
+		while (m--) &#123;
+			getchar();
+			char op = getchar();
+			if ('C' == op) &#123;
+				int x1, y1, x2, y2;
+				scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+				bit.Add(x1, y1, 1);
+				bit.Add(x1, y2 + 1, 1);
+				bit.Add(x2 + 1, y1, 1);
+				bit.Add(x2 + 1, y2 + 1, 1);
+			&#125; else &#123;
+				int x, y;
+				scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
+				printf(&quot;%d\n&quot;, bit.Sum(x, y));
+			&#125;
+		&#125;
+	&#125;
+	
+	return 0;
 &#125;
 </code></pre>
 <p>另外有一个二维线段树写法，这里用永久标记实现</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;cctype&gt;
 
@@ -653,7 +654,7 @@ int main() &#123;
     bool first = true;
     while (T--) &#123;
         if (first) first = false;
-        else putchar(&#39;\n&#39;);
+        else putchar('\n');
 
         int n, m;
 
@@ -661,11 +662,11 @@ int main() &#123;
         sgt2.Init(n, n);
         while (m--) &#123;
             char op = GetChar();
-            if (op == &#39;Q&#39;) &#123;
+            if (op == 'Q') &#123;
                 int x, y;
                 scanf(&quot;%d%d&quot;, &amp;x, &amp;y);
-                putchar(sgt2.Query(1, 1, n, x, y) + &#39;0&#39;);
-                putchar(&#39;\n&#39;);
+                putchar(sgt2.Query(1, 1, n, x, y) + '0');
+                putchar('\n');
             &#125; else &#123;
                 int x1, y1, x2, y2;
                 scanf(&quot;%d%d%d%d&quot;, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
@@ -676,7 +677,7 @@ int main() &#123;
     return 0;
 &#125;
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

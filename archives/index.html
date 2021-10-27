@@ -489,10 +489,11 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 					hexo-tree主题-使用笔记
 				</h2>
 				<div class="index-brief">
-					先说坑点
+					¶ 先说坑点
+
 刷新才可查看最新内容
 
-可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是ctrl+shift+del，firefo
+可能是由于浏览器有缓存，每次打开页面都要刷新才能显示最新内容，浏览器居然不会自动把旧的内容覆盖掉？？？firefox和chrome都是这样。只好每次更新了内容就清理浏览器缓存了。firefox和chrome清理缓存的快捷键是ctrl+shift+del，fir
 					...
 				</div>
 			</a>
@@ -510,7 +511,8 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 					Linux-kernel-kthread用法
 				</h2>
 				<div class="index-brief">
-					先说巨坑：如果kthread_run之后立马kthread_stop，threadfn可能不会被执行，kthread_stop返回-EINTR。这一点网上的教程很少有提及。参考：https://stackoverflow.com/questions/65987208/kthread-stopped-
+					先说巨坑：如果kthread_run之后立马kthread_stop，threadfn可能不会被执行，kthread_stop返回-EINTR。这一点网上的教程很少有提及。
+参考：https://stackoverflow.com/questions/65987208/kthread-stopped
 					...
 				</div>
 			</a>
@@ -528,7 +530,8 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 					解决linux下latex无法使用consolas的问题
 				</h2>
 				<div class="index-brief">
-					在网上找了好久都没有合适的解决方案TT。结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的相
+					在网上找了好久都没有合适的解决方案TT。
+结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的
 					...
 				</div>
 			</a>
@@ -547,11 +550,12 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 				</h2>
 				<div class="index-brief">
 					来源：https://en.wikibooks.org/wiki/LaTeX/Macros
-方括号中的参数其实就是默认参数。使用方法：
+方括号中的参数其实就是默认参数。
+使用方法：
 \newcommand&#123;name&#125;[num][default]&#123;definition&#125;
 
 例子：
-\newcommand&#
+\newcommand&
 					...
 				</div>
 			</a>
@@ -570,7 +574,9 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 				</h2>
 				<div class="index-brief">
 					linux下有效
-显示OK, entering \batchmode后，按Ctrl+c，就会退出\batchmode并回到开头一个?的状态。然后输入X即可彻底退出。
+显示
+OK, entering \batchmode
+后，按Ctrl+c，就会退出\batchmode并回到开头一个?的状态。然后输入X即可彻底退出。
 
 					...
 				</div>
@@ -591,7 +597,8 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 				<div class="index-brief">
 					题目链接：poj.org/problem?id=2155
 大意：一个初始值全为0的01矩阵，有两种操作，一种是将某个矩形区域的值都取反，另一种是查询某一单点的值。
-受到另一题启发：https://blog.csdn.net/qq_41961459/article/details/95101380我们
+受到另一题启发：https://blog.csdn.net/qq_41961459/article/details/95101380
+我
 					...
 				</div>
 			</a>
@@ -609,9 +616,12 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 					HDU 4762 的公式的一个感性推导 概率论
 				</h2>
 				<div class="index-brief">
-					题目链接：acm.hdu.edu.cn/showproblem.php?pid=4762
+					题目链接：
+acm.hdu.edu.cn/showproblem.php?pid=4762
 题意：随机在一个圆盘上扔n个点，求这n个点都落在某个角度为2pi/m的扇形区域的概率。
-公式为n / m^(n-1)感性推导：如果满足条件，那么这n个点中有且仅有一个点，使得以这个点为参考系，其他的n-1个点的
+公式为n / m^(n-1)
+感性推导：
+如果满足条件，那么这n个点中有且仅有一个点，使得以这个点为参考系，其他的n-1
 					...
 				</div>
 			</a>
@@ -629,8 +639,10 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 					匈牙利算法模板  2019牛客第五场多校F
 				</h2>
 				<div class="index-brief">
-					题意：给出5000个不同的值，求出元素个数最多的满足如下性质的子集：任意两个元素的二进制表示中至少有两个bit不一样。
-最初的思路：把这些值看作节点，两个值之间如果满足二进制表示中至少两个bit不一样就连一条边，然后求这个图中的最大的完全子图（最大团问题）。但是最大团问题是NP的，因此需要找到一个性
+					题意：给出5000个不同的值，求出元素个数最多的满足如下性质的子集：
+任意两个元素的二进制表示中至少有两个bit不一样。
+最初的思路：
+把这些值看作节点，两个值之间如果满足二进制表示中至少两个bit不一样就连一条边，然后求这个图中的最大的完全子图（最大团问题）。但是最大团问题是NP的，因此需要找到一
 					...
 				</div>
 			</a>

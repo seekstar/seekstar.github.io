@@ -488,33 +488,34 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>32位的正无穷一般表示为0x3f3f3f3f，相加仍然为正数。<br>将其按位取反，得0xc0c0c0c0，就可以用来表示负无穷了，相加仍然为负数。</p>
+	<p>32位的正无穷一般表示为0x3f3f3f3f，相加仍然为正数。<br>
+将其按位取反，得0xc0c0c0c0，就可以用来表示负无穷了，相加仍然为负数。</p>
 <p>测试代码：</p>
-<pre><code class="cpp">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;limits.h&gt;
 
 using namespace std;
 
 int main() &#123;
-    int n1 = -0x3f3f3f3f;
-    int n2 = 0xc0c0c0c0;
+	int n1 = -0x3f3f3f3f;
+	int n2 = 0xc0c0c0c0;
 
-    cout &lt;&lt; n1 &lt;&lt; endl &lt;&lt; n1 + n1 &lt;&lt; endl;
-    cout &lt;&lt; n2 &lt;&lt; endl &lt;&lt; n2 + n2 &lt;&lt; endl;
-    cout &lt;&lt; INT_MIN &lt;&lt; endl;
+	cout &lt;&lt; n1 &lt;&lt; endl &lt;&lt; n1 + n1 &lt;&lt; endl;
+	cout &lt;&lt; n2 &lt;&lt; endl &lt;&lt; n2 + n2 &lt;&lt; endl;
+	cout &lt;&lt; INT_MIN &lt;&lt; endl;
 
-    return 0;
+	return 0;
 &#125;
 </code></pre>
 <p>结果：</p>
-<pre><code class="cpp">-1061109567
+<pre><code class="language-cpp">-1061109567
 -2122219134
 -1061109568
 -2122219136
 -2147483648
 </code></pre>
 <p>可以看到这样写比写-0x3f3f3f3f要优越一些（比它小，而且可以用memset初始化）</p>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

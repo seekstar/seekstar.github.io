@@ -497,7 +497,8 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shuzfan/article/details/52860664">https://blog.csdn.net/shuzfan/article/details/52860664</a></p>
-<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><pre><code class="c">#if CONDITION1
+<h1 id="基本语法"><a class="header-anchor" href="#基本语法">¶</a> 基本语法</h1>
+<pre><code class="language-c">#if CONDITION1
 ...
 #elif CONDITION2
 ...
@@ -505,38 +506,43 @@ var _hmt = _hmt || [];
 ...
 #endif
 </code></pre>
-<h1 id="多行宏定义"><a href="#多行宏定义" class="headerlink" title="多行宏定义"></a>多行宏定义</h1><pre><code class="cpp">#define func(x, y) &#123;    \
-    statement;            \
-    statement;            \
+<h1 id="多行宏定义"><a class="header-anchor" href="#多行宏定义">¶</a> 多行宏定义</h1>
+<pre><code class="language-cpp">#define func(x, y) &#123;	\
+	statement;			\
+	statement;			\
 &#125;
 </code></pre>
-<h1 id="把宏定义参数变成字符串"><a href="#把宏定义参数变成字符串" class="headerlink" title="把宏定义参数变成字符串"></a>把宏定义参数变成字符串</h1><pre><code class="cpp">#define ToStr(x) #x
+<h1 id="把宏定义参数变成字符串"><a class="header-anchor" href="#把宏定义参数变成字符串">¶</a> 把宏定义参数变成字符串</h1>
+<pre><code class="language-cpp">#define ToStr(x) #x
 </code></pre>
 <p>相当于给x加上双引号。</p>
 <p>可用于debug时打印变量名</p>
-<pre><code class="cpp">#if DEBUG
+<pre><code class="language-cpp">#if DEBUG
 #include &lt;iostream&gt;
 #define debug(x) &#123;cout &lt;&lt; #x&quot; = &quot; &lt;&lt; x &lt;&lt; endl;&#125;
 #else
 #define debug(x) &#123;&#125;
 #endif
 </code></pre>
-<h1 id="把宏定义参数变成字符"><a href="#把宏定义参数变成字符" class="headerlink" title="把宏定义参数变成字符"></a>把宏定义参数变成字符</h1><pre><code class="cpp">#define ToChar(arg) #@arg
+<h1 id="把宏定义参数变成字符"><a class="header-anchor" href="#把宏定义参数变成字符">¶</a> 把宏定义参数变成字符</h1>
+<pre><code class="language-cpp">#define ToChar(arg) #@arg
 </code></pre>
 <p>相当于给arg加上单引号。</p>
-<h1 id="可变宏参数"><a href="#可变宏参数" class="headerlink" title="可变宏参数"></a>可变宏参数</h1><pre><code class="c">#define p(...) printf(&quot;%s&quot;, #__VA_ARGS__)
+<h1 id="可变宏参数"><a class="header-anchor" href="#可变宏参数">¶</a> 可变宏参数</h1>
+<pre><code class="language-c">#define p(...) printf(&quot;%s&quot;, #__VA_ARGS__)
 </code></pre>
 <p>效果：</p>
-<pre><code class="c">p(fasd, 123);
+<pre><code class="language-c">p(fasd, 123);
 </code></pre>
 <p>输出：</p>
 <pre><code>fasd, 123
 </code></pre>
-<h1 id="把宏定义参数连接起来"><a href="#把宏定义参数连接起来" class="headerlink" title="把宏定义参数连接起来"></a>把宏定义参数连接起来</h1><pre><code class="cpp">#define connect(x, y) x ## y
+<h1 id="把宏定义参数连接起来"><a class="header-anchor" href="#把宏定义参数连接起来">¶</a> 把宏定义参数连接起来</h1>
+<pre><code class="language-cpp">#define connect(x, y) x ## y
 </code></pre>
 <p>则connect(abc, def)相当于abcdef。</p>
 <p>例子：</p>
-<pre><code class="cpp">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 
 using namespace std;
 
@@ -546,44 +552,51 @@ using namespace std;
 #define test(x) (test ## x)
 
 int main() &#123;
-    cout &lt;&lt; test(1) &lt;&lt; endl &lt;&lt; test(2) &lt;&lt; endl;
+	cout &lt;&lt; test(1) &lt;&lt; endl &lt;&lt; test(2) &lt;&lt; endl;
 
-    return 0;
+	return 0;
 &#125;
 </code></pre>
 <p>输出：</p>
 <pre><code>1
 2
 </code></pre>
-<h2 id="重要性质"><a href="#重要性质" class="headerlink" title="重要性质"></a>重要性质</h2><p>如果<code>x</code>和<code>y</code>里有一个为空，则<code>x ## y</code>为空。</p>
-<h1 id="ifdef的与或"><a href="#ifdef的与或" class="headerlink" title="#ifdef的与或"></a>#ifdef的与或</h1><p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/72838">https://cloud.tencent.com/developer/ask/72838</a></p>
-<pre><code class="c">#if (defined(MACRO1) || defined(MACRO2)) &amp;&amp; (defined(MACRO3) &amp;&amp; defined(MACRO4))
+<h2 id="重要性质"><a class="header-anchor" href="#重要性质">¶</a> 重要性质</h2>
+<p>如果<code>x</code>和<code>y</code>里有一个为空，则<code>x ## y</code>为空。</p>
+<h1 id="#ifdef的与或"><a class="header-anchor" href="##ifdef的与或">¶</a> #ifdef的与或</h1>
+<p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/72838">https://cloud.tencent.com/developer/ask/72838</a></p>
+<pre><code class="language-c">#if (defined(MACRO1) || defined(MACRO2)) &amp;&amp; (defined(MACRO3) &amp;&amp; defined(MACRO4))
 </code></pre>
-<h1 id="应用：宏定义实现debug语句"><a href="#应用：宏定义实现debug语句" class="headerlink" title="应用：宏定义实现debug语句"></a>应用：宏定义实现debug语句</h1><p>DeBuG Print</p>
-<pre><code class="c">#define dbgp(fmt, ...) printf(&quot;DEBUG: &quot; fmt &quot;\n&quot;, ##__VA_ARGS__)
+<h1 id="应用：宏定义实现debug语句"><a class="header-anchor" href="#应用：宏定义实现debug语句">¶</a> 应用：宏定义实现debug语句</h1>
+<p>DeBuG Print</p>
+<pre><code class="language-c">#define dbgp(fmt, ...) printf(&quot;DEBUG: &quot; fmt &quot;\n&quot;, ##__VA_ARGS__)
 </code></pre>
-<p>如果可变参数个数为0，则<code>__VA_ARGS__</code>为空，所以<code>,##__VA_ARGS__</code>也为空。这样前面的逗号就被消掉了，不对造成编译错误。<br>用法：</p>
-<pre><code class="c">dbgp(&quot;test = %d&quot;, 13);
+<p>如果可变参数个数为0，则<code>__VA_ARGS__</code>为空，所以<code>,##__VA_ARGS__</code>也为空。这样前面的逗号就被消掉了，不对造成编译错误。<br>
+用法：</p>
+<pre><code class="language-c">dbgp(&quot;test = %d&quot;, 13);
 dbgp(&quot;test&quot;);
 </code></pre>
 <p>输出：</p>
 <pre><code>DEBUG: test = 13
 DEBUG: test
 </code></pre>
-<h1 id="常用预定义宏名"><a href="#常用预定义宏名" class="headerlink" title="常用预定义宏名"></a>常用预定义宏名</h1><p><code>__LINE__</code>: 当前行在当前源文件所处的行数。是一个数字。<br><code>__FILE__</code>: 当前源文件名。是一个字符串。<br><code>__FUNCTION__</code>: 当前的函数名称。是一个字符串。</p>
+<h1 id="常用预定义宏名"><a class="header-anchor" href="#常用预定义宏名">¶</a> 常用预定义宏名</h1>
+<p><code>__LINE__</code>: 当前行在当前源文件所处的行数。是一个数字。<br>
+<code>__FILE__</code>: 当前源文件名。是一个字符串。<br>
+<code>__FUNCTION__</code>: 当前的函数名称。是一个字符串。</p>
 <p>可用于打印调试信息。</p>
-<pre><code class="c">#define dbgwarn(msg) &#123;    \
-    if (DEBUG)    \
-        printf(&quot;In file &quot; __FILE__ &quot;, line %d, warning: &quot; msg &quot;\n&quot;, __LINE__);    \
+<pre><code class="language-c">#define dbgwarn(msg) &#123;	\
+	if (DEBUG)	\
+		printf(&quot;In file &quot; __FILE__ &quot;, line %d, warning: &quot; msg &quot;\n&quot;, __LINE__);	\
 &#125;
 </code></pre>
 <p>用法：</p>
-<pre><code class="c">dbgwarn(&quot;2333&quot;);
+<pre><code class="language-c">dbgwarn(&quot;2333&quot;);
 </code></pre>
 <p>输出：</p>
 <pre><code>In file test.c, line 11, warning: 2333
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

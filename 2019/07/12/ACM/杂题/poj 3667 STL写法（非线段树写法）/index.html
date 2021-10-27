@@ -489,12 +489,15 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<p>题目链接：<a target="_blank" rel="noopener" href="https://vjudge.net/problem/POJ-3667">https://vjudge.net/problem/POJ-3667</a></p>
-<p>题目大意：<br>已知数组长度为n (n &lt;= 50000)，一开始全部为0。有m (m &lt;= 50000)个操作，有两种操作</p>
+<p>题目大意：<br>
+已知数组长度为n (n &lt;= 50000)，一开始全部为0。有m (m &lt;= 50000)个操作，有两种操作</p>
 <ol>
 <li>给出d，找到最小的r，使得区间[r, r + d - 1]内所有数组元素都为0。若能找到，则输出r，并且把该区间元素都变成1。若找不到，则输出0。</li>
 <li>给出x和d，将区间[x, x+d-1]中所有元素清0。</li>
 </ol>
-<p>思路：<br>这有点像内存分配，下面我们套用内存模型。<br>我们保存每个空闲的内存块的长度和首地址，每次进行操作1时找到长度大于等于d且首地址尽量小的内存块，然后占用之即可。每次进行操作2时</p>
+<p>思路：<br>
+这有点像内存分配，下面我们套用内存模型。<br>
+我们保存每个空闲的内存块的长度和首地址，每次进行操作1时找到长度大于等于d且首地址尽量小的内存块，然后占用之即可。每次进行操作2时</p>
 <ol>
 <li>设[start, end)为要清零的区间。</li>
 <li>找到最后一个首地址小于x的内存块，如果该内存块与[start, end)接触，那么就更新start为该内存块的首地址，end = max(end, 内存块末尾)，然后将该内存块删去。</li>
@@ -503,9 +506,11 @@ var _hmt = _hmt || [];
 <li>回到第3步。</li>
 <li>新建空闲内存块[start, end)</li>
 </ol>
-<p>内存块种类最多时，有长度为1、2、3、4、… mx的内存块，而内存总长度为n，因此mx最大为O(sqrt(n))。<br>进行操作1时，我们在长度的集合中枚举大于等于d的长度，然后找到该长度下的最前面的内存块。这些内存块中最前面的内存块就是我们要的内存块。长度的集合可以用set维护，找该长度下最前面的内存块可以用set&lt;pair&lt;int, int&gt; &gt;的lower_bound，其中first为长度，second为首地址。复杂度为O(sqrt(n) * log(n))<br>进行操作2时，可以用map&lt;int, se_it&gt;的lower_bound来根据首地址找内存块。int为首地址，se_it为前面的set&lt;pair&lt;int, int&gt; &gt;的迭代器。</p>
+<p>内存块种类最多时，有长度为1、2、3、4、… mx的内存块，而内存总长度为n，因此mx最大为O(sqrt(n))。<br>
+进行操作1时，我们在长度的集合中枚举大于等于d的长度，然后找到该长度下的最前面的内存块。这些内存块中最前面的内存块就是我们要的内存块。长度的集合可以用set维护，找该长度下最前面的内存块可以用set&lt;pair&lt;int, int&gt; &gt;的lower_bound，其中first为长度，second为首地址。复杂度为O(sqrt(n) * log(n))<br>
+进行操作2时，可以用map&lt;int, se_it&gt;的lower_bound来根据首地址找内存块。int为首地址，se_it为前面的set&lt;pair&lt;int, int&gt; &gt;的迭代器。</p>
 <p>代码如下：</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;set&gt;
 #include &lt;map&gt;
 
@@ -519,15 +524,15 @@ using namespace std;
 set&lt;int&gt; lens;
 int cnt[MAXN];
 void Del(int x) &#123;
-    if (0 == --cnt[x]) &#123;
-        lens.erase(x);
-    &#125;
+	if (0 == --cnt[x]) &#123;
+		lens.erase(x);
+	&#125;
 &#125;
 void Insert(int x) &#123;
-    if (cnt[x] == 0) &#123;
-        lens.insert(x);
-    &#125;
-    ++cnt[x];
+	if (cnt[x] == 0) &#123;
+		lens.insert(x);
+	&#125;
+	++cnt[x];
 &#125;
 
 typedef set&lt;pair&lt;int, int&gt; &gt;::iterator se_it;
@@ -535,86 +540,86 @@ typedef map&lt;int, se_it&gt;::iterator pos_it;
 typedef set&lt;int&gt;::iterator lens_it;
 int main() &#123;
 #ifndef ONLINE_JUDGE
-    freopen(&quot;in.in&quot;, &quot;r&quot;, stdin);
-    freopen(&quot;out.out&quot;, &quot;w&quot;, stdout);
+	freopen(&quot;in.in&quot;, &quot;r&quot;, stdin);
+	freopen(&quot;out.out&quot;, &quot;w&quot;, stdout);
 #endif
-    int n, m;
-    set&lt;pair&lt;int, int&gt; &gt; se;    //len, start
-    map&lt;int, se_it&gt; pos;
+	int n, m;
+	set&lt;pair&lt;int, int&gt; &gt; se;	//len, start
+	map&lt;int, se_it&gt; pos;
 
-    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
-    pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(n, 1));
-    pos[1] = tmp.first;
-    Insert(n);
-    while (m--) &#123;
-        int op;
-        scanf(&quot;%d&quot;, &amp;op);
-        if (1 == op) &#123;
-            int d;
-            scanf(&quot;%d&quot;, &amp;d);
-            int ans = 0x3f3f3f3f;
-            se_it ans_it = se.end();
-            for (lens_it len_it = lens.lower_bound(d); len_it != lens.end(); ++len_it) &#123;
-                se_it it = se.lower_bound(make_pair(*len_it, 0));
-                if (it-&gt;second &lt; ans) &#123;
-                    ans = it-&gt;second;
-                    ans_it = it;
-                &#125;
-            &#125;
-            se_it&amp; it = ans_it;
-            if (it == se.end()) &#123;
-                printf(&quot;0\n&quot;);
-            &#125; else &#123;
-                int start = it-&gt;second;
-                int len = it-&gt;first;
-                printf(&quot;%d\n&quot;, start);
-                pos.erase(start);
-                se.erase(it);
-                Del(len);
-                if (len &gt; d) &#123;
-                    pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(len - d, start + d));
-                    pos[start + d] = tmp.first;
-                    Insert(len-d);
-                &#125;
-            &#125;
-        &#125; else &#123;
-            int x, d;
-            scanf(&quot;%d%d&quot;, &amp;x, &amp;d);
-            int end = x + d;
-            pos_it it = pos.lower_bound(x);
-            if (it != pos.begin()) &#123;
-                --it;
-                int start = it-&gt;first;
-                int len = it-&gt;second-&gt;first;
-                if (start + len &gt;= x) &#123;
-                    x = start;
-                    end = max(end, start + len);
-                    se.erase(it-&gt;second);
-                    pos.erase(it);
-                    Del(len);
-                &#125;
-            &#125;
-            while (1) &#123;
-                pos_it it = pos.lower_bound(x);
-                if (it == pos.end()) break;
-                int start = it-&gt;first;
-                int len = it-&gt;second-&gt;first;
-                if (start &gt; end) break;
-                end = max(end, start + len);
-                se.erase(it-&gt;second);
-                pos.erase(it);
-                Del(len);
-            &#125;
-            pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(end - x, x));
-            pos[x] = tmp.first;
-            Insert(end - x);
-        &#125;
-    &#125;
+	scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+	pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(n, 1));
+	pos[1] = tmp.first;
+	Insert(n);
+	while (m--) &#123;
+		int op;
+		scanf(&quot;%d&quot;, &amp;op);
+		if (1 == op) &#123;
+			int d;
+			scanf(&quot;%d&quot;, &amp;d);
+			int ans = 0x3f3f3f3f;
+			se_it ans_it = se.end();
+			for (lens_it len_it = lens.lower_bound(d); len_it != lens.end(); ++len_it) &#123;
+				se_it it = se.lower_bound(make_pair(*len_it, 0));
+				if (it-&gt;second &lt; ans) &#123;
+					ans = it-&gt;second;
+					ans_it = it;
+				&#125;
+			&#125;
+			se_it&amp; it = ans_it;
+			if (it == se.end()) &#123;
+				printf(&quot;0\n&quot;);
+			&#125; else &#123;
+				int start = it-&gt;second;
+				int len = it-&gt;first;
+				printf(&quot;%d\n&quot;, start);
+				pos.erase(start);
+				se.erase(it);
+				Del(len);
+				if (len &gt; d) &#123;
+					pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(len - d, start + d));
+					pos[start + d] = tmp.first;
+					Insert(len-d);
+				&#125;
+			&#125;
+		&#125; else &#123;
+			int x, d;
+			scanf(&quot;%d%d&quot;, &amp;x, &amp;d);
+			int end = x + d;
+			pos_it it = pos.lower_bound(x);
+			if (it != pos.begin()) &#123;
+				--it;
+				int start = it-&gt;first;
+				int len = it-&gt;second-&gt;first;
+				if (start + len &gt;= x) &#123;
+					x = start;
+					end = max(end, start + len);
+					se.erase(it-&gt;second);
+					pos.erase(it);
+					Del(len);
+				&#125;
+			&#125;
+			while (1) &#123;
+				pos_it it = pos.lower_bound(x);
+				if (it == pos.end()) break;
+				int start = it-&gt;first;
+				int len = it-&gt;second-&gt;first;
+				if (start &gt; end) break;
+				end = max(end, start + len);
+				se.erase(it-&gt;second);
+				pos.erase(it);
+				Del(len);
+			&#125;
+			pair&lt;se_it, bool&gt; tmp = se.insert(make_pair(end - x, x));
+			pos[x] = tmp.first;
+			Insert(end - x);
+		&#125;
+	&#125;
 
-    return 0;
+	return 0;
 &#125;
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 

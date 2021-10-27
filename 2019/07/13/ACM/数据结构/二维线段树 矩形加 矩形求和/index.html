@@ -488,9 +488,11 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/U22582">https://www.luogu.org/problemnew/show/U22582</a><br>链接好像失效了</p>
-<p>我用的树套树写法。<br>all in one 代码：</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+	<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/U22582">https://www.luogu.org/problemnew/show/U22582</a><br>
+链接好像失效了</p>
+<p>我用的树套树写法。<br>
+all in one 代码：</p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 
 using namespace std;
@@ -590,8 +592,8 @@ struct SGT2 &#123;
         int cnt = 0;
         if (L1 &lt;= l &amp;&amp; r &lt;= R1) &#123;
             cnt = r - l + 1;
-            PushDown1(rt, l, (l + r) &gt;&gt; 1, r);
-            lazy1[rt] = LAZY&#123;v, L2, R2&#125;;
+			PushDown1(rt, l, (l + r) &gt;&gt; 1, r);
+			lazy1[rt] = LAZY&#123;v, L2, R2&#125;;
         &#125; else &#123;
             int mid = (l + r) &gt;&gt; 1;
             PushDown1(rt, l, mid, r);
@@ -656,7 +658,7 @@ int main() &#123;
 &#125;
 </code></pre>
 <p>封装型代码：</p>
-<pre><code class="cpp">#include &lt;cstdio&gt;
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 
 using namespace std;
@@ -665,176 +667,176 @@ using namespace std;
 #define MAXM 2010
 
 inline int ls(int rt) &#123;
-    return rt &lt;&lt; 1;
+	return rt &lt;&lt; 1;
 &#125;
 inline int rs(int rt) &#123;
-    return rt &lt;&lt; 1 | 1;
+	return rt &lt;&lt; 1 | 1;
 &#125;
 #define MAX_NODE_SEGTREE (MAXM&lt;&lt;2)
 template&lt;typename T&gt;
 struct SGT &#123;
-    T sum[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];
+	T sum[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];
 
-    void Init(int n) &#123;
-        memset(sum, 0, (n&lt;&lt;2) * sizeof(T));
-        memset(lazy, 0, (n&lt;&lt;2) * sizeof(T));
-    &#125;
-    void PushUp(int rt) &#123;
-        sum[rt] = sum[ls(rt)] + sum[rs(rt)];
-    &#125;
-    void Build(int rt, int l, int r, int arr[]) &#123;
-        if (l == r) &#123;
-            sum[rt] = arr[l];
-        &#125; else &#123;
-            int mid = (l+r) &gt;&gt; 1;
-            Build(ls(rt), l, mid, arr);
-            Build(rs(rt), mid+1, r, arr);
-            PushUp(rt);
-        &#125;
-        lazy[rt] = 0;
-    &#125;
-    void PushDown(int rt, int l, int mid, int r) &#123;
-        if (lazy[rt]) &#123;
-            lazy[ls(rt)] += lazy[rt];
-            lazy[rs(rt)] += lazy[rt];
-            sum[ls(rt)] += lazy[rt] * (mid - l + 1);
-            sum[rs(rt)] += lazy[rt] * (r - mid);
-            lazy[rt] = 0;
-        &#125;
-    &#125;
-    void Add(int rt, int l, int r, int L, int R, int v) &#123;
-        if (L &lt;= l &amp;&amp; r &lt;= R) &#123;
-            lazy[rt] += v;
-            sum[rt] += (T)(r - l + 1) * v;
-        &#125; else &#123;
-            int mid = (l + r) &gt;&gt; 1;
-            PushDown(rt, l, mid, r);
-            if (L &lt;= mid)
-                Add(ls(rt), l, mid, L, R, v);
-            if (mid &lt; R)
-                Add(rs(rt), mid+1, r, L, R, v);
-            PushUp(rt);
-        &#125;
-    &#125;
-    T Sum(int rt, int l, int r, int L, int R) &#123;
-        if (L &lt;= l &amp;&amp; r &lt;= R)
-            return sum[rt];
-        T ans = 0;
-        int mid = (l + r) &gt;&gt; 1;
-        PushDown(rt, l, mid, r);
-        if (L &lt;= mid)
-            ans = Sum(ls(rt), l, mid, L, R);
-        if (mid &lt; R)
-            ans += Sum(rs(rt), mid+1, r, L, R);
-        return ans;
-    &#125;
+	void Init(int n) &#123;
+		memset(sum, 0, (n&lt;&lt;2) * sizeof(T));
+		memset(lazy, 0, (n&lt;&lt;2) * sizeof(T));
+	&#125;
+	void PushUp(int rt) &#123;
+		sum[rt] = sum[ls(rt)] + sum[rs(rt)];
+	&#125;
+	void Build(int rt, int l, int r, int arr[]) &#123;
+		if (l == r) &#123;
+			sum[rt] = arr[l];
+		&#125; else &#123;
+			int mid = (l+r) &gt;&gt; 1;
+			Build(ls(rt), l, mid, arr);
+			Build(rs(rt), mid+1, r, arr);
+			PushUp(rt);
+		&#125;
+		lazy[rt] = 0;
+	&#125;
+	void PushDown(int rt, int l, int mid, int r) &#123;
+		if (lazy[rt]) &#123;
+			lazy[ls(rt)] += lazy[rt];
+			lazy[rs(rt)] += lazy[rt];
+			sum[ls(rt)] += lazy[rt] * (mid - l + 1);
+			sum[rs(rt)] += lazy[rt] * (r - mid);
+			lazy[rt] = 0;
+		&#125;
+	&#125;
+	void Add(int rt, int l, int r, int L, int R, int v) &#123;
+		if (L &lt;= l &amp;&amp; r &lt;= R) &#123;
+			lazy[rt] += v;
+			sum[rt] += (T)(r - l + 1) * v;
+		&#125; else &#123;
+			int mid = (l + r) &gt;&gt; 1;
+			PushDown(rt, l, mid, r);
+			if (L &lt;= mid)
+				Add(ls(rt), l, mid, L, R, v);
+			if (mid &lt; R)
+				Add(rs(rt), mid+1, r, L, R, v);
+			PushUp(rt);
+		&#125;
+	&#125;
+	T Sum(int rt, int l, int r, int L, int R) &#123;
+		if (L &lt;= l &amp;&amp; r &lt;= R)
+			return sum[rt];
+		T ans = 0;
+		int mid = (l + r) &gt;&gt; 1;
+		PushDown(rt, l, mid, r);
+		if (L &lt;= mid)
+			ans = Sum(ls(rt), l, mid, L, R);
+		if (mid &lt; R)
+			ans += Sum(rs(rt), mid+1, r, L, R);
+		return ans;
+	&#125;
 &#125;;
 
 #define MAX_NODE1 (MAXN &lt;&lt; 2)
 template&lt;typename T&gt;
 struct LAZY &#123;
-    T v;
-    int l, r;
+	T v;
+	int l, r;
 &#125;;
 template&lt;typename T&gt;
 struct SGT2 &#123;
-    SGT&lt;T&gt; s[MAX_NODE1];
-    int n2;
-    LAZY&lt;T&gt; lazy[MAX_NODE1];
+	SGT&lt;T&gt; s[MAX_NODE1];
+	int n2;
+	LAZY&lt;T&gt; lazy[MAX_NODE1];
 
-    void Init(int n1, int _n2) &#123;
-        n2 = _n2;
-        memset(lazy, 0, ((n1 &lt;&lt; 2)+1) * sizeof(int));
-        for (int i = 0; i &lt;= (n1 &lt;&lt; 2); ++i)
-            s[i].Init(n2);
-    &#125;
-    void Init(int n1, int _n2, int a[][MAXM]) &#123;
-        n2 = _n2;
-        Build(1, 1, n1, a);
-    &#125;
-    void Build(int rt, int l, int r, int a[][MAXM]) &#123;
-        if (l == r) &#123;
-            s[rt].Build(1, 1, n2, a[l]);
-        &#125; else &#123;
-            int mid = (l + r) &gt;&gt; 1;
-            Build(ls(rt), l, mid, a);
-            Build(rs(rt), mid+1, r, a);
-            for (int i = 1; i &lt;= (n2 &lt;&lt; 2); ++i)
-                s[rt].sum[i] = s[ls(rt)].sum[i] + s[rs(rt)].sum[i];
-        &#125;
-        lazy[rt] = LAZY&lt;T&gt;&#123;0, 0, 0&#125;;
-    &#125;
-    void PushDown(int rt, int l, int mid, int r) &#123;
-        T&amp; v = lazy[rt].v, L = lazy[rt].l, R = lazy[rt].r;
-        if (v) &#123;
-            lazy[ls(rt)].v += v;
-            lazy[rs(rt)].v += v;
-            s[ls(rt)].Add(1, 1, n2, L, R, v * (mid - l + 1));
-            s[rs(rt)].Add(1, 1, n2, L, R, v * (r - mid));
-            v = 0;
-        &#125;
-    &#125;
-    //return the width that is modified
-    int Add(int rt, int l, int r, int L1, int R1, int L2, int R2, int v) &#123;
-        int cnt = 0;
-        if (L1 &lt;= l &amp;&amp; r &lt;= R1) &#123;
-            cnt = r - l + 1;
-            PushDown(rt, l, (l + r) &gt;&gt; 1, r);
-            lazy[rt] = LAZY&lt;T&gt;&#123;v, L2, R2&#125;;
-        &#125; else &#123;
-            int mid = (l + r) &gt;&gt; 1;
-            PushDown(rt, l, mid, r);
-            if (L1 &lt;= mid) cnt = Add(ls(rt), l, mid, L1, R1, L2, R2, v);
-            if (mid &lt; R1) cnt += Add(rs(rt), mid+1, r, L1, R1, L2, R2, v);
-        &#125;
-        s[rt].Add(1, 1, n2, L2, R2, v * cnt);
-        return cnt;
-    &#125;
-    
-    T Sum(int rt, int l, int r, int L1, int R1, int L2, int R2) &#123;
-        if (L1 &lt;= l &amp;&amp; r &lt;= R1) &#123;
-            return s[rt].Sum(1, 1, n2, L2, R2);
-        &#125; else &#123;
-            T ans = 0;
-            int mid = (l + r) &gt;&gt; 1;
-            PushDown(rt, l, mid, r);
-            if (L1 &lt;= mid) ans = Sum(ls(rt), l, mid, L1, R1, L2, R2);
-            if (mid &lt; R1) ans += Sum(rs(rt), mid+1, r, L1, R1, L2, R2);
-            return ans;
-        &#125;
-    &#125;
+	void Init(int n1, int _n2) &#123;
+		n2 = _n2;
+		memset(lazy, 0, ((n1 &lt;&lt; 2)+1) * sizeof(int));
+		for (int i = 0; i &lt;= (n1 &lt;&lt; 2); ++i)
+			s[i].Init(n2);
+	&#125;
+	void Init(int n1, int _n2, int a[][MAXM]) &#123;
+		n2 = _n2;
+		Build(1, 1, n1, a);
+	&#125;
+	void Build(int rt, int l, int r, int a[][MAXM]) &#123;
+		if (l == r) &#123;
+			s[rt].Build(1, 1, n2, a[l]);
+		&#125; else &#123;
+			int mid = (l + r) &gt;&gt; 1;
+			Build(ls(rt), l, mid, a);
+			Build(rs(rt), mid+1, r, a);
+			for (int i = 1; i &lt;= (n2 &lt;&lt; 2); ++i)
+				s[rt].sum[i] = s[ls(rt)].sum[i] + s[rs(rt)].sum[i];
+		&#125;
+		lazy[rt] = LAZY&lt;T&gt;&#123;0, 0, 0&#125;;
+	&#125;
+	void PushDown(int rt, int l, int mid, int r) &#123;
+		T&amp; v = lazy[rt].v, L = lazy[rt].l, R = lazy[rt].r;
+		if (v) &#123;
+			lazy[ls(rt)].v += v;
+			lazy[rs(rt)].v += v;
+			s[ls(rt)].Add(1, 1, n2, L, R, v * (mid - l + 1));
+			s[rs(rt)].Add(1, 1, n2, L, R, v * (r - mid));
+			v = 0;
+		&#125;
+	&#125;
+	//return the width that is modified
+	int Add(int rt, int l, int r, int L1, int R1, int L2, int R2, int v) &#123;
+		int cnt = 0;
+		if (L1 &lt;= l &amp;&amp; r &lt;= R1) &#123;
+			cnt = r - l + 1;
+			PushDown(rt, l, (l + r) &gt;&gt; 1, r);
+			lazy[rt] = LAZY&lt;T&gt;&#123;v, L2, R2&#125;;
+		&#125; else &#123;
+			int mid = (l + r) &gt;&gt; 1;
+			PushDown(rt, l, mid, r);
+			if (L1 &lt;= mid) cnt = Add(ls(rt), l, mid, L1, R1, L2, R2, v);
+			if (mid &lt; R1) cnt += Add(rs(rt), mid+1, r, L1, R1, L2, R2, v);
+		&#125;
+		s[rt].Add(1, 1, n2, L2, R2, v * cnt);
+		return cnt;
+	&#125;
+	
+	T Sum(int rt, int l, int r, int L1, int R1, int L2, int R2) &#123;
+		if (L1 &lt;= l &amp;&amp; r &lt;= R1) &#123;
+			return s[rt].Sum(1, 1, n2, L2, R2);
+		&#125; else &#123;
+			T ans = 0;
+			int mid = (l + r) &gt;&gt; 1;
+			PushDown(rt, l, mid, r);
+			if (L1 &lt;= mid) ans = Sum(ls(rt), l, mid, L1, R1, L2, R2);
+			if (mid &lt; R1) ans += Sum(rs(rt), mid+1, r, L1, R1, L2, R2);
+			return ans;
+		&#125;
+	&#125;
 &#125;;
 
 
 int main() &#123;
-    int n, m, q;
-    static int a[MAXN][MAXM];
-    static SGT2&lt;int&gt; sgt2;
+	int n, m, q;
+	static int a[MAXN][MAXM];
+	static SGT2&lt;int&gt; sgt2;
 
-    scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;q);
-    for (int i = 1; i &lt;= n; ++i) &#123;
-        for (int j = 1; j &lt;= m; ++j) &#123;
-            scanf(&quot;%d&quot;, a[i] + j);
-        &#125;
-    &#125;
-    sgt2.Init(n, m, a);
+	scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;q);
+	for (int i = 1; i &lt;= n; ++i) &#123;
+		for (int j = 1; j &lt;= m; ++j) &#123;
+			scanf(&quot;%d&quot;, a[i] + j);
+		&#125;
+	&#125;
+	sgt2.Init(n, m, a);
 
-    while (q--) &#123;
-        int p, x1, y1, x2, y2;
-        scanf(&quot;%d%d%d%d%d&quot;, &amp;p, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
-        if (1 == p) &#123;
-            printf(&quot;%d\n&quot;, sgt2.Sum(1, 1, n, x1, x2, y1, y2));
-        &#125; else &#123;
-            int v;
-            scanf(&quot;%d&quot;, &amp;v);
-            sgt2.Add(1, 1, n, x1, x2, y1, y2, v);
-        &#125;
-    &#125;
+	while (q--) &#123;
+		int p, x1, y1, x2, y2;
+		scanf(&quot;%d%d%d%d%d&quot;, &amp;p, &amp;x1, &amp;y1, &amp;x2, &amp;y2);
+		if (1 == p) &#123;
+			printf(&quot;%d\n&quot;, sgt2.Sum(1, 1, n, x1, x2, y1, y2));
+		&#125; else &#123;
+			int v;
+			scanf(&quot;%d&quot;, &amp;v);
+			sgt2.Add(1, 1, n, x1, x2, y1, y2, v);
+		&#125;
+	&#125;
 
-    return 0;
+	return 0;
 &#125;
 </code></pre>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
 </div>
 
 
