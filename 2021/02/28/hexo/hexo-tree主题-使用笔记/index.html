@@ -488,7 +488,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<h1 id="先说坑点"><a class="header-anchor" href="#先说坑点">¶</a> 先说坑点</h1>
+	<html><head></head><body><h1 id="先说坑点"><a class="header-anchor" href="#先说坑点">¶</a> 先说坑点</h1>
 <ul>
 <li>刷新才可查看最新内容</li>
 </ul>
@@ -577,17 +577,17 @@ rm -rf .git
 <h1 id="修改header"><a class="header-anchor" href="#修改header">¶</a> 修改header</h1>
 <p>默认的header里有一个作者自己的项目<code>UidGenerator</code>，并且github的链接也是作者自己的。</p>
 <p>打开<code>themes/tree/layout/_partial/header.ejs</code>，找到</p>
-<pre><code class="language-html">&lt;li class=&quot;menu-item&quot;&gt;
-    &lt;a href=&quot;https://github.com/wujun234/uid-generator-spring-boot-starter&quot; class=&quot;menu-item-link&quot; target=&quot;_blank&quot;&gt;
+<pre><code class="language-html">&lt;li class="menu-item"&gt;
+    &lt;a href="https://github.com/wujun234/uid-generator-spring-boot-starter" class="menu-item-link" target="_blank"&gt;
         UidGenerator
     &lt;/a&gt;
 &lt;/li&gt;
 </code></pre>
 <p>删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
 <p>找到</p>
-<pre><code class="language-html">&lt;li class=&quot;menu-item&quot;&gt;
-    &lt;a href=&quot;https://github.com/wujun234&quot; class=&quot;menu-item-link&quot; target=&quot;_blank&quot;&gt;
-        &lt;i class=&quot;fa fa-github fa-2x&quot;&gt;&lt;/i&gt;
+<pre><code class="language-html">&lt;li class="menu-item"&gt;
+    &lt;a href="https://github.com/wujun234" class="menu-item-link" target="_blank"&gt;
+        &lt;i class="fa fa-github fa-2x"&gt;&lt;/i&gt;
     &lt;/a&gt;
 &lt;/li&gt;
 </code></pre>
@@ -598,26 +598,26 @@ rm -rf .git
 categories: true
 </code></pre>
 <p>然后在<code>source</code>目录下执行</p>
-<pre><code class="language-shell">hexo new page &quot;tags&quot;
+<pre><code class="language-shell">hexo new page "tags"
 </code></pre>
 <p>然后编辑<code>source/tags/index.md</code>，在<code>date</code>后面加上</p>
-<pre><code class="language-yml">type: &quot;tags&quot;
-layout: &quot;tags&quot;
+<pre><code class="language-yml">type: "tags"
+layout: "tags"
 </code></pre>
 <p>如</p>
 <pre><code class="language-md">---
 title: tags
 date: 2021-02-26 16:36:55
-type: &quot;tags&quot;
-layout: &quot;tags&quot;
+type: "tags"
+layout: "tags"
 ---
 </code></pre>
 <p>同样，在<code>source</code>目录下执行</p>
-<pre><code class="language-shell">hexo new page &quot;categories&quot;
+<pre><code class="language-shell">hexo new page "categories"
 </code></pre>
 <p>然后编辑<code>source/categories/index.md</code>，在<code>date</code>后面加上</p>
-<pre><code class="language-yml">type: &quot;categories&quot;
-layout: &quot;categories&quot;
+<pre><code class="language-yml">type: "categories"
+layout: "categories"
 </code></pre>
 <p>然后预览一下，就能看到右上角多了<code>标签</code>和<code>分类</code>。</p>
 <h1 id="开启评论，统计访问量"><a class="header-anchor" href="#开启评论，统计访问量">¶</a> 开启评论，统计访问量</h1>
@@ -655,15 +655,6 @@ valine:
   tab_replace: ''
 </code></pre>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
-<h1 id="支持Latex风格的公式编辑"><a class="header-anchor" href="#支持Latex风格的公式编辑">¶</a> 支持Latex风格的公式编辑</h1>
-<p>参考：<br>
-<a target="_blank" rel="noopener" href="https://github.com/wujun234/hexo-theme-tree/issues/14">https://github.com/wujun234/hexo-theme-tree/issues/14</a><br>
-<a target="_blank" rel="noopener" href="https://github.com/niemingzhao/hexo-renderer-markdown">https://github.com/niemingzhao/hexo-renderer-markdown</a></p>
-<pre><code class="language-shell">npm un hexo-renderer-marked --save
-npm i hexo-renderer-markdown --save
-</code></pre>
-<p>但是hexo-renderer-markdown好像有high severity vulnerabilities。</p>
-<p>尝试过这个：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/108766968">https://zhuanlan.zhihu.com/p/108766968</a>。但是如果用hexo-renderer-marked，就没有反应，如果用hexo-renderer-kramed，公式就消失了。而且加上<code>mathjax: true</code>，且把<code>markdown-it</code>卸掉了也没用。</p>
 <h1 id="写博客"><a class="header-anchor" href="#写博客">¶</a> 写博客</h1>
 <p>在项目根目录执行</p>
 <pre><code class="language-shell">hexo new '博客标题'
@@ -673,7 +664,31 @@ npm i hexo-renderer-markdown --save
 <p>最后记得还要<code>git push</code>博客源码到代码仓库里，不然换了一台机器博客源码就丢失了。</p>
 <h1 id="换一台机器写博客"><a class="header-anchor" href="#换一台机器写博客">¶</a> 换一台机器写博客</h1>
 <p>把gitee上的博客源码仓库clone下来，然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。</p>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+<h1 id="支持Latex风格的公式编辑"><a class="header-anchor" href="#支持Latex风格的公式编辑">¶</a> 支持Latex风格的公式编辑</h1>
+<p>参考：<br>
+<a target="_blank" rel="noopener" href="https://github.com/wujun234/hexo-theme-tree/issues/14">https://github.com/wujun234/hexo-theme-tree/issues/14</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/niemingzhao/hexo-renderer-markdown">https://github.com/niemingzhao/hexo-renderer-markdown</a></p>
+<pre><code class="language-shell">npm un hexo-renderer-marked --save
+npm i hexo-renderer-markdown --save
+</code></pre>
+<p>但是hexo-renderer-markdown好像有high severity vulnerabilities。</p>
+<p>尝试过这个：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/108766968">https://zhuanlan.zhihu.com/p/108766968</a>。但是如果用hexo-renderer-marked，就没有反应，如果用hexo-renderer-kramed，公式就消失了。而且加上<code>mathjax: true</code>，且把<code>markdown-it</code>卸掉了也没用。</p>
+<h1 id="上传图片"><a class="header-anchor" href="#上传图片">¶</a> 上传图片</h1>
+<p>有两种方案，一种是把图片弄到图床上，一种是把图片直接放到博客所在的网站上，然后做一个站内引用。这里主要介绍后者。</p>
+<p>先在<code>_config.yml</code>里把<code>post_asset_folder</code>设置成<code>true</code>，这样在建立文件时，Hexo会自动建立一个与文章同名的文件夹；以前的文章也可以自己手动创建同名文件夹。其实也可以不用装，直接每次都手动创建这个文件夹就好了。</p>
+<p>如果使用的是vscode，可以看这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/103900701">vscode粘贴图片到Markdown</a>。粘贴之后图片是以时间命名的，存储在跟md同级的目录下，可以手动移动到跟博客同名的目录里。</p>
+<p>然后安装hexo-asset-image-fixed：</p>
+<pre><code class="language-shell">npm i hexo-asset-image-fixed --save
+</code></pre>
+<p>功能是将本地的图片的路径转换成博客网站里的图片的路径。</p>
+<p>然后就可以用了。比如在编辑<code>解决某个问题.md</code>的时候，在同级目录新建一个文件夹：<code>解决某个问题</code>，然后把要插入的图片放到<code>解决某个问题/20190925022903920.png</code>，在<code>解决某个问题.md</code>里正常引用这个本地图片即可：</p>
+<pre><code class="language-md">![](解决某个问题/20190925022903920.png)
+</code></pre>
+<p>在<code>hexo d</code>的时候，会自动把这个本地路径重定向到博客网站里的图片的路径。</p>
+<p>参考文献：<br>
+<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/950f8f13a36c">hexo博客图片问题</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/fitnig/article/details/106522811">hexo文章插入本地图片的方法</a></p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"></body></html>
 </div>
 
 
