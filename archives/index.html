@@ -629,6 +629,15 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2020/01/27/Linux/git%E8%A7%A3%E5%86%B3sign_and_send_pubkey:%20signing%20failed:%20agent%20refused%20operation/">
+										git解决sign_and_send_pubkey: signing failed: agent refused operation
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2019/12/20/Linux/linux%E5%9C%A8octave%E4%B8%AD%E4%BD%BF%E7%94%A8syms/">
 										linux在octave中使用syms
 									</a>
@@ -647,8 +656,8 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2019/10/07/Linux/sh%20-c%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F/">
-										sh -c中使用变量
+									<a href="/2020/01/19/Linux/%E4%BD%BF%E7%94%A8apt%E6%9B%B4%E6%94%B9%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/">
+										使用apt更改内核版本
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -689,6 +698,35 @@ var _hmt = _hmt || [];
 								<li class="file">
 									<a href="/2021/02/02/kernel/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
 										Linux-kernel-kthread用法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										shell
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2020/01/27/shell/bash%20-c%20%E4%B8%ADecho%E5%87%BA%E5%8F%8C%E5%BC%95%E5%8F%B7/">
+										bash -c 中echo出双引号
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2019/10/07/shell/sh%20-c%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F/">
+										sh -c中使用变量
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -892,6 +930,77 @@ textwidth: \printinunitsof&#123;in&#125;\prntlen&#123;\
 		</div>	
 	
 		<div class="index-li">
+			<a href="/2020/01/27/Linux/git%E8%A7%A3%E5%86%B3sign_and_send_pubkey:%20signing%20failed:%20agent%20refused%20operation/">
+				<h2 class="index-title">
+					git解决sign_and_send_pubkey: signing failed: agent refused operation
+				</h2>
+				<div class="index-brief">
+					deepin中使用git时，经常在push时会报错：
+searchstar@searchstar-PC:~/git/tools$ git push gitee 
+sign_and_send_pubkey: signing failed: agent refused operation
+Permiss
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-01-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/01/27/shell/bash%20-c%20%E4%B8%ADecho%E5%87%BA%E5%8F%8C%E5%BC%95%E5%8F%B7/">
+				<h2 class="index-title">
+					bash -c 中echo出双引号
+				</h2>
+				<div class="index-brief">
+					¶ bash -c后用双引号
+bash -c "echo \"abc \\\" abc\""
+
+¶ 输出
+abc " abc
+
+¶ 分析
+由于双引号会对其中的内容进行解析，所以bash -c执行的内容被解析成
+echo "abc \" abc"
+
+然后bash会把引号中的内容作为第一个参数传给ech
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-01-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/01/19/Linux/%E4%BD%BF%E7%94%A8apt%E6%9B%B4%E6%94%B9%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/">
+				<h2 class="index-title">
+					使用apt更改内核版本
+				</h2>
+				<div class="index-brief">
+					有一些代码依赖于特定的内核版本，而如果安装系统之后发现内核版本对不上之后就要更换内核。重新编译内核十分麻烦而且耗时，万幸的是debian系列（ubuntu、mint等）可以使用apt来方便地更改内核版本。
+先执行
+apt-cache search linux-image-4.*
+
+获得仓库中有哪些版
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-01-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/01/09/vscode/vscode%E7%B2%98%E8%B4%B4%E5%9B%BE%E7%89%87%E5%88%B0Markdown/">
 				<h2 class="index-title">
 					vscode粘贴图片到Markdown
@@ -995,74 +1104,10 @@ pkg load
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2019/12/16/%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/xv6%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					xv6踩坑笔记
-				</h2>
-				<div class="index-brief">
-					¶ lazy allocation
-¶ test pgbug: FAILED
-在系统调用函数(如sys_pipe)中，检测到致命错误（例如访问非法内存）时，不能直接用p-&gt;killed = 1，而是要return -1。
-¶ mmap
-scause 0x000000000000000d (lo
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-12-16</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2019/12/05/%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/javascript%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					javascript踩坑笔记
-				</h2>
-				<div class="index-brief">
-					¶ TypeError: _my_lib.default is not a function
-import { gen_index_of } from “./components/lib/my.lib”;
-一定要加{}，如果写成
-import  gen_index_of  from “./compo
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-12-05</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2019/12/04/C++/C++11%20%E7%BB%88%E6%AD%A2%E4%B8%80%E4%B8%AAthread%E5%AF%B9%E8%B1%A1%E8%A1%A8%E7%A4%BA%E7%9A%84%E7%BA%BF%E7%A8%8B/">
-				<h2 class="index-title">
-					C++11 终止一个thread对象表示的线程
-				</h2>
-				<div class="index-brief">
-					参考链接：
-www.bo-yang.net/2017/11/19/cpp-kill-detached-thread
-“terminate 1 thread + forcefully (target thread doesn’t cooperate) + pure C++11 = No way”.
-2
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-12-04</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/2/">&gt;</a>
+			<span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/2/">&gt;</a>
 		
 	</div>
 </div>

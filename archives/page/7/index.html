@@ -8,8 +8,6 @@
 	<!-- title -->
 	
 	<title>
-	
-		sh -c中使用变量 | 
 	 
 	searchstar
 	</title>
@@ -631,6 +629,15 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2020/01/27/Linux/git%E8%A7%A3%E5%86%B3sign_and_send_pubkey:%20signing%20failed:%20agent%20refused%20operation/">
+										git解决sign_and_send_pubkey: signing failed: agent refused operation
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2019/12/20/Linux/linux%E5%9C%A8octave%E4%B8%AD%E4%BD%BF%E7%94%A8syms/">
 										linux在octave中使用syms
 									</a>
@@ -648,9 +655,9 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
-								<li class="file active">
-									<a href="/2019/10/07/Linux/sh%20-c%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F/">
-										sh -c中使用变量
+								<li class="file">
+									<a href="/2020/01/19/Linux/%E4%BD%BF%E7%94%A8apt%E6%9B%B4%E6%94%B9%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/">
+										使用apt更改内核版本
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -691,6 +698,35 @@ var _hmt = _hmt || [];
 								<li class="file">
 									<a href="/2021/02/02/kernel/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
 										Linux-kernel-kthread用法
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										shell
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2020/01/27/shell/bash%20-c%20%E4%B8%ADecho%E5%87%BA%E5%8F%8C%E5%BC%95%E5%8F%B7/">
+										bash -c 中echo出双引号
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2019/10/07/shell/sh%20-c%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F/">
+										sh -c中使用变量
 									</a>
 								</li>
 								<div class="article-toc" style="display: none;"></div>
@@ -829,125 +865,35 @@ var _hmt = _hmt || [];
 
 	<!-- 引入正文 -->
 	<div id="content">
-		<h1 id="article-title">
-
-	sh -c中使用变量
-</h1>
-<div class="article-meta">
+		<div id="index">
 	
-		<span>
-			阅读量:<span id="/2019/10/07/Linux/sh%20-c%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F/" class="leancloud_visitors" data-flag-title="sh -c中使用变量"></span>
-		</span>
+		<div class="index-li">
+			<a href="/2019/04/10/ACM/%E6%9D%82%E9%A2%98/LightOJ-1282-%E6%B1%82%E5%B9%82%E7%9A%84%E5%89%8D%E4%B8%89%E4%B8%AA%E5%92%8C%E5%90%8E%E4%B8%89%E4%B8%AA%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97/">
+				<h2 class="index-title">
+					LightOJ-1282-求幂的前三个和后三个有效数字
+				</h2>
+				<div class="index-brief">
+					一种常见解法见链接：https://blog.csdn.net/gscsdlz/article/details/51886094我数学不好想到了一个与众不同的解法。
+求结果的前三位时，由于后面的数位对前三位的影响很小，所以不太重要，所以我们只要保证前若干位是精确的即可。这让我们想到可以用浮点数代替整
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2019-04-10</span>
+                    
+                            
+                    
+                </div>
+		</div>	
 	
-	<span>searchstar</span>
-	<span>2019-10-07 13:48:05</span>
-		<div id="article-categories">
-    
-		<span>Categories：</span>
-            
-    
-
-    
-		<span>Tags：</span>
-            
-    
-		</div>
-
+	
+	<div id="index-paginator">
+		
+			<a class="extend prev" rel="prev" href="/archives/page/6/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="page-number current">7</span>
+		
+	</div>
 </div>
 
-<div id="article-content">
-	<html><head></head><body><p>参考链接：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/23179/how-to-send-variable-to-an-inline-shell-script">https://unix.stackexchange.com/questions/23179/how-to-send-variable-to-an-inline-shell-script</a></p>
-<p>to=$(pwd)/table.txt<br>
-sh -c ‘echo 2333 $to’<br>
-输出2333，没有to指向的路径。</p>
-<p>解决方案：把to变成环境变量。</p>
-<pre><code class="language-bash">to=$(pwd)/table.txt
-sh -c 'echo 2333 $to'
-
-export to
-sh -c 'echo 2333 $to'
-</code></pre>
-<p>输出：<br>
-2333<br>
-2333 /home/searchstar/test/test/table.txt</p>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"></body></html>
-</div>
-
-
-    <div class="post-guide">
-        <div class="item left">
-            
-              <a href="/2019/10/23/ACM/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/poj%202069%20%E6%9C%80%E5%B0%8F%E7%90%83%E8%A6%86%E7%9B%96%E5%87%A0%E4%BD%95%E8%A7%A3%E6%B3%95/">
-                  <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  计算几何
-              </a>
-            
-        </div>
-        <div class="item right">
-            
-              <a href="/2019/10/03/ACM/%E6%95%B0%E5%AD%A6/%E5%AE%B9%E6%96%A5/">
-                数学
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-              </a>
-            
-        </div>
-    </div>
-
-
-
-	<div id="vcomments"></div>
-
-
-<script>
-	
-		// 评论
-		new Valine({
-			av: AV,
-			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
-			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
-			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
-			placeholder: '请输入评论',
-			avatar: 'retro',
-			recordIP: false
-		})
-	
-	
-    // 显示次数
-		function showTime(Counter) {
-			var query = new AV.Query("Counter");
-			if($(".leancloud_visitors").length > 0){
-				var url = $(".leancloud_visitors").attr('id').trim();
-				// where field
-				query.equalTo("words", url);
-				// count
-				query.count().then(function (number) {
-					// There are number instances of MyClass where words equals url.
-					$(document.getElementById(url)).text(number?  number : '--');
-				}, function (error) {
-					// error is an instance of AVError.
-				});
-			}
-		}
-		// 追加pv
-		function addCount(Counter) {
-			var url = $(".leancloud_visitors").length > 0 ? $(".leancloud_visitors").attr('id').trim() : 'wujun234.github.io';
-			var Counter = AV.Object.extend("Counter");
-			var query = new Counter;
-			query.save({
-				words: url
-			}).then(function (object) {
-			})
-		}
-		$(function () {
-			var Counter = AV.Object.extend("Counter");
-			addCount(Counter);
-			showTime(Counter);
-		});
-	
-</script>
 	</div>
 	<div id="footer">
 	<p>
