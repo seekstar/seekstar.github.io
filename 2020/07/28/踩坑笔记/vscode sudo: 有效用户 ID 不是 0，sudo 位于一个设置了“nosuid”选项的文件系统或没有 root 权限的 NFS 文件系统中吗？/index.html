@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,8 +1805,7 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
-	vscode sudo: 有效用户 ID 不是 0，sudo 位于一个设置了“nosuid”选项的文件系统或没有 root 权限的 NFS 文件系统中吗？
+	vscode sudo: 有效用户 ID 不是 0，/usr/bin/sudo 位于一个设置了“nosuid”选项的文件系统或没有 root 权限的 NFS 文件系统中吗？
 </h1>
 <div class="article-meta">
 	
@@ -1842,7 +1841,7 @@ var _hmt = _hmt || [];
             
               <a href="/2021/02/02/kernel/Linux-kernel-kthread%E7%94%A8%E6%B3%95/">
                   <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  Linux-kernel-kthread用法
+                  Linux kernel kthread用法
               </a>
             
         </div>
@@ -1865,16 +1864,16 @@ var _hmt = _hmt || [];
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

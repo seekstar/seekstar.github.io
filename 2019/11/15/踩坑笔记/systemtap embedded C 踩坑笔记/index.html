@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	systemtap embedded C 踩坑笔记
 </h1>
 <div class="article-meta">
@@ -1907,7 +1906,7 @@ STAP_PRINTF("%s\n", full_path);
         <div class="item right">
             
               <a href="/2019/11/08/ACM/%E6%95%B0%E5%AD%A6/bzoj%202337%20XOR%E5%92%8C%E8%B7%AF%E5%BE%84/">
-                数学
+                bzoj 2337 XOR和路径
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -1923,16 +1922,16 @@ STAP_PRINTF("%s\n", full_path);
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

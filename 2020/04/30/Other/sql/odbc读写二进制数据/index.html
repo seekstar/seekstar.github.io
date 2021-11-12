@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	odbc读写二进制数据
 </h1>
 <div class="article-meta">
@@ -2184,14 +2183,14 @@ int main() {
             
               <a href="/2020/04/30/C++/C++%E8%8E%B7%E5%8F%96%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%88%B3/">
                   <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  
+                  C++获取日期时间戳
               </a>
             
         </div>
         <div class="item right">
             
               <a href="/2020/04/28/Other/github%20gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
-                
+                github gist回滚版本
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -2207,16 +2206,16 @@ int main() {
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

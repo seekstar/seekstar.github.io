@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	odbc SQLFetch读到NULL
 </h1>
 <div class="article-meta">
@@ -1861,7 +1860,7 @@ SQLFetch(serverhstmt);
         <div class="item right">
             
               <a href="/2020/04/03/Linux/linux%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84npm%E5%92%8Cnode/">
-                
+                linux安装最新版本的npm和node
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -1877,16 +1876,16 @@ SQLFetch(serverhstmt);
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	LCT感性理解
 </h1>
 <div class="article-meta">
@@ -1867,7 +1866,7 @@ var _hmt = _hmt || [];
         <div class="item right">
             
               <a href="/2021/11/06/Life/%E6%B2%A1%E6%9C%89%E6%89%8B%E6%9C%BA%E7%9A%84%E6%97%A5%E5%AD%90/">
-                
+                没有手机的日子
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -1883,16 +1882,16 @@ var _hmt = _hmt || [];
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

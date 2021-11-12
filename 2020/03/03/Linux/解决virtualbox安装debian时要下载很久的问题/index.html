@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	解决virtualbox安装debian时要下载很久的问题
 </h1>
 <div class="article-meta">
@@ -1864,7 +1863,7 @@ exit当前用户，然后登录到root，再看这篇文章：<br>
         <div class="item right">
             
               <a href="/2020/02/29/Other/Windows/win10%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE%E6%9F%90%E7%BD%91%E7%AB%99/">
-                Windows
+                win10禁止访问某网站
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -1880,16 +1879,16 @@ exit当前用户，然后登录到root，再看这篇文章：<br>
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

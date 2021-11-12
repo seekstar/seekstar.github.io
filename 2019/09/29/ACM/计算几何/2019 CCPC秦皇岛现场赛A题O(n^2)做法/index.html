@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	2019 CCPC秦皇岛现场赛A题O(n^2)做法
 </h1>
 <div class="article-meta">
@@ -2199,7 +2198,7 @@ int main() {
         <div class="item right">
             
               <a href="/2019/09/25/Latex/%E8%A7%A3%E5%86%B3linux%E4%B8%8Blatex%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8consolas%E7%9A%84%E9%97%AE%E9%A2%98/">
-                
+                解决linux下latex无法使用consolas的问题
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -2215,16 +2214,16 @@ int main() {
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

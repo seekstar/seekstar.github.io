@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	win10禁止访问某网站
 </h1>
 <div class="article-meta">
@@ -1859,14 +1858,14 @@ var _hmt = _hmt || [];
             
               <a href="/2020/03/03/Linux/%E8%A7%A3%E5%86%B3virtualbox%E5%AE%89%E8%A3%85debian%E6%97%B6%E8%A6%81%E4%B8%8B%E8%BD%BD%E5%BE%88%E4%B9%85%E7%9A%84%E9%97%AE%E9%A2%98/">
                   <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  
+                  解决virtualbox安装debian时要下载很久的问题
               </a>
             
         </div>
         <div class="item right">
             
               <a href="/2020/02/27/C/C%E8%AF%AD%E8%A8%80%E5%86%85%E5%B5%8C%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                
+                C语言内嵌汇编学习笔记
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -1882,16 +1881,16 @@ var _hmt = _hmt || [];
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	

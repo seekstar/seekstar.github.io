@@ -69,7 +69,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
 
 	
 	
@@ -1805,7 +1805,6 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-
 	C语言Makefile自动推导依赖关系
 </h1>
 <div class="article-meta">
@@ -2003,7 +2002,7 @@ DEPS		:= $(patsubst $(SRC)/%.cpp,$(DEP)/%.d,$(SRCS))
         <div class="item right">
             
               <a href="/2019/10/23/ACM/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/poj%202069%20%E6%9C%80%E5%B0%8F%E7%90%83%E8%A6%86%E7%9B%96%E5%87%A0%E4%BD%95%E8%A7%A3%E6%B3%95/">
-                计算几何
+                poj 2069 最小球覆盖几何解法
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </a>
             
@@ -2019,16 +2018,16 @@ DEPS		:= $(patsubst $(SRC)/%.cpp,$(DEP)/%.d,$(SRCS))
 	
 		// 评论
 		new Valine({
-			av: AV,
 			el: '#vcomments',
-			notify: false,
-			verify: false,
-			path: window.location.pathname,
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
 			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
 			placeholder: '请输入评论',
+			path: window.location.pathname,
 			avatar: 'retro',
-			recordIP: false
+			highlight: false,
+      recordIP: true,
+      enableQQ: true,
+			requiredFields: ['nick','mail']
 		})
 	
 	
