@@ -2046,7 +2046,7 @@ npm i hexo-renderer-markdown --save
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/41604263/how-do-i-display-local-image-in-markdown">https://stackoverflow.com/questions/41604263/how-do-i-display-local-image-in-markdown</a></p>
 <h2 id="让文章的URL中不含目录"><a class="header-anchor" href="#让文章的URL中不含目录">¶</a> 让文章的URL中不含目录</h2>
 <p>默认设置中，文章的URL的格式是<code>域名/20xx/xx/xx/目录/子目录1/子目录2/文章名</code>，这样的坏处是修改文章目录的时候，文章的URL会变，如果这个URL已经分享给别人的话，别人就会发现这是一个死链。</p>
-<p>要让文章的URL中不含目录，只需要将<code>_config.yml</code>里的<code>permalink</code>从<code>:year/:month/:day/:title/</code>改成<code>:year/:month/:day/:post_title/</code>即可。如果还想让URL中不含日期，改成<code>:post_title/</code>即可。</p>
+<p>要让文章的URL中不含目录，只需要将<code>_config.yml</code>里的<code>permalink</code>从<code>:year/:month/:day/:title/</code>改成<code>:year/:month/:day/:post_title/</code>即可。如果还想让URL中不含日期，改成<code>:post_title/</code>即可。注意这时候以前写的博客里的本地图片的链接可能会仍然带有目录，要<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code>更新一下图片链接。</p>
 <p><code>permalink</code>的官方文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/permalinks">https://hexo.io/zh-cn/docs/permalinks</a></p>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"></body></html>
 </div>
