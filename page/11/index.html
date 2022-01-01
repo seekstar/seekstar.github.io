@@ -2704,6 +2704,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/01/01/rocksdb-usr-bin-ld-memory-concurrent-arena-o-relocation-r-x86-64-tpoff32-against-symbol-zn7rocksdb15c/">
+                     
+										    rocksdb: /usr/bin/ld: ./memory/concurrent_arena.o: relocation R_X86_64_TPOFF32 against symbol `_ZN7rocksdb15C
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/07/01/ubuntu18-automake-1-16-command-not-found/">
                      
 										    ubuntu18 automake-1.16: command not found
@@ -5216,6 +5227,25 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/27/rust-serde-deserialize-borrowed-member/">
+				<h2 class="index-title">
+					rust serde deserialize borrowed member
+				</h2>
+				<div class="index-brief">
+					对于borrowed成员，deserializer可以借用输入里的对应部分。serde_json序列化时会将所有部分转换成字符串，这样除非这个成员是字符串，否则deserializer就不能借用到了，会报错：
+invalid type: sequence, expected a borrowed b
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/27/vscode-rust%E6%8F%92%E4%BB%B6find-all-references%E6%97%A0%E7%BB%93%E6%9E%9C/">
 				<h2 class="index-title">
 					vscode rust插件find all references无结果
@@ -5415,29 +5445,6 @@ Ctrl
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/19/unknown-symbol-crc32c/">
-				<h2 class="index-title">
-					Unknown symbol crc32c
-				</h2>
-				<div class="index-brief">
-					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
-cd /lib/modules/$(uname -r)
-find . -iname "*crc32c*"
-./kernel/lib/libcrc32c.ko
-这就是我们要load的模块了。
-sudo modprobe 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-19</span>
                     
                             
                     
