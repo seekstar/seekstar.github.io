@@ -5311,7 +5311,7 @@ $DEBUG_LEVEL is 0
 make[1]: Nothing to be done for 'shared_lib'.
 make[1]: Leaving directory '/home/searchstar/git/shared_lib/rocksdb'
 g++ -fno-rtti simple_example.cc -osimple_example -L/home/searchstar/git/shared_lib/rocksdb// -I/home/searchstar/git/shared_lib/rocksdb//include -O2 -std=c++11 -lpthread -lrt -ldl -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd -ltbb -ltcmalloc -std=c++11  -faligned-new -DHAVE_ALIGNED_NEW -DROCKSDB_PLATFORM_POSIX -DROCKSDB_LIB_IO_POSIX  -DOS_LINUX -fno-builtin-memcmp -DROCKSDB_FALLOCATE_PRESENT -DSNAPPY -DGFLAGS=1 -DZLIB -DBZIP2 -DLZ4 -DZSTD -DTBB -DROCKSDB_MALLOC_USABLE_SIZE -DROCKSDB_PTHREAD_ADAPTIVE_MUTEX -DROCKSDB_BACKTRACE -DROCKSDB_RANGESYNC_PRESENT -DROCKSDB_SCHED_GETCPU_PRESENT -DROCKSDB_AUXV_GETAUXVAL_PRESENT -march=native   -DHAVE_SSE42  -DHAVE_PCLMUL  -DHAVE_AVX2  -DHAVE_BMI  -DHAVE_LZCNT -DHAVE_UINT128_EXTENSION -DROCKSDB_SUPPORT_THREAD_LOCAL   -ldl -lpthread -lrocksdb</code></pre>
-<p>感觉这个会更靠谱一些。</p>
+<p>感觉这个会更靠谱一些。这个Makefile是照着官方给的静态库的Makefile改的：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/blob/main/examples/Makefile" class="uri">https://github.com/facebook/rocksdb/blob/main/examples/Makefile</a></p>
 </body></html>
 </div>
 
