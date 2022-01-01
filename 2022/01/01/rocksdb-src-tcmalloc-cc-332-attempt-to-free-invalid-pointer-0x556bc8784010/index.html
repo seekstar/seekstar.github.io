@@ -5271,6 +5271,47 @@ var _hmt = _hmt || [];
 <pre><code>LD_LIBRARY_PATH=~/git/shared_lib/rocksdb/ ./simple_example</code></pre>
 <p>这里面没有加这个也能跑：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f233528c8303">RocksDB简单使用</a>。可能是因为新版本才需要加这个？</p>
 <p>我咋知道要加这个的？观察<code>make shared_lib</code>之后生成的<code>make_config.mk</code>，发现里面跟malloc有关的有<code>-ltcmalloc</code>，所以尝试在编译的时候加<code>-ltcmalloc</code>，就解决这个问题了。我也不是很清楚是什么原理。</p>
+<p>其实写个Makefile也可以：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode makefile"><code class="sourceCode makefile"><a class="sourceLine" id="cb3-1" title="1"><span class="dt">ROCKSDB_DIR </span><span class="ch">:=</span><span class="st"> /home/searchstar/git/shared_lib/rocksdb/</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">include</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/make_config.mk</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="cf">ifndef</span> DISABLE_JEMALLOC</a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="cf">ifdef</span> JEMALLOC</a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> -DROCKSDB_JEMALLOC -DJEMALLOC_NO_DEMANGLE</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="cf">endif</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="dt">EXEC_LDFLAGS </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_LIB</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span><span class="st"> -lpthread</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_INCLUDE</span><span class="ch">)</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="cf">endif</span></a>
+<a class="sourceLine" id="cb3-12" title="12"></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="cf">ifneq</span> (<span class="ch">$(</span><span class="dt">USE_RTTI</span><span class="ch">)</span>, 1)</a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="dt">CXXFLAGS </span><span class="ch">+=</span><span class="st"> -fno-rtti</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="cf">endif</span></a>
+<a class="sourceLine" id="cb3-16" title="16"></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="dt">CFLAGS </span><span class="ch">+=</span><span class="st"> -Wstrict-prototypes</span></a>
+<a class="sourceLine" id="cb3-18" title="18"></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="ot">.PHONY:</span><span class="dt"> clean librocksdb</span></a>
+<a class="sourceLine" id="cb3-20" title="20"></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="dv">all:</span><span class="dt"> simple_example</span></a>
+<a class="sourceLine" id="cb3-22" title="22"></a>
+<a class="sourceLine" id="cb3-23" title="23"><span class="dv">simple_example:</span><span class="dt"> librocksdb simple_example.cc</span></a>
+<a class="sourceLine" id="cb3-24" title="24">    <span class="ch">$(</span><span class="dt">CXX</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CXXFLAGS</span><span class="ch">)</span> <span class="ch">$@</span>.cc -o<span class="ch">$@</span> -L<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/ -I<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/include -O2 -std=c++11 <span class="ch">$(</span><span class="dt">PLATFORM_LDFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">PLATFORM_CXXFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span> -lrocksdb</a>
+<a class="sourceLine" id="cb3-25" title="25"></a>
+<a class="sourceLine" id="cb3-26" title="26"><span class="dv">clean:</span></a>
+<a class="sourceLine" id="cb3-27" title="27">    rm -rf ./simple_example</a>
+<a class="sourceLine" id="cb3-28" title="28"></a>
+<a class="sourceLine" id="cb3-29" title="29"><span class="dv">librocksdb:</span></a>
+<a class="sourceLine" id="cb3-30" title="30">    cd <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span> &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> shared_lib</a></code></pre></div>
+<pre class="shell"><code>make
+LD_LIBRARY_PATH=~/git/shared_lib/rocksdb/ ./simple_example</code></pre>
+<p>输出：</p>
+<pre><code>cd /home/searchstar/git/shared_lib/rocksdb/ &amp;&amp; make shared_lib
+make[1]: Entering directory '/home/searchstar/git/shared_lib/rocksdb'
+$DEBUG_LEVEL is 0
+make[1]: Nothing to be done for 'shared_lib'.
+make[1]: Leaving directory '/home/searchstar/git/shared_lib/rocksdb'
+g++ -fno-rtti simple_example.cc -osimple_example -L/home/searchstar/git/shared_lib/rocksdb// -I/home/searchstar/git/shared_lib/rocksdb//include -O2 -std=c++11 -lpthread -lrt -ldl -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd -ltbb -ltcmalloc -std=c++11  -faligned-new -DHAVE_ALIGNED_NEW -DROCKSDB_PLATFORM_POSIX -DROCKSDB_LIB_IO_POSIX  -DOS_LINUX -fno-builtin-memcmp -DROCKSDB_FALLOCATE_PRESENT -DSNAPPY -DGFLAGS=1 -DZLIB -DBZIP2 -DLZ4 -DZSTD -DTBB -DROCKSDB_MALLOC_USABLE_SIZE -DROCKSDB_PTHREAD_ADAPTIVE_MUTEX -DROCKSDB_BACKTRACE -DROCKSDB_RANGESYNC_PRESENT -DROCKSDB_SCHED_GETCPU_PRESENT -DROCKSDB_AUXV_GETAUXVAL_PRESENT -march=native   -DHAVE_SSE42  -DHAVE_PCLMUL  -DHAVE_AVX2  -DHAVE_BMI  -DHAVE_LZCNT -DHAVE_UINT128_EXTENSION -DROCKSDB_SUPPORT_THREAD_LOCAL   -ldl -lpthread -lrocksdb</code></pre>
+<p>感觉这个会更靠谱一些。</p>
 </body></html>
 </div>
 
