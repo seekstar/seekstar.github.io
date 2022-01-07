@@ -5331,8 +5331,6 @@ flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <p>音乐软件</p>
 <h3 id="motrix">Motrix</h3>
 <p>p2p下载客户端。支持多种p2p链接。</p>
-<h3 id="element">Element</h3>
-<p>包名是im.riot.Riot。需要配置代理。</p>
 <h3 id="drawio">drawio</h3>
 <p>画图软件。装完之后系统的启动器里并找不到drawio，只能这样启动：</p>
 <pre class="shell"><code>flatpak run com.jgraph.drawio.desktop</code></pre>
@@ -5341,6 +5339,8 @@ flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <p>会报错：</p>
 <pre><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
 <p>这是因为这个脚本的后缀名是<code>.desktop</code>，然后系统以为它是启动器。</p>
+<h3 id="element">Element</h3>
+<p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，所以传文件时不能看到系统里的文件。所以还是建议用官网提供的方式安装。</p>
 <h3 id="torbrowser-launcher">torbrowser-launcher</h3>
 <p>launcher能打开，但是在系统启动器死活打不开tor browser。。。</p>
 <p>通过launcher下载好tor browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
