@@ -5308,15 +5308,15 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>deepin和centos 8测试通过。</p>
-<h1 id="下载操作系统镜像">下载操作系统镜像</h1>
+<h2 id="下载操作系统镜像">下载操作系统镜像</h2>
 <p>可以用中科大的源下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a><br>
 找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。</p>
-<h1 id="安装qemu">安装qemu</h1>
-<pre class="shell"><code># debian系
+<h2 id="安装qemu">安装qemu</h2>
+<pre class="shell"><code># debian系(deepin)
 sudo apt install qemu qemu-kvm
 # Centos 8
 sudo yum install qemu-kvm</code></pre>
-<h1 id="检查kvm是否可用">检查KVM是否可用</h1>
+<h2 id="检查kvm是否可用">检查KVM是否可用</h2>
 <p>不开KVM的话性能会很低。</p>
 <pre class="shell"><code>grep -E 'vmx|svm' /proc/cpuinfo</code></pre>
 <p>如果有输出则表示硬件有虚拟化支持。其次要检查kvm模块是否已经加载：</p>
@@ -5334,11 +5334,11 @@ irqbypass              16384  1 kvm</code></pre>
 <p>按G翻到最后，如果有</p>
 <pre><code>kvm: disabled by bios</code></pre>
 <p>说明要去BIOS里开启一下KVM的支持。</p>
-<h1 id="启动虚拟机安装操作系统">启动虚拟机安装操作系统</h1>
-<h2 id="命令行安装">命令行安装</h2>
+<h2 id="启动虚拟机安装操作系统">启动虚拟机安装操作系统</h2>
+<h3 id="命令行安装">命令行安装</h3>
 <pre class="shell"><code># Centos 8
 sudo yum install virt-install
-# Ubuntu 20.04
+# Ubuntu 20.04, deepin 20
 sudo apt install virtinst</code></pre>
 <pre class="shell"><code>sudo virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
 <p>其中os-variant的取值范围可以通过<code>osinfo-query os</code>查看。</p>
@@ -5362,10 +5362,10 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 'r' to refresh]:</code></pre>
 <p>要把带<code>[!]</code>的都处理完。不过下面写了<code>(Processing...)</code>的可以按<code>r</code>刷新，等它出结果。<br>
 安装好了之后会自动重启，然后就可以登录了。</p>
-<h2 id="使用vnc安装">使用vnc安装</h2>
-<h3 id="配置vnc-viewer">配置vnc viewer</h3>
+<h3 id="使用vnc安装">使用vnc安装</h3>
+<h4 id="配置vnc-viewer">配置vnc viewer</h4>
 <p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
-<h1 id="创建虚拟机镜像">创建虚拟机镜像</h1>
+<h2 id="创建虚拟机镜像">创建虚拟机镜像</h2>
 <pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
 <pre><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
@@ -5391,11 +5391,11 @@ gtk initialization failed</code></pre>
 <pre class="shell"><code>vncviewer localhost:0</code></pre>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"><br>
 <code>ctrl+alt+g</code>可以取消捕获。</p>
-<h1 id="联网">联网</h1>
+<h2 id="联网">联网</h2>
 <p>虚拟机一开始是没有网络的。</p>
-<h2 id="桥接网卡使用nmclivirsh">桥接网卡（使用nmcli+virsh）</h2>
+<h3 id="桥接网卡使用nmclivirsh">桥接网卡（使用nmcli+virsh）</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119501450" class="uri">https://blog.csdn.net/qq_41961459/article/details/119501450</a></p>
-<h2 id="桥接网卡有概率失败">桥接网卡（有概率失败）</h2>
+<h3 id="桥接网卡有概率失败">桥接网卡（有概率失败）</h3>
 <pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
 <p>先看自己的机器的网卡编号</p>
 <pre class="shell"><code>ip addr</code></pre>
@@ -5450,9 +5450,9 @@ fi</code></pre>
 <pre class="shell"><code>dhclient</code></pre>
 <p>才能拿到ip。</p>
 <p>这个相当于把虚拟机桥接到外面去了。如果外面的网络要登陆才能上网的话，还需要登陆一下。<br>
-<img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121113408209.png" alt="在这里插入图片描述"><br>
-## NAT（有概率失败）<br>
-如果装的虚拟机没有GUI，但是外面的网络又需要在网页上登陆才能使用，那桥接就不太可行了，这时要用NAT模式，使虚拟机直接使用主机的网络。</p>
+<img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121113408209.png" alt="在这里插入图片描述"></p>
+<h3 id="nat有概率失败">NAT（有概率失败）</h3>
+<p>如果装的虚拟机没有GUI，但是外面的网络又需要在网页上登陆才能使用，那桥接就不太可行了，这时要用NAT模式，使虚拟机直接使用主机的网络。</p>
 <p><a target="_blank" rel="noopener" href="https://wiki.qemu.org/Documentation/Networking/NAT" class="uri">https://wiki.qemu.org/Documentation/Networking/NAT</a><br>
 把下面的保存为<code>ifup_nat.sh</code></p>
 <pre class="shell"><code>#!/bin/sh
@@ -5592,10 +5592,10 @@ fi</code></pre>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,script=ifup_nat.sh</code></pre>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121153720100.png" alt="在这里插入图片描述"><br>
 这个方法我在家里的电脑上实验成功，但是在学校的服务器上失败了，不知道为什么。</p>
-<h1 id="其他">其他</h1>
-<h2 id="nographic启动">nographic启动</h2>
+<h2 id="其他">其他</h2>
+<h3 id="nographic启动">nographic启动</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119108333" class="uri">https://blog.csdn.net/qq_41961459/article/details/119108333</a></p>
-<h2 id="嵌套虚拟化">嵌套虚拟化</h2>
+<h3 id="嵌套虚拟化">嵌套虚拟化</h3>
 <p>就是虚拟机里套虚拟机：<br>
 参数里添加</p>
 <pre><code>-enable-kvm -cpu host</code></pre>
@@ -5603,12 +5603,12 @@ fi</code></pre>
 <pre class="shell"><code>/usr/libexec/qemu-kvm -cpu help</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jython/p/4458807.html" class="uri">https://www.cnblogs.com/jython/p/4458807.html</a><br>
 注：如果只放<code>-enable-kvm -cpu qemu64,+vmx</code>，我这<code>lsmod</code>里就没有<code>kvm_intel</code>。</p>
-<h2 id="centos开机自动联网">centos开机自动联网</h2>
+<h3 id="centos开机自动联网">centos开机自动联网</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012972536/article/details/79827292" class="uri">https://blog.csdn.net/u012972536/article/details/79827292</a></p>
-<h2 id="ttys0登录时输入用户名后卡住">ttyS0登录时输入用户名后卡住</h2>
+<h3 id="ttys0登录时输入用户名后卡住">ttyS0登录时输入用户名后卡住</h3>
 <p>这个在deepin虚拟机里更换内核之后碰到过。解决方案：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119701527" class="uri">https://blog.csdn.net/qq_41961459/article/details/119701527</a></p>
-<h2 id="network-disk-service卡住">network disk service卡住</h2>
+<h3 id="network-disk-service卡住">network disk service卡住</h3>
 <p>centos虚拟机中出现过，要好几分钟才能进去，而且最终这几个服务会启动失败：</p>
 <pre><code>[FAILED] Failed to start System Security Services Daemon.
 [FAILED] Failed to start Disk Manager.
@@ -5617,11 +5617,11 @@ fi</code></pre>
 [FAILED] Failed to start Crash recovery kernel arming.</code></pre>
 <p>其实原因和解决方案都跟上一个一样，都是这个：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119701527" class="uri">https://blog.csdn.net/qq_41961459/article/details/119701527</a></p>
-<h2 id="设置静态ip">设置静态IP</h2>
+<h3 id="设置静态ip">设置静态IP</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119704794">deepin设置静态IP</a></p>
 <p>但是如果路由器只路由DHCP给的IP，那这个静态IP就只能在局域网里用了。如果在局域网里有一台永远不关机的机器，那可以在这个机器上做端口转发，把本地某个端口接收到的数据都转发给虚拟机的22端口，这样在局域网外就可以通过这台机器ssh到虚拟机了。方法看这里：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119705167" class="uri">https://blog.csdn.net/qq_41961459/article/details/119705167</a></p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1: 使用QEMU创建虚拟机</a> 其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
 <a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
