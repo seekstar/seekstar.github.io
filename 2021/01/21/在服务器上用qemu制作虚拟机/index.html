@@ -2486,6 +2486,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/01/09/qemu-archlinux-could-not-find-an-installable-distribution/">
+                     
+										    qemu archlinux Could not find an installable distribution
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/08/qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted/">
                      
 										    qemu-bridge-helper: failed to create tun device: Operation not permitted
@@ -2511,6 +2522,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/08/qemu-system-x86-64-warning-host-doesn%E2%80%98t-support-requested-feature-cpuid-80000001h-ecx-svm-bit-2/">
                      
 										    qemu-system-x86_64: warning: host doesn‘t support requested feature: CPUID.80000001H:ECX.svm [bit 2]
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/01/09/qemu%E4%BD%BF%E7%94%A8uefi/">
+                     
+										    qemu使用UEFI
                      
 									</a>
 								</li>
@@ -5352,7 +5374,7 @@ sudo yum install virt-install
 # Ubuntu 20.04, deepin 20
 sudo apt install virtinst</code></pre>
 <pre class="shell"><code>sudo virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
-<p>其中os-variant的取值范围可以通过<code>osinfo-query os</code>查看。</p>
+<p>其中os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看。</p>
 <p>注意deepin不支持命令行安装，会报错：</p>
 <pre><code>ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'
 The location must be the root directory of an install tree.</code></pre>
@@ -5374,9 +5396,8 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 <p>要把带<code>[!]</code>的都处理完。不过下面写了<code>(Processing...)</code>的可以按<code>r</code>刷新，等它出结果。<br>
 安装好了之后会自动重启，然后就可以登录了。</p>
 <h3 id="使用vnc安装">使用vnc安装</h3>
-<h4 id="配置vnc-viewer">配置vnc viewer</h4>
-<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
-<h2 id="创建虚拟机镜像">创建虚拟机镜像</h2>
+<h4 id="创建虚拟机磁盘文件">创建虚拟机磁盘文件</h4>
+<p>不使用virt-install的话，要手动创建虚拟机的磁盘文件。</p>
 <pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
 <pre><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
@@ -5384,7 +5405,9 @@ raw: 默认格式。裸的磁盘文件。<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
 其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
-<h3 id="debian系">debian系</h3>
+<h4 id="配置vnc-viewer">配置vnc viewer</h4>
+<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
+<h4 id="debian系">debian系</h4>
 <p>要先允许弹出root窗口：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112916589">vnc root窗口无法弹出</a></p>
 <p>然后安装虚拟机：</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
@@ -5392,7 +5415,7 @@ raw: 默认格式。裸的磁盘文件。<br>
 <pre><code>X11 connection rejected because of wrong authentication.
 Unable to init server: Could not connect: Connection refused
 gtk initialization failed</code></pre>
-<h3 id="centos-8">Centos 8</h3>
+<h4 id="centos-8">Centos 8</h4>
 <p>Centos 8比较特殊:</p>
 <pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <pre><code>VNC server running on ::1:5900</code></pre>

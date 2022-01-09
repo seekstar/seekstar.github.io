@@ -2486,6 +2486,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/01/09/qemu-archlinux-could-not-find-an-installable-distribution/">
+                     
+										    qemu archlinux Could not find an installable distribution
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/08/qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted/">
                      
 										    qemu-bridge-helper: failed to create tun device: Operation not permitted
@@ -2511,6 +2522,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/08/qemu-system-x86-64-warning-host-doesn%E2%80%98t-support-requested-feature-cpuid-80000001h-ecx-svm-bit-2/">
                      
 										    qemu-system-x86_64: warning: host doesn‘t support requested feature: CPUID.80000001H:ECX.svm [bit 2]
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/01/09/qemu%E4%BD%BF%E7%94%A8uefi/">
+                     
+										    qemu使用UEFI
                      
 									</a>
 								</li>
@@ -5318,13 +5340,13 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="配置网桥">配置网桥</h1>
+	<html><head></head><body><h2 id="配置网桥">配置网桥</h2>
 <p>命令如下，记得把ens3换成自己的网卡号。</p>
 <pre class="shell"><code>nmcli con add type bridge ifname br0
 nmcli con modify bridge-br0 bridge.stp no
 nmcli con add type bridge-slave ifname ens3 master bridge-br0
 nmcli connection up bridge-br0</code></pre>
-<h1 id="将虚拟机导入virsh">将虚拟机导入virsh</h1>
+<h2 id="将虚拟机导入virsh">将虚拟机导入virsh</h2>
 <p>这里假设domain的名字设置成centos8。先写一个<code>centos8.xml</code>，定义虚拟机的基本属性：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;domain</span><span class="ot"> type=</span><span class="st">'kvm'</span><span class="kw">&gt;</span></a>
 <a class="sourceLine" id="cb2-2" title="2">  <span class="kw">&lt;name&gt;</span>centos8<span class="kw">&lt;/name&gt;</span></a>
@@ -5339,46 +5361,47 @@ nmcli connection up bridge-br0</code></pre>
 <a class="sourceLine" id="cb2-11" title="11">    <span class="kw">&lt;type</span><span class="ot"> arch=</span><span class="st">'x86_64'</span><span class="kw">&gt;</span>hvm<span class="kw">&lt;/type&gt;</span></a>
 <a class="sourceLine" id="cb2-12" title="12">  <span class="kw">&lt;/os&gt;</span> </a>
 <a class="sourceLine" id="cb2-13" title="13">  <span class="kw">&lt;devices&gt;</span></a>
-<a class="sourceLine" id="cb2-14" title="14">    <span class="kw">&lt;emulator&gt;</span>/usr/libexec/qemu-kvm<span class="kw">&lt;/emulator&gt;</span></a>
-<a class="sourceLine" id="cb2-15" title="15">    <span class="kw">&lt;disk</span><span class="ot"> type=</span><span class="st">'file'</span><span class="ot"> device=</span><span class="st">'disk'</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-16" title="16">      // 这里的type注意不要搞错了。可以用qemu-img info查看镜像的格式</a>
-<a class="sourceLine" id="cb2-17" title="17">      <span class="kw">&lt;driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'qcow2'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-18" title="18">      <span class="kw">&lt;source</span><span class="ot"> file=</span><span class="st">'/home/searchstar/vm/centos.img'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-19" title="19">      <span class="kw">&lt;target</span><span class="ot"> dev=</span><span class="st">'vda'</span><span class="ot"> bus=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-20" title="20">    <span class="kw">&lt;/disk&gt;</span></a>
-<a class="sourceLine" id="cb2-21" title="21">    // 将宿主机上的/dev/sdb作为虚拟机的/dev/vdb。如果不需要可以删掉这部分。</a>
-<a class="sourceLine" id="cb2-22" title="22">    <span class="kw">&lt;disk</span><span class="ot"> type=</span><span class="st">"block"</span><span class="ot"> device=</span><span class="st">"disk"</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-23" title="23">      <span class="kw">&lt;driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'raw'</span><span class="ot"> cache=</span><span class="st">'none'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-24" title="24">      <span class="kw">&lt;source</span><span class="ot"> dev=</span><span class="st">'/dev/sdb'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-25" title="25">      <span class="kw">&lt;target</span><span class="ot"> dev=</span><span class="st">'vdb'</span><span class="ot"> bus=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-26" title="26">    <span class="kw">&lt;/disk&gt;</span></a>
-<a class="sourceLine" id="cb2-27" title="27">    // 下面的是为了console访问</a>
-<a class="sourceLine" id="cb2-28" title="28">    <span class="kw">&lt;serial</span><span class="ot"> type=</span><span class="st">'pty'</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-29" title="29">      <span class="kw">&lt;source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-30" title="30">      <span class="kw">&lt;target</span><span class="ot"> type=</span><span class="st">'isa-serial'</span><span class="ot"> port=</span><span class="st">'0'</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-31" title="31">        <span class="kw">&lt;model</span><span class="ot"> name=</span><span class="st">'isa-serial'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-32" title="32">      <span class="kw">&lt;/target&gt;</span></a>
-<a class="sourceLine" id="cb2-33" title="33">      <span class="kw">&lt;alias</span><span class="ot"> name=</span><span class="st">'serial0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-34" title="34">    <span class="kw">&lt;/serial&gt;</span></a>
-<a class="sourceLine" id="cb2-35" title="35">    <span class="kw">&lt;console</span><span class="ot"> type=</span><span class="st">'pty'</span><span class="ot"> tty=</span><span class="st">'/dev/pts/0'</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-36" title="36">      <span class="kw">&lt;source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-37" title="37">      <span class="kw">&lt;target</span><span class="ot"> type=</span><span class="st">'serial'</span><span class="ot"> port=</span><span class="st">'0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-38" title="38">      <span class="kw">&lt;alias</span><span class="ot"> name=</span><span class="st">'serial0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-39" title="39">    <span class="kw">&lt;/console&gt;</span></a>
-<a class="sourceLine" id="cb2-40" title="40">    // 联网</a>
-<a class="sourceLine" id="cb2-41" title="41">    <span class="kw">&lt;interface</span><span class="ot"> type=</span><span class="st">'bridge'</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-42" title="42">      <span class="kw">&lt;source</span><span class="ot"> bridge=</span><span class="st">'br0'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-43" title="43">      <span class="kw">&lt;model</span><span class="ot"> type=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb2-44" title="44">    <span class="kw">&lt;/interface&gt;</span></a>
-<a class="sourceLine" id="cb2-45" title="45">  <span class="kw">&lt;/devices&gt;</span></a>
-<a class="sourceLine" id="cb2-46" title="46"><span class="kw">&lt;/domain&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-14" title="14">    // 这里有的发行版是 /usr/bin/qemu-system-x86_64</a>
+<a class="sourceLine" id="cb2-15" title="15">    <span class="kw">&lt;emulator&gt;</span>/usr/libexec/qemu-kvm<span class="kw">&lt;/emulator&gt;</span></a>
+<a class="sourceLine" id="cb2-16" title="16">    <span class="kw">&lt;disk</span><span class="ot"> type=</span><span class="st">'file'</span><span class="ot"> device=</span><span class="st">'disk'</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-17" title="17">      // 这里的type注意不要搞错了。可以用qemu-img info查看镜像的格式</a>
+<a class="sourceLine" id="cb2-18" title="18">      <span class="kw">&lt;driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'qcow2'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-19" title="19">      <span class="kw">&lt;source</span><span class="ot"> file=</span><span class="st">'/home/searchstar/vm/centos.img'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-20" title="20">      <span class="kw">&lt;target</span><span class="ot"> dev=</span><span class="st">'vda'</span><span class="ot"> bus=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-21" title="21">    <span class="kw">&lt;/disk&gt;</span></a>
+<a class="sourceLine" id="cb2-22" title="22">    // 将宿主机上的/dev/sdb作为虚拟机的/dev/vdb。如果不需要可以删掉这部分。</a>
+<a class="sourceLine" id="cb2-23" title="23">    <span class="kw">&lt;disk</span><span class="ot"> type=</span><span class="st">"block"</span><span class="ot"> device=</span><span class="st">"disk"</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-24" title="24">      <span class="kw">&lt;driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'raw'</span><span class="ot"> cache=</span><span class="st">'none'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-25" title="25">      <span class="kw">&lt;source</span><span class="ot"> dev=</span><span class="st">'/dev/sdb'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-26" title="26">      <span class="kw">&lt;target</span><span class="ot"> dev=</span><span class="st">'vdb'</span><span class="ot"> bus=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-27" title="27">    <span class="kw">&lt;/disk&gt;</span></a>
+<a class="sourceLine" id="cb2-28" title="28">    // 下面的是为了console访问</a>
+<a class="sourceLine" id="cb2-29" title="29">    <span class="kw">&lt;serial</span><span class="ot"> type=</span><span class="st">'pty'</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-30" title="30">      <span class="kw">&lt;source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-31" title="31">      <span class="kw">&lt;target</span><span class="ot"> type=</span><span class="st">'isa-serial'</span><span class="ot"> port=</span><span class="st">'0'</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-32" title="32">        <span class="kw">&lt;model</span><span class="ot"> name=</span><span class="st">'isa-serial'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-33" title="33">      <span class="kw">&lt;/target&gt;</span></a>
+<a class="sourceLine" id="cb2-34" title="34">      <span class="kw">&lt;alias</span><span class="ot"> name=</span><span class="st">'serial0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-35" title="35">    <span class="kw">&lt;/serial&gt;</span></a>
+<a class="sourceLine" id="cb2-36" title="36">    <span class="kw">&lt;console</span><span class="ot"> type=</span><span class="st">'pty'</span><span class="ot"> tty=</span><span class="st">'/dev/pts/0'</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-37" title="37">      <span class="kw">&lt;source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-38" title="38">      <span class="kw">&lt;target</span><span class="ot"> type=</span><span class="st">'serial'</span><span class="ot"> port=</span><span class="st">'0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-39" title="39">      <span class="kw">&lt;alias</span><span class="ot"> name=</span><span class="st">'serial0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-40" title="40">    <span class="kw">&lt;/console&gt;</span></a>
+<a class="sourceLine" id="cb2-41" title="41">    // 联网</a>
+<a class="sourceLine" id="cb2-42" title="42">    <span class="kw">&lt;interface</span><span class="ot"> type=</span><span class="st">'bridge'</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-43" title="43">      <span class="kw">&lt;source</span><span class="ot"> bridge=</span><span class="st">'br0'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-44" title="44">      <span class="kw">&lt;model</span><span class="ot"> type=</span><span class="st">'virtio'</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb2-45" title="45">    <span class="kw">&lt;/interface&gt;</span></a>
+<a class="sourceLine" id="cb2-46" title="46">  <span class="kw">&lt;/devices&gt;</span></a>
+<a class="sourceLine" id="cb2-47" title="47"><span class="kw">&lt;/domain&gt;</span></a></code></pre></div>
 <p>导入虚拟机：</p>
 <pre class="shell"><code>virsh define centos8.xml</code></pre>
 <p>如果要删除虚拟机的话：</p>
 <pre class="shell"><code>virsh undefine centos8</code></pre>
 <p>查看和编辑导入后的虚拟机配置：</p>
 <pre class="shell"><code>virsh edit centos8</code></pre>
-<h1 id="访问虚拟机">访问虚拟机</h1>
+<h2 id="访问虚拟机">访问虚拟机</h2>
 <p>启动虚拟机：</p>
 <pre class="shell"><code>virsh start centos8</code></pre>
 <p>强行关闭虚拟机：</p>
@@ -5389,27 +5412,41 @@ nmcli connection up bridge-br0</code></pre>
 <p>如果没有反应，说明虚拟机里没有配置console，要看这篇文章进行配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119108333" class="uri">https://blog.csdn.net/qq_41961459/article/details/119108333</a></p>
 <p>奇怪的是有时候console里shutdown之后不会自动destroy。这时要<code>ctrl+]</code>退出console，然后手动<code>virsh destroy</code>一下。</p>
 <p>注意，普通用户的virsh域和root的virsh域是不互通的。</p>
-<h1 id="常见错误">常见错误</h1>
-<h2 id="could-not-open-devsdb-permission-denied">Could not open '/dev/sdb': Permission denied</h2>
+<h2 id="常见错误">常见错误</h2>
+<h3 id="could-not-open-devsdb-permission-denied">Could not open '/dev/sdb': Permission denied</h3>
 <p>将<code>/dev/sdb</code>的owner和group改成自己：</p>
 <pre class="shell"><code>sudo chown $USER /dev/sdb</code></pre>
 <p>理论上把自己加入到disk组也可以，因为/dev/sdb的组是disk，但是我这里没用，不知道为什么。</p>
-<h2 id="error-failed-to-connect-to-the-hypervisor">error: failed to connect to the hypervisor</h2>
+<h3 id="error-failed-to-connect-to-the-hypervisor">error: failed to connect to the hypervisor</h3>
 <pre><code>error: failed to connect to the hypervisor
 error: Failed to connect socket to '/run/user/1000/libvirt/libvirt-sock': 没有那个文件或目录</code></pre>
 <p>解决方法：</p>
 <pre class="shell"><code>sudo apt install libvirt-daemon
 libvirtd -d</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fang888/p/8496562.html" class="uri">https://www.cnblogs.com/fang888/p/8496562.html</a></p>
-<h2 id="qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted">qemu-bridge-helper: failed to create tun device: Operation not permitted</h2>
+<h3 id="qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted">qemu-bridge-helper: failed to create tun device: Operation not permitted</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119520468" class="uri">https://blog.csdn.net/qq_41961459/article/details/119520468</a></p>
-<h2 id="错误域管理的保存映像存在时拒绝取消定义">错误：域管理的保存映像存在时拒绝取消定义</h2>
+<h3 id="错误域管理的保存映像存在时拒绝取消定义">错误：域管理的保存映像存在时拒绝取消定义</h3>
 <p>我进行如下操作之后就正常undefine了，原因不明。</p>
 <pre class="shell"><code>virsh start centos8
 virsh console centos8
 virsh destroy centos8
 virsh undefine centos8</code></pre>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="奇怪的是">奇怪的是</h2>
+<p>宿主机是服务器上的centos 8的时候成功了，但是宿主机是MateBook X Pro上的deepin的时候失败了：</p>
+<pre><code>error: internal error: /usr/lib/qemu/qemu-bridge-helper --use-vnet --br=br0 --fd=27: failed to communicate with bridge helper: Transport endpoint is not connected
+stderr=failed to parse default acl file `/etc/qemu/bridge.conf'</code></pre>
+<pre class="shell"><code>nmcli device show</code></pre>
+<pre><code>GENERAL.DEVICE:                         br0
+GENERAL.TYPE:                           bridge
+GENERAL.HWADDR:                         12:94:5E:12:84:F4
+GENERAL.MTU:                            1500
+GENERAL.STATE:                          70（连接中（正在获取 IP 配置））
+GENERAL.CONNECTION:                     bridge-br0
+GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConne</code></pre>
+<p>不知道是不是跟WIFI配置和硬件有关。。。</p>
+<p>这里的做法好像都没啥用：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/574962/stuck-at-getting-ip-configuration" class="uri">https://askubuntu.com/questions/574962/stuck-at-getting-ip-configuration</a></p>
+<h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://libvirt.org/formatdomain.html" class="uri">https://libvirt.org/formatdomain.html</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Casual_Lei/article/details/115653963">Centos8关于kvm-qemu、libvirt和nmcli创建桥网络的使用和理解</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/chia/p/13496248.html">CentOS8创建网桥</a><br>

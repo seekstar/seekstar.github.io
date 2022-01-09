@@ -2484,6 +2484,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/01/09/qemu-archlinux-could-not-find-an-installable-distribution/">
+                     
+										    qemu archlinux Could not find an installable distribution
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/08/qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted/">
                      
 										    qemu-bridge-helper: failed to create tun device: Operation not permitted
@@ -2509,6 +2520,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/08/qemu-system-x86-64-warning-host-doesn%E2%80%98t-support-requested-feature-cpuid-80000001h-ecx-svm-bit-2/">
                      
 										    qemu-system-x86_64: warning: host doesn‘t support requested feature: CPUID.80000001H:ECX.svm [bit 2]
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/01/09/qemu%E4%BD%BF%E7%94%A8uefi/">
+                     
+										    qemu使用UEFI
                      
 									</a>
 								</li>
@@ -5293,6 +5315,49 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/01/09/qemu%E4%BD%BF%E7%94%A8uefi/">
+				<h2 class="index-title">
+					qemu使用UEFI
+				</h2>
+				<div class="index-brief">
+					加上--boot uefi参数即可。检验：
+ls /sys/firmware/efi/efivars
+输出一堆东西就说明是UEFI模式。
+参考：
+https://fedoraproject.org/wiki/Using_UEFI_with_QEMU
+https://archlinuxstudio.g
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/01/09/qemu-archlinux-could-not-find-an-installable-distribution/">
+				<h2 class="index-title">
+					qemu archlinux Could not find an installable distribution
+				</h2>
+				<div class="index-brief">
+					archlinux的ISO是hybrid结构的，要用--cdrom=xxx.iso来启动。
+例子：
+virt-install --name=archlinux --memory=1024 --vcpus=4 --cdrom='/home/searchstar/Downloads/ISO/archli
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/01/08/deepin-osinfo-query-os-command-not-found/">
 				<h2 class="index-title">
 					Deepin osinfo-query os command not found
@@ -5458,45 +5523,6 @@ sudo apt install flatpak
 添加源
 官方源：
 flatpak remote-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-12-30</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/12/30/syncthing-%E4%B8%80%E6%AC%BEp2p%E5%90%8C%E6%AD%A5%E8%BD%AF%E4%BB%B6/">
-				<h2 class="index-title">
-					syncthing: 一款p2p同步软件
-				</h2>
-				<div class="index-brief">
-					比较详细的教程：https://zhuanlan.zhihu.com/p/121544814
-安卓端可以在F-Droid下载。F-Droid使用教程：https://seekstar.github.io/2021/12/29/f-droid%E4%BD%BF%E7%94%A8%E6%95%99%E7
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-12-30</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/12/30/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
-				<h2 class="index-title">
-					frp内网穿透
-				</h2>
-				<div class="index-brief">
-					frp有很详细的官方教程：https://gofrp.org/docs/
-里面甚至有一些例子。最简单的例子：https://gofrp.org/docs/examples/ssh/
-frp还支持p2p内网穿透，即服务器端只充当牵线搭桥的作用，当两个客户端通过服务器端建立p2p连接后，就没服务器端什么
 					...
 				</div>
 			</a>
