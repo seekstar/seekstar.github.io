@@ -5346,7 +5346,7 @@ var _hmt = _hmt || [];
 #UUID=2589c54c-1093-43b4-820e-5fa3f7e2d600      none            swap            defaults,pri=-2 0 0</code></pre>
 <p>然后重新生成mdadm.conf：</p>
 <pre class="shell"><code>sudo rm /etc/mdadm/mdadm.conf
-update-initramfs  -u</code></pre>
+sudo update-initramfs  -u</code></pre>
 <p>这个时候系统（可能）会自动找到swap分区。</p>
 <p>然后重启就很快了，不会出现这种错误了。</p>
 <p>如果系统没有自动找到新的swap分区的话，试试手动指定新的uuid：<a target="_blank" rel="noopener" href="https://blog.csdn.net/KuXiaoQuShiHuai/article/details/99686620" class="uri">https://blog.csdn.net/KuXiaoQuShiHuai/article/details/99686620</a></p>
