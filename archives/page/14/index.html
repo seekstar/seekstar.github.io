@@ -2037,6 +2037,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/02/13/spdk%E5%9B%9E%E6%94%B6hugemem/">
+                     
+										    SPDK回收hugemem
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/23/spandb%E8%BF%90%E8%A1%8Cycsb%E6%B5%8B%E8%AF%95/">
                      
 										    SpanDB运行YCSB测试
@@ -5513,6 +5524,27 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/26/qemu-system-x86-64-nographic/">
+				<h2 class="index-title">
+					qemu-system-x86_64 nographic
+				</h2>
+				<div class="index-brief">
+					即使把图形界面删掉了，仍然是默认输出到显示器上的，这样nographic选项就没啥用。为了使其产生作用，在虚拟机中将/etc/default/grub里的
+GRUB_CMDLINE_LINUX=""
+改成
+GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-26</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/25/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E5%90%AF%E4%B9%8B%E5%90%8Eip%E6%94%B9%E5%8F%98%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 				<h2 class="index-title">
 					Linux服务器重启之后IP改变的一种解决方案
@@ -5707,25 +5739,6 @@ https://doc.rust-lang.org/rust-by-example/attribute/unused.html
 					系统偏好设置-&gt;安全性与隐私-&gt;通用-&gt;仍要打开
 原文：https://support.apple.com/zh-cn/HT202491
 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-19</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/19/linux%E5%86%85%E6%A0%B8%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8Dcpu-id/">
-				<h2 class="index-title">
-					Linux内核获取当前CPU id
-				</h2>
-				<div class="index-brief">
-					CPU id是percpu变量，调用smp_processor_id()可以取出。内核里对它的注释如下：
-smp_processor_id() is safe if it's used in a preemption-off critical section, or in a thread that
 					...
 				</div>
 			</a>
