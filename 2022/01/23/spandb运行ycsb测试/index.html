@@ -5623,6 +5623,8 @@ make</code></pre>
 <h3 id="生成db">生成DB</h3>
 <pre class="shell"><code>./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 1 rocksdb &lt;db_bak&gt;</code></pre>
 <p>这个时候最后一个参数<code>db_bak</code>会被忽略，生成的DB在<code>data_dir</code>里。需要手动把<code>data_dir</code>移动到<code>db_bak</code>。</p>
+<p>数据写入完成之后会sleep两个3分钟，可能是为了等待后台任务完成，然后打印一些信息之后才会退出，要耐心等待。</p>
+<p>注意，load模式不支持SpanDB，测试SpanDB的时候用的db_bak跟RocksDB是一样的。</p>
 <h3 id="测试rocksdb">测试RocksDB</h3>
 <pre class="shell"><code># 临时起效
 ulimit -n 100000
