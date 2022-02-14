@@ -5549,11 +5549,9 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>参考链接：<br>
-www.bo-yang.net/2017/11/19/cpp-kill-detached-thread</p>
-<p>“terminate 1 thread + forcefully (target thread doesn’t cooperate) + pure C++11 = No way”.<br>
+	<html><head></head><body><p>“terminate 1 thread + forcefully (target thread doesn’t cooperate) + pure C++11 = No way”.<br>
 <del>233333</del></p>
-<p>可以用pthread.h里的pthread_cancel来强行杀死某一线程。<br>
+<p>对于Linux/GCC，可以用pthread.h里的pthread_cancel来强行杀死某一线程。<br>
 注意thread对象的析构函数并不会把线程杀死。</p>
 <p>code:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
@@ -5667,6 +5665,7 @@ The thread is destructed
 <ol start="2" type="1">
 <li>detach之后native_handle返回的值就不对了，所以要在detach之前把这个值保存起来。</li>
 </ol>
+<p>来源：&lt;www.bo-yang.net/2017/11/19/cpp-kill-detached-thread&gt;</p>
 </body></html>
 </div>
 
