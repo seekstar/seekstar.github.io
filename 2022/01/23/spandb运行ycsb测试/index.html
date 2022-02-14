@@ -5649,8 +5649,6 @@ already allocated 3.38 GB
 <p>这时要么多申请一些huge page，要么减少TopFS使用的cache，即将<code>ycsb/src/test.cc</code>中的<code>main</code>函数里的</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>options<span class="op">.</span>topfs_cache_size <span class="op">=</span> <span class="dv">90</span><span class="op">;</span></span></code></pre></div>
 <p>改成更小的值，然后重新<code>make</code>，再跑就好了。</p>
-<h2 id="相关">相关</h2>
-<a href="#">Post not found: Linux/SPDK回收hugemem</a>
 <h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/SpanDB/SpanDB" class="uri">https://github.com/SpanDB/SpanDB</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.debian.org/Hugepages" class="uri">https://wiki.debian.org/Hugepages</a></p>
