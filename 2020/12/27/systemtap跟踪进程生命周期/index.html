@@ -5617,14 +5617,14 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>systemtap man: <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/man/" class="uri">https://sourceware.org/systemtap/man/</a><br>
 本来追踪进程生命周期可以用syscall.fork和syscall.exit之类的。但是有时候它们会失效（或者部分失效）。<br>
-所以更好的方式是用<code>kprocess</code>系列，文档：<a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/man/tapset::kprocess.3stap.html" class="uri">https://sourceware.org/systemtap/man/tapset::kprocess.3stap.html</a></p>
-<pre class="kprocess.create```的上下文应该是刚刚fork成功的父进程。"><code>```kprocess.start ```的上下文应该是刚刚被fork出来的子进程。
-```kprocess.exec ```的上下文是exec的调用者，此时execname仍然是原来的。
-```kprocess.exec_complete ```的上下文是exec执行完毕，此时execname已经改变了。
-```kprocess.exit ```的上下文是exit的调用者。
-```kprocess.release ```的上下文文档里这么说的：</code></pre>
-<p>The context of the parent, if it wanted notification of this process' termination, else the context of the process itself.<br>
-```</p>
+所以更好的方式是用<code>kprocess</code>系列，文档：<a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/man/tapset::kprocess.3stap.html" class="uri">https://sourceware.org/systemtap/man/tapset::kprocess.3stap.html</a><br>
+<code>kprocess.create</code>的上下文应该是刚刚fork成功的父进程。<br>
+<code>kprocess.start</code>的上下文应该是刚刚被fork出来的子进程。<br>
+<code>kprocess.exec</code>的上下文是exec的调用者，此时execname仍然是原来的。<br>
+<code>kprocess.exec_complete</code>的上下文是exec执行完毕，此时execname已经改变了。<br>
+<code>kprocess.exit</code>的上下文是exit的调用者。<br>
+<code>kprocess.release</code>的上下文文档里这么说的：</p>
+<pre class="text"><code>The context of the parent, if it wanted notification of this process' termination, else the context of the process itself.  </code></pre>
 </body></html>
 </div>
 

@@ -5675,24 +5675,17 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 <p>不使用virt-install的话，要手动创建虚拟机的磁盘文件。</p>
 <pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
 <pre><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
-<pre class="-f```后面跟虚拟机镜像格式，支持的有："><code>raw: 默认格式。裸的磁盘文件。
-[qcow2](https://blog.csdn.net/bemind1/article/details/99678172): 最常用。支持稀疏文件、快照等。
-其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。
-
-这些可以通过```man qemu-img```查到。
-
-#### 配置vnc viewer
-
-字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：&lt;https://blog.csdn.net/qq_41961459/article/details/112909800&gt;
-
-#### debian系
-
-要先允许弹出root窗口：[vnc root窗口无法弹出](https://blog.csdn.net/qq_41961459/article/details/112916589)
-
-然后安装虚拟机：
-
-```shell
-sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
+<p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
+raw: 默认格式。裸的磁盘文件。<br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
+其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。</p>
+<p>这些可以通过<code>man qemu-img</code>查到。</p>
+<h4 id="配置vnc-viewer">配置vnc viewer</h4>
+<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
+<h4 id="debian系">debian系</h4>
+<p>要先允许弹出root窗口：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112916589">vnc root窗口无法弹出</a></p>
+<p>然后安装虚拟机：</p>
+<pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <p>如果没有允许弹出root窗口，会报这个错：</p>
 <pre><code>X11 connection rejected because of wrong authentication.
 Unable to init server: Could not connect: Connection refused
@@ -5705,20 +5698,14 @@ gtk initialization failed</code></pre>
 <pre class="shell"><code>ssh -g -L 5900:localhost:5900 sshname</code></pre>
 <p>然后保持这个shell不要关，在另一个shell里输入如下命令：</p>
 <pre class="shell"><code>vncviewer localhost:0</code></pre>
-<p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"></p>
-<pre class="ctrl+alt+g```可以取消捕获。"><code>
-## 联网
-
-虚拟机一开始是没有网络的。
-
-### 桥接网卡（使用nmcli+virsh）
-
-&lt;https://blog.csdn.net/qq_41961459/article/details/119501450&gt;
-
-### 桥接网卡（有概率失败）
-
-```shell
-sudo apt install bridge-utils uml-utilities</code></pre>
+<p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"><br>
+<code>ctrl+alt+g</code>可以取消捕获。</p>
+<h2 id="联网">联网</h2>
+<p>虚拟机一开始是没有网络的。</p>
+<h3 id="桥接网卡使用nmclivirsh">桥接网卡（使用nmcli+virsh）</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119501450" class="uri">https://blog.csdn.net/qq_41961459/article/details/119501450</a></p>
+<h3 id="桥接网卡有概率失败">桥接网卡（有概率失败）</h3>
+<pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
 <p>先看自己的机器的网卡编号</p>
 <pre class="shell"><code>ip addr</code></pre>
 <pre><code>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000

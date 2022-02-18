@@ -5861,22 +5861,18 @@ rm $tmp</code></pre>
 <li>查看当前目录下所有文件夹的大小</li>
 </ul>
 <pre class="shell"><code>du -h</code></pre>
-<pre class="-h```是```--human-readable```的缩写。"><code>
-- 查看当前目录的大小
-
-```shell
-du -sh</code></pre>
-<pre class="-s```是```--summarize```的缩写。"><code>
-参考：&lt;https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html&gt;
-
-### pidof 进程名
-
-返回某进程名对应的pid
-例子：
-杀掉所有名字为ssh-agent的进程
-
-```shell
-kill $(pidof ssh-agent)</code></pre>
+<p><code>-h</code>是<code>--human-readable</code>的缩写。</p>
+<ul>
+<li>查看当前目录的大小</li>
+</ul>
+<pre class="shell"><code>du -sh</code></pre>
+<p><code>-s</code>是<code>--summarize</code>的缩写。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
+<h3 id="pidof-进程名">pidof 进程名</h3>
+<p>返回某进程名对应的pid<br>
+例子：<br>
+杀掉所有名字为ssh-agent的进程</p>
+<pre class="shell"><code>kill $(pidof ssh-agent)</code></pre>
 <h3 id="ip">ip</h3>
 <p>查看本机ip地址</p>
 <pre class="shell"><code>ip addr</code></pre>
@@ -5931,11 +5927,9 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p>其中s是指替换，g是全局替换，/是分隔符。总体的意思是把，也就是删掉也就是CR）。</p>
 <h4 id="把文件中的lf替换成crlf">把文件中的LF替换成CRLF</h4>
 <pre class="shell"><code>sed -i 's/$/\r/g' FileName</code></pre>
-<pre class="$```的意思是每行的末尾。在每行的末尾把空字符串替换成\r（cr），也就是插入\r（cr）。在linux中换行是lf，所以相当于在lf前面插入一个cr，变成crlf。"><code>
-#### 保留每行的最后一个单词
-
-```shell
-sed -i 's/.* //g' FileName</code></pre>
+<p><code>$</code>的意思是每行的末尾。在每行的末尾把空字符串替换成CR），也就是插入CR）。在linux中换行是LF，所以相当于在LF前面插入一个CR，变成CRLF。</p>
+<h4 id="保留每行的最后一个单词">保留每行的最后一个单词</h4>
+<pre class="shell"><code>sed -i 's/.* //g' FileName</code></pre>
 <p>正则表达式里，点<code>.</code>几乎可以匹配任何字符，所以<code>.*</code>会尽量匹配尽量长的字符串。<code>.*空格</code>表示最长的以空格结尾的字符串。<code>s/.* //g</code>表示把每行的最长的以空格结尾的字符串删掉。所以每行只留下了最后一个单词了。</p>
 <p>也可从stdin读取。<br>
 例：获取git版本号</p>

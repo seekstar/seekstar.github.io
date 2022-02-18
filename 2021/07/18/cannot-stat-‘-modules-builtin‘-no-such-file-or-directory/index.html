@@ -5616,16 +5616,16 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p><code>make modules_install</code>时报错：</p>
-<pre><code>cp: cannot stat './modules.builtin': No such file or directory</code></pre>
+<pre class="text"><code>cp: cannot stat './modules.builtin': No such file or directory</code></pre>
 <p>这是因为<code>make modules.builtin</code>时出问题了，导致这个文件没有被编译出来。再跑一遍</p>
 <pre class="shell"><code>make modules.builtin</code></pre>
 <p>看看会报什么错。我这里报的是</p>
-<pre><code>/bin/sh: 1: flex: not found</code></pre>
+<pre class="text"><code>/bin/sh: 1: flex: not found</code></pre>
 <p>所以安装一下flex，重新make就好了</p>
 <pre class="shell"><code>sudo apt install flex
 make modules.builtin</code></pre>
 <p>再尝试<code>make modules_install</code>，继续报错</p>
-<pre><code>cannot stat 'arch/x86/crypto/aegis128-aesni.ko': No such file or directory</code></pre>
+<pre class="text"><code>cannot stat 'arch/x86/crypto/aegis128-aesni.ko': No such file or directory</code></pre>
 <p>同样先make一下它</p>
 <pre class="shell"><code>make arch/x86/crypto/aegis128-aesni.ko</code></pre>
 <pre class="shell"><code>warning: Cannot use CONFIG_STACK_VALIDATION=y, please install libelf-dev, libelf-devel or elfutils-libelf-devel</code></pre>
