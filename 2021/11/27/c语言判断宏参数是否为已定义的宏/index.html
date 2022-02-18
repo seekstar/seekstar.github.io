@@ -5631,12 +5631,10 @@ var _hmt = _hmt || [];
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">    puts(#name); \</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">    puts(STRINGIFY(name)); \</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">} while (0)</span></span></code></pre></div>
-<pre class="puts(#name)```是直接将```name```变成其代表的字符串。但是假如```name```是一个已定义宏，那在将```name```传入到```stringify```里面前，会先将```name```展开，然后```stringify```里就是将展开后的```name```转成字符串。"><code>
-举个例子：
-
-```c
-#define TEST1_DISABLED 1
-CHECK2(TEST1_DISABLED);</code></pre>
+<p><code>puts(#name)</code>是直接将<code>name</code>变成其代表的字符串。但是假如<code>name</code>是一个已定义宏，那在将<code>name</code>传入到<code>STRINGIFY</code>里面前，会先将<code>name</code>展开，然后<code>STRINGIFY</code>里就是将展开后的<code>name</code>转成字符串。</p>
+<p>举个例子：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CHECK2<span class="op">(</span>TEST1_DISABLED<span class="op">);</span></span></code></pre></div>
 <p>输出为</p>
 <pre><code>TEST1_DISABLED
 1</code></pre>

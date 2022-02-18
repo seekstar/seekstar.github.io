@@ -5627,23 +5627,23 @@ var _hmt = _hmt || [];
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    fun<span class="op">();</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>保存为<code>test.c</code><br>
-# C</p>
+<p>保存为<code>test.c</code></p>
+<h2 id="c">C</h2>
 <pre class="shell"><code>gcc test.c -o test
 objdump -D test | grep fun</code></pre>
 <p>输出的结果是</p>
-<pre><code>000000000000063a &lt;fun&gt;:
+<pre class="text"><code>000000000000063a &lt;fun&gt;:
  656:   e8 df ff ff ff          callq  63a &lt;fun&gt;</code></pre>
-<h1 id="c">C++</h1>
+<h2 id="c-1">C++</h2>
 <p>用g++编译</p>
 <pre class="shell"><code>g++ test.c -o test
 objdump -D test | grep fun</code></pre>
 <p>输出的结果是</p>
-<pre><code>000000000000063a &lt;_Z3funv&gt;:
+<pre class="text"><code>000000000000063a &lt;_Z3funv&gt;:
  651:   e8 e4 ff ff ff          callq  63a &lt;_Z3funv&gt;</code></pre>
 <p>可以看到符号变成了<code>_Z3funv</code><br>
 就很恶心</p>
-<h1 id="rust">rust</h1>
+<h2 id="rust">rust</h2>
 <p>rust也有这种问题（但是可以解决）。</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> fun() <span class="op">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
@@ -5653,7 +5653,7 @@ objdump -D test | grep fun</code></pre>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>rustc test.rs
 objdump -D test | grep rs_fun</code></pre>
-<pre><code>0000000000004700 &lt;_ZN4test6rs_fun17he2386bae0dbca493E&gt;:
+<pre class="text"><code>0000000000004700 &lt;_ZN4test6rs_fun17he2386bae0dbca493E&gt;:
     4751:       e8 aa ff ff ff          callq  4700 &lt;_ZN4test6rs_fun17he2386bae0dbca493E&gt;
     4695:       73 74                   jae    470b &lt;_ZN4test6rs_fun17he2386bae0dbca493E+0xb&gt;
     46a0:       73 5f                   jae    4701 &lt;_ZN4test6rs_fun17he2386bae0dbca493E+0x1&gt;</code></pre>
@@ -5668,7 +5668,7 @@ objdump -D test | grep rs_fun</code></pre>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>rustc good.rs
 objdump -D good | grep rs_fun</code></pre>
-<pre><code>00000000000046c0 &lt;rs_fun&gt;:
+<pre class="text"><code>00000000000046c0 &lt;rs_fun&gt;:
     4711:       e8 aa ff ff ff          callq  46c0 &lt;rs_fun&gt;
     46d7:       00 05 00 00 00 00       add    %al,0x0(%rip)        # 46dd &lt;rs_fun+0x1d&gt;
     464f:       65 64 4f 75 74          gs fs rex.WRXB jne 46c8 &lt;rs_fun+0x8&gt;</code></pre>

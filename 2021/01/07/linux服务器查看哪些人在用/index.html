@@ -5615,10 +5615,9 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><pre class="w```和```who```只能查看哪些人登陆了，但是如果是用vscode登陆的就看不到，只有一个node进程。而且如果有人在后台跑程序也看不到。"><code>
-所以需要一个可以查看系统中哪些人的进程在跑的命令：
-```shell
-ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u | xargs -i id -nu {}</code></pre>
+	<html><head></head><body><p><code>w</code>和<code>who</code>只能查看哪些人登陆了，但是如果是用vscode登陆的就看不到，只有一个node进程。而且如果有人在后台跑程序也看不到。</p>
+<p>所以需要一个可以查看系统中哪些人的进程在跑的命令：</p>
+<pre class="shell"><code>ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u | xargs -i id -nu {}</code></pre>
 <p><img src="/2021/01/07/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9F%A5%E7%9C%8B%E5%93%AA%E4%BA%9B%E4%BA%BA%E5%9C%A8%E7%94%A8/20210107194556458.png" alt="在这里插入图片描述"></p>
 <p>这里只显示uid大于等于1000的用户，因为小于1000的不是真实用户。不过看样子uid大于1000的用户也可能不是真实用户，比如上图的<code>systemd-timesync</code>。</p>
 </body></html>

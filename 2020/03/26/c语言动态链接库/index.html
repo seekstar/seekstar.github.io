@@ -5685,9 +5685,9 @@ gcc -fPIC -c sub.c</code></pre>
 gcc main.o -L. -lmymath -o main</code></pre>
 <p>或者一步到位：</p>
 <pre class="shell"><code>gcc main.c -L. -lmymath -o main</code></pre>
-<pre class="-l.```的作用是让操作系统在当前目录下找libmymath.so。"><code>如果libmymath.so在共享库目录如```/lib```里，就不需要```-L.```。
-```shell
-gcc main.c -lmymath -o main</code></pre>
+<p><code>-L.</code>的作用是让操作系统在当前目录下找libmymath.so。<br>
+如果libmymath.so在共享库目录如<code>/lib</code>里，就不需要<code>-L.</code>。</p>
+<pre class="shell"><code>gcc main.c -lmymath -o main</code></pre>
 <h2 id="运行-1">运行</h2>
 <p>操作系统要找到libmymath.so，才能在运行时将其链接到main上。windows中当动态链接库与可执行文件在同一目录下时便会自动链接上，但是linux中只会去共享库目录下去找。</p>
 <p>让操作系统找到libmymath.so有几种方法：</p>

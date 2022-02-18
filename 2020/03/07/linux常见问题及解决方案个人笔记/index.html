@@ -5615,8 +5615,8 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="su鉴定故障">su：鉴定故障</h1>
-<pre><code>运行 gsmartcontrol (以用户 root)失败
+	<html><head></head><body><h2 id="su鉴定故障">su：鉴定故障</h2>
+<pre class="text"><code>运行 gsmartcontrol (以用户 root)失败
 
 与 gksu-run-helper 通信失败。
 
@@ -5624,11 +5624,11 @@ var _hmt = _hmt || [];
  su：鉴定故障
 但期望的是：
  gksu: waiting</code></pre>
-<p>参考：<a target="_blank" rel="noopener" href="https://forum.ubuntu.com.cn/viewtopic.php?t=307361" class="uri">https://forum.ubuntu.com.cn/viewtopic.php?t=307361</a><br>
-解决方案：<br>
-<code>shell  gksu-properties</code><br>
-将验证模式由su改为sudo。</p>
-<h1 id="make1--libmodules4190-8-amd64build-no-such-file-or-directory-stop">make[1]: *** /lib/modules/4.19.0-8-amd64/build: No such file or directory. Stop.</h1>
+<p>解决方案：</p>
+<pre class="shell"><code>gksu-properties</code></pre>
+<p>将验证模式由su改为sudo。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://forum.ubuntu.com.cn/viewtopic.php?t=307361" class="uri">https://forum.ubuntu.com.cn/viewtopic.php?t=307361</a></p>
+<h2 id="make1--libmodules4190-8-amd64build-no-such-file-or-directory-stop">make[1]: *** /lib/modules/4.19.0-8-amd64/build: No such file or directory. Stop.</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.tecmint.com/install-kernel-headers-in-ubuntu-and-debian/" class="uri">https://www.tecmint.com/install-kernel-headers-in-ubuntu-and-debian/</a></p>
 <pre class="shell"><code>sudo apt install linux-headers-$(uname -r)</code></pre>
 </body></html>

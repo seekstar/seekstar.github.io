@@ -5623,11 +5623,11 @@ var _hmt = _hmt || [];
 在lfence指令前的读操作当必须在lfence指令后的读操作前完成。<br>
 - mfence: memory fence<br>
 在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。</p>
-<p>linux内核中把它们封装成了一些函数。</p>
-<pre class="/linux/arch/x86/um/asm/barrier.h```"><code>```c
-#define mb()    asm volatile("mfence" : : : "memory")
-#define rmb()   asm volatile("lfence" : : : "memory")
-#define wmb()   asm volatile("sfence" : : : "memory")</code></pre>
+<p>linux内核中把它们封装成了一些函数。<br>
+<code>/linux/arch/x86/um/asm/barrier.h</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define mb()    asm volatile("mfence" : : : "memory")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define rmb()   asm volatile("lfence" : : : "memory")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define wmb()   asm volatile("sfence" : : : "memory")</span></span></code></pre></div>
 </body></html>
 </div>
 
