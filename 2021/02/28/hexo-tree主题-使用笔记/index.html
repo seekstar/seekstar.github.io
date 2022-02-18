@@ -5651,7 +5651,7 @@ var _hmt = _hmt || [];
 <h2 id="预览">预览</h2>
 <pre class="shell"><code>hexo g &amp;&amp; hexo s</code></pre>
 <p>就会编译并且在本地<code>4000</code>端口开一个网站</p>
-<pre><code>INFO  Validating config
+<pre class="text"><code>INFO  Validating config
 INFO  Start processing
 INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</code></pre>
 <p>在浏览器地址栏输入<code>http://localhost:4000</code>或者在终端<code>ctrl+左键</code>这个链接（如果终端支持的话）就可以预览博客了。当本地的文件改变之后，预览的博客会自动更新。</p>
@@ -5669,29 +5669,24 @@ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</code></p
 <p>会自动推送到gitee和github。</p>
 <p>然后到github的网站仓库<code>用户名.github.io</code>里开启github pages：进入仓库设置，<code>Options</code>里往下划，可以看到<code>GitHub Pages</code>，选择branch为master（或main），然后<code>Save</code>就好了。进入<code>https://用户名.github.io</code>即可查看。</p>
 <p>然后到gitee的网站仓库<code>用户名</code>里开启gitee pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>Gitee Pages</code>，同样选择branch为master，并勾选<code>Enforce HTTPS</code>，然后点击<code>Update</code>，等一段时间即可。进入<code>https://用户名.gitee.io</code>即可查看。</p>
-<pre class="github.io```部署后等一段时间会自动更新，但是```gitee.io```每次部署都必须手动```update```才能生效，有点恶心。"><code>
-## 选择主题
-
-默认主题不好用。&lt;https://hexo.io/themes/&gt;可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。
-
-建议使用```tree```主题，它有如下优点：
-
-- 可以把博客以文件夹的形式组织
-- 左边的索引可以收起来，防止占用屏幕空间
-- 上部有```标签```和```分类```的入口，进入网站即可点击
-- header随着页面往下翻可以收起来，防止占用屏幕空间
-
-缺点也很明显：
-
-- 手机版上```标签```和```分类```入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。
-- 访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。
-
-## 更换主题
-
-这里选择tree主题。在```themes```下执行
-
-```shell
-git clone https://github.com/wujun234/hexo-theme-tree tree
+<p><code>github.io</code>部署后等一段时间会自动更新，但是<code>gitee.io</code>每次部署都必须手动<code>Update</code>才能生效，有点恶心。</p>
+<h2 id="选择主题">选择主题</h2>
+<p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/" class="uri">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
+<p>建议使用<code>tree</code>主题，它有如下优点：</p>
+<ul>
+<li>可以把博客以文件夹的形式组织</li>
+<li>左边的索引可以收起来，防止占用屏幕空间</li>
+<li>上部有<code>标签</code>和<code>分类</code>的入口，进入网站即可点击</li>
+<li>header随着页面往下翻可以收起来，防止占用屏幕空间</li>
+</ul>
+<p>缺点也很明显：</p>
+<ul>
+<li>手机版上<code>标签</code>和<code>分类</code>入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</li>
+<li>访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</li>
+</ul>
+<h2 id="更换主题">更换主题</h2>
+<p>这里选择tree主题。在<code>themes</code>下执行</p>
+<pre class="shell"><code>git clone https://github.com/wujun234/hexo-theme-tree tree
 cd tree
 rm -rf .git</code></pre>
 <p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>
