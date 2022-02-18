@@ -3113,6 +3113,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/02/18/markdown-inline-code/">
+                     
+										    markdown inline code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/03/22/markdown%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    markdown个人学习笔记
@@ -3138,6 +3149,17 @@ var _hmt = _hmt || [];
 									<a href="/2019/11/25/vue-cli-service-permission-denied/">
                      
 										    vue-cli-service Permission denied
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/02/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    正则表达式学习笔记
                      
 									</a>
 								</li>
@@ -5144,17 +5166,6 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2022/02/18/markdown-inline-code/">
-                     
-										    markdown inline code
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -5914,31 +5925,16 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <pre class="shell"><code>locate name</code></pre>
 <p>查找文件（文件夹）</p>
 <h3 id="sed">sed</h3>
-<h4 id="保护链接">保护链接</h4>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a><br>
-<code>sed -i</code>会破坏符号链接和硬链接。<br>
-<code>sed --follow-symlinks -i</code>保护软链接，但是不保护硬链接。<br>
-<code>sed -i -c</code>会保护符号链接和硬链接（但是我的sed没有这个选项，可能只有新版本才有）。</p>
-<h4 id="把文件中的crlf替换成lf">把文件中的CRLF替换成LF</h4>
-<pre class="shell"><code>sed -i 's/\r//g' FileName</code></pre>
-<p>-i指直接修改文件，而不是把修改结果输出到stdout。<br>
-模式可以分解为</p>
-<pre><code>s/  \r  /   /  g</code></pre>
-<p>其中s是指替换，g是全局替换，/是分隔符。总体的意思是把，也就是删掉也就是CR）。</p>
-<h4 id="把文件中的lf替换成crlf">把文件中的LF替换成CRLF</h4>
-<pre class="shell"><code>sed -i 's/$/\r/g' FileName</code></pre>
-<p><code>$</code>的意思是每行的末尾。在每行的末尾把空字符串替换成CR），也就是插入CR）。在linux中换行是LF，所以相当于在LF前面插入一个CR，变成CRLF。</p>
-<h4 id="保留每行的最后一个单词">保留每行的最后一个单词</h4>
-<pre class="shell"><code>sed -i 's/.* //g' FileName</code></pre>
-<p>正则表达式里，点<code>.</code>几乎可以匹配任何字符，所以<code>.*</code>会尽量匹配尽量长的字符串。<code>.*空格</code>表示最长的以空格结尾的字符串。<code>s/.* //g</code>表示把每行的最长的以空格结尾的字符串删掉。所以每行只留下了最后一个单词了。</p>
-<p>也可从stdin读取。<br>
-例：获取git版本号</p>
-<pre class="shell"><code>git --version | sed 's/.* //g'</code></pre>
-<h4 id="在每个单词前插入">在每个单词前插入</h4>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lwlfox/article/details/85065026" class="uri">https://blog.csdn.net/lwlfox/article/details/85065026</a></p>
-<pre class="shell"><code>sed 's/\b\S*\b/test&amp;/g' a.txt</code></pre>
-<p><code>\b</code>: 单词边界<br>
-<code>&amp;</code>: 前面匹配的字符串</p>
+<p>从stdin读入，将修改后的结果写入到stdout：</p>
+<pre class="shell"><code>sed 's/源pattern/目的pattern/g'</code></pre>
+<p>其中<code>s</code>是指替换，<code>g</code>是全局替换，<code>/</code>是分隔符。然后sed就会逐行去找源pattern，并且替换为目的pattern。</p>
+<p>从文件读入，将修改后的结果写入到stdout：</p>
+<pre class="shell"><code>sed 's/源pattern/目的pattern/g' FileName</code></pre>
+<p>源pattern和目的pattern的一些例子见：<a href="#">Post not found: Other/Language/正则表达式学习笔记.md</a></p>
+<p>此外，sed提供了一些选项：</p>
+<p><code>-i</code>: 直接修改文件（默认是输出编辑后的结果到stdout）。</p>
+<p><code>--follow-symlinks</code>: <code>-i</code>会破坏符号链接和硬链接，加上这个选项之后可以保护软链接不被破坏，但是不保护硬链接。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a></p>
+<p><code>-c</code>: 保护符号链接和硬链接（但是我的sed没有这个选项）。</p>
 <h2 id="其他">其他</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mydriverc2/article/details/82623778">linux中怎么用shell显示文件某一行或几行内容</a></p>
 </body></html>
