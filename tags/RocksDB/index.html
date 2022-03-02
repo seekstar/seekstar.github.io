@@ -5650,11 +5650,9 @@ var _hmt = _hmt || [];
 					RocksDB将上面几层放到快速设备,下面几层放到慢速设备
 				</h2>
 				<div class="index-brief">
-					假设快速存储设备挂载到了/tmp/sd上，慢速存储设备挂载到了/tmp/cd上，数据库的主目录放到/tmp/rocksdb里。
-例子：把如下内容保存为test.cpp
-#include &lt;iostream&gt;
-#include &lt;filesystem&gt;
-#include &lt
+					可以通过设置DBOptions::db_paths实现，代码里的相关注释：
+  // A list of paths where SST files can be put into, with its target size.
+  // Newer data is placed into paths
 					...
 				</div>
 			</a>
