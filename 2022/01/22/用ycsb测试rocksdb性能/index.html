@@ -5737,17 +5737,11 @@ export JAVA_HOME=/usr/lib/jvm/default-java</code></pre>
 <p>参考：<a href="https://seekstar.github.io/2022/01/21/java-home-is-not-set/" class="uri">https://seekstar.github.io/2022/01/21/java-home-is-not-set/</a></p>
 <h4 id="cmake">cmake</h4>
 <pre class="shell"><code>sudo apt install -y cmake</code></pre>
-<h4 id="跨平台相关包未验证">跨平台相关包（未验证）</h4>
-<p>如果不安装这些依赖，就要改<code>Makefile</code>来取消跨平台，教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a993096281/article/details/87864340">rocksdb在YCSB中的运行教程</a>。注意，用<code>#</code>注释掉可能不太行，最好直接删掉。</p>
-<p>简单起见，这里就装一下这些依赖。</p>
-<pre class="shell"><code>sudo apt install -y vagrant</code></pre>
-<p>再安装virtualbox，debian用户可以看这里：<a target="_blank" rel="noopener" href="https://wiki.debian.org/VirtualBox" class="uri">https://wiki.debian.org/VirtualBox</a></p>
-<p>但是我安装virtualbox的时候报错了：</p>
-<pre><code>The character device /dev/vboxdrv does not exist</code></pre>
-<p>可能要把secure boot关掉才行：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/60350358/how-do-i-resolve-the-character-device-dev-vboxdrv-does-not-exist-error-in-ubu" class="uri">https://stackoverflow.com/questions/60350358/how-do-i-resolve-the-character-device-dev-vboxdrv-does-not-exist-error-in-ubu</a></p>
+<h4 id="更改makefile取消跨平台">更改<code>Makefile</code>取消跨平台</h4>
+<p>教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a993096281/article/details/87864340">rocksdb在YCSB中的运行教程</a>。注意，用<code>#</code>注释掉可能不太行，最好直接删掉。</p>
 <h3 id="构建并使用rocksdb-java包">构建并使用rocksdb java包</h3>
 <p>因为YCSB是用java写的，所以要构建rocksdb的java包来测试。</p>
-<pre class="shell"><code>make rocksdbjavastaticrelease</code></pre>
+<pre class="shell"><code>make rocksdbjavastaticrelease DEBUG_LEVEL=0</code></pre>
 <p>编译出来的文件在<code>java/target/rocksdbjni-6.27.3.jar</code>。</p>
 <p>把这个文件复制到YCSB的<code>rocksdb/target/dependency/</code>下面，然后更改<code>rocksdb/pom.xml</code>，找到<code>rocksdbjni</code>的部分，把它的<code>version</code>从默认的</p>
 <pre><code>&lt;version&gt;${rocksdb.version}&lt;/version&gt;</code></pre>
