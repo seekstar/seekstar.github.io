@@ -5708,13 +5708,29 @@ var _hmt = _hmt || [];
     
 		<span>Tags：</span>
             
+                
+                    <span>
+                        <i class="fa fa-tag" aria-hidden="true">
+                        <a href="/tags/RocksDB/">RocksDB</a>
+                        </i>
+                    </span>
+                
+            
     
 		</div>
 
 </div>
 
 <div id="article-content">
-	<html><head></head><body></body></html>
+	<html><head></head><body><p>这里从<code>DBImpl::MaybeScheduleFlushOrCompaction</code>开始讲起。</p>
+<p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Flush。</p>
+<p><code>DBImpl::BGWorkFlush</code>中调用了<code>DBImpl::BackgroundCallFlush</code>。</p>
+<p><code>DBImpl::BackgroundCallFlush</code>中调用了<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
+<p><code>DBImpl::BackgroundFlush</code>中调用了<code>DBImpl::FlushMemTablesToOutputFiles</code>。</p>
+<p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。取出一些参数之后，调用<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
+<p><code>DBImpl::FlushMemTableToOutputFile</code>中，构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code>，然后调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>，在其中会调用<code>DBImpl::SchedulePendingCompaction</code>和<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层。</p>
+<p><code>FlushJob::Run</code>中，调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。</p>
+</body></html>
 </div>
 
 
