@@ -4809,6 +4809,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
+                     
+										    RocksDB代码分析——Flush流程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -4856,6 +4867,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/01/23/spandb%E8%BF%90%E8%A1%8Cycsb%E6%B5%8B%E8%AF%95/">
                      
 										    SpanDB运行YCSB测试
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/03/03/ycsb%E7%94%9F%E6%88%90trace/">
+                     
+										    YCSB生成trace
                      
 									</a>
 								</li>
@@ -5667,6 +5689,54 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/20/tmux%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
+				<h2 class="index-title">
+					tmux基础用法
+				</h2>
+				<div class="index-brief">
+					详细教程：https://www.ruanyifeng.com/blog/2019/10/tmux.html
+新建会话
+tmux
+底下的状态栏里最左边方括号里的就是自动分配的会话名称。
+也可以手动指定会话名称：
+tmux new -s &lt;session-name&gt;
+关闭当前会话
+Ctrl
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/19/unknown-symbol-crc32c/">
+				<h2 class="index-title">
+					Unknown symbol crc32c
+				</h2>
+				<div class="index-brief">
+					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
+cd /lib/modules/$(uname -r)
+find . -iname "*crc32c*"
+./kernel/lib/libcrc32c.ko
+这就是我们要load的模块了。
+sudo modprobe 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/19/rust-note-warn-dead-code-on-by-default/">
 				<h2 class="index-title">
 					rust note: `#[warn(dead_code)]` on by default
@@ -5846,49 +5916,6 @@ impl&lt;const P: usize&gt; ModVal&lt;P&gt; {
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
-				<h2 class="index-title">
-					Mac cargo flamegraph dtrace
-				</h2>
-				<div class="index-brief">
-					dtrace: system integrity protection is on, some features will not be available
-dtrace: failed to initialize dtrace: DTrace requires additional privile
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/07/rust%E8%BF%9B%E5%BA%A6%E6%9D%A1/">
-				<h2 class="index-title">
-					rust进度条
-				</h2>
-				<div class="index-brief">
-					用indicatif即可。
-官方文档：https://docs.rs/indicatif/0.16.2/indicatif/
-一个简单的例子：
-use indicatif::ProgressBar;
-
-fn main() {
-    let bar = ProgressBar::new(1000);
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-07</span>
                     
                             
                     

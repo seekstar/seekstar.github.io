@@ -4809,6 +4809,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
+                     
+										    RocksDB代码分析——Flush流程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -4856,6 +4867,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/01/23/spandb%E8%BF%90%E8%A1%8Cycsb%E6%B5%8B%E8%AF%95/">
                      
 										    SpanDB运行YCSB测试
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/03/03/ycsb%E7%94%9F%E6%88%90trace/">
+                     
+										    YCSB生成trace
                      
 									</a>
 								</li>
@@ -5667,6 +5689,55 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/08/22/virtualbox%E5%AE%89%E8%A3%85deepin-v15-11%E5%90%8E%E5%AE%89%E8%A3%85%E5%A2%9E%E5%BC%BA%E5%8A%9F%E8%83%BD/">
+				<h2 class="index-title">
+					virtualbox安装deepin v15.11后安装增强功能
+				</h2>
+				<div class="index-brief">
+					没有安装增强功能的话貌似不能让虚拟机自动调整分辨率。
+点击
+
+结果提示挂载失败。
+这一般是由于已经挂载上了。
+在虚拟机里打开文件管理器
+
+打开。
+不要运行autorun.sh，会提示出错。以root运行VBoxLinuxAdditions.run
+
+然后重启虚拟机就好了。
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-08-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/08/22/warning-deprecated-key-derivation-used-using-iter-or-pbkdf2-would-be-better/">
+				<h2 class="index-title">
+					*** WARNING : deprecated key derivation used. Using -iter or -pbkdf2 would be better.
+				</h2>
+				<div class="index-brief">
+					参考：https://unix.stackexchange.com/questions/507131/openssl-1-1-1b-warning-using-iter-or-pbkdf2-would-be-better-while-decrypting
+加上-pbkdf2即可。
+openssl a
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-08-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/08/22/deepin%E8%AE%AF%E9%A3%9E%E8%BE%93%E5%85%A5%E6%B3%95%E8%B0%83%E6%95%B4%E5%8F%A5%E5%8F%B7%E4%B8%BA%E5%85%A8%E8%A7%92%E5%8F%A5%E5%8F%B7/">
 				<h2 class="index-title">
 					deepin讯飞输入法调整句号为全角句号
@@ -5834,51 +5905,6 @@ vscode居然没有提示
 			</a>
                 <div class="article-meta">
 				    <span>2020-08-11</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/11/linux-kernel%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%80%E7%89%88%E6%9C%AC%E7%9A%84%E4%BB%A3%E7%A0%81/">
-				<h2 class="index-title">
-					linux kernel查看某一版本的代码
-				</h2>
-				<div class="index-brief">
-					参考：
-https://stackoverflow.com/questions/28136815/linux-kernel-how-to-obtain-a-particular-version-right-upto-sublevel
-git tag -l
-挑一个想要的版本
-
-rc表示Release 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-11</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/07/%E8%A7%A3%E5%86%B3deepin%E6%97%A0%E6%B3%95%E8%B0%83%E8%8A%82%E5%B1%8F%E5%B9%95%E4%BA%AE%E5%BA%A6%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					解决deepin无法调节屏幕亮度的问题
-				</h2>
-				<div class="index-brief">
-					更新到deepin v20之后，新系统的设置里的亮度调节貌似只能调节硬件背光。而我的显示器不支持调节背光，所以设置里的亮度调节失效了。
-解决方案是使用软件背光，并且设置自启。
-先安装redshift。在终端输入
-sudo apt install redshift
-在~/.config/autosta
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-07</span>
                     
                             
                     

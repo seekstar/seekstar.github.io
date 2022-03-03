@@ -4809,6 +4809,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
+                     
+										    RocksDB代码分析——Flush流程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -4856,6 +4867,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/01/23/spandb%E8%BF%90%E8%A1%8Cycsb%E6%B5%8B%E8%AF%95/">
                      
 										    SpanDB运行YCSB测试
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/03/03/ycsb%E7%94%9F%E6%88%90trace/">
+                     
+										    YCSB生成trace
                      
 									</a>
 								</li>
@@ -5667,6 +5689,50 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2019/11/03/bzoj-1502%E6%9C%88%E4%B8%8B%E6%9F%A0%E6%AA%AC%E6%A0%91-simpson%E7%A7%AF%E5%88%86/">
+				<h2 class="index-title">
+					bzoj 1502月下柠檬树 Simpson积分
+				</h2>
+				<div class="index-brief">
+					关键点是，水平的圆投影到水平面之后仍然是与原先全等的圆。
+然后圆与圆之间通过曲面无缝连接，所以投影下来之后圆与圆之间通过公切线连接。
+直接求有点难。把投影区域的上边界当成一个函数，然后套Simpson积分就简单了。
+我的实现用了指针从左往右扫，其实没必要，暴力好像还会快一点。
+代码(darkbzoj
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2019-11-03</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2019/11/02/poj-2826/">
+				<h2 class="index-title">
+					poj 2826
+				</h2>
+				<div class="index-brief">
+					vjudge链接：https://vjudge.net/problem/POJ-2826
+题意很简单，天上下雨，用两根线段接水，问能接住多少面积的水。
+看起来很简单，然后WA了5发。。。
+首先判断两根线段是否相交，若不相交则显然不能接到水。
+然后求交点p。分别求出两条线段的端点中较上面的端点p1, 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2019-11-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2019/11/01/%E5%B8%A6%E6%97%A0%E7%A9%B7%E5%88%A4%E6%96%AD%E7%9A%84%E5%8D%8A%E5%B9%B3%E9%9D%A2%E4%BA%A4/">
 				<h2 class="index-title">
 					带无穷判断的半平面交
@@ -5849,46 +5915,6 @@ ZJOI小星星
 			</a>
                 <div class="article-meta">
 				    <span>2019-10-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2019/09/29/2019-ccpc%E7%A7%A6%E7%9A%87%E5%B2%9B%E7%8E%B0%E5%9C%BA%E8%B5%9Ba%E9%A2%98o-n-2-%E5%81%9A%E6%B3%95/">
-				<h2 class="index-title">
-					2019 CCPC秦皇岛现场赛A题O(n^2)做法
-				</h2>
-				<div class="index-brief">
-					链接：http://acm.hdu.edu.cn/showproblem.php?pid=6731
-可惜了。现场赛用的GCD加hash，然后因为GCD的log刚好是二分的log的3倍，时限2000ms我2038ms被卡掉了。。。
-思路：
-把任意两个不同的点的向量存到哈希表里，然后对于每一个询问A，先
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-09-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2019/09/25/%E8%A7%A3%E5%86%B3linux%E4%B8%8Blatex%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8consolas%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					解决linux下latex无法使用consolas的问题
-				</h2>
-				<div class="index-brief">
-					在网上找了好久都没有合适的解决方案TT。
-结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2019-09-25</span>
                     
                             
                     
