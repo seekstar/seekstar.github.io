@@ -5726,7 +5726,7 @@ var _hmt = _hmt || [];
 <p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Flush。</p>
 <p><code>DBImpl::BGWorkFlush</code>中调用了<code>DBImpl::BackgroundCallFlush</code>。</p>
 <p><code>DBImpl::BackgroundCallFlush</code>中调用了<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
-<p><code>DBImpl::BackgroundFlush</code>中调用了<code>DBImpl::FlushMemTablesToOutputFiles</code>。</p>
+<p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），然后调用<code>DBImpl::FlushMemTablesToOutputFiles</code>。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a></p>
 <p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。取出一些参数之后，调用<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
 <p><code>DBImpl::FlushMemTableToOutputFile</code>中，构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code>，然后调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>，在其中会调用<code>DBImpl::SchedulePendingCompaction</code>和<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层。</p>
 <p><code>FlushJob::Run</code>中，调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。</p>
