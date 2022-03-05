@@ -5362,7 +5362,11 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>deepin和centos 8测试通过。</p>
+	<html><head></head><body><p>已测试的组合：</p>
+<ul>
+<li><p>宿主机：Deepin、Debian 11、centos 8</p></li>
+<li><p>虚拟机：CentOS 8</p></li>
+</ul>
 <h2 id="下载操作系统镜像">下载操作系统镜像</h2>
 <p>可以用中科大的源下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a><br>
 找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。</p>
@@ -5376,32 +5380,35 @@ sudo yum install qemu-kvm</code></pre>
 <pre class="shell"><code>grep -E 'vmx|svm' /proc/cpuinfo</code></pre>
 <p>如果有输出则表示硬件有虚拟化支持。其次要检查kvm模块是否已经加载：</p>
 <pre class="shell"><code>lsmod | grep kvm</code></pre>
-<pre><code>kvm_intel             315392  0
+<pre class="text"><code>kvm_intel             315392  0
 kvm                   847872  1 kvm_intel
 irqbypass              16384  1 kvm</code></pre>
 <p>如果kvm_intel/kvm_amd、kvm模块被显示出来，则kvm模块已经加载。</p>
 <p>如果少了模块，比如<code>kvm_intel</code>，那就</p>
 <pre class="shell"><code>modprobe kvm-intel</code></pre>
 <p>如果输出</p>
-<pre><code>modprobe: ERROR: could not insert 'kvm_intel': Operation not supported</code></pre>
+<pre class="text"><code>modprobe: ERROR: could not insert 'kvm_intel': Operation not supported</code></pre>
 <p>就看一下dmesg里有没有错误信息：</p>
 <pre class="shell"><code>dmesg | less</code></pre>
 <p>按G翻到最后，如果有</p>
-<pre><code>kvm: disabled by bios</code></pre>
+<pre class="text"><code>kvm: disabled by bios</code></pre>
 <p>说明要去BIOS里开启一下KVM的支持。</p>
 <h2 id="启动虚拟机安装操作系统">启动虚拟机安装操作系统</h2>
 <h3 id="命令行安装">命令行安装</h3>
 <pre class="shell"><code># Centos 8
 sudo yum install virt-install
 # Ubuntu 20.04, deepin 20
-sudo apt install virtinst</code></pre>
-<pre class="shell"><code>sudo virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
-<p>其中os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看。</p>
-<p>注意deepin不支持命令行安装，会报错：</p>
-<pre><code>ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'
+sudo apt install virtinst
+# Debian 11
+sudo apt install virtinst libvirt-daemon-system
+sudo virsh net-start default</code></pre>
+<pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
+<p>os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看，<code>osinfo-query</code>在<code>libosinfo-bin</code>包中。</p>
+<p>注意虚拟机deepin不支持命令行安装，会报错：</p>
+<pre class="text"><code>ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'
 The location must be the root directory of an install tree.</code></pre>
 <p>安装界面：</p>
-<pre><code>Installation
+<pre class="text"><code>Installation
 
 1) [x] Language settings                 2) [x] Time settings
        (English (United States))                (America/New_York timezone)
@@ -5421,7 +5428,7 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 <h4 id="创建虚拟机磁盘文件">创建虚拟机磁盘文件</h4>
 <p>不使用virt-install的话，要手动创建虚拟机的磁盘文件。</p>
 <pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
-<pre><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
+<pre class="text"><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
 raw: 默认格式。裸的磁盘文件。<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
@@ -5434,13 +5441,13 @@ raw: 默认格式。裸的磁盘文件。<br>
 <p>然后安装虚拟机：</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <p>如果没有允许弹出root窗口，会报这个错：</p>
-<pre><code>X11 connection rejected because of wrong authentication.
+<pre class="text"><code>X11 connection rejected because of wrong authentication.
 Unable to init server: Could not connect: Connection refused
 gtk initialization failed</code></pre>
 <h4 id="centos-8">Centos 8</h4>
 <p>Centos 8比较特殊:</p>
 <pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
-<pre><code>VNC server running on ::1:5900</code></pre>
+<pre class="text"><code>VNC server running on ::1:5900</code></pre>
 <p>注意到端口是5900，所以开一个5900的隧道</p>
 <pre class="shell"><code>ssh -g -L 5900:localhost:5900 sshname</code></pre>
 <p>然后保持这个shell不要关，在另一个shell里输入如下命令：</p>
@@ -5455,7 +5462,7 @@ gtk initialization failed</code></pre>
 <pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
 <p>先看自己的机器的网卡编号</p>
 <pre class="shell"><code>ip addr</code></pre>
-<pre><code>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+<pre class="text"><code>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
@@ -5654,7 +5661,7 @@ fi</code></pre>
 <h3 id="嵌套虚拟化">嵌套虚拟化</h3>
 <p>就是虚拟机里套虚拟机：<br>
 参数里添加</p>
-<pre><code>-enable-kvm -cpu host</code></pre>
+<pre class="text"><code>-enable-kvm -cpu host</code></pre>
 <p>把所有宿主机CPU的特性都传下去。详情可见：</p>
 <pre class="shell"><code>/usr/libexec/qemu-kvm -cpu help</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jython/p/4458807.html" class="uri">https://www.cnblogs.com/jython/p/4458807.html</a><br>
@@ -5666,7 +5673,7 @@ fi</code></pre>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119701527" class="uri">https://blog.csdn.net/qq_41961459/article/details/119701527</a></p>
 <h3 id="network-disk-service卡住">network disk service卡住</h3>
 <p>centos虚拟机中出现过，要好几分钟才能进去，而且最终这几个服务会启动失败：</p>
-<pre><code>[FAILED] Failed to start System Security Services Daemon.
+<pre class="text"><code>[FAILED] Failed to start System Security Services Daemon.
 [FAILED] Failed to start Disk Manager.
 [FAILED] Failed to start OpenSSH server daemon.
 [FAILED] Failed to start GSSAPI Proxy Daemon.
@@ -5682,7 +5689,9 @@ fi</code></pre>
 <a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
 <a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm 命令行安装虚拟机方法</a><br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM 使用 virt-install 创建虚拟机失败经历</a></p>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM 使用 virt-install 创建虚拟机失败经历</a><br>
+<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock" class="uri">https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock</a><br>
+<a target="_blank" rel="noopener" href="https://www.xmodulo.com/network-default-is-not-active.html" class="uri">https://www.xmodulo.com/network-default-is-not-active.html</a></p>
 </body></html>
 </div>
 
