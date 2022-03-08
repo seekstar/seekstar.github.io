@@ -1981,6 +1981,17 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
+								<li class="file">
+									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
+                     
+										    USTC mirror将CentOS 8升级为stream
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -2014,6 +2025,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/01/11/kde%E5%8E%BB%E6%8E%89konsole%E7%9A%84%E5%A4%A7%E9%A2%9D%E5%A4%B4/">
                      
 										    KDE去掉konsole的大额头
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/03/08/kde%E5%9C%A8%E6%A1%8C%E9%9D%A2%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F/">
+                     
+										    KDE在桌面创建文件夹快捷方式
                      
 									</a>
 								</li>
@@ -5689,6 +5711,52 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/01/%E4%BD%BF%E5%BE%97%E4%B8%A4%E6%AC%A1%E7%BC%96%E8%AF%91linux%E5%86%85%E6%A0%B8%E4%BA%A7%E7%94%9F%E4%B8%80%E6%A0%B7%E7%9A%84%E7%BB%93%E6%9E%9C/">
+				<h2 class="index-title">
+					使得两次编译linux内核产生一样的结果
+				</h2>
+				<div class="index-brief">
+					export INSTALL_MOD_STRIP=-s
+export KBUILD_BUILD_TIMESTAMP=0
+export KBUILD_BUILD_USER=root
+export KBUILD_BUILD_HOST=localhost
+make mrproper
+make allnoc
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/29/macos%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%A1%8C%E9%9D%A2%E6%89%93%E5%BC%80%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8gui%E5%BA%94%E7%94%A8/">
+				<h2 class="index-title">
+					MacOS在本地桌面打开远程服务器GUI应用
+				</h2>
+				<div class="index-brief">
+					首先安装XQuartz：
+brew install xquartz
+安装程序会自动在/etc/ssh/ssh_config里加上
+# XAuthLocation added by XQuartz (https://www.xquartz.org)
+Host *
+    XAuthLocation /
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/28/total-vm-anon-rss-file-rss-shmem-rss%E5%90%AB%E4%B9%89/">
 				<h2 class="index-title">
 					total-vm anon-rss file-rss shmem-rss含义
@@ -5864,62 +5932,10 @@ os.makedirs(dirname, exist_ok = True)使得即使目录存在也不报
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/07/22/python%E5%B8%B8%E7%94%A8%E8%BE%93%E5%85%A5%E6%96%B9%E5%BC%8F/">
-				<h2 class="index-title">
-					python常用输入方式
-				</h2>
-				<div class="index-brief">
-					逐字符读入
-https://blog.csdn.net/qq_41961459/article/details/104201928
-逐行读入
-文件：https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html
-从stdin中逐行读入只
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-22</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/21/linux%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%A4%8D%E5%88%B6%E7%9B%AE%E5%BD%95/">
-				<h2 class="index-title">
-					Linux多线程复制目录
-				</h2>
-				<div class="index-brief">
-					比如有一个目录a需要复制：
-mkdir a
-touch a/a
-mkdir a/b
-touch a/b/c
-tree a
-a
-├── a
-└── b
-    └── c
-将其复制为目录d只需要用find找出目录下所有的文件，然后用gnu-parallel开多线程逐个复制即可：
-mkdir d
-cd 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/14/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/16/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/14/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/16/">&gt;</a>
 		
 	</div>
 </div>
