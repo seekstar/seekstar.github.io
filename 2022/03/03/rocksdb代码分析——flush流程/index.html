@@ -4866,6 +4866,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%90%84%E7%A7%8Doption%E7%9A%84%E4%BC%A0%E9%80%92/">
+                     
+										    RocksDB代码分析——各种option的传递
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/02/rocksdb%E5%B0%86%E4%B8%8A%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E5%BF%AB%E9%80%9F%E8%AE%BE%E5%A4%87-%E4%B8%8B%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E6%85%A2%E9%80%9F%E8%AE%BE%E5%A4%87/">
                      
 										    RocksDB将上面几层放到快速设备,下面几层放到慢速设备
@@ -5770,9 +5781,12 @@ var _hmt = _hmt || [];
 <p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Flush。Compaction部分见：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
 <p><code>DBImpl::BGWorkFlush</code>中调用了<code>DBImpl::BackgroundCallFlush</code>。</p>
 <p><code>DBImpl::BackgroundCallFlush</code>中调用了<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
-<p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），然后调用<code>DBImpl::FlushMemTablesToOutputFiles</code>。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a></p>
-<p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。取出一些参数之后，调用<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
-<p><code>DBImpl::FlushMemTableToOutputFile</code>中，构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code>，然后调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>，在其中会调用<code>DBImpl::SchedulePendingCompaction</code>和<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层。</p>
+<p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），从中再取出<code>ColumnFamilyData</code>。再把这些<code>ColumnFamilyData</code>放进<code>bg_flush_args</code>，作为<code>DBImpl::FlushMemTablesToOutputFiles</code>的参数。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a></p>
+<p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。把<code>ColumnFamilyData</code>拿出来，作为参数传给<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
+<p><code>DBImpl::FlushMemTableToOutputFile</code>中，构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code>，然后把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。</p>
+<p><code>DBImpl::InstallSuperVersionAndScheduleWork</code>会把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code>，以及调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层。</p>
+<p><code>DBImpl::SchedulePendingCompaction</code>将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。</p>
+<p>接下来的compaction流程看这里：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
 <p><code>FlushJob::Run</code>中，调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。</p>
 </body></html>
 </div>
