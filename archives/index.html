@@ -5782,15 +5782,15 @@ var _hmt = _hmt || [];
 					pacman查看命令由哪个包提供
 				</h2>
 				<div class="index-brief">
-					比如查看dig命令由哪个包提供：
-pacman -Fl | grep -e "/dig$"
--e: 使用正则表达式。
-$: 匹配行末。
+					比如查看dig命令由哪个包提供。有两种方法：
+pacman -F
+pacman -F dig
 输出：
-bind usr/bin/dig
-epic4 usr/share/epic/script/dig
-所以安装bind:
-sudo pacman -S bind
+extra/bind 9.16.25-1
+    usr/bin/dig
+community/epic4 2.10.10-2
+    usr/share/epic/script/dig
+pacman
 					...
 				</div>
 			</a>

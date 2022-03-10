@@ -5802,14 +5802,23 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>比如查看<code>dig</code>命令由哪个包提供：</p>
+	<html><head></head><body><p>比如查看<code>dig</code>命令由哪个包提供。有两种方法：</p>
+<h2 id="pacman--f">pacman -F</h2>
+<pre class="shell"><code>pacman -F dig</code></pre>
+<p>输出：</p>
+<pre class="text"><code>extra/bind 9.16.25-1
+    usr/bin/dig
+community/epic4 2.10.10-2
+    usr/share/epic/script/dig</code></pre>
+<h2 id="pacman--fl">pacman -Fl</h2>
+<p>这个方法可以自己写正则表达式匹配，可能比较灵活一点：</p>
 <pre class="shell"><code>pacman -Fl | grep -e "/dig$"</code></pre>
 <p><code>-e</code>: 使用正则表达式。</p>
 <p><code>$</code>: 匹配行末。</p>
 <p>输出：</p>
 <pre class="text"><code>bind usr/bin/dig
 epic4 usr/share/epic/script/dig</code></pre>
-<p>所以安装<code>bind</code>:</p>
+<h2 id="所以安装bind">所以安装<code>bind</code></h2>
 <pre class="shell"><code>sudo pacman -S bind
 dig -v</code></pre>
 <pre class="text"><code>DiG 9.18.0</code></pre>
