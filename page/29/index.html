@@ -2070,6 +2070,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/01/latex%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
+                     
+										    latex行内公式自动换行
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2019/08/22/latex%E9%80%80%E5%87%BAbatchmode/">
                      
 										    latex退出batchmode
@@ -4094,6 +4105,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/01/%E5%AD%A6%E6%9C%AF%E8%8B%B1%E8%AF%AD%E5%86%99%E4%BD%9C%E2%80%94%E2%80%94%E8%8C%B4%E9%A6%99%E8%B1%86%E7%9A%84%E8%8C%B4%E7%9A%84%E4%B8%8D%E5%90%8C%E5%86%99%E6%B3%95/">
+                     
+										    学术英语写作——茴香豆的茴的不同写法
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/06/30/%E6%94%AF%E4%BB%98%E5%AE%9D-rsa2%E5%AF%86%E9%92%A5%E9%95%BF%E5%BA%A6%E4%B8%8D%E6%AD%A3%E7%A1%AE/">
                      
 										    支付宝 RSA2密钥长度不正确
@@ -5832,6 +5854,48 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/10/29/%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E6%97%B6-lib-modules%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					解决编译安装内核时/lib/modules过大的问题
+				</h2>
+				<div class="index-brief">
+					原因是编译出来的ko文件里有一些debug信息。安装module的时候加一个strip选项，把这些额外信息去掉就好了。
+sudo make INSTALL_MOD_STRIP=1 modules_install
+
+如果已经安装了，想减少/lib/modules占用的体积，可以直接用strip命令进行
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-10-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/">
+				<h2 class="index-title">
+					Linux内核panic后查看dmesg
+				</h2>
+				<div class="index-brief">
+					由于panic后内核不能再将dmesg写入到存储介质中去，所以重启之后dmesg就丢失了。但是kdump可以在内核panic后启用一个小内核来将dmesg和一些内存信息写进存储介质。
+安装kdump
+debian系列(我用的deepin v20)
+sudo apt install -y kdump-
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-10-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/10/07/linux-m4a%E8%BD%ACmp3/">
 				<h2 class="index-title">
 					Linux m4a转mp3
@@ -5998,48 +6062,6 @@ pr
 			</a>
                 <div class="article-meta">
 				    <span>2020-09-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/09/13/grep%E5%8F%AA%E5%9C%A8%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2/">
-				<h2 class="index-title">
-					grep只在文本文件中搜索
-				</h2>
-				<div class="index-brief">
-					参考：https://stackoverflow.com/questions/9806944/grep-only-text-files
-I选项表示不搜索binary文件。
-grep -Irn string_to_search
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-09-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/09/07/clflush%E3%80%81clflushopt%E3%80%81clwb%E3%80%81pcommit%E3%80%81ntstore/">
-				<h2 class="index-title">
-					clflush、clflushopt、clwb、pcommit、ntstore
-				</h2>
-				<div class="index-brief">
-					参考：
-https://danluu.com/clwb-pcommit/ (14年文档)
-https://blog.csdn.net/maokelong95/article/details/81362837
-https://zhuanlan.zhihu.com/p/135188922?utm_sou
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-09-07</span>
                     
                             
                     
