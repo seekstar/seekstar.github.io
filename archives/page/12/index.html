@@ -5161,6 +5161,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/03/linux-kernel-spinlock/">
+                     
+										    Linux kernel spinlock
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/">
                      
 										    Linux内核panic后查看dmesg
@@ -5865,6 +5876,33 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/10/04/%E8%A7%A3%E5%86%B3shell%E8%84%9A%E6%9C%AC%E4%B8%ADkill-2%E5%AF%B9%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
+				<h2 class="index-title">
+					解决shell脚本中kill -2对后台进程不起作用
+				</h2>
+				<div class="index-brief">
+					问题
+kill -2就是发送SIGINT信号。我们期望的行为是，进程接收到SIGINT信号后就停止运行。例如：
+yes &gt;/dev/null &amp;
+pid=$!
+echo $pid
+sleep 2
+kill -INT $pid
+sleep 2
+ps aux | grep yes
+将其保存
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-10-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/09/30/wps%E5%88%A0%E9%99%A4%E5%9B%BE%E7%89%87%E8%A2%AB%E8%A3%81%E5%89%AA%E6%8E%89%E7%9A%84%E9%83%A8%E5%88%86/">
 				<h2 class="index-title">
 					WPS删除图片被裁剪掉的部分
@@ -6041,26 +6079,6 @@ pip install pysha3
 			</a>
                 <div class="article-meta">
 				    <span>2021-09-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/09/19/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8vtune/">
-				<h2 class="index-title">
-					在服务器上使用vtune
-				</h2>
-				<div class="index-brief">
-					安装
-在这里选择合适的下载方式：https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html
-如果没有GUI，就用Command Line Installation里的命令来下
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-09-19</span>
                     
                             
                     
