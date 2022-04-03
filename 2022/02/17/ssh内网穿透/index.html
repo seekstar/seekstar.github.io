@@ -5914,7 +5914,8 @@ var _hmt = _hmt || [];
              sshd_config(5)).</code></pre>
 <p>一定要看英文的manual page，中文的好像很久没有更新了，不全。</p>
 <h2 id="autossh">autossh</h2>
-<p>直接用ssh的话，断开连接之后并不会重连。所以使用autossh，在连接断开后重连。网上的教程通常是使用monitor port监测连接是否正常的，但是这样要在服务器上额外占用一个端口。其实<code>man autossh</code>已经提示我们可以用SSH自带的<code>ServerAliveInterval</code>和<code>ServerAliveCountMax</code>来检测连接是否正常，而且这可能是更好的方法：</p>
+<p>直接用ssh的话，断开连接之后并不会重连。所以使用autossh，在连接断开后重连。网上的教程通常是使用monitor
+port监测连接是否正常的，但是这样要在服务器上额外占用一个端口。其实<code>man autossh</code>已经提示我们可以用SSH自带的<code>ServerAliveInterval</code>和<code>ServerAliveCountMax</code>来检测连接是否正常，而且这可能是更好的方法：</p>
 <pre class="text"><code>     -M port[:echo_port]
 ...
              Setting the monitor port to 0 turns the monitoring function off, and au‐
@@ -5943,9 +5944,19 @@ stderr_logfile=/tmp/autossh_stderr.log
 stdout_logfile=/tmp/autossh_stdout.log
 user = searchstar</code></pre>
 <p>注意这里没有<code>-f</code>。</p>
+<h2 id="客户端崩溃后重新连接">客户端崩溃后重新连接</h2>
+<p>客户端崩溃后，重新连接时可能会出现这个错误：</p>
+<pre class="text"><code>Warning: remote port forwarding failed for listen port 端口号</code></pre>
+<p>这时可以在服务器上查找监听这个端口的进程：</p>
+<pre class="shell"><code>sudo lsof -i:端口号</code></pre>
+<p>这个进程是sshd
+fork出来的进程，杀掉它不影响其他端口的监听，而且可以把这个端口释放出来：</p>
+<pre class="shell"><code>kill 进程号</code></pre>
+<p>然后再在客户端上重新构建反向隧道即可。</p>
 <h2 id="参考">参考</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiangbenchu/article/details/84438959">使用SSH反向隧道进行内网穿透——持续更新中</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/112227542">利用AutoSSH建立SSH隧道，实现内网穿透</a></p>
+<p><a target="_blank" rel="noopener" href="https://superuser.com/questions/1504220/ssh-tunnel-server-cant-close-listen-port-when-client-unexpected-close" class="uri">https://superuser.com/questions/1504220/ssh-tunnel-server-cant-close-listen-port-when-client-unexpected-close</a></p>
 </body></html>
 </div>
 
