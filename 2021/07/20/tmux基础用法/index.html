@@ -5913,19 +5913,19 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>详细教程：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" class="uri">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></p>
-<h1 id="新建会话">新建会话</h1>
+<h2 id="新建会话">新建会话</h2>
 <pre class="shell"><code>tmux</code></pre>
 <p>底下的状态栏里最左边方括号里的就是自动分配的会话名称。<br>
 也可以手动指定会话名称：</p>
 <pre class="shell"><code>tmux new -s &lt;session-name&gt;</code></pre>
-<h1 id="关闭当前会话">关闭当前会话</h1>
+<h2 id="关闭当前会话">关闭当前会话</h2>
 <p><code>Ctrl+d</code>或者输入<code>exit</code>。</p>
-<h1 id="分离会话">分离会话</h1>
+<h2 id="分离会话">分离会话</h2>
 <p><code>Ctrl+b d</code>，或者输入</p>
 <pre class="shell"><code>tmux detach</code></pre>
-<h1 id="查看所有会话">查看所有会话</h1>
+<h2 id="查看所有会话">查看所有会话</h2>
 <pre class="shell"><code>tmux ls</code></pre>
-<h1 id="接入会话">接入会话</h1>
+<h2 id="接入会话">接入会话</h2>
 <p>接入上一个会话，如果没有就新建会话：</p>
 <pre class="shell"><code>tmux attach</code></pre>
 <p>接入指定会话：</p>
@@ -5934,20 +5934,22 @@ var _hmt = _hmt || [];
 <p>有趣的是tmux允许重复接入一个会话，而screen不行。</p>
 <p>此外，screen不能只读接入会话，但是tmux可以（这就是我换成tmux的原因）：</p>
 <pre class="shell"><code>tmux attach -rt &lt;session-name&gt;</code></pre>
-<h1 id="杀死会话">杀死会话</h1>
+<h2 id="杀死会话">杀死会话</h2>
 <p>杀死上一个会话：</p>
 <pre class="shell"><code>tmux kill-session</code></pre>
 <p>杀死指定会话：</p>
 <pre class="shell"><code>tmux kill-session -t &lt;session-name&gt;</code></pre>
-<h1 id="复制模式">复制模式</h1>
+<h2 id="复制模式">复制模式</h2>
 <p>详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yangzhongxuan/article/details/6890232">tmux复制模式使用说明</a></p>
 <p>进入复制模式：<code>Ctrl+b [</code><br>
 退出复制模式：默认是<code>Esc</code><br>
 默认是上下左右箭头来移动光标的。但是可以通过在<code>~/.tmux.conf</code>里加入</p>
 <pre class="shell"><code>set-window-option -g mode-keys vi</code></pre>
-<p>来设置成vi风格的光标操作方式，需要关闭所有的tmux会话，再重新打开才能生效。注意这个时候退出复制模式的快捷键变成了<code>Enter</code>。</p>
+<p>来设置成vi风格的光标操作方式，需要关闭所有的tmux会话，再重新打开才能生效。注意这个时候退出复制模式的快捷键变成了<code>Enter</code>。<br>
+在vi风格的光标操作方式中，可以<code>ctrl+u</code>或者<code>PgUp</code>上翻页，<code>ctrl+d</code>或者<code>PgDn</code>下翻页，这在默认设定中好像是做不到的。</p>
 <p>进入复制模式之后，按空格选择要复制的起始位置，然后移动光标到要复制的结束位置，然后按<code>Enter</code>复制，同时退出复制模式，按<code>ctrl+]</code>可以粘贴（只能在tmux内粘贴）。</p>
-<h1 id="参考文献">参考文献</h1>
+<p>复制模式中，虽然不再显示新的输出，但是其实程序仍然在跑，在退出复制模式后新的输出就会显示出来。</p>
+<h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode" class="uri">https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode</a></p>
 </body></html>
 </div>
