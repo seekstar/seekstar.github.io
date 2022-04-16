@@ -5970,6 +5970,7 @@ var _hmt = _hmt || [];
 <p><img src="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/20200823131509782.png" alt="在这里插入图片描述"><br>
 <img src="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/2020082313173218.png" alt="在这里插入图片描述"><br>
 这个就是写入量（为什么写入量比读出量高这么多）</p>
+<p>也有可能会看到<code>Total_LBAs_Written</code>和<code>Total_LBAs_Read</code>（好像SATA协议的SSD都是这样）。<code>man smartctl</code>里对<code>LBA</code>的描述：<code>The LBA is a linear address, which counts 512-byte sectors on the disk, starting from zero.</code>。因此把<code>Total_LBAs_Written</code>和<code>Total_LBAs_Read</code>的值都乘上<code>512</code>，就是以字节为单位的写入量和读取量了。</p>
 </body></html>
 </div>
 
