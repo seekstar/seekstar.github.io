@@ -6080,13 +6080,15 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 <pre class="text"><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
 raw: 默认格式。裸的磁盘文件。<br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
-其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。</p>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>:
+最常用。支持稀疏文件、快照等。<br>
+其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and
+QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
 <h4 id="配置vnc-viewer">配置vnc viewer</h4>
-<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
+<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <h4 id="debian系">debian系</h4>
-<p>要先允许弹出root窗口：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112916589">vnc root窗口无法弹出</a></p>
+<p>要先允许弹出root窗口：<a href="/2021/01/21/vnc-root%E7%AA%97%E5%8F%A3%E6%97%A0%E6%B3%95%E5%BC%B9%E5%87%BA/" title="vnc root窗口无法弹出">vnc root窗口无法弹出</a></p>
 <p>然后安装虚拟机：</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <p>如果没有允许弹出root窗口，会报这个错：</p>
@@ -6106,7 +6108,7 @@ gtk initialization failed</code></pre>
 <h2 id="联网">联网</h2>
 <p>虚拟机一开始是没有网络的。</p>
 <h3 id="桥接网卡使用nmclivirsh">桥接网卡（使用nmcli+virsh）</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119501450" class="uri">https://blog.csdn.net/qq_41961459/article/details/119501450</a></p>
+<a href="/2021/08/08/virsh%E7%BB%88%E7%AB%AF%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E8%81%94%E7%BD%91/" title="virsh终端访问虚拟机并联网">virsh终端访问虚拟机并联网</a>
 <h3 id="桥接网卡有概率失败">桥接网卡（有概率失败）</h3>
 <pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
 <p>先看自己的机器的网卡编号</p>
@@ -6152,7 +6154,8 @@ if ping -c 1 baidu.com; then
 else
     shutdown -r now
 fi</code></pre>
-<p><code>promisc</code>: 混杂模式（promiscuous mode）是电脑网络中的术语。是指一台机器的网卡能够接收所有经过它的数据流，而不论其目的地址是否是它。</p>
+<p><code>promisc</code>: 混杂模式（promiscuous
+mode）是电脑网络中的术语。是指一台机器的网卡能够接收所有经过它的数据流，而不论其目的地址是否是它。</p>
 <p>然后运行脚本</p>
 <pre class="shell"><code>sudo bash net.sh eno1</code></pre>
 <p>奇怪的是，在我的服务器上第一次失败了，但是重启之后第二次就成功了。</p>
@@ -6306,7 +6309,7 @@ fi</code></pre>
 这个方法我在家里的电脑上实验成功，但是在学校的服务器上失败了，不知道为什么。</p>
 <h2 id="其他">其他</h2>
 <h3 id="nographic启动">nographic启动</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119108333" class="uri">https://blog.csdn.net/qq_41961459/article/details/119108333</a></p>
+<a href="/2021/07/26/qemu-system-x86-64-nographic/" title="qemu-system-x86_64 nographic">qemu-system-x86_64 nographic</a>
 <h3 id="嵌套虚拟化">嵌套虚拟化</h3>
 <p>就是虚拟机里套虚拟机：<br>
 参数里添加</p>
@@ -6319,7 +6322,7 @@ fi</code></pre>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012972536/article/details/79827292" class="uri">https://blog.csdn.net/u012972536/article/details/79827292</a></p>
 <h3 id="ttys0登录时输入用户名后卡住">ttyS0登录时输入用户名后卡住</h3>
 <p>这个在deepin虚拟机里更换内核之后碰到过。解决方案：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119701527" class="uri">https://blog.csdn.net/qq_41961459/article/details/119701527</a></p>
+<a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
 <h3 id="network-disk-service卡住">network disk service卡住</h3>
 <p>centos虚拟机中出现过，要好几分钟才能进去，而且最终这几个服务会启动失败：</p>
 <pre class="text"><code>[FAILED] Failed to start System Security Services Daemon.
@@ -6328,17 +6331,18 @@ fi</code></pre>
 [FAILED] Failed to start GSSAPI Proxy Daemon.
 [FAILED] Failed to start Crash recovery kernel arming.</code></pre>
 <p>其实原因和解决方案都跟上一个一样，都是这个：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119701527" class="uri">https://blog.csdn.net/qq_41961459/article/details/119701527</a></p>
-<h3 id="设置静态ip">设置静态IP</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119704794">deepin设置静态IP</a></p>
-<p>但是如果路由器只路由DHCP给的IP，那这个静态IP就只能在局域网里用了。如果在局域网里有一台永远不关机的机器，那可以在这个机器上做端口转发，把本地某个端口接收到的数据都转发给虚拟机的22端口，这样在局域网外就可以通过这台机器ssh到虚拟机了。方法看这里：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119705167" class="uri">https://blog.csdn.net/qq_41961459/article/details/119705167</a></p>
+<a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
 <h2 id="参考文献">参考文献</h2>
-<p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1: 使用QEMU创建虚拟机</a> 其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
-<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find tool qemu-system-x86</a><br>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1:
+使用QEMU创建虚拟机</a>
+其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
+<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find
+tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
-<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm 命令行安装虚拟机方法</a><br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM 使用 virt-install 创建虚拟机失败经历</a><br>
+<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm
+命令行安装虚拟机方法</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM
+使用 virt-install 创建虚拟机失败经历</a><br>
 <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock" class="uri">https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock</a><br>
 <a target="_blank" rel="noopener" href="https://www.xmodulo.com/network-default-is-not-active.html" class="uri">https://www.xmodulo.com/network-default-is-not-active.html</a></p>
 </body></html>
