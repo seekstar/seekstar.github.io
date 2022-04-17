@@ -2761,6 +2761,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/">
+                     
+										    libvirt让普通用户能用kvm
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/08/qemu-br0-access-denied-by-acl-file/">
                      
 										    qemu br0 access denied by acl file
@@ -6051,6 +6062,9 @@ sudo apt install virtinst
 # Debian 11
 sudo apt install virtinst libvirt-daemon-system
 sudo virsh net-start default</code></pre>
+<p>然后让普通用户使用libvirt时能使用KVM：</p>
+<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a>
+<p>然后就可以开始安装了：</p>
 <pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
 <p>os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看，<code>osinfo-query</code>在<code>libosinfo-bin</code>包中。</p>
 <p>注意虚拟机deepin不支持命令行安装，会报错：</p>
