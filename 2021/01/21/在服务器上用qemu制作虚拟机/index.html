@@ -6085,18 +6085,16 @@ raw: 默认格式。裸的磁盘文件。<br>
 其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and
 QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
-<h4 id="配置vnc-viewer">配置vnc viewer</h4>
-<p>字符界面配置虚拟机好像有点难，所以还是先用vnc连接服务器：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <h4 id="debian系">debian系</h4>
 <pre class="shell"><code># vnc=:2 可以换成其他可用端口。
 sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso -display vnc=:2</code></pre>
 <p>然后就会在<code>5902</code>端口（也可以换成其他可用端口）开一个vnc
-server。用上面提到的方式连上就好了。</p>
+server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <h4 id="centos-8">Centos 8</h4>
 <p>Centos 8比较特殊:</p>
 <pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <pre class="text"><code>VNC server running on ::1:5900</code></pre>
-<p>然后用上面提到的方式连上就好了。</p>
+<p>用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"><br>
 <code>ctrl+alt+g</code>可以取消捕获。</p>
 <h2 id="联网">联网</h2>
