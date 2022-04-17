@@ -6076,6 +6076,9 @@ systemd(1)─┬─
 <code>.</code>并没有给子进程<code>zsh</code>发送<code>SIGHUP</code>，从而让它变成了孤儿进程，被init进程收养，因此新终端里的输出一直没有停。</p>
 <p>总结一下，按照我的理解，偷TTY的做法相当于把进程的输入和输出重定向到新的终端，但是如果老的终端退出了，新终端里的输入输出会立即停止。但是在sshd下面的终端里的进程在sshd
 session被强制退出之后会变成孤儿进程，因此它不会被退出，可以正常在新终端里输入输出，就像它本来就在新终端一样。</p>
+<h2 id="另一个选择reredirect">另一个选择：reredirect</h2>
+<p>reredirect可以重定向任意进程的输出。如果只是想看输出，而不需要输入的话，可以试试：</p>
+<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/" title="重定向正在运行的进程的输出">重定向正在运行的进程的输出</a>
 <h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://superuser.com/questions/184047/bash-zsh-undoing-disown" class="uri">https://superuser.com/questions/184047/bash-zsh-undoing-disown</a></p>
 </body></html>
