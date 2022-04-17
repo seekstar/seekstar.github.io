@@ -5491,6 +5491,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
+                     
+										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
                      
 										    Shell查看某目录下某拓展名的文件所占总空间
@@ -5777,6 +5788,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
+                     
+										    终端关闭时子进程的反应
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/04/%E8%A7%A3%E5%86%B3shell%E8%84%9A%E6%9C%AC%E4%B8%ADkill-2%E5%AF%B9%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
                      
 										    解决shell脚本中kill -2对后台进程不起作用
@@ -5942,6 +5964,48 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
+				<h2 class="index-title">
+					终端关闭时子进程的反应
+				</h2>
+				<div class="index-brief">
+					终端关闭时，会向上面的进程发送SIGHUP (SIGnal Hang
+UP)，这个信号的默认行为是终止进程。用nohup运行的命令就忽略了SIGHUP信号，这样父终端退出之后就挂到init进程上。
+但是如果终端是被杀死的，比如kill -9，那么SIGHUP不一定会被发送给子进程，这时子进程就直接变
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
+				<h2 class="index-title">
+					Linux将某进程attach到当前terminal
+				</h2>
+				<div class="index-brief">
+					用reptyr可以实现：https://github.com/nelhage/reptyr
+可以用包管理器安装：
+sudo apt install reptyr
+有些发行版可能禁用了ptrace，需要将其打开。临时打开（重启后恢复原样）：
+sudo bash -c "echo 0 &gt; /pro
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/17/linux%E5%BC%BA%E8%A1%8C%E4%B8%AD%E6%96%AD%E5%BD%93%E5%89%8Dssh%E8%BF%9E%E6%8E%A5/">
 				<h2 class="index-title">
 					linux强行中断当前ssh连接
@@ -6102,54 +6166,6 @@ https%3A%2F%2Fbaidu.com
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/01/latex%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
-				<h2 class="index-title">
-					latex行内公式自动换行
-				</h2>
-				<div class="index-brief">
-					在允许换行的地方插入\allowbreak。
-来源：https://tex.stackexchange.com/questions/1959/allowing-line-break-at-in-inline-math-mode
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/01/%E5%AD%A6%E6%9C%AF%E8%8B%B1%E8%AF%AD%E5%86%99%E4%BD%9C%E2%80%94%E2%80%94%E8%8C%B4%E9%A6%99%E8%B1%86%E7%9A%84%E8%8C%B4%E7%9A%84%E4%B8%8D%E5%90%8C%E5%86%99%E6%B3%95/">
-				<h2 class="index-title">
-					学术英语写作——茴香豆的茴的不同写法
-				</h2>
-				<div class="index-brief">
-					查找英语同义词的网站：https://www.thesaurus.com
-因果关系
-therefore
-
-He's only 17 and therefore not eligible to
-vote.
-
-他只有17岁，因此没有投票选举的资格。
-《牛津词典》
-
-Muscle cells need l
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-01</span>
                     
                             
                     
