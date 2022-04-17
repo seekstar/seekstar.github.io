@@ -5982,17 +5982,20 @@ Starting applications specified in /home/searchstar/.vnc/xstartup
 Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
 <h2 id="客户端">客户端</h2>
 <p>先构建ssh隧道，其语法如下</p>
-<pre class="shell"><code>ssh -g -L xxxx:ip:5901 sshname</code></pre>
-<pre class="text"><code>-L port:host:hostport
+<pre class="shell"><code>ssh -fNL xxxx:ip:5901 sshname</code></pre>
+<pre class="text"><code>-f: 后台运行。
+-N: 不执行命令。用于转发端口。
+-L port:host:hostport
         将本地机(客户机)的某个端口转发到远端指定机器的指定端口.  工作原理是这样的,
         本地机器上分配了一个 socket 侦听 port 端口, 一旦这个端口上有了连接, 该连接
         就经过安全通道转发出去, 同时远程主机和 host 的 hostport 端口建立连接. 可以
         在配置文件中指定端口的转发. 只有 root 才能转发特权端口.  IPv6 地址用另一种
         格式说明: port/host/hostport</code></pre>
+<p>网上很多教程上还加上了<code>-g</code>，这样本地的5901端口会向网络上其他机器开放，就不安全了。</p>
 <p>对于我们的情况，命令这样写：</p>
-<pre class="shell"><code>ssh -g -L 5901:localhost:5901 sshname</code></pre>
+<pre class="shell"><code>ssh -fNL 5901:localhost:5901 sshname</code></pre>
 <p>这样就把服务器自己的5901端口映射到本地的5901端口了。</p>
-<p>然后保持这个shell不动，另开一个shell，打开vncviewer:</p>
+<p>然后打开vncviewer:</p>
 <pre class="shell"><code>sudo apt install xtightvncviewer
 vncviewer localhost:1</code></pre>
 <p><img src="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/20210120205541777.png" alt="在这里插入图片描述"><br>
