@@ -6013,16 +6013,16 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xeseo/article/details/11963473" class="uri">https://blog.csdn.net/xeseo/article/details/11963473</a></p>
 <pre class="shell"><code>sudo xclock</code></pre>
-<pre><code>X11 connection rejected because of wrong authentication.
+<pre class="text"><code>X11 connection rejected because of wrong authentication.
 Error: Can't open display: localhost:10.0</code></pre>
-<h1 id="一步到位版">一步到位版</h1>
-<pre class="shell"><code>su -c "xauth add $(xauth list | grep :$(echo $DISPLAY | sed 's/.*://g' | sed 's/\..*//g'))"</code></pre>
-<h1 id="循序渐进版">循序渐进版</h1>
+<h2 id="一步到位版">一步到位版</h2>
+<pre class="shell"><code>xauth list | grep ":$(echo $DISPLAY | sed 's/.*://g' | sed 's/\..*//g') " | xargs -i -t sudo bash -c "xauth add {}"</code></pre>
+<h2 id="循序渐进版">循序渐进版</h2>
 <p>先查看当前终端的DISPLAY</p>
 <pre class="shell"><code>echo $DISPLAY</code></pre>
-<pre><code>localhost:10.0</code></pre>
+<pre class="text"><code>localhost:10.0</code></pre>
 <pre class="shell"><code>xauth list</code></pre>
-<pre><code>searchstar-PC/unix:0  MIT-MAGIC-COOKIE-1  36a28b824ea113035e9c72db3a83ac28
+<pre class="text"><code>searchstar-PC/unix:0  MIT-MAGIC-COOKIE-1  36a28b824ea113035e9c72db3a83ac28
 L1707:1  MIT-MAGIC-COOKIE-1  7da24adee7391ef7b649a5276da71a13
 L1707/unix:1  MIT-MAGIC-COOKIE-1  7da24adee7391ef7b649a5276da71a13
 L1707/unix:14  MIT-MAGIC-COOKIE-1  d2d47cec3ab49f0ad1075a1facf1ddc7
