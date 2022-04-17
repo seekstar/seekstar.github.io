@@ -5491,6 +5491,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
+                     
+										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
                      
 										    Shell查看某目录下某拓展名的文件所占总空间
@@ -5777,6 +5788,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
+                     
+										    终端关闭时子进程的反应
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/04/%E8%A7%A3%E5%86%B3shell%E8%84%9A%E6%9C%AC%E4%B8%ADkill-2%E5%AF%B9%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
                      
 										    解决shell脚本中kill -2对后台进程不起作用
@@ -5940,6 +5962,48 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<div id="index">
+	
+		<div class="index-li">
+			<a href="/2022/02/13/spdk%E5%9B%9E%E6%94%B6hugemem/">
+				<h2 class="index-title">
+					SPDK回收hugemem
+				</h2>
+				<div class="index-brief">
+					SPDK分配了HUGEMEM之后，如果程序申请了huge page然后崩溃了，这些huge page就相当于内存泄漏了，仍然保持被分配的状态。要回收这些huge page，在spdk的目录下执行
+sudo ./scripts/setup.sh reset
+即可。reset的帮助信息：
+reset  
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
+				<h2 class="index-title">
+					linux查看系统安装时间
+				</h2>
+				<div class="index-brief">
+					方法一：查看root账户上次更改密码的时间
+sudo passwd -S root
+方法二：查看根目录所在的文件系统的创建时间：
+fs=$(df / | tail -1 | cut -f1 -d' ') &amp;&amp; tune2fs -l $fs | grep 'Filesystem cre
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
 	
 		<div class="index-li">
 			<a href="/2022/02/12/archlinux-kde-%E5%A4%9C%E9%97%B4%E9%A2%9C%E8%89%B2%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
@@ -6106,48 +6170,6 @@ Windows和Linux都能用，官方教程：https://www.ventoy.net/cn/doc_start.ht
 执行命令：
 Remote-SSH: kill VS Code Server on Host...
 来源：https://stackoverflow.com/questions/56892931/how-to-kill-vscode-remote-services-o
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/21/nginx-openssl-library-is-not-used/">
-				<h2 class="index-title">
-					nginx OpenSSL library is not used
-				</h2>
-				<div class="index-brief">
-					即使装上了openssl-devel，如果./configure时没有带上--with-http_ssl_module，还是会显示OpenSSL library is not used，这样的话就不能listen ssl了，否则会报错：
-the "ssl" parameter requires ng
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/21/java-home-is-not-set/">
-				<h2 class="index-title">
-					JAVA_HOME is not set
-				</h2>
-				<div class="index-brief">
-					安装jdk，然后
-ls /usr/lib/jvm/
-我的：
-default-java  java-1.11.0-openjdk-amd64  java-11-openjdk-amd64
-挑一个合适的版本设置成JAVA_HOME即可。
-其中default-java和java-1.11.0-openjd
 					...
 				</div>
 			</a>
