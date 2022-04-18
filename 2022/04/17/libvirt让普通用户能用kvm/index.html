@@ -6055,7 +6055,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>普通用户可能没法用KVM：</p>
+	<html><head></head><body><p>有些发行版中，普通用户可能没法用KVM：</p>
 <pre class="shell"><code>virsh capabilities | grep domain</code></pre>
 <pre class="text"><code>      &lt;domain type='qemu'/&gt;
       &lt;domain type='qemu'/&gt;</code></pre>
@@ -6078,6 +6078,8 @@ sudo usermod -aG kvm $USER</code></pre>
       &lt;domain type='kvm'/&gt;</code></pre>
 <p>就正常了。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/1002043/libvirt-has-no-kvm-capabilities-even-though-qemu-kvm-works" class="uri">https://serverfault.com/questions/1002043/libvirt-has-no-kvm-capabilities-even-though-qemu-kvm-works</a></p>
+<p>ps: CentOS Stream
+8默认配置下普通用户可使用KVM，不知道是不是因为<code>qemu</code>用户默认就在<code>kvm</code>组里。</p>
 </body></html>
 </div>
 
