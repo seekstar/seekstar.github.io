@@ -6036,10 +6036,10 @@ var _hmt = _hmt || [];
 				</h2>
 				<div class="index-brief">
 					virsh default network
-还有一种方式是利用virsh自带的default network，它是利用NAT实现的。
+可以利用virsh自带的default network，它是利用NAT实现的。
 sudo virsh net-start default
 然后ip a就可以看到一个名为virbr0的网桥。让它开机自启：
-sudo virsh net-autost
+sudo virsh net-autostart d
 					...
 				</div>
 			</a>
@@ -6078,12 +6078,12 @@ enp89s0       ethernet  unmanaged
 					libvirt让普通用户能用kvm
 				</h2>
 				<div class="index-brief">
-					普通用户可能没法用KVM：
+					有些发行版中，普通用户可能没法用KVM：
 virsh capabilities | grep domain
       &lt;domain type='qemu'/&gt;
       &lt;domain type='qemu'/&gt;
 作为对比：
-sudo virsh capabilities | gre
+sudo virsh capabilitie
 					...
 				</div>
 			</a>
