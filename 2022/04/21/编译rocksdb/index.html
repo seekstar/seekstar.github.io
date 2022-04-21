@@ -6105,14 +6105,17 @@ var _hmt = _hmt || [];
 <h2 id="cmake">cmake</h2>
 <pre class="shell"><code>mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true</code></pre>
-<p><code>-DUSE_RTTI=true</code>中<code>RTTI</code>的全称是<code>Run-Time Type Identification</code>。相关：<a href="/2022/04/07/undefined-reference-to-typeinfo-for-rocksdb-customizable/" title="undefined reference to typeinfo for rocksdb::Customizable">undefined reference to typeinfo for rocksdb::Customizable</a></p>
-<pre class="shell"><code># 全部编译
+cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true
+# 全部编译
 make -j
 # 只编译静态库
 make -j librocksdb.a
 # 只编译动态库
 make -j rocksdb-shared</code></pre>
+<p><code>-DUSE_RTTI=true</code>中<code>RTTI</code>的全称是<code>Run-Time Type Identification</code>。相关：</p>
+<a href="/2022/04/07/undefined-reference-to-typeinfo-for-rocksdb-customizable/" title="undefined reference to typeinfo for rocksdb::Customizable">undefined reference to typeinfo for rocksdb::Customizable</a>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiangbaohui/article/details/109231333">C++
+RTTI 实现原理详解</a></p>
 </body></html>
 </div>
 
