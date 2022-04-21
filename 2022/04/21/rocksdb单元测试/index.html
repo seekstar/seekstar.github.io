@@ -6087,6 +6087,8 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><pre class="shell"><code>make all check</code></pre>
 <p>可以加上<code>-j 线程数</code>来做并行单元测试。</p>
+<p>如果出错了，看下出错的是哪个测试，比如假如是<code>DBBasicTest.OpenWhenOpen</code>，那这个测试就在<code>db_basic_test</code>，单独运行这个测试：</p>
+<pre class="shell"><code>./db_basic_test --gtest_filter="*DBBasicTest.OpenWhenOpen*"</code></pre>
 <p>原文：<a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/rocksdb-en/458d285f9fcf34ac.md" class="uri">https://www.bookstack.cn/read/rocksdb-en/458d285f9fcf34ac.md</a></p>
 </body></html>
 </div>
