@@ -6170,6 +6170,8 @@ mount -t proc /proc proc/
 mount -t sysfs /sys sys/
 mount --rbind /dev dev/</code></pre>
 <p>按照我的理解，<code>mount -rbind a b</code>相当于把a目录挂载到b目录，这样访问b目录就相当于访问a目录了。</p>
+<p>如果运行某命令出现<code>syslog is not available</code>的报错，可以试试：</p>
+<pre class="shell"><code>mount --rbind /run run/</code></pre>
 <p>来源：</p>
 <p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Chroot#Using_chroot" class="uri">https://wiki.archlinux.org/title/Chroot#Using_chroot</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_37322535/article/details/117022038" class="uri">https://blog.csdn.net/sinat_37322535/article/details/117022038</a></p>
