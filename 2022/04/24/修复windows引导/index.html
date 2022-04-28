@@ -6176,6 +6176,7 @@ EFI，为此甚至修复了rescatux无法处理NVMe分区的BUG。然后<code>/b
 <p>然后尝试这个：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xw988tom/article/details/118788664" class="uri">https://blog.csdn.net/xw988tom/article/details/118788664</a>，先切换到<code>C:</code>，然后运行<code>bootsect /nt60 sys</code>，再运行<code>BOOTREC /FIXBOOT</code>，然后就成功了。（但是如果在<code>K:</code>下，就无效？）然后我忘了再运行一下<code>BOOTREC /REBUILDBCD</code>，导致<code>K:</code>还是空的。然后我好像在windows启动盘里选择<code>继续使用windows</code>，就进windows了。而且重启之后也是可以直接进windows。</p>
 <p>虽然成功修复了，但是其实不是很清楚是什么原理。</p>
 <p>现在回过头来，应该直接<code>bootsect /nt60 sys</code>，然后<code>BOOTREC /FIXBOOT</code>，而不必格式化EFI分区。或者从一开始就尝试windows启动盘里的<code>继续使用windows</code>能不能启动电脑里的windows。</p>
+<p>用这种方法修复windows引导之后，原先的Linux引导大概率已经被破坏了，开机会直接进Windows。修复Linux引导的方法看这里：<a href="/2020/10/05/%E8%A7%A3%E5%86%B3%E5%AE%89%E8%A3%85windows%E5%90%8Elinux%E5%BC%95%E5%AF%BC%E8%A2%AB%E8%A6%86%E7%9B%96%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决安装windows后Linux引导被覆盖的问题">解决安装windows后Linux引导被覆盖的问题</a></p>
 </body></html>
 </div>
 
