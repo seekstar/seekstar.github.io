@@ -2289,6 +2289,17 @@ var _hmt = _hmt || [];
 									</a>
 									
 							<ul>
+								<li class="file">
+									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
+                     
+										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -6151,6 +6162,26 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/01/23/%E9%99%8D%E4%BD%8E%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E7%AD%89%E7%BA%A7%E6%97%B6%E5%87%BA%E9%94%99/">
+				<h2 class="index-title">
+					降低内核模块编译优化等级时出错
+				</h2>
+				<div class="index-brief">
+					在Makefile里加上-O0之后
+./include/linux/compiler-gcc.h:120:38: error: impossible constraint in ‘asm’
+ #define asm_volatile_goto(x...) do { asm goto(x); asm 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-23</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/01/22/qemu-gdb%E4%B8%8D%E5%81%9C%E5%9C%A8%E6%96%AD%E7%82%B9/">
 				<h2 class="index-title">
 					qemu gdb不停在断点
@@ -6345,26 +6376,6 @@ sudo apt purge nvidia-*
 如果想要前导零
 echo "2 / 3" | bc -l | xargs printf "%f"
 这里还有一堆解决方案：https://stackoverflow.com/questions/8402181/how
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-01-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/01/07/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9F%A5%E7%9C%8B%E5%93%AA%E4%BA%9B%E4%BA%BA%E5%9C%A8%E7%94%A8/">
-				<h2 class="index-title">
-					Linux服务器查看哪些人在用
-				</h2>
-				<div class="index-brief">
-					w和who只能查看哪些人登陆了，但是如果是用vscode登陆的就看不到，只有一个node进程。而且如果有人在后台跑程序也看不到。
-所以需要一个可以查看系统中哪些人的进程在跑的命令：
-ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u |
 					...
 				</div>
 			</a>
