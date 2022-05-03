@@ -6208,20 +6208,20 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><h2 id="make">make</h2>
 <p>静态库：</p>
-<pre class="shell"><code>make -j static_lib</code></pre>
+<pre class="shell"><code>make -j$(nproc) static_lib</code></pre>
 <p>动态库：</p>
-<pre class="shell"><code>make -j shared_lib</code></pre>
+<pre class="shell"><code>make -j$(nproc) shared_lib</code></pre>
 <p>但是这俩好像只能用一个，在编译另一个之前好像要先<code>make clean</code>一下。相关：<a href="/2022/01/01/rocksdb-usr-bin-ld-memory-concurrent-arena-o-relocation-r-x86-64-tpoff32-against-symbol-zn7rocksdb15c/" title="rocksdb: /usr/bin/ld: ./memory/concurrent_arena.o: relocation R_X86_64_TPOFF32 against symbol `_ZN7rocksdb15C">rocksdb: /usr/bin/ld: ./memory/concurrent_arena.o: relocation R_X86_64_TPOFF32 against symbol `_ZN7rocksdb15C</a></p>
 <h2 id="cmake">cmake</h2>
 <pre class="shell"><code>mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true
 # 全部编译
-make -j
+make -j$(nproc)
 # 只编译静态库
-make -j librocksdb.a
+make -j$(nproc) librocksdb.a
 # 只编译动态库
-make -j rocksdb-shared</code></pre>
+make -j$(nproc) rocksdb-shared</code></pre>
 <p><code>-DUSE_RTTI=true</code>中<code>RTTI</code>的全称是<code>Run-Time Type Identification</code>。相关：</p>
 <a href="/2022/04/07/undefined-reference-to-typeinfo-for-rocksdb-customizable/" title="undefined reference to typeinfo for rocksdb::Customizable">undefined reference to typeinfo for rocksdb::Customizable</a>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiangbaohui/article/details/109231333">C++
