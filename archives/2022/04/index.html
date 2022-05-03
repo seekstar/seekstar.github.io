@@ -6345,10 +6345,10 @@ reserved分区。在Linux上进行update-grub没有办法识别出这个windows�
 				<div class="index-brief">
 					make
 静态库：
-make -j static_lib
+make -j$(nproc) static_lib
 动态库：
-make -j shared_lib
-但是这俩好像只能用一个，在编译另一个之前好像要先make clean一下。相关：rocksdb: /usr/bin/ld: ./memory/concurrent_arena.o: reloca
+make -j$(nproc) shared_lib
+但是这俩好像只能用一个，在编译另一个之前好像要先make clean一下。相关：rocksdb: /usr/bin/ld: ./memory/concurrent
 					...
 				</div>
 			</a>
