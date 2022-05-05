@@ -6225,14 +6225,20 @@ var _hmt = _hmt || [];
 <p><img src="/2022/03/03/%E9%97%AA%E5%AD%98%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/2022-03-03-11-43-09.png"></p>
 <p>图片来源：<a target="_blank" rel="noopener" href="https://www.cactus-tech.com/resources/blog/details/solid-state-drive-primer-8-controller-architecture-channels-and-banks/" class="uri">https://www.cactus-tech.com/resources/blog/details/solid-state-drive-primer-8-controller-architecture-channels-and-banks/</a></p>
 <ul>
+<li><p>Channel: Controller可以同时访问的chip的个数。</p></li>
+<li><p>Bank: 一块SSD？</p></li>
 <li><p>chip(package): 闪存的封装。</p></li>
 <li><p>die: 晶片。生产的最小单元。每个chip中通常有多个die。</p></li>
-<li><p>plane: 各个plane可以并行执行指令。每个die中有一个或多个plane。</p></li>
-<li><p>block: 擦除的最小单位。擦除了之后才能写入。每个plane中有多个block。</p></li>
-<li><p>page: 写入的最小单位。每个block中有多个page。由于一个块只有被擦除之后才能写入，所以如果应用程序请求overwrite一个ssection，那么就要把新的数据写到另一个block里，然后原来的作废。</p></li>
+<li><p>plane:
+各个plane可以并行执行指令。每个die中有一个或多个plane。</p></li>
+<li><p>block:
+擦除的最小单位。擦除了之后才能写入。每个plane中有多个block。</p></li>
+<li><p>page:
+写入的最小单位。每个block中有多个page。由于一个块只有被擦除之后才能写入，所以如果应用程序请求overwrite一个ssection，那么就要把新的数据写到另一个block里，然后原来的作废。</p></li>
 </ul>
 <p>原文：<a target="_blank" rel="noopener" href="https://flashdba.com/2014/06/20/understanding-flash-blocks-pages-and-program-erases/" class="uri">https://flashdba.com/2014/06/20/understanding-flash-blocks-pages-and-program-erases/</a></p>
 <p>浮栅晶体管，SLC，MLC，TLC：<a target="_blank" rel="noopener" href="https://blog.csdn.net/juS3Ve/article/details/93679509" class="uri">https://blog.csdn.net/juS3Ve/article/details/93679509</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/frank_jb/article/details/123781097">初识flash芯片----写之前为什么要先擦除</a></p>
 </body></html>
 </div>
 
