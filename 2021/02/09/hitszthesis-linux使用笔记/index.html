@@ -2303,6 +2303,17 @@ var _hmt = _hmt || [];
 									
 							<ul>
 								<li class="file">
+									<a href="/2022/05/08/archlinux-tlp/">
+                     
+										    ArchLinux TLP
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -6220,33 +6231,33 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="安装texlive">安装texlive</h1>
+	<html><head></head><body><h2 id="安装texlive">安装texlive</h2>
+<p>在Deepin上测试通过：</p>
 <pre class="shell"><code># texlive-extra-utils: texdef
 # latex-cjk-all: Chinese font package
 # texlive-fonts-extra: Fonts such as consolas
 # evince: PDF reader
-sudo apt install -y texstudio texlive-xetex texlive-extra-utils latex-cjk-all texlive-fonts-extra evince</code></pre>
-<h1 id="下载模板">下载模板</h1>
-<p><a target="_blank" rel="noopener" href="https://gitee.com/jingxuanyang/hitszthesis" class="uri">https://gitee.com/jingxuanyang/hitszthesis</a></p>
-<h1 id="安装额外依赖">安装额外依赖</h1>
-<pre class="shell"><code># texlive-science: siunitx.sty
+sudo apt install -y texstudio texlive-xetex texlive-extra-utils latex-cjk-all texlive-fonts-extra evince
+
+# https://techoverflow.net/2019/07/30/how-to-fix-latex-error-file-siunitx-sty-not-found-on-ubuntu/
+# texlive-science: siunitx.sty
 # latexmk: make clean要用
 sudo apt -y install texlive-science latexmk</code></pre>
-<p>参考：<br>
-<a target="_blank" rel="noopener" href="https://techoverflow.net/2019/07/30/how-to-fix-latex-error-file-siunitx-sty-not-found-on-ubuntu/" class="uri">https://techoverflow.net/2019/07/30/how-to-fix-latex-error-file-siunitx-sty-not-found-on-ubuntu/</a></p>
-<h1 id="配置vscode">配置vscode</h1>
+<h2 id="下载模板">下载模板</h2>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/jingxuanyang/hitszthesis" class="uri">https://gitee.com/jingxuanyang/hitszthesis</a></p>
+<h2 id="配置vscode">配置vscode</h2>
 <p>我装了这几个插件</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210209161740856.png" alt="在这里插入图片描述"></p>
 <p>ctrl+s就可以自动编译，不需要命令行。</p>
-<h1 id="编译">编译</h1>
+<h2 id="编译">编译</h2>
 <pre class="shell"><code>make all</code></pre>
 <p>如果要用vscode的话，要把<code>main.tex</code>里的</p>
-<pre><code>% !TEX program  = XeLaTeX</code></pre>
+<pre class="text"><code>% !TEX program  = XeLaTeX</code></pre>
 <p>改成</p>
-<pre><code>% !TEX program  = xelatex</code></pre>
+<pre class="text"><code>% !TEX program  = xelatex</code></pre>
 <p>否则vscode会报错：<code>Recipe terminated with fatal error: spawn XeLaTeX ENOENT.</code>，因为linux是大小写敏感的。</p>
-<h1 id="添加gitignore">添加.gitignore</h1>
-<pre><code>*.sty
+<h2 id="添加gitignore">添加.gitignore</h2>
+<pre class="text"><code>*.sty
 *.aux
 *.cfg
 *.cls
@@ -6269,7 +6280,7 @@ main.pdf
 *.thm</code></pre>
 <p>这样commit的时候可以不把这些临时文件commit进去。</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210209165811672.png" alt="在这里插入图片描述"></p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考文献">参考文献</h2>
 <p>在google scholar上搜索文献，然后点击引用</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210131710785.png" alt="在这里插入图片描述"></p>
 <p>选Bibtex</p>
@@ -6280,13 +6291,13 @@ main.pdf
 <p>绿色的那个就是自动生成的名字，要引用时cite这个名字就好了</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210132013504.png" alt="在这里插入图片描述"></p>
 <p>注意更改了<code>reference.bib</code>之后要</p>
-<pre><code>bibtex main</code></pre>
+<pre class="text"><code>bibtex main</code></pre>
 <p>才会生效。</p>
 <p>然后再编译几下<code>main.tex</code>就好了。</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210132152797.png" alt="在这里插入图片描述"></p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210132211113.png" alt="在这里插入图片描述"></p>
 <p>引用misc类型的参考文献可能会报错<code>Unsupported entry type</code>。参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/haifeng_gu/article/details/107342684" class="uri">https://blog.csdn.net/haifeng_gu/article/details/107342684</a>，将<code>misc</code>改成<code>Online</code>即可。</p>
-<h1 id="伪代码">伪代码</h1>
+<h2 id="伪代码">伪代码</h2>
 <p>hitszthesis的伪代码用的是<code>algorithm2e</code>包，已经自带了，不需要另外usepackage。<br>
 注意algorithm2e里是用<code>\;</code>来结束一条语句，而不是用<code>\State</code>来开始一条语句。<br>
 algorithm2e教程：<br>
