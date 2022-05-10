@@ -6267,7 +6267,7 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>已测试的组合：</p>
 <ul>
 <li><p>宿主机：Deepin、Debian 11、centos 8</p></li>
-<li><p>虚拟机：CentOS 8</p></li>
+<li><p>虚拟机：CentOS 8, CentOS Stream 9, Debian 11</p></li>
 </ul>
 <h2 id="下载操作系统镜像">下载操作系统镜像</h2>
 <p>可以用中科大的源下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a><br>
@@ -6304,8 +6304,7 @@ sudo apt install virtinst
 # Debian 11
 sudo apt install virtinst libvirt-daemon-system
 sudo virsh net-start default</code></pre>
-<p>然后让普通用户使用libvirt时能使用KVM：</p>
-<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a>
+<p>然后让普通用户使用libvirt时能使用KVM：<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a></p>
 <p>然后就可以开始安装了：</p>
 <pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
 <p>os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看，<code>osinfo-query</code>在<code>libosinfo-bin</code>包中。</p>
