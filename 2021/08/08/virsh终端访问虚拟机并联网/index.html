@@ -2376,17 +2376,6 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/08/14/deepin%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/">
-                     
-										    deepin设置静态IP
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2020/09/19/deepin%E9%BB%98%E8%AE%A4%E8%BF%9B%E5%85%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%88%96%E8%80%85gui/">
                      
 										    deepin默认进入命令行或者GUI
@@ -2555,6 +2544,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/14/centos%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
                      
 										    centos端口转发
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2021/08/14/deepin%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/">
+                     
+										    deepin设置静态IP
                      
 									</a>
 								</li>
@@ -6369,6 +6369,25 @@ var _hmt = _hmt || [];
 <p>如果没有反应，说明虚拟机里没有配置console，要看这篇文章进行配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119108333" class="uri">https://blog.csdn.net/qq_41961459/article/details/119108333</a></p>
 <p>奇怪的是有时候console里shutdown之后不会自动destroy。这时要<code>ctrl+]</code>退出console，然后手动<code>virsh destroy</code>一下。</p>
 <p>注意，普通用户的virsh域和root的virsh域是不互通的。</p>
+<h2 id="可选">可选</h2>
+<h3 id="通过复制镜像开新虚拟机">通过复制镜像开新虚拟机</h3>
+<p>如果直接复制镜像来开新机器，会把machine
+ID一起复制到新机器，从而导致一些问题。更改machine
+ID的方法：<a href="/2022/05/11/linux%E6%9B%B4%E6%94%B9machine-id/" title="Linux更改machine ID">Linux更改machine ID</a></p>
+<p>此外，SSH host key也会复制过去，重新生成的方法：<a href="/2022/05/11/%E6%9B%B4%E6%94%B9ssh-host-key/" title="更改SSH host key">更改SSH host key</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://octetz.com/docs/2020/2020-10-19-machine-images/" class="uri">https://octetz.com/docs/2020/2020-10-19-machine-images/</a></p>
+<h3 id="配置静态ip">配置静态IP</h3>
+<p>Deepin、Debian 11: <a href="/2021/08/14/deepin%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/" title="deepin设置静态IP">deepin设置静态IP</a></p>
+<p>如果发现仍然会获取动态IP，检查这几点：</p>
+<ul>
+<li><p>machine ID是唯一的，不然好像可能会从其他同machine
+ID的机器那里继承动态IP。</p></li>
+<li><p>dhcpcd服务没有运行。dhcpcd的全程是DHCP Client Daemon。</p></li>
+</ul>
+<p>如果都没问题，再检查这里提到的另外几项：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44555609/article/details/109049543">Debian
+9系统配置静态ip之后还会获取动态ip的问题</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/EasonJim/p/8426642.html">树莓派（Debian）系统设置了静态IP之后还会获取动态IP的问题解决（scope
+global secondary eth0）</a></p>
 <h2 id="常见问题">常见问题</h2>
 <h3 id="无法自动联网">无法自动联网</h3>
 <p>有的发行版没有设置开机自动联网，可以用<code>/sbin/dhclient</code>临时联网，开机自动联网需要手动设置：</p>
