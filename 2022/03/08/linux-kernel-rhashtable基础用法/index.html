@@ -6407,119 +6407,131 @@ dmesg | less</code></pre>
 <pre class="text"><code>[  340.782852] rhashtable_init returns 0</code></pre>
 <p>正常完成。</p>
 <h2 id="间接存储的key">间接存储的key</h2>
-<p>比方说entry里只存key的指针之类的。这里方便起见，将key存到KV pair里。</p>
+<p>比方说entry里只存key的指针之类的。这里方便起见，将key存到KV
+pair里。</p>
 <p>由于key是间接存储的，<code>rhashtable</code>不知道怎么把key读出来，所以需要提供<code>obj_hashfn</code>用于从entry中算出key的哈希值，还需要提供<code>obj_cmpfn</code>用于确定这个entry的key是不是跟给定的key一致。注意，这里仍然需要提供<code>key_len</code>，我也不知道为什么。。。</p>
 <p><code>test1.c</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/module.h&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/kernel.h&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/slab.h&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/rhashtable.h&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>MODULE_LICENSE<span class="op">(</span><span class="st">"GPL"</span><span class="op">);</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> kvpair <span class="op">{</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    u64 key<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    u64 value<span class="op">;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> hash_entry <span class="op">{</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhash_head node<span class="op">;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> kvpair kv<span class="op">;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> hash_entry_free<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>ptr<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>arg<span class="op">)</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    kfree<span class="op">(</span>ptr<span class="op">);</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>u32 hashfn<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>data<span class="op">,</span> u32 len<span class="op">,</span> u32 seed<span class="op">)</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jhash<span class="op">(</span>data<span class="op">,</span> len<span class="op">,</span> seed<span class="op">);</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>u32 hash_entry_hashfn<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>data<span class="op">,</span> u32 len<span class="op">,</span> u32 seed<span class="op">)</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> hash_entry <span class="op">*)</span>data<span class="op">;</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jhash<span class="op">(&amp;</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">),</span> seed<span class="op">);</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to compare key with object</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> key_entry_cmp<span class="op">(</span><span class="kw">struct</span> rhashtable_compare_arg <span class="op">*</span>arg<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>obj<span class="op">)</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> hash_entry <span class="op">*)</span>obj<span class="op">;</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*(</span>u64 <span class="op">*)</span>arg<span class="op">-&gt;</span>key <span class="op">-</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">;</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">int</span> __init start_init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    u64 i<span class="op">;</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry<span class="op">;</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhashtable_params param <span class="op">=</span> <span class="op">{</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>key_len <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>u64<span class="op">),</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>head_offset <span class="op">=</span> offsetof<span class="op">(</span><span class="kw">struct</span> hash_entry<span class="op">,</span> node<span class="op">),</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>hashfn <span class="op">=</span> hashfn<span class="op">,</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>obj_hashfn <span class="op">=</span> hash_entry_hashfn<span class="op">,</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>obj_cmpfn <span class="op">=</span> key_entry_cmp<span class="op">,</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>automatic_shrinking <span class="op">=</span> true<span class="op">,</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhashtable rht<span class="op">;</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> ret <span class="op">=</span> rhashtable_init<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>param<span class="op">);</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    printk<span class="op">(</span><span class="st">"rhashtable_init returns %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ret<span class="op">);</span></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ret <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ret<span class="op">;</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">26</span><span class="op">);</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>        <span class="co">//entry = kmalloc(sizeof(struct hash_entry), GFP_KERNEL);</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> kzalloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> hash_entry<span class="op">),</span> GFP_KERNEL<span class="op">);</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"kzalloc returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>        entry<span class="op">-&gt;</span>kv<span class="op">.</span>key <span class="op">=</span> i<span class="op">;</span></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">=</span> i <span class="op">*</span> i<span class="op">;</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        <span class="co">//printk("Inserting %llu %llu\n", entry-&gt;key, entry-&gt;value);</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        ret <span class="op">=</span> rhashtable_insert_fast<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>entry<span class="op">-&gt;</span>node<span class="op">,</span> param<span class="op">);</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>ret <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>            kfree<span class="op">(</span>entry<span class="op">);</span></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_insert_fast returns %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ret<span class="op">);</span></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">26</span><span class="op">);</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 如果可以保证entry不被删掉，那么可以用rhashtable_lookup_fast</span></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> rhashtable_lookup_fast<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>i<span class="op">,</span> param<span class="op">);</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_lookup_fast returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/sched.h&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>MODULE_LICENSE<span class="op">(</span><span class="st">"GPL"</span><span class="op">);</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> kvpair <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    u64 key<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    u64 value<span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> hash_entry <span class="op">{</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhash_head node<span class="op">;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> kvpair kv<span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> hash_entry_free<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>ptr<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>arg<span class="op">)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    kfree<span class="op">(</span>ptr<span class="op">);</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>u32 hashfn<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>data<span class="op">,</span> u32 len<span class="op">,</span> u32 seed<span class="op">)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jhash<span class="op">(</span>data<span class="op">,</span> len<span class="op">,</span> seed<span class="op">);</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>u32 hash_entry_hashfn<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>data<span class="op">,</span> u32 len<span class="op">,</span> u32 seed<span class="op">)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> hash_entry <span class="op">*)</span>data<span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jhash<span class="op">(&amp;</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">),</span> seed<span class="op">);</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to compare key with object</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> key_entry_cmp<span class="op">(</span><span class="kw">struct</span> rhashtable_compare_arg <span class="op">*</span>arg<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>obj<span class="op">)</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> hash_entry <span class="op">*)</span>obj<span class="op">;</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*(</span>u64 <span class="op">*)</span>arg<span class="op">-&gt;</span>key <span class="op">-</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>key<span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">int</span> __init start_init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    u64 i<span class="op">;</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> hash_entry <span class="op">*</span>entry<span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhashtable_params param <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>key_len <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>u64<span class="op">),</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>head_offset <span class="op">=</span> offsetof<span class="op">(</span><span class="kw">struct</span> hash_entry<span class="op">,</span> node<span class="op">),</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>hashfn <span class="op">=</span> hashfn<span class="op">,</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>obj_hashfn <span class="op">=</span> hash_entry_hashfn<span class="op">,</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>obj_cmpfn <span class="op">=</span> key_entry_cmp<span class="op">,</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>automatic_shrinking <span class="op">=</span> true<span class="op">,</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> rhashtable rht<span class="op">;</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> ret <span class="op">=</span> rhashtable_init<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>param<span class="op">);</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    printk<span class="op">(</span><span class="st">"rhashtable_init returns %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ret<span class="op">);</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ret <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">20</span><span class="op">);</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>        <span class="co">//entry = kmalloc(sizeof(struct hash_entry), GFP_KERNEL);</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> kzalloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> hash_entry<span class="op">),</span> GFP_KERNEL<span class="op">);</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"kzalloc returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        entry<span class="op">-&gt;</span>kv<span class="op">.</span>key <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">=</span> i <span class="op">*</span> i<span class="op">;</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        <span class="co">//printk("Inserting %llu %llu\n", entry-&gt;key, entry-&gt;value);</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>            <span class="co">// rhashtable_insert_fast 不检查这个元素是否已经存在，而是直接插入</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            ret <span class="op">=</span> rhashtable_insert_fast<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>entry<span class="op">-&gt;</span>node<span class="op">,</span> param<span class="op">);</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>            <span class="co">// 如果插入太快，尤其是多线程插入的时候，可能会返回-EBUSY。好像是因为需要触发table resizing，但是同一时间只能有一个table resizing任务，所以就返回-EBUSY。此时需要schedule一下然后重试。</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>ret <span class="op">!=</span> <span class="op">-</span>EBUSY<span class="op">)</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>            schedule<span class="op">();</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>ret <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>            kfree<span class="op">(</span>entry<span class="op">);</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_insert_fast returns %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ret<span class="op">);</span></span>
 <span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
 <span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">!=</span> i <span class="op">*</span> i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"%llu %llu</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>value<span class="op">);</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 如果另一个线程可能会删掉entry，那么需要一直拿着read lock直到不再需要entry</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        rcu_read_lock<span class="op">();</span></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> rhashtable_lookup<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>i<span class="op">,</span> param<span class="op">);</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_lookup returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">!=</span> <span class="op">(</span>u64<span class="op">)</span>i <span class="op">*</span> i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"%llu %llu</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>value<span class="op">);</span></span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>        rcu_read_unlock<span class="op">();</span></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>err_exit<span class="op">:</span></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>    rhashtable_free_and_destroy<span class="op">(&amp;</span>rht<span class="op">,</span> hash_entry_free<span class="op">,</span> NULL<span class="op">);</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> __exit end_exit<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>module_init<span class="op">(</span>start_init<span class="op">)</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>module_exit<span class="op">(</span>end_exit<span class="op">)</span></span></code></pre></div>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>        <span class="co">// hashtable_lookup_insert_key 会检查元素是否已经存在，如果已经存在就返回-EEXIST，不存在则插入并返回0</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>        ret <span class="op">=</span> rhashtable_lookup_insert_key<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>i<span class="op">,</span> <span class="op">&amp;</span>entry<span class="op">-&gt;</span>node<span class="op">,</span> param<span class="op">);</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>        BUG_ON<span class="op">(</span>ret <span class="op">!=</span> <span class="op">-</span>EEXIST<span class="op">);</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">20</span><span class="op">);</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 如果可以保证entry不被删掉，那么可以用rhashtable_lookup_fast</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> rhashtable_lookup_fast<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>i<span class="op">,</span> param<span class="op">);</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_lookup_fast returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">!=</span> i <span class="op">*</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"%llu %llu</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>value<span class="op">);</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 如果另一个线程可能会删掉entry，那么需要一直拿着read lock直到不再需要entry</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>        rcu_read_lock<span class="op">();</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>        entry <span class="op">=</span> rhashtable_lookup<span class="op">(&amp;</span>rht<span class="op">,</span> <span class="op">&amp;</span>i<span class="op">,</span> param<span class="op">);</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"rhashtable_lookup returns NULL</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>entry<span class="op">-&gt;</span>kv<span class="op">.</span>value <span class="op">!=</span> <span class="op">(</span>u64<span class="op">)</span>i <span class="op">*</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>            printk<span class="op">(</span><span class="st">"%llu %llu</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> i<span class="op">,</span> entry<span class="op">-&gt;</span>kv<span class="op">.</span>value<span class="op">);</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>            <span class="cf">goto</span> err_exit<span class="op">;</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        rcu_read_unlock<span class="op">();</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>err_exit<span class="op">:</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>    rhashtable_free_and_destroy<span class="op">(&amp;</span>rht<span class="op">,</span> hash_entry_free<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> __exit end_exit<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>module_init<span class="op">(</span>start_init<span class="op">)</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>module_exit<span class="op">(</span>end_exit<span class="op">)</span></span></code></pre></div>
 <p><code>Makefile</code>和编译运行的步骤跟上面一样。</p>
 </body></html>
 </div>
