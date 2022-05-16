@@ -5447,6 +5447,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/05/15/linux-kernel-rcu/">
+                     
+										    Linux kernel RCU
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/02/02/linux-kernel-kthread%E7%94%A8%E6%B3%95/">
                      
 										    Linux kernel kthread用法
@@ -5648,6 +5659,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
                      
 										    slab分配器
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/05/16/soft-lockup%E6%97%B6%E5%9C%A8console%E6%89%93%E5%8D%B0stack/">
+                     
+										    soft lockup时在console打印stack
                      
 									</a>
 								</li>
@@ -6283,6 +6305,46 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/26/qemu-system-x86-64-nographic/">
+				<h2 class="index-title">
+					qemu-system-x86_64 nographic
+				</h2>
+				<div class="index-brief">
+					即使把图形界面删掉了，仍然是默认输出到显示器上的，这样nographic选项就没啥用。为了使其产生作用，在虚拟机中将/etc/default/grub里的
+GRUB_CMDLINE_LINUX=""
+改成
+GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-26</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/25/load-key-%E2%80%9C-home-searchstar-ssh-id-rsa-getip%E2%80%9C-invalid-format/">
+				<h2 class="index-title">
+					Load key “/home/searchstar/.ssh/id_rsa_getip“: invalid format
+				</h2>
+				<div class="index-brief">
+					如果是手动复制过来的，可能是结尾没有换行符。
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-25</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/22/python%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">
 				<h2 class="index-title">
 					python文件管理
@@ -6462,46 +6524,6 @@ smp_processor_id() is safe if it's used in a preemption-off critical section, or
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-19</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
-				<h2 class="index-title">
-					编译安装linux内核时Possible missing firmware
-				</h2>
-				<div class="index-brief">
-					其实可以不用管，我这能正常开机使用。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-18</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/18/cannot-stat-%E2%80%98-modules-builtin%E2%80%98-no-such-file-or-directory/">
-				<h2 class="index-title">
-					cannot stat ‘./modules.builtin‘: No such file or directory
-				</h2>
-				<div class="index-brief">
-					make modules_install时报错：
-cp: cannot stat './modules.builtin': No such file or directory
-这是因为make modules.builtin时出问题了，导致这个文件没有被编译出来。再跑一遍
-make modules.
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-18</span>
                     
                             
                     
