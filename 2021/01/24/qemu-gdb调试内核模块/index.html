@@ -6341,36 +6341,36 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="制作qemu虚拟机">制作qemu虚拟机</h1>
-<p>看这里：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112798115" class="uri">https://blog.csdn.net/qq_41961459/article/details/112798115</a><br>
-如果是PC的话，就不用配置vnc了。</p>
+	<html><head></head><body><h2 id="制作qemu虚拟机">制作qemu虚拟机</h2>
+<p>看这里：<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="在服务器上用qemu制作虚拟机">在服务器上用qemu制作虚拟机</a></p>
+<p>如果是PC的话，就不用配置vnc了。</p>
 <p>虚拟机配置完毕后要把<code>-enable-kvm</code>去掉再重启，不然软件断点不起作用。此外，加上<code>-s</code>以启动gdbserver。</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 centos.img -net nic -net tap,ifname=tap0,script=no,downscript=no -s</code></pre>
 <p>关掉了kvm之后开机特别慢，我这要两百多秒。</p>
-<h1 id="设置nokaslr">设置nokaslr</h1>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112983233" class="uri">https://blog.csdn.net/qq_41961459/article/details/112983233</a></p>
-<h1 id="编译内核模块">编译内核模块</h1>
+<h2 id="设置nokaslr">设置nokaslr</h2>
+<a href="/2021/01/22/qemu-gdb-lx-symbols-python-exception-%EF%BC%9Cclass-%E2%80%98gdb-memoryerror%E2%80%98%EF%BC%9E-cannot-access-memory-at-address-0xfff/" title="qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff">qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff</a>
+<h2 id="编译内核模块">编译内核模块</h2>
 <p>Makefile里加上</p>
-<pre><code>ccflags-y += -g -DDEBUG -O1</code></pre>
+<pre class="text"><code>ccflags-y += -g -DDEBUG -O1</code></pre>
 <p>不能用<code>-O0</code>，可能会报错。</p>
-<h1 id="配置gdb">配置gdb</h1>
+<h2 id="配置gdb">配置gdb</h2>
 <p>在~/.gdbinit里加上</p>
-<pre><code>add-auto-load-safe-path /full_path_to_kernel_build_dir/scripts/gdb/vmlinux-gdb.py</code></pre>
+<pre class="text"><code>add-auto-load-safe-path /full_path_to_kernel_build_dir/scripts/gdb/vmlinux-gdb.py</code></pre>
 <p>例如</p>
-<pre><code>add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</code></pre>
-<p>这样gdb里就可以用<code>lx-symbols</code>了。<br>
-# gdb连上qemu并设置自动加载模块符号</p>
+<pre class="text"><code>add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</code></pre>
+<p>这样gdb里就可以用<code>lx-symbols</code>了。</p>
+<h2 id="gdb连上qemu并设置自动加载模块符号">gdb连上qemu并设置自动加载模块符号</h2>
 <pre class="shell"><code>cd /path/to/kernel/build/dir
 gdb vmlinux</code></pre>
 <p>然后在gdb里执行</p>
 <pre class="gdb"><code>target remote :1234</code></pre>
 <p>输出：</p>
-<pre><code>0xffffffff827302c2 in native_safe_halt () at ./arch/x86/include/asm/irqflags.h:57
+<pre class="text"><code>0xffffffff827302c2 in native_safe_halt () at ./arch/x86/include/asm/irqflags.h:57
 57              asm volatile("sti; hlt": : :"memory");</code></pre>
 <p>然后设置自动加载模块符号，在gdb里继续执行：</p>
 <pre class="gdb"><code>lx-symbols path/to/parent/of/modules/</code></pre>
 <p>输出：</p>
-<pre><code>loading vmlinux
+<pre class="text"><code>loading vmlinux
 scanning for modules in /home/searchstar/git/projects/nova/
 scanning for modules in /mnt/hdd/kernel/gdb/linux-nova
 loading @0xffffffffc1090000: /mnt/hdd/kernel/gdb/linux-nova/arch/x86/kernel/msr.ko
@@ -6378,17 +6378,17 @@ loading @0xffffffffc1088000: /mnt/hdd/kernel/gdb/linux-nova/net/netfilter/nft_fi
 loading @0xffffffffc1080000: /mnt/hdd/kernel/gdb/linux-nova/net/ipv4/netfilter/nft_fib_ipv4.ko
 此处省略若干行
 loading @0xffffffffc0000000: /mnt/hdd/kernel/gdb/linux-nova/fs/autofs/autofs4.ko</code></pre>
-<h1 id="insmod">insmod</h1>
+<h2 id="insmod">insmod</h2>
 <p>在gdb里输入c</p>
-<pre><code>(gdb) c
+<pre class="text"><code>(gdb) c
 Continuing.</code></pre>
 <p>这样虚拟机就会继续运行。在虚拟机中用insmod加载模块。这时gdb会自动加载内核模块的符号。</p>
-<h1 id="在gdb中设置断点">在gdb中设置断点</h1>
+<h2 id="在gdb中设置断点">在gdb中设置断点</h2>
 <p>由于已经关闭了<code>kvm</code>，所以可以直接设置软断点。</p>
-<pre><code>(gdb) b nova_init_blockmap
+<pre class="text"><code>(gdb) b nova_init_blockmap
 Breakpoint 1 at 0xffffffffc10992ab: file /home/searchstar/git/projects/nova/balloc.c, line 212.</code></pre>
-<h1 id="跑起来">跑起来</h1>
-<pre><code>(gdb) c
+<h2 id="跑起来">跑起来</h2>
+<pre class="text"><code>(gdb) c
 Continuing.
 
 Breakpoint 1, nova_init_blockmap (sb=0xffff88809ee9cb08)
