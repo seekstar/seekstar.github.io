@@ -6390,19 +6390,24 @@ cp Makefile.summit Makefile</code></pre>
 <p>然后就可以编译了：</p>
 <pre class="shell"><code>make -j$(nproc)</code></pre>
 <p>注意，vol-async v1.1与 HDF5 v1.12.1不兼容。</p>
-<h2 id="编译安装-h5bench">编译安装 h5bench</h2>
+<h2 id="编译-h5bench">编译 h5bench</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/hpc-io/h5bench" class="uri">https://github.com/hpc-io/h5bench</a></p>
 <pre class="shell"><code>sudo apt install libpnetcdf-dev</code></pre>
+<p>不知道为啥，就算没有<code>-DH5BENCH_ALL=ON</code>，也要依赖AMReX和openPMD。</p>
 <pre class="shell"><code>mkdir build
 cd build
 cmake .. -DH5BENCH_ALL=ON
 make -j$(nproc)
 echo "export PATH=$(pwd):\$PATH" &gt;&gt; ~/.bashrc
 source ~/.bashrc</code></pre>
+<p>如果提示<code>mpi.h</code>找不到的话，就把mpi的include路径放到<code>CPATH</code>环境变量中。</p>
 <p>不需要跑<code>sudo make install</code>。而且跑了之后，安装在系统目录下的<code>h5bench</code>的权限位是700，所以普通用户没法执行。</p>
 <p>注意，一定要把build目录加入到<code>PATH</code>里，不然后面跑实验的时候会报这个错：</p>
 <pre class="text"><code>execvp error on file h5bench_write (No such file or directory)</code></pre>
 <h2 id="运行-h5bench">运行 h5bench</h2>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/running.html" class="uri">https://h5bench.readthedocs.io/en/latest/running.html</a></p>
+<p>官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/running.html" class="uri">https://h5bench.readthedocs.io/en/latest/running.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/vpic.html" class="uri">https://h5bench.readthedocs.io/en/latest/vpic.html</a></p>
 <p>配置文件的一些坑：</p>
 <p>不能有多余的逗号，不然log里会报错：<code>CRITICAL - Unable to find and parse the input configuration file</code>。</p>
 <p><code>benchmarks</code>下面的每个<code>benchmark</code>里的<code>configuration</code>都要加上<code>"MODE": "SYNC"</code>或者<code>"MODE": "ASYNC"</code>，并且把<code>"ASYNC_MODE": "NON",</code>去掉。不然会报这个错：<code>h5bench - ERROR - Unable to run the benchmark: 'MODE'</code>。</p>
@@ -6449,8 +6454,12 @@ source ~/.bashrc</code></pre>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
 <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
 <span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>其中<code>DIM_1</code>乘上<code>1300</code>差不多就是生成的文件的字节数了。</p>
+<p>我保存为了<code>write.json</code>。然后运行测试：</p>
+<pre class="shell"><code>./h5bench write.json</code></pre>
 <h2 id="参考">参考</h2>
 <p><a target="_blank" rel="noopener" href="https://support.hdfgroup.org/HDF5/PHDF5/" class="uri">https://support.hdfgroup.org/HDF5/PHDF5/</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44759449/article/details/122136852">Linux下将某个include路径添加到g++的默认搜索路径</a></p>
 </body></html>
 </div>
 
