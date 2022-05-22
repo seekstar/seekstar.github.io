@@ -948,6 +948,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/05/22/libreoffice/">
+                     
+										    LibreOffice
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/">
                      
 										    Linux pdf编辑软件
@@ -3587,6 +3598,17 @@ var _hmt = _hmt || [];
 									<a href="/2020/09/01/golang-echo-server%E4%BB%A3%E7%A0%81/">
                      
 										    golang echo server代码
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/05/22/golang-panic%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%89%93%E5%8D%B0/">
+                     
+										    golang panic格式化打印
                      
 									</a>
 								</li>
@@ -6338,6 +6360,51 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
+				<h2 class="index-title">
+					在chroot环境中挂载dev, proc, sys
+				</h2>
+				<div class="index-brief">
+					mount
+cd /location/of/new/root
+mount -t proc /proc proc/
+mount -t sysfs /sys sys/
+mount --rbind /dev dev/
+按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b目录
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/27/linux-sysrq/">
+				<h2 class="index-title">
+					Linux SysRq
+				</h2>
+				<div class="index-brief">
+					目前的Linux发行版一般都开启了SysRq。
+cat /proc/sys/kernel/sysrq
+如果输出非0，就说明开启了SysRq，如果输出为0，可以临时启用SysRq：
+echo 1 &gt; /proc/sys/kernel/sysrq
+也可以在/etc/sysctl.conf里写入ke
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/27/pacman%E6%B8%85%E7%90%86%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%BC%93%E5%AD%98/">
 				<h2 class="index-title">
 					pacman清理软件包缓存
@@ -6495,50 +6562,6 @@ sudo virsh net-autostart d
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-18</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/nmcli-device-status-unmanaged/">
-				<h2 class="index-title">
-					nmcli device status unmanaged
-				</h2>
-				<div class="index-brief">
-					症状：
-nmcli device status
-DEVICE        TYPE      STATE                                  CONNECTION
-enp89s0       ethernet  unmanaged                   
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/">
-				<h2 class="index-title">
-					libvirt让普通用户能用kvm
-				</h2>
-				<div class="index-brief">
-					有些发行版中，普通用户可能没法用KVM：
-virsh capabilities | grep domain
-      &lt;domain type='qemu'/&gt;
-      &lt;domain type='qemu'/&gt;
-作为对比：
-sudo virsh capabilitie
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
                     
                             
                     

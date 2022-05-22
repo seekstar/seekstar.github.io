@@ -948,6 +948,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/05/22/libreoffice/">
+                     
+										    LibreOffice
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/">
                      
 										    Linux pdf编辑软件
@@ -3587,6 +3598,17 @@ var _hmt = _hmt || [];
 									<a href="/2020/09/01/golang-echo-server%E4%BB%A3%E7%A0%81/">
                      
 										    golang echo server代码
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/05/22/golang-panic%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%89%93%E5%8D%B0/">
+                     
+										    golang panic格式化打印
                      
 									</a>
 								</li>
@@ -6338,6 +6360,55 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/09/golang-slice%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">
+				<h2 class="index-title">
+					golang slice实现队列
+				</h2>
+				<div class="index-brief">
+					golang的slice相当于对一段连续空间的引用。当底层数组的前面一段空间没有被任何slice引用时，这段连续空间可以被释放。用一个小实验证明这一点：
+package main
+
+import (
+    "fmt"
+    "runtime"
+    "time"
+)
+
+func main() 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/09/golang%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91gc/">
+				<h2 class="index-title">
+					golang手动触发GC
+				</h2>
+				<div class="index-brief">
+					import "runtime"
+
+runtime.GC()
+来源：Golang什么时候会触发GC
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/09/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
 				<h2 class="index-title">
 					垃圾回收算法
@@ -6501,51 +6572,6 @@ manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
-				<h2 class="index-title">
-					在chroot环境中挂载dev, proc, sys
-				</h2>
-				<div class="index-brief">
-					mount
-cd /location/of/new/root
-mount -t proc /proc proc/
-mount -t sysfs /sys sys/
-mount --rbind /dev dev/
-按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b目录
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/27/linux-sysrq/">
-				<h2 class="index-title">
-					Linux SysRq
-				</h2>
-				<div class="index-brief">
-					目前的Linux发行版一般都开启了SysRq。
-cat /proc/sys/kernel/sysrq
-如果输出非0，就说明开启了SysRq，如果输出为0，可以临时启用SysRq：
-echo 1 &gt; /proc/sys/kernel/sysrq
-也可以在/etc/sysctl.conf里写入ke
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-27</span>
                     
                             
                     
