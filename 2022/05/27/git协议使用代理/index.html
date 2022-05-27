@@ -6429,7 +6429,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>首先，<code>github.com</code>的<code>git@github.com:xxx/xxxx.git</code>使用的其实不是git协议，所以如果要代理之，需要配置的其实是SSH代理，在<code>~/.ssh/config</code>里配置如下：</p>
+	<html><head></head><body><p>首先，<code>github.com</code>的<code>git@github.com:xxx/xxxx.git</code>使用的其实不是git协议，而是SSH协议，所以如果要代理之，需要配置的其实是SSH代理，在<code>~/.ssh/config</code>里配置如下：</p>
 <pre class="text"><code>Host github.com
     User git
     # ProxyCommand nc -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p
