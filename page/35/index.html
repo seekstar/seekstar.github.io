@@ -959,6 +959,28 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/05/27/libreoffice%E6%8F%92%E5%85%A5latex%E5%85%AC%E5%BC%8F/">
+                     
+										    LibreOffice插入Latex公式
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/05/27/libreoffice%E9%80%89%E4%B8%AD%E8%A2%AB%E7%9B%96%E4%BD%8F%E7%9A%84%E5%AF%B9%E8%B1%A1/">
+                     
+										    LibreOffice选中被盖住的对象
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/">
                      
 										    Linux pdf编辑软件
@@ -6371,6 +6393,55 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/09/04/rust%E6%B3%9B%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E6%88%900/">
+				<h2 class="index-title">
+					rust泛型初始化成0
+				</h2>
+				<div class="index-brief">
+					std::num::Int被deprecated了。所以只能用别人的crate或者自己实现Zero了。
+github上有一个不错的：
+https://github.com/rust-num/num-traits
+有关Zero的部分：
+pub trait Zero {
+    fn zero() -&
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/09/01/golang-echo-server%E4%BB%A3%E7%A0%81/">
+				<h2 class="index-title">
+					golang echo server代码
+				</h2>
+				<div class="index-brief">
+					参考的这位大佬的：https://blog.csdn.net/wowzai/article/details/9936659
+但是这个实际上服务器不会echo回去。所以我写了个带echo回去的版本。
+server
+package main
+
+import (
+    "net"
+    "os"
+  
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/08/28/linux-less%E5%91%BD%E4%BB%A4%E5%8F%96%E6%B6%88%E6%90%9C%E7%B4%A2%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%AB%98%E4%BA%AE/">
 				<h2 class="index-title">
 					Linux less命令取消搜索的字符串的高亮
@@ -6539,57 +6610,6 @@ https://unix.stackexchang
 			</a>
                 <div class="article-meta">
 				    <span>2020-08-24</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/23/linux%E6%8C%82%E8%BD%BDext4-ramdisk/">
-				<h2 class="index-title">
-					Linux挂载ext4 ramdisk
-				</h2>
-				<div class="index-brief">
-					划分一块DRAM作为ramdisk
-在/etc/default/grub改：
-GRUB_CMDLINE_LINUX="memmap=4G!4G"
-然后重启就可以看到/dev/pmem0，这就是划分出来的ramdisk了。
-格式化
-mkfs -t ext4 /dev/pmem0
-挂载
-这里的挂载点设置
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/">
-				<h2 class="index-title">
-					Linux查看固态盘总写入量等信息
-				</h2>
-				<div class="index-brief">
-					sudo apt install gsmartcontrol
-然后smartctl命令就有了。
-先尝试直接打开gmartcontrol（通过终端或者启动器）
-
-结果发现看不了。
-这时可以使用smartctl命令查看。
-首先找到固态盘的设备名。在终端中输入ls /dev/nvm*
-
-第一个就是固态盘的
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-23</span>
                     
                             
                     
