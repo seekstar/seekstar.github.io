@@ -6557,12 +6557,12 @@ v: 打印详细信息(verbose)</li>
 <a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1639604825027635340.html" class="uri">https://zhidao.baidu.com/question/1639604825027635340.html</a></p>
 <p>顾名思义，就是把文件先打包成tar，再压缩成xz。<br>
 解压时可以先解压xz得到tar文件，再解压tar。</p>
-<p>也可以使用一条命令完成解压或压缩。<br>
-### 单线程解压</p>
+<p>也可以使用一条命令完成解压或压缩。</p>
+<h3 id="单线程解压-1">单线程解压</h3>
 <pre class="shell"><code>tar xJf name.tar.xz</code></pre>
 <p>x: extract<br>
-J: xz<br>
-### 单线程压缩</p>
+J: xz</p>
+<h3 id="单线程压缩-1">单线程压缩</h3>
 <pre class="shell"><code>tar cJf name.tar.xz name</code></pre>
 <p>c: compress</p>
 <h3 id="多线程解压">多线程解压</h3>
@@ -6575,8 +6575,8 @@ J: xz<br>
 tar如果输出的文件名是“-”，则会输出到stdout<br>
 如果xz没有指定源文件则会从stdin中读取</p>
 <h2 id="bzip2">bzip2</h2>
-<p>压缩解压过程都会把源文件删掉。如果要保留，选项里加个<code>k</code>就好了（keep)。<br>
-### 多线程</p>
+<p>压缩解压过程都会把源文件删掉。如果要保留，选项里加个<code>k</code>就好了（keep)。</p>
+<h3 id="多线程">多线程</h3>
 <p>用pbzip2。如果不指定线程数，就自动检测能用多少个线程。</p>
 <p>解压：</p>
 <pre class="shell"><code>pbzip2 -dp线程数 FileName.bz2</code></pre>
@@ -6590,7 +6590,7 @@ tar如果输出的文件名是“-”，则会输出到stdout<br>
 <h2 id="tarbz2">tar.bz2</h2>
 <h3 id="单线程">单线程</h3>
 <pre class="shell"><code>tar -cjf name.tar.bz2 name</code></pre>
-<h3 id="多线程">多线程</h3>
+<h3 id="多线程-1">多线程</h3>
 <p>解压：</p>
 <pre class="shell"><code>pbzip2 -cdp线程数 b.tar.bz2 | tar -xC DirName</code></pre>
 </body></html>
