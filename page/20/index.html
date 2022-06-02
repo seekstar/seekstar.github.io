@@ -3628,6 +3628,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/markdown-quote%E5%B5%8C%E5%A5%97/">
+                     
+										    Markdown quote嵌套
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/11/09/r%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    R语言学习笔记
@@ -5282,6 +5293,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/">
+                     
+										    RocksDB代码分析——Compaction的输入文件的选择
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——Flush流程
@@ -6426,6 +6448,49 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/14/login-abort-requested-by-pam/">
+				<h2 class="index-title">
+					login: abort requested by PAM
+				</h2>
+				<div class="index-brief">
+					等个几分钟再试试就好了。查看dmesg，发现在输出这几条消息前卡了几分钟：
+random : crng init done
+random: 7 urandom warning(s) missed due to ratelimiting
+于是猜测是因为初始化随机数生成器太慢了。根据这篇文章：
+Boot
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/13/gimp%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">
+				<h2 class="index-title">
+					gimp常见操作
+				</h2>
+				<div class="index-brief">
+					裁剪出指定像素的区域
+比方说要裁剪出宽高400*500像素的区域，先用矩形选择工具（快捷键r）随便框出一块区域，然后左边的大小：里可以调整区域的宽和高，然后拖动这个矩形框住要裁剪出来的部分。然后右键，选择图像-&gt;裁剪到选区，就把这个区域裁剪出来了。
+缩放为指定像素
+右键，选择图像-&gt;缩放
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/12/warning-vncserver-has-been-replaced-by-a-systemd-unit-and-is-about-to-be-removed-in-future-releases/">
 				<h2 class="index-title">
 					WARNING: vncserver has been replaced by a systemd unit and is about to be removed in future releases
@@ -6597,49 +6662,6 @@ error: internal error: /usr/lib/qemu/qemu-bridge-helper --use-vnet --br=br0 --fd
 					echo "allow all" | sudo tee /etc/qemu/${USER}.conf
 echo "include /etc/qemu/${USER}.conf" | sudo tee --append /etc/qemu/bridge.conf
 sudo chown root:${U
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/08/virsh%E7%BB%88%E7%AB%AF%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E8%81%94%E7%BD%91/">
-				<h2 class="index-title">
-					virsh终端访问虚拟机并联网
-				</h2>
-				<div class="index-brief">
-					如果要使用KVM的话，首先要让普通用户使用libvirt时能使用KVM：
-libvirt让普通用户能用kvm
-配置网桥
-Linux配置网桥
-将虚拟机导入virsh
-这里假设domain的名字设置成centos8。先写一个centos8.xml，定义虚拟机的基本属性：
-&lt;domain type=
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/08/qemu-system-x86-64-warning-host-doesn%E2%80%98t-support-requested-feature-cpuid-80000001h-ecx-svm-bit-2/">
-				<h2 class="index-title">
-					qemu-system-x86_64: warning: host doesn‘t support requested feature: CPUID.80000001H:ECX.svm [bit 2]
-				</h2>
-				<div class="index-brief">
-					我在virtualbox里的虚拟机里用qemu创建虚拟机时报这个错。解决方法是在命令里加上-cpu host
-sudo qemu-system-x86_64 -cpu host -m 1024 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.
 					...
 				</div>
 			</a>
