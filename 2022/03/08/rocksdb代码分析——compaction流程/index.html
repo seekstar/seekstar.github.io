@@ -6501,10 +6501,14 @@ level的compaction。</p></li>
 <blockquote>
 <p>构造<code>CompactionJob compaction_job</code>，其中<code>FSDirectory* output_directory</code>被设置成<code>GetDataDir(c-&gt;column_family_data(), c-&gt;output_path_id())</code><br>
 <code>mutex_.Unlock()</code>，执行<code>compaction_job.Run()</code>，再<code>mutex_.Lock()</code>。这说明数据库的元数据是受互斥锁保护的，只有在执行耗时操作时才暂时把锁放开。<br>
-<code>compaction_job.Install</code><br>
-&gt;<code>CompactionJob::InstallCompactionResults</code><br>
-&gt;&gt;先把输入文件删掉：<code>compaction-&gt;AddInputDeletions(edit);</code><br>
-&gt;&gt;再把输出文件加上：<code>edit-&gt;AddFile</code></p>
+<code>compaction_job.Install</code></p>
+<blockquote>
+<p><code>CompactionJob::InstallCompactionResults</code></p>
+<blockquote>
+<p>先把输入文件删掉：<code>compaction-&gt;AddInputDeletions(edit);</code><br>
+再把输出文件加上：<code>edit-&gt;AddFile</code></p>
+</blockquote>
+</blockquote>
 <p><code>Compaction::ReleaseCompactionFiles</code>。所以Compaction的文件是有上锁的，不会出现一边compaction一边上面compact到输入层的情况。</p>
 </blockquote>
 <h2 id="compactionjoboutput_directory">CompactionJob::output_directory</h2>

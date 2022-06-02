@@ -6485,23 +6485,31 @@ var _hmt = _hmt || [];
 <blockquote>
 <p><code>SetupInitialFiles();</code>找一个需要compact到下层的SST
 file。<br>
-<code>LevelCompactionBuilder::SetupOtherL0FilesIfNeeded</code><br>
-&gt;<code>CompactionPicker::GetOverlappingL0Files</code><br>
-&gt;&gt;<code>CompactionPicker::GetRange</code>，拿到这个file的smallest和largest<br>
-&gt;&gt;<code>VersionStorageInfo::GetOverlappingInputs</code>，拿到L0中所有跟[smallest,
+<code>LevelCompactionBuilder::SetupOtherL0FilesIfNeeded</code></p>
+<blockquote>
+<p><code>CompactionPicker::GetOverlappingL0Files</code></p>
+<blockquote>
+<p><code>CompactionPicker::GetRange</code>，拿到这个file的smallest和largest<br>
+<code>VersionStorageInfo::GetOverlappingInputs</code>，拿到L0中所有跟[smallest,
 largest] overlap的file。<br>
-&gt;&gt;然后再<code>CompactionPicker::GetRange</code>更新一下range，检查一下冲突。然后不再继续get
+然后再<code>CompactionPicker::GetRange</code>更新一下range，检查一下冲突。然后不再继续get
 overlapping L0 files了。</p>
-<p><code>LevelCompactionBuilder::SetupOtherInputsIfNeeded</code><br>
-&gt;<code>CompactionPicker::SetupOtherInputs</code><br>
-&gt;&gt;<code>VersionStorageInfo::GetOverlappingInputs</code>，把所有跟<code>start_level_inputs</code>相交的下一层的sst
+</blockquote>
+</blockquote>
+<p><code>LevelCompactionBuilder::SetupOtherInputsIfNeeded</code></p>
+<blockquote>
+<p><code>CompactionPicker::SetupOtherInputs</code></p>
+<blockquote>
+<p><code>VersionStorageInfo::GetOverlappingInputs</code>，把所有跟<code>start_level_inputs</code>相交的下一层的sst
 file都加入到<code>output_level_inputs_</code>里。<br>
-&gt;&gt;<code>CompactionPicker::ExpandInputsToCleanCut</code>，expand
+<code>CompactionPicker::ExpandInputsToCleanCut</code>，expand
 <code>output_level_inputs_</code> 直到clean cut。<br>
-&gt;&gt;扩大<code>start_level_inputs</code>，只要不会扩大<code>output_level_inputs_</code>。细节：首先尝试把所有跟<code>output_level_inputs</code>相交的start
+扩大<code>start_level_inputs</code>，只要不会扩大<code>output_level_inputs_</code>。细节：首先尝试把所有跟<code>output_level_inputs</code>相交的start
 level的sst
 file都放入input，然后看会不会导致<code>output_level_inputs_</code>变大，如果会的话，就再尝试所有在<code>output_level_inputs_</code>范围内的所有start
 level的sst file都放入input。</p>
+</blockquote>
+</blockquote>
 </blockquote>
 </body></html>
 </div>
