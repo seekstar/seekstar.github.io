@@ -6475,8 +6475,9 @@ LevelCompactionBuilder::SetupOtherL0FilesIfNeed
 					Markdown quote嵌套
 				</h2>
 				<div class="index-brief">
-					嵌套的quote结束之后要留一个空行：
+					嵌套的quote的前面和后面都要留一个空行：
 &gt;a
+&gt;
 &gt;&gt;b
 &gt;&gt;b
 &gt;
@@ -6484,16 +6485,19 @@ LevelCompactionBuilder::SetupOtherL0FilesIfNeed
 效果：
 
 a
-&gt;b
-&gt;b
+
+b
+b
+
 c
 
-如果不留空行，后面被quote的内容就仍然会被加入到嵌套的quote里：
+如果前面或者后面不留空行，显示就会不正常。后面不留空行：
 &gt;a
+&gt;
 &gt;&gt;b
 &gt;&gt;b
 &gt;c
-效果
+效果：
 					...
 				</div>
 			</a>

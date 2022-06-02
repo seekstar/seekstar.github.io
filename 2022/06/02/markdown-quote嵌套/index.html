@@ -6473,32 +6473,51 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>嵌套的quote结束之后要留一个空行：</p>
+	<html><head></head><body><p>嵌套的quote的前面和后面都要留一个空行：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;a</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;c</span></span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;c</span></span></code></pre></div>
 <p>效果：</p>
+<blockquote>
+<p>a</p>
+<blockquote>
+<p>b<br>
+b</p>
+</blockquote>
+<p>c</p>
+</blockquote>
+<p>如果前面或者后面不留空行，显示就会不正常。后面不留空行：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;a</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;c</span></span></code></pre></div>
+<p>效果：</p>
+<blockquote>
+<p>a</p>
+<blockquote>
+<p>b<br>
+b<br>
+c</p>
+</blockquote>
+</blockquote>
+<p>前面不留空行：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;a</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;c</span></span></code></pre></div>
 <blockquote>
 <p>a<br>
 &gt;b<br>
 &gt;b</p>
 <p>c</p>
 </blockquote>
-<p>如果不留空行，后面被quote的内容就仍然会被加入到嵌套的quote里：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;a</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;b</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;c</span></span></code></pre></div>
-<p>效果：</p>
-<blockquote>
-<p>a<br>
-&gt;b<br>
-&gt;b<br>
-c</p>
-</blockquote>
-<p>来源：<a target="_blank" rel="noopener" href="https://commonmark.org/help/tutorial/05-blockquotes.html" class="uri">https://commonmark.org/help/tutorial/05-blockquotes.html</a></p>
+<p>不过vscode自带的markdown预览貌似允许前面不留空行。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://commonmark.org/help/tutorial/05-blockquotes.html" class="uri">https://commonmark.org/help/tutorial/05-blockquotes.html</a></p>
 </body></html>
 </div>
 
