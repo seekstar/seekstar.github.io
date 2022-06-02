@@ -3630,6 +3630,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/markdown-quote%E5%B5%8C%E5%A5%97/">
+                     
+										    Markdown quote嵌套
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/11/09/r%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    R语言学习笔记
@@ -5284,6 +5295,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/">
+                     
+										    RocksDB代码分析——Compaction的输入文件的选择
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——Flush流程
@@ -6460,7 +6482,8 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>这里从<code>DBImpl::MaybeScheduleFlushOrCompaction</code>开始讲起。</p>
-<p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Compaction。Flush部分见 <a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p>
+<p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Compaction。Flush部分见
+<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p>
 <p><code>DBImpl::BGWorkCompaction</code>中调用了<code>DBImpl::BackgroundCallCompaction</code>。</p>
 <p><code>DBImpl::BackgroundCallCompaction</code>中调用了<code>DBImpl::BackgroundCompaction</code>，然后调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，我的理解是compaction完成之后下一层可能过大了，这样就需要做新的compaction。</p>
 <p><code>DBImpl::BackgroundCompaction</code>中：</p>
@@ -6470,9 +6493,20 @@ var _hmt = _hmt || [];
 </ul>
 <p><code>DBImpl::BackgroundCompaction</code>中，取出compaction任务后：</p>
 <ul>
-<li><p>如果是最底层的compaction，而且不是<code>prepicked compaction</code>，那么就把priority改成<code>BOTTOM</code>，并且设置成<code>prepicked_compaction</code>，然后schedule <code>DBImpl::BGWorkBottomCompaction</code>，这个函数其实最后还是回到了<code>DBImpl::BackgroundCompaction</code>。这其实就相当于推迟bottom level的compaction。</p></li>
-<li><p>如果是<code>prepicked compaction</code>，或者不是最底层的compaction，那么就构造<code>CompactionJob compaction_job</code>，其中<code>FSDirectory* output_directory</code>被设置成<code>GetDataDir(c-&gt;column_family_data(), c-&gt;output_path_id())</code>。然后<code>mutex_.Unlock()</code>，执行<code>compaction_job.Run()</code>，再<code>mutex_.Lock()</code>。这说明数据库的元数据是受互斥锁保护的，只有在执行耗时操作时才暂时把锁放开。</p></li>
+<li><p>如果是最底层的compaction，而且不是<code>prepicked compaction</code>，那么就把priority改成<code>BOTTOM</code>，并且设置成<code>prepicked_compaction</code>，然后schedule
+<code>DBImpl::BGWorkBottomCompaction</code>，这个函数其实最后还是回到了<code>DBImpl::BackgroundCompaction</code>。这其实就相当于推迟bottom
+level的compaction。</p></li>
+<li><p>如果是<code>prepicked compaction</code>，或者不是最底层的compaction，那么：</p></li>
 </ul>
+<blockquote>
+<p>构造<code>CompactionJob compaction_job</code>，其中<code>FSDirectory* output_directory</code>被设置成<code>GetDataDir(c-&gt;column_family_data(), c-&gt;output_path_id())</code><br>
+<code>mutex_.Unlock()</code>，执行<code>compaction_job.Run()</code>，再<code>mutex_.Lock()</code>。这说明数据库的元数据是受互斥锁保护的，只有在执行耗时操作时才暂时把锁放开。<br>
+<code>compaction_job.Install</code><br>
+&gt;<code>CompactionJob::InstallCompactionResults</code><br>
+&gt;&gt;先把输入文件删掉：<code>compaction-&gt;AddInputDeletions(edit);</code><br>
+&gt;&gt;再把输出文件加上：<code>edit-&gt;AddFile</code></p>
+<p><code>Compaction::ReleaseCompactionFiles</code>。所以Compaction的文件是有上锁的，不会出现一边compaction一边上面compact到输入层的情况。</p>
+</blockquote>
 <h2 id="compactionjoboutput_directory">CompactionJob::output_directory</h2>
 <p>它决定了compaction的结果应该放到哪个文件夹中。这里探究一下它是怎么确定的。</p>
 <p>构造<code>CompactionJob</code>时，<code>FSDirectory* output_directory</code>被设置成<code>GetDataDir(c-&gt;column_family_data(), c-&gt;output_path_id())</code>。</p>
@@ -6485,8 +6519,10 @@ var _hmt = _hmt || [];
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  CompactionStyle compaction_style <span class="op">=</span> kCompactionStyleLevel<span class="op">;</span></span></code></pre></div>
 <p>所以我们假设<code>ColumnFamilyData::compaction_picker_</code>是<code>LevelCompactionPicker</code>，即假设<code>ColumnFamilyData::PickCompaction</code>调用的<code>compaction_picker_-&gt;PickCompaction</code>其实是<code>LevelCompactionPicker::PickCompaction</code>。</p>
 <p><code>LevelCompactionPicker::PickCompaction</code>调用<code>LevelCompactionBuilder::PickCompaction</code>。</p>
-<p><code>LevelCompactionBuilder::PickCompaction</code>调用<code>LevelCompactionBuilder::GetCompaction</code>。</p>
-<p><code>LevelCompactionBuilder::GetCompaction</code>中构造了<code>Compaction</code>, 其中<code>output_path_id</code>: <code>GetPathId(ioptions_, mutable_cf_options_, output_level_)</code></p>
+<p><code>LevelCompactionBuilder::PickCompaction</code>先选择输入文件：<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/" title="RocksDB代码分析——Compaction的输入文件的选择">RocksDB代码分析——Compaction的输入文件的选择</a>，然后调用<code>LevelCompactionBuilder::GetCompaction</code>构造<code>Compaction</code>对象。</p>
+<p><code>LevelCompactionBuilder::GetCompaction</code>中构造了<code>Compaction</code>,
+其中<code>output_path_id</code>:
+<code>GetPathId(ioptions_, mutable_cf_options_, output_level_)</code></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Find the optimal path to place a file</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * Given a level, finds the path where levels up to it will fit in levels</span></span>

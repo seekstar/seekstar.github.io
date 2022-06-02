@@ -3628,6 +3628,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/markdown-quote%E5%B5%8C%E5%A5%97/">
+                     
+										    Markdown quote嵌套
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/11/09/r%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    R语言学习笔记
@@ -5282,6 +5293,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/">
+                     
+										    RocksDB代码分析——Compaction的输入文件的选择
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——Flush流程
@@ -6426,6 +6448,48 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/">
+				<h2 class="index-title">
+					重定向正在运行的进程的输出
+				</h2>
+				<div class="index-brief">
+					用reredirect可以实现：https://github.com/jerome-pouiller/reredirect/
+基础用法：
+reredirect -m FILE PID
+然后进程的stdout和stderr都重定向到FILE了。
+如果要把stdout和stderr分别重定向到两个文件：
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
+				<h2 class="index-title">
+					终端关闭时子进程的反应
+				</h2>
+				<div class="index-brief">
+					终端关闭时，会向上面的进程发送SIGHUP (SIGnal Hang
+UP)，这个信号的默认行为是终止进程。用nohup运行的命令就忽略了SIGHUP信号，这样父终端退出之后就挂到init进程上。
+但是如果终端是被杀死的，比如kill -9，那么SIGHUP不一定会被发送给子进程，这时子进程就直接变
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
 				<h2 class="index-title">
 					Linux将某进程attach到当前terminal
@@ -6599,50 +6663,10 @@ https://groups.google.com/g/rocksdb/c/ODArfKT61XE
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/03/linux-kernel-spinlock/">
-				<h2 class="index-title">
-					Linux kernel spinlock
-				</h2>
-				<div class="index-brief">
-					spin_lock的基本流程是先关抢占，然后一直spin，直到成功申请到锁。因此被spinlock保护的部分必须是atomic的，即必须一直执行到解锁，而不能睡眠。这是因为，一旦睡眠，切换到其他线程后，另一个线程可能会申请同一个锁，这样那个线程就会一直等待锁释放，因为持有锁的线程一直无法被调度。
-因
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/03/shell-urlencode/">
-				<h2 class="index-title">
-					shell urlencode
-				</h2>
-				<div class="index-brief">
-					sudo npm i urlencode-cli -g
-urlencode "https://baidu.com"
-https%3A%2F%2Fbaidu.com
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/2022/page/4/">&lt;</a><a class="page-number" href="/archives/2022/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/2022/page/6/">6</a><a class="page-number" href="/archives/2022/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/11/">11</a><a class="extend next" rel="next" href="/archives/2022/page/6/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/2022/page/4/">&lt;</a><a class="page-number" href="/archives/2022/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/3/">3</a><a class="page-number" href="/archives/2022/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/2022/page/6/">6</a><a class="page-number" href="/archives/2022/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/12/">12</a><a class="extend next" rel="next" href="/archives/2022/page/6/">&gt;</a>
 		
 	</div>
 </div>
