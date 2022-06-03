@@ -1960,6 +1960,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
+                     
+										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/02/10/%E4%BD%BF%E7%94%A8apt%E5%AE%89%E8%A3%85latex/">
                      
 										    使用apt安装latex
@@ -6448,6 +6459,29 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/19/unknown-symbol-crc32c/">
+				<h2 class="index-title">
+					Unknown symbol crc32c
+				</h2>
+				<div class="index-brief">
+					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
+cd /lib/modules/$(uname -r)
+find . -iname "*crc32c*"
+./kernel/lib/libcrc32c.ko
+这就是我们要load的模块了。
+sudo modprobe 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/19/rust-note-warn-dead-code-on-by-default/">
 				<h2 class="index-title">
 					rust note: `#[warn(dead_code)]` on by default
@@ -6646,30 +6680,6 @@ dtrace: failed to initialize dtrace: DTrace requires additional privile
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/07/rust%E8%BF%9B%E5%BA%A6%E6%9D%A1/">
-				<h2 class="index-title">
-					rust进度条
-				</h2>
-				<div class="index-brief">
-					用indicatif即可。
-官方文档：https://docs.rs/indicatif/0.16.2/indicatif/
-一个简单的例子：
-use indicatif::ProgressBar;
-
-fn main() {
-    let bar = ProgressBar::new(1000);
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-07</span>
                     
                             
                     
