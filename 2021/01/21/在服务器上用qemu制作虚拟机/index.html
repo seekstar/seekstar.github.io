@@ -6835,6 +6835,9 @@ fi</code></pre>
 <p>Debian 11：加上<code>-bios /usr/share/ovmf/OVMF.fd</code>即可。</p>
 <p>启动之后，发现<code>/sys/firmware/efi</code>目录存在，说明确实是UEFI启动的。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50698817/article/details/123530442">linux怎么查看操作系统是uefi启动还是bios启动？</a></p>
+<h3 id="克隆虚拟机">克隆虚拟机</h3>
+<pre class="shell"><code>virt-clone --original 源虚拟机 --name 新虚拟机名字 --file 新虚拟机的磁盘文件路径</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/" class="uri">https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/</a></p>
 <h3 id="ttys0登录时输入用户名后卡住">ttyS0登录时输入用户名后卡住</h3>
 <p>这个在deepin虚拟机里更换内核之后碰到过。解决方案：</p>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
