@@ -5964,9 +5964,31 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/">
+                     
+										    Linux shell向进程组发信号
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
                      
 										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
+                     
+										    Linux杀死所有子进程
                      
 									</a>
 								</li>
@@ -6000,6 +6022,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/23/shell%E8%8E%B7%E5%8F%96%E6%9F%90%E8%B7%AF%E5%BE%84%E6%89%80%E5%9C%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%90%8D%E5%AD%97/">
                      
 										    Shell获取某路径所在设备的名字
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/awk-fflush/">
+                     
+										    awk fflush
                      
 									</a>
 								</li>
@@ -6514,6 +6547,76 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/05/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">
+				<h2 class="index-title">
+					内存屏障
+				</h2>
+				<div class="index-brief">
+					参考：https://blog.csdn.net/maotianwang/article/details/9154159
+硬件指令：
+- sfense: store fense
+在sfence指令前的写操作当必须在sfence指令后的写操作前完成。
+- lfense: load fense
+在lfe
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-05-12</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/05/04/c-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+				<h2 class="index-title">
+					C++生成随机数
+				</h2>
+				<div class="index-brief">
+					#include &lt;assert.h&gt;
+#include &lt;random&gt;
+
+std::random_device rd;
+typedef std::mt19937 RandEngine;
+//RandEngine e(std::random_device()());
+Ran
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-05-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/05/03/%E5%9C%A8qt%E4%B8%AD%E4%BD%BF%E7%94%A8asio%E7%9A%84io-service/">
+				<h2 class="index-title">
+					在qt中使用asio的io_service
+				</h2>
+				<div class="index-brief">
+					参考：
+在Qt程序中使用C++11线程std::thread处理耗时操作
+Boost Asio, Multiple threads and multiple io_service
+qt的事件循环和io_service的事件循环会冲突。
+网上流传有三种做法：
+1. 弄一个Timer，定时执行io_se
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-05-03</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/05/03/%E6%8A%8Aboost-bind%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E6%8F%92%E5%85%A5%E5%88%B0std-unordered-map%E4%B8%AD/">
 				<h2 class="index-title">
 					把boost::bind的返回值插入到std::unordered_map中
@@ -6675,75 +6778,6 @@ git clone https://gist.github.com/你的用户名/XXXXX
 			</a>
                 <div class="article-meta">
 				    <span>2020-04-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/04/25/mariadb-odbc%E6%8F%92%E5%85%A5%E5%90%8E%E8%8E%B7%E5%8F%96%E8%87%AA%E5%A2%9Eid/">
-				<h2 class="index-title">
-					mariadb odbc插入后获取自增id
-				</h2>
-				<div class="index-brief">
-					官方回复：https://mariadb.com/kb/en/last_insert_id/
-定义表
-CREATE TABLE incid (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    salary INT
-);
-
-INSERT I
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-04-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/04/25/boost-system-error-code%E8%B5%8B%E5%80%BC/">
-				<h2 class="index-title">
-					boost::system::error_code赋值
-				</h2>
-				<div class="index-brief">
-					参考：https://theboostcpplibraries.com/boost.system
-boost::system::error_code error = boost::system::errc::make_error_code(boost::system::errc::success)
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-04-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/04/25/apt%E5%AE%89%E8%A3%85%E7%9A%84doc%E7%9A%84%E7%94%A8%E6%B3%95/">
-				<h2 class="index-title">
-					apt安装的doc的用法
-				</h2>
-				<div class="index-brief">
-					以libasio-doc为例
-sudo apt install libasio-doc
-cd /usr/share/doc/libasio-doc
-firefox index.html
-
-
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-04-25</span>
                     
                             
                     
