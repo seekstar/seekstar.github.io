@@ -5964,9 +5964,31 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/">
+                     
+										    Linux shell向进程组发信号
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
                      
 										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
+                     
+										    Linux杀死所有子进程
                      
 									</a>
 								</li>
@@ -6000,6 +6022,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/23/shell%E8%8E%B7%E5%8F%96%E6%9F%90%E8%B7%AF%E5%BE%84%E6%89%80%E5%9C%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%90%8D%E5%AD%97/">
                      
 										    Shell获取某路径所在设备的名字
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/awk-fflush/">
+                     
+										    awk fflush
                      
 									</a>
 								</li>
@@ -6514,6 +6547,80 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/13/gimp%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">
+				<h2 class="index-title">
+					gimp常见操作
+				</h2>
+				<div class="index-brief">
+					裁剪出指定像素的区域
+比方说要裁剪出宽高400*500像素的区域，先用矩形选择工具（快捷键r）随便框出一块区域，然后左边的大小：里可以调整区域的宽和高，然后拖动这个矩形框住要裁剪出来的部分。然后右键，选择图像-&gt;裁剪到选区，就把这个区域裁剪出来了。
+缩放为指定像素
+右键，选择图像-&gt;缩放
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/12/warning-vncserver-has-been-replaced-by-a-systemd-unit-and-is-about-to-be-removed-in-future-releases/">
+				<h2 class="index-title">
+					WARNING: vncserver has been replaced by a systemd unit and is about to be removed in future releases
+				</h2>
+				<div class="index-brief">
+					/usr/share/doc/tigervnc/HOWTO.md里有新版本的使用方法。这里放一下简单的用法。
+sudo vim /etc/tigervnc/vncserver.users
+里面加上一行：
+:1=searchstar
+其中searchstar是我的用户名，要换成你自己的用户名。
+设置当
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-12</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/12/ubuntu-cargo-flamegraph/">
+				<h2 class="index-title">
+					ubuntu cargo flamegraph
+				</h2>
+				<div class="index-brief">
+					cargo flamegraph
+有如下选项：
+运行指定binnary
+-b your-binnary
+指定采样频率
+-F xxx
+单位好像是Hz
+传参
+-- your-arg your-value
+传入perf参数
+-c "要给perf的参数
+比如
+cargo flamegraph -c "rec
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-12</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/11/centos8%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85libvirt-7-6/">
 				<h2 class="index-title">
 					centos8编译安装libvirt 7.6
@@ -6661,70 +6768,6 @@ Linux配置网桥
 			</a>
                 <div class="article-meta">
 				    <span>2021-08-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/08/qemu-system-x86-64-warning-host-doesn%E2%80%98t-support-requested-feature-cpuid-80000001h-ecx-svm-bit-2/">
-				<h2 class="index-title">
-					qemu-system-x86_64: warning: host doesn‘t support requested feature: CPUID.80000001H:ECX.svm [bit 2]
-				</h2>
-				<div class="index-brief">
-					我在virtualbox里的虚拟机里用qemu创建虚拟机时报这个错。解决方法是在命令里加上-cpu host
-sudo qemu-system-x86_64 -cpu host -m 1024 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/">
-				<h2 class="index-title">
-					git checkout 远程分支error
-				</h2>
-				<div class="index-brief">
-					比如我有一个远程分支origin/test，正常情况下git checkout test的输出应该是
-Branch 'test' set up to track remote branch 'test' from 'origin'.
-Switched to a new branch 'test'
-但
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/04/shell%E4%BA%A4%E6%8D%A2stdout-stderr/">
-				<h2 class="index-title">
-					shell交换stdout stderr
-				</h2>
-				<div class="index-brief">
-					比如这个脚本myscript.sh：
-#!/bin/sh
-
-echo "I'm stdout";
-echo "I'm stderr" &gt;&amp;2;
-交换它的stdout和stderr可以这样做：
-(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&a
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-04</span>
                     
                             
                     

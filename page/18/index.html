@@ -5964,9 +5964,31 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/">
+                     
+										    Linux shell向进程组发信号
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
                      
 										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
+                     
+										    Linux杀死所有子进程
                      
 									</a>
 								</li>
@@ -6000,6 +6022,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/23/shell%E8%8E%B7%E5%8F%96%E6%9F%90%E8%B7%AF%E5%BE%84%E6%89%80%E5%9C%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%90%8D%E5%AD%97/">
                      
 										    Shell获取某路径所在设备的名字
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/awk-fflush/">
+                     
+										    awk fflush
                      
 									</a>
 								</li>
@@ -6514,6 +6547,76 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/10/04/%E8%A7%A3%E5%86%B3shell%E8%84%9A%E6%9C%AC%E4%B8%ADkill-2%E5%AF%B9%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
+				<h2 class="index-title">
+					解决shell脚本中kill -2对后台进程不起作用
+				</h2>
+				<div class="index-brief">
+					问题
+kill -2就是发送SIGINT信号。我们期望的行为是，进程接收到SIGINT信号后就停止运行。例如：
+yes &gt;/dev/null &amp;
+pid=$!
+echo $pid
+sleep 2
+kill -INT $pid
+sleep 2
+ps aux | grep yes
+将其保存
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-10-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/09/30/wps%E5%88%A0%E9%99%A4%E5%9B%BE%E7%89%87%E8%A2%AB%E8%A3%81%E5%89%AA%E6%8E%89%E7%9A%84%E9%83%A8%E5%88%86/">
+				<h2 class="index-title">
+					WPS删除图片被裁剪掉的部分
+				</h2>
+				<div class="index-brief">
+					WPS裁剪图片之后，其实被裁剪掉的部分还在文档里。要彻底从文档中删除被裁剪掉的部分，可以点击图片，然后在弹出的图片工具选项卡中点击压缩图片，然后如果只是想删掉被裁剪的部分，不想压缩的话，把更改分辨率改成不变，然后取消勾选压缩图片：
+
+然后点击确定就可以了。
+这里是用WPS for Linux展示的。
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-09-30</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/09/29/rust%E6%89%93%E5%8D%B0%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B/">
+				<h2 class="index-title">
+					rust打印变量类型
+				</h2>
+				<div class="index-brief">
+					可以试试std::any::type_name。注意，这个是unstable的。
+use std::collections::HashSet;
+
+fn print_type_of&lt;T&gt;(_: &amp;T) {
+    println!("{}", std::any::type_name
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-09-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/09/29/rust%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					rust踩坑笔记
@@ -6647,72 +6750,6 @@ pip install pysha3
 			</a>
                 <div class="article-meta">
 				    <span>2021-09-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/09/19/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8vtune/">
-				<h2 class="index-title">
-					在服务器上使用vtune
-				</h2>
-				<div class="index-brief">
-					安装
-在这里选择合适的下载方式：https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html
-如果没有GUI，就用Command Line Installation里的命令来下
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-09-19</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
-				<h2 class="index-title">
-					perf.data生成火焰图
-				</h2>
-				<div class="index-brief">
-					用perf或者别的东西生成perf.data后，可以用如下方法生成火焰图：
-先把https://github.com/brendangregg/FlameGraph.git clone到某个目录，然后
-perf script -i perf.data &gt; perf.unfold
-/path/t
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-09-16</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/09/15/rust-%E5%A0%86%E4%B8%8A%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/">
-				<h2 class="index-title">
-					rust 堆上二维数组
-				</h2>
-				<div class="index-brief">
-					用ndarray:
-https://docs.rs/ndarray/0.15.3/ndarray/
-Rust 多维数组 ndarray
-例子：
-use ndarray::Array2;
-
-fn main() {
-    let mut a = Array2::&lt;usize&gt;::zeros
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-09-15</span>
                     
                             
                     

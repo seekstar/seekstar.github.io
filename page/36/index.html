@@ -5964,9 +5964,31 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/">
+                     
+										    Linux shell向进程组发信号
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
                      
 										    Linux将某进程attach到当前terminal
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
+                     
+										    Linux杀死所有子进程
                      
 									</a>
 								</li>
@@ -6000,6 +6022,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/08/23/shell%E8%8E%B7%E5%8F%96%E6%9F%90%E8%B7%AF%E5%BE%84%E6%89%80%E5%9C%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%90%8D%E5%AD%97/">
                      
 										    Shell获取某路径所在设备的名字
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/06/08/awk-fflush/">
+                     
+										    awk fflush
                      
 									</a>
 								</li>
@@ -6514,6 +6547,69 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/09/14/powershell-%E8%AE%A9mkdir%E4%B8%8D%E8%BE%93%E5%87%BAalready-exists/">
+				<h2 class="index-title">
+					powershell 让mkdir不输出already exists
+				</h2>
+				<div class="index-brief">
+					参考：https://stackoverflow.com/questions/19853340/powershell-how-can-i-suppress-the-error-if-file-alreadys-exists-for-mkdir-com
+mkdir -Force folder
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/09/14/windows-cmake-%E6%8A%A5%E9%94%99-make-no-targets-specified-and-no-makefile-found-stop/">
+				<h2 class="index-title">
+					windows cmake 报错 make: *** No targets specified and no makefile found. Stop.
+				</h2>
+				<div class="index-brief">
+					据nzh大佬说是没有指定编译器啥的
+cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -G "Unix Makefiles"
+我的CMakeLists.txt
+cmake_minimum_required(VERSION 3.2)
+pr
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/09/13/grep%E5%8F%AA%E5%9C%A8%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2/">
+				<h2 class="index-title">
+					grep只在文本文件中搜索
+				</h2>
+				<div class="index-brief">
+					参考：https://stackoverflow.com/questions/9806944/grep-only-text-files
+I选项表示不搜索binary文件。
+grep -Irn string_to_search
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/09/07/clflush%E3%80%81clflushopt%E3%80%81clwb%E3%80%81pcommit%E3%80%81ntstore/">
 				<h2 class="index-title">
 					clflush、clflushopt、clwb、pcommit、ntstore
@@ -6665,74 +6761,6 @@ fn main() {
 			</a>
                 <div class="article-meta">
 				    <span>2020-08-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/25/rust-print%E5%9B%BA%E5%AE%9A%E5%AE%BD%E5%BA%A6%E5%B7%A6%E8%BE%B9%E8%A1%A5%E9%9B%B6/">
-				<h2 class="index-title">
-					rust print固定宽度左边补零
-				</h2>
-				<div class="index-brief">
-					参考：https://doc.rust-lang.org/std/fmt/
-fn main() {
-    println!("{:0&gt;3}", 2333);
-    println!("{:0&gt;3}", 233);
-    println!("{:0&gt;3}", 23);
-    
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/25/%E8%A7%A3%E5%86%B3wps%E5%AF%BC%E5%87%BA%E7%9A%84pdf%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					解决wps导出的PDF过大的问题
-				</h2>
-				<div class="index-brief">
-					听说是因为wps把字库也给导出了。
-所以解决方法就是将导出的PDF再打印到文件，就可以把自带的字库去掉了。
-缺点就是超链接之类的会失效。
-原PDF：
-
-打印到文件后的PDF：
-
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/24/virtualbox-6-%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E4%BD%BF%E7%94%A8usb3-0%E8%AE%BE%E5%A4%87/">
-				<h2 class="index-title">
-					virtualbox 6 虚拟机中使用USB3.0设备
-				</h2>
-				<div class="index-brief">
-					参考：
-https://superuser.com/questions/1490216/virtual-box-6-0-12-does-not-recognize-usb-device-even-guest-addon-is-installed-a
-https://unix.stackexchang
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-24</span>
                     
                             
                     
