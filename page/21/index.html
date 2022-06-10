@@ -5975,6 +5975,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/10/linux%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">
+                     
+										    Linux删除用户密码
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
                      
 										    Linux将某进程attach到当前terminal
@@ -6547,6 +6558,28 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/14/login-abort-requested-by-pam/">
+				<h2 class="index-title">
+					login: abort requested by PAM
+				</h2>
+				<div class="index-brief">
+					等个几分钟再试试就好了。查看dmesg，发现在输出这几条消息前卡了几分钟：
+random : crng init done
+random: 7 urandom warning(s) missed due to ratelimiting
+于是猜测是因为初始化随机数生成器太慢了。根据这篇文章：
+Boot
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/13/gimp%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/">
 				<h2 class="index-title">
 					gimp常见操作
@@ -6739,30 +6772,6 @@ error: internal error: /usr/lib/qemu/qemu-bridge-helper --use-vnet --br=br0 --fd
 					echo "allow all" | sudo tee /etc/qemu/${USER}.conf
 echo "include /etc/qemu/${USER}.conf" | sudo tee --append /etc/qemu/bridge.conf
 sudo chown root:${U
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/08/virsh%E7%BB%88%E7%AB%AF%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E8%81%94%E7%BD%91/">
-				<h2 class="index-title">
-					virsh终端访问虚拟机并联网
-				</h2>
-				<div class="index-brief">
-					如果要使用KVM的话，首先要让普通用户使用libvirt时能使用KVM：
-libvirt让普通用户能用kvm
-配置网桥
-Linux配置网桥
-将虚拟机导入virsh
-这里假设domain的名字设置成centos8。先写一个centos8.xml，定义虚拟机的基本属性：
-&lt;domain type=
 					...
 				</div>
 			</a>
