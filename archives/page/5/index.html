@@ -2752,6 +2752,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/15/linux%E8%8E%B7%E5%8F%96%E5%BC%80%E6%9C%BA%E4%B9%8B%E5%90%8E%E8%BF%87%E5%8E%BB%E7%9A%84%E7%A7%92%E6%95%B0/">
+                     
+										    Linux获取开机之后过去的秒数
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/05/linux%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4/">
                      
 										    Linux设置系统时间
@@ -6602,6 +6613,27 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
+				<h2 class="index-title">
+					Debian 10升级为Debian 11
+				</h2>
+				<div class="index-brief">
+					可以通过ustc升级：官方教程：https://mirrors.ustc.edu.cn/help/debian.html
+参考：https://linux.cn/article-13647-1.html
+先把/etc/apt/sources.list里的所有行注释掉，然后加上
+deb http://
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
 				<h2 class="index-title">
 					slab分配器
@@ -6779,27 +6811,6 @@ make -j$(nproc) static_lib
 动态库：
 make -j$(nproc) shared_lib
 但是这俩好像只能用一个，在编译另一个之前好像要先make clean一下。相关：rocksdb: /usr/bin/ld: ./memory/concurrent
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-				<h2 class="index-title">
-					RocksDB单元测试
-				</h2>
-				<div class="index-brief">
-					make all check
-可以加上-j 线程数来做并行单元测试。
-如果出错了，看下出错的是哪个测试，比如假如是DBBasicTest.OpenWhenOpen，那这个测试就在db_basic_test，单独运行这个测试：
-./db_basic_test --gtest_filter="*DBBa
 					...
 				</div>
 			</a>
