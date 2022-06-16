@@ -6643,8 +6643,29 @@ ID)，向这个PGID中的所有进程发信号。</p>
 <p>例：向<code>34325</code>进程组的所有进程发送<code>SIGTERM</code>：</p>
 <pre class="shell"><code>kill -TERM -34325</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group" class="uri">https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group</a></p>
-<p>查看进程组的方法：<code>ps -efj</code>。来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Justdoit123_/article/details/101347971">PID,
+<h2 id="查看进程组的方法">查看进程组的方法</h2>
+<p><code>ps -efj</code>。来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Justdoit123_/article/details/101347971">PID,
 PPID, PGID与SID</a></p>
+<h2 id="在一个新的进程组中运行命令">在一个新的进程组中运行命令</h2>
+<p>脚本里运行命令时，默认会继承当前进程组。如果要让命令在新的进程组中运行，可以在脚本中先开启<code>"monitor mode" (job control)</code>：</p>
+<pre class="shell"><code>set -m</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/529764/how-can-i-start-a-bash-script-in-its-own-process-group" class="uri">https://unix.stackexchange.com/questions/529764/how-can-i-start-a-bash-script-in-its-own-process-group</a></p>
+<p>局部生效：</p>
+<pre class="shell"><code>(set -m; sleep 10)</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6549663/how-to-set-process-group-of-a-shell-script" class="uri">https://stackoverflow.com/questions/6549663/how-to-set-process-group-of-a-shell-script</a></p>
+<p>在后台运行：</p>
+<pre class="shell"><code>(set -m; sleep 10 &amp;)</code></pre>
+<p>打印生成的后台进程的进程号：</p>
+<pre class="shell"><code>(set -m; sleep 10 &amp; echo $! )</code></pre>
+<p>注意<code>&amp;</code>本身已经表示了语句的结尾，所以<code>&amp;</code>后面如果再加<code>;</code>的话<code>bash</code>会报错：</p>
+<pre class="text"><code>$ (set -m; sleep 10 &amp;; echo $! )
+bash: syntax error near unexpected token `;'</code></pre>
+<p>不过zsh允许空语句<code>;</code>，所以不会报错。</p>
+<p>将生成的后台进程的进程号保存到变量：</p>
+<pre class="shell"><code>pid=$(set -m; sleep 10 &gt; /dev/null &amp; echo $! )
+echo $pid</code></pre>
+<p>command
+substitution会等待所有stdout的writer关闭管道，因此要将<code>sleep 10</code>的stdout重定向到<code>/dev/null</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish" class="uri">https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish</a></p>
 </body></html>
 </div>
 
