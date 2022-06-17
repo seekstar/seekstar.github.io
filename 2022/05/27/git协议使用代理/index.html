@@ -6640,9 +6640,9 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>首先，<code>github.com</code>的<code>git@github.com:xxx/xxxx.git</code>使用的其实不是git协议，而是SSH协议，所以如果要代理之，需要配置的其实是SSH代理，在<code>~/.ssh/config</code>里配置如下：</p>
 <pre class="text"><code>Host github.com
-    User git
-    # ProxyCommand netcat -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p
-    ProxyCommand netcat -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</code></pre>
+        User git
+        # ProxyCommand netcat -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p
+        ProxyCommand netcat -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</code></pre>
 <p>其中<code>%h</code>表示host，<code>%p</code>表示port。</p>
 <p>注意这里的<code>netcat</code>有些教程里是写的<code>nc</code>，但是这是不合适的，因为<code>nc</code>在debian系中指向<code>ncat</code>，而在CentOS中指向<code>netcat</code>，两者是不同的。</p>
 <p><code>man netcat</code>:</p>
