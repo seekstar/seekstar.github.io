@@ -6724,10 +6724,11 @@ sudo pacman -S libreoffice-extension-texmaths
 					golang panic格式化打印
 				</h2>
 				<div class="index-brief">
-					可以用fmt.Sprintf格式化输出到字符串，再用panic输出：
-panic(fmt.Sprintf("cur = %d, filled = %d\n", cur, filled))
-也可以用log.Fatalf：
-// Fatalf is equivalent to Printf() foll
+					可以用fmt.Panicf：
+// Panicf is equivalent to Printf() followed by a call to panic().
+func Panicf(format string, v ...any) {
+例子：
+log.Panicf("Hello, %d\n",
 					...
 				</div>
 			</a>

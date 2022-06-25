@@ -6638,15 +6638,20 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>可以用<code>fmt.Sprintf</code>格式化输出到字符串，再用<code>panic</code>输出：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">panic</span><span class="op">(</span>fmt<span class="op">.</span>Sprintf<span class="op">(</span><span class="st">"cur = %d, filled = %d</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> cur<span class="op">,</span> filled<span class="op">))</span></span></code></pre></div>
-<p>也可以用<code>log.Fatalf</code>：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Fatalf is equivalent to Printf() followed by a call to os.Exit(1).</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> Fatalf<span class="op">(</span>format <span class="dt">string</span><span class="op">,</span> v <span class="op">...</span>any<span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+	<html><head></head><body><p>可以用<code>fmt.Panicf</code>：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Panicf is equivalent to Printf() followed by a call to panic().</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> Panicf<span class="op">(</span>format <span class="dt">string</span><span class="op">,</span> v <span class="op">...</span>any<span class="op">)</span> <span class="op">{</span></span></code></pre></div>
 <p>例子：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>log<span class="op">.</span>Fatalf<span class="op">(</span><span class="st">"cur = %d, filled = %d</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> cur<span class="op">,</span> filled<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>log<span class="op">.</span>Panicf<span class="op">(</span><span class="st">"Hello, %d</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> <span class="dv">2333</span><span class="op">)</span></span></code></pre></div>
+<p>也可以用<code>fmt.Sprintf</code>格式化输出到字符串，再用<code>panic</code>输出：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">panic</span><span class="op">(</span>fmt<span class="op">.</span>Sprintf<span class="op">(</span><span class="st">"cur = %d, filled = %d</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> cur<span class="op">,</span> filled<span class="op">))</span></span></code></pre></div>
+<p>也可以用<code>log.Fatalf</code>：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Fatalf is equivalent to Printf() followed by a call to os.Exit(1).</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> Fatalf<span class="op">(</span>format <span class="dt">string</span><span class="op">,</span> v <span class="op">...</span>any<span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+<p>例子：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>log<span class="op">.</span>Fatalf<span class="op">(</span><span class="st">"cur = %d, filled = %d</span><span class="ch">\n</span><span class="st">"</span><span class="op">,</span> cur<span class="op">,</span> filled<span class="op">)</span></span></code></pre></div>
 <p>注意<code>log.Fatalf</code>不会打印trace，只会打印错误信息然后退出：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24809287/how-do-you-get-a-golang-program-to-print-the-line-number-of-the-error-it-just-ca" class="uri">https://stackoverflow.com/questions/24809287/how-do-you-get-a-golang-program-to-print-the-line-number-of-the-error-it-just-ca</a></p>
-<p><code>log.Fatalln</code>和<code>log.Fatal</code>跟<code>panic</code>一样没有自带格式化打印。</p>
+<p><code>log.Panic</code>、<code>log.Fatalln</code>和<code>log.Fatal</code>跟<code>panic</code>一样没有自带格式化打印。</p>
 </body></html>
 </div>
 
