@@ -5790,6 +5790,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/26/copy-from-user%E8%AF%A6%E8%A7%A3/">
+                     
+										    copy_from_user详解
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/11/13/insmod-error-could-not-insert-module-xxx-ko-unknown-symbol-in-module/">
                      
 										    insmod: ERROR: could not insert module xxx.ko: Unknown symbol in module
@@ -6641,7 +6652,9 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>RCU的全称是Read-Copy Update。详解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479785704">浅谈Linux内核源码RCU机制</a>。基本思路是不阻塞读，而更新的时候先把原来的数据复制一份，在副本上修改，修改完了一次性更新到受RCU保护的数据结构上。但是由于可能还有并发的reader在读老的副本，所以不能马上把老的副本释放掉。那么什么时候可以释放掉老的副本呢？</p>
 <p>Linux内核做了一个很精妙的设计：读的时候不发生上下文切换，因此假如处理器发生了上下文切换，那么就说明读肯定已经完成了，而接下来的读都是读取新的数据。因此当所有处理器都完成了一次上下文切换之后，就可以确保所有可能读取老的副本的reader都已经退出了，这时就可以把老的副本释放掉。等待所有处理器完成一次上下文切换的时间就叫做grace
 period。用户态的RCU由于没有这些底层信息，因此采用的是别的实现方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmo187J3X1/article/details/80992945">Userspace
-RCU原理</a></p>
+RCU原理</a>。</p>
+<p>由于Linux内核的RCU假设了读的时候不发生上下文切换，因此一定要保证在占有<code>rcu_read_lock</code>时不发生上下文切换（不能睡眠）。如果一定要睡眠的话，可以使用SRCU
+(Sleepable RCU)。</p>
 <p>等待所有处理器完成一次上下文切换可以用<code>synchronize_rcu()</code>，会导致睡眠。如果上下文不允许睡眠，或者对性能要求很高的话，可以用<code>call_rcu</code>注册回调函数，当所有处理器完成一次上下文切换系统会执行这些回调函数。<code>call_rcu</code>详解：<a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-20648784-id-1592810.html">call_rcu()函数解析</a></p>
 <p><code>call_rcu</code>的回调函数是在softirq
 context的，里面如果要用spinlock的话，要用<code>spin_lock_bh</code>上锁，<code>spin_unlock_bh</code>解锁，这样可以在spinlock里关掉软中断。<code>bh</code>是一个历史遗留名词，实际上指<code>softirq</code>。注意，如果一个spinlock既在softirq
