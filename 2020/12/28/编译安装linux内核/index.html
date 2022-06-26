@@ -6660,19 +6660,64 @@ make menuconfig</code></pre>
 <p>多线程编译</p>
 <pre class="shell"><code>make -j$(nproc) &gt; /dev/null</code></pre>
 <p><code>&gt; /dev/null</code>是为了防止warning和error被刷掉，比如让我们装<code>libelf-dev</code>的警告。</p>
-<h2 id="安装内核模块">安装内核模块</h2>
+<h2 id="安装到系统目录">安装到系统目录</h2>
+<h3 id="内核模块">内核模块</h3>
 <p>如果没有特殊需求，一般可以把内核模块的debug信息给去掉，节约安装空间。</p>
 <pre class="shell"><code>make INSTALL_MOD_STRIP=1 modules_install &gt; /dev/null</code></pre>
 <p>注意对于centos不能<code>INSTALL_MOD_STRIP=1</code>，不然启动貌似会出问题。应该</p>
 <pre class="shell"><code>make modules_install</code></pre>
 <p>然后再用这里的方法去<code>/usr/lib/modules</code>里手动把debug信息去掉：</p>
 <a href="/2020/10/29/%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E6%97%B6-lib-modules%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决编译安装内核时/lib/modules过大的问题">解决编译安装内核时/lib/modules过大的问题</a>
-<h2 id="安装">安装</h2>
+<h3 id="内核">内核</h3>
 <pre class="shell"><code>make install</code></pre>
 <p>如果有类似于这样的报错：</p>
 <pre class="text"><code>没有规则可制作目标“certs/rhel.pem”，由“certs/x509_certificate_list” 需求。</code></pre>
 <p>那可能要把<code>.config</code>里的<code>CONFIG_SYSTEM_TRUSTED_KEYS</code>后面引号里的东西删掉。</p>
 <p>另外要注意看看有没有要我们安装<code>console-setup</code>和<code>plymouth-themes</code>的提示。</p>
+<h3 id="可选用于编译内核模块的文件">（可选）用于编译内核模块的文件</h3>
+<p>这个安装的头文件只能给用户态程序用，不能用于编译内核模块：</p>
+<pre class="shell"><code># make INSTALL_HDR_PATH=指定目录 headers_install
+make headers_install</code></pre>
+<p>如果用包管理器安装<code>linux-headers-xxx</code>的话，会把头文件安装在<code>/usr/src/linux-headers-xxx-amd64</code>和<code>/usr/src/linux-headers-xxx-common</code>下面，里面有用的只有这几个文件或文件夹：</p>
+<pre class="text"><code>arch/x86/include/ arch/x86/Makefile* include/ Makefile Module.symvers scripts/ tools/</code></pre>
+<p>所以如果要安装用于编译内核模块的文件到系统目录，只需要把这些文件或文件夹放进<code>/usr/src/linux-headers-我们编译的内核版本</code>即可。</p>
+<p>之前安装的内核模块的目录<code>/usr/lib/modules/我们编译的内核版本</code>里的<code>build</code>和<code>source</code>符号链接原先是指向编译时使用的源码的路径，现在改到<code>/usr/src/linux-headers-我们编译的内核版本/</code>即可。</p>
+<h2 id="安装到指定目录">安装到指定目录</h2>
+<p>这样可以在服务器上编译内核，安装到<code>指定目录</code>，然后<code>指定目录</code>打包传到目标机器，再安装到目标机器上的系统目录即可。</p>
+<h3 id="内核模块-1">内核模块</h3>
+<p>把内核模块安装到<code>指定目录/lib/modules/xxx</code>：</p>
+<pre class="shell"><code>INSTALL_MOD_PATH=指定目录 make modules_install
+#INSTALL_MOD_PATH=指定目录 make INSTALL_MOD_STRIP=1 modules_install</code></pre>
+<h3 id="内核-1">内核</h3>
+<p>把<code>System.map-xxx</code>和<code>vmlinuz-xxx</code>安装到<code>指定目录</code>下面：</p>
+<pre class="shell"><code>INSTALL_PATH=指定目录 make install</code></pre>
+<p>会报错：</p>
+<pre class="text"><code>ln: 无法创建符号链接'/boot/System.map': 权限不够
+ln: 无法创建符号链接'/boot/vmlinuz': 权限不够
+ln: 无法创建符号链接'/boot/System.map': 权限不够</code></pre>
+<p>不用管这个报错，因为我们不安装到系统目录。</p>
+<h3 id="可选用于编译内核模块的文件-1">（可选）用于编译内核模块的文件</h3>
+<p>把这些文件安装到<code>指定目录/linux-headers</code>：</p>
+<pre class="shell"><code>mkdir -p 指定目录/linux-headers/arch/x86/
+cp -r arch/x86/include/ arch/x86/Makefile* 指定目录/linux-headers/arch/x86/
+cp -r include/ Makefile Module.symvers scripts/ tools/ 指定目录/linux-headers/</code></pre>
+<h3 id="在目标机器上安装到系统目录">在目标机器上安装到系统目录</h3>
+<p>在编译服务器上把<code>指定目录</code>压缩，传输到目标机器上，解压出来，进入<code>指定目录</code>，然后执行以下指令来安装到目标机器上的系统目录里：</p>
+<pre class="shell"><code>kernel_version_to_install=$(ls lib/modules/)
+# 内核模块
+sudo cp -r lib/modules/$kernel_version_to_install /lib/modules/
+# 内核
+sudo cp -r vmlinuz-* System.map-* /boot/
+# 生成initramfs
+sudo update-initramfs -ck $kernel_version_to_install
+# 更新GRUB
+sudo update-grub
+# （可选）安装用于编译内核模块的文件
+sudo rm -rf /usr/src/linux-headers-$kernel_version_to_install
+sudo cp -r linux-headers/ /usr/src/linux-headers-$kernel_version_to_install
+sudo rm /lib/modules/$kernel_version_to_install/build /lib/modules/$kernel_version_to_install/source
+sudo ln -s /usr/src/linux-headers-$kernel_version_to_install /lib/modules/$kernel_version_to_install/build
+sudo ln -s /usr/src/linux-headers-$kernel_version_to_install/ /lib/modules/$kernel_version_to_install/source</code></pre>
 <h2 id="更新grub">更新grub</h2>
 <p>一般<code>make install</code>的时候会自动做。但是如果电脑上装了多个linux，那选系统界面的grub可能不是当前系统提供的，这个时候就要去提供grub的那个系统做一次<code>update-grub</code>才行。</p>
 <p>对于centos，<code>make install</code>的时候好像不会自动更新grub，需要手动更新：</p>
