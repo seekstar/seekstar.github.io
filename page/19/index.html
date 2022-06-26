@@ -5788,6 +5788,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/06/26/copy-from-user%E8%AF%A6%E8%A7%A3/">
+                     
+										    copy_from_user详解
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/11/13/insmod-error-could-not-insert-module-xxx-ko-unknown-symbol-in-module/">
                      
 										    insmod: ERROR: could not insert module xxx.ko: Unknown symbol in module
@@ -6613,6 +6624,29 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/09/29/rust%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					rust踩坑笔记
+				</h2>
+				<div class="index-brief">
+					mpsc
+需求：需要在一个线程里读取数据，发送给另一个线程处理。
+我的方法：用mpsc的channel发送和接收。
+坑：mpsc的channel从不阻塞发送方，它有无限的缓冲。结果读取远远比写入快，导致大量内存被消耗。
+解决方案：用sync_channel：
+pub fn sync_channel&
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-09-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/09/26/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E5%AE%89%E8%A3%85nm%E5%8D%A1%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB/">
 				<h2 class="index-title">
 					华为手机安装NM卡无法识别
@@ -6789,29 +6823,6 @@ fn main() {
 			</a>
                 <div class="article-meta">
 				    <span>2021-09-15</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/29/%E4%BB%8E%E4%B8%93%E8%BE%91%E5%85%89%E7%9B%98%E4%B8%AD%E5%AF%BC%E5%87%BA%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6/">
-				<h2 class="index-title">
-					从专辑光盘中导出音乐文件
-				</h2>
-				<div class="index-brief">
-					Windows
-在Windows上插入专辑光盘后，打开之后会出现一堆cda文件。右键cda文件，选择用Windows Media Player打开。
-
-或者在开始菜单中选择windows附件-&gt;windows media player打开，然后就可以看到歌曲列表了。
-
-还可以点击“翻录”把歌曲
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-29</span>
                     
                             
                     
