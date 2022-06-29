@@ -6702,39 +6702,39 @@ make menuconfig</code></pre>
 需求。 停止。</a></p>
 <h3 id="可选用于编译内核模块的文件">（可选）用于编译内核模块的文件</h3>
 <p>这个安装的头文件只能给用户态程序用，不能用于编译内核模块：</p>
-<pre class="shell"><code># make INSTALL_HDR_PATH=指定目录 headers_install
+<pre class="shell"><code># make INSTALL_HDR_PATH=$target_dir headers_install
 make headers_install</code></pre>
 <p>如果用包管理器安装<code>linux-headers-xxx</code>的话，会把头文件安装在<code>/usr/src/linux-headers-xxx-amd64</code>和<code>/usr/src/linux-headers-xxx-common</code>下面，里面有用的只有这几个文件或文件夹：</p>
 <pre class="text"><code>arch/x86/include/ arch/x86/Makefile* include/ Makefile Module.symvers scripts/ tools/</code></pre>
 <p>所以如果要安装用于编译内核模块的文件到系统目录，只需要把这些文件或文件夹放进<code>/usr/src/linux-headers-我们编译的内核版本</code>即可。</p>
 <p>之前安装的内核模块的目录<code>/usr/lib/modules/我们编译的内核版本</code>里的<code>build</code>和<code>source</code>符号链接原先是指向编译时使用的源码的路径，现在改到<code>/usr/src/linux-headers-我们编译的内核版本/</code>即可。</p>
 <h2 id="安装到指定目录">安装到指定目录</h2>
-<p>这样可以在服务器上编译内核，安装到<code>指定目录</code>，然后<code>指定目录</code>打包传到目标机器，再安装到目标机器上的系统目录即可。</p>
+<p>这样可以在服务器上编译内核，安装到<code>$target_dir</code>，然后<code>$target_dir</code>打包传到目标机器，再安装到目标机器上的系统目录即可。</p>
 <h3 id="内核模块-1">内核模块</h3>
-<p>把内核模块安装到<code>指定目录/lib/modules/$kernel_version_to_install</code>：</p>
-<pre class="shell"><code>INSTALL_MOD_PATH=指定目录 make modules_install
-#INSTALL_MOD_PATH=指定目录 make INSTALL_MOD_STRIP=1 modules_install</code></pre>
+<p>把内核模块安装到<code>$target_dir/lib/modules/$kernel_version_to_install</code>：</p>
+<pre class="shell"><code># INSTALL_MOD_PATH=$target_dir make modules_install
+INSTALL_MOD_PATH=$target_dir make INSTALL_MOD_STRIP=1 modules_install</code></pre>
 <h3 id="内核-1">内核</h3>
-<p>把<code>System.map-$kernel_version_to_install</code>和<code>vmlinuz-$kernel_version_to_install</code>安装到<code>指定目录</code>下面：</p>
-<pre class="shell"><code>INSTALL_PATH=指定目录 make install</code></pre>
+<p>把<code>System.map-$kernel_version_to_install</code>和<code>vmlinuz-$kernel_version_to_install</code>安装到<code>$target_dir</code>下面：</p>
+<pre class="shell"><code>INSTALL_PATH=$target_dir make install</code></pre>
 <p>会报错：</p>
 <pre class="text"><code>ln: 无法创建符号链接'/boot/System.map': 权限不够
 ln: 无法创建符号链接'/boot/vmlinuz': 权限不够
 ln: 无法创建符号链接'/boot/System.map': 权限不够</code></pre>
 <p>不用管这个报错，因为我们不安装到系统目录。</p>
 <h3 id="可选内核配置">（可选）内核配置</h3>
-<p>把<code>config-$kernel_version_to_install</code>安装到<code>指定目录</code>下：</p>
+<p>把<code>config-$kernel_version_to_install</code>安装到<code>$target_dir</code>下：</p>
 <pre class="shell"><code>kernel_version_to_install=$(make kernelrelease)
-cp .config 指定目录/config-$kernel_version_to_install</code></pre>
+cp .config $target_dir/config-$kernel_version_to_install</code></pre>
 <h3 id="可选用于编译内核模块的文件-1">（可选）用于编译内核模块的文件</h3>
-<p>把这些文件安装到<code>指定目录/linux-headers-$kernel_version_to_install</code>：</p>
+<p>把这些文件安装到<code>$target_dir/linux-headers-$kernel_version_to_install</code>：</p>
 <pre class="shell"><code>kernel_version_to_install=$(make kernelrelease)
-header_dir=指定目录/linux-headers-$kernel_version_to_install
-mkdir -p /arch/x86/
+header_dir=$target_dir/linux-headers-$kernel_version_to_install
+mkdir -p $header_dir/arch/x86/
 cp -r arch/x86/include/ arch/x86/Makefile* $header_dir/arch/x86/
 cp -r include/ Makefile Module.symvers scripts/ tools/ $header_dir/</code></pre>
 <h3 id="在目标机器上安装到系统目录">在目标机器上安装到系统目录</h3>
-<p>在编译服务器上把<code>指定目录</code>压缩，传输到目标机器上，解压出来，进入<code>指定目录</code>，然后执行以下指令来安装到目标机器上的系统目录里：</p>
+<p>在编译服务器上把<code>$target_dir</code>压缩，传输到目标机器上，解压出来，进入<code>$target_dir</code>，然后执行以下指令来安装到目标机器上的系统目录里：</p>
 <pre class="shell"><code>kernel_version_to_install=$(ls lib/modules/)
 # 内核模块
 sudo cp -r lib/modules/$kernel_version_to_install /lib/modules/
