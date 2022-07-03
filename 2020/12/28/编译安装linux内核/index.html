@@ -6768,6 +6768,17 @@ done</code></pre>
 <p>CentOS使用grubby来管理启动项，因此需要使用grubby来设置默认内核：</p>
 <pre class="shell"><code>sudo grubby --add-kernel=/boot/vmlinuz-xxxx --title="随便写点啥"
 sudo grubby --set-default=/boot/vmlinuz-xxxx</code></pre>
+<p>其他实用grubby子命令：</p>
+<pre class="shell"><code># 查看grubby列表中的所有内核
+sudo grubby --info ALL
+# 查看指定内核的信息
+sudo grubby --info=kernel-path
+# 查看当前的默认内核
+sudo grubby --default-kernel
+# 查看默认内核在grubby列表中的index
+sudo grubby --default-index
+# 将指定内核从grubby列表中移出
+sudo grubby --remove-kernel=kernel-path</code></pre>
 <p>如果可以与GRUB菜单交互，那么也可以这样：<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/" title="GRUB菜单记住上次的选择的内核">GRUB菜单记住上次的选择的内核</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.golinuxcloud.com/grubby-command-examples/" class="uri">https://www.golinuxcloud.com/grubby-command-examples/</a></p>
 <h2 id="删除旧内核可选">删除旧内核（可选）</h2>
