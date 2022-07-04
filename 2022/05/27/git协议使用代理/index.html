@@ -6667,6 +6667,11 @@ var _hmt = _hmt || [];
         ProxyCommand netcat -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</code></pre>
 <p>其中<code>%h</code>表示host，<code>%p</code>表示port。</p>
 <p>注意这里的<code>netcat</code>有些教程里是写的<code>nc</code>，但是这是不合适的，因为<code>nc</code>在debian系中指向<code>ncat</code>，而在CentOS中指向<code>netcat</code>，两者是不同的。</p>
+<p>而<code>netcat</code>其实也有很多个变种。在Debian系和CentOS中默认是OpenBSD
+netcat，而在Arch Linux中好像默认是GNU Netcat。这里使用的是OpenBSD
+netcat，在Arch
+Linux中可以通过安装<code>openbsd-netcat</code>来从默认的GNU
+Netcat切换到OpenBSD netcat。参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Network_tools#Netcat" class="uri">https://wiki.archlinux.org/title/Network_tools#Netcat</a></p>
 <p><code>man netcat</code>:</p>
 <pre class="text"><code>NAME
      nc — arbitrary TCP and UDP connections and listens
