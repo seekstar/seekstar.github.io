@@ -6660,11 +6660,229 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/Documentation/x86/exception-tables.txt" class="uri">https://www.kernel.org/doc/Documentation/x86/exception-tables.txt</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43343231/enhanced-rep-movsb-for-memcpy" class="uri">https://stackoverflow.com/questions/43343231/enhanced-rep-movsb-for-memcpy</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.felixcloutier.com/x86/stac" class="uri">https://www.felixcloutier.com/x86/stac</a></p>
-<p>STAC: Set AC<br>
-CLAC: Clear AC</p>
+	<html><head></head><body><p><code>copy_from_user</code>和<code>copy_to_user</code>底层都是<code>copy_user_generic</code>。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page
+fault，这时硬件会自动跳转到内核提供的page fault handler
+<code>do_page_fault</code>，将page准备好之后再跳回原来的指令继续执行。但是如果page
+fault处理失败了，比如这不是一个valid
+address，那么内核会搜索这条指令对应的fixup
+point，如果找到了，就跳转到这个fixup point。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.kernel.org/doc/Documentation/x86/exception-tables.txt" class="uri">https://www.kernel.org/doc/Documentation/x86/exception-tables.txt</a></p>
+<p><code>copy_user_generic</code>根据CPU的特性有三种实现：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> __always_inline __must_check <span class="dt">unsigned</span> <span class="dt">long</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>copy_user_generic<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>to<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>from<span class="op">,</span> <span class="dt">unsigned</span> len<span class="op">)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> ret<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">     * If CPU has ERMS feature, use copy_user_enhanced_fast_string.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">     * Otherwise, if CPU has rep_good feature, use copy_user_generic_string.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">     * Otherwise, use copy_user_generic_unrolled.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    alternative_call_2<span class="op">(</span>copy_user_generic_unrolled<span class="op">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>             copy_user_generic_string<span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>             X86_FEATURE_REP_GOOD<span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>             copy_user_enhanced_fast_string<span class="op">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>             X86_FEATURE_ERMS<span class="op">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>             ASM_OUTPUT2<span class="op">(</span><span class="st">"=a"</span> <span class="op">(</span>ret<span class="op">),</span> <span class="st">"=D"</span> <span class="op">(</span>to<span class="op">),</span> <span class="st">"=S"</span> <span class="op">(</span>from<span class="op">),</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"=d"</span> <span class="op">(</span>len<span class="op">)),</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>             <span class="st">"1"</span> <span class="op">(</span>to<span class="op">),</span> <span class="st">"2"</span> <span class="op">(</span>from<span class="op">),</span> <span class="st">"3"</span> <span class="op">(</span>len<span class="op">)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>             <span class="op">:</span> <span class="st">"memory"</span><span class="op">,</span> <span class="st">"rcx"</span><span class="op">,</span> <span class="st">"r8"</span><span class="op">,</span> <span class="st">"r9"</span><span class="op">,</span> <span class="st">"r10"</span><span class="op">,</span> <span class="st">"r11"</span><span class="op">);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>如果有<code>ERMS</code>（Enhanced REP MOVSB/STOSB
+instructions），就用<code>copy_user_enhanced_fast_string</code>；否则，如果有<code>REP</code>指令，就用<code>copy_user_generic_string</code>；否则用通用的<code>copy_user_generic_unrolled</code>。</p>
+<p>内嵌汇编详解：<a href="/2020/02/27/c%E8%AF%AD%E8%A8%80%E5%86%85%E5%B5%8C%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="C语言内嵌汇编学习笔记">C语言内嵌汇编学习笔记</a>。<code>ASM_OUTPUT2</code>中，<code>=</code>表示既读又写，<code>D</code>表示<code>di</code>，作为第一个函数参数，<code>S</code>表示<code>si</code>，作为第二个函数参数，<code>d</code>表示<code>dx</code>，作为第三个函数参数，<code>a</code>表示<code>ax</code>，作为返回值。<code>"1" (to), "2" (from), "3" (len)</code>其实是<code>Input Operands</code>，其中<code>1</code>、<code>2</code>、<code>3</code>分别表示对应的输入操作数的物理位置必须与第1、2、3个输出操作数的物理位置一致。<code>"memory", "rcx", "r8", "r9", "r10", "r11"</code>是<code>Clobbers</code>，表示内存、<code>rcx</code>、<code>r8</code>、<code>r9</code>、<code>r10</code>、<code>r11</code>的内容被修改了。</p>
+<h2 id="copy_user_enhanced_fast_string"><code>copy_user_enhanced_fast_string</code></h2>
+<p>现代CPU通常有<code>ERMS</code>，所以先看<code>copy_user_enhanced_fast_string</code>：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode asm"><code class="sourceCode fasm"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>/*</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> * Some CPUs are adding enhanced REP MOVSB<span class="op">/</span>STOSB instructions<span class="op">.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> * It<span class="st">'s recommended to use enhanced REP MOVSB/STOSB if it'</span>s enabled<span class="op">.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> *</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> * Input<span class="op">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> * rdi destination</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a> * rsi source</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> * rdx count</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> *</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a> * Output<span class="op">:</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a> * eax uncopied bytes <span class="op">or</span> <span class="dv">0</span> if successful<span class="op">.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a> */</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="bu">ENTRY</span><span class="op">(</span>copy_user_enhanced_fast_string<span class="op">)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    // <span class="bu">Set</span> AC</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    ASM_STAC</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    cmpl <span class="op">$</span><span class="bn">64</span><span class="op">,%</span><span class="kw">edx</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    // .L_copy_short_string在copy_user_generic_unrolled的实现里。</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jb</span> <span class="op">.</span>L_copy_short_string <span class="op">/*</span> less then <span class="dv">64</span> bytes<span class="op">,</span> avoid the costly <span class="st">'rep'</span> <span class="op">*/</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    // 把第三个参数edx赋值给ecx，用作rep指令的counter。</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    movl <span class="op">%</span><span class="kw">edx</span><span class="op">,%</span><span class="kw">ecx</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    // <span class="bu">rep</span> movsb其实可以看作是一条指令，表示将si指向的cx个数据拷贝到di指向的位置。</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    // 相当于while <span class="op">(</span><span class="kw">cx</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{*</span><span class="kw">di</span><span class="op">++</span> <span class="op">=</span> <span class="op">*</span><span class="kw">si</span><span class="op">++</span><span class="co">; cx--}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    // 参考：https<span class="op">://</span>stackoverflow<span class="op">.</span>com<span class="op">/</span>questions<span class="op">/</span><span class="dv">43343231</span><span class="op">/</span>enhanced<span class="op">-</span>rep<span class="op">-</span>movsb<span class="op">-</span>for<span class="op">-</span>memcpy</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>1:  <span class="bu">rep</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">movsb</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    // 将返回值eax清零</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    xorl <span class="op">%</span><span class="kw">eax</span><span class="op">,%</span><span class="kw">eax</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    // Clear AC</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    ASM_CLAC</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ret</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">section</span> <span class="op">.</span>fixup<span class="op">,</span><span class="st">"ax"</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    // 此时ecx保存了没有被拷贝的字节数。将其赋值给edx，即作为copy_user_handle_tail的第三个参数。</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>12: movl <span class="op">%</span><span class="kw">ecx</span><span class="op">,%</span><span class="kw">edx</span>      <span class="op">/*</span> <span class="kw">ecx</span> is zerorest also <span class="op">*/</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    // rdi和rsi分别是第一和第二个参数。</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jmp</span> copy_user_handle_tail</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    .previous</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    // 如果指令1（即rep movsb）出错了，就跳转到指令<span class="dv">12</span>（即fixup section）</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="bn">1b</span><span class="op">,</span> <span class="dv">12</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>ENDPROC<span class="op">(</span>copy_user_enhanced_fast_string<span class="op">)</span></span></code></pre></div>
+<p>STAC: Set AC。CLAC: Clear AC。参考：<a target="_blank" rel="noopener" href="https://www.felixcloutier.com/x86/stac" class="uri">https://www.felixcloutier.com/x86/stac</a></p>
+<p><code>copy_user_handle_tail</code>可以看作是尽量多复制一些字节，从而精准定位到出错的那个字节：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Try to copy last bytes and clear the rest if needed.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * Since protection fault in copy_from/to_user is not a normal situation,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * it is not necessary to optimize tail handling.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>__visible <span class="dt">unsigned</span> <span class="dt">long</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>copy_user_handle_tail<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>to<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>from<span class="op">,</span> <span class="dt">unsigned</span> len<span class="op">)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(;</span> len<span class="op">;</span> <span class="op">--</span>len<span class="op">,</span> to<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> c<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>__get_user_nocheck<span class="op">(</span>c<span class="op">,</span> from<span class="op">++,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">char</span><span class="op">)))</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>__put_user_nocheck<span class="op">(</span>c<span class="op">,</span> to<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">char</span><span class="op">)))</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    clac<span class="op">();</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> len<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="copy_user_generic_string"><code>copy_user_generic_string</code></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ENTRY<span class="op">(</span>copy_user_generic_string<span class="op">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    ASM_STAC</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    cmpl $<span class="dv">8</span><span class="op">,%</span>edx</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    jb <span class="dv">2</span><span class="er">f</span>       <span class="co">/* less than 8 bytes, go to byte copy loop */</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ALIGN_DESTINATION</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    movl <span class="op">%</span>edx<span class="op">,%</span>ecx</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    shrl $<span class="dv">3</span><span class="op">,%</span>ecx</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    andl $<span class="dv">7</span><span class="op">,%</span>edx</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">:</span>  rep</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    movsq</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">:</span>  movl <span class="op">%</span>edx<span class="op">,%</span>ecx</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="op">:</span>  rep</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    movsb</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    xorl <span class="op">%</span>eax<span class="op">,%</span>eax</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    ASM_CLAC</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    ret</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>section <span class="op">.</span>fixup<span class="op">,</span><span class="st">"ax"</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span><span class="op">:</span> leal <span class="op">(%</span>rdx<span class="op">,%</span>rcx<span class="op">,</span><span class="dv">8</span><span class="op">),%</span>ecx</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span><span class="op">:</span> movl <span class="op">%</span>ecx<span class="op">,%</span>edx      <span class="co">/* ecx is zerorest also */</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    jmp copy_user_handle_tail</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>previous</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">1</span><span class="er">b</span><span class="op">,</span> <span class="dv">11</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">3</span><span class="er">b</span><span class="op">,</span> <span class="dv">12</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ENDPROC<span class="op">(</span>copy_user_generic_string<span class="op">)</span></span></code></pre></div>
+<p>与<code>copy_user_enhanced_fast_string</code>差不多，主要是先进行了<code>rep movsq</code>，即先以8字节为单位做拷贝，再<code>rep movsb</code>，即逐字节拷贝。</p>
+<h2 id="copy_user_generic_unrolled"><code>copy_user_generic_unrolled</code></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * copy_user_generic_unrolled - memory copy with exception handling.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * This version is for CPUs like P4 that don't have efficient micro</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * code for rep movsq</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * Input:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * rdi destination</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * rsi source</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * rdx count</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"> * Output:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"> * eax uncopied bytes or 0 if successful.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ENTRY<span class="op">(</span>copy_user_generic_unrolled<span class="op">)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    ASM_STAC</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    cmpl $<span class="dv">8</span><span class="op">,%</span>edx</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    jb <span class="dv">20</span><span class="er">f</span>      <span class="co">/* less then 8 bytes, go to byte copy loop */</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    ALIGN_DESTINATION</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    movl <span class="op">%</span>edx<span class="op">,%</span>ecx</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    andl $<span class="dv">63</span><span class="op">,%</span>edx</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    shrl $<span class="dv">6</span><span class="op">,%</span>ecx</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    jz <span class="op">.</span>L_copy_short_string</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">:</span>  movq <span class="op">(%</span>rsi<span class="op">),%</span>r8</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">:</span>  movq <span class="dv">1</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r9</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="op">:</span>  movq <span class="dv">2</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r10</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="op">:</span>  movq <span class="dv">3</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r11</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="op">:</span>  movq <span class="op">%</span>r8<span class="op">,(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="op">:</span>  movq <span class="op">%</span>r9<span class="op">,</span><span class="dv">1</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span><span class="op">:</span>  movq <span class="op">%</span>r10<span class="op">,</span><span class="dv">2</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">:</span>  movq <span class="op">%</span>r11<span class="op">,</span><span class="dv">3</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span><span class="op">:</span>  movq <span class="dv">4</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r8</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="op">:</span> movq <span class="dv">5</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r9</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span><span class="op">:</span> movq <span class="dv">6</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r10</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span><span class="op">:</span> movq <span class="dv">7</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>r11</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span><span class="op">:</span> movq <span class="op">%</span>r8<span class="op">,</span><span class="dv">4</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span><span class="op">:</span> movq <span class="op">%</span>r9<span class="op">,</span><span class="dv">5</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span><span class="op">:</span> movq <span class="op">%</span>r10<span class="op">,</span><span class="dv">6</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span><span class="op">:</span> movq <span class="op">%</span>r11<span class="op">,</span><span class="dv">7</span><span class="op">*</span><span class="dv">8</span><span class="op">(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    leaq <span class="dv">64</span><span class="op">(%</span>rsi<span class="op">),%</span>rsi</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    leaq <span class="dv">64</span><span class="op">(%</span>rdi<span class="op">),%</span>rdi</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    decl <span class="op">%</span>ecx</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    jnz <span class="dv">1</span><span class="er">b</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>L_copy_short_string<span class="op">:</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    movl <span class="op">%</span>edx<span class="op">,%</span>ecx</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    andl $<span class="dv">7</span><span class="op">,%</span>edx</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    shrl $<span class="dv">3</span><span class="op">,%</span>ecx</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    jz <span class="dv">20</span><span class="er">f</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span><span class="op">:</span> movq <span class="op">(%</span>rsi<span class="op">),%</span>r8</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span><span class="op">:</span> movq <span class="op">%</span>r8<span class="op">,(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    leaq <span class="dv">8</span><span class="op">(%</span>rsi<span class="op">),%</span>rsi</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    leaq <span class="dv">8</span><span class="op">(%</span>rdi<span class="op">),%</span>rdi</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    decl <span class="op">%</span>ecx</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    jnz <span class="dv">18</span><span class="er">b</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="op">:</span> andl <span class="op">%</span>edx<span class="op">,%</span>edx</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    jz <span class="dv">23</span><span class="er">f</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    movl <span class="op">%</span>edx<span class="op">,%</span>ecx</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span><span class="op">:</span> movb <span class="op">(%</span>rsi<span class="op">),%</span>al</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span><span class="op">:</span> movb <span class="op">%</span>al<span class="op">,(%</span>rdi<span class="op">)</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    incq <span class="op">%</span>rsi</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    incq <span class="op">%</span>rdi</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    decl <span class="op">%</span>ecx</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    jnz <span class="dv">21</span><span class="er">b</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span><span class="op">:</span> xor <span class="op">%</span>eax<span class="op">,%</span>eax</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    ASM_CLAC</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    ret</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>section <span class="op">.</span>fixup<span class="op">,</span><span class="st">"ax"</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span><span class="op">:</span> shll $<span class="dv">6</span><span class="op">,%</span>ecx</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    addl <span class="op">%</span>ecx<span class="op">,%</span>edx</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    jmp <span class="dv">60</span><span class="er">f</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span><span class="op">:</span> leal <span class="op">(%</span>rdx<span class="op">,%</span>rcx<span class="op">,</span><span class="dv">8</span><span class="op">),%</span>edx</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    jmp <span class="dv">60</span><span class="er">f</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span><span class="op">:</span> movl <span class="op">%</span>ecx<span class="op">,%</span>edx</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a><span class="dv">60</span><span class="op">:</span> jmp copy_user_handle_tail <span class="co">/* ecx is zerorest also */</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>previous</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">1</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">2</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">3</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">4</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">5</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">6</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">7</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">8</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">9</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">10</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">11</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">12</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">13</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">14</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">15</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">16</span><span class="er">b</span><span class="op">,</span> <span class="dv">30</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">18</span><span class="er">b</span><span class="op">,</span> <span class="dv">40</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">19</span><span class="er">b</span><span class="op">,</span> <span class="dv">40</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">21</span><span class="er">b</span><span class="op">,</span> <span class="dv">50</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    _ASM_EXTABLE_UA<span class="op">(</span><span class="dv">22</span><span class="er">b</span><span class="op">,</span> <span class="dv">50</span><span class="er">b</span><span class="op">)</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>ENDPROC<span class="op">(</span>copy_user_generic_unrolled<span class="op">)</span></span></code></pre></div>
+<p>就是一个做了循环展开的拷贝。</p>
 </body></html>
 </div>
 

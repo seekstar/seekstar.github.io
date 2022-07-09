@@ -6664,9 +6664,9 @@ dracut initra
 					copy_from_user详解
 				</h2>
 				<div class="index-brief">
-					https://www.kernel.org/doc/Documentation/x86/exception-tables.txt
-https://stackoverflow.com/questions/43343231/enhanced-rep-movsb-for-memcpy
-https://w
+					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page
+fault，这时硬件会自动跳转到内核提供的page fault handler
+do_page_fault，将page准备好之后再跳回
 					...
 				</div>
 			</a>
