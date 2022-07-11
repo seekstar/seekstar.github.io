@@ -2039,6 +2039,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/07/11/%E4%BF%AE%E5%A4%8Dpacman%E5%8D%87%E7%BA%A7%E6%97%B6%E6%96%AD%E7%94%B5%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    修复pacman升级时断电导致的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2019/06/23/%E8%A7%A3%E5%86%B3deepin%E4%B8%ADvim%E6%97%A0%E6%B3%95%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC%E5%88%B0%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E7%9A%84%E9%97%AE%E9%A2%98/">
                      
 										    解决deepin中vim无法复制文本到系统剪切板的问题
@@ -6678,6 +6689,64 @@ var _hmt = _hmt || [];
 <pre class="shell"><code>cd /boot
 # 给/boot/vmlinuz-5.1.0-amd64-desktop+生成initramfs
 dracut initramfs-5.1.0-amd64-desktop+.img 5.1.0-amd64-desktop+</code></pre>
+<h3 id="chroot">chroot</h3>
+<p>如果是在chroot里生成的话，需要先挂载proc，不然会出现这个问题：</p>
+<pre class="text"><code>error: could not open file: /etc/mtab: No such file or directory</code></pre>
+<pre class="shell"><code>stat /etc/mtab</code></pre>
+<p>输出：</p>
+<pre class="text"><code>File: /etc/mtab -&gt; ../proc/self/mounts</code></pre>
+<h3 id="内核版本号的获取">内核版本号的获取</h3>
+<p>有些发行版的内核文件名中不带内核版本号，如果内核版本号指定错误的话，会报错，比如：</p>
+<pre class="shell"><code>dracut initramfs-linux.img vmlinuz-linux</code></pre>
+<pre class="text"><code>dracut: Cannot find module directory /lib/modules/vmlinuz-linux/
+dracut: and --no-kernel was not specified</code></pre>
+<p>所以通过<code>/lib/modules</code>找到内核版本号：</p>
+<pre class="shell"><code>ls /lib/modules</code></pre>
+<pre class="text"><code>5.15.52-1-lts  5.18.9-arch1-1</code></pre>
+<p>然后这样就可以了：</p>
+<pre class="shell"><code>dracut initramfs-linux.img 5.18.9-arch1-1 --force
+dracut initramfs-linux-lts.img 5.15.52-1-lts --force</code></pre>
+<h3 id="dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found">dracut:
+dracut module 'xxx' will not be installed, because command 'xxx' could
+not be found!</h3>
+<p>这些报错貌似不用管也行。要消除这些报错，按照提示把对应的命令装上就行了：</p>
+<pre class="shell"><code>sudo pacman -S dash dbus-broker rng-tools dhclient multipath-tools tpm2-tools open-iscsi nbd nfs-utils nvme-cli procps-ng squashfs-tools</code></pre>
+<p>不过这些命令pacman的源里好像没有：</p>
+<pre class="text"><code>mksh wicked biosdevname memstrack</code></pre>
+<p>所以这些报错仍然存在：</p>
+<pre class="text"><code>dracut: dracut module 'mksh' will not be installed, because command 'mksh' could not be found!
+dracut: dracut module 'network-wicked' will not be installed, because command 'wicked' could not be found!
+dracut: dracut module 'fcoe' will not be installed, because command 'dcbtool' could not be found!
+dracut: dracut module 'fcoe' will not be installed, because command 'fipvlan' could not be found!
+dracut: dracut module 'fcoe' will not be installed, because command 'lldpad' could not be found!
+dracut: dracut module 'fcoe' will not be installed, because command 'fcoemon' could not be found!
+dracut: dracut module 'fcoe' will not be installed, because command 'fcoeadm' could not be found!
+dracut: dracut module 'fcoe-uefi' will not be installed, because command 'dcbtool' could not be found!
+dracut: dracut module 'fcoe-uefi' will not be installed, because command 'fipvlan' could not be found!
+dracut: dracut module 'fcoe-uefi' will not be installed, because command 'lldpad' could not be found!
+dracut: dracut module 'biosdevname' will not be installed, because command 'biosdevname' could not be found!
+dracut: dracut module 'memstrack' will not be installed, because command 'memstrack' could not be found!
+dracut: memstrack is not available
+dracut: If you need to use rd.memdebug&gt;=4, please install memstrack and procps-ng</code></pre>
+<p>但是不影响启动。</p>
+<h3 id="a-start-is-running-for-loading-kernel-modules">A start is
+running for loading kernel modules</h3>
+<p>ArchLinux stable内核(5.18.9-arch1-1)在开机时会卡在这里一段时间：</p>
+<pre class="text"><code>A start is running for loading kernel modules.</code></pre>
+<p>dmesg:</p>
+<pre class="text"><code>[   95.852562] kauditd_printk_skb: 49 callbacks suppressed
+[   95.852567] audit: type=1130 audit(1657375436.266:110): pid=1 uid=0 auid=4294967295 ses
+=4294967295 msg='unit=systemd-modules-load comm="systemd" exe="/usr/lib/systemd/systemd" h
+ostname=? addr=? terminal=? res=failed'
+[   95.867354] audit: type=1130 audit(1657375436.283:111): pid=1 uid=0 auid=4294967295 ses
+=4294967295 msg='unit=systemd-sysctl comm="systemd" exe="/usr/lib/systemd/systemd" hostnam
+e=? addr=? terminal=? res=success'
+[   95.926847] audit: type=1130 audit(1657375436.343:112): pid=1 uid=0 auid=4294967295 ses=4294967295 msg='unit=nix-daemon comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+[   95.936318] audit: type=1334 audit(1657375436.353:113): prog-id=27 op=LOAD
+[   95.940063] audit: type=1334 audit(1657375436.353:114): prog-id=28 op=LOAD
+[   95.943095] audit: type=1334 audit(1657375436.353:115): prog-id=29 op=LOAD</code></pre>
+<p>不清楚是哪里出问题了。不过等一小段时间仍然能进入系统。</p>
+<p>此外，ArchLinux LTS内核(5.15.52-1-lts)没有这个问题。</p>
 <h2 id="update-initramfs">update-initramfs</h2>
 <p>Debian系可用。</p>
 <pre class="shell"><code>sudo update-initramfs -ck 要生成initramfs的内核版本</code></pre>
