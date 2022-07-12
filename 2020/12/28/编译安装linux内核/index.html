@@ -6687,12 +6687,6 @@ var _hmt = _hmt || [];
 <p><img src="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/20201228134406637.png" alt="在这里插入图片描述"></p>
 <p>一般下载tarball，也就是.tar.xz格式的源码包。如果<code>/</code>够大，可以直接解压到<code>/usr/src</code>，也可以解压到机械盘上。</p>
 <h2 id="配置">配置</h2>
-<h3 id="编辑config">编辑<code>.config</code></h3>
-<p>一些常用的配置：</p>
-<h4 id="kasan">KASAN</h4>
-<p>KASAN是一个动态检测内存错误的工具：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weiqifa0/article/details/120359407">在Linux内核使用Kasan</a></p>
-<pre class="text"><code>CONFIG_SLUB_DEBUG=y
-CONFIG_KASAN=y</code></pre>
 <h3 id="make-menuconfig">make menuconfig</h3>
 <p>如果手动编辑了<code>.config</code>的话，这一步可能会根据手动编辑的内容调整一些其他选项，比如如果设置了<code>CONFIG_KASAN=y</code>，执行<code>make menuconfig</code>后会自动加上<code>CONFIG_KASAN_GENERIC=y</code>和<code>CONFIG_KASAN_OUTLINE=y</code>。</p>
 <pre class="shell"><code>sudo apt install -y flex bison libelf-dev
@@ -6700,6 +6694,16 @@ make menuconfig</code></pre>
 <p>如果没有特殊需求，可以直接按右键头选中Exit</p>
 <p><img src="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/20201228134609864.png" alt="在这里插入图片描述"></p>
 <p>然后按enter，选保存即可。</p>
+<p>也可以在里面更改一些内核配置，常见的：</p>
+<h4 id="kasan">KASAN</h4>
+<p>KASAN是一个动态检测内存错误的工具：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weiqifa0/article/details/120359407">在Linux内核使用Kasan</a></p>
+<p>对应<code>.config</code>里的：</p>
+<pre class="text"><code>CONFIG_SLUB_DEBUG=y
+CONFIG_KASAN=y</code></pre>
+<h4 id="kobject-debugging">kobject debugging</h4>
+<p>kobject debugging</p>
+<p>kobject release debugging</p>
+<p>这俩开了之后dmesg里有意义不明的输出。</p>
 <h2 id="make">make</h2>
 <p>多线程编译</p>
 <pre class="shell"><code>make -j$(nproc) &gt; /dev/null</code></pre>
