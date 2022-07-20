@@ -6195,6 +6195,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/07/20/ctrl-c%E6%9D%80%E6%AD%BB%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84timeout%E5%91%BD%E4%BB%A4/">
+                     
+										    ctrl+c杀死脚本中的timeout命令
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/09/13/grep%E5%8F%AA%E5%9C%A8%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2/">
                      
 										    grep只在文本文件中搜索
@@ -6668,6 +6679,29 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
+				<h2 class="index-title">
+					Shell查看某目录下某拓展名的文件所占总空间
+				</h2>
+				<div class="index-brief">
+					比如要查看目录下png文件占用的总空间：
+find 目录 -type f -name "*.png" -print0 | xargs -0r du -ch
+输出的最后一行就是占用的总空间。
+以下来自man find：
+-type f: 只查找普通文件。
+-print0: 返回true；在标准输出打印
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/02/17/ssh%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
 				<h2 class="index-title">
 					SSH内网穿透
@@ -6856,28 +6890,6 @@ Debian 11 安装SPDK
 sudo bash -c "ulimit -Hl unlimited"
 ulimit -Sl unlimited
 申
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/23/debian-11-%E5%AE%89%E8%A3%85spdk/">
-				<h2 class="index-title">
-					Debian 11 安装SPDK
-				</h2>
-				<div class="index-brief">
-					本文主要参考SpanDB的安装教程：https://github.com/SpanDB/SpanDB
-SPDK全称：Storage Performance Development Kit
-这里以SPDK v20.01.2为例。
-下载SPDK
-git clone https://github.com/
 					...
 				</div>
 			</a>
