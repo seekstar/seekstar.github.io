@@ -528,6 +528,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/07/24/%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97/">
+                     
+										    数论分块
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/10/30/%E6%B1%821%E5%88%B010-n%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA0/">
                      
 										    求1到10^n的数字中有多少个0
@@ -6707,12 +6718,19 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p><code>timeout</code>命令默认运行在单独的进程组中，而终端的<code>ctrl+c</code>的SIGINT信号只发送给脚本，timeout命令接收不到。想让timeout命令接收到终端的<code>ctrl+c</code>发送的SIGINT的信号，需要加上参数<code>--foreground</code>，这样timeout命令就会继承父进程的进程组。例子：</p>
 <pre class="shell"><code>timeout --foreground 1h sleep 1m</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/67997060/bash-script-run-with-timeout-wont-exit-on-sigint" class="uri">https://stackoverflow.com/questions/67997060/bash-script-run-with-timeout-wont-exit-on-sigint</a></p>
+<h2 id="奇怪的是">奇怪的是</h2>
+<p>SIGINT应该是会发送给脚本的，因此预期行为应该是脚本被杀死了，而timeout进程变成了孤儿进程。但是实际上脚本似乎被timeout进程给阻塞了，要在timeout命令结束之后才会接收SIGINT信号，原因不明。</p>
 </body></html>
 </div>
 
 
     <div class="post-guide">
         <div class="item left">
+            
+              <a href="/2022/07/24/%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  数论分块
+              </a>
             
         </div>
         <div class="item right">
