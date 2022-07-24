@@ -6731,6 +6731,14 @@ var _hmt = _hmt || [];
 <p><img src="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/20201228134406637.png" alt="在这里插入图片描述"></p>
 <p>一般下载tarball，也就是.tar.xz格式的源码包。如果<code>/</code>够大，可以直接解压到<code>/usr/src</code>，也可以解压到机械盘上。</p>
 <h2 id="配置">配置</h2>
+<h3 id="config">.config</h3>
+<p>里面是一些flag，内核编译的时候会读取这个文件，根据这些flag来配置。</p>
+<p>常用的有：</p>
+<ul>
+<li>CONFIG_LOCALVERSION</li>
+</ul>
+<p>附加在在内核的version
+string后面。自动生成的通常默认是<code>-amd64-desktop+</code>，生成的内核版本类似于<code>5.1.0-amd64-desktop+</code>。设置<code>CONFIG_LOCALVERSION="-default-config"</code>后，编译生成的内核版本号就是类似于<code>5.1.0-default-config</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel" class="uri">https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel</a></p>
 <h3 id="make-menuconfig">make menuconfig</h3>
 <p>如果手动编辑了<code>.config</code>的话，这一步可能会根据手动编辑的内容调整一些其他选项，比如如果设置了<code>CONFIG_KASAN=y</code>，执行<code>make menuconfig</code>后会自动加上<code>CONFIG_KASAN_GENERIC=y</code>和<code>CONFIG_KASAN_OUTLINE=y</code>。</p>
 <pre class="shell"><code>sudo apt install -y flex bison libelf-dev
