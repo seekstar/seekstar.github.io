@@ -6763,6 +6763,61 @@ var _hmt = _hmt || [];
 在vi风格的光标操作方式中，可以<code>ctrl+u</code>或者<code>PgUp</code>上翻页，<code>ctrl+d</code>或者<code>PgDn</code>下翻页，这在默认设定中好像是做不到的。</p>
 <p>进入复制模式之后，按空格选择要复制的起始位置，然后移动光标到要复制的结束位置，然后按<code>Enter</code>复制，同时退出复制模式，按<code>ctrl+]</code>可以粘贴（只能在tmux内粘贴）。</p>
 <p>复制模式中，虽然不再显示新的输出，但是其实程序仍然在跑，在退出复制模式后新的输出就会显示出来。</p>
+<h2 id="插件">插件</h2>
+<p>建议使用Tmux Plugin Manager管理插件：<a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tpm" class="uri">https://github.com/tmux-plugins/tpm</a></p>
+<p>可用插件列表：<a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/list" class="uri">https://github.com/tmux-plugins/list</a></p>
+<h3 id="tmux-plugin-manager">Tmux Plugin Manager</h3>
+<h4 id="apt安装">apt安装</h4>
+<pre class="shell"><code>sudo apt install tmux-plugin-manager</code></pre>
+<p>然后Tmux Plugin
+Manager就被安装到了<code>/usr/share/tmux-plugin-manager</code>。</p>
+<p>然后在<code>~/.tmux.conf</code>中写入如下内容：</p>
+<pre class="text"><code># List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '/usr/share/tmux-plugin-manager/tpm'</code></pre>
+<h4 id="手动安装">手动安装</h4>
+<pre class="shell"><code>git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm</code></pre>
+<p>然后在<code>~/.tmux.conf</code>中写入如下内容：</p>
+<pre class="text"><code># List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'</code></pre>
+<h4 id="激活tmux-plugin-manager">激活Tmux Plugin Manager</h4>
+<p>可以先把所有tmux窗口都关闭，然后再新开tmux的时候，新开的tmux中就会自动读取<code>~/.tmux.conf</code>，从而激活Tmux
+Plugin Manager。</p>
+<p>如果要在已有的tmux里激活新安装的Tmux Plugin Manager，需要这样：</p>
+<pre class="shell"><code># 在已有tmux窗口里执行此命令
+tmux source ~/.tmux.conf</code></pre>
+<h4 id="安装并激活插件">安装并激活插件</h4>
+<p>往<code>~/.tmux.conf</code>里加入<code>set -g @plugin '...'</code>，然后在tmux窗口里按<code>ctrl+b</code>然后按<code>shift+i</code>即可。新插件会被自动clone到<code>~/.tmux/plugins/</code>并且激活。安装并激活插件的时候会卡一下。完成之后会显示这个：</p>
+<pre class="text"><code>TMUX environment reloaded.
+Done, press ENTER to continue.</code></pre>
+<p>注意有的是按ENTER继续，有的是按ESCAPE继续，不知道为什么。</p>
+<h3 id="tmux-sensible">tmux-sensible</h3>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tmux-sensible" class="uri">https://github.com/tmux-plugins/tmux-sensible</a></p>
+<p>这是一款可以让所有用户都接受的插件。我也不清楚这个到底干了啥。</p>
+<pre class="text"><code>set -g @plugin 'tmux-plugins/tmux-sensible'</code></pre>
+<h3 id="tmux-logging">tmux-logging</h3>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tmux-logging" class="uri">https://github.com/tmux-plugins/tmux-logging</a></p>
+<p>按<code>ctrl+b</code>再按<code>shift+p</code>即可把tmux窗口里的内容log到文件。</p>
+<pre class="text"><code>set -g @plugin 'tmux-plugins/tmux-logging'</code></pre>
 <h2 id="参考文献">参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode" class="uri">https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode</a></p>
 </body></html>
