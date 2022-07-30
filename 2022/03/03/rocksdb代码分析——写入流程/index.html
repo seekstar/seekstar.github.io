@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6752,7 +6752,8 @@ var _hmt = _hmt || [];
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">const</span> Slice<span class="op">&amp;</span> key<span class="op">,</span> <span class="at">const</span> Slice<span class="op">&amp;</span> val<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> DB<span class="op">::</span>Put<span class="op">(</span>o<span class="op">,</span> column_family<span class="op">,</span> key<span class="op">,</span> val<span class="op">);</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>它显式调用了<code>DB::Put</code>。<code>DB::Put</code>中首先构造了WriteBatch，然后调用了<code>DB::Write</code>，它是个纯虚函数，被<code>DBImpl::Write</code> override了。<code>DBImpl::Write</code>调用了<code>DBImpl::WriteImpl</code>。</p>
+<p>它显式调用了<code>DB::Put</code>。<code>DB::Put</code>中首先构造了WriteBatch，然后调用了<code>DB::Write</code>，它是个纯虚函数，被<code>DBImpl::Write</code>
+override了。<code>DBImpl::Write</code>调用了<code>DBImpl::WriteImpl</code>。</p>
 <p><code>DBImpl::WriteImpl</code>先检查了一堆option，这里我们先不管。然后将<code>WriteBatch *my_batch</code>以及<code>WriteOption</code>都转移到了<code>WriteThread::Writer w</code>中。然后调用<code>WriteThread::JoinBatchGroup</code>。</p>
 <ul>
 <li><p>假如我们不是leader，那么调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable中，然后返回。</p></li>

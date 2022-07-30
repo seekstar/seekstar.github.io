@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6741,10 +6741,15 @@ var _hmt = _hmt || [];
 <p>首先要发现一个性质：<br>
 如果i &gt;= j &gt;= k，那么f(i, k) &lt;= f(j, k)<br>
 感性理解一下，就是在同一方向，离自己越近的与自己的公共前缀越长。因为离自己更远的数，最高的与自己不同的数位肯定要不会低于离自己更近的数的最高的与自己不同的数位。</p>
-<p>然后对于第i组，在1 ~ i-1组的方向上，在第i组的数中，L[i]显然是与A[i]的f值最小的，而且是与A[i-1]的f值最大的。因此如果满足了f(A[i], L[i]) &gt;= f(A[i-1], L[i])，那么A[1]到A[i-1]都满足了题目的限制。i+1 ~ n组的方向上同理。</p>
+<p>然后对于第i组，在1 ~
+i-1组的方向上，在第i组的数中，L[i]显然是与A[i]的f值最小的，而且是与A[i-1]的f值最大的。因此如果满足了f(A[i],
+L[i]) &gt;= f(A[i-1], L[i])，那么A[1]到A[i-1]都满足了题目的限制。i+1 ~
+n组的方向上同理。</p>
 <p>然后就可以发现，第1到i-1组和第i+1到n组互不影响，于是就有dp性质，考虑用dp求解。</p>
 <p>假设j所在组为i。设dp[j]为选择j为A[i]时，第1到i组时的答案。<br>
-我们需要找到所有第i-1组中能够满足f(j, L[i]) &gt;= f(A[i-1], L[i])且f(A[i-1], R[i-1]) &gt;= f(j, R[i-1])的A[i-1]，把这些方案的加起来乘上j就是dp[j]的值了。由于f具有单调性，可以用双指针维护出这个A[i-1]的可选区间。</p>
+我们需要找到所有第i-1组中能够满足f(j, L[i]) &gt;= f(A[i-1],
+L[i])且f(A[i-1], R[i-1]) &gt;= f(j,
+R[i-1])的A[i-1]，把这些方案的加起来乘上j就是dp[j]的值了。由于f具有单调性，可以用双指针维护出这个A[i-1]的可选区间。</p>
 <p>代码（gym上 46ms）</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>

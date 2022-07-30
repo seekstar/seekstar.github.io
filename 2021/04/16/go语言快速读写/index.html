@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6741,16 +6741,16 @@ var _hmt = _hmt || [];
 <p>解决方案是使用<code>bufio</code>。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">:=</span> bufio<span class="op">.</span>NewWriter<span class="op">(</span>os<span class="op">.</span>Stdout<span class="op">)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">defer</span> out<span class="op">.</span>Flush<span class="op">()</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">defer</span> out<span class="op">.</span>Flush<span class="op">()</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    in <span class="op">:=</span> bufio<span class="op">.</span>NewReader<span class="op">(</span>os<span class="op">.</span>Stdin<span class="op">)</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    read_int <span class="op">:=</span> <span class="kw">func</span><span class="op">()</span> <span class="op">(</span>x <span class="dt">int</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        c<span class="op">,</span> _ <span class="op">:=</span> in<span class="op">.</span>ReadByte<span class="op">()</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> <span class="op">;</span> c <span class="op">&lt;</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">;</span> c <span class="op">&lt;</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> <span class="op">;</span> c <span class="op">&gt;=</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">;</span> c <span class="op">&gt;=</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="dt">int</span><span class="op">(</span>c <span class="op">-</span> <span class="ch">'0'</span><span class="op">)</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Your code here</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>

@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6741,7 +6741,8 @@ var _hmt = _hmt || [];
 <p>先介绍O(n^2)的做法（536ms）<br>
 显然棍子的重量与拿棍子是无关的。因此我们可以定义与重量无关的状态。<br>
 设类2棍子的总个数为m，f[i][j]为有i根类1棍子和j根类2棍子没拿时，把所有棍子都拿一遍，拿类2棍子的期望总次数。<br>
-f[i][j] = i / (i + m) f[i-1][j] + j / (i + m) f(i, j-1) + (m-j) / (i+m) f[i][j] + m / (i + m)</p>
+f[i][j] = i / (i + m) f[i-1][j] + j / (i + m) f(i, j-1) + (m-j) / (i+m)
+f[i][j] + m / (i + m)</p>
 <p>f[i][j] = (i f[i-1][j] + j f[i][j-1] + m) / (i + j)</p>
 <p>注意i = 0, j = 0时直接continue掉。</p>
 <p>由于拿棍子与重量无关，所以重量可以随便赋值到这些棍子。把这些重量的组合加起来平均一下就是期望了（严格证明我也不会）</p>
