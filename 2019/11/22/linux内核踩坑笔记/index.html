@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6739,7 +6739,8 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>systemtap embedded C踩坑笔记戳这：<a href="/2019/11/15/systemtap-embedded-c-%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/" title="systemtap embedded C 踩坑笔记">systemtap embedded C 踩坑笔记</a></p>
 <h1 id="task_struct的sibling字段">task_struct的sibling字段</h1>
-<p>task_struct 的sibling字段指向的是一个侵入式双向循环链表的节点。这个链表头节点的pid是0。这个头节点并不是一个有效的task_struct，所以打印兄弟进程的时候要跳过这个头节点。（操作系统实验检查的时候被老师问为什么会打印出一个pid为0的进程，被问懵了）</p>
+<p>task_struct
+的sibling字段指向的是一个侵入式双向循环链表的节点。这个链表头节点的pid是0。这个头节点并不是一个有效的task_struct，所以打印兄弟进程的时候要跳过这个头节点。（操作系统实验检查的时候被老师问为什么会打印出一个pid为0的进程，被问懵了）</p>
 <p>pstree打印出来的东西，用{}括起来的是线程，如果用n*[{name}]的形式表示，就说明有n个线程。name表示主线程。这些线程被放到主线程的下一级，但是并不是它们所在的进程的子进程的兄弟进程，因为它们不是进程。（操作系统实验检查之后我改了代码，用pstree检查的时候发现好像少打印了进程，然后傻乎乎地去问老师然后受到了教育）</p>
 </body></html>
 </div>

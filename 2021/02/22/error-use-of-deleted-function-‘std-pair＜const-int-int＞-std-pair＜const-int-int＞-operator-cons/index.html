@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6750,7 +6750,8 @@ note: ‘std::pair&lt;const int, int&gt;&amp; std::pair&lt;const int, int&gt;::o
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    c<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="bu">std::</span>make_pair<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>错误信息里说是因为定义了move constructor or move assignment，显然不对。<br>
+<p>错误信息里说是因为定义了move constructor or move
+assignment，显然不对。<br>
 其实是因为<code>std::pair&lt;const int, int&gt;</code>里的first是const的，只能在定义的时候赋值，所以就把<code>operator=</code>给delete了。</p>
 <p>更改成这样才是对的：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>

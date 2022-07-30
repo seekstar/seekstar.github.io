@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6744,7 +6744,9 @@ var _hmt = _hmt || [];
 然后假设A不是直角，那么枚举直角点B，对答案的贡献就是与AB垂直的向量BC的个数。<br>
 两个假设算出来的答案加起来就是最终答案。</p>
 <p>现在问题转化为了给定2000规模的向量，如何找与某个向量垂直的向量个数。我们需要定义一个哈希函数使得所有斜率相同的向量得到的哈希值都相同，然后判断斜率是否相等的函数直接用判断分数是否相等的函数就可以了。</p>
-<p>假设向量的表示形式为&lt;x, y&gt;，那么斜率的分数表示显然是y / x。然后我们找一个比较小的素数p，容易证明(k<em>y)/(k</em>x)=y/x (mod p)。所以定义哈希函数为(y % p) * inv(x % p) % p就可以了。</p>
+<p>假设向量的表示形式为&lt;x, y&gt;，那么斜率的分数表示显然是y /
+x。然后我们找一个比较小的素数p，容易证明(k<em>y)/(k</em>x)=y/x (mod
+p)。所以定义哈希函数为(y % p) * inv(x % p) % p就可以了。</p>
 <p>附上超快手写哈希<br>
 代码(4945ms)：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>

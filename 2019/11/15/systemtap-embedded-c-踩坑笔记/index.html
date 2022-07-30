@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6740,7 +6740,8 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>官方文档：<br>
 <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000" class="uri">https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000</a></p>
 <h1 id="打印">打印</h1>
-<p>systemtap的embedded C中，不能#include &lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
+<p>systemtap的embedded C中，不能#include
+&lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
 <p>还可以访问cript中的全局变量。<br>
 官方文档中的示例：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>global var</span>
@@ -6778,7 +6779,8 @@ cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-We
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    STAP_RETURN<span class="op">(</span>list_entry<span class="op">(</span>task<span class="op">-&gt;</span>sibling<span class="op">.</span>next<span class="op">,</span> <span class="kw">struct</span> task_struct<span class="op">,</span> sibling<span class="op">));</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
 <h1 id="打印路径">打印路径</h1>
-<p>可以用d_path把struct path解析为绝对路径。centos 7中d_path的声明如下：</p>
+<p>可以用d_path把struct path解析为绝对路径。centos
+7中d_path的声明如下：</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// include/linux/dcache.h</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="dt">char</span> <span class="op">*</span>d_path<span class="op">(</span><span class="dt">const</span> <span class="kw">struct</span> path <span class="op">*,</span> <span class="dt">char</span> <span class="op">*,</span> <span class="dt">int</span><span class="op">);</span></span></code></pre></div>
 <p>其中char*是buffer的首地址，int是buffer的大小。<br>

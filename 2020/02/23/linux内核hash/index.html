@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6800,7 +6800,8 @@ var _hmt = _hmt || [];
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>下面根据我自己的理解解释这段代码。</p>
-<h2 id="加密handlerstruct-crypto_shash">加密handler：struct crypto_shash</h2>
+<h2 id="加密handlerstruct-crypto_shash">加密handler：struct
+crypto_shash</h2>
 <h3 id="生成">生成</h3>
 <p>crypto_alloc_shash：根据指定的哈希算法，生成handler，并返回其指针。<br>
 原型：</p>
@@ -6819,7 +6820,8 @@ type和mask一般都是0。<del>其实我也不清楚</del></p>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="op">*</span>__ctx<span class="op">[]</span> CRYPTO_MINALIGN_ATTR<span class="op">;</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p>tfm: 加密handler<br>
-ctx: 空数组的首地址，相当于汇编里的一个标号，指向结构体的后一个字节。<br>
+ctx:
+空数组的首地址，相当于汇编里的一个标号，指向结构体的后一个字节。<br>
 这个结构体可能会跟一段buffer一起被申请，而ctx就相当于这段buffer的首地址，所以为了防止访问buffer时出现对齐错误，需要给ctx加上属性CRYPTO_MINALIGN_ATTR。<br>
 CRYPTO_MINALIGN_ATTR的含义是通过可能的字节填充，使得ctx是以最大的对齐标准对齐的，防止出现对齐错误。例如在我的机器上，CRYPTO_MINALIGN_ATTR的含义是强制以64位对齐。</p>
 <h2 id="struct-sdesc">struct sdesc</h2>
@@ -6828,7 +6830,8 @@ CRYPTO_MINALIGN_ATTR的含义是通过可能的字节填充，使得ctx是以最
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> shash_desc shash<span class="op">;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> ctx<span class="op">[];</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p>ctx作为后面跟着的buffer的首地址。由于struct shash_desc里已经进行过对齐，所以后面跟着的buffer的首地址一定是对齐的。</p>
+<p>ctx作为后面跟着的buffer的首地址。由于struct
+shash_desc里已经进行过对齐，所以后面跟着的buffer的首地址一定是对齐的。</p>
 <h3 id="生成-1">生成</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="kw">struct</span> sdesc <span class="op">*</span>init_sdesc<span class="op">(</span><span class="kw">struct</span> crypto_shash <span class="op">*</span>alg<span class="op">)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -6843,8 +6846,10 @@ CRYPTO_MINALIGN_ATTR的含义是通过可能的字节填充，使得ctx是以最
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sdesc<span class="op">;</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>crypto_shash_descsize(alg): 得到这个加密算法需要的buffer大小。</p>
-<p>struct shash_desc的大小加上buffer大小就是总共需要申请的内存大小<code>size</code>。</p>
-<p>kmalloc: 申请小于一页的内存。其中GFP_KERNEL表示申请正常的内核RAM，可以睡眠。参考：<a target="_blank" rel="noopener" href="https://www.kernel.org/doc/htmldocs/kernel-api/API-kmalloc.html" class="uri">https://www.kernel.org/doc/htmldocs/kernel-api/API-kmalloc.html</a></p>
+<p>struct
+shash_desc的大小加上buffer大小就是总共需要申请的内存大小<code>size</code>。</p>
+<p>kmalloc:
+申请小于一页的内存。其中GFP_KERNEL表示申请正常的内核RAM，可以睡眠。参考：<a target="_blank" rel="noopener" href="https://www.kernel.org/doc/htmldocs/kernel-api/API-kmalloc.html" class="uri">https://www.kernel.org/doc/htmldocs/kernel-api/API-kmalloc.html</a></p>
 <p>ERR_PTR: 把错误码变成指针。戳这篇文章：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/yaozhenguo2006/article/details/7967547" class="uri">https://blog.csdn.net/yaozhenguo2006/article/details/7967547</a><br>
 ENOMEM: error, no memory</p>

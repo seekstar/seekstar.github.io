@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6756,7 +6756,8 @@ var _hmt = _hmt || [];
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      ColumnFamilyDescriptor<span class="op">(</span>kDefaultColumnFamilyName<span class="op">,</span> cf_options<span class="op">));</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    Status s <span class="op">=</span> DB<span class="op">::</span>Open<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> column_families<span class="op">,</span> <span class="op">&amp;</span>handles<span class="op">,</span> dbptr<span class="op">);</span></span></code></pre></div>
-<p>即从<code>Options</code>中取出<code>ColumnFamilyOptions</code>并且放到<code>default</code> column family里。</p>
+<p>即从<code>Options</code>中取出<code>ColumnFamilyOptions</code>并且放到<code>default</code>
+column family里。</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Status DB<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> DBOptions<span class="op">&amp;</span> db_options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyDescriptor<span class="op">&gt;&amp;</span> column_families<span class="op">,</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyHandle<span class="op">*&gt;*</span> handles<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">)</span> <span class="op">{</span></span>
@@ -6779,10 +6780,13 @@ var _hmt = _hmt || [];
 <p><code>VersionSet::LogAndApply</code>调用了另一个版本的<code>VersionSet::LogAndApply</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p>另一个版本的<code>VersionSet::LogAndApply</code>调用了<code>VersionSet::ProcessManifestWrites</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p><code>VersionSet::ProcessManifestWrites</code>调用了<code>VersionSet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。</p>
-<p><code>VersionSet::CreateColumnFamily</code>执行了<code>column_family_set_-&gt;CreateColumnFamily</code>，即调用了<code>ColumnFamilySet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。然后把返回的<code>ColumnFamilyData</code>返回回去。（这里的version list没搞懂）</p>
-<p><code>ColumnFamilySet::CreateColumnFamily</code>构造了<code>ColumnFamilyData</code>，把<code>db_options_</code>和自己的参数<code>const ColumnFamilyOptions&amp; options</code>传进去。然后把构造好的<code>ColumnFamilyData</code>加入到自己的linked list里，最后返回回去。</p>
+<p><code>VersionSet::CreateColumnFamily</code>执行了<code>column_family_set_-&gt;CreateColumnFamily</code>，即调用了<code>ColumnFamilySet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。然后把返回的<code>ColumnFamilyData</code>返回回去。（这里的version
+list没搞懂）</p>
+<p><code>ColumnFamilySet::CreateColumnFamily</code>构造了<code>ColumnFamilyData</code>，把<code>db_options_</code>和自己的参数<code>const ColumnFamilyOptions&amp; options</code>传进去。然后把构造好的<code>ColumnFamilyData</code>加入到自己的linked
+list里，最后返回回去。</p>
 <p><code>ColumnFamilyData</code>的构造函数中，经过一系列操作，把传进来的<code>ColumnFamilyOptions</code>和<code>ImmutableDBOptions</code>里的immutable部分放到<code>ImmutableOptions</code>类型的<code>ioptions_</code>里，mutable部分放到<code>MutableCFOptions</code>类型的<code>mutable_cf_options_</code>里。此外，<code>ColumnFamilyData</code>的构造函数中还初始化了<code>compaction_picker_</code>，并将自己的<code>ImmutableOptions</code>类型的<code>ioptions_</code>存一份到<code>LevelCompactionPicker::ioptions_</code>中。</p>
-<p>所以这时，Column family的option就保存在<code>VersionSet</code>类型的<code>DBImpl::versions_</code>里的</p>
+<p>所以这时，Column
+family的option就保存在<code>VersionSet</code>类型的<code>DBImpl::versions_</code>里的</p>
 <p><code>VersionSet::column_family_set_</code>里的linked list里的</p>
 <p><code>ColumnFamilyData</code>里的</p>
 <p><code>ImmutableOptions</code>类型的<code>ioptions_</code>和<code>MutableCFOptions</code>类型的<code>mutable_cf_options_</code>里。</p>
@@ -6808,10 +6812,14 @@ var _hmt = _hmt || [];
 <p><code>WriteBatchInternal::Iterate</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>handler.cf_mems_</code>。执行<code>handler-&gt;PutCF</code>，即调用<code>MemTableInserter::PutCF</code>。</p>
 <p><code>MemTableInserter::PutCF</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>cf_mems_</code>。调用<code>MemTableInserter::PutCFImpl</code>。</p>
 <p><code>MemTableInserter::PutCFImpl</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>cf_mems_</code>。先调用<code>MemTableInserter::SeekToColumnFamily</code>，在里面执行<code>cf_mems_-&gt;Seek(column_family_id)</code>，即调用<code>ColumnFamilyMemTablesImpl::Seek</code>，在里面设置<code>current_</code>。</p>
-<p><code>MemTableInserter::CheckMemtableFull</code>中，执行<code>cfd = cf_mems_-&gt;current()</code>，取出当前的column family的<code>ColumnFamilyData</code>，然后可能执行<code>flush_scheduler_-&gt;ScheduleWork(cfd)</code>。注意，通过<code>ColumnFamilyData</code>可以访问到<code>ImmutableOptions</code>和<code>MutableCFOptions</code>。</p>
-<p>然后根据 <a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>，一波操作之后<code>ColumnFamilyData</code>作为flush任务的载体被放到了<code>FlushRequest</code>里，进而被放进了<code>DBImpl::flush_queue_</code>里。</p>
-<p>然后根据 <a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a>，<code>DBImpl::BackgroundFlush</code>调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>，从中再取出<code>ColumnFamilyData</code>。一波操作之后<code>ColumnFamilyData</code>可能作为compaction任务的载体被放进<code>DBImpl::compaction_queue_</code>。</p>
-<p>然后根据 <a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>，<code>DBImpl::BackgroundCompaction</code>可能调用<code>DBImpl::PickCompactionFromQueue</code>从<code>compaction_queue_</code>里取出一个<code>ColumnFamilyData *cfd</code>，然后调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>。</p>
+<p><code>MemTableInserter::CheckMemtableFull</code>中，执行<code>cfd = cf_mems_-&gt;current()</code>，取出当前的column
+family的<code>ColumnFamilyData</code>，然后可能执行<code>flush_scheduler_-&gt;ScheduleWork(cfd)</code>。注意，通过<code>ColumnFamilyData</code>可以访问到<code>ImmutableOptions</code>和<code>MutableCFOptions</code>。</p>
+<p>然后根据
+<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>，一波操作之后<code>ColumnFamilyData</code>作为flush任务的载体被放到了<code>FlushRequest</code>里，进而被放进了<code>DBImpl::flush_queue_</code>里。</p>
+<p>然后根据
+<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a>，<code>DBImpl::BackgroundFlush</code>调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>，从中再取出<code>ColumnFamilyData</code>。一波操作之后<code>ColumnFamilyData</code>可能作为compaction任务的载体被放进<code>DBImpl::compaction_queue_</code>。</p>
+<p>然后根据
+<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>，<code>DBImpl::BackgroundCompaction</code>可能调用<code>DBImpl::PickCompactionFromQueue</code>从<code>compaction_queue_</code>里取出一个<code>ColumnFamilyData *cfd</code>，然后调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>。</p>
 <p><code>ColumnFamilyData::PickCompaction</code>执行了<code>compaction_picker_-&gt;PickCompaction</code>，即调用了<code>LevelCompactionPicker::PickCompaction</code>。</p>
 <p><code>LevelCompactionPicker::PickCompaction</code>中构造了<code>LevelCompactionBuilder builder</code>，将<code>ImmutableOptions</code>类型的<code>LevelCompactionPicker::ioptions_</code>存入<code>LevelCompactionBuilder::ioptions_</code>。</p>
 <p>由上文可知，<code>LevelCompactionPicker::ioptions_</code>是在构造<code>ColumnFamilyData</code>时初始化的，其<code>ioptions_</code>来自<code>ColumnFamilyData::ioptions_</code>。</p>

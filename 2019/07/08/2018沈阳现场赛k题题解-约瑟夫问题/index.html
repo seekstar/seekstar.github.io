@@ -972,9 +972,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
+									<a href="/2022/05/22/libreoffice/">
                      
-										    LibreOffice引用文献
+										    LibreOffice
                      
 									</a>
 								</li>
@@ -983,9 +983,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/05/22/libreoffice/">
+									<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
                      
-										    LibreOffice
+										    LibreOffice引用文献
                      
 									</a>
 								</li>
@@ -6743,13 +6743,21 @@ var _hmt = _hmt || [];
 <p>因此我们可以分情况讨论。下面假设编号从0开始。<br>
 1. k &lt; m<br>
 此时k最大为2e6。因此我们可以使用一个O(k)的方法求出答案。<br>
-设f(n, k)为初始为n个人时第k个被弹出的人。第一个被弹出的人编号显然为(m-1) % n，从下一个人开始从0开始重新编号，问题变成了求f(n-1, k-1)，假设其已知，那么再把结果的坐标转换回来即可。表达式为f(n, k) = (f(n-1, k-1) + m) % n。由于k &lt; n，因此用它求解复杂度为O(k)。<br>
+设f(n, k)为初始为n个人时第k个被弹出的人。第一个被弹出的人编号显然为(m-1)
+% n，从下一个人开始从0开始重新编号，问题变成了求f(n-1,
+k-1)，假设其已知，那么再把结果的坐标转换回来即可。表达式为f(n, k) =
+(f(n-1, k-1) + m) % n。由于k &lt; n，因此用它求解复杂度为O(k)。<br>
 2. m &lt;= k<br>
 此时m最大为2e6，因此我们可以使用一个O(m)的方法求出答案。<br>
 看了大佬的博客之后豁然开朗：<br>
 maskray.me/blog/2013-08-27-josephus-problem-two-log-n-solutions<br>
 这里我用自己的语言复述一下。<br>
-设第p次报数的人为y，假设这次报数y没有被弹出，那么p % m &lt; m-1，设下次y报数是第q次报数。显然第0到p-1次报数总共有a = floor(p / m)个人被弹出，所以第p次报数之后总共有n - a个人，所以q = p + n - a。第k个被弹出去的人被弹出时显然是第(k-1) * m + m-1次报数。如果我们能用q来推出p，那么就可以一直往前推，直到p &lt; n，这就是这个人的编号。<br>
+设第p次报数的人为y，假设这次报数y没有被弹出，那么p % m &lt;
+m-1，设下次y报数是第q次报数。显然第0到p-1次报数总共有a = floor(p /
+m)个人被弹出，所以第p次报数之后总共有n - a个人，所以q = p + n -
+a。第k个被弹出去的人被弹出时显然是第(k-1) * m +
+m-1次报数。如果我们能用q来推出p，那么就可以一直往前推，直到p &lt;
+n，这就是这个人的编号。<br>
 整理一下，目前已知条件只有三个：<br>
 p % m &lt; m-1<br>
 q = p + n - a<br>
@@ -6768,10 +6776,13 @@ p = q - n + floor((q - n) / (m - 1))<br>
 通过之前提到的策略，从(k-1) * m + m-1向前推便可以推出答案。<br>
 式子第二项在递推过程中显然是指数减小的，因此不影响复杂度。所以推到答案大约需要<br>
 ((k-1)*m + m-1) / n<br>
-次迭代。由于k &lt; n，所以复杂度为O(m) //（我不知道为什么上面的链接里的文章里说复杂度是O(log n)）</p>
-<p>但是存在一个问题，那就是这题需要初始化为(k-1) * m + m-1，会爆long long，要用__int128，但是这题除了gym外目前只找到hdu能交：<br>
+次迭代。由于k &lt; n，所以复杂度为O(m)
+//（我不知道为什么上面的链接里的文章里说复杂度是O(log n)）</p>
+<p>但是存在一个问题，那就是这题需要初始化为(k-1) * m + m-1，会爆long
+long，要用__int128，但是这题除了gym外目前只找到hdu能交：<br>
 acm.hdu.edu.cn/showproblem.php?pid=6458<br>
-但是gym和hdu都是windows评测机，不能用__int128，而手写的_uint128 TLE了，因此这题我没有用这个方法过掉。但是由于现场赛是用linux评测机，所以在现场赛这题应该能用这个方法过。<br>
+但是gym和hdu都是windows评测机，不能用__int128，而手写的_uint128
+TLE了，因此这题我没有用这个方法过掉。但是由于现场赛是用linux评测机，所以在现场赛这题应该能用这个方法过。<br>
 TLE代码：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
