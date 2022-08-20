@@ -6750,9 +6750,13 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><h2 id="virsh-default-network">virsh default network</h2>
 <p>可以利用virsh自带的default network，它是利用NAT实现的。</p>
-<pre class="shell"><code>sudo virsh net-start default</code></pre>
+<pre class="shell"><code>sudo virsh net-start default
+# 关闭
+# sudo virsh net-destroy default</code></pre>
 <p>然后<code>ip a</code>就可以看到一个名为<code>virbr0</code>的网桥。让它开机自启：</p>
-<pre class="shell"><code>sudo virsh net-autostart default</code></pre>
+<pre class="shell"><code>sudo virsh net-autostart default
+# 取消开机自启
+#sudo virsh net-autostart --disable default</code></pre>
 <pre class="text"><code>Network default marked as autostarted</code></pre>
 <pre class="shell"><code>sudo virsh net-list    </code></pre>
 <pre class="text"><code> Name      State    Autostart   Persistent
