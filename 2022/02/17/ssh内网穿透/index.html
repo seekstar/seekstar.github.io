@@ -6753,7 +6753,7 @@ var _hmt = _hmt || [];
 <p>然后登录上服务器，就能通过6100端口连上这台机器了：</p>
 <pre class="shell"><code>ssh localhost 6100</code></pre>
 <p>要允许所有IP都能通过服务器的6100端口连接上这台机器，需要在服务器上的<code>/etc/ssh/sshd_config</code>里加上</p>
-<pre><code>GatewayPorts yes</code></pre>
+<pre class="text"><code>GatewayPorts yes</code></pre>
 <p>然后重启<code>sshd</code>:</p>
 <pre class="shell"><code>sudo systemctl restart sshd</code></pre>
 <p>（没试过<code>systemctl reload</code>可不可以）</p>
@@ -6771,6 +6771,7 @@ var _hmt = _hmt || [];
              will only succeed if the server's GatewayPorts option is enabled (see
              sshd_config(5)).</code></pre>
 <p>一定要看英文的manual page，中文的好像很久没有更新了，不全。</p>
+<p>然后再跑<code>ssh -R 6100:localhost:8789 服务器IP</code>，服务器的<code>6100</code>端口就可以接受任何IP的连接请求了。注意已有的<code>ssh -R</code>连接好像仍然看不到<code>GatewayPorts yes</code>，要先把原来的<code>ssh -R</code>的连接断开才行（在客户端<code>ctrl+c</code>或者采用后面描述的方法在服务器端把监听这个端口的<code>sshd</code>进程杀掉）。</p>
 <h2 id="autossh">autossh</h2>
 <p>直接用ssh的话，断开连接之后并不会重连。所以使用autossh，在连接断开后重连。网上的教程通常是使用monitor
 port监测连接是否正常的，但是这样要在服务器上额外占用一个端口。其实<code>man autossh</code>已经提示我们可以用SSH自带的<code>ServerAliveInterval</code>和<code>ServerAliveCountMax</code>来检测连接是否正常，而且这可能是更好的方法：</p>
@@ -6794,14 +6795,14 @@ port监测连接是否正常的，但是这样要在服务器上额外占用一�
 <pre class="shell"><code>ssh -fNR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60</code></pre>
 <h2 id="开机自启">开机自启</h2>
 <p>可以用supervisor设置开机自启，配置文件：</p>
-<pre><code>[program:autossh]
-command=autossh -NR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60
+<pre class="text"><code>[program:ssh-intranet-penetration]
+command=ssh -NR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes
 autostart=true
 autorestart=true
-stderr_logfile=/tmp/autossh_stderr.log
-stdout_logfile=/tmp/autossh_stdout.log
+stderr_logfile=/tmp/ssh-intranet-penetration_stderr.log
+stdout_logfile=/tmp/ssh-intranet-penetration_stdout.log
 user = searchstar</code></pre>
-<p>注意这里没有<code>-f</code>。</p>
+<p>注意这里没有<code>-f</code>。这里用的是<code>ssh</code>而不是<code>autossh</code>，并且加上了<code>-o ExitOnForwardFailure=yes</code>，这样连接中断或者出现其他错误之后<code>supervisor</code>会自动重试。</p>
 <h2 id="客户端崩溃后重新连接">客户端崩溃后重新连接</h2>
 <p>客户端崩溃后，重新连接时可能会出现这个错误：</p>
 <pre class="text"><code>Warning: remote port forwarding failed for listen port 端口号</code></pre>
