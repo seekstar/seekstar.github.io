@@ -6752,8 +6752,9 @@ kerne
 					virsh default network
 可以利用virsh自带的default network，它是利用NAT实现的。
 sudo virsh net-start default
-然后ip a就可以看到一个名为virbr0的网桥。让它开机自启：
-sudo virsh net-autostart d
+# 关闭
+# sudo virsh net-destroy default
+然后ip a就可以看到一个名为virbr0
 					...
 				</div>
 			</a>
