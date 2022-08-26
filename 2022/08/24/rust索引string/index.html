@@ -5141,6 +5141,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/08/26/rust-vector-reduce-size/">
+                     
+										    Rust vector reduce size
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/08/19/rustc-%E7%BC%96%E8%AF%91release/">
                      
 										    rustc 编译release
@@ -6785,18 +6796,24 @@ var _hmt = _hmt || [];
 <p>如果要找到第k个UTF-8字符：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s<span class="op">.</span>chars()<span class="op">.</span>nth(k)</span></code></pre></div>
 <p>如果要找到第k个字节：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> s<span class="op">.</span>as_bytes()[k]<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">// 还可以赋值</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>s<span class="op">.</span>as_bytes()[k] <span class="op">=</span> <span class="ch">b'x'</span><span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> s<span class="op">.</span>as_bytes()[k]<span class="op">;</span></span></code></pre></div>
+<p>如果要修改第k个字节，则需要<code>unsafe</code>，因此这一步可能会导致出现无效的UTF-8字符：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">unsafe</span> <span class="op">{</span> s<span class="op">.</span>as_bytes_mut()[len <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> <span class="ch">b'-'</span><span class="op">;</span> <span class="op">}</span></span></code></pre></div>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24542115/how-to-index-a-string-in-rust" class="uri">https://stackoverflow.com/questions/24542115/how-to-index-a-string-in-rust</a></p>
 <p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/solved-rust-u8-literal-notation/25306" class="uri">https://users.rust-lang.org/t/solved-rust-u8-literal-notation/25306</a></p>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/primitive.str.html#method.as_bytes_mut" class="uri">https://doc.rust-lang.org/std/primitive.str.html#method.as_bytes_mut</a></p>
 </body></html>
 </div>
 
 
     <div class="post-guide">
         <div class="item left">
+            
+              <a href="/2022/08/26/rust-vector-reduce-size/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  Rust vector reduce size
+              </a>
             
         </div>
         <div class="item right">
