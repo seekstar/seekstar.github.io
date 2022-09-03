@@ -1520,6 +1520,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5/">
+                     
+										    C语言静态链接
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/02/linux-c%E8%AF%AD%E8%A8%80%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C/">
                      
 										    Linux C语言目录操作
@@ -4930,6 +4941,17 @@ var _hmt = _hmt || [];
 									
 							<ul>
 								<li class="file">
+									<a href="/2022/09/02/c-%E8%B0%83%E7%94%A8rust/">
+                     
+										    C++调用Rust
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/">
                      
 										    C语言调用Rust
@@ -6800,6 +6822,49 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/17/linux%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%94%A8%E6%88%B7%E6%97%B6%E9%97%B4-%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E7%AD%89/">
+				<h2 class="index-title">
+					linux获取进程的用户时间 系统时间等
+				</h2>
+				<div class="index-brief">
+					在/proc/[pid]/stat里有该进程的详细信息。其内容的解释可以在man 5 proc里查看（搜/stat）
+相关部分如下：
+(14) utime%lu
+          Amount of time that this process has been scheduled in user
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/16/rust-%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C/">
+				<h2 class="index-title">
+					rust 定时执行
+				</h2>
+				<div class="index-brief">
+					tokio = { "version" = "1.10", features = ["full"] }
+use tokio::time;
+
+async fn print() {
+    let mut interval = time::interval(time::Duration::from_se
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-16</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/14/centos%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
 				<h2 class="index-title">
 					centos端口转发
@@ -6987,54 +7052,10 @@ pip3 install pip-search
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/08/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8C%E7%BD%91%E5%8F%A3%E8%B7%AF%E7%94%B1%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					服务器双网口路由问题
-				</h2>
-				<div class="index-brief">
-					如果两个网口都是默认路由，那就会导致一个网口的IP
-ssh不进去。这时把一个网口设置成非默认路由就好了。方法是修改/etc/sysconfig/network-scripts/ifcfg-要修改的设备名，把里面的DEFROUTE=yes改成DEFROUTE=no，然后重启网络/etc/init.d/
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-09</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/09/rust-scoped-thread-pool/">
-				<h2 class="index-title">
-					rust scoped thread pool
-				</h2>
-				<div class="index-brief">
-					用rayon即可。
-mod a {
-    fn fun(a: &amp;mut i32) -&gt; i32 {
-        *a += 1;
-        return *a + 233;
-    }
-    pub fn main() {
-        let mut a = 233;
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-09</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/22/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/21/">21</a><a class="page-number" href="/archives/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/archives/page/24/">24</a><a class="page-number" href="/archives/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/56/">56</a><a class="extend next" rel="next" href="/archives/page/24/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/22/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/21/">21</a><a class="page-number" href="/archives/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/archives/page/24/">24</a><a class="page-number" href="/archives/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/57/">57</a><a class="extend next" rel="next" href="/archives/page/24/">&gt;</a>
 		
 	</div>
 </div>
