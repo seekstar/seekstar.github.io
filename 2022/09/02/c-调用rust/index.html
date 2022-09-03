@@ -6847,7 +6847,8 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="场景">场景</h2>
+	<html><head></head><body><p>相关：<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/" title="C语言调用Rust">C语言调用Rust</a></p>
+<h2 id="场景">场景</h2>
 <p>在C++中有一个类想用Rust的<code>std::collections::BinaryHeap</code>维护：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
@@ -7135,6 +7136,8 @@ repr的意思是representation。<code>repr(C)</code>表示用C语言的方式�
 <pre class="text"><code>2333
 332
 233</code></pre>
+<h2 id="注意事项">注意事项</h2>
+<p>由于Rust编译出来的目标文件里会自带很多符号，因此本博客提供的方法无法实现C++代码调用多个Rust工程提供的接口，需要将所有Rust接口的实现都塞进一个Rust工程。暂时不清楚解决方案。</p>
 </body></html>
 </div>
 
