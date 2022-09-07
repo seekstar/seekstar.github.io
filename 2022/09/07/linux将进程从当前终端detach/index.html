@@ -6874,7 +6874,7 @@ var _hmt = _hmt || [];
 <h2 id="方法">方法</h2>
 <p><code>ctrl+z</code>，给进程发送SIGTSTP信号，让进程暂停。注意SIGTSTP信号是可以被捕获的，如果进程捕获并忽略了这个信号，那么可以尝试<code>kill -STOP pid</code>发送SIGSTOP信号，这个信号不能被捕获。</p>
 <p>然后<code>jobs</code>查看被暂停的进程的编号，再<code>bg 编号</code>将这个进程放到后台执行，然后<code>disown 编号</code>将这个进程从任务列表中删掉，再<code>exit</code>退出当前终端。由于这个进程已经不在<code>jobs</code>里了，而且正在运行，因此不会对这个进程发送SIGHUP，而是让其变成孤儿进程，被init进程或者systemd进程收养，这样就实现了detach。</p>
-<p>如果需要获取这个进程的输出，可以用reredirect：<a href="#">Post not found: shell/重定向正在运行的进程的输出</a></p>
+<p>如果需要获取这个进程的输出，可以用reredirect：<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/" title="重定向正在运行的进程的输出">重定向正在运行的进程的输出</a></p>
 <p>但是我没找到可以往这个进程的stdin里塞东西的方法。</p>
 <h2 id="例子">例子</h2>
 <p><code>loop.sh</code>:</p>
@@ -6903,9 +6903,9 @@ done</code></pre>
 <p>然后<code>exit</code>退出当前终端，也就是上面的<code>zsh(57322)</code>，再<code>pstree -lp -s 60237</code>查看其父进程：</p>
 <pre class="text"><code>systemd(1)───bash(60237)───sleep(60520)</code></pre>
 <p>可以看到变成孤儿进程，被1号进程收养了。</p>
-<p>如果要获取其输出，可以用reredirect：<code>reredirect -m FILE 60237</code>，然后其<code>stdout</code>和<code>stderr</code>都被重定向到<code>FILE</code>了。详见：<a href="#">Post not found: shell/重定向正在运行的进程的输出</a></p>
+<p>如果要获取其输出，可以用reredirect：<code>reredirect -m FILE 60237</code>，然后其<code>stdout</code>和<code>stderr</code>都被重定向到<code>FILE</code>了。详见：<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/" title="重定向正在运行的进程的输出">重定向正在运行的进程的输出</a></p>
 <h2 id="参考文献">参考文献</h2>
-<a href="#">Post not found: shell/linux shell暂停前台作业</a>
+<a href="/2020/08/03/linux-shell%E6%9A%82%E5%81%9C%E5%89%8D%E5%8F%B0%E4%BD%9C%E4%B8%9A/" title="linux shell暂停前台作业">linux shell暂停前台作业</a>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/11886812/what-is-the-difference-between-sigstop-and-sigtstp" class="uri">https://stackoverflow.com/questions/11886812/what-is-the-difference-between-sigstop-and-sigtstp</a></p>
 <p><a target="_blank" rel="noopener" href="https://superuser.com/questions/1204006/how-to-find-ancestor-chain-of-a-process" class="uri">https://superuser.com/questions/1204006/how-to-find-ancestor-chain-of-a-process</a></p>
 </body></html>
