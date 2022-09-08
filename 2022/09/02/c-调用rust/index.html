@@ -7138,12 +7138,17 @@ repr的意思是representation。<code>repr(C)</code>表示用C语言的方式�
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="dv">target/debug/libheap.o:</span><span class="dt"> target/cpp_to_rust.o target/rust_to_cpp.o target/debug/libheap.a</span></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ld -r -o <span class="ch">$@</span> --whole-archive target/rust_to_cpp.o --no-whole-archive target/cpp_to_rust.o target/debug/libheap.a</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="dv">debug:</span><span class="dt"> target/debug/libheap.o</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="dv">obj_debug:</span><span class="dt"> target/debug/libheap.o</span></span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> debug</span></span></code></pre></div>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="dv">target/debug/libheap.so:</span><span class="dt"> obj_debug</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    gcc -shared <span class="ch">$^</span> -ldl -o <span class="ch">$@</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="dv">shared_lib_debug:</span><span class="dt"> target/debug/libheap.so</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> debug shared_lib_debug</span></span></code></pre></div>
 <p>其中<code>ld</code>的<code>-r</code>表示<code>relocatable</code>。按照我的理解，由于要将多个<code>.o</code>文件合并起来，所以不可避免地要进行<code>relocation</code>。</p>
 <p><code>--whole-archive</code>：将后面的文件里的所有符号都加入到目标文件中。<code>--no-whole-archive</code>是取消前面的<code>--whole-archive</code>的影响，使得后面的文件里只有用到了的符号才加入到目标文件。这里<code>rust_to_cpp.o</code>里存储了需要给使用端用的C++接口，因此里面的符号应该全部加入到目标文件中。而其他的选择性加入即可。</p>
-<p>然后<code>make debug INCLUDE_DIR=..</code>即可编译出<code>target/debug/libheap.o</code>，里面有我们需要的C++接口。</p>
+<p>然后<code>make obj_debug INCLUDE_DIR=..</code>即可编译出<code>target/debug/libheap.o</code>，里面有我们需要的C++接口。<code>make shared_lib_debug INCLUDE_DIR=..</code>即可编译出动态库<code>target/debug/libheap.so</code>。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one" class="uri">https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker" class="uri">https://stackoverflow.com/questions/29391965/what-is-partial-linking-in-gnu-linker</a></p>
@@ -7151,9 +7156,15 @@ repr的意思是representation。<code>repr(C)</code>表示用C语言的方式�
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4728810/how-to-ensure-makefile-variable-is-set-as-a-prerequisite" class="uri">https://stackoverflow.com/questions/4728810/how-to-ensure-makefile-variable-is-set-as-a-prerequisite</a></p>
 <p><code>缩进后的语句一律视为编译目标的一部分，作为shell语句解释。</code>：<a target="_blank" rel="noopener" href="https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="uri">https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make" class="uri">https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make</a></p>
+<p><code>-ldl</code>: [编译错误undefined reference to
+<code>dlsym'](https://blog.csdn.net/shareyao/article/details/5362642)。不过这里好像不加</code>-ldl`也不会报这个错误。</p>
 <h2 id="使用">使用</h2>
+<p>用obj文件：</p>
 <pre class="shell"><code>gcc -I heap/include/ -I. heap/target/debug/libheap.o test.cpp -o test
 ./test</code></pre>
+<p>用动态库：</p>
+<pre class="shell"><code>gcc -I heap/include -I. -L heap/target/debug/ -lheap test.cpp -o test
+LD_LIBRARY_PATH=heap/target/debug/ ./test</code></pre>
 <p>输出：</p>
 <pre class="text"><code>2333
 332
