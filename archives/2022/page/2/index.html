@@ -1586,6 +1586,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/09/30/make%E4%BC%A0%E5%85%A5%E5%8F%98%E9%87%8F/">
+                     
+										    make传入变量
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/24/warning-jobserver-unavailable-using-j1-add-to-parent-make-rule/">
                      
 										    warning: jobserver unavailable: using -j1. Add '+' to parent make rule.
@@ -1721,6 +1732,17 @@ var _hmt = _hmt || [];
 									<a href="/2020/05/01/clang-constexpr-specifier-is-incompatible-with-c-98-semantic-issue/">
                      
 										    Clang 'constexpr' specifier is incompatible with C++98 [Semantic Issue]
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/09/30/c-panic/">
+                     
+										    C++ panic
                      
 									</a>
 								</li>
@@ -6921,6 +6943,54 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/">
+				<h2 class="index-title">
+					C语言调用Rust
+				</h2>
+				<div class="index-brief">
+					比方说要把这个函数暴露给C语言使用：
+fn add(a: i32, b: i32) -&gt; i32 {
+    return a + b;
+}
+cargo new add --lib
+在add/src/lib.rs里写入：
+#[no_mangle]
+pub extern "C" fn add(a
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/09/01/cargo-build%E5%B8%A6%E4%BC%98%E5%8C%96/">
+				<h2 class="index-title">
+					cargo build带优化
+				</h2>
+				<div class="index-brief">
+					Cargo.toml:
+[profile.dev]
+opt-level = 3
+然后cargo build:
+    Finished dev [optimized + debuginfo] target(s) in 6.35s
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/08/31/rust%E6%89%80%E6%9C%89%E6%9D%83%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BE%8B%E5%AD%90/">
 				<h2 class="index-title">
 					Rust所有权和生命周期例子
@@ -7093,60 +7163,6 @@ https://wiki.archlinux.org/title/Pacman#%2
 			</a>
                 <div class="article-meta">
 				    <span>2022-07-30</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/07/24/codeforces-1706-d1-d2/">
-				<h2 class="index-title">
-					codeforces 1706 D1 D2
-				</h2>
-				<div class="index-brief">
-					D1 ()
-链接：https://codeforces.com/contest/1706/problem/D1
-滑动窗口，每个从1开始逐渐递增，维护窗口内的最大的和最小的。每次滑动复杂度，每个有个需要遍历，所以复杂度。
-代码：
-#include &lt;cstdio&gt;
-#include &lt
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-07-24</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/07/24/%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97/">
-				<h2 class="index-title">
-					数论分块
-				</h2>
-				<div class="index-brief">
-					定理
-对于，的充要条件是
-证明
-根据取整运算的定义，
-由于，所以
-综上，
-推论
-对于，使得成立的最大的为。
-例题
-bzoj1257 数论分块
-参考
-https://www.cnblogs.com/BeautifulWater/p/15943427.html
-但是里面的数论分块证明只证明了必要性。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-07-24</span>
                     
                             
                     
