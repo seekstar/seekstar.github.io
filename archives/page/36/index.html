@@ -1751,6 +1751,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/04/c-std-set%E9%80%9A%E8%BF%87%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%9E%8B%E6%9F%A5%E8%AF%A2/">
+                     
+										    C++ std::set通过另一个类型查询
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/boost-system-error-code%E8%B5%8B%E5%80%BC/">
                      
 										    boost::system::error_code赋值
@@ -1809,6 +1820,17 @@ var _hmt = _hmt || [];
 									<a href="/2020/03/30/pb-ds%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    pb_ds学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/10/03/std-shared-ptr%E8%BD%ACstd-unique-ptr/">
+                     
+										    std::shared_ptr转std::unique_ptr
                      
 									</a>
 								</li>
@@ -6943,6 +6965,48 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
+				<h2 class="index-title">
+					bash计算浮点数
+				</h2>
+				<div class="index-brief">
+					echo "2 / 3" | bc -l
+.66666666666666666666
+如果想要前导零
+echo "2 / 3" | bc -l | xargs printf "%f"
+这里还有一堆解决方案：https://stackoverflow.com/questions/8402181/how
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-07</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/01/07/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9F%A5%E7%9C%8B%E5%93%AA%E4%BA%9B%E4%BA%BA%E5%9C%A8%E7%94%A8/">
+				<h2 class="index-title">
+					Linux服务器查看哪些人在用
+				</h2>
+				<div class="index-brief">
+					w和who只能查看哪些人登陆了，但是如果是用vscode登陆的就看不到，只有一个node进程。而且如果有人在后台跑程序也看不到。
+所以需要一个可以查看系统中哪些人的进程在跑的命令：
+ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u |
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-07</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/01/01/latex%E5%8E%BB%E6%8E%89lstlisting%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E8%A1%8C/">
 				<h2 class="index-title">
 					Latex去掉lstlisting后面的空行
@@ -7112,53 +7176,6 @@ sphere所示。
 			</a>
                 <div class="article-meta">
 				    <span>2020-12-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
-				<h2 class="index-title">
-					编译安装linux内核
-				</h2>
-				<div class="index-brief">
-					下载内核
-https://www.kernel.org/
-
-一般下载tarball，也就是.tar.xz格式的源码包。如果/够大，可以直接解压到/usr/src，也可以解压到机械盘上。
-配置
-.config
-里面是一些flag，内核编译的时候会读取这个文件，根据这些flag来配置。
-常用的有：
-
-C
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/12/27/systemtap%E8%B7%9F%E8%B8%AA%E8%BF%9B%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-				<h2 class="index-title">
-					systemtap跟踪进程生命周期
-				</h2>
-				<div class="index-brief">
-					systemtap man: https://sourceware.org/systemtap/man/
-本来追踪进程生命周期可以用syscall.fork和syscall.exit之类的。但是有时候它们会失效（或者部分失效）。
-所以更好的方式是用kprocess系列，文档：https://sour
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-27</span>
                     
                             
                     
