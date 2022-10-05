@@ -4717,6 +4717,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/05/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    git学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/01/27/git%E8%A7%A3%E5%86%B3sign-and-send-pubkey-signing-failed-agent-refused-operation/">
                      
 										    git解决sign_and_send_pubkey: signing failed: agent refused operation
@@ -6976,6 +6987,29 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/03/04/linux%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5%E4%B8%A4%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%A4%B9/">
+				<h2 class="index-title">
+					linux双向同步两个本地文件夹
+				</h2>
+				<div class="index-brief">
+					参考（膜大佬）：https://blog.csdn.net/qq_26702065/article/details/52175560
+思路
+
+用inotify监控文件夹，如果文件夹内有文件变化则输出变化情况
+每当inotify检测到文件变化时，就调用unison，把当前文件夹的变化发给另一个文件夹
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-03-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/03/03/%E8%A7%A3%E5%86%B3virtualbox%E5%AE%89%E8%A3%85debian%E6%97%B6%E8%A6%81%E4%B8%8B%E8%BD%BD%E5%BE%88%E4%B9%85%E7%9A%84%E9%97%AE%E9%A2%98/">
 				<h2 class="index-title">
 					解决virtualbox安装debian时要下载很久的问题
@@ -7162,28 +7196,6 @@ mencoder -o history.mp3 -ovc frameno -oac mp3lame -of rawaudio history.mp4
 			</a>
                 <div class="article-meta">
 				    <span>2020-02-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/02/20/linux%E5%82%A8%E5%AD%98%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%B0fat32/">
-				<h2 class="index-title">
-					linux储存大文件到FAT32
-				</h2>
-				<div class="index-brief">
-					FAT32的单个文件的最大大小为4G，超过4G的文件就必须要分割成几个小文件再拷贝进去。
-linux下提供了split命令来分割文件。
-split -db 2G original_file filename
-d: 后缀用00,01,02……如果不使用这个选项，就是用aa、ab、ac……
-b: 指定分
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-02-20</span>
                     
                             
                     
