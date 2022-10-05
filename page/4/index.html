@@ -2939,7 +2939,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6448,9 +6448,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6459,9 +6459,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6976,14 +6976,36 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/06/29/linux%E7%94%9F%E6%88%90initramfs/">
+				<h2 class="index-title">
+					Linux生成initramfs
+				</h2>
+				<div class="index-brief">
+					dracut
+各发行版通用。
+dracut [OPTION...] [&lt;image&gt; [&lt;kernel version&gt;]]
+例子：
+cd /boot
+# 给/boot/vmlinuz-5.1.0-amd64-desktop+生成initramfs
+dracut initra
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-06-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/">
 				<h2 class="index-title">
 					Linux kernel读取和写入用户态内存
 				</h2>
 				<div class="index-brief">
-					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page
-fault，这时硬件会自动跳转到内核提供的page fault handler
-do_page_fault，将page准备好之后再跳回
+					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page fault，这时硬件会自动跳转到内核提供的page fault handler do_page_fault，将page准备好之后再跳回
 					...
 				</div>
 			</a>
@@ -7021,8 +7043,7 @@ do_page_fault，将page准备好之后再跳回
 				</h2>
 				<div class="index-brief">
 					用vscode插件
-安装yzane的Markdown
-PDF插件。然后点进要转换的markdown文件，右键，选择Markdown PDF: Export (pdf)。缺点是会使得右键菜单条目太多。
+安装yzane的Markdown PDF插件。然后点进要转换的markdown文件，右键，选择Markdown PDF: Export (pdf)。缺点是会使得右键菜单条目太多。
 原文：https://stackoverflow.com/a/55484165/13688160
 m
 					...
@@ -7120,8 +7141,7 @@ m
 					Linux shell向进程组发信号
 				</h2>
 				<div class="index-brief">
-					PID为负表示这其实是PGID (Process Group
-ID)，向这个PGID中的所有进程发信号。
+					PID为负表示这其实是PGID (Process Group ID)，向这个PGID中的所有进程发信号。
 例：向34325进程组的所有进程发送SIGTERM：
 kill -TERM -34325
 来源：https://stackoverflow.com/questions/392022/whats-
@@ -7149,25 +7169,6 @@ pkill -P $$
 如果要在脚本退出前杀死所有子进程，只需要：
 trap "pkill -P $$" EXIT
 但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/08/awk-fflush/">
-				<h2 class="index-title">
-					awk fflush
-				</h2>
-				<div class="index-brief">
-					awk如果检测到stdout不是直接输出到终端的话，会对输出做buffering，因此如果是周期性连续数据，而且需要把stdout重定向给另一个命令的stdin，那么需要fflush(stdout)：
-iostat 1 | awk '{print $1; fflush(stdout)}' | gre
 					...
 				</div>
 			</a>

@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7001,38 +7001,38 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define panic</span><span class="op">(...)</span><span class="pp"> </span><span class="cf">do</span><span class="pp"> </span><span class="op">{</span><span class="pp"> </span><span class="op">\</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">    </span>fprintf<span class="op">(</span>stderr<span class="op">,</span><span class="pp"> </span><span class="st">"panic: </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%u</span><span class="st">: </span><span class="sc">%s</span><span class="st">:"</span><span class="op">,</span><span class="pp"> </span><span class="op">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">        </span><span class="ot">__FILE__</span><span class="op">,</span><span class="pp"> </span><span class="ot">__LINE__</span><span class="op">,</span><span class="pp"> </span><span class="ot">__func__</span><span class="op">);</span><span class="pp"> </span><span class="op">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">    </span>fprintf<span class="op">(</span>stderr<span class="op">,</span><span class="pp"> </span><span class="st">" "</span><span class="pp"> </span><span class="ot">__VA_ARGS__</span><span class="op">);</span><span class="pp">   </span><span class="op">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">    </span>abort<span class="op">();</span><span class="pp"> </span><span class="op">\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="pp"> </span><span class="cf">while</span><span class="pp"> </span><span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">// They all works</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// panic: panic.cpp:17: main: </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>panic<span class="op">();</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">// panic: panic.cpp:18: main: 233</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>panic<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="dv">233</span><span class="op">);</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">// panic: panic.cpp:19: main: 233 != 332</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>panic<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st"> != </span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="dv">233</span><span class="op">,</span> <span class="dv">332</span><span class="op">);</span></span></code></pre></div>
+	<html><head></head><body><div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#define panic</span>(...)<span class="pp"> </span><span class="cf">do</span><span class="pp"> </span>{<span class="pp"> </span>\</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">    </span>fprintf(stderr,<span class="pp"> </span><span class="st">"panic: </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%u</span><span class="st">: </span><span class="sc">%s</span><span class="st">:"</span>,<span class="pp"> </span>\</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="pp">        </span><span class="ot">__FILE__</span>,<span class="pp"> </span><span class="ot">__LINE__</span>,<span class="pp"> </span><span class="ot">__func__</span>);<span class="pp"> </span>\</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="pp">    </span>fprintf(stderr,<span class="pp"> </span><span class="st">" "</span><span class="pp"> </span><span class="ot">__VA_ARGS__</span>);<span class="pp">   </span>\</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="pp">    </span>abort();<span class="pp"> </span>\</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>}<span class="pp"> </span><span class="cf">while</span><span class="pp"> </span>(<span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co">// They all works</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co">// panic: panic.cpp:17: main: </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>panic();</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co">// panic: panic.cpp:18: main: 233</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>panic(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, <span class="dv">233</span>);</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="co">// panic: panic.cpp:19: main: 233 != 332</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>panic(<span class="st">"</span><span class="sc">%d</span><span class="st"> != </span><span class="sc">%d</span><span class="st">"</span>, <span class="dv">233</span>, <span class="dv">332</span>);</span></code></pre></div>
 <p>也可以弄一个类似于<code>assert</code>的<code>crash_if</code>，不同的是这个<code>crash_if</code>不受编译选项的影响：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define crash_if</span><span class="op">(</span>cond<span class="op">,</span><span class="pp"> </span><span class="op">...)</span><span class="pp"> </span><span class="cf">do</span><span class="pp"> </span><span class="op">{</span><span class="pp"> </span><span class="op">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">    </span><span class="cf">if</span><span class="pp"> </span><span class="op">(</span>cond<span class="op">)</span><span class="pp"> </span><span class="op">{</span><span class="pp"> </span>panic<span class="op">(</span><span class="ot">__VA_ARGS__</span><span class="op">);</span><span class="pp"> </span><span class="op">}</span><span class="pp">   </span><span class="op">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span><span class="pp"> </span><span class="cf">while</span><span class="pp"> </span><span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// panic: panic.cpp:20: main: </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>crash_if<span class="op">(</span><span class="dv">233</span> <span class="op">!=</span> <span class="dv">332</span><span class="op">);</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">// panic: panic.cpp:21: main: 233 != 332</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>crash_if<span class="op">(</span><span class="dv">233</span> <span class="op">!=</span> <span class="dv">332</span><span class="op">,</span> <span class="st">"</span><span class="sc">%d</span><span class="st"> != </span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="dv">233</span><span class="op">,</span> <span class="dv">332</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define crash_if</span>(cond,<span class="pp"> </span>...)<span class="pp"> </span><span class="cf">do</span><span class="pp"> </span>{<span class="pp"> </span>\</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">    </span><span class="cf">if</span><span class="pp"> </span>(cond)<span class="pp"> </span>{<span class="pp"> </span>panic(<span class="ot">__VA_ARGS__</span>);<span class="pp"> </span>}<span class="pp">   </span>\</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>}<span class="pp"> </span><span class="cf">while</span><span class="pp"> </span>(<span class="dv">0</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="co">// panic: panic.cpp:20: main: </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>crash_if(<span class="dv">233</span> != <span class="dv">332</span>);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="co">// panic: panic.cpp:21: main: 233 != 332</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>crash_if(<span class="dv">233</span> != <span class="dv">332</span>, <span class="st">"</span><span class="sc">%d</span><span class="st"> != </span><span class="sc">%d</span><span class="st">"</span>, <span class="dv">233</span>, <span class="dv">332</span>);</span></code></pre></div>
 <h2 id="失败经验stacktrace">失败经验：stacktrace</h2>
 <p>上面的都只是打印了出错点的信息，但是没有打印调用栈。其实可以使用boost打印调用栈：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/stacktrace.hpp&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="ex">boost::</span>stacktrace<span class="ex">::</span>stacktrace<span class="op">();</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/stacktrace.hpp&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="bu">std::</span>cout &lt;&lt; <span class="ex">boost::</span>stacktrace<span class="ex">::</span>stacktrace();</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="text"><code> 0# 0x0000560AE9E033AD in ./stacktrace
  1# 0x00007FF75B754290 in /usr/lib/libc.so.6
  2# __libc_start_main in /usr/lib/libc.so.6

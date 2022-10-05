@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,80 +7003,85 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>带名字的右值引用使用的时候会变成左值引用</p>
 <h2 id="result-type-must-be-constructible-from-input-type"><code>result type must be constructible from input type</code></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;memory&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> X <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    X<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">:</span> <span class="va">i_</span><span class="op">(</span>i<span class="op">){}</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    X<span class="op">()</span> <span class="op">=</span> <span class="kw">delete</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    X<span class="op">(</span><span class="at">const</span> X<span class="op">&amp;)</span> <span class="op">=</span> <span class="kw">delete</span><span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    X<span class="op">(</span>X<span class="op">&amp;&amp;)</span> <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="va">i_</span><span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A <span class="op">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    A<span class="op">(</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>X<span class="op">&gt;&gt;&amp;&amp;</span> x<span class="op">)</span> <span class="op">:</span> <span class="va">x_</span><span class="op">(</span>x<span class="op">)</span> <span class="op">{}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>X<span class="op">&gt;&gt;</span> <span class="va">x_</span><span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;memory&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="kw">struct</span> X {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    X(<span class="dt">int</span> i) : <span class="va">i_</span>(i){}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    X() = <span class="kw">delete</span>;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    X(<span class="at">const</span> X&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    X(X&amp;&amp;) = <span class="cf">default</span>;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="dt">int</span> <span class="va">i_</span>;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>};</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    A(<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : <span class="va">x_</span>(x) {}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="bu">std::</span>vector&lt;<span class="bu">std::</span>unique_ptr&lt;X&gt;&gt; <span class="va">x_</span>;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>};</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>}</span></code></pre></div>
 <p>编译错误：<code>result type must be constructible from input type</code></p>
 <p>这是因为<code>A(std::vector&lt;std::unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : x_(x) {}</code>里面，<code>x_(x)</code>中的<code>x</code>是有名字的，所以它被使用的时候类型会变成左值引用。所以解决方案就是用<code>std::move(x)</code>强行将其又变成右值引用：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>#include &lt;iostream&gt;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>#include &lt;vector&gt;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>#include &lt;memory&gt;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>struct X {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    X(int i) : i_(i){}</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    X() = delete;</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    X(const X&amp;) = delete;</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    X(X&amp;&amp;) = default;</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    int i_;</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>};</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>struct A {</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">-   A(std::vector&lt;std::unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : x_(x) {}</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="va">+   A(std::vector&lt;std::unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : x_(std::move(x)) {}</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    std::vector&lt;std::unique_ptr&lt;X&gt;&gt; x_;</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>};</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>int main() {</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    return 0;</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>#include &lt;iostream&gt;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>#include &lt;vector&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>#include &lt;memory&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>struct X {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    X(int i) : i_(i){}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    X() = delete;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    X(const X&amp;) = delete;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    X(X&amp;&amp;) = default;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    int i_;</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>};</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>struct A {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="st">-   A(std::vector&lt;std::unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : x_(x) {}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="va">+   A(std::vector&lt;std::unique_ptr&lt;X&gt;&gt;&amp;&amp; x) : x_(std::move(x)) {}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    std::vector&lt;std::unique_ptr&lt;X&gt;&gt; x_;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>};</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>int main() {</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    return 0;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="cannot-bind-rvalue-reference-of-type-int-to-lvalue-of-type-int"><code>cannot bind rvalue reference of type ‘int&amp;&amp;’ to lvalue of type ‘int’</code></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ss<span class="op">(</span><span class="dt">int</span><span class="op">&amp;&amp;</span> a<span class="op">){</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> a <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(){</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span><span class="op">&amp;&amp;</span> b <span class="op">=</span> <span class="bu">std::</span>move<span class="op">(</span>a<span class="op">);</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ss<span class="op">(</span>b<span class="op">);</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="dt">void</span> ss(<span class="dt">int</span>&amp;&amp; a){</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="bu">std::</span>cout &lt;&lt; a &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="dt">int</span> main(){</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    <span class="dt">int</span> a = <span class="dv">1</span>;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="dt">int</span>&amp;&amp; b = <span class="bu">std::</span>move(a);</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    ss(b);</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>}</span></code></pre></div>
 <p><code>int&amp;&amp; b</code>是带名字的，所以在<code>ss(b)</code>里，使用b的时候会变成左值引用。解决方案就是再加一个<code>std::move(b)</code>：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>#include &lt;iostream&gt;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>void ss(int&amp;&amp; a){</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    std::cout &lt;&lt; a &lt;&lt; std::endl;</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>int main(){</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    int a = 1;</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    int&amp;&amp; b = std::move(a);</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">-   ss(b);</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="va">+   ss(std::move(b));</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    return 0;</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>#include &lt;iostream&gt;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>void ss(int&amp;&amp; a){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    std::cout &lt;&lt; a &lt;&lt; std::endl;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>int main(){</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    int a = 1;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>    int&amp;&amp; b = std::move(a);</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="st">-   ss(b);</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="va">+   ss(std::move(b));</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>    return 0;</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 
 
     <div class="post-guide">
         <div class="item left">
+            
+              <a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  洗鞋攻略
+              </a>
             
         </div>
         <div class="item right">

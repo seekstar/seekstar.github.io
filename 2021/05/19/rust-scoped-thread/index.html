@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7002,40 +7002,38 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>rust里，<code>std::thread::spawn</code>要求传入的闭包的生命周期必须是<code>'static</code>的，也就是说闭包中不能借用局部变量，因为rust不知道这个局部变量会不会突然就被释放了。但是一般情况下，spawn之后会调用join来确保函数返回前子线程会终止，也就是说实际上可以保证子线程在跑的时候，这个局部变量一直是有效的。</p>
-<p>这种情况下怎么办呢？这就需要用到第三方crate：<a target="_blank" rel="noopener" href="https://crates.io/crates/crossbeam">crossbeam</a>。其中引入了scoped
-thread的概念，即通过强制join来确保子线程的生命周期局限在一个范围里，那么只要局部变量的生命周期比这个范围大，那子线程就可以借用这个局部变量了。</p>
+<p>这种情况下怎么办呢？这就需要用到第三方crate：<a target="_blank" rel="noopener" href="https://crates.io/crates/crossbeam">crossbeam</a>。其中引入了scoped thread的概念，即通过强制join来确保子线程的生命周期局限在一个范围里，那么只要局部变量的生命周期比这个范围大，那子线程就可以借用这个局部变量了。</p>
 <p>例子：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> data)<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> data)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>输出：</p>
 <pre><code>234</code></pre>
-<p>这里只可变借用（mutable
-borrow）了一次，所以编译可以通过。但是如果可变借用多次呢？</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> data)<span class="op">;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>这里只可变借用（mutable borrow）了一次，所以编译可以通过。但是如果可变借用多次呢？</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>            data <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> data)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>这时就会编译错误：</p>
 <pre><code>error[E0499]: cannot borrow `data` as mutable more than once at a time
   --&gt; src/main.rs:18:17
@@ -7059,21 +7057,21 @@ error: could not compile `scoped_thread`
 
 To learn more, run the command again with --verbose.</code></pre>
 <p>要解决这个问题，就需要用到<code>std::sync::Mutex</code>了。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> data <span class="op">=</span> <span class="pp">Mutex::</span>new(<span class="dv">233</span>)<span class="op">;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap() <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap() <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap())<span class="op">;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">use</span> crossbeam<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::sync::</span>Mutex<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">let</span> data <span class="op">=</span> <span class="pp">Mutex::</span>new(<span class="dv">233</span>)<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="pp">crossbeam::</span>scope(<span class="op">|</span>s<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>            <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap() <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>        s<span class="op">.</span>spawn(<span class="op">|</span>_<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>            <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap() <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    <span class="op">}</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="op">*</span>data<span class="op">.</span>lock()<span class="op">.</span>unwrap())<span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>这样就完美解决了在子线程中访问局部变量的问题了，而且不需要用<code>Arc&lt;Mutex&lt;T&gt;&gt;</code>的方式。</p>
 <p>参考文献<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/shuangguo121/article/details/52328149" class="uri">https://blog.csdn.net/shuangguo121/article/details/52328149</a><br>

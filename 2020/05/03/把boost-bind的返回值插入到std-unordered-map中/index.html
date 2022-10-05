@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7006,68 +7006,68 @@ var _hmt = _hmt || [];
 <li>不同的类里的成员函数不能插入同一个unordered_map中。</li>
 <li>同一个类里的相同参数的成员函数可以插入同一个unordered_map中。</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unordered_map&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/bind.hpp&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A <span class="op">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> print<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> print2<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"2 "</span> <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> B <span class="op">{</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> print<span class="op">(</span><span class="dt">long</span> <span class="dt">long</span> x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> C <span class="op">{</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> print<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sth<span class="op">;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    unordered_map<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="kw">decltype</span><span class="op">(</span><span class="ex">boost::</span>bind<span class="op">(&amp;</span>A<span class="op">::</span>print<span class="op">,</span> A<span class="op">(),</span> <span class="dt">int</span><span class="op">()))&gt;</span> ma<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    A a<span class="op">;</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> f <span class="op">=</span> <span class="ex">boost::</span>bind<span class="op">(&amp;</span>A<span class="op">::</span>print<span class="op">,</span> a<span class="op">,</span> x<span class="op">);</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">//ma[1] = f;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    ma<span class="op">.</span>insert<span class="op">(</span>make_pair<span class="op">(</span><span class="dv">2</span><span class="op">,</span> f<span class="op">));</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> it <span class="op">=</span> ma<span class="op">.</span>find<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>it <span class="op">!=</span> ma<span class="op">.</span>end<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        it<span class="op">-&gt;</span>second<span class="op">();</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"not found</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> <span class="dt">long</span> llx <span class="op">=</span> <span class="dv">23333</span><span class="op">;</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    B b<span class="op">;</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> g <span class="op">=</span> <span class="ex">boost::</span>bind<span class="op">(&amp;</span>B<span class="op">::</span>print<span class="op">,</span> b<span class="op">,</span> llx<span class="op">);</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    llx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">//ma.insert(make_pair(3, g));</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    C c<span class="op">;</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> h <span class="op">=</span> <span class="ex">boost::</span>bind<span class="op">(&amp;</span>C<span class="op">::</span>print<span class="op">,</span> c<span class="op">,</span> x<span class="op">);</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">//ma.insert(make_pair(4, h));</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">23332</span><span class="op">;</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> f2 <span class="op">=</span> <span class="ex">boost::</span>bind<span class="op">(&amp;</span>A<span class="op">::</span>print2<span class="op">,</span> a<span class="op">,</span> x<span class="op">);</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    ma<span class="op">.</span>insert<span class="op">(</span>make_pair<span class="op">(</span><span class="dv">5</span><span class="op">,</span> f2<span class="op">));</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    ma<span class="op">.</span>find<span class="op">(</span><span class="dv">5</span><span class="op">)-&gt;</span>second<span class="op">();</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;unordered_map&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/bind.hpp&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="dt">void</span> print(<span class="dt">int</span> x) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        cout &lt;&lt; x &lt;&lt; endl;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="dt">void</span> print2(<span class="dt">int</span> x) {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"2 "</span> &lt;&lt; x &lt;&lt; endl;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    }</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>};</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="kw">struct</span> B {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="dt">void</span> print(<span class="dt">long</span> <span class="dt">long</span> x) {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>        cout &lt;&lt; x &lt;&lt; endl;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    }</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>};</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a><span class="kw">struct</span> C {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    <span class="dt">void</span> print(<span class="dt">int</span> x) {</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>        cout &lt;&lt; x &lt;&lt; endl;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>    }</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    <span class="dt">int</span> sth;</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>};</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>    unordered_map&lt;<span class="dt">int</span>, <span class="kw">decltype</span>(<span class="ex">boost::</span>bind(&amp;A::print, A(), <span class="dt">int</span>()))&gt; ma;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>    A a;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>    <span class="dt">int</span> x = <span class="dv">2333</span>;</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>    <span class="kw">auto</span> f = <span class="ex">boost::</span>bind(&amp;A::print, a, x);</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>    <span class="co">//ma[1] = f;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>    ma.insert(make_pair(<span class="dv">2</span>, f));</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>    x = <span class="dv">0</span>;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>    <span class="kw">auto</span> it = ma.find(<span class="dv">2</span>);</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>    <span class="cf">if</span> (it != ma.end()) {</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>        it-&gt;second();</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"not found</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>    }</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>    <span class="dt">long</span> <span class="dt">long</span> llx = <span class="dv">23333</span>;</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>    B b;</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>    <span class="kw">auto</span> g = <span class="ex">boost::</span>bind(&amp;B::print, b, llx);</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>    llx = <span class="dv">0</span>;</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>    <span class="co">//ma.insert(make_pair(3, g));</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>    x = <span class="dv">2333</span>;</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>    C c;</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>    <span class="kw">auto</span> h = <span class="ex">boost::</span>bind(&amp;C::print, c, x);</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>    x = <span class="dv">0</span>;</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a>    <span class="co">//ma.insert(make_pair(4, h));</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a>    x = <span class="dv">23332</span>;</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>    <span class="kw">auto</span> f2 = <span class="ex">boost::</span>bind(&amp;A::print2, a, x);</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>    ma.insert(make_pair(<span class="dv">5</span>, f2));</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>    ma.find(<span class="dv">5</span>)-&gt;second();</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>}</span></code></pre></div>
 <pre><code>2333
 2 23332</code></pre>
 </body></html>

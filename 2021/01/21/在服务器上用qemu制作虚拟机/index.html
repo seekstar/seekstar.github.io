@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7072,16 +7072,13 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 <pre class="text"><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
 raw: 默认格式。裸的磁盘文件。<br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>:
-最常用。支持稀疏文件、快照等。<br>
-其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and
-QED。</p>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
+其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
 <h4 id="debian系">debian系</h4>
 <pre class="shell"><code># vnc=:2 可以换成其他可用端口。
 sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso -display vnc=:2</code></pre>
-<p>然后就会在<code>5902</code>端口（也可以换成其他可用端口）开一个vnc
-server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
+<p>然后就会在<code>5902</code>端口（也可以换成其他可用端口）开一个vnc server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <h4 id="centos-8">Centos 8</h4>
 <p>Centos 8比较特殊:</p>
 <pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
@@ -7138,8 +7135,7 @@ if ping -c 1 baidu.com; then
 else
     shutdown -r now
 fi</code></pre>
-<p><code>promisc</code>: 混杂模式（promiscuous
-mode）是电脑网络中的术语。是指一台机器的网卡能够接收所有经过它的数据流，而不论其目的地址是否是它。</p>
+<p><code>promisc</code>: 混杂模式（promiscuous mode）是电脑网络中的术语。是指一台机器的网卡能够接收所有经过它的数据流，而不论其目的地址是否是它。</p>
 <p>然后运行脚本</p>
 <pre class="shell"><code>sudo bash net.sh eno1</code></pre>
 <p>奇怪的是，在我的服务器上第一次失败了，但是重启之后第二次就成功了。</p>
@@ -7324,16 +7320,11 @@ fi</code></pre>
 <p>其实原因和解决方案都跟上一个一样，都是这个：</p>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
 <h2 id="参考文献">参考文献</h2>
-<p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1:
-使用QEMU创建虚拟机</a>
-其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
-<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find
-tool qemu-system-x86</a><br>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1: 使用QEMU创建虚拟机</a> 其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
+<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
-<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm
-命令行安装虚拟机方法</a><br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM
-使用 virt-install 创建虚拟机失败经历</a><br>
+<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm 命令行安装虚拟机方法</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM 使用 virt-install 创建虚拟机失败经历</a><br>
 <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock" class="uri">https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock</a><br>
 <a target="_blank" rel="noopener" href="https://www.xmodulo.com/network-default-is-not-active.html" class="uri">https://www.xmodulo.com/network-default-is-not-active.html</a></p>
 </body></html>

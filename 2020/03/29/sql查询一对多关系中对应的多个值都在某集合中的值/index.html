@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7004,41 +7004,41 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>例如找到所有选的课都在课程表中的学生。<br>
 假如课程表中所有课的集合为cs，学生的表为stu，stu.id是学生姓名，stu.c是学生选的课。</p>
 <p>思路：不存在某门课不在课程表中。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="kw">id</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> (</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">from</span> stu</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>) ids</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> <span class="kw">not</span> <span class="kw">exists</span> (</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">select</span> c</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">from</span> stu</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">select</span> <span class="kw">id</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">from</span> (</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">from</span> stu</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>) ids</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">where</span> <span class="kw">not</span> <span class="kw">exists</span> (</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="kw">select</span> c</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="kw">from</span> stu</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>);</span></code></pre></div>
 <p>测试</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">database</span> test;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> test;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> stu (</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> <span class="dt">char</span>(<span class="dv">10</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> cs (</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> stu</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">values</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"1"</span>, <span class="ot">"1"</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"1"</span>, <span class="ot">"2"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"2"</span>, <span class="ot">"1"</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"2"</span>, <span class="ot">"2"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"3"</span>, <span class="ot">"1"</span>),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"3"</span>, <span class="ot">"3"</span>),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"4"</span>, <span class="ot">"1"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"4"</span>, <span class="ot">"2"</span>),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"4"</span>, <span class="ot">"3"</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"5"</span>, <span class="ot">"3"</span>);</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> cs</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">values</span> (<span class="ot">"1"</span>), (<span class="ot">"2"</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">database</span> test;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">use</span> test;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">table</span> stu (</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="kw">id</span> <span class="dt">char</span>(<span class="dv">10</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">table</span> cs (</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>);</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="kw">insert</span> <span class="kw">into</span> stu</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">values</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>(<span class="ot">"1"</span>, <span class="ot">"1"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>(<span class="ot">"1"</span>, <span class="ot">"2"</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>(<span class="ot">"2"</span>, <span class="ot">"1"</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>(<span class="ot">"2"</span>, <span class="ot">"2"</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>(<span class="ot">"3"</span>, <span class="ot">"1"</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>(<span class="ot">"3"</span>, <span class="ot">"3"</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>(<span class="ot">"4"</span>, <span class="ot">"1"</span>),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>(<span class="ot">"4"</span>, <span class="ot">"2"</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>(<span class="ot">"4"</span>, <span class="ot">"3"</span>),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>(<span class="ot">"5"</span>, <span class="ot">"3"</span>);</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a><span class="kw">insert</span> <span class="kw">into</span> cs</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a><span class="kw">values</span> (<span class="ot">"1"</span>), (<span class="ot">"2"</span>);</span></code></pre></div>
 <p>然后跑一遍查询，输出</p>
 <pre><code>+------+
 | id   |
@@ -7048,13 +7048,13 @@ var _hmt = _hmt || [];
 +------+</code></pre>
 <p>复杂度分析：<br>
 假设有x名学生，每名学生选了y门课，课程表中有z门课。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> stu</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">from</span> stu</span></code></pre></div>
 <p>这个子查询的复杂度为O(xy)。因为stu中有<code>xy</code>行，然后扫一遍，用哈希表除重。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> c</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> stu</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">select</span> c</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">from</span> stu</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span></code></pre></div>
 <p>这个子查询跑一次的复杂度为O(y)，因为只需要查询一个学生的信息，每个学生选了y门课，在哈希表中找这y门课即可。<br>
 这个子查询要跑x次，所以跑这个子查询总共的复杂度为O(xy)。<br>
 综上，总复杂度为O(xy)。</p>

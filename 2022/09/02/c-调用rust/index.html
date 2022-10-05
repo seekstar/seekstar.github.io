@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7004,29 +7004,29 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>相关：<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/" title="C语言调用Rust">C语言调用Rust</a></p>
 <h2 id="场景">场景</h2>
 <p>在C++中有一个类想用Rust的<code>std::collections::BinaryHeap</code>维护：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    A<span class="op">(</span><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">:</span> <span class="va">data_</span><span class="op">(</span>data<span class="op">),</span> <span class="va">size_</span><span class="op">(</span>size<span class="op">)</span> <span class="op">{}</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> data<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="va">data_</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> size<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="va">size_</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span> <span class="op">&lt;</span> <span class="op">(</span><span class="at">const</span> A<span class="op">&amp;</span> rhs<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>size<span class="op">()</span> <span class="op">&lt;</span> rhs<span class="op">.</span>size<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>size<span class="op">()</span> <span class="op">&gt;</span> rhs<span class="op">.</span>size<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> memcmp<span class="op">(</span>data<span class="op">(),</span> rhs<span class="op">.</span>data<span class="op">(),</span> size<span class="op">())</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> <span class="va">data_</span><span class="op">;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> <span class="va">size_</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    A(<span class="at">const</span> <span class="dt">char</span>* data, <span class="dt">size_t</span> size) : <span class="va">data_</span>(data), <span class="va">size_</span>(size) {}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span>* data() <span class="at">const</span> { <span class="cf">return</span> <span class="va">data_</span>; }</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="dt">size_t</span> size() <span class="at">const</span> { <span class="cf">return</span> <span class="va">size_</span>; }</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="at">const</span> A&amp; rhs) <span class="at">const</span> {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="cf">if</span> (size() &lt; rhs.size()) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>            <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        <span class="cf">if</span> (size() &gt; rhs.size()) {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>            <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>        <span class="cf">return</span> memcmp(data(), rhs.data(), size()) &lt; <span class="dv">0</span>;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    }</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span>* <span class="va">data_</span>;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="dt">size_t</span> <span class="va">size_</span>;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>};</span></code></pre></div>
 <p>并且提供这些接口：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span><span class="op">*</span> Create<span class="op">();</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span> Push<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">,</span> A a<span class="op">);</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> A Pop<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span> Destroy<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span>* Create();</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Push(<span class="dt">void</span>* heap, A a);</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="at">extern</span> A Pop(<span class="dt">void</span>* heap);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Destroy(<span class="dt">void</span>* heap);</span></code></pre></div>
 <h2 id="思路">思路</h2>
 <p>Rust只能提供C语言的接口，结构体也只认C语言的结构体。</p>
 <p>因此首先专门另写一份C++代码，调用Rust提供的C接口实现所需的C++接口，并且将C++提供的操作封装成C语言接口给Rust调用。</p>
@@ -7049,235 +7049,234 @@ var _hmt = _hmt || [];
 └── test.h</code></pre>
 <h3 id="c使用端">C++使用端</h3>
 <p><code>test.h</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef TEST_H_</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST_H_</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    A<span class="op">(</span><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> data<span class="op">,</span> <span class="dt">size_t</span> size<span class="op">)</span> <span class="op">:</span> <span class="va">data_</span><span class="op">(</span>data<span class="op">),</span> <span class="va">size_</span><span class="op">(</span>size<span class="op">)</span> <span class="op">{}</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> data<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="va">data_</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> size<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="va">size_</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span> <span class="op">&lt;</span> <span class="op">(</span><span class="at">const</span> A<span class="op">&amp;</span> rhs<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>size<span class="op">()</span> <span class="op">&lt;</span> rhs<span class="op">.</span>size<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>size<span class="op">()</span> <span class="op">&gt;</span> rhs<span class="op">.</span>size<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> memcmp<span class="op">(</span>data<span class="op">(),</span> rhs<span class="op">.</span>data<span class="op">(),</span> size<span class="op">())</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> <span class="va">data_</span><span class="op">;</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> <span class="va">size_</span><span class="op">;</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// TEST_H_</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#ifndef TEST_H_</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#define TEST_H_</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    A(<span class="at">const</span> <span class="dt">char</span>* data, <span class="dt">size_t</span> size) : <span class="va">data_</span>(data), <span class="va">size_</span>(size) {}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span>* data() <span class="at">const</span> { <span class="cf">return</span> <span class="va">data_</span>; }</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>    <span class="dt">size_t</span> size() <span class="at">const</span> { <span class="cf">return</span> <span class="va">size_</span>; }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="at">const</span> A&amp; rhs) <span class="at">const</span> {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>        <span class="cf">if</span> (size() &lt; rhs.size()) {</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>            <span class="cf">return</span> <span class="kw">true</span>;</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>        }</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>        <span class="cf">if</span> (size() &gt; rhs.size()) {</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>            <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>        }</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>        <span class="cf">return</span> memcmp(data(), rhs.data(), size()) &lt; <span class="dv">0</span>;</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>    }</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span>* <span class="va">data_</span>;</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>    <span class="dt">size_t</span> <span class="va">size_</span>;</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>};</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a><span class="pp">#endif </span><span class="co">// TEST_H_</span></span></code></pre></div>
 <p><code>test.cpp</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"heap.h"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span><span class="op">*</span> heap <span class="op">=</span> Create<span class="op">();</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(</span>heap<span class="op">,</span> A<span class="op">(</span><span class="st">"233"</span><span class="op">,</span> <span class="dv">3</span><span class="op">));</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(</span>heap<span class="op">,</span> A<span class="op">(</span><span class="st">"2333"</span><span class="op">,</span> <span class="dv">4</span><span class="op">));</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(</span>heap<span class="op">,</span> A<span class="op">(</span><span class="st">"332"</span><span class="op">,</span> <span class="dv">3</span><span class="op">));</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    puts<span class="op">(</span>Pop<span class="op">(</span>heap<span class="op">).</span>data<span class="op">());</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    puts<span class="op">(</span>Pop<span class="op">(</span>heap<span class="op">).</span>data<span class="op">());</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    puts<span class="op">(</span>Pop<span class="op">(</span>heap<span class="op">).</span>data<span class="op">());</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    Destroy<span class="op">(</span>heap<span class="op">);</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"heap.h"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>    <span class="dt">void</span>* heap = Create();</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    Push(heap, A(<span class="st">"233"</span>, <span class="dv">3</span>));</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    Push(heap, A(<span class="st">"2333"</span>, <span class="dv">4</span>));</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    Push(heap, A(<span class="st">"332"</span>, <span class="dv">3</span>));</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>    puts(Pop(heap).data());</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>    puts(Pop(heap).data());</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    puts(Pop(heap).data());</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>    Destroy(heap);</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>}</span></code></pre></div>
 <h3 id="新建rust项目">新建Rust项目</h3>
 <pre class="shell"><code>cargo new heap --lib</code></pre>
 <p>在<code>heap/Cargo.toml</code>中加入：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">lib</span><span class="kw">]</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">crate-type</span> <span class="op">=</span> <span class="op">[</span><span class="st">"staticlib"</span><span class="op">]</span></span></code></pre></div>
+<pre class="toml"><code>[lib]
+crate-type = ["staticlib"]</code></pre>
 <p><code>heap/src/lib.rs</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::collections::</span>BinaryHeap<span class="op">;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::cmp::</span>Ordering<span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::os::raw::</span><span class="dt">c_char</span><span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> compare(a<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A<span class="op">,</span> b<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>repr<span class="at">(</span>C<span class="at">)]</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Eq</span><span class="at">)]</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">struct</span> C_A <span class="op">{</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    data<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span><span class="op">,</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    size<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> <span class="bu">Ord</span> <span class="cf">for</span> C_A <span class="op">{</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> cmp(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> Ordering <span class="op">{</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">unsafe</span> <span class="op">{</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> a<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A <span class="op">=</span> <span class="kw">self</span><span class="op">;</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> b<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A <span class="op">=</span> rhs<span class="op">;</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> compare(a<span class="op">,</span> b) <span class="op">{</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Ordering::</span>Less</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> compare(b<span class="op">,</span> a) <span class="op">{</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Ordering::</span>Greater</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Ordering::</span>Equal</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> <span class="bu">PartialOrd</span> <span class="cf">for</span> C_A <span class="op">{</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> partial_cmp(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span>Ordering<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Some</span>(<span class="kw">self</span><span class="op">.</span>cmp(rhs))</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> <span class="bu">PartialEq</span> <span class="cf">for</span> C_A <span class="op">{</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> eq(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>cmp(rhs) <span class="op">==</span> <span class="pp">Ordering::</span>Equal</span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_create() <span class="op">-&gt;</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Box</span><span class="pp">::</span>into_raw(<span class="dt">Box</span><span class="pp">::</span>new(<span class="pp">BinaryHeap::</span><span class="op">&lt;</span>C_A<span class="op">&gt;</span><span class="pp">::</span>new()))</span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_push(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;,</span> a<span class="op">:</span> C_A) <span class="op">{</span></span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> heap <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="op">*</span>heap <span class="op">};</span></span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>    heap<span class="op">.</span>push(a)<span class="op">;</span></span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_pop(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span>) <span class="op">-&gt;</span> C_A <span class="op">{</span></span>
-<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> heap <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="op">*</span>heap <span class="op">};</span></span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Use unwrap_unchecked to avoid panic. C++ does not know how to panic anyway.</span></span>
-<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">unsafe</span> <span class="op">{</span> heap<span class="op">.</span>pop()<span class="op">.</span>unwrap_unchecked() <span class="op">}</span></span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_destroy(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span>) <span class="op">{</span></span>
-<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">unsafe</span> <span class="op">{</span> <span class="dt">Box</span><span class="pp">::</span>from_raw(heap) <span class="op">};</span></span>
-<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>#[repr(C)]</code>:
-repr的意思是representation。<code>repr(C)</code>表示用C语言的方式来组织这个结构体，这样这个结构体就可以在C语言和Rust之间传递了。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::collections::</span>BinaryHeap<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::cmp::</span>Ordering<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::os::raw::</span><span class="dt">c_char</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    <span class="kw">fn</span> compare(a<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A<span class="op">,</span> b<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="at">#[</span>repr<span class="at">(</span>C<span class="at">)]</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Eq</span><span class="at">)]</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">struct</span> C_A <span class="op">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    data<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span><span class="op">,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>    size<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">Ord</span> <span class="kw">for</span> C_A <span class="op">{</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>    <span class="kw">fn</span> cmp(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> Ordering <span class="op">{</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>        <span class="kw">unsafe</span> <span class="op">{</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>            <span class="kw">let</span> a<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A <span class="op">=</span> <span class="kw">self</span><span class="op">;</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>            <span class="kw">let</span> b<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> C_A <span class="op">=</span> rhs<span class="op">;</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>            <span class="kw">if</span> compare(a<span class="op">,</span> b) <span class="op">{</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>                <span class="pp">Ordering::</span>Less</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>            <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> compare(b<span class="op">,</span> a) <span class="op">{</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>                <span class="pp">Ordering::</span>Greater</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a>            <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>                <span class="pp">Ordering::</span>Equal</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a>            <span class="op">}</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">PartialOrd</span> <span class="kw">for</span> C_A <span class="op">{</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true"></a>    <span class="kw">fn</span> partial_cmp(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span>Ordering<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true"></a>        <span class="cn">Some</span>(<span class="kw">self</span><span class="op">.</span>cmp(rhs))</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">PartialEq</span> <span class="kw">for</span> C_A <span class="op">{</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true"></a>    <span class="kw">fn</span> eq(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> rhs<span class="op">:</span> <span class="op">&amp;</span>C_A) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>cmp(rhs) <span class="op">==</span> <span class="pp">Ordering::</span>Equal</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true"></a></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_create() <span class="op">-&gt;</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true"></a>    <span class="dt">Box</span><span class="pp">::</span>into_raw(<span class="dt">Box</span><span class="pp">::</span>new(<span class="pp">BinaryHeap::</span><span class="op">&lt;</span>C_A<span class="op">&gt;</span><span class="pp">::</span>new()))</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_push(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;,</span> a<span class="op">:</span> C_A) <span class="op">{</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true"></a>    <span class="kw">let</span> heap <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="op">*</span>heap <span class="op">};</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true"></a>    heap<span class="op">.</span>push(a)<span class="op">;</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_pop(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span>) <span class="op">-&gt;</span> C_A <span class="op">{</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true"></a>    <span class="kw">let</span> heap <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="op">*</span>heap <span class="op">};</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true"></a>    <span class="co">// Use unwrap_unchecked to avoid panic. C++ does not know how to panic anyway.</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true"></a>    <span class="kw">unsafe</span> <span class="op">{</span> heap<span class="op">.</span>pop()<span class="op">.</span>unwrap_unchecked() <span class="op">}</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> __rust_destroy(heap<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> BinaryHeap<span class="op">&lt;</span>C_A<span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true"></a>    <span class="kw">unsafe</span> <span class="op">{</span> <span class="dt">Box</span><span class="pp">::</span>from_raw(heap) <span class="op">};</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p><code>#[repr(C)]</code>: repr的意思是representation。<code>repr(C)</code>表示用C语言的方式来组织这个结构体，这样这个结构体就可以在C语言和Rust之间传递了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24105186/can-i-call-c-or-c-functions-from-rust-code" class="uri">https://stackoverflow.com/questions/24105186/can-i-call-c-or-c-functions-from-rust-code</a></p>
 <h3 id="c语言结构体">C语言结构体</h3>
 <p>Rust只兼容C语言结构体，所以要先把C++结构体变成C语言结构体，才能传给Rust用。同样，Rust传出来的结构体也只能是C语言结构体，要转成对应的C++结构体。</p>
 <p><code>heap/cpp/c_struct.h</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef C_STRUCT_H_</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define c_STRUCT_H_</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> CA <span class="op">{</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> data<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size_t</span> size<span class="op">;</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// C_STRUCT_H_</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#ifndef C_STRUCT_H_</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="pp">#define c_STRUCT_H_</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="at">extern</span> <span class="st">"C"</span> {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="kw">struct</span> CA {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>        <span class="at">const</span> <span class="dt">char</span>* data;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>        <span class="dt">size_t</span> size;</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    };</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>}</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a><span class="pp">#endif </span><span class="co">// C_STRUCT_H_</span></span></code></pre></div>
 <p>这里的<code>struct CA</code>就是Rust里的<code>struct C_A</code>。这里特定用了不同的名字，说明两者名字不一定要相同。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/62126501/how-to-pass-a-c-struct-to-rust" class="uri">https://stackoverflow.com/questions/62126501/how-to-pass-a-c-struct-to-rust</a></p>
 <h3 id="将c操作封装成c语言接口">将C++操作封装成C语言接口</h3>
 <p><code>BinaryHeap</code>需要用到比较操作。但是<code>A</code>的比较操作是<code>operator &lt;</code>，Rust显然不能直接用。因此需要将这个操作封装成C语言结构，Rust才能用。</p>
 <p><code>heap/cpp/cpp_to_rust.cpp</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"c_struct.h"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> compare<span class="op">(</span><span class="at">const</span> CA<span class="op">*</span> ca<span class="op">,</span> <span class="at">const</span> CA<span class="op">*</span> cb<span class="op">);</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> compare<span class="op">(</span><span class="at">const</span> CA<span class="op">*</span> ca<span class="op">,</span> <span class="at">const</span> CA<span class="op">*</span> cb<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    A a<span class="op">(</span>ca<span class="op">-&gt;</span>data<span class="op">,</span> ca<span class="op">-&gt;</span>size<span class="op">);</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    A b<span class="op">(</span>cb<span class="op">-&gt;</span>data<span class="op">,</span> cb<span class="op">-&gt;</span>size<span class="op">);</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">&lt;</span> b<span class="op">;</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"c_struct.h"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="at">extern</span> <span class="st">"C"</span> {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="dt">bool</span> compare(<span class="at">const</span> CA* ca, <span class="at">const</span> CA* cb);</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="dt">bool</span> compare(<span class="at">const</span> CA* ca, <span class="at">const</span> CA* cb) {</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>    A a(ca-&gt;data, ca-&gt;size);</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>    A b(cb-&gt;data, cb-&gt;size);</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>    <span class="cf">return</span> a &lt; b;</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>}</span></code></pre></div>
 <h3 id="使用rust接口实现所需的c接口">使用Rust接口实现所需的C++接口</h3>
 <p><code>heap/cpp/rust_to_cpp.cpp</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"c_struct.h"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="st">"C"</span> <span class="op">{</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">extern</span> <span class="dt">void</span><span class="op">*</span> __rust_create<span class="op">();</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">extern</span> <span class="dt">void</span> __rust_push<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">,</span> CA a<span class="op">);</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">extern</span> CA __rust_pop<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">extern</span> <span class="dt">void</span> __rust_destroy<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span><span class="op">*</span> Create<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __rust_create<span class="op">();</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Push<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">,</span> A a<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> CA ca<span class="op">{</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>data <span class="op">=</span> a<span class="op">.</span>data<span class="op">(),</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>size <span class="op">=</span> a<span class="op">.</span>size<span class="op">(),</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    __rust_push<span class="op">(</span>heap<span class="op">,</span> ca<span class="op">);</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>A Pop<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    CA ca <span class="op">=</span> __rust_pop<span class="op">(</span>heap<span class="op">);</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A<span class="op">(</span>ca<span class="op">.</span>data<span class="op">,</span> ca<span class="op">.</span>size<span class="op">);</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Destroy<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    __rust_destroy<span class="op">(</span>heap<span class="op">);</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"c_struct.h"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstddef&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="at">extern</span> <span class="st">"C"</span> {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="at">extern</span> <span class="dt">void</span>* __rust_create();</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    <span class="at">extern</span> <span class="dt">void</span> __rust_push(<span class="dt">void</span>* heap, CA a);</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    <span class="at">extern</span> CA __rust_pop(<span class="dt">void</span>* heap);</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    <span class="at">extern</span> <span class="dt">void</span> __rust_destroy(<span class="dt">void</span>* heap);</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>}</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a><span class="dt">void</span>* Create() {</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a>    <span class="cf">return</span> __rust_create();</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a>}</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a><span class="dt">void</span> Push(<span class="dt">void</span>* heap, A a) {</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a>    <span class="kw">struct</span> CA ca{</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>            .data = a.data(),</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>            .size = a.size(),</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true"></a>    };</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true"></a>    __rust_push(heap, ca);</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true"></a>}</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true"></a>A Pop(<span class="dt">void</span>* heap) {</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true"></a>    CA ca = __rust_pop(heap);</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true"></a>    <span class="cf">return</span> A(ca.data, ca.size);</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true"></a>}</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true"></a><span class="dt">void</span> Destroy(<span class="dt">void</span>* heap) {</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true"></a>    __rust_destroy(heap);</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true"></a>}</span></code></pre></div>
 <h3 id="将实现的c接口放进头文件">将实现的C++接口放进头文件</h3>
 <p><code>include/heap.h</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef HEAP_H_</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define HEAP_H_</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span><span class="op">*</span> Create<span class="op">();</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span> Push<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">,</span> A a<span class="op">);</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> A Pop<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="at">extern</span> <span class="dt">void</span> Destroy<span class="op">(</span><span class="dt">void</span><span class="op">*</span> heap<span class="op">);</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// HEAP_H_</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#ifndef HEAP_H_</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="pp">#define HEAP_H_</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span>* Create();</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Push(<span class="dt">void</span>* heap, A a);</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a><span class="at">extern</span> A Pop(<span class="dt">void</span>* heap);</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Destroy(<span class="dt">void</span>* heap);</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="pp">#endif </span><span class="co">// HEAP_H_</span></span></code></pre></div>
 <h3 id="makefile">Makefile</h3>
 <p><code>heap/Makefile</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">ifndef</span> INCLUDE_DIR</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 这里不能缩进。</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ch">$(</span><span class="kw">error</span><span class="st"> INCLUDE_DIR is undefined</span><span class="ch">)</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="dv">target/cpp_to_rust.o:</span><span class="dt"> cpp/cpp_to_rust.cpp cpp/c_struct.h </span><span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span><span class="dt">/test.h</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/cpp_to_rust.cpp -c -o <span class="ch">$@</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="dv">target/rust_to_cpp.o:</span><span class="dt"> cpp/rust_to_cpp.cpp cpp/c_struct.h </span><span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span><span class="dt">/test.h</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/rust_to_cpp.cpp -c -o <span class="ch">$@</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="dv">target/debug/libheap.a:</span><span class="dt"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> find src -type f</span><span class="ch">)</span><span class="dt"> Cargo.toml Cargo.lock</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    cargo build</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="dv">target/debug/libheap.o:</span><span class="dt"> target/cpp_to_rust.o target/rust_to_cpp.o target/debug/libheap.a</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ld -r -o <span class="ch">$@</span> --whole-archive target/rust_to_cpp.o --no-whole-archive target/cpp_to_rust.o target/debug/libheap.a</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="dv">obj_debug:</span><span class="dt"> target/debug/libheap.o</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="dv">target/debug/libheap.so:</span><span class="dt"> obj_debug</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    gcc -shared <span class="ch">$^</span> -ldl -o <span class="ch">$@</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="dv">shared_lib_debug:</span><span class="dt"> target/debug/libheap.so</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> debug shared_lib_debug</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="cf">ifndef</span> INCLUDE_DIR</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="co"># 这里不能缩进。</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="ch">$(</span><span class="kw">error</span><span class="st"> INCLUDE_DIR is undefined</span><span class="ch">)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="cf">endif</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="dv">target/cpp_to_rust.o:</span><span class="dt"> cpp/cpp_to_rust.cpp cpp/c_struct.h </span><span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span><span class="dt">/test.h</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/cpp_to_rust.cpp -c -o <span class="ch">$@</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="dv">target/rust_to_cpp.o:</span><span class="dt"> cpp/rust_to_cpp.cpp cpp/c_struct.h </span><span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span><span class="dt">/test.h</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/rust_to_cpp.cpp -c -o <span class="ch">$@</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a><span class="dv">target/debug/libheap.a:</span><span class="dt"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> find src -type f</span><span class="ch">)</span><span class="dt"> Cargo.toml Cargo.lock</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>    cargo build</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a><span class="dv">target/debug/libheap.o:</span><span class="dt"> target/cpp_to_rust.o target/rust_to_cpp.o target/debug/libheap.a</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>    ld -r -o <span class="ch">$@</span> --whole-archive target/rust_to_cpp.o --no-whole-archive target/cpp_to_rust.o target/debug/libheap.a</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a><span class="dv">obj_debug:</span><span class="dt"> target/debug/libheap.o</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a><span class="dv">target/debug/libheap.so:</span><span class="dt"> obj_debug</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a>    gcc -shared <span class="ch">$^</span> -ldl -o <span class="ch">$@</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true"></a><span class="dv">shared_lib_debug:</span><span class="dt"> target/debug/libheap.so</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true"></a><span class="ot">.PHONY:</span><span class="dt"> debug shared_lib_debug</span></span></code></pre></div>
 <p>其中<code>ld</code>的<code>-r</code>表示<code>relocatable</code>。按照我的理解，由于要将多个<code>.o</code>文件合并起来，所以不可避免地要进行<code>relocation</code>。</p>
 <p><code>--whole-archive</code>：将后面的文件里的所有符号都加入到目标文件中。<code>--no-whole-archive</code>是取消前面的<code>--whole-archive</code>的影响，使得后面的文件里只有用到了的符号才加入到目标文件。这里<code>rust_to_cpp.o</code>里存储了需要给使用端用的C++接口，因此里面的符号应该全部加入到目标文件中。而其他的选择性加入即可。</p>
 <p>然后<code>make obj_debug INCLUDE_DIR=..</code>即可编译出<code>target/debug/libheap.o</code>，里面有我们需要的C++接口。<code>make shared_lib_debug INCLUDE_DIR=..</code>即可编译出动态库<code>target/debug/libheap.so</code>。</p>
@@ -7288,8 +7287,7 @@ repr的意思是representation。<code>repr(C)</code>表示用C语言的方式�
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/4728810/how-to-ensure-makefile-variable-is-set-as-a-prerequisite" class="uri">https://stackoverflow.com/questions/4728810/how-to-ensure-makefile-variable-is-set-as-a-prerequisite</a></p>
 <p><code>缩进后的语句一律视为编译目标的一部分，作为shell语句解释。</code>：<a target="_blank" rel="noopener" href="https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="uri">https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make" class="uri">https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make</a></p>
-<p><code>-ldl</code>: [编译错误undefined reference to
-<code>dlsym'](https://blog.csdn.net/shareyao/article/details/5362642)。不过这里好像不加</code>-ldl`也不会报这个错误。</p>
+<p><code>-ldl</code>: [编译错误undefined reference to <code>dlsym'](https://blog.csdn.net/shareyao/article/details/5362642)。不过这里好像不加</code>-ldl`也不会报这个错误。</p>
 <h2 id="使用">使用</h2>
 <p>用obj文件：</p>
 <pre class="shell"><code>gcc -I heap/include/ -I. heap/target/debug/libheap.o test.cpp -o test

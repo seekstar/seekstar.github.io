@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,8 +7003,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><h1 id="lazy-allocation">lazy allocation</h1>
 <h2 id="test-pgbug-failed">test pgbug: FAILED</h2>
-<p>在系统调用函数(如sys_pipe)中，检测到致命错误（例如访问非法内存）时，不能直接用p-&gt;killed
-= 1，而是要return -1。</p>
+<p>在系统调用函数(如sys_pipe)中，检测到致命错误（例如访问非法内存）时，不能直接用p-&gt;killed = 1，而是要return -1。</p>
 <h1 id="mmap">mmap</h1>
 <p>scause 0x000000000000000d (load page fault)<br>
 sepc=0x0000000080007bb0 stval=0x0000000000000000<br>
@@ -7012,27 +7011,27 @@ PANIC: kerneltrap</p>
 <p>gdb调试了一波，发现在使用bd_malloc时跳入kerneltrap<br>
 明明实验三的时候还可以用bd_malloc，怎么现在用不了了？<br>
 看了一下代码，发现实验三中，kalloc的定义是这样的：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>kalloc<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> bd_malloc<span class="op">(</span>PGSIZE<span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">void</span> *</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>kalloc(<span class="dt">void</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>{</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span class="cf">return</span> bd_malloc(PGSIZE);</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>}</span></code></pre></div>
 <p>然后实验九中是这样的：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kalloc<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> run <span class="op">*</span>r<span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  acquire<span class="op">(&amp;</span>kmem<span class="op">.</span>lock<span class="op">);</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  r <span class="op">=</span> kmem<span class="op">.</span>freelist<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span>r<span class="op">)</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    kmem<span class="op">.</span>freelist <span class="op">=</span> r<span class="op">-&gt;</span>next<span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  release<span class="op">(&amp;</span>kmem<span class="op">.</span>lock<span class="op">);</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span>r<span class="op">)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">((</span><span class="dt">char</span><span class="op">*)</span>r<span class="op">,</span> <span class="dv">5</span><span class="op">,</span> PGSIZE<span class="op">);</span> <span class="co">// fill with junk</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>r<span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">void</span> *</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>kalloc(<span class="dt">void</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>{</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  <span class="kw">struct</span> run *r;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  acquire(&amp;kmem.lock);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>  r = kmem.freelist;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  <span class="cf">if</span>(r)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    kmem.freelist = r-&gt;next;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>  release(&amp;kmem.lock);</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>  <span class="cf">if</span>(r)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    memset((<span class="dt">char</span>*)r, <span class="dv">5</span>, PGSIZE); <span class="co">// fill with junk</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>  <span class="cf">return</span> (<span class="dt">void</span>*)r;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>}</span></code></pre></div>
 <p>所以实验九中不能用bd_malloc（吐血</p>
 </body></html>
 </div>

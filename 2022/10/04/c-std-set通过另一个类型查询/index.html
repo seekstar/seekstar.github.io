@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7002,42 +7002,42 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>在Comparator里加上<code>typedef std::true_type is_transparent;</code>。原因主要是为了保持前向兼容。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;set&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Point <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        Point<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span> <span class="op">:</span> x<span class="op">(</span>x<span class="op">),</span> y<span class="op">(</span>y<span class="op">)</span> <span class="op">{}</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> PointCmpY <span class="op">{</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// https://stackoverflow.com/questions/20317413/what-are-transparent-comparators</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">typedef</span> <span class="bu">std::</span>true_type<span class="op"> </span>is_transparent<span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span><span class="op">()(</span><span class="at">const</span> Point<span class="op">&amp;</span> lhs<span class="op">,</span> <span class="dt">int</span> rhs<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lhs<span class="op">.</span>y <span class="op">&lt;</span> rhs<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span><span class="op">()(</span><span class="dt">int</span> lhs<span class="op">,</span> <span class="at">const</span> Point<span class="op">&amp;</span> rhs<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lhs <span class="op">&lt;</span> rhs<span class="op">.</span>y<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span><span class="op">()(</span><span class="at">const</span> Point<span class="op">&amp;</span> lhs<span class="op">,</span> <span class="at">const</span> Point<span class="op">&amp;</span> rhs<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> lhs<span class="op">.</span>y <span class="op">&lt;</span> rhs<span class="op">.</span>y<span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>set<span class="op">&lt;</span>Point<span class="op">,</span> PointCmpY<span class="op">&gt;</span> s<span class="op">;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>insert<span class="op">(</span>Point<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>insert<span class="op">(</span>Point<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">2</span><span class="op">));</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>insert<span class="op">(</span>Point<span class="op">(</span><span class="dv">0</span><span class="op">,</span>  <span class="dv">0</span><span class="op">));</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>insert<span class="op">(</span>Point<span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">3</span><span class="op">));</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>s<span class="op">.</span>find<span class="op">(</span><span class="dv">0</span><span class="op">)-&gt;</span>x <span class="op">==</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>s<span class="op">.</span>find<span class="op">(-</span><span class="dv">1</span><span class="op">)-&gt;</span>x <span class="op">==</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>s<span class="op">.</span>find<span class="op">(-</span><span class="dv">2</span><span class="op">)-&gt;</span>x <span class="op">==</span> <span class="dv">2</span><span class="op">);</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>s<span class="op">.</span>find<span class="op">(-</span><span class="dv">3</span><span class="op">)-&gt;</span>x <span class="op">==</span> <span class="dv">3</span><span class="op">);</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>s<span class="op">.</span>find<span class="op">(</span>Point<span class="op">(</span><span class="dv">1234</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">))-&gt;</span>x <span class="op">==</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;set&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">class</span> Point {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">public</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        Point(<span class="dt">int</span> x, <span class="dt">int</span> y) : x(x), y(y) {}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="dt">int</span> x;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>        <span class="dt">int</span> y;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>};</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="kw">struct</span> PointCmpY {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="co">// https://stackoverflow.com/questions/20317413/what-are-transparent-comparators</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    <span class="kw">typedef</span> <span class="bu">std::</span>true_type is_transparent;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span>()(<span class="at">const</span> Point&amp; lhs, <span class="dt">int</span> rhs) <span class="at">const</span> {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>        <span class="cf">return</span> lhs.y &lt; rhs;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    }</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span>()(<span class="dt">int</span> lhs, <span class="at">const</span> Point&amp; rhs) <span class="at">const</span> {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>        <span class="cf">return</span> lhs &lt; rhs.y;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    }</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span>()(<span class="at">const</span> Point&amp; lhs, <span class="at">const</span> Point&amp; rhs) <span class="at">const</span> {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>        <span class="cf">return</span> lhs.y &lt; rhs.y;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>};</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>    <span class="bu">std::</span>set&lt;Point, PointCmpY&gt; s;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    s.insert(Point(<span class="dv">1</span>, -<span class="dv">1</span>));</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>    s.insert(Point(<span class="dv">2</span>, -<span class="dv">2</span>));</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>    s.insert(Point(<span class="dv">0</span>,  <span class="dv">0</span>));</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>    s.insert(Point(<span class="dv">3</span>, -<span class="dv">3</span>));</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>    <span class="ot">assert</span>(s.find(<span class="dv">0</span>)-&gt;x == <span class="dv">0</span>);</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>    <span class="ot">assert</span>(s.find(-<span class="dv">1</span>)-&gt;x == <span class="dv">1</span>);</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>    <span class="ot">assert</span>(s.find(-<span class="dv">2</span>)-&gt;x == <span class="dv">2</span>);</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>    <span class="ot">assert</span>(s.find(-<span class="dv">3</span>)-&gt;x == <span class="dv">3</span>);</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>    <span class="ot">assert</span>(s.find(Point(<span class="dv">1234</span>, -<span class="dv">1</span>))-&gt;x == <span class="dv">1</span>);</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>}</span></code></pre></div>
 <p>来源：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13827973/how-to-make-a-c-map-container-where-the-key-is-part-of-the-value/41624995#41624995" class="uri">https://stackoverflow.com/questions/13827973/how-to-make-a-c-map-container-where-the-key-is-part-of-the-value/41624995#41624995</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20317413/what-are-transparent-comparators" class="uri">https://stackoverflow.com/questions/20317413/what-are-transparent-comparators</a></p>

@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7001,9 +7001,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>主要参考这本书：《Understanding the Linux virtual memory
-manager》，链接：<a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf" class="uri">https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf</a>，书上的Chapter
-9就是讲slab分配器的。</p>
+	<html><head></head><body><p>主要参考这本书：《Understanding the Linux virtual memory manager》，链接：<a target="_blank" rel="noopener" href="https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf" class="uri">https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf</a>，书上的Chapter 9就是讲slab分配器的。</p>
 <p>注意这本书是2004的，很多参数可能已经过时了，这个博客会结合我自己的电脑硬件配置来讲。</p>
 <h2 id="层次结构">层次结构</h2>
 <p>每个<code>cache</code>负责一种数据类型的分配。系统中所有的<code>cache</code>首尾相连构成一个<code>cache chain</code>。</p>
@@ -7011,38 +7009,23 @@ manager》，链接：<a target="_blank" rel="noopener" href="https://www.eecg.u
 <p>每个<code>cache</code>里维护<code>slabs_full</code>、<code>slabs_partial</code>、<code>slabs_free</code>，分别代表槽已经全部被分配、槽部分被分配、槽没有被分配的slab。</p>
 <h2 id="着色">着色</h2>
 <p>书上的第112页，9.1.5节就是将cache coloring的。</p>
-<p>假如slab要分配的object比较大，那么slab里就有一些空间是没法分配的，那么就可以把每个slab里的object的起始分配点偏移不同数量的cache
-line长度，每种偏移称为一个color，这样不同color的object在映射到cache里时就会错开。假如object之间有padding，或者object内部有padding，那么这些padding可能跟其他color的object的非padding部分映射到组相联CPU
-cache里的同一组cache line里，这样这组cache
-line就能非padding部分被用上了。而且如果object里有hot data，那么这些hot
-data也会错开，从而映射到不同组的cache line。</p>
-<p>比方说假如一个slab是4096字节，一个object是5*64=320字节，那么slab里就有4096
-% 320 = 256字节是无法被分配的。假如一个cache
-line是64字节，然后要创建多个slab，那么就可以将第一个slab的object起始分配位置设置为0，第二个slab的设置成64，第三个slab的设置成128，第四个slab的设置成192，第五个slab的又设置成0，第六个slab的又设置成64，以此类推。假如object的结构如下：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> hot_data<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> padding<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> cold_data<span class="op">[</span><span class="dv">64</span><span class="op">*</span><span class="dv">3</span><span class="op">];</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p>那么偏移量分别为0、64、128、192的object的<code>hot_data</code>会分别映射到四组cache
-line里，这样就能充分利用cache了。</p>
+<p>假如slab要分配的object比较大，那么slab里就有一些空间是没法分配的，那么就可以把每个slab里的object的起始分配点偏移不同数量的cache line长度，每种偏移称为一个color，这样不同color的object在映射到cache里时就会错开。假如object之间有padding，或者object内部有padding，那么这些padding可能跟其他color的object的非padding部分映射到组相联CPU cache里的同一组cache line里，这样这组cache line就能非padding部分被用上了。而且如果object里有hot data，那么这些hot data也会错开，从而映射到不同组的cache line。</p>
+<p>比方说假如一个slab是4096字节，一个object是5*64=320字节，那么slab里就有4096 % 320 = 256字节是无法被分配的。假如一个cache line是64字节，然后要创建多个slab，那么就可以将第一个slab的object起始分配位置设置为0，第二个slab的设置成64，第三个slab的设置成128，第四个slab的设置成192，第五个slab的又设置成0，第六个slab的又设置成64，以此类推。假如object的结构如下：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="dt">char</span> hot_data[<span class="dv">64</span>];</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="dt">char</span> padding[<span class="dv">64</span>];</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="dt">char</span> cold_data[<span class="dv">64</span>*<span class="dv">3</span>];</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>};</span></code></pre></div>
+<p>那么偏移量分别为0、64、128、192的object的<code>hot_data</code>会分别映射到四组cache line里，这样就能充分利用cache了。</p>
 <p>此外，slab内部首尾的一小段可以错开来，从而减少冲突。详见：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/57345687" class="uri">https://stackoverflow.com/a/57345687</a></p>
-<p>还有一种着色叫页着色(page coloring)，大意是将物理页根据映射到的cache
-line着色，然后尽量让邻近的虚拟页映射到不同颜色的物理页：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cache_coloring" class="uri">https://en.wikipedia.org/wiki/Cache_coloring</a></p>
+<p>还有一种着色叫页着色(page coloring)，大意是将物理页根据映射到的cache line着色，然后尽量让邻近的虚拟页映射到不同颜色的物理页：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cache_coloring" class="uri">https://en.wikipedia.org/wiki/Cache_coloring</a></p>
 <h2 id="free-list">free list</h2>
-<p>slab里的free
-list是一个链表实现的栈，这样可以使得更晚被释放的object被更早分配，因为最近被释放的object很可能还在CPU
-cache里。具体实现看书里的9.2.4到9.2.6节。</p>
+<p>slab里的free list是一个链表实现的栈，这样可以使得更晚被释放的object被更早分配，因为最近被释放的object很可能还在CPU cache里。具体实现看书里的9.2.4到9.2.6节。</p>
 <h2 id="kmalloc-kfree">kmalloc, kfree</h2>
 <p>详见书上的9.4节。</p>
 <p><code>kmalloc</code>的函数定义在<code>include/linux/slab.h</code>里。</p>
-<p>操作系统在全局维护了8B、16B、32B、……32MiB的slab
-allocator。当调用<code>kmalloc</code>的时候，其实就是选一个object
-size最小但是够用的slab
-allocator来分配。比如分配1到8字节都是用<code>kmalloc-8</code>这个slab
-allocator来分配，9到16字节用<code>kmalloc-16</code>来分配，17到32字节用<code>kmalloc-32</code>分配，以此类推。</p>
-<p><code>kfree</code>的函数定义在<code>mm/slab.c</code>里。首先调用<code>virt_to_cache</code>来找到对应的slab
-allocator，然后再在里面free掉这个object就好了。<code>virt_to_cache</code>的具体实现好像跟<code>folio</code>有关，没具体看。如果slab的尺寸确定，而且是对齐的话，那应该可以找到slab的起始位置。</p>
+<p>操作系统在全局维护了8B、16B、32B、……32MiB的slab allocator。当调用<code>kmalloc</code>的时候，其实就是选一个object size最小但是够用的slab allocator来分配。比如分配1到8字节都是用<code>kmalloc-8</code>这个slab allocator来分配，9到16字节用<code>kmalloc-16</code>来分配，17到32字节用<code>kmalloc-32</code>分配，以此类推。</p>
+<p><code>kfree</code>的函数定义在<code>mm/slab.c</code>里。首先调用<code>virt_to_cache</code>来找到对应的slab allocator，然后再在里面free掉这个object就好了。<code>virt_to_cache</code>的具体实现好像跟<code>folio</code>有关，没具体看。如果slab的尺寸确定，而且是对齐的话，那应该可以找到slab的起始位置。</p>
 <h2 id="参考">参考</h2>
 <p><a target="_blank" rel="noopener" href="https://www.linuxquestions.org/questions/linux-kernel-70/how-does-slab-coloring-maximizes-the-use-of-cache-lines-or-cache-rows-907564/" class="uri">https://www.linuxquestions.org/questions/linux-kernel-70/how-does-slab-coloring-maximizes-the-use-of-cache-lines-or-cache-rows-907564/</a></p>
 </body></html>

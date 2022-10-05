@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7001,37 +7001,36 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="typeerror-_my_libdefault-is-not-a-function">TypeError:
-_my_lib.default is not a function</h2>
+	<html><head></head><body><h2 id="typeerror-_my_libdefault-is-not-a-function">TypeError: _my_lib.default is not a function</h2>
 <p>import { gen_index_of } from "./components/lib/my.lib";<br>
 一定要加{}，如果写成<br>
 import gen_index_of from "./components/lib/my.lib";<br>
 会报错：<br>
 TypeError: _my_lib.default is not a function</p>
 <p>my_lib.js</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shuffle</span>(arr) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> i <span class="op">=</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (i) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> j <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> i<span class="op">--</span>)<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        [arr[j]<span class="op">,</span> arr[i]] <span class="op">=</span> [arr[i]<span class="op">,</span> arr[j]]<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">gen_index_of</span>(arr) {</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> index_of <span class="op">=</span> {}<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span> <span class="op">++</span>i) {</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        index_of[arr[i]] <span class="op">=</span> i<span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> index_of<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shallow_copy_array</span>(arr) {</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> ret <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> v <span class="kw">of</span> arr) {</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        ret<span class="op">.</span><span class="fu">push</span>(v)<span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shuffle</span>(arr) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">let</span> i <span class="op">=</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="cf">while</span> (i) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="kw">let</span> j <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> i<span class="op">--</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        [arr[j]<span class="op">,</span> arr[i]] <span class="op">=</span> [arr[i]<span class="op">,</span> arr[j]]<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">gen_index_of</span>(arr) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="kw">var</span> index_of <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span> <span class="op">++</span>i) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        index_of[arr[i]] <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    <span class="cf">return</span> index_of<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shallow_copy_array</span>(arr) {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    <span class="kw">var</span> ret <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="kw">let</span> v <span class="kw">of</span> arr) {</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>        ret<span class="op">.</span><span class="fu">push</span>(v)<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    }</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 

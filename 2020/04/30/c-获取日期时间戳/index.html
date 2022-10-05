@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7002,24 +7002,24 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>使用C++11里的std::chrono，自定义一个叫做days的duration。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;chrono&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> std <span class="op">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> chrono <span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> duration<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> ratio<span class="op">&lt;</span><span class="dv">3600</span><span class="op">*</span><span class="dv">24</span><span class="op">,</span> <span class="dv">1</span><span class="op">&gt;</span> <span class="op">&gt;</span> days<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> <span class="kw">namespace</span> <span class="bu">std::</span>chrono<span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> duration_cast<span class="op">&lt;</span>milliseconds<span class="op">&gt;(</span>system_clock<span class="op">::</span>now<span class="op">().</span>time_since_epoch<span class="op">()).</span>count<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"ms</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> duration_cast<span class="op">&lt;</span>hours<span class="op">&gt;(</span>system_clock<span class="op">::</span>now<span class="op">().</span>time_since_epoch<span class="op">()).</span>count<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"h</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> duration_cast<span class="op">&lt;</span>days<span class="op">&gt;(</span>system_clock<span class="op">::</span>now<span class="op">().</span>time_since_epoch<span class="op">()).</span>count<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"d</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;chrono&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">namespace</span> std {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">namespace</span> chrono {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">typedef</span> duration&lt;<span class="dt">int</span>, ratio&lt;<span class="dv">3600</span>*<span class="dv">24</span>, <span class="dv">1</span>&gt; &gt; days;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="kw">using</span> <span class="kw">namespace</span> <span class="bu">std::</span>chrono;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    cout &lt;&lt; duration_cast&lt;milliseconds&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"ms</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    cout &lt;&lt; duration_cast&lt;hours&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"h</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    cout &lt;&lt; duration_cast&lt;days&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"d</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>1588220587696ms
 441172h
