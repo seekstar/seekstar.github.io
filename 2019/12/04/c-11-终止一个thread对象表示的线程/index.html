@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7001,63 +7001,62 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>“terminate 1 thread + forcefully (target thread doesn’t cooperate) +
-pure C++11 = No way”.<br>
+	<html><head></head><body><p>“terminate 1 thread + forcefully (target thread doesn’t cooperate) + pure C++11 = No way”.<br>
 <del>233333</del></p>
 <p>对于Linux/GCC，可以用pthread.h里的pthread_cancel来强行杀死某一线程。<br>
 注意thread对象的析构函数并不会把线程杀死。</p>
 <p>code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;chrono&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="op">++</span>x <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>milliseconds<span class="op">(</span><span class="dv">100</span><span class="op">));</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cerr<span class="op"> &lt;&lt;</span> <span class="st">"1、先杀死再join</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        thread t<span class="op">(</span>foo<span class="op">);</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"t.joinable() = "</span> <span class="op">&lt;&lt;</span> t<span class="op">.</span>joinable<span class="op">()</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        pthread_cancel<span class="op">(</span>t<span class="op">.</span>native_handle<span class="op">());</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"after cancelling, t.joinable() = "</span> <span class="op">&lt;&lt;</span> t<span class="op">.</span>joinable<span class="op">()</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        t<span class="op">.</span>join<span class="op">();</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> <span class="st">"The thread is destructed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cerr<span class="op"> &lt;&lt;</span> <span class="st">"2、先detach再杀死</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        thread t<span class="op">(</span>foo<span class="op">);</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">pthread_t</span> id <span class="op">=</span> t<span class="op">.</span>native_handle<span class="op">();</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        t<span class="op">.</span>detach<span class="op">();</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"detached</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"t.joinable() = "</span> <span class="op">&lt;&lt;</span> t<span class="op">.</span>joinable<span class="op">()</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        pthread_cancel<span class="op">(</span>id<span class="op">);</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> <span class="st">"The thread is destructed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cerr<span class="op"> &lt;&lt;</span> <span class="st">"3、thread对象的析构函数不会杀死线程</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        thread t<span class="op">(</span>foo<span class="op">);</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        t<span class="op">.</span>detach<span class="op">();</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    this_thread<span class="op">::</span>sleep_for<span class="op">(</span>chrono<span class="op">::</span>seconds<span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;chrono&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="dt">void</span> foo() {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="dt">size_t</span> x = <span class="dv">0</span>;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>        cout &lt;&lt; ++x &lt;&lt; endl;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        this_thread::sleep_for(chrono::milliseconds(<span class="dv">100</span>));</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="bu">std::</span>cerr &lt;&lt; <span class="st">"1、先杀死再join</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    {</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>        thread t(foo);</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>        this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"t.joinable() = "</span> &lt;&lt; t.joinable() &lt;&lt; endl;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>        pthread_cancel(t.native_handle());</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"after cancelling, t.joinable() = "</span> &lt;&lt; t.joinable() &lt;&lt; endl;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>        t.join();</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    }</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"The thread is destructed</span><span class="sc">\n\n</span><span class="st">"</span>;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>    <span class="bu">std::</span>cerr &lt;&lt; <span class="st">"2、先detach再杀死</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>    {</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>        thread t(foo);</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>        <span class="dt">pthread_t</span> id = t.native_handle();</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>        t.detach();</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"detached</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>        this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"t.joinable() = "</span> &lt;&lt; t.joinable() &lt;&lt; endl;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>        pthread_cancel(id);</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>    }</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"The thread is destructed</span><span class="sc">\n\n</span><span class="st">"</span>;</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>    this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>    <span class="bu">std::</span>cerr &lt;&lt; <span class="st">"3、thread对象的析构函数不会杀死线程</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>    {</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>        thread t(foo);</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>        t.detach();</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>        this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>    }</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>    this_thread::sleep_for(chrono::seconds(<span class="dv">1</span>));</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>}</span></code></pre></div>
 <p>output:</p>
 <pre><code>1、先杀死再join
 1

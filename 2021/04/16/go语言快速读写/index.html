@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,21 +7003,21 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>Go语言可以用<code>fmt.Scan</code>和<code>fmt.Println</code>来读写，但是效率极低，在OJ上可能会TLE。</p>
 <p>解决方案是使用<code>bufio</code>。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">:=</span> bufio<span class="op">.</span>NewWriter<span class="op">(</span>os<span class="op">.</span>Stdout<span class="op">)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">defer</span> out<span class="op">.</span>Flush<span class="op">()</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    in <span class="op">:=</span> bufio<span class="op">.</span>NewReader<span class="op">(</span>os<span class="op">.</span>Stdin<span class="op">)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    read_int <span class="op">:=</span> <span class="kw">func</span><span class="op">()</span> <span class="op">(</span>x <span class="dt">int</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        c<span class="op">,</span> _ <span class="op">:=</span> in<span class="op">.</span>ReadByte<span class="op">()</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">;</span> c <span class="op">&lt;</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">;</span> c <span class="op">&gt;=</span> <span class="ch">'0'</span><span class="op">;</span> c<span class="op">,</span> _ <span class="op">=</span> in<span class="op">.</span>ReadByte<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="dt">int</span><span class="op">(</span>c <span class="op">-</span> <span class="ch">'0'</span><span class="op">)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Your code here</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">func</span> main() {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    out := bufio.NewWriter(os.Stdout)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">defer</span> out.Flush()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    in := bufio.NewReader(os.Stdin)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    read_int := <span class="kw">func</span>() (x <span class="dt">int</span>) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>        c, _ := in.ReadByte()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="kw">for</span> ; c &lt; <span class="ch">'0'</span>; c, _ = in.ReadByte() {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>        }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        <span class="kw">for</span> ; c &gt;= <span class="ch">'0'</span>; c, _ = in.ReadByte() {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>            x = x * <span class="dv">10</span> + <span class="dt">int</span>(c - <span class="ch">'0'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>        }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        <span class="kw">return</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    <span class="co">// Your code here</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>}</span></code></pre></div>
 <p>例子：<br>
 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/49546964" class="uri">https://www.luogu.com.cn/record/49546964</a></p>
 <p>参考文献<br>

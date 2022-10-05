@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7008,52 +7008,35 @@ var _hmt = _hmt || [];
 <p>一圈页，一个指针指向某页，要替换某页时，看指向的那页的访问位是不是1，如果不是就将这页替换掉，如果是则置0，然后移到下一页继续看。</p>
 <h1 id="gclock">GCLOCK</h1>
 <p>论文：<br>
-<a target="_blank" rel="noopener" href="https://www-inst.eecs.berkeley.edu//~cs266/sp10/readings/smith78.pdf">Sequentiality
-and Prefetching in Database Systems</a><br>
-<a target="_blank" rel="noopener" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.452.9699&amp;rep=rep1&amp;type=pdf">Analysis
-of the generalized clock buffer replacement scheme for database
-transaction processing</a></p>
+<a target="_blank" rel="noopener" href="https://www-inst.eecs.berkeley.edu//~cs266/sp10/readings/smith78.pdf">Sequentiality and Prefetching in Database Systems</a><br>
+<a target="_blank" rel="noopener" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.452.9699&amp;rep=rep1&amp;type=pdf">Analysis of the generalized clock buffer replacement scheme for database transaction processing</a></p>
 <p>给每页一个counter，当hit的时候增加它的值，当指针扫过的时候减这个值，减到0就可以替换掉了。好处是可以保留更多的历史访问信息，更精准地把很少访问的页找出来。</p>
 <h1 id="two-handed-clock">Two-Handed Clock</h1>
-<p>朴素的Clock算法的问题在于，如果访问很多，而过了很久才需要替换某页时，会发现所有的页的访问位都是1，这样就退化到FIFO了。这是保存了太多历史信息导致的。所以思路就是周期性清除历史信息。Two-Handed
-Clock就是这种算法，它有两个指针，一个fronthand，一个backhand，这两个指针之间的距离（好像）恒定。fronthand负责清除其指向的页的访问位，然后backhand看这个访问位是不是又被置1了，如果是，那说明这个页访问挺频繁的，就跳过它，否则就将这个页free掉。当空闲空间少时，就把指针扫描的速度调快，这样能识别出更多访问不频繁的数据，当空闲空间多时，就把指针扫描速度调慢，只把超级冷的块free掉。当空闲空间超过超过阈值lotsfree后，就停下来不扫描了。</p>
+<p>朴素的Clock算法的问题在于，如果访问很多，而过了很久才需要替换某页时，会发现所有的页的访问位都是1，这样就退化到FIFO了。这是保存了太多历史信息导致的。所以思路就是周期性清除历史信息。Two-Handed Clock就是这种算法，它有两个指针，一个fronthand，一个backhand，这两个指针之间的距离（好像）恒定。fronthand负责清除其指向的页的访问位，然后backhand看这个访问位是不是又被置1了，如果是，那说明这个页访问挺频繁的，就跳过它，否则就将这个页free掉。当空闲空间少时，就把指针扫描的速度调快，这样能识别出更多访问不频繁的数据，当空闲空间多时，就把指针扫描速度调慢，只把超级冷的块free掉。当空闲空间超过超过阈值lotsfree后，就停下来不扫描了。</p>
 <p>相关文献：</p>
-<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.5555/61656">The design and
-implementation of the 4.3BSD UNIX operating system</a><br>
+<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.5555/61656">The design and implementation of the 4.3BSD UNIX operating system</a><br>
 好像是本书</p>
-<p><a target="_blank" rel="noopener" href="http://www.xilef-software.e8u.de/sites/default/files/store/bsd43vmm/bsd43vmm.pdf">4.3
-BSD Virtual Memory Management</a><br>
-（Figure 10第17行，goto
-loop之后，backhand没有移动，这是不是会导致两个指针的距离改变？）</p>
+<p><a target="_blank" rel="noopener" href="http://www.xilef-software.e8u.de/sites/default/files/store/bsd43vmm/bsd43vmm.pdf">4.3 BSD Virtual Memory Management</a><br>
+（Figure 10第17行，goto loop之后，backhand没有移动，这是不是会导致两个指针的距离改变？）</p>
 <h1 id="car">CAR</h1>
-<p>论文：<a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/publications/library/proceedings/fast04/tech/full_papers/bansal/bansal.pdf">CAR:
-Clock with Adaptive Replacement</a></p>
+<p>论文：<a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/publications/library/proceedings/fast04/tech/full_papers/bansal/bansal.pdf">CAR: Clock with Adaptive Replacement</a></p>
 <p>看起来很复杂的样子</p>
 <h1 id="clock-pro">CLOCK-Pro</h1>
 <p>论文：<a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/events/usenix05/tech/general/full_papers/jiang/jiang.pdf" class="uri">https://www.usenix.org/legacy/events/usenix05/tech/general/full_papers/jiang/jiang.pdf</a></p>
 <p><img src="/2021/10/14/%E5%90%84%E7%A7%8Dclock%E7%AE%97%E6%B3%95/693da5f78d5e447ba3e17ecfab615252.png" alt="在这里插入图片描述"></p>
 <p>将页分为Hot页，Cold页，所有Hot页都留在内存里，Cold页中，留在内存里的页在图中带有阴影，被换出内存的页在图中没有阴影。图中，打勾表示这个页的访问位为1。令m表示内存中能装下的总页数。为了避免列表过大，我们限制列表中最多有m个不在内存里的cold页。</p>
 <p>跟LRU一样，CLOCK-Pro使用recency的概念，距离上次使用的时间越长，recency越高，但是由于我们不能像LRU那样在每次访问页面的时候都去维护这个recency，所以这个recency实际上是通过指针转动来估计的。CLOCK-Pro的基本思想是给每个刚进来的cold页一个测试周期，如果这个页在测试周期中被访问了，那就把这个页变成hot页，否则就把这个页移出列表。我们允许把仍然在测试周期中的cold页换出内存，但是它仍然停留在列表中，直到测试周期结束。</p>
-<p>我们设置三个指针：HAND_hot、HAND_cold、HAND_test。HAND_hot指向recency最高的hot页，HAND_cold指向recency最高的在内存里的cold页，HAND_test指向recency最高的处于测试周期的cold页。HAND_hot背面的那个页是recency最小的页，从该页开始逆时针看，这些页的recency逐渐增大，到HAND_hot指向的那个页，recency最大。将HAND_hot背面的那个页称为list
-head，将HAND_hot指向的那个页称为list tail。</p>
-<p>HAND_cold是用来将某个cold页换出的。如果HAND_cold指向的页的访问位是0，就把它换出，然后如果它不在测试周期，就把它移出列表，如果在测试周期，就把它留在列表里。如果HAND_cold指向的页的访问位是1，就把这个页移动到HAND_hot指针的背后，即插入到list
-head，即将这个页的recency标记为最小（要不要把访问位清0呢？）。此外，如果这个页的访问位为1且在测试周期中，那么就把它变成hot页，并且让HAND_hot指针移动，来让某个hot页变成cold页。<br>
+<p>我们设置三个指针：HAND_hot、HAND_cold、HAND_test。HAND_hot指向recency最高的hot页，HAND_cold指向recency最高的在内存里的cold页，HAND_test指向recency最高的处于测试周期的cold页。HAND_hot背面的那个页是recency最小的页，从该页开始逆时针看，这些页的recency逐渐增大，到HAND_hot指向的那个页，recency最大。将HAND_hot背面的那个页称为list head，将HAND_hot指向的那个页称为list tail。</p>
+<p>HAND_cold是用来将某个cold页换出的。如果HAND_cold指向的页的访问位是0，就把它换出，然后如果它不在测试周期，就把它移出列表，如果在测试周期，就把它留在列表里。如果HAND_cold指向的页的访问位是1，就把这个页移动到HAND_hot指针的背后，即插入到list head，即将这个页的recency标记为最小（要不要把访问位清0呢？）。此外，如果这个页的访问位为1且在测试周期中，那么就把它变成hot页，并且让HAND_hot指针移动，来让某个hot页变成cold页。<br>
 （HAND_cold指向的页是hot页的时候怎么办？跳过吗？）</p>
 <p>HAND_hot采取动作时，如果其指向hot页，并且其访问位为0，那就把它变成cold页，但是如果其访问位为1，就把访问位清0，然后跳过它。如果其指向cold页，就终止其测试周期，并且如果它不在内存中时将其从列表中移出（也就是说当HAND_test）用。</p>
 <p>如果不在内存中的页数超过了m，那么就需要HAND_test采取行动了。（HAND_test好像会跳过hot页）HAND_test会终止指向的cold页的测试周期，然后如果其不在内存里，就把它移出列表。</p>
-<p>所以总的流程是，如果有一个page fault，那么这个page肯定是个cold
-page，因为hot
-page不会被换出。首先我们移动HAND_cold来把一个页换出。如果这个faulted
-page不在列表中，那么我们就把它放到list
-head，也就是插入到HAND_hot背后，并且标记其处于测试周期。如果这个faulted
-page在列表中，那么我们直接把它变成hot页，并且移动到list
-head，然后移动HAND_hot来将一个hot页变成cold页。此外，由于我们之前把一个cold页换出了，这可能会增加不在内存中的cold页的数目，如果这个数目大于m，那就通过移动HAND_test减少之（这一步是在移动HAND_cold之后就做，还是到最后做？）。</p>
+<p>所以总的流程是，如果有一个page fault，那么这个page肯定是个cold page，因为hot page不会被换出。首先我们移动HAND_cold来把一个页换出。如果这个faulted page不在列表中，那么我们就把它放到list head，也就是插入到HAND_hot背后，并且标记其处于测试周期。如果这个faulted page在列表中，那么我们直接把它变成hot页，并且移动到list head，然后移动HAND_hot来将一个hot页变成cold页。此外，由于我们之前把一个cold页换出了，这可能会增加不在内存中的cold页的数目，如果这个数目大于m，那就通过移动HAND_test减少之（这一步是在移动HAND_cold之后就做，还是到最后做？）。</p>
 <p><strong>猜一下作者的心路历程</strong></p>
 <p>不管是LRU，还是朴素的CLOCK，页被换出之后都不再跟踪了，这样就导致recency比较低的块不敢换出去。但是实际上，recency低不代表马上就会reuse。所以就要把换出的页也保留在这个环形列表里，然后recency低的页也可以大胆换出，然后如果发现其实很快就reuse了，就反悔，把它变成hot页，不再轻易换出。但是在列表中的cold页又不一定是recency很低的页，如果一个很老的不在内存里的cold页又被访问了，那也不能随便将其设置为hot页，所以就引入测试周期的概念，其实就是用来查看在给定的一段时间内，这个页能不能被访问两次，能的话就变成hot页。</p>
 <p><strong>我的一些问题</strong></p>
 <p>论文里的<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex" xmlns="http://www.w3.org/2000/svg" width="2.867ex" height="1.357ex" role="img" focusable="false" viewBox="0 -442 1267.2 599.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(911,-150) scale(0.707)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g></g></g></g></svg></mjx-container></span>到底是个啥？？？是在内存里的cold页的最大数目吗？可是前面的叙述里也没看到这个值有什么作用啊。</p>
-<p>论文里只有在一个页刚刚进入列表时才开启测试周期，那这样的话，如果一个hot页变成了cold页，那岂不是永远都变不回hot页了？我觉得将页插入到list
-head的时候（比如hot页变成cold页，或者HAND_cold指针指向的cold页的访问位是1，但是不在测试周期的时候）同时开启测试周期应该会更合理一些。</p>
+<p>论文里只有在一个页刚刚进入列表时才开启测试周期，那这样的话，如果一个hot页变成了cold页，那岂不是永远都变不回hot页了？我觉得将页插入到list head的时候（比如hot页变成cold页，或者HAND_cold指针指向的cold页的访问位是1，但是不在测试周期的时候）同时开启测试周期应该会更合理一些。</p>
 <p>感觉这个论文少了很多实现细节，看得迷迷糊糊的。</p>
 </body></html>
 </div>

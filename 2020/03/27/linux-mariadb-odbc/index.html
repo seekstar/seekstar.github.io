@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7012,8 +7012,8 @@ var _hmt = _hmt || [];
 <p>刚安装是没有密码的。先设置密码</p>
 <pre class="shell"><code>sudo -s</code></pre>
 <pre class="shell"><code>mysql</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> mysql.<span class="fu">user</span> <span class="kw">SET</span> plugin <span class="op">=</span> <span class="st">'mysql_native_password'</span>, <span class="kw">Password</span> <span class="op">=</span> <span class="kw">PASSWORD</span>(<span class="st">'a'</span>) <span class="kw">WHERE</span> <span class="fu">User</span> <span class="op">=</span> <span class="st">'root'</span>;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">UPDATE</span> mysql.<span class="fu">user</span> <span class="kw">SET</span> plugin <span class="op">=</span> <span class="st">'mysql_native_password'</span>, <span class="kw">Password</span> <span class="op">=</span> <span class="kw">PASSWORD</span>(<span class="st">'a'</span>) <span class="kw">WHERE</span> <span class="fu">User</span> <span class="op">=</span> <span class="st">'root'</span>;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span></code></pre></div>
 <p>这里密码设置成了<code>a</code></p>
 <p>以后就可以使用</p>
 <pre class="shell"><code>mysql -u root -p</code></pre>
@@ -7114,90 +7114,90 @@ SQL&gt; </code></pre>
 <p>建议使用纯odbc，以保证可移植性。</p>
 <p>示例：<br>
 （代码参考自<a target="_blank" rel="noopener" href="https://blog.csdn.net/buptlihang/article/details/80275641" class="uri">https://blog.csdn.net/buptlihang/article/details/80275641</a>）</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    sqlhenv serverhenv<span class="op">;</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    sqlhdbc serverhdbc<span class="op">;</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    sqlhstmt serverhstmt<span class="op">;</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    sqlreturn ret<span class="op">;</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">static</span> sqlchar dname<span class="op">[</span><span class="dv">45</span><span class="op">],</span> dno<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    sqllen length<span class="op">;</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配环境句柄</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_env<span class="op">,</span>sql_null_handle<span class="op">,&amp;</span>serverhenv<span class="op">);</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">//设置环境属性</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlsetenvattr<span class="op">(</span>serverhenv<span class="op">,</span>sql_attr_odbc_version<span class="op">,(</span><span class="dt">void</span><span class="op">*)</span>sql_ov_odbc3<span class="op">,</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"allocenvhandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配连接句柄</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_dbc<span class="op">,</span>serverhenv<span class="op">,&amp;</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"allocdbchandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlconnect<span class="op">(</span>serverhdbc<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"root"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"a"</span><span class="op">,</span>sql_nts<span class="op">);</span><span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"sql_connect error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配执行语句句柄</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_stmt<span class="op">,</span>serverhdbc<span class="op">,&amp;</span>serverhstmt<span class="op">);</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">//执行sql语句</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlexecdirect<span class="op">(</span>serverhstmt<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"select dname, dno from company.department;"</span><span class="op">,</span>sql_nts<span class="op">);</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>ret <span class="op">==</span> sql_success <span class="op">||</span> ret <span class="op">==</span> sql_success_with_info<span class="op">){</span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">//绑定数据</span></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>        sqlbindcol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">1</span><span class="op">,</span> sql_c_char<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>dname<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>dname<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>        sqlbindcol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">2</span><span class="op">,</span> sql_c_char<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>dno<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>dno<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"dname</span><span class="sc">\t\t</span><span class="st">dno</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>sql_no_data <span class="op">!=</span> sqlfetch<span class="op">(</span>serverhstmt<span class="op">))</span></span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>            cout <span class="op">&lt;&lt;</span> dname <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> <span class="op">&lt;&lt;</span> dno <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放语句句柄</span></span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_stmt<span class="op">,</span>serverhstmt<span class="op">);</span></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret <span class="op">&amp;&amp;</span> sql_success_with_info <span class="op">!=</span> ret<span class="op">)</span></span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hstmt error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>    <span class="co">//断开数据库连接</span></span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqldisconnect<span class="op">(</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"disconnected error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放连接句柄</span></span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_dbc<span class="op">,</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hdbc error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放环境句柄句柄</span></span>
-<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_env<span class="op">,</span>serverhenv<span class="op">);</span></span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free henv error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> <span class="st">"done"</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>    sqlhenv serverhenv;</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a>    sqlhdbc serverhdbc;</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>    sqlhstmt serverhstmt;</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>    sqlreturn ret;</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>    <span class="at">static</span> sqlchar dname[<span class="dv">45</span>], dno[<span class="dv">10</span>];</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>    sqllen length;</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true"></a>    <span class="co">//分配环境句柄</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true"></a>    ret = sqlallochandle(sql_handle_env,sql_null_handle,&amp;serverhenv);</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true"></a>    <span class="co">//设置环境属性</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true"></a>    ret = sqlsetenvattr(serverhenv,sql_attr_odbc_version,(<span class="dt">void</span>*)sql_ov_odbc3,<span class="dv">0</span>);</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true"></a>    {</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"allocenvhandle error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true"></a>    }</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true"></a>    <span class="co">//分配连接句柄</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true"></a>    ret = sqlallochandle(sql_handle_dbc,serverhenv,&amp;serverhdbc);</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true"></a>    {</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"allocdbchandle error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true"></a>    }</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true"></a></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true"></a>    ret = sqlconnect(serverhdbc,(sqlchar*)<span class="st">"dbexp2"</span>,sql_nts,(sqlchar*)<span class="st">"root"</span>,sql_nts,(sqlchar*)<span class="st">"a"</span>,sql_nts);<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true"></a>    {</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"sql_connect error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true"></a>    }</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true"></a></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true"></a>    <span class="co">//分配执行语句句柄</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true"></a>    ret = sqlallochandle(sql_handle_stmt,serverhdbc,&amp;serverhstmt);</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true"></a></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true"></a>    <span class="co">//执行sql语句</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true"></a>    ret=sqlexecdirect(serverhstmt,(sqlchar*)<span class="st">"select dname, dno from company.department;"</span>,sql_nts);</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true"></a>    <span class="cf">if</span>(ret == sql_success || ret == sql_success_with_info){</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true"></a>        <span class="co">//绑定数据</span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true"></a>        sqlbindcol(serverhstmt,<span class="dv">1</span>, sql_c_char, (<span class="dt">void</span>*)dname,<span class="kw">sizeof</span>(dname), &amp;length);</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true"></a>        sqlbindcol(serverhstmt,<span class="dv">2</span>, sql_c_char, (<span class="dt">void</span>*)dno,<span class="kw">sizeof</span>(dno), &amp;length);</span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"dname</span><span class="sc">\t\t</span><span class="st">dno</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true"></a>        <span class="cf">while</span>(sql_no_data != sqlfetch(serverhstmt))</span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true"></a>        {</span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true"></a>            cout &lt;&lt; dname &lt;&lt; <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> &lt;&lt; dno &lt;&lt; endl;</span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true"></a>        }</span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true"></a>    }</span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true"></a></span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true"></a>    <span class="co">//释放语句句柄</span></span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true"></a>    ret=sqlfreehandle(sql_handle_stmt,serverhstmt);</span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true"></a>    <span class="cf">if</span>(sql_success!=ret &amp;&amp; sql_success_with_info != ret)</span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free hstmt error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true"></a>    <span class="co">//断开数据库连接</span></span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true"></a>    ret=sqldisconnect(serverhdbc);</span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true"></a>    <span class="cf">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"disconnected error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true"></a>    <span class="co">//释放连接句柄</span></span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true"></a>    ret=sqlfreehandle(sql_handle_dbc,serverhdbc);</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true"></a>    <span class="cf">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free hdbc error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true"></a>    <span class="co">//释放环境句柄句柄</span></span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true"></a>    ret=sqlfreehandle(sql_handle_env,serverhenv);</span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true"></a>    <span class="cf">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free henv error!"</span>&lt;&lt;endl;</span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true"></a></span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"done"</span> &lt;&lt; endl;</span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true"></a></span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true"></a>}</span></code></pre></div>
 <p>因为之前数据源中已经定义了用户名和密码，所以这里用户名和密码可以省掉，即</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> sqlconnect<span class="op">(</span>serverhdbc<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"root"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"a"</span><span class="op">,</span>sql_nts<span class="op">);</span><span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>ret = sqlconnect(serverhdbc,(sqlchar*)<span class="st">"dbexp2"</span>,sql_nts,(sqlchar*)<span class="st">"root"</span>,sql_nts,(sqlchar*)<span class="st">"a"</span>,sql_nts);<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span></code></pre></div>
 <p>可以换成</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> SQLConnect<span class="op">(</span>serverhdbc<span class="op">,(</span>SQLCHAR<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>SQL_NTS<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a>ret = SQLConnect(serverhdbc,(SQLCHAR*)<span class="st">"dbexp2"</span>,SQL_NTS, NULL, <span class="dv">0</span>, NULL, <span class="dv">0</span>);</span></code></pre></div>
 <pre class="shell"><code>g++ main.cpp -lodbc -o main
 ./main</code></pre>
 <p>输出：</p>

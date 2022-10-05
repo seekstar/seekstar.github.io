@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7039,9 +7039,7 @@ reptyr -T &lt;PID&gt;</code></pre>
 |-konsole(38654)-+-bash(38672)---reptyr(41662)
 |-konsole(40813)-+-bash(40835)---bash(40875)---sleep(41686)</code></pre>
 <p>可以看到似乎并没有真的把这个进程变成新终端的子进程，而且把老终端关闭后新终端里的也会显示进程已退出。</p>
-<p>上面的例子中，父终端是konsole，但是如果父终端是sshd的终端，那就需要以root身份执行才能把TTY偷过来了。TTY偷过来之后，原来的sshd终端就没响应了。奇妙的是，这是按<code>Enter</code>
-<code>~</code>
-<code>.</code>将原来的sshd终端退出之后，新终端里的进程并不会退出。</p>
+<p>上面的例子中，父终端是konsole，但是如果父终端是sshd的终端，那就需要以root身份执行才能把TTY偷过来了。TTY偷过来之后，原来的sshd终端就没响应了。奇妙的是，这是按<code>Enter</code> <code>~</code> <code>.</code>将原来的sshd终端退出之后，新终端里的进程并不会退出。</p>
 <p>查看偷TTY前后以及断开ssh连接前后的<code>pstree -lp</code>的输出：</p>
 <pre class="text"><code>偷TTY之前
 systemd(1)─┬─
@@ -7061,11 +7059,8 @@ systemd(1)─┬─
            │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)
            ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)
            └─zsh(2355183)───bash(2356331)───sleep(2357023)</code></pre>
-<p>可以看到，偷TTY之后，进程的父终端(zsh)的父亲仍然没有改变，但是断开ssh连接之后，进程的父终端(zsh)的父亲变成init（1号进程）了。这可能是因为<code>Enter</code>
-<code>~</code>
-<code>.</code>并没有给子进程<code>zsh</code>发送<code>SIGHUP</code>，从而让它变成了孤儿进程，被init进程收养，因此新终端里的输出一直没有停。</p>
-<p>总结一下，按照我的理解，偷TTY的做法相当于把进程的输入和输出重定向到新的终端，但是如果老的终端退出了，新终端里的输入输出会立即停止。但是在sshd下面的终端里的进程在sshd
-session被强制退出之后会变成孤儿进程，因此它不会被退出，可以正常在新终端里输入输出，就像它本来就在新终端一样。</p>
+<p>可以看到，偷TTY之后，进程的父终端(zsh)的父亲仍然没有改变，但是断开ssh连接之后，进程的父终端(zsh)的父亲变成init（1号进程）了。这可能是因为<code>Enter</code> <code>~</code> <code>.</code>并没有给子进程<code>zsh</code>发送<code>SIGHUP</code>，从而让它变成了孤儿进程，被init进程收养，因此新终端里的输出一直没有停。</p>
+<p>总结一下，按照我的理解，偷TTY的做法相当于把进程的输入和输出重定向到新的终端，但是如果老的终端退出了，新终端里的输入输出会立即停止。但是在sshd下面的终端里的进程在sshd session被强制退出之后会变成孤儿进程，因此它不会被退出，可以正常在新终端里输入输出，就像它本来就在新终端一样。</p>
 <h2 id="另一个选择">另一个选择</h2>
 <p>如果只需要进程的输出，而不需要进行输入的话，可以试试：<a href="/2022/09/07/linux%E5%B0%86%E8%BF%9B%E7%A8%8B%E4%BB%8E%E5%BD%93%E5%89%8D%E7%BB%88%E7%AB%AFdetach/" title="Linux将进程从当前终端detach">Linux将进程从当前终端detach</a></p>
 <h2 id="参考文献">参考文献</h2>

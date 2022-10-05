@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7004,12 +7004,12 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>CPU id是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/260986194">percpu变量</a>，调用<code>smp_processor_id()</code>可以取出。内核里对它的注释如下：</p>
 <pre><code>smp_processor_id() is safe if it's used in a preemption-off critical section, or in a thread that is bound to the current CPU.</code></pre>
 <p>所以除非是在绑定在CPU上的线程中使用，否则必须要先关抢占。内核已经封装了带关抢占的API：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define get_cpu()       ({ preempt_disable(); smp_processor_id(); })</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define put_cpu()       preempt_enable()</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define get_cpu()       ({ preempt_disable(); smp_processor_id(); })</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#define put_cpu()       preempt_enable()</span></span></code></pre></div>
 <p>典型用法：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> cpuid <span class="op">=</span> get_cpu<span class="op">();</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Do something</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>put_cpu<span class="op">()</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">int</span> cpuid = get_cpu();</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co">// Do something</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>put_cpu()</span></code></pre></div>
 <p>参考文献：<br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/still-smile/p/11655239.html" class="uri">https://www.cnblogs.com/still-smile/p/11655239.html</a></p>
 </body></html>

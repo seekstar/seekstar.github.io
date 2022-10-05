@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7004,50 +7004,50 @@ var _hmt = _hmt || [];
 	<html><head></head><body><h1 id="string和int相互转化">string和int相互转化</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lxj434368832/article/details/78874108" class="uri">https://blog.csdn.net/lxj434368832/article/details/78874108</a></p>
 <p>string -&gt; int</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>string str<span class="op">(</span><span class="st">"123"</span><span class="op">);</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> ret <span class="op">=</span> atoi<span class="op">(</span>str<span class="op">.</span>c_str<span class="op">());</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>string str(<span class="st">"123"</span>);</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="dt">int</span> ret = atoi(str.c_str());</span></code></pre></div>
 <p>int -&gt; string<br>
 C++11中可以用to_string</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>string str <span class="op">=</span> to_string<span class="op">(</span>x<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="dv">123</span>;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>string str = to_string(x);</span></code></pre></div>
 <h1 id="输出字符型指针指向的地址">输出字符型指针指向的地址</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html" class="uri">https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cout <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="at">const</span> <span class="dt">void</span><span class="op">*)</span>char_pointer <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>cout &lt;&lt; (<span class="at">const</span> <span class="dt">void</span>*)char_pointer &lt;&lt; endl;</span></code></pre></div>
 <h1 id="多线程">多线程</h1>
 <h2 id="睡眠">睡眠</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/alanlvee/p/5152936.html" class="uri">https://www.cnblogs.com/alanlvee/p/5152936.html</a></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;chrono&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;thread&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">//睡眠233ms</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for<span class="op">(</span><span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds<span class="op">(</span><span class="dv">233</span><span class="op">));</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;chrono&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;thread&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">//睡眠233ms</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds(<span class="dv">233</span>));</span></code></pre></div>
 <h1 id="正则表达式">正则表达式</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/philpanic9/article/details/88141305" class="uri">https://blog.csdn.net/philpanic9/article/details/88141305</a><br>
 文档：<a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/regex/basic_regex/" class="uri">http://www.cplusplus.com/reference/regex/basic_regex/</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span></code></pre></div>
 <p>REGular EXpression</p>
 <p>C++默认使用ECMAScript的正则表达式文法。<br>
 教程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cycxtz/p/4804115.html" class="uri">https://www.cnblogs.com/cycxtz/p/4804115.html</a></p>
 <h2 id="regex_match">regex_match</h2>
 <p>判断是否为格式为yyyy-mm-dd的日期</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> regex regex_date<span class="op">(</span><span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{4}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> validDate<span class="op">(</span><span class="at">const</span> string<span class="op">&amp;</span> s<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> regex_match<span class="op">(</span>s<span class="op">,</span> regex_date<span class="op">);</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> validDate<span class="op">(</span><span class="st">"2020-04-06"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> validDate<span class="op">(</span><span class="st">"202-04-06"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> validDate<span class="op">(</span><span class="st">"20204-06"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> validDate<span class="op">(</span><span class="st">"2020-04-06-"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> validDate<span class="op">(</span><span class="st">"2020-04-6"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="at">const</span> regex regex_date(<span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{4}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">"</span>);</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="dt">bool</span> validDate(<span class="at">const</span> string&amp; s) {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>        <span class="cf">return</span> regex_match(s, regex_date);</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>    cout &lt;&lt; validDate(<span class="st">"2020-04-06"</span>) &lt;&lt; endl;</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    cout &lt;&lt; validDate(<span class="st">"202-04-06"</span>) &lt;&lt; endl;</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    cout &lt;&lt; validDate(<span class="st">"20204-06"</span>) &lt;&lt; endl;</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    cout &lt;&lt; validDate(<span class="st">"2020-04-06-"</span>) &lt;&lt; endl;</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    cout &lt;&lt; validDate(<span class="st">"2020-04-6"</span>) &lt;&lt; endl;</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>1
 0
@@ -7056,39 +7056,39 @@ C++11中可以用to_string</p>
 0</code></pre>
 <h2 id="regex_search">regex_search</h2>
 <p>搜索出所有连续的数字。</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    regex e<span class="op">(</span><span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span><span class="op">);</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span> s<span class="op">[]</span> <span class="op">=</span> <span class="st">"(123, 456), (789, 452)"</span><span class="op">;</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    cmatch m<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">char</span><span class="op">*</span> now <span class="op">=</span> s<span class="op">;</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>regex_search<span class="op">(</span>now<span class="op">,</span> m<span class="op">,</span> e<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="kw">auto</span> x <span class="op">:</span> m<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> <span class="ch">' '</span><span class="op">;</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> endl <span class="op">&lt;&lt;</span> <span class="st">"position: "</span> <span class="op">&lt;&lt;</span> m<span class="op">.</span>position<span class="op">()</span> <span class="op">&lt;&lt;</span> endl <span class="op">&lt;&lt;</span>  <span class="st">"length: "</span> <span class="op">&lt;&lt;</span> m<span class="op">.</span>length<span class="op">()</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        now <span class="op">+=</span> m<span class="op">.</span>position<span class="op">()</span> <span class="op">+</span> m<span class="op">.</span>length<span class="op">();</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    string str<span class="op">(</span><span class="st">"(123, 456), (789, 452)"</span><span class="op">);</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    smatch sm<span class="op">;</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>regex_search<span class="op">(</span>str<span class="op">,</span> sm<span class="op">,</span> e<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="kw">auto</span> x <span class="op">:</span> sm<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>            cout <span class="op">&lt;&lt;</span> x <span class="op">&lt;&lt;</span> <span class="ch">' '</span><span class="op">;</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        str <span class="op">=</span> sm<span class="op">.</span>suffix<span class="op">().</span>str<span class="op">();</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    regex e(<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>);</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span> s[] = <span class="st">"(123, 456), (789, 452)"</span>;</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    cmatch m;</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span>* now = s;</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>    <span class="cf">while</span> (regex_search(now, m, e)) {</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="kw">auto</span> x : m) {</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>            cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>        }</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>        cout &lt;&lt; endl &lt;&lt; <span class="st">"position: "</span> &lt;&lt; m.position() &lt;&lt; endl &lt;&lt;  <span class="st">"length: "</span> &lt;&lt; m.length() &lt;&lt; endl;</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>        now += m.position() + m.length();</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a>    }</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>    cout &lt;&lt; endl;</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a>    string str(<span class="st">"(123, 456), (789, 452)"</span>);</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a>    smatch sm;</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a>    <span class="cf">while</span> (regex_search(str, sm, e)) {</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="kw">auto</span> x : sm) {</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true"></a>            cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true"></a>        }</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true"></a>        cout &lt;&lt; endl;</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a>        str = sm.suffix().str();</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true"></a>    }</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>123 
 position: 1
@@ -7108,19 +7108,19 @@ length: 3
 789 
 452</code></pre>
 <h2 id="regex_replace">regex_replace</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    string s<span class="op">(</span><span class="st">"abcdefgdd"</span><span class="op">);</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    regex e<span class="op">(</span><span class="st">"d"</span><span class="op">);</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> regex_replace<span class="op">(</span>s<span class="op">,</span> e<span class="op">,</span> <span class="st">"233"</span><span class="op">)</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    string s(<span class="st">"abcdefgdd"</span>);</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    regex e(<span class="st">"d"</span>);</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    cout &lt;&lt; regex_replace(s, e, <span class="st">"233"</span>) &lt;&lt; endl;</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>abc233efg233233</code></pre>
 </body></html>

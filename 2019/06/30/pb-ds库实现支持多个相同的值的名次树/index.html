@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,218 +7003,218 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>参考的大佬的博客的链接：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/onepointo/article/details/75083305" class="uri">https://blog.csdn.net/onepointo/article/details/75083305</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">//luogu_3369</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> LL<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>tree<span class="op">&lt;</span>LL<span class="op">,</span> <span class="dt">null_type</span><span class="op">,</span> less<span class="op">&lt;</span>LL<span class="op">&gt;,</span> rb_tree_tag<span class="op">,</span> tree_order_statistics_node_update<span class="op">&gt;</span> t<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>map<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span> ma<span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Insert<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    t<span class="op">.</span>insert<span class="op">(((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> <span class="op">++</span>ma<span class="op">[</span>v<span class="op">]);</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Delete<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> it <span class="op">=</span> ma<span class="op">.</span>find<span class="op">(</span>v<span class="op">);</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    t<span class="op">.</span>erase<span class="op">(((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> it<span class="op">-&gt;</span>second<span class="op">);</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>it<span class="op">-&gt;</span>second<span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span><span class="dv">0</span> <span class="op">==</span> it<span class="op">-&gt;</span>second<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        ma<span class="op">.</span>erase<span class="op">(</span>it<span class="op">);</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> RankOf<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t<span class="op">.</span>order_of_key<span class="op">((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindByRank<span class="op">(</span><span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*</span>t<span class="op">.</span>find_by_order<span class="op">(</span>r<span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">;</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindPre<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> it <span class="op">=</span> ma<span class="op">.</span>lower_bound<span class="op">(</span>v<span class="op">);</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>it<span class="op">;</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> it<span class="op">-&gt;</span>first<span class="op">;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindNext<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ma<span class="op">.</span>upper_bound<span class="op">(</span>v<span class="op">)-&gt;</span>first<span class="op">;</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>n<span class="op">);</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>n<span class="op">--)</span> <span class="op">{</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> op<span class="op">,</span> x<span class="op">;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>op<span class="op">,</span> <span class="op">&amp;</span>x<span class="op">);</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> <span class="op">(</span>op<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            Insert<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>            Delete<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> RankOf<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">4</span><span class="op">:</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindByRank<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">5</span><span class="op">:</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindPre<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">6</span><span class="op">:</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindNext<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">//luogu_3369</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> LL;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>tree&lt;LL, <span class="dt">null_type</span>, less&lt;LL&gt;, rb_tree_tag, tree_order_statistics_node_update&gt; t;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>map&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; ma;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="dt">void</span> Insert(<span class="dt">int</span> v) {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    t.insert(((LL)v &lt;&lt; <span class="dv">32</span>) + ++ma[v]);</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="dt">void</span> Delete(<span class="dt">int</span> v) {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    <span class="kw">auto</span> it = ma.find(v);</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    t.erase(((LL)v &lt;&lt; <span class="dv">32</span>) + it-&gt;second);</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>    --it-&gt;second;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    <span class="cf">if</span> (<span class="dv">0</span> == it-&gt;second) {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>        ma.erase(it);</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>    }</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a><span class="dt">int</span> RankOf(<span class="dt">int</span> v) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    <span class="cf">return</span> t.order_of_key((LL)v &lt;&lt; <span class="dv">32</span>) + <span class="dv">1</span>;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>}</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a><span class="dt">int</span> FindByRank(<span class="dt">int</span> r) {</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>    <span class="cf">return</span> *t.find_by_order(r-<span class="dv">1</span>) &gt;&gt; <span class="dv">32</span>;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>}</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a><span class="dt">int</span> FindPre(<span class="dt">int</span> v) {</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>    <span class="kw">auto</span> it = ma.lower_bound(v);</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>    --it;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>    <span class="cf">return</span> it-&gt;first;</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>}</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a><span class="dt">int</span> FindNext(<span class="dt">int</span> v) {</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>    <span class="cf">return</span> ma.upper_bound(v)-&gt;first;</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>}</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>    <span class="dt">int</span> n;</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;n);</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>    <span class="cf">while</span> (n--) {</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>        <span class="dt">int</span> op, x;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;op, &amp;x);</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>        <span class="cf">switch</span> (op) {</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">1</span>:</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>            Insert(x);</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">2</span>:</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a>            Delete(x);</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">3</span>:</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, RankOf(x));</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">4</span>:</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindByRank(x));</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">5</span>:</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindPre(x));</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">6</span>:</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindNext(x));</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a>        }</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a>    }</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>}</span></code></pre></div>
 <p>注意如果less&lt;LL&gt;不小心写成了less&lt;int&gt;，编译器不会报错，但是答案是错的。</p>
 <p>另一种不用map来求前驱和后继的比较和谐的方法：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">//luogu_3369</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds<span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> LL<span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>tree<span class="op">&lt;</span>LL<span class="op">,</span> <span class="dt">null_type</span><span class="op">,</span> less<span class="op">&lt;</span>LL<span class="op">&gt;,</span> rb_tree_tag<span class="op">,</span> tree_order_statistics_node_update<span class="op">&gt;</span> t<span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>map<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span> ma<span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Insert<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    t<span class="op">.</span>insert<span class="op">(((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> <span class="op">++</span>ma<span class="op">[</span>v<span class="op">]);</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Delete<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    t<span class="op">.</span>erase<span class="op">(((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> ma<span class="op">[</span>v<span class="op">]--);</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> RankOf<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t<span class="op">.</span>order_of_key<span class="op">((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindByRank<span class="op">(</span><span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*</span>t<span class="op">.</span>find_by_order<span class="op">(</span>r<span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">;</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindPre<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> it <span class="op">=</span> t<span class="op">.</span>lower_bound<span class="op">((</span>LL<span class="op">)</span>v <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">);</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>it<span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*</span>it <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> FindNext<span class="op">(</span><span class="dt">int</span> v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">*</span>t<span class="op">.</span>lower_bound<span class="op">((</span>LL<span class="op">)(</span>v<span class="op">+</span><span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">)</span> <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">;</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>n<span class="op">);</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>n<span class="op">--)</span> <span class="op">{</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> op<span class="op">,</span> x<span class="op">;</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>op<span class="op">,</span> <span class="op">&amp;</span>x<span class="op">);</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> <span class="op">(</span>op<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            Insert<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            Delete<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> RankOf<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">4</span><span class="op">:</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindByRank<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">5</span><span class="op">:</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindPre<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">6</span><span class="op">:</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> FindNext<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">//luogu_3369</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> LL;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>tree&lt;LL, <span class="dt">null_type</span>, less&lt;LL&gt;, rb_tree_tag, tree_order_statistics_node_update&gt; t;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>map&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; ma;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="dt">void</span> Insert(<span class="dt">int</span> v) {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    t.insert(((LL)v &lt;&lt; <span class="dv">32</span>) + ++ma[v]);</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="dt">void</span> Delete(<span class="dt">int</span> v) {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    t.erase(((LL)v &lt;&lt; <span class="dv">32</span>) + ma[v]--);</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a><span class="dt">int</span> RankOf(<span class="dt">int</span> v) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>    <span class="cf">return</span> t.order_of_key((LL)v &lt;&lt; <span class="dv">32</span>) + <span class="dv">1</span>;</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>}</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a><span class="dt">int</span> FindByRank(<span class="dt">int</span> r) {</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>    <span class="cf">return</span> *t.find_by_order(r-<span class="dv">1</span>) &gt;&gt; <span class="dv">32</span>;</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>}</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a><span class="dt">int</span> FindPre(<span class="dt">int</span> v) {</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>    <span class="kw">auto</span> it = t.lower_bound((LL)v &lt;&lt; <span class="dv">32</span>);</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>    --it;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>    <span class="cf">return</span> *it &gt;&gt; <span class="dv">32</span>;</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>}</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a><span class="dt">int</span> FindNext(<span class="dt">int</span> v) {</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>    <span class="cf">return</span> *t.lower_bound((LL)(v+<span class="dv">1</span>) &lt;&lt; <span class="dv">32</span>) &gt;&gt; <span class="dv">32</span>;</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>}</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>    <span class="dt">int</span> n;</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;n);</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>    <span class="cf">while</span> (n--) {</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>        <span class="dt">int</span> op, x;</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;op, &amp;x);</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>        <span class="cf">switch</span> (op) {</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">1</span>:</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>            Insert(x);</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">2</span>:</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>            Delete(x);</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">3</span>:</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, RankOf(x));</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">4</span>:</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindByRank(x));</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">5</span>:</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindPre(x));</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">6</span>:</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, FindNext(x));</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true"></a>        }</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true"></a>    }</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true"></a>}</span></code></pre></div>
 <p>封装版：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">//luogu_3369</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">,</span> <span class="kw">typename</span> less<span class="op">&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Cmp_MultiSet <span class="op">{</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> <span class="kw">operator</span> <span class="op">()</span> <span class="op">(</span><span class="at">const</span> pair<span class="op">&lt;</span>T<span class="op">,</span> <span class="dt">size_t</span><span class="op">&gt;&amp;</span> x<span class="op">,</span> <span class="at">const</span> pair<span class="op">&lt;</span>T<span class="op">,</span> <span class="dt">size_t</span><span class="op">&gt;&amp;</span> y<span class="op">)</span> <span class="at">const</span> <span class="op">{</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> less<span class="op">()(</span>x<span class="op">.</span>first<span class="op">,</span> y<span class="op">.</span>first<span class="op">)</span> <span class="op">?</span> <span class="kw">true</span> <span class="op">:</span> <span class="op">(</span>less<span class="op">()(</span>y<span class="op">.</span>first<span class="op">,</span> x<span class="op">.</span>first<span class="op">)</span> <span class="op">?</span> <span class="kw">false</span> <span class="op">:</span> less<span class="op">()(</span>x<span class="op">.</span>second<span class="op">,</span> y<span class="op">.</span>second<span class="op">));</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">,</span> <span class="kw">typename</span> less<span class="op">&gt;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MultiSet <span class="op">{</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    tree<span class="op">&lt;</span>pair<span class="op">&lt;</span>T<span class="op">,</span> <span class="dt">size_t</span><span class="op">&gt;,</span> <span class="dt">null_type</span><span class="op">,</span> Cmp_MultiSet<span class="op">&lt;</span>T<span class="op">,</span> less<span class="op">&gt;,</span> rb_tree_tag<span class="op">,</span> tree_order_statistics_node_update<span class="op">&gt;</span> t<span class="op">;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    map<span class="op">&lt;</span>T<span class="op">,</span> <span class="dt">size_t</span><span class="op">&gt;</span> ma<span class="op">;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Insert<span class="op">(</span>T v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        t<span class="op">.</span>insert<span class="op">(</span>make_pair<span class="op">(</span>v<span class="op">,</span> <span class="op">++</span>ma<span class="op">[</span>v<span class="op">]));</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> Delete<span class="op">(</span>T v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        t<span class="op">.</span>erase<span class="op">(</span>make_pair<span class="op">(</span>v<span class="op">,</span> ma<span class="op">[</span>v<span class="op">]--));</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> RankOf<span class="op">(</span>T v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> t<span class="op">.</span>order_of_key<span class="op">(</span>make_pair<span class="op">(</span>v<span class="op">,</span> <span class="dv">0</span><span class="op">))</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    T FindByRank<span class="op">(</span><span class="dt">size_t</span> r<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> t<span class="op">.</span>find_by_order<span class="op">(</span>r<span class="op">-</span><span class="dv">1</span><span class="op">)-&gt;</span>first<span class="op">;</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    T FindPre<span class="op">(</span>T v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> it <span class="op">=</span> t<span class="op">.</span>lower_bound<span class="op">(</span>make_pair<span class="op">(</span>v<span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">(--</span>it<span class="op">)-&gt;</span>first<span class="op">;</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    T FindNext<span class="op">(</span>T v<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> t<span class="op">.</span>lower_bound<span class="op">(</span>make_pair<span class="op">(</span>v<span class="op">+</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">))-&gt;</span>first<span class="op">;</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    MultiSet<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> less<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">&gt;</span> se<span class="op">;</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>n<span class="op">);</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>n<span class="op">--)</span> <span class="op">{</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> op<span class="op">,</span> x<span class="op">;</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>op<span class="op">,</span> <span class="op">&amp;</span>x<span class="op">);</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> <span class="op">(</span>op<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>            se<span class="op">.</span>Insert<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">2</span><span class="op">:</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>            se<span class="op">.</span>Delete<span class="op">(</span>x<span class="op">);</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">3</span><span class="op">:</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%lu\n</span><span class="st">"</span><span class="op">,</span> se<span class="op">.</span>RankOf<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">4</span><span class="op">:</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> se<span class="op">.</span>FindByRank<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">5</span><span class="op">:</span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> se<span class="op">.</span>FindPre<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> <span class="dv">6</span><span class="op">:</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> se<span class="op">.</span>FindNext<span class="op">(</span>x<span class="op">));</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">//luogu_3369</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> T, <span class="kw">typename</span> less&gt;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">struct</span> Cmp_MultiSet {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span> () (<span class="at">const</span> pair&lt;T, <span class="dt">size_t</span>&gt;&amp; x, <span class="at">const</span> pair&lt;T, <span class="dt">size_t</span>&gt;&amp; y) <span class="at">const</span> {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        <span class="cf">return</span> less()(x.first, y.first) ? <span class="kw">true</span> : (less()(y.first, x.first) ? <span class="kw">false</span> : less()(x.second, y.second));</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>};</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> T, <span class="kw">typename</span> less&gt;</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a><span class="kw">struct</span> MultiSet {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>    tree&lt;pair&lt;T, <span class="dt">size_t</span>&gt;, <span class="dt">null_type</span>, Cmp_MultiSet&lt;T, less&gt;, rb_tree_tag, tree_order_statistics_node_update&gt; t;</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>    map&lt;T, <span class="dt">size_t</span>&gt; ma;</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    <span class="dt">void</span> Insert(T v) {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>        t.insert(make_pair(v, ++ma[v]));</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>    }</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>    <span class="dt">void</span> Delete(T v) {</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>        t.erase(make_pair(v, ma[v]--));</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    }</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>    <span class="dt">size_t</span> RankOf(T v) {</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>        <span class="cf">return</span> t.order_of_key(make_pair(v, <span class="dv">0</span>)) + <span class="dv">1</span>;</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    }</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    T FindByRank(<span class="dt">size_t</span> r) {</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>        <span class="cf">return</span> t.find_by_order(r-<span class="dv">1</span>)-&gt;first;</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>    }</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>    T FindPre(T v) {</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>        <span class="kw">auto</span> it = t.lower_bound(make_pair(v, <span class="dv">0</span>));</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>        <span class="cf">return</span> (--it)-&gt;first;</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>    }</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>    T FindNext(T v) {</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>        <span class="cf">return</span> t.lower_bound(make_pair(v+<span class="dv">1</span>, <span class="dv">0</span>))-&gt;first;</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a>    }</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>};</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>    MultiSet&lt;<span class="dt">int</span>, less&lt;<span class="dt">int</span>&gt; &gt; se;</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a>    <span class="dt">int</span> n;</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;n);</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>    <span class="cf">while</span> (n--) {</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>        <span class="dt">int</span> op, x;</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;op, &amp;x);</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>        <span class="cf">switch</span> (op) {</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">1</span>:</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a>            se.Insert(x);</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">2</span>:</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>            se.Delete(x);</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">3</span>:</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%lu\n</span><span class="st">"</span>, se.RankOf(x));</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">4</span>:</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, se.FindByRank(x));</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">5</span>:</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, se.FindPre(x));</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a>        <span class="cf">case</span> <span class="dv">6</span>:</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, se.FindNext(x));</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>        }</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a>    }</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 

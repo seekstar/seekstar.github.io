@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7008,56 +7008,55 @@ var _hmt = _hmt || [];
 参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38228254/article/details/88374713" class="uri">https://blog.csdn.net/qq_38228254/article/details/88374713</a><br>
 decimal(a,b)<br>
  a指定小数点左边和右边可以存储的十进制数字的最大个数，最大精度38。<br>
- b指定小数点右边可以存储的十进制数字的最大个数。小数位数必须是从 0 到
-a之间的值。默认小数位数是 0。<br>
+ b指定小数点右边可以存储的十进制数字的最大个数。小数位数必须是从 0 到 a之间的值。默认小数位数是 0。<br>
 例如decimal(3, 2)能表示的最大的数是9.99。</p>
 <h2 id="复制表">复制表</h2>
 <p><a target="_blank" rel="noopener" href="https://www.xp.cn/b.php/79415.html" class="uri">https://www.xp.cn/b.php/79415.html</a><br>
 复制表结构及数据到新表</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> NewTable</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> OldTable;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> NewTable</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> OldTable;</span></code></pre></div>
 <h1 id="dcl">DCL</h1>
 <h2 id="允许普通用户以root身份登录">允许普通用户以root身份登录</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04" class="uri">https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> mysql.<span class="fu">user</span> <span class="kw">SET</span> plugin <span class="op">=</span> <span class="st">'mysql_native_password'</span>, <span class="kw">Password</span> <span class="op">=</span> <span class="kw">PASSWORD</span>(<span class="st">'secret'</span>) <span class="kw">WHERE</span> <span class="fu">User</span> <span class="op">=</span> <span class="st">'root'</span>;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">UPDATE</span> mysql.<span class="fu">user</span> <span class="kw">SET</span> plugin <span class="op">=</span> <span class="st">'mysql_native_password'</span>, <span class="kw">Password</span> <span class="op">=</span> <span class="kw">PASSWORD</span>(<span class="st">'secret'</span>) <span class="kw">WHERE</span> <span class="fu">User</span> <span class="op">=</span> <span class="st">'root'</span>;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span></code></pre></div>
 <h1 id="dml">DML</h1>
 <h2 id="select语句中各成分顺序">SELECT语句中各成分顺序</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41512727/article/details/80697331" class="uri">https://blog.csdn.net/weixin_41512727/article/details/80697331</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> # 默认升序。DESC表降序</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> # 要检索的行的范围</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">SELECT</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">FROM</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">WHERE</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="kw">HAVING</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="kw">ORDER</span> <span class="kw">BY</span> # 默认升序。DESC表降序</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="kw">LIMIT</span> # 要检索的行的范围</span></code></pre></div>
 <p>例子</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(salary), dno</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> employee</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> address <span class="kw">LIKE</span> <span class="ot">"%广州%"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> dno</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">SUM</span>(salary) <span class="op">&gt;</span> <span class="dv">23000</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">SUM</span>(salary) <span class="kw">DESC</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="fu">SUM</span>(salary), dno</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">FROM</span> employee</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="kw">WHERE</span> address <span class="kw">LIKE</span> <span class="ot">"%广州%"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="kw">GROUP</span> <span class="kw">BY</span> dno</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="kw">HAVING</span> <span class="fu">SUM</span>(salary) <span class="op">&gt;</span> <span class="dv">23000</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">SUM</span>(salary) <span class="kw">DESC</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="kw">LIMIT</span> <span class="dv">1</span>, <span class="dv">2</span>;</span></code></pre></div>
 <p>表示广州的员工总工资大于23000元的部门中，按总工资倒序排序，从1号记录（第2条）开始取出两条记录。</p>
 <h2 id="查看有哪些数据库">查看有哪些数据库</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>show databases;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>show databases;</span></code></pre></div>
 <h2 id="查看当前数据库有哪些表">查看当前数据库有哪些表</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>show <span class="kw">tables</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>show <span class="kw">tables</span>;</span></code></pre></div>
 <h2 id="查看某数据库有哪些表">查看某数据库有哪些表</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> table_name <span class="kw">from</span> information_schema.<span class="kw">tables</span> <span class="kw">where</span> table_schema<span class="op">=</span><span class="ot">"DatabaseName"</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">select</span> table_name <span class="kw">from</span> information_schema.<span class="kw">tables</span> <span class="kw">where</span> table_schema<span class="op">=</span><span class="ot">"DatabaseName"</span>;</span></code></pre></div>
 <h2 id="取前几条数据">取前几条数据</h2>
 <p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/323511112.html" class="uri">https://zhidao.baidu.com/question/323511112.html</a><br>
 取前10条数据</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> TableName <span class="kw">limit</span> <span class="dv">0</span>, <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> TableName <span class="kw">limit</span> <span class="dv">0</span>, <span class="dv">10</span>;</span></code></pre></div>
 <p>其中0是偏移量。</p>
 <h2 id="重命名表">重命名表</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangxm/p/5736386.html" class="uri">https://www.cnblogs.com/huangxm/p/5736386.html</a></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">rename</span> <span class="kw">table</span> OldName <span class="kw">to</span> NewName;</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">rename</span> <span class="kw">table</span> OldName <span class="kw">to</span> NewName;</span></code></pre></div>
 <h2 id="导入数据">导入数据</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012318074/article/details/77478601" class="uri">https://blog.csdn.net/u012318074/article/details/77478601</a><br>
 查看帮助</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>help load <span class="kw">data</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>help load <span class="kw">data</span></span></code></pre></div>
 <pre><code>LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
     [REPLACE | IGNORE]
     INTO TABLE tbl_name
@@ -7075,10 +7074,10 @@ a之间的值。默认小数位数是 0。<br>
     [(col_name_or_user_var,...)]
     [SET col_name = expr,...]</code></pre>
 <p>例如</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>load <span class="kw">data</span> <span class="kw">local</span> infile <span class="st">'data.csv'</span> <span class="kw">into</span> <span class="kw">table</span> employee fields terminated <span class="kw">by</span> <span class="st">';'</span> OPTIONALLY ENCLOSED <span class="kw">BY</span> <span class="st">'"'</span> ignore <span class="dv">1</span> lines;</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>load <span class="kw">data</span> <span class="kw">local</span> infile <span class="st">'data.csv'</span> <span class="kw">into</span> <span class="kw">table</span> employee fields terminated <span class="kw">by</span> <span class="st">';'</span> OPTIONALLY ENCLOSED <span class="kw">BY</span> <span class="st">'"'</span> ignore <span class="dv">1</span> lines;</span></code></pre></div>
 <h2 id="修改密码">修改密码</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/3ea514893a2c6212e71bba02.html" class="uri">https://jingyan.baidu.com/article/3ea514893a2c6212e71bba02.html</a></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> <span class="fu">user</span> <span class="kw">set</span> <span class="kw">password</span> <span class="op">=</span> <span class="kw">password</span>(<span class="st">'你的新密码'</span>) <span class="kw">where</span> <span class="fu">user</span> <span class="op">=</span> <span class="st">'root'</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">update</span> <span class="fu">user</span> <span class="kw">set</span> <span class="kw">password</span> <span class="op">=</span> <span class="kw">password</span>(<span class="st">'你的新密码'</span>) <span class="kw">where</span> <span class="fu">user</span> <span class="op">=</span> <span class="st">'root'</span>;</span></code></pre></div>
 </body></html>
 </div>
 

@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7005,66 +7005,65 @@ var _hmt = _hmt || [];
 <p>先介绍O(n^2)的做法（536ms）<br>
 显然棍子的重量与拿棍子是无关的。因此我们可以定义与重量无关的状态。<br>
 设类2棍子的总个数为m，f[i][j]为有i根类1棍子和j根类2棍子没拿时，把所有棍子都拿一遍，拿类2棍子的期望总次数。<br>
-f[i][j] = i / (i + m) f[i-1][j] + j / (i + m) f(i, j-1) + (m-j) / (i+m)
-f[i][j] + m / (i + m)</p>
+f[i][j] = i / (i + m) f[i-1][j] + j / (i + m) f(i, j-1) + (m-j) / (i+m) f[i][j] + m / (i + m)</p>
 <p>f[i][j] = (i f[i-1][j] + j f[i][j-1] + m) / (i + j)</p>
 <p>注意i = 0, j = 0时直接continue掉。</p>
 <p>由于拿棍子与重量无关，所以重量可以随便赋值到这些棍子。把这些重量的组合加起来平均一下就是期望了（严格证明我也不会）</p>
 <p>假如类1棍子共n根，则最后答案是类1棍子的重量之和加上<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="10.861ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 4800.4 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(550,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(828,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1428,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(1706,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mi" transform="translate(1984,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2862,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(3362.2,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4084.4,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mo" transform="translate(441.3,4) translate(-250 0)"><path data-c="AF" d="M69 544V590H430V544H69Z"></path></g></g></g></g></g></svg></mjx-container></span>，<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex" xmlns="http://www.w3.org/2000/svg" width="1.62ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 716 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mo" transform="translate(441.3,4) translate(-250 0)"><path data-c="AF" d="M69 544V590H430V544H69Z"></path></g></g></g></g></g></svg></mjx-container></span>是类2的重量的平均值。</p>
 <p>代码：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DEBUG </span><span class="dv">0</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MAXN </span><span class="dv">5011</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> T<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">static</span> <span class="dt">double</span> base<span class="op">[</span><span class="dv">2</span><span class="op">][</span>MAXN<span class="op">];</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>T<span class="op">);</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> Ti <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> Ti <span class="op">&lt;=</span> T<span class="op">;</span> <span class="op">++</span>Ti<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> t<span class="op">;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>t<span class="op">);</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> m <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">double</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> b <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>t<span class="op">--)</span> <span class="op">{</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> type<span class="op">,</span> a<span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">,</span> <span class="op">&amp;</span>type<span class="op">);</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span><span class="dv">1</span> <span class="op">==</span> type<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                <span class="op">++</span>n<span class="op">;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                sum <span class="op">+=</span> a<span class="op">;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                b <span class="op">+=</span> a<span class="op">;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                <span class="op">++</span>m<span class="op">;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>m<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            <span class="dt">double</span> <span class="op">*</span>f <span class="op">=</span> base<span class="op">[</span><span class="dv">0</span><span class="op">],</span> <span class="op">*</span>g <span class="op">=</span> base<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;=</span> m<span class="op">;</span> <span class="op">++</span>j<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                    g<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> <span class="op">(</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                        g<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> f<span class="op">[</span>j<span class="op">]</span> <span class="op">*</span> i<span class="op">;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(!</span>j<span class="op">)</span> <span class="cf">continue</span><span class="op">;</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> <span class="op">(</span>j<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                        g<span class="op">[</span>j<span class="op">]</span> <span class="op">+=</span> g<span class="op">[</span>j<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">*</span> j<span class="op">;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                    g<span class="op">[</span>j<span class="op">]</span> <span class="op">+=</span> m<span class="op">;</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                    g<span class="op">[</span>j<span class="op">]</span> <span class="op">/=</span> <span class="op">(</span>i <span class="op">+</span> j<span class="op">);</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                swap<span class="op">(</span>f<span class="op">,</span> g<span class="op">);</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>            b <span class="op">/=</span> m<span class="op">;</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>            sum <span class="op">+=</span> f<span class="op">[</span>m<span class="op">]</span> <span class="op">*</span> b<span class="op">;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Case </span><span class="sc">%d</span><span class="st">: </span><span class="sc">%.10f\n</span><span class="st">"</span><span class="op">,</span> Ti<span class="op">,</span> sum<span class="op">);</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="pp">#define DEBUG </span><span class="dv">0</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="pp">#define MAXN </span><span class="dv">5011</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="dt">int</span> T;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="at">static</span> <span class="dt">double</span> base[<span class="dv">2</span>][MAXN];</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;T);</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>        <span class="dt">int</span> t;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;t);</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>        <span class="dt">int</span> n = <span class="dv">0</span>, m = <span class="dv">0</span>;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>        <span class="dt">double</span> sum = <span class="dv">0</span>, b = <span class="dv">0</span>;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>        <span class="cf">while</span> (t--) {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>            <span class="dt">int</span> type, a;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>            scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;a, &amp;type);</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>            <span class="cf">if</span> (<span class="dv">1</span> == type) {</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>                ++n;</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>                sum += a;</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>            } <span class="cf">else</span> {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>                b += a;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>                ++m;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a>            }</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>        }</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>        <span class="cf">if</span> (m) {</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>            <span class="dt">double</span> *f = base[<span class="dv">0</span>], *g = base[<span class="dv">1</span>];</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>            <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt;= n; ++i) {</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a>                <span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">0</span>; j &lt;= m; ++j) {</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a>                    g[j] = <span class="dv">0</span>;</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a>                    <span class="cf">if</span> (i) {</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a>                        g[j] = f[j] * i;</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>                    } <span class="cf">else</span> <span class="cf">if</span> (!j) <span class="cf">continue</span>;</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>                    <span class="cf">if</span> (j) {</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>                        g[j] += g[j-<span class="dv">1</span>] * j;</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>                    }</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>                    g[j] += m;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>                    g[j] /= (i + j);</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>                }</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>                swap(f, g);</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>            }</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a>            b /= m;</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a>            sum += f[m] * b;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>        }</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>        printf(<span class="st">"Case </span><span class="sc">%d</span><span class="st">: </span><span class="sc">%.10f\n</span><span class="st">"</span>, Ti, sum);</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>    }</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a>}</span></code></pre></div>
 <p>上网看了一下题解，发现还有线性做法。</p>
 <p>我们先解决这样一个问题：从n根棍子里随便拿，拿出来后放回，每根棍子期望拿几回后，每根棍子都被拿出过。</p>
 <p>假设所求的是g[n]，总的拿出来的次数是f[n]。拿出第一根后，还有n-1根没有拿。去拿这n-1根中的一根的概率是(n-1)/n，所以<br>
@@ -7073,39 +7072,39 @@ f[n] = 1 + f[n-1] * n / (n-1)</p>
 <p>所以g[n] = g[n-1] + 1 / n</p>
 <p>现在回到原问题。我们可以假设类1的棍子也是要放回的，但是除了第一次拿起要统计重量外，其他都不统计重量。假设棍子总数量为n，那么每根类2棍子期望拿起的次数都为g[n]。所以最终答案为类1棍子的重量和+类2棍子的重量和*g[n]</p>
 <p>代码：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MAXN </span><span class="dv">5011</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> T<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">static</span> <span class="dt">double</span> h<span class="op">[</span>MAXN<span class="op">];</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    h<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> MAXN<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        h<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> h<span class="op">[</span>i<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1.0</span> <span class="op">/</span> i<span class="op">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>T<span class="op">);</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> Ti <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> Ti <span class="op">&lt;=</span> T<span class="op">;</span> <span class="op">++</span>Ti<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> n<span class="op">;</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>n<span class="op">);</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">double</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> a<span class="op">,</span> b<span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>a<span class="op">,</span> <span class="op">&amp;</span>b<span class="op">);</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span><span class="dv">1</span> <span class="op">==</span> b<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                sum <span class="op">+=</span> a<span class="op">;</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                sum <span class="op">+=</span> h<span class="op">[</span>n<span class="op">]</span> <span class="op">*</span> a<span class="op">;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Case </span><span class="sc">%d</span><span class="st">: </span><span class="sc">%.5f\n</span><span class="st">"</span><span class="op">,</span> Ti<span class="op">,</span> sum<span class="op">);</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">#define MAXN </span><span class="dv">5011</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="dt">int</span> T;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="at">static</span> <span class="dt">double</span> h[MAXN];</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    h[<span class="dv">0</span>] = <span class="dv">0</span>;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; MAXN; ++i) {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>        h[i] = h[i-<span class="dv">1</span>] + <span class="fl">1.0</span> / i;</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;T);</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>        <span class="dt">int</span> n;</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;n);</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>        <span class="dt">double</span> sum = <span class="dv">0</span>;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>            <span class="dt">int</span> a, b;</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>            scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;a, &amp;b);</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>            <span class="cf">if</span> (<span class="dv">1</span> == b) {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>                sum += a;</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>            } <span class="cf">else</span> {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>                sum += h[n] * a;</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>            }</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>        }</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>        printf(<span class="st">"Case </span><span class="sc">%d</span><span class="st">: </span><span class="sc">%.5f\n</span><span class="st">"</span>, Ti, sum);</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>    }</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 

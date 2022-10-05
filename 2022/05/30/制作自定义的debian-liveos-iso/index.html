@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7115,8 +7115,7 @@ set prefix=($root)/boot/grub/
 configfile /boot/grub/grub.cfg
 EOF</code></pre>
 <pre class="shell"><code>touch staging/DEBIAN_CUSTOM</code></pre>
-<p><code>DEBIAN_CUSTOM</code>的功能是帮助<code>GRUB</code>查找哪个设备包含了我们的live
-filesystem。因此其名字要全局唯一。</p>
+<p><code>DEBIAN_CUSTOM</code>的功能是帮助<code>GRUB</code>查找哪个设备包含了我们的live filesystem。因此其名字要全局唯一。</p>
 <h2 id="boot-loader-files">Boot Loader Files</h2>
 <p>这里直接把宿主机上的文件拷贝过来：</p>
 <pre class="shell"><code>cp /usr/lib/ISOLINUX/isohdpfx.bin tmp/
@@ -7170,8 +7169,7 @@ cd -</code></pre>
 <h3 id="no-loop-devices-available">No loop devices available</h3>
 <p>检查内核的配置文件里<code>CONFIG_BLK_DEV_LOOP_MIN_COUNT</code>的值。如果是0的话，即使<code>modprobe loop</code>了，<code>ls /dev/loop0</code>仍然不存在。</p>
 <p>Debian生成的initramfs好像要求这个值不能是0。Torvalds内核的默认配置里这个值是8，但是CentOS的内核配置里这个值是0。因此如果发现这个值是0（比如这个内核来自CentOS），那只能把这个值改成非0然后重新编译了。编译安装Linux内核教程：<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/" title="编译安装linux内核">编译安装linux内核</a></p>
-<h3 id="fb0-switching-to-amdgpudrmfb-from-efi-vga">fb0: switching to
-amdgpudrmfb from EFI VGA</h3>
+<h3 id="fb0-switching-to-amdgpudrmfb-from-efi-vga">fb0: switching to amdgpudrmfb from EFI VGA</h3>
 <p>使用nomodeset模式即可。intel的机器没有这个问题。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://forum.level1techs.com/t/fb0-switching-to-amdgpudrmfb-from-efi-vga/152112" class="uri">https://forum.level1techs.com/t/fb0-switching-to-amdgpudrmfb-from-efi-vga/152112</a></p>
 <p><code>nomodeset</code>的作用：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/207175/what-does-nomodeset-do" class="uri">https://askubuntu.com/questions/207175/what-does-nomodeset-do</a></p>

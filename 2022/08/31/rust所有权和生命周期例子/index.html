@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,25 +7003,25 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><h2 id="返回的不可变引用的lifetime">返回的不可变引用的lifetime</h2>
 <p>比方说，我们在函数<code>f</code>里创建一个结构体<code>aa: A</code>来存引用<code>a: &amp;i32</code>，但是之后我们又想把这个引用返回出去：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">i32</span><span class="op">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> f(a<span class="op">:</span> <span class="op">&amp;</span><span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> aa <span class="op">=</span> A <span class="op">{</span> a<span class="op">:</span> <span class="op">&amp;</span>a <span class="op">};</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    aa<span class="op">.</span>a()</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> f(<span class="op">&amp;</span>a))<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">i32</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="kw">fn</span> f(a<span class="op">:</span> <span class="op">&amp;</span><span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="kw">let</span> aa <span class="op">=</span> A <span class="op">{</span> a<span class="op">:</span> <span class="op">&amp;</span>a <span class="op">};</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    aa<span class="op">.</span>a()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="kw">let</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> f(<span class="op">&amp;</span>a))<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>这份代码是编译不过的：</p>
 <pre class="text"><code>error[E0515]: cannot return reference to local variable `aa`
   --&gt; life_time.rs:13:5
@@ -7034,54 +7034,54 @@ error: aborting due to previous error
 For more information about this error, try `rustc --explain E0515`.</code></pre>
 <p>根据lifetime elision的原则：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/reference/lifetime-elision.html#lifetime-elision" class="uri">https://doc.rust-lang.org/reference/lifetime-elision.html#lifetime-elision</a></p>
 <p><code>A::a()</code>实际上被编译器认为是这样：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="ot">'b</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'b</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="ot">'b</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'b</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>也就是说编译器认为返回的引用是对整个<code>struct A</code>的引用。因此我们只需要指定返回的引用的lifetime是<code>'a</code>即可：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>struct A&lt;'a&gt; {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    a: &amp;'a i32,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>impl&lt;'a&gt; A&lt;'a&gt; {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">-    fn a(&amp;self) -&gt; &amp;i32 {</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="va">+    fn a(&amp;self) -&gt; &amp;'a i32 {</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        self.a</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>fn f(a: &amp;i32) -&gt; &amp;i32 {</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    let aa = A { a: &amp;a };</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    aa.a()</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>fn main() {</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    let a = 233i32;</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    println!("{}", f(&amp;a));</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>struct A&lt;'a&gt; {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    a: &amp;'a i32,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>impl&lt;'a&gt; A&lt;'a&gt; {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="st">-    fn a(&amp;self) -&gt; &amp;i32 {</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="va">+    fn a(&amp;self) -&gt; &amp;'a i32 {</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>        self.a</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>}</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>fn f(a: &amp;i32) -&gt; &amp;i32 {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>    let aa = A { a: &amp;a };</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>    aa.a()</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>}</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>fn main() {</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>    let a = 233i32;</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>    println!("{}", f(&amp;a));</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="返回临时变量里存储的可变引用">返回临时变量里存储的可变引用</h2>
 <p>比方说，我们在函数<code>f</code>里创建一个结构体<code>aa: A</code>来存引用<code>a: &amp;mut i32</code>，但是之后我们又想把这个可变引用返回出去：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span><span class="op">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> f(a<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> aa <span class="op">=</span> A <span class="op">{</span> a <span class="op">};</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    aa<span class="op">.</span>a()</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>f(<span class="op">&amp;</span><span class="kw">mut</span> a) <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> a)<span class="op">;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="kw">fn</span> a(<span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>a</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="kw">fn</span> f(a<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> aa <span class="op">=</span> A <span class="op">{</span> a <span class="op">};</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    aa<span class="op">.</span>a()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>    <span class="op">*</span>f(<span class="op">&amp;</span><span class="kw">mut</span> a) <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>这次我们指定了返回值的lifetime。但是仍然有编译报错：</p>
 <pre class="text"><code>error[E0515]: cannot return reference to local variable `aa`
   --&gt; lifetime_mut.rs:13:5
@@ -7094,43 +7094,43 @@ error: aborting due to previous error
 For more information about this error, try `rustc --explain E0515`.</code></pre>
 <p>这是因为上一个例子中的不可变引用是<code>Copy</code>的，因此作为不可变引用，<code>self.a</code>是复制一份返回出去，不构成对<code>self</code>的借用。但是由于同一个对象只允许有一个有效的可变引用，因此可变引用不是<code>Copy</code>的。因此在此例中，作为可变引用，<code>self.a</code>要么是<code>move</code>，要么是对<code>self</code>的可变借用，这样才能保证可变引用的唯一性。而这里<code>self</code>也是引用，因此<code>self.a</code>就借用了<code>self</code>，也就是报错信息里说的返回值借用了临时值。</p>
 <p>因此如果要将<code>self.a</code>返回出去，需要在<code>A::a()</code>中将<code>self</code>给consume：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>struct A&lt;'a&gt; {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    a: &amp;'a mut i32,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>impl&lt;'a&gt; A&lt;'a&gt; {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">-    fn a(&amp;'a mut self) -&gt; &amp;'a mut i32 {</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">+    fn a(self) -&gt; &amp;'a mut i32 {</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        self.a</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fn f(a: &amp;mut i32) -&gt; &amp;mut i32 {</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">-    let mut aa = A { a };</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="va">+    let aa = A { a };</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    aa.a()</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>fn main() {</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    let mut a = 233i32;</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    *f(&amp;mut a) = 2333;</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    println!("{}", a);</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>struct A&lt;'a&gt; {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    a: &amp;'a mut i32,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>}</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>impl&lt;'a&gt; A&lt;'a&gt; {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="st">-    fn a(&amp;'a mut self) -&gt; &amp;'a mut i32 {</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="va">+    fn a(self) -&gt; &amp;'a mut i32 {</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>        self.a</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    }</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>}</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>fn f(a: &amp;mut i32) -&gt; &amp;mut i32 {</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span class="st">-    let mut aa = A { a };</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="va">+    let aa = A { a };</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    aa.a()</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>}</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>fn main() {</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>    let mut a = 233i32;</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>    *f(&amp;mut a) = 2333;</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a>    println!("{}", a);</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a>}</span></code></pre></div>
 <p>另一个例子：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span><span class="op">,</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> f<span class="op">&lt;</span><span class="ot">'a</span><span class="op">,</span> <span class="ot">'b</span><span class="op">&gt;</span>(aa<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'b</span> <span class="kw">mut</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    aa<span class="op">.</span>a</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> aa <span class="op">=</span> A <span class="op">{</span> a<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> a <span class="op">};</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>f(<span class="op">&amp;</span><span class="kw">mut</span> aa) <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> a)<span class="op">;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">struct</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    a<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span><span class="op">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">fn</span> f<span class="op">&lt;</span><span class="ot">'a</span><span class="op">,</span> <span class="ot">'b</span><span class="op">&gt;</span>(aa<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'b</span> <span class="kw">mut</span> A<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    aa<span class="op">.</span>a</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="dv">233i32</span><span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> aa <span class="op">=</span> A <span class="op">{</span> a<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> a <span class="op">};</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    <span class="op">*</span>f(<span class="op">&amp;</span><span class="kw">mut</span> aa) <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <pre class="text"><code>error[E0623]: lifetime mismatch
  --&gt; move_ref_mut.rs:6:5
   |
@@ -7145,21 +7145,21 @@ error: aborting due to previous error
 
 For more information about this error, try `rustc --explain E0623`.</code></pre>
 <p>可以看到，由于这里<code>aa.a</code>是对<code>aa</code>的可变借用，因此需要让<code>aa</code>与返回值具有同样的生命周期：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>struct A&lt;'a&gt; {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    a: &amp;'a mut i32,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">-fn f&lt;'a, 'b&gt;(aa: &amp;'b mut A&lt;'a&gt;) -&gt; &amp;'a mut i32 {</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="va">+fn f&lt;'a&gt;(aa: &amp;'a mut A&lt;'a&gt;) -&gt; &amp;'a mut i32 {</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    aa.a</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>fn main() {</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    let mut a = 233i32;</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    let mut aa = A { a: &amp;mut a };</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    *f(&amp;mut aa) = 2333;</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    println!("{}", a);</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode diff"><code class="sourceCode diff"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>struct A&lt;'a&gt; {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    a: &amp;'a mut i32,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>}</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="st">-fn f&lt;'a, 'b&gt;(aa: &amp;'b mut A&lt;'a&gt;) -&gt; &amp;'a mut i32 {</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="va">+fn f&lt;'a&gt;(aa: &amp;'a mut A&lt;'a&gt;) -&gt; &amp;'a mut i32 {</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    aa.a</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>}</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>fn main() {</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>    let mut a = 233i32;</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>    let mut aa = A { a: &amp;mut a };</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>    *f(&amp;mut aa) = 2333;</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>    println!("{}", a);</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 

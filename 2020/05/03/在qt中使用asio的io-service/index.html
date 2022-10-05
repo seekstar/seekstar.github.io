@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7003,8 +7003,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/y396397735/article/details/82314458">在Qt程序中使用C++11线程std::thread处理耗时操作</a><br>
-<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/33529212/boost-asio-multiple-threads-and-multiple-io-service">Boost
-Asio, Multiple threads and multiple io_service</a></p>
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/33529212/boost-asio-multiple-threads-and-multiple-io-service">Boost Asio, Multiple threads and multiple io_service</a></p>
 <p>qt的事件循环和io_service的事件循环会冲突。<br>
 网上流传有三种做法：<br>
 1. 弄一个Timer，定时执行io_service的poll或者poll_one。</p>
@@ -7021,12 +7020,12 @@ Asio, Multiple threads and multiple io_service</a></p>
 <h1 id="下面的当笑话看就好了">下面的当笑话看就好了</h1>
 <p><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_66_0/doc/html/boost_asio/reference/io_service.html">io_service在共享对象时也是线程安全的</a>，所以可以向其他线程提供IO服务。所以可以让io_service在一个独立的线程跑，然后主线程中的socket使用在其他线程跑的io_service即可。</p>
 <p>这里使用std::thread</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="op"> </span>io_service<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">//do something with io_service</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>thread<span class="op"> </span>run_io_service<span class="op">([&amp;]</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    io_service<span class="op">.</span>run<span class="op">();</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>run_io_service<span class="op">.</span>detach<span class="op">();</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service io_service;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co">//do something with io_service</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="bu">std::</span>thread run_io_service([&amp;] {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    io_service.run();</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>});</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>run_io_service.detach();</span></code></pre></div>
 <p>注意io_service在没有任务要执行时会自动stop，所以要先使用io_service，再run。</p>
 <h1 id="其他坑点">其他坑点</h1>
 <ul>
@@ -7034,172 +7033,172 @@ Asio, Multiple threads and multiple io_service</a></p>
 <li>线程创建后要detach，然后main函数返回时会自然销毁。如果没有detach会报错。</li>
 </ul>
 <h1 id="代码">代码</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QApplication&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QTimer&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;QDebug&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/asio.hpp&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/asio/ssl.hpp&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/bind.hpp&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream<span class="op">&lt;</span><span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>socket<span class="op">&gt;</span> ssl_socket<span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> <span class="op">{</span> max_length <span class="op">=</span> <span class="dv">1024</span> <span class="op">};</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> client</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  client<span class="op">(</span><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="op">&amp;</span> io_service<span class="op">,</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context<span class="op">&amp;</span> context<span class="op">,</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>iterator<span class="op"> </span>endpoint_iterator<span class="op">)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="va">socket_</span><span class="op">(</span>io_service<span class="op">,</span> context<span class="op">)</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="va">socket_</span><span class="op">.</span>set_verify_mode<span class="op">(</span><span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>verify_peer<span class="op">);</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="va">socket_</span><span class="op">.</span>set_verify_callback<span class="op">(</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="ex">boost::</span>bind<span class="op">(&amp;</span>client<span class="op">::</span>verify_certificate<span class="op">,</span> <span class="kw">this</span><span class="op">,</span> _1<span class="op">,</span> _2<span class="op">));</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>async_connect<span class="op">(</span><span class="va">socket_</span><span class="op">.</span>lowest_layer<span class="op">(),</span> endpoint_iterator<span class="op">,</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="ex">boost::</span>bind<span class="op">(&amp;</span>client<span class="op">::</span>handle_connect<span class="op">,</span> <span class="kw">this</span><span class="op">,</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error<span class="op">));</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> verify_certificate<span class="op">(</span><span class="dt">bool</span> preverified<span class="op">,</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>verify_context<span class="op">&amp;</span> ctx<span class="op">)</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The verify callback can be used to check whether the certificate that is</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// being presented is valid for the peer. For example, RFC 2818 describes</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the steps involved in doing this for HTTPS. Consult the OpenSSL</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// documentation for more details. Note that the callback is called once</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">// for each certificate in the certificate chain, starting from the root</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">// certificate authority.</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// In this example we will simply print the certificate's subject name.</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> subject_name<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    X509<span class="op">*</span> cert <span class="op">=</span> X509_STORE_CTX_get_current_cert<span class="op">(</span>ctx<span class="op">.</span>native_handle<span class="op">());</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    X509_NAME_oneline<span class="op">(</span>X509_get_subject_name<span class="op">(</span>cert<span class="op">),</span> subject_name<span class="op">,</span> <span class="dv">256</span><span class="op">);</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"Verifying "</span> <span class="op">&lt;&lt;</span> subject_name<span class="op">;</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> preverified<span class="op">;</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> handle_connect<span class="op">(</span><span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code<span class="op">&amp;</span> error<span class="op">)</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>error<span class="op">)</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>      <span class="va">socket_</span><span class="op">.</span>async_handshake<span class="op">(</span><span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream_base<span class="ex">::</span>client<span class="op">,</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>bind<span class="op">(&amp;</span>client<span class="op">::</span>handle_handshake<span class="op">,</span> <span class="kw">this</span><span class="op">,</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error<span class="op">));</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Connect failed: "</span> <span class="op">&lt;&lt;</span> error<span class="op">.</span>message<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> handle_handshake<span class="op">(</span><span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code<span class="op">&amp;</span> error<span class="op">)</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>error<span class="op">)</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>      <span class="dt">size_t</span> request_length <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>      memcpy<span class="op">(</span><span class="va">request_</span><span class="op">,</span> <span class="st">"test"</span><span class="op">,</span> request_length<span class="op">);</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co">//      std::cout &lt;&lt; "Enter message: ";</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co">//      std::cin.getline(request_, max_length);</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="co">//      size_t request_length = strlen(request_);</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>      <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"Going to send"</span><span class="op">;</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>async_write<span class="op">(</span><span class="va">socket_</span><span class="op">,</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>buffer<span class="op">(</span><span class="va">request_</span><span class="op">,</span> request_length<span class="op">),</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>bind<span class="op">(&amp;</span>client<span class="op">::</span>handle_write<span class="op">,</span> <span class="kw">this</span><span class="op">,</span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error<span class="op">,</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>bytes_transferred<span class="op">));</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Handshake failed: "</span> <span class="op">&lt;&lt;</span> error<span class="op">.</span>message<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> handle_write<span class="op">(</span><span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code<span class="op">&amp;</span> error<span class="op">,</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>      <span class="dt">size_t</span> bytes_transferred<span class="op">)</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"handle_write"</span><span class="op">;</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>error<span class="op">)</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>      <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"Going to read"</span><span class="op">;</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>async_read<span class="op">(</span><span class="va">socket_</span><span class="op">,</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>buffer<span class="op">(</span><span class="va">reply_</span><span class="op">,</span> bytes_transferred<span class="op">),</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>          <span class="ex">boost::</span>bind<span class="op">(&amp;</span>client<span class="op">::</span>handle_read<span class="op">,</span> <span class="kw">this</span><span class="op">,</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error<span class="op">,</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>bytes_transferred<span class="op">));</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Write failed: "</span> <span class="op">&lt;&lt;</span> error<span class="op">.</span>message<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> handle_read<span class="op">(</span><span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code<span class="op">&amp;</span> error<span class="op">,</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>      <span class="dt">size_t</span> bytes_transferred<span class="op">)</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>error<span class="op">)</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>      <span class="co">//std::cout not working</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>      <span class="co">//qDebug() &lt;&lt; "Reply: ";</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>cerr<span class="op"> &lt;&lt;</span> <span class="st">"Reply: "</span><span class="op">;</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>      <span class="va">reply_</span><span class="op">[</span>bytes_transferred<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>      <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="va">reply_</span><span class="op">;</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Read failed: "</span> <span class="op">&lt;&lt;</span> error<span class="op">.</span>message<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream<span class="op">&lt;</span><span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>socket<span class="op">&gt;</span> <span class="va">socket_</span><span class="op">;</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> <span class="va">request_</span><span class="op">[</span>max_length<span class="op">];</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> <span class="va">reply_</span><span class="op">[</span>max_length<span class="op">];</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    <span class="co">//QApplication a(argc, argv);</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="op"> </span>io_service<span class="op">;</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="op"> </span>resolver<span class="op">(</span>io_service<span class="op">);</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>query<span class="op"> </span>query<span class="op">(</span><span class="st">"127.0.0.1"</span><span class="op">,</span> <span class="st">"5188"</span><span class="op">);</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>iterator<span class="op"> </span>iterator <span class="op">=</span> resolver<span class="op">.</span>resolve<span class="op">(</span>query<span class="op">);</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context<span class="op"> </span>ctx<span class="op">(</span><span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context<span class="ex">::</span>sslv23<span class="op">);</span></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>    ctx<span class="op">.</span>load_verify_file<span class="op">(</span><span class="st">"ca.pem"</span><span class="op">);</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    client c<span class="op">(</span>io_service<span class="op">,</span> ctx<span class="op">,</span> iterator<span class="op">);</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread<span class="op"> </span>run_io_service<span class="op">([&amp;</span>io_service<span class="op">]</span> <span class="op">{</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>        <span class="co">//std::cerr &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>        <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"io_service going to run"</span><span class="op">;</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>        io_service<span class="op">.</span>run<span class="op">();</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>        <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"io_service stopped"</span><span class="op">;</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>    <span class="op">});</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cerr<span class="op"> &lt;&lt;</span> run_io_service<span class="op">.</span>native_handle<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>    run_io_service<span class="op">.</span>detach<span class="op">();</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>    <span class="co">//io_service.run();</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="co">//    QTimer timer;</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="co">//    QObject::connect(&amp;timer, &amp;QTimer::timeout, [&amp;] {</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a><span class="co">//        qDebug() &lt;&lt; "poll";</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="co">//        io_service.poll_one();</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="co">//        //io_service.poll();</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="co">//    });</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="co">//    timer.start(100);</span></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>    <span class="co">//return a.exec();</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for<span class="op">(</span><span class="bu">std::</span>chrono<span class="bu">::</span>seconds<span class="op">(</span><span class="dv">2</span><span class="op">));</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>    <span class="fu">qDebug</span><span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">"End of main"</span><span class="op">;</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;QApplication&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;QTimer&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;QDebug&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/asio.hpp&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/asio/ssl.hpp&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/bind.hpp&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">typedef</span> <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream&lt;<span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>socket&gt; ssl_socket;</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="kw">enum</span> { max_length = <span class="dv">1024</span> };</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="kw">class</span> client</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>{</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>  client(<span class="ex">boost::</span>asio<span class="ex">::</span>io_service&amp; io_service,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context&amp; context,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>iterator endpoint_iterator)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>    : <span class="va">socket_</span>(io_service, context)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>  {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>    <span class="va">socket_</span>.set_verify_mode(<span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>verify_peer);</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>    <span class="va">socket_</span>.set_verify_callback(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>        <span class="ex">boost::</span>bind(&amp;client::verify_certificate, <span class="kw">this</span>, _1, _2));</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>async_connect(<span class="va">socket_</span>.lowest_layer(), endpoint_iterator,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>        <span class="ex">boost::</span>bind(&amp;client::handle_connect, <span class="kw">this</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error));</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>  }</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>  <span class="dt">bool</span> verify_certificate(<span class="dt">bool</span> preverified,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>verify_context&amp; ctx)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>  {</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>    <span class="co">// The verify callback can be used to check whether the certificate that is</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>    <span class="co">// being presented is valid for the peer. For example, RFC 2818 describes</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>    <span class="co">// the steps involved in doing this for HTTPS. Consult the OpenSSL</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>    <span class="co">// documentation for more details. Note that the callback is called once</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>    <span class="co">// for each certificate in the certificate chain, starting from the root</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>    <span class="co">// certificate authority.</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>    <span class="co">// In this example we will simply print the certificate's subject name.</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>    <span class="dt">char</span> subject_name[<span class="dv">256</span>];</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>    X509* cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>    X509_NAME_oneline(X509_get_subject_name(cert), subject_name, <span class="dv">256</span>);</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>    <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"Verifying "</span> &lt;&lt; subject_name;</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>    <span class="cf">return</span> preverified;</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>  }</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>  <span class="dt">void</span> handle_connect(<span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code&amp; error)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>  {</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>    <span class="cf">if</span> (!error)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>    {</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a>      <span class="va">socket_</span>.async_handshake(<span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream_base<span class="ex">::</span>client,</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true"></a>          <span class="ex">boost::</span>bind(&amp;client::handle_handshake, <span class="kw">this</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error));</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true"></a>    }</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true"></a>    <span class="cf">else</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true"></a>    {</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true"></a>      <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Connect failed: "</span> &lt;&lt; error.message() &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true"></a>    }</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true"></a>  }</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true"></a>  <span class="dt">void</span> handle_handshake(<span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code&amp; error)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true"></a>  {</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true"></a>    <span class="cf">if</span> (!error)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true"></a>    {</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true"></a>      <span class="dt">size_t</span> request_length = <span class="dv">4</span>;</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true"></a>      memcpy(<span class="va">request_</span>, <span class="st">"test"</span>, request_length);</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true"></a><span class="co">//      std::cout &lt;&lt; "Enter message: ";</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true"></a><span class="co">//      std::cin.getline(request_, max_length);</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true"></a><span class="co">//      size_t request_length = strlen(request_);</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true"></a>      <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"Going to send"</span>;</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>async_write(<span class="va">socket_</span>,</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>buffer(<span class="va">request_</span>, request_length),</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true"></a>          <span class="ex">boost::</span>bind(&amp;client::handle_write, <span class="kw">this</span>,</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error,</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>bytes_transferred));</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true"></a>    }</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true"></a>    <span class="cf">else</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true"></a>    {</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true"></a>      <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Handshake failed: "</span> &lt;&lt; error.message() &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true"></a>    }</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true"></a>  }</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true"></a>  <span class="dt">void</span> handle_write(<span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code&amp; error,</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true"></a>      <span class="dt">size_t</span> bytes_transferred)</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true"></a>  {</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true"></a>    <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"handle_write"</span>;</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true"></a>    <span class="cf">if</span> (!error)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true"></a>    {</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true"></a>      <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"Going to read"</span>;</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true"></a>      <span class="ex">boost::</span>asio<span class="ex">::</span>async_read(<span class="va">socket_</span>,</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true"></a>          <span class="ex">boost::</span>asio<span class="ex">::</span>buffer(<span class="va">reply_</span>, bytes_transferred),</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true"></a>          <span class="ex">boost::</span>bind(&amp;client::handle_read, <span class="kw">this</span>,</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>error,</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true"></a>            <span class="ex">boost::</span>asio<span class="ex">::</span>placeholders<span class="ex">::</span>bytes_transferred));</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true"></a>    }</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true"></a>    <span class="cf">else</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true"></a>    {</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true"></a>      <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Write failed: "</span> &lt;&lt; error.message() &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true"></a>    }</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true"></a>  }</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true"></a>  <span class="dt">void</span> handle_read(<span class="at">const</span> <span class="ex">boost::</span>system<span class="ex">::</span>error_code&amp; error,</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true"></a>      <span class="dt">size_t</span> bytes_transferred)</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true"></a>  {</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true"></a>    <span class="cf">if</span> (!error)</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true"></a>    {</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true"></a>      <span class="co">//std::cout not working</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true"></a>      <span class="co">//qDebug() &lt;&lt; "Reply: ";</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true"></a>      <span class="bu">std::</span>cerr &lt;&lt; <span class="st">"Reply: "</span>;</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true"></a>      <span class="va">reply_</span>[bytes_transferred] = <span class="dv">0</span>;</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true"></a>      <span class="fu">qDebug</span>() &lt;&lt; <span class="va">reply_</span>;</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true"></a>    }</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true"></a>    <span class="cf">else</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true"></a>    {</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true"></a>      <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Read failed: "</span> &lt;&lt; error.message() &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true"></a>    }</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true"></a>  }</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true"></a>  <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>stream&lt;<span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>socket&gt; <span class="va">socket_</span>;</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true"></a>  <span class="dt">char</span> <span class="va">request_</span>[max_length];</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true"></a>  <span class="dt">char</span> <span class="va">reply_</span>[max_length];</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true"></a>};</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> *argv[])</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true"></a>{</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true"></a>    <span class="co">//QApplication a(argc, argv);</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>io_service io_service;</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver resolver(io_service);</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>query query(<span class="st">"127.0.0.1"</span>, <span class="st">"5188"</span>);</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ip<span class="ex">::</span>tcp<span class="ex">::</span>resolver<span class="ex">::</span>iterator iterator = resolver.resolve(query);</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true"></a>    <span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context ctx(<span class="ex">boost::</span>asio<span class="ex">::</span>ssl<span class="ex">::</span>context<span class="ex">::</span>sslv23);</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true"></a>    ctx.load_verify_file(<span class="st">"ca.pem"</span>);</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true"></a>    client c(io_service, ctx, iterator);</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true"></a>    <span class="bu">std::</span>thread run_io_service([&amp;io_service] {</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true"></a>        <span class="co">//std::cerr &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true"></a>        <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"io_service going to run"</span>;</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true"></a>        io_service.run();</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true"></a>        <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"io_service stopped"</span>;</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true"></a>    });</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true"></a>    <span class="bu">std::</span>cerr &lt;&lt; run_io_service.native_handle() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true"></a>    run_io_service.detach();</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true"></a>    <span class="co">//io_service.run();</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true"></a></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true"></a><span class="co">//    QTimer timer;</span></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true"></a><span class="co">//    QObject::connect(&amp;timer, &amp;QTimer::timeout, [&amp;] {</span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true"></a><span class="co">//        qDebug() &lt;&lt; "poll";</span></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true"></a><span class="co">//        io_service.poll_one();</span></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true"></a><span class="co">//        //io_service.poll();</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true"></a><span class="co">//    });</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true"></a><span class="co">//    timer.start(100);</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true"></a></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true"></a>    <span class="co">//return a.exec();</span></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true"></a>    <span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(<span class="dv">2</span>));</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true"></a>    <span class="fu">qDebug</span>() &lt;&lt; <span class="st">"End of main"</span>;</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>Starting /home/searchstar/git/small_projects/qt/learn/build-Learn_qt_and_asio-unknown-Debug/Learn_qt_and_asio...
 139752728426240
@@ -7216,9 +7215,9 @@ End of main
 <p>注意到io_service在主线程退出main函数前就已经stop了，印证了官方文档里说的io_service在没有任务时会自动stop。</p>
 <h1 id="让io_service常驻">让io_service常驻</h1>
 <p>官方文档提供了让io_service常驻的方法。在</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="op"> </span>io_service<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service io_service;</span></code></pre></div>
 <p>后加上</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work<span class="op"> </span>work<span class="op">(</span>io_service<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work work(io_service);</span></code></pre></div>
 <p>即可。</p>
 <pre><code>139633039558400
 io_service going to run
@@ -7229,14 +7228,13 @@ handle_write
 Going to read
 Reply: test
 End of main</code></pre>
-<p>注意到没有io_service
-stopped的提示，说明从main里退出后直接杀死了io_service.run()所在的线程，非常粗暴。</p>
+<p>注意到没有io_service stopped的提示，说明从main里退出后直接杀死了io_service.run()所在的线程，非常粗暴。</p>
 <h1 id="手动让io_servicerun返回">手动让io_service.run()返回</h1>
 <p>官方文档用的auto_ptr</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>auto_ptr<span class="op">&lt;</span><span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work<span class="op">&gt;</span> work<span class="op">(</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">new</span> <span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work<span class="op">(</span>io_service<span class="op">));</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="bu">std::</span>auto_ptr&lt;<span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work&gt; work(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>        <span class="kw">new</span> <span class="ex">boost::</span>asio<span class="ex">::</span>io_service<span class="ex">::</span>work(io_service));</span></code></pre></div>
 <p>然后在想让io_service.run()返回时调用</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>work<span class="op">.</span>reset<span class="op">();</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>work.reset();</span></code></pre></div>
 <p>即可。我是在main函数末尾调用的。<br>
 输出：</p>
 <pre><code>140249420756736
@@ -7249,8 +7247,7 @@ Going to read
 Reply: test
 End of main
 io_service stopped</code></pre>
-<p>如果在main函数末尾不加，按理说auto_ptr析构时也会自动把内部存的指针delete掉，跟手动reset的效果一样，但是实际上这里如果不手动reset，最后没有输出io_service
-stopped的提示。原因不明。</p>
+<p>如果在main函数末尾不加，按理说auto_ptr析构时也会自动把内部存的指针delete掉，跟手动reset的效果一样，但是实际上这里如果不手动reset，最后没有输出io_service stopped的提示。原因不明。</p>
 <p>此外，由于std::auto_ptr已经被弃用了，所以可以用std::unique_ptr，结果是一样的。</p>
 </body></html>
 </div>

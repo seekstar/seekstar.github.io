@@ -2941,7 +2941,7 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/04/24/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
+									<a href="/2022/10/05/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
                      
 										    洗鞋攻略
                      
@@ -6450,9 +6450,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -6461,9 +6461,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7025,9 +7025,7 @@ dracut: and --no-kernel was not specified</code></pre>
 <p>然后这样就可以了：</p>
 <pre class="shell"><code>dracut initramfs-linux.img 5.18.9-arch1-1 --force
 dracut initramfs-linux-lts.img 5.15.52-1-lts --force</code></pre>
-<h3 id="dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found">dracut:
-dracut module 'xxx' will not be installed, because command 'xxx' could
-not be found!</h3>
+<h3 id="dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found">dracut: dracut module 'xxx' will not be installed, because command 'xxx' could not be found!</h3>
 <p>这些报错貌似不用管也行。要消除这些报错，按照提示把对应的命令装上就行了：</p>
 <pre class="shell"><code>sudo pacman -S dash dbus-broker rng-tools dhclient multipath-tools tpm2-tools open-iscsi nbd nfs-utils nvme-cli procps-ng squashfs-tools</code></pre>
 <p>不过这些命令pacman的源里好像没有：</p>
@@ -7048,8 +7046,7 @@ dracut: dracut module 'memstrack' will not be installed, because command 'memstr
 dracut: memstrack is not available
 dracut: If you need to use rd.memdebug&gt;=4, please install memstrack and procps-ng</code></pre>
 <p>但是不影响启动。</p>
-<h3 id="a-start-is-running-for-loading-kernel-modules">A start is
-running for loading kernel modules</h3>
+<h3 id="a-start-is-running-for-loading-kernel-modules">A start is running for loading kernel modules</h3>
 <p>ArchLinux stable内核(5.18.9-arch1-1)在开机时会卡在这里一段时间：</p>
 <pre class="text"><code>A start is running for loading kernel modules.</code></pre>
 <p>dmesg:</p>
