@@ -1379,6 +1379,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
+                     
+										    一些Matrix群
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/11/%E6%89%B9%E9%87%8Fssh%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/">
                      
 										    批量ssh执行命令
@@ -5317,6 +5328,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/14/rust%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                     
+										    Rust文件操作
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/rust%E7%94%9F%E6%88%90%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                      
 										    Rust生成重复字符的字符串
@@ -7059,10 +7081,16 @@ cd pacman-$version/
 # https://stackoverflow.com/questions/62475190/meson-and-ninja-build-system-specifify-where-binaries-are-stored
 meson build
 ninja -C build
-sudo ninja -C build install
-# https://people.freedesktop.org/~dbn/pkg-config-guide.html
+sudo ninja -C build install</code></pre>
+<p>但是库的pc文件被安装到了<code>/usr/lib64/pkgconfig</code>里，而这下面的pc文件通常默认是不被搜索的：</p>
+<pre class="shell"><code># https://askubuntu.com/a/373217
+pkg-config --variable pc_path pkg-config
+# 里面通常没有/usr/lib64/pkgconfig</code></pre>
+<p>因此需要将这个路径添加到<code>PKG_CONFIG_PATH</code>里：</p>
+<pre class="shell"><code># https://people.freedesktop.org/~dbn/pkg-config-guide.html
 sudo bash -c 'echo "export PKG_CONFIG_PATH=/usr/lib64/pkgconfig" &gt;&gt; /etc/bash.bashrc'
-# 需要重启终端使PKG_CONFIG_PATH生效</code></pre>
+# 需要重启终端使PKG_CONFIG_PATH生效
+# 需要把PKG_CONFIG_PATH加入到sudoers里的env_keep才能在sudo的时候使用这个设置的环境变量。</code></pre>
 <p>然后配置一下pacman的源：</p>
 <pre class="shell"><code># https://archlinux.org/pacman/pacman.conf.5.html
 # https://stackoverflow.com/questions/23929235/multi-line-string-with-extra-space-preserved-indentation
@@ -7164,6 +7192,11 @@ sudo arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"</code>
 
     <div class="post-guide">
         <div class="item left">
+            
+              <a href="/2022/10/14/rust%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  Rust文件操作
+              </a>
             
         </div>
         <div class="item right">

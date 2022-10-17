@@ -1379,6 +1379,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
+                     
+										    一些Matrix群
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/11/%E6%89%B9%E9%87%8Fssh%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/">
                      
 										    批量ssh执行命令
@@ -5317,6 +5328,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/10/14/rust%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+                     
+										    Rust文件操作
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/rust%E7%94%9F%E6%88%90%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
                      
 										    Rust生成重复字符的字符串
@@ -7065,6 +7087,13 @@ var _hmt = _hmt || [];
 <li>parse<br>
 把字符串转成特定类型（通过要被赋值给的变量确定？）</li>
 </ul>
+<h2 id="c语言字符串转string">C语言字符串转String</h2>
+<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 </body></html>
 </div>
 
