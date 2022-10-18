@@ -7056,16 +7056,9 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="用vscode插件">用vscode插件</h2>
-<p>安装yzane的Markdown PDF插件。然后点进要转换的markdown文件，右键，选择<code>Markdown PDF: Export (pdf)</code>。缺点是会使得右键菜单条目太多。</p>
-<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/55484165/13688160" class="uri">https://stackoverflow.com/a/55484165/13688160</a></p>
-<h2 id="markdown-pdf">markdown-pdf</h2>
-<pre class="shell"><code>npm install -g markdown-pdf
-markdown-pdf &lt;markdown-file-path&gt;</code></pre>
-<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/37977314/13688160" class="uri">https://stackoverflow.com/a/37977314/13688160</a></p>
-<h2 id="pandoc">pandoc</h2>
+	<html><head></head><body><h2 id="pandoc">pandoc</h2>
 <p>看这里：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1d02fc5121c2">Pandoc+TeXLive实现Markdown转PDF</a></p>
-<pre class="shell"><code>pandoc --toc -N -s --pdf-engine=xelatex -V CJKmainfont='Source Han Serif CN' --highlight-style tango -o manual.pdf manual.md</code></pre>
+<pre class="shell"><code>pandoc --toc -N -s --pdf-engine=xelatex -V CJKmainfont='Source Han Serif CN' --highlight-style tango -V colorlinks=true -o manual.pdf manual.md</code></pre>
 <p><code>--toc</code>: 生成目录</p>
 <p><code>-N</code>: 编号</p>
 <p><code>-s</code>: standalone</p>
@@ -7076,10 +7069,23 @@ markdown-pdf &lt;markdown-file-path&gt;</code></pre>
 <li><p>pygments：默认。代码跟正文没有明显边界，而且没有背景色，容易跟正文弄混。</p></li>
 <li><p>tango: 代码块背景色为淡灰色。</p></li>
 </ul>
+<p><code>-V colorlinks=true</code>: 给链接染色。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58866818/pandoc-conversion-to-pdf-not-providing-colored-hyptertext-links" class="uri">https://stackoverflow.com/questions/58866818/pandoc-conversion-to-pdf-not-providing-colored-hyptertext-links</a></p>
 <p>但是代码块不会自动换行，不知道怎么解决。相关：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013019701/article/details/119512493">使用 Pandoc 来转换 Markdown 为漂亮的 PDF 格式</a></p>
 <p><a target="_blank" rel="noopener" href="https://gist.github.com/c-x/2e5c6e39b334676378c1" class="uri">https://gist.github.com/c-x/2e5c6e39b334676378c1</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/48507868/13688160" class="uri">https://stackoverflow.com/a/48507868/13688160</a></p>
+<h2 id="markdown-pdf">markdown-pdf</h2>
+<pre class="shell"><code>npm install -g markdown-pdf
+markdown-pdf &lt;markdown-file-path&gt;</code></pre>
+<p>似乎不支持Latex公式？</p>
+<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/37977314/13688160" class="uri">https://stackoverflow.com/a/37977314/13688160</a></p>
+<h2 id="用vscode插件">用vscode插件</h2>
+<p>安装yzane的Markdown PDF插件。然后点进要转换的markdown文件，右键，选择<code>Markdown PDF: Export (pdf)</code>。缺点是会使得右键菜单条目太多。而且似乎不支持Latex公式？</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yzane/vscode-markdown-pdf" class="uri">https://github.com/yzane/vscode-markdown-pdf</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yzane/vscode-markdown-pdf/issues/21">how to export pdf with latex</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yzane/vscode-markdown-pdf/issues/276">Math support</a></p>
+<p>但是这里又好像说可以？：<a target="_blank" rel="noopener" href="https://github.com/yzane/vscode-markdown-pdf/issues/221">A bug of rendering latex formula #221</a></p>
+<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/55484165/13688160" class="uri">https://stackoverflow.com/a/55484165/13688160</a></p>
 </body></html>
 </div>
 
