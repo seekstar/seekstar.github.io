@@ -7096,6 +7096,10 @@ var _hmt = _hmt || [];
 <p>可以生成并在浏览器打开项目的文档。</p>
 <h3 id="新建项目">新建项目</h3>
 <pre class="shell"><code>cargo new &lt;项目名&gt;</code></pre>
+<h3 id="blocking-waiting-for-file-lock-on-package-cache">Blocking waiting for file lock on package cache</h3>
+<pre class="shell"><code>rm -rf ~/.cargo/registry/index/*
+rm ~/.cargo/.package-cache</code></pre>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206" class="uri">https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206</a></p>
 <h2 id="语法">语法</h2>
 <ul>
 <li><code>_</code>是通配符</li>
@@ -7112,11 +7116,11 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="c语言字符串转string">C语言字符串转String</h2>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 </body></html>
 </div>
 
