@@ -7444,6 +7444,7 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <pre class="shell"><code>locate name</code></pre>
 <p>查找文件（文件夹）</p>
 <h3 id="sed">sed</h3>
+<h4 id="模式匹配">模式匹配</h4>
 <p>从stdin读入，将修改后的结果写入到stdout：</p>
 <pre class="shell"><code>sed 's/源pattern/目的pattern/g'</code></pre>
 <p>其中<code>s</code>是指替换，<code>g</code>是全局替换，<code>/</code>是分隔符。然后sed就会逐行去找源pattern，并且替换为目的pattern。</p>
@@ -7454,6 +7455,14 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p><code>-i</code>: 直接修改文件（默认是输出编辑后的结果到stdout）。</p>
 <p><code>--follow-symlinks</code>: <code>-i</code>会破坏符号链接和硬链接，加上这个选项之后可以保护软链接不被破坏，但是不保护硬链接。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a></p>
 <p><code>-c</code>: 保护符号链接和硬链接（但是我的sed没有这个选项）。</p>
+<h4 id="匹配指定行">匹配指定行</h4>
+<p><code>sed -n 起始行号[,终止行号]动作 file</code></p>
+<p>动作一般是<code>p</code>，即打印(Print)。</p>
+<p>sed默认会将文件的每行打印出来，然后对匹配的内容进行相应的操作。<code>-n</code>表示不把文件的每行都打印出来，只对匹配的内容做相应的操作。</p>
+<p>例子：</p>
+<p>打印第2行：<code>sed -n '2p' file</code></p>
+<p>打印第2行到第4行：<code>sed -n '2,4p' file</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file" class="uri">https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file</a></p>
 <h3 id="less">less</h3>
 <p>最基础用法：</p>
 <pre class="shell"><code>less 文件路径</code></pre>

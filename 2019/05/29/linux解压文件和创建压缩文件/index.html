@@ -7089,8 +7089,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>参考网站：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sinsenliu/p/9369729.html" class="uri">https://www.cnblogs.com/sinsenliu/p/9369729.html</a></p>
-<p>约定：<br>
+	<html><head></head><body><p>约定：<br>
 FileName表示文件名，不能是目录名<br>
 name表示可以是文件名，也可以是目录名。<br>
 DirName表示目录名。</p>
@@ -7098,6 +7097,12 @@ DirName表示目录名。</p>
 可以用vim预览压缩包里的东西，例如</p>
 <pre class="shell"><code>vim FileName.tar.xz</code></pre>
 <p>防止解压出一堆散的文件污染目标文件夹。</p>
+<h2 id="速记">速记</h2>
+<p>对于<code>.tar.*</code>的格式，tar的类别参数如下：</p>
+<div class="line-block">格式 | 参数 |<br>
+.tar.gz | z |<br>
+.tar.xz | J |<br>
+.tar.bz2 | j |</div>
 <h2 id="rar">.rar</h2>
 <p><del>参考网站中的.rar部分好像有误</del><br>
 先安装rar软件：</p>
@@ -7270,11 +7275,14 @@ tar如果输出的文件名是“-”，则会输出到stdout<br>
 <code>--fast</code>: 牺牲压缩率，提高压缩和解压速度。<br>
 <code>--best</code>（默认）: 牺牲压缩速度，提高压缩率。</p>
 <h2 id="tarbz2">tar.bz2</h2>
-<h3 id="单线程">单线程</h3>
+<h3 id="单线程压缩-4">单线程压缩</h3>
 <pre class="shell"><code>tar -cjf name.tar.bz2 name</code></pre>
-<h3 id="多线程-1">多线程</h3>
-<p>解压：</p>
+<h3 id="单线程解压-4">单线程解压</h3>
+<pre class="shell"><code>tar xjf name.tar.bz2</code></pre>
+<h3 id="多线程解压-2">多线程解压</h3>
 <pre class="shell"><code>pbzip2 -cdp线程数 b.tar.bz2 | tar -xC DirName</code></pre>
+<h2 id="参考文献">参考文献</h2>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sinsenliu/p/9369729.html" class="uri">https://www.cnblogs.com/sinsenliu/p/9369729.html</a></p>
 </body></html>
 </div>
 

@@ -7349,7 +7349,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/cpp_to_rust.cpp -c -o <span class="ch">$@</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="dv">target/rust_to_cpp.o:</span><span class="dt"> cpp/rust_to_cpp.cpp cpp/c_struct.h </span><span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span><span class="dt">/test.h</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>    g++ -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/rust_to_cpp.cpp -c -o <span class="ch">$@</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>    g++ -fPIC -I <span class="ch">$(</span><span class="dt">INCLUDE_DIR</span><span class="ch">)</span> cpp/rust_to_cpp.cpp -c -o <span class="ch">$@</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a><span class="dv">target/debug/libheap.a:</span><span class="dt"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> find src -type f</span><span class="ch">)</span><span class="dt"> Cargo.toml Cargo.lock</span></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>    cargo build</span>
