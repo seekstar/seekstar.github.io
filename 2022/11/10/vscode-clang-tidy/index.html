@@ -7104,7 +7104,11 @@ var _hmt = _hmt || [];
 <p>然后在设置中将这两项勾上，使得<code>clang-tidy</code>能够自动运行：</p>
 <pre class="text"><code>C_Cpp › Code Analysis › Clang Tidy: Enabled
 C_Cpp › Code Analysis: Run Automatically</code></pre>
-<p>默认似乎是不做任何检查的。需要在<code>C_Cpp › Code Analysis › Clang Tidy › Checks: Enabled</code>中启用需要的检查，各种检查的文档可以在这里找到：<a target="_blank" rel="noopener" href="https://clang.llvm.org/extra/clang-tidy/checks/list.html" class="uri">https://clang.llvm.org/extra/clang-tidy/checks/list.html</a>。例如<code>bugprone-use-after-move</code>的文档在这里：<a target="_blank" rel="noopener" href="https://clang.llvm.org/extra/clang-tidy/checks/bugprone/use-after-move.html" class="uri">https://clang.llvm.org/extra/clang-tidy/checks/bugprone/use-after-move.html</a></p>
+<p>默认似乎是不做任何检查的。需要在<code>C_Cpp › Code Analysis › Clang Tidy › Checks: Enabled</code>中启用需要的检查，各种检查的文档可以在这里找到：<a target="_blank" rel="noopener" href="https://clang.llvm.org/extra/clang-tidy/checks/list.html" class="uri">https://clang.llvm.org/extra/clang-tidy/checks/list.html</a>。建议开启的检查：</p>
+<ul>
+<li><p><code>bugprone-use-after-move</code>: <a target="_blank" rel="noopener" href="https://clang.llvm.org/extra/clang-tidy/checks/bugprone/use-after-move.html" class="uri">https://clang.llvm.org/extra/clang-tidy/checks/bugprone/use-after-move.html</a></p></li>
+<li><p><code>bugprone-narrowing-conversions</code>: <a target="_blank" rel="noopener" href="https://clang.llvm.org/extra/clang-tidy/checks/bugprone/narrowing-conversions.html" class="uri">https://clang.llvm.org/extra/clang-tidy/checks/bugprone/narrowing-conversions.html</a></p></li>
+</ul>
 <p>举个例子，只启用<code>bugprone-use-after-move</code>，然后创建一个vscode工程：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
