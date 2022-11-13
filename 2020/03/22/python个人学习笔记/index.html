@@ -7122,9 +7122,21 @@ var _hmt = _hmt || [];
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st"> </span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>(x, <span class="dv">111</span> <span class="op">+</span> <span class="dv">111</span>))</span></code></pre></div>
 <h3 id="不打印换行符">不打印换行符</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'hello'</span>, end<span class="op">=</span><span class="st">''</span>)</span></code></pre></div>
+<h3 id="打印到stderr">打印到stderr</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'xxx'</span>, <span class="bu">file</span><span class="op">=</span>sys.stderr)</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python" class="uri">https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python</a></p>
+<h3 id="指定分隔符打印数组">指定分隔符打印数组</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">', '</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">' -&gt; '</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="dv">1</span> <span class="op">-&gt;</span> <span class="dv">2</span> <span class="op">-&gt;</span> <span class="dv">3</span> <span class="op">-&gt;</span> <span class="dv">4</span> <span class="op">-&gt;</span> <span class="dv">5</span></span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22556449/print-a-list-of-space-separated-elements" class="uri">https://stackoverflow.com/questions/22556449/print-a-list-of-space-separated-elements</a></p>
 <h2 id="时间">时间</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html" class="uri">https://docs.python.org/3/library/datetime.html</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
 <p>也可以用<code>time</code>包：<a target="_blank" rel="noopener" href="https://blog.csdn.net/google19890102/article/details/51355282">Python中时间与时间戳之间的转换</a></p>
 <h3 id="减去月数">减去月数</h3>
 <p><a target="_blank" rel="noopener" href="https://dateutil.readthedocs.io/en/stable/" class="uri">https://dateutil.readthedocs.io/en/stable/</a></p>
@@ -7133,13 +7145,26 @@ var _hmt = _hmt || [];
 <h2 id="pandas">pandas</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/" class="uri">https://pandas.pydata.org/docs/</a></p>
 <a href="/2021/08/21/pandas%E6%95%B0%E6%8D%AE%E6%A1%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="pandas数据框常用操作">pandas数据框常用操作</a>
+<h2 id="文件">文件</h2>
+<a href="/2021/07/22/python%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" title="python文件管理">python文件管理</a>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiankang66/article/details/125981793">python基础之写文件操作</a></p>
+<h2 id="排序">排序</h2>
+<p>用<code>sorted</code>。</p>
+<h3 id="对字典的key排序">对字典的key排序</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="bu">sorted</span>(x)</span></code></pre></div>
+<pre class="text"><code>[1, 2, 4]</code></pre>
+<h3 id="对字典的值排序">对字典的值排序</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>, <span class="dv">0</span>: <span class="dv">0</span>}</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
+<pre class="text"><code>[(0, 0), (2, 1), (1, 2), (4, 3), (3, 4)]</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value" class="uri">https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value</a></p>
 <h2 id="其他">其他</h2>
 <h3 id="本站博客">本站博客</h3>
 <!-- Without "-", the two post_link will be in the same line -->
 <ul>
 <li><a href="/2021/07/22/python%E5%B8%B8%E7%94%A8%E8%BE%93%E5%85%A5%E6%96%B9%E5%BC%8F/" title="python常用输入方式">python常用输入方式</a></li>
 <li><a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/" title="numpy矩阵操作">numpy矩阵操作</a></li>
-<li><a href="/2021/07/22/python%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" title="python文件管理">python文件管理</a></li>
 </ul>
 <h3 id="中文资料">中文资料</h3>
 <h4 id="语法">语法</h4>
