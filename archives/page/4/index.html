@@ -3093,6 +3093,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/11/16/linux%E8%AE%BE%E7%BD%AE%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%BB%98%E8%AE%A4%E6%9D%83%E9%99%90/">
+                     
+										    Linux设置某目录下的默认权限
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/05/linux%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4/">
                      
 										    Linux设置系统时间
@@ -7075,6 +7086,26 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/08/22/ubuntu%E4%BF%AE%E5%A4%8D-boot%E6%BB%A1%E4%BA%86%E5%AF%BC%E8%87%B4apt%E5%9D%8F%E6%8E%89%E7%9A%84%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					Ubuntu修复/boot满了导致apt坏掉的问题
+				</h2>
+				<div class="index-brief">
+					如果apt在安装某个包需要往/boot里装新内核，但是/boot又满了，那么apt在执行install, purge, remove, autoremove等命令时就会报依赖不满足的错。
+可以采用这里的方案解决：https://askubuntu.com/a/906046
+思路是先删除/boot里的
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-08-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/07/31/%E5%81%A5%E8%BA%AB%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					健身笔记
@@ -7276,24 +7307,6 @@ dracut initra
 			</a>
                 <div class="article-meta">
 				    <span>2022-06-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/">
-				<h2 class="index-title">
-					Linux kernel读取和写入用户态内存
-				</h2>
-				<div class="index-brief">
-					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page fault，这时硬件会自动跳转到内核提供的page fault handler do_page_fault，将page准备好之后再跳回
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-26</span>
                     
                             
                     
