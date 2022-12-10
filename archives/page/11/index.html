@@ -1047,6 +1047,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/11/17/linux%E6%89%93%E5%8D%B0%E5%88%B0%E6%96%87%E4%BB%B6/">
+                     
+										    Linux打印到文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/28/linux%E8%8D%89%E7%A8%BF%E7%BA%B8%E8%BD%AF%E4%BB%B6/">
                      
 										    Linux草稿纸软件
@@ -2062,6 +2073,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
                      
 										    ArchLinux修复系统目录和文件的权限
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/12/10/archlinux%E5%AE%89%E8%A3%85nvidia%E9%A9%B1%E5%8A%A8/">
+                     
+										    ArchLinux安装NVIDIA驱动
                      
 									</a>
 								</li>
@@ -6261,6 +6283,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/12/02/linux-kernel%E8%AE%A1%E6%97%B6/">
+                     
+										    Linux kernel计时
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/">
                      
 										    Linux kernel读取和写入用户态内存
@@ -7086,6 +7119,67 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
+				<h2 class="index-title">
+					终端关闭时子进程的反应
+				</h2>
+				<div class="index-brief">
+					终端关闭时，会向上面的进程发送SIGHUP (SIGnal Hang UP)，这个信号的默认行为是终止进程。用nohup运行的命令就忽略了SIGHUP信号，这样父终端退出之后就挂到init进程上。
+但是如果终端是被杀死的，比如kill -9，那么SIGHUP不一定会被发送给子进程，这时子进程就直接变
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/linux%E5%B0%86%E6%9F%90%E8%BF%9B%E7%A8%8Battach%E5%88%B0%E5%BD%93%E5%89%8Dterminal/">
+				<h2 class="index-title">
+					Linux将某进程attach到当前terminal
+				</h2>
+				<div class="index-brief">
+					用reptyr可以实现：https://github.com/nelhage/reptyr
+可以用包管理器安装：
+sudo apt install reptyr
+有些发行版可能禁用了ptrace，需要将其打开。临时打开（重启后恢复原样）：
+sudo bash -c "echo 0 &gt; /pro
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/linux%E5%BC%BA%E8%A1%8C%E4%B8%AD%E6%96%AD%E5%BD%93%E5%89%8Dssh%E8%BF%9E%E6%8E%A5/">
+				<h2 class="index-title">
+					linux强行中断当前ssh连接
+				</h2>
+				<div class="index-brief">
+					依次按下这几个键：Enter ~ .
+来源：https://askubuntu.com/questions/53119/how-do-i-kill-a-locked-ssh-session
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/16/vlc%E5%80%8D%E9%80%9F%E6%92%AD%E6%94%BE/">
 				<h2 class="index-title">
 					VLC倍速播放
@@ -7227,74 +7321,6 @@ https://groups.google.com/g/rocksdb/c/ODArfKT61XE
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/03/shell-urlencode/">
-				<h2 class="index-title">
-					shell urlencode
-				</h2>
-				<div class="index-brief">
-					sudo npm i urlencode-cli -g
-urlencode "https://baidu.com"
-https%3A%2F%2Fbaidu.com
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/01/latex%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
-				<h2 class="index-title">
-					latex行内公式自动换行
-				</h2>
-				<div class="index-brief">
-					在允许换行的地方插入\allowbreak。
-来源：https://tex.stackexchange.com/questions/1959/allowing-line-break-at-in-inline-math-mode
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/01/%E5%AD%A6%E6%9C%AF%E8%8B%B1%E8%AF%AD%E5%86%99%E4%BD%9C%E2%80%94%E2%80%94%E8%8C%B4%E9%A6%99%E8%B1%86%E7%9A%84%E8%8C%B4%E7%9A%84%E4%B8%8D%E5%90%8C%E5%86%99%E6%B3%95/">
-				<h2 class="index-title">
-					学术英语写作——茴香豆的茴的不同写法
-				</h2>
-				<div class="index-brief">
-					查找英语同义词的网站：https://www.thesaurus.com
-因果关系
-therefore
-
-He's only 17 and therefore not eligible to vote.
-
-他只有17岁，因此没有投票选举的资格。
-《牛津词典》
-
-Muscle cells need l
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-01</span>
                     
                             
                     

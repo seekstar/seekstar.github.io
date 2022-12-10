@@ -1049,6 +1049,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/11/17/linux%E6%89%93%E5%8D%B0%E5%88%B0%E6%96%87%E4%BB%B6/">
+                     
+										    Linux打印到文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/28/linux%E8%8D%89%E7%A8%BF%E7%BA%B8%E8%BD%AF%E4%BB%B6/">
                      
 										    Linux草稿纸软件
@@ -2064,6 +2075,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
                      
 										    ArchLinux修复系统目录和文件的权限
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2022/12/10/archlinux%E5%AE%89%E8%A3%85nvidia%E9%A9%B1%E5%8A%A8/">
+                     
+										    ArchLinux安装NVIDIA驱动
                      
 									</a>
 								</li>
@@ -6263,6 +6285,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2022/12/02/linux-kernel%E8%AE%A1%E6%97%B6/">
+                     
+										    Linux kernel计时
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/">
                      
 										    Linux kernel读取和写入用户态内存
@@ -7181,9 +7214,12 @@ flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <pre><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
 <p>这是因为这个脚本的后缀名是<code>.desktop</code>，然后系统以为它是启动器。</p>
 <h3 id="element">Element</h3>
-<p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，所以传文件时不能看到系统里的文件。所以还是建议用官网提供的方式安装。</p>
+<p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，默认传文件时不能看到系统里的文件。可以设置其允许读取home目录下的文件：</p>
+<pre class="shell"><code># https://docs.flatpak.org/en/latest/sandbox-permissions.html#filesystem-access
+# https://github.com/flathub/im.riot.Riot/issues/33
+flatpak override --user --filesystem=home:ro im.riot.Riot</code></pre>
 <h3 id="telegram">Telegram</h3>
-<p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。这个好像就能访问系统里的文件，这说明是Element打包有问题。</p>
+<p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。</p>
 <h3 id="torbrowser-launcher">torbrowser-launcher</h3>
 <p>launcher能打开，但是在系统启动器死活打不开tor browser。。。</p>
 <p>通过launcher下载好tor browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
