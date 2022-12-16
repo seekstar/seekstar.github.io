@@ -7225,6 +7225,24 @@ var _hmt = _hmt || [];
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
 <pre class="text"><code>[(0, 0), (2, 1), (1, 2), (4, 3), (3, 4)]</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value" class="uri">https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value</a></p>
+<h2 id="类">类</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="at">@dataclass</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="kw">class</span> A:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    a: <span class="bu">int</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    b: <span class="bu">str</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    c: <span class="bu">float</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>li: <span class="bu">list</span>[A] <span class="op">=</span> []</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>li.append(A(<span class="dv">1</span>, <span class="st">"2"</span>, <span class="fl">3.3</span>))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>li.append(A(<span class="dv">2</span>, <span class="st">"3"</span>, <span class="fl">4.4</span>))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a><span class="bu">print</span>(li)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="co"># [&lt;class '__main__.A'&gt;, A(a=1, b='2', c=3.3), A(a=2, b='3', c=4.4)]</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>item <span class="op">=</span> li[<span class="dv">1</span>]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a><span class="bu">print</span>(item.c)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a><span class="co"># 3.3</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a><span class="bu">sorted</span>(li, key <span class="op">=</span> <span class="kw">lambda</span> item: item.c, reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35988/c-like-structures-in-python" class="uri">https://stackoverflow.com/questions/35988/c-like-structures-in-python</a></p>
+<p>完整教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-object.html">Python 面向对象</a></p>
 <h2 id="其他">其他</h2>
 <h3 id="本站博客">本站博客</h3>
 <!-- Without "-", the two post_link will be in the same line -->
@@ -7256,7 +7274,8 @@ var _hmt = _hmt || [];
 </ul>
 <p><code>json.dumps(obj, indent='\t')</code>可以使用tab进行缩进。</p>
 <ul>
-<li>获取命令输出：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></li>
+<li><p>获取命令输出：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/robert_chen1988/article/details/82887820">python 生成随机数的三种方法</a></p></li>
 </ul>
 <h4 id="其他-1">其他</h4>
 <ul>
