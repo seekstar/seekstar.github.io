@@ -7188,21 +7188,26 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="逐字符读入">逐字符读入</h1>
+	<html><head></head><body><h2 id="逐字符读入">逐字符读入</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/104201928" class="uri">https://blog.csdn.net/qq_41961459/article/details/104201928</a></p>
-<h1 id="逐行读入">逐行读入</h1>
+<h2 id="逐行读入">逐行读入</h2>
 <p>文件：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html" class="uri">https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html</a></p>
-<p>从stdin中逐行读入只需要把上面中的文件换成<code>sys.stdin</code>即可。<br>
-例子：</p>
+<p>从stdin中逐行读入只需要把上面中的文件换成<code>sys.stdin</code>即可。例子：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> sys.stdin:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="co"># 去掉末尾换行符</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    line <span class="op">=</span> line.strip()</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin" class="uri">https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin</a></p>
-<h1 id="读取参数">读取参数</h1>
-<p><code>sys.argv</code>: 参数列表。<code>sys.argv[0]</code>一般是当前命令。<br>
-<code>len(sys.argv)</code>是参数个数。</p>
+<h2 id="从文件读入">从文件读入</h2>
+<p>把上面的<code>sys.stdin</code>换成<code>open('path/to/file')</code>：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'/path/to/file'</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="co"># 去掉末尾换行符</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    line <span class="op">=</span> line.strip()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
+<h2 id="读取参数">读取参数</h2>
+<p><code>sys.argv</code>: 参数列表。<code>sys.argv[0]</code>一般是当前命令。</p>
+<p><code>len(sys.argv)</code>是参数个数。</p>
 </body></html>
 </div>
 
