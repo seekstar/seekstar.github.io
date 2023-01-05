@@ -7224,7 +7224,7 @@ Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
 <h3 id="构建ssh隧道">构建ssh隧道</h3>
 <p>语法如下：</p>
 <pre class="shell"><code>ssh -fNL port:hostip:hostport sshname</code></pre>
-<p>将<code>sshname:port</code>的流量转发到<code>hostip:hostport</code>。</p>
+<p>将<code>localhost:port</code>的流量通过远程服务器<code>sshname</code>转发到<code>hostip:hostport</code>。</p>
 <pre class="text"><code>-f: 后台运行。
 -N: 不执行命令。用于转发端口。
 -L port:host:hostport
@@ -7233,10 +7233,10 @@ Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
         就经过安全通道转发出去, 同时远程主机和 host 的 hostport 端口建立连接. 可以
         在配置文件中指定端口的转发. 只有 root 才能转发特权端口.  IPv6 地址用另一种
         格式说明: port/host/hostport</code></pre>
-<p>网上很多教程上还加上了<code>-g</code>，这样本地的5901端口会向网络上其他机器开放，就不安全了。</p>
+<p>网上很多教程上还加上了<code>-g</code>，这样本地的端口会向网络上其他机器开放，就不安全了。</p>
 <p>对于我们的情况，命令这样写：</p>
 <pre class="shell"><code>ssh -fNL 5901:localhost:5901 sshname</code></pre>
-<p>这样就把服务器自己的5901端口映射到本地的5901端口了。</p>
+<p>这样就把本地的5901端口的流量通过<code>sshname</code>转发给<code>localhost:5901</code>，也就是转发给服务器自己的5901端口了。这就实现了将服务器的5901端口映射到本地的5901端口了。</p>
 <h3 id="安装vnc-viewer并查看">安装VNC viewer并查看</h3>
 <p>在vncviewer中查看<code>localhost:1</code>即可。</p>
 <p>Debian系：</p>

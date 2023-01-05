@@ -7391,6 +7391,15 @@ fi</code></pre>
      echo yes;
 fi</code></pre>
 <p>会打印出<code>yes</code>。</p>
+<h2 id="组管理">组管理</h2>
+<h3 id="创建组">创建组</h3>
+<pre class="shell"><code>sudo groupadd GroupName</code></pre>
+<h3 id="向组中加入用户">向组中加入用户</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013078295/article/details/52173311" class="uri">https://blog.csdn.net/u013078295/article/details/52173311</a></p>
+<pre class="shell"><code>sudo usermod -aG GroupName UserName</code></pre>
+<h3 id="查看group里的用户">查看group里的用户</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/withiter/article/details/8132525" class="uri">https://blog.csdn.net/withiter/article/details/8132525</a>里的评论</p>
+<pre class="shell"><code>grep GroupName /etc/group</code></pre>
 <h2 id="按应用">按应用</h2>
 <h3 id="crontab">crontab</h3>
 <p>启动</p>
@@ -7425,12 +7434,6 @@ jason</code></pre>
 <h3 id="监视某命令的执行结果">监视某命令的执行结果</h3>
 <pre class="shell"><code>watch -n Interval Command</code></pre>
 <p>Interval: 执行间隔，以秒为单位</p>
-<h3 id="查看group里的用户">查看group里的用户</h3>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/withiter/article/details/8132525" class="uri">https://blog.csdn.net/withiter/article/details/8132525</a>里的评论</p>
-<pre class="shell"><code>grep GroupName /etc/group</code></pre>
-<h3 id="加入某用户到某group">加入某用户到某group</h3>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013078295/article/details/52173311" class="uri">https://blog.csdn.net/u013078295/article/details/52173311</a></p>
-<pre class="shell"><code>sudo usermod -aG davfs2 UserName</code></pre>
 <h3 id="获取精确到纳秒的当前时间">获取精确到纳秒的当前时间</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gengshenghong/article/details/7583580" class="uri">https://blog.csdn.net/gengshenghong/article/details/7583580</a></p>
 <pre class="shell"><code>date +%Y%m%d%X%N</code></pre>

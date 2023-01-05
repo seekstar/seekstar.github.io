@@ -7193,6 +7193,13 @@ var _hmt = _hmt || [];
 <h2 id="查看已安装的包">查看已安装的包</h2>
 <pre class="shell"><code>pacman -Q</code></pre>
 <p>这里面也会把用yay安装的包列出来。</p>
+<h2 id="查看某包被哪些包依赖">查看某包被哪些包依赖</h2>
+<pre class="shell"><code>pacman -Qi 包名</code></pre>
+<p>里面的<code>Required By</code>后面的就是依赖这个包的包。</p>
+<p>或者用<code>pkgtools</code>包里的<code>whoneeds</code>：</p>
+<pre class="shell"><code># archlinuxcn源里也有pkgtools
+sudo yay -S pkgtools
+whoneeds 包名</code></pre>
 <h2 id="无效或已损坏的软件包">无效或已损坏的软件包</h2>
 <p>可能是<code>archlinux-keyring</code>过时了，需要更新一下：</p>
 <pre class="shell"><code>sudo pacman -Sy archlinux-keyring &amp;&amp; sudo pacman -Su</code></pre>
