@@ -7200,14 +7200,31 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><h2 id="端口扫描">端口扫描</h2>
+<pre class="shell"><code>nmap -p端口 地址</code></pre>
+<h3 id="地址">地址</h3>
+<p>地址可以用通配符，比如<code>192.168.*.1</code>表示<code>192.168.1.1</code>、<code>192.168.2.1</code>、……、<code>192.168.255.1</code>。</p>
+<p>也可以用CIDR（Classless Inter-Domain Routing，无类别域间路由），比如<code>192.168.1.1/24</code>表示<code>192.168.1.1</code>到<code>192.168.1.255</code>的所有地址。</p>
+<h3 id="特定端口">特定端口</h3>
+<p>扫描22号端口：</p>
+<pre class="shell"><code>nmap -p22 地址</code></pre>
+<h3 id="范围">范围</h3>
+<p>扫描<code>22</code>到<code>25</code>号端口：</p>
+<pre class="shell"><code>nmap -p22-25 地址</code></pre>
+<h3 id="所有端口">所有端口</h3>
+<p><code>-</code>表示所有端口（1到65535）。</p>
 <pre class="shell"><code>nmap -p- 地址</code></pre>
 <a href="/2022/05/17/linux%E6%9F%A5%E7%9C%8B%E5%BC%80%E5%90%AF%E7%9A%84%E7%AB%AF%E5%8F%A3/" title="linux查看开启的端口">linux查看开启的端口</a>
+<h3 id="只报告open的端口">只报告open的端口</h3>
+<p><code>--open: Only show open (or possibly open) ports</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cookieXSS/article/details/105475535">nmap超快高效扫描端口</a></p>
 <h2 id="主机发现">主机发现</h2>
 <p>通过ping的方式进行主机发现：</p>
-<pre class="shell"><code>nmap -sn CIDR(Classless Inter-Domain Routing,无类别域间路由)</code></pre>
+<pre class="shell"><code># -sn: Ping Scan - disable port scan
+nmap -sn 地址</code></pre>
 <p>例如ping 192.168.1.1到192.168.1.255的所有IP：</p>
 <pre class="shell"><code>nmap -sn 192.168.1.1/24</code></pre>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_61427044/article/details/127711345" class="uri">https://blog.csdn.net/weixin_61427044/article/details/127711345</a></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_61427044/article/details/127711345">Nmap发现局域网中存活主机</a></p>
 </body></html>
 </div>
 
