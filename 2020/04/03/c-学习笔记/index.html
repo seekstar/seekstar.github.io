@@ -4642,6 +4642,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/01/16/%E8%A7%A3%E5%86%B3usb-burning-tool-v2%E5%9C%A8win10%E4%B8%AD%E6%8A%A5%E9%94%99mfc100-dll%E6%89%BE%E4%B8%8D%E5%88%B0/">
+                     
+										    解决USB Burning Tool V2在Win10中报错mfc100.dll找不到
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/10/06/%E8%A7%A3%E5%86%B3win10%E6%97%A0%E6%B3%95%E7%94%A8%E7%8B%AC%E6%98%BE%E7%8E%A9%E6%B8%B8%E6%88%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
                      
 										    解决win10无法用独显玩游戏的问题
@@ -7370,6 +7381,89 @@ length: 3
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>    T* Peek();</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>};</span></code></pre></div>
 <p>注意<code>Peek</code>返回的object不要保存，而是每次都调用<code>Peek</code>来访问，否则会出现下次调用<code>Next</code>之后原先保存的引用失效的问题。</p>
+<h2 id="模板类分离声明和定义">模板类分离声明和定义</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>    A();</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>    <span class="dt">void</span> Print();</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>    T <span class="va">a_</span>;</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>};</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>A&lt;T&gt;::A() : <span class="va">a_</span>(<span class="dv">233</span>) {}</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::Print() {</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>    <span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>}</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>    A&lt;<span class="dt">int</span>&gt;().Print();</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a>}</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2464296/is-it-possible-to-defer-member-initialization-to-the-constructor-body" class="uri">https://stackoverflow.com/questions/2464296/is-it-possible-to-defer-member-initialization-to-the-constructor-body</a></p>
+<p>嵌套类同理：</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>    <span class="kw">struct</span> B {</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>        <span class="at">static</span> <span class="dt">void</span> Print();</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>    };</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>};</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::B::Print() {</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>    <span class="bu">std::</span>cout &lt;&lt; <span class="kw">typeid</span>(T).name() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>}</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>    A&lt;<span class="dt">int</span>&gt;::B::Print();</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="隐藏构造函数">隐藏构造函数</h2>
+<p>有时会只想让特定的函数（比如<code>begin()</code>）能够返回一个类（比如迭代器），此时就需要隐藏这个类的构造函数。</p>
+<p>最优雅的方法是用C++20里的module。如果不能用C++20的话，可以弄一个隐藏的namespace来模拟module里没有export的部分。将要隐藏的构造函数声明为<code>protected</code>，然后在隐藏的namespace里声明一个继承这个类的子类，这样这个子类就可以访问这个隐藏的构造函数。将子类的构造函数声明为<code>public</code>，需要使用隐藏的构造函数时，调用子类的构造函数，然后将构造出来的子类转换为那个类即可。</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>    <span class="dt">void</span> Print() {</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>        <span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>    }</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a><span class="kw">protected</span>:</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>    A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>    <span class="dt">int</span> <span class="va">a_</span>;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>};</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a><span class="co">// This should not be accessed by users</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a><span class="kw">namespace</span> __A {</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a><span class="kw">struct</span> _A : A {</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>    _A(<span class="dt">int</span> a) : A(a) {}</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true"></a>};</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true"></a>}</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true"></a>A Create() {</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true"></a>    <span class="cf">return</span> __A::_A(<span class="dv">233</span>);</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true"></a>}</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true"></a>    Create().Print();</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 
