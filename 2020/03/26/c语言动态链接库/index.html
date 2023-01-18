@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7103,11 +7215,11 @@ var _hmt = _hmt || [];
 <h1 id="场景">场景</h1>
 <p>add.c</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">int</span> add(<span class="dt">int</span> a, <span class="dt">int</span> b) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="cf">return</span> a + b;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="cf">return</span> a + b;</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>}</span></code></pre></div>
 <p>sub.c</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">int</span> sub(<span class="dt">int</span> a, <span class="dt">int</span> b) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="cf">return</span> a - b;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="cf">return</span> a - b;</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>}</span></code></pre></div>
 <p>main.c</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
@@ -7116,9 +7228,9 @@ var _hmt = _hmt || [];
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> sub(<span class="dt">int</span>, <span class="dt">int</span>);</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    printf(<span class="st">"%d, %d</span><span class="sc">\n</span><span class="st">"</span>, add(<span class="dv">1</span>, <span class="dv">2</span>), sub(<span class="dv">1</span>, <span class="dv">2</span>));</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>	printf(<span class="st">"%d, %d</span><span class="sc">\n</span><span class="st">"</span>, add(<span class="dv">1</span>, <span class="dv">2</span>), sub(<span class="dv">1</span>, <span class="dv">2</span>));</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>}</span></code></pre></div>
 <p>利用动态链接在main.c中使用add.c和sub.c中的add和sub函数。</p>
 <h1 id="windows">windows</h1>

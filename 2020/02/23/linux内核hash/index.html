@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7166,7 +7278,7 @@ var _hmt = _hmt || [];
 <p>crypto_alloc_shash：根据指定的哈希算法，生成handler，并返回其指针。<br>
 原型：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">struct</span> crypto_shash *crypto_alloc_shash(<span class="dt">const</span> <span class="dt">char</span> *alg_name, u32 type,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>                    u32 mask);</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>					u32 mask);</span></code></pre></div>
 <p>alg_name: algorithm name，哈希算法名称<br>
 type和mask一般都是0。<del>其实我也不清楚</del></p>
 <h3 id="销毁">销毁</h3>
@@ -7174,10 +7286,10 @@ type和mask一般都是0。<del>其实我也不清楚</del></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> crypto_free_shash(<span class="kw">struct</span> crypto_shash *tfm);</span></code></pre></div>
 <h2 id="struct-shash_desc">struct shash_desc</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> shash_desc {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">struct</span> crypto_shash *tfm;</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    u32 flags;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>	<span class="kw">struct</span> crypto_shash *tfm;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	u32 flags;</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    <span class="dt">void</span> *__ctx[] CRYPTO_MINALIGN_ATTR;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>	<span class="dt">void</span> *__ctx[] CRYPTO_MINALIGN_ATTR;</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>};</span></code></pre></div>
 <p>tfm: 加密handler<br>
 ctx: 空数组的首地址，相当于汇编里的一个标号，指向结构体的后一个字节。<br>
@@ -7213,7 +7325,7 @@ ENOMEM: error, no memory</p>
 <p>kfree其内存即可</p>
 <h2 id="计算哈希值">计算哈希值</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">int</span> crypto_shash_digest(<span class="kw">struct</span> shash_desc *desc, <span class="dt">const</span> u8 *data,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>            <span class="dt">unsigned</span> <span class="dt">int</span> len, u8 *out);</span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>			<span class="dt">unsigned</span> <span class="dt">int</span> len, u8 *out);</span></code></pre></div>
 <p>其中desc后面一定要有足够长的buffer（前面用crypto_shash_descsize保证了）<br>
 out就是生成的哈希值。</p>
 <h1 id="非加密哈希">非加密哈希</h1>

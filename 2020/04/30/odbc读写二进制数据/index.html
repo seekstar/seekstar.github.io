@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7108,7 +7220,7 @@ var _hmt = _hmt || [];
 这里以保存哈希后的密码为例。<br>
 ## 定义表</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> pw (</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    pw BINARY(<span class="dv">4</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>)</span></code></pre></div>
 <h2 id="写入">写入</h2>
@@ -7119,7 +7231,7 @@ var _hmt = _hmt || [];
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>        <span class="kw">sizeof</span>(binary), <span class="dv">0</span>, binary, <span class="kw">sizeof</span>(binary), &amp;length);</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO pw VALUES(3, ?);"</span>;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
 <p>注意SQLBindParameter的最后一个参数如果为NULL，则相当于告诉odbc遇到NULL时停止，也就是null-terminated。如果要写入含NULL的数据，则必须指定要写入的数据长度。</p>
 <h2 id="读取">读取</h2>
 <p>直接用SQLExecDirect执行select，然后用SQLBindCol绑定参数，然后用SQLFetch把数据读出来即可。<br>
@@ -7191,7 +7303,7 @@ var _hmt = _hmt || [];
 <span id="cb4-58"><a href="#cb4-58" aria-hidden="true"></a>    }  </span>
 <span id="cb4-59"><a href="#cb4-59" aria-hidden="true"></a></span>
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true"></a>    <span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
 <span id="cb4-62"><a href="#cb4-62" aria-hidden="true"></a>    retcode = SQLConnect(hdbc,(SQLCHAR*)<span class="st">"company"</span>,SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);</span>
 <span id="cb4-63"><a href="#cb4-63" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb4-64"><a href="#cb4-64" aria-hidden="true"></a>        printf(<span class="st">"SQLConnect() Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
@@ -7207,17 +7319,17 @@ var _hmt = _hmt || [];
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
 <span id="cb4-75"><a href="#cb4-75" aria-hidden="true"></a>    }  </span>
 <span id="cb4-76"><a href="#cb4-76" aria-hidden="true"></a></span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
 <span id="cb4-78"><a href="#cb4-78" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb4-79"><a href="#cb4-79" aria-hidden="true"></a>        printf(<span class="st">"SQLExecDirect Failed: use test;</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
 <span id="cb4-80"><a href="#cb4-80" aria-hidden="true"></a>        Cleanup();  </span>
 <span id="cb4-81"><a href="#cb4-81" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
 <span id="cb4-82"><a href="#cb4-82" aria-hidden="true"></a>    }  </span>
 <span id="cb4-83"><a href="#cb4-83" aria-hidden="true"></a></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true"></a>    SQLUBIGINT id;</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true"></a>    <span class="dt">uint8_t</span> binary[<span class="dv">4</span>] = {<span class="bn">0x01</span>, <span class="bn">0x02</span>, <span class="bn">0x00</span>, <span class="bn">0x04</span>};</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true"></a>    length = <span class="kw">sizeof</span>(binary);</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true"></a>    retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true"></a>	SQLUBIGINT id;</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true"></a>	<span class="dt">uint8_t</span> binary[<span class="dv">4</span>] = {<span class="bn">0x01</span>, <span class="bn">0x02</span>, <span class="bn">0x00</span>, <span class="bn">0x04</span>};</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true"></a>	length = <span class="kw">sizeof</span>(binary);</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true"></a>	retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
 <span id="cb4-88"><a href="#cb4-88" aria-hidden="true"></a>        <span class="kw">sizeof</span>(binary), <span class="dv">0</span>, binary, <span class="kw">sizeof</span>(binary), &amp;length);</span>
 <span id="cb4-89"><a href="#cb4-89" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb4-90"><a href="#cb4-90" aria-hidden="true"></a>        printf(<span class="st">"SQLBindParameter Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
@@ -7226,7 +7338,7 @@ var _hmt = _hmt || [];
 <span id="cb4-93"><a href="#cb4-93" aria-hidden="true"></a>    }  </span>
 <span id="cb4-94"><a href="#cb4-94" aria-hidden="true"></a></span>
 <span id="cb4-95"><a href="#cb4-95" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO pw VALUES(6, ?);"</span>;</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
 <span id="cb4-97"><a href="#cb4-97" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb4-98"><a href="#cb4-98" aria-hidden="true"></a>        printf(<span class="st">"SQLExecDirect Failed: </span><span class="sc">%s\n\n</span><span class="st">"</span>, stmt);  </span>
 <span id="cb4-99"><a href="#cb4-99" aria-hidden="true"></a>        Cleanup();  </span>
@@ -7253,7 +7365,7 @@ var _hmt = _hmt || [];
 <span id="cb4-120"><a href="#cb4-120" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb4-121"><a href="#cb4-121" aria-hidden="true"></a>}</span></code></pre></div>
 <p>结果：</p>
-<pre><code>6   4000201</code></pre>
+<pre><code>6	4000201</code></pre>
 <p>可见已经把数据写入了，只是因为我的机器是小端字节序的，所以字节序反了。<br>
 # 非定长二进制<br>
 blob系列和varbinary都可以保存非定长二进制。<br>
@@ -7271,34 +7383,34 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>);</span></code></pre></div>
 <h3 id="写入-1">写入</h3>
 <p>关键代码：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>    <span class="dt">uint8_t</span> content[<span class="dv">11</span>] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>};</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    SQLLEN contentLen = <span class="kw">sizeof</span>(content);</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>	<span class="dt">uint8_t</span> content[<span class="dv">11</span>] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>};</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>	SQLLEN contentLen = <span class="kw">sizeof</span>(content);</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>	retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>        MAX_CONTENT_LEN, <span class="dv">0</span>, content, <span class="kw">sizeof</span>(content), &amp;contentLen);</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO msgcontent VALUES(3, ?);"</span>;</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
 <p>注意SQLBindParameter的最后一个参数如果为NULL，则相当于告诉odbc遇到NULL时停止，也就是null-terminated。如果要写入含NULL的数据，则必须指定要写入的数据长度。</p>
 <h3 id="读取-1">读取</h3>
 <p>关键代码：</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>    SQLUBIGINT id = <span class="dv">3332</span>;</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    memset(content, <span class="dv">0</span>, <span class="kw">sizeof</span>(content));</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    stmt = <span class="st">"SELECT * FROM msgcontent;"</span>;</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>	stmt = <span class="st">"SELECT * FROM msgcontent;"</span>;</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>    SQLLEN idLen;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>	SQLLEN idLen;</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"id</span><span class="sc">\t</span><span class="st">content</span><span class="sc">\n</span><span class="st">"</span>;</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    SQLBindCol(hstmt, <span class="dv">1</span>, SQL_C_UBIGINT, &amp;id, <span class="kw">sizeof</span>(id), &amp;idLen);</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>    SQLBindCol(hstmt, <span class="dv">2</span>, SQL_C_BINARY, content, <span class="kw">sizeof</span>(content), &amp;contentLen);</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>    <span class="cf">while</span> (SQL_NO_DATA != SQLFetch(hstmt)) {</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>        cout &lt;&lt; id &lt;&lt; <span class="ch">'</span><span class="sc">\t</span><span class="ch">'</span>;</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>        <span class="cf">if</span> (SQL_NULL_DATA == contentLen) {</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>            cout &lt;&lt; <span class="st">"&lt;NULL&gt;"</span>;</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>            cout &lt;&lt; <span class="ch">'('</span> &lt;&lt; contentLen &lt;&lt; <span class="ch">')'</span>;</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>            <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; contentLen; ++i) {</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>                printf(<span class="st">"</span><span class="sc">%02x</span><span class="st">"</span>, content[i]);</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>            }</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>        }</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>        cout &lt;&lt; endl;</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>		cout &lt;&lt; id &lt;&lt; <span class="ch">'</span><span class="sc">\t</span><span class="ch">'</span>;</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>		<span class="cf">if</span> (SQL_NULL_DATA == contentLen) {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>			cout &lt;&lt; <span class="st">"&lt;NULL&gt;"</span>;</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>			cout &lt;&lt; <span class="ch">'('</span> &lt;&lt; contentLen &lt;&lt; <span class="ch">')'</span>;</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>			<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; contentLen; ++i) {</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>				printf(<span class="st">"</span><span class="sc">%02x</span><span class="st">"</span>, content[i]);</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>			}</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>		}</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>		cout &lt;&lt; endl;</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>    }</span></code></pre></div>
 <h3 id="完整代码-1">完整代码</h3>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
@@ -7362,7 +7474,7 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb9-59"><a href="#cb9-59" aria-hidden="true"></a>    }  </span>
 <span id="cb9-60"><a href="#cb9-60" aria-hidden="true"></a></span>
 <span id="cb9-61"><a href="#cb9-61" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true"></a>    <span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
 <span id="cb9-63"><a href="#cb9-63" aria-hidden="true"></a>    retcode = SQLConnect(hdbc,(SQLCHAR*)<span class="st">"company"</span>,SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);</span>
 <span id="cb9-64"><a href="#cb9-64" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb9-65"><a href="#cb9-65" aria-hidden="true"></a>        printf(<span class="st">"SQLConnect() Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
@@ -7378,16 +7490,16 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb9-75"><a href="#cb9-75" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
 <span id="cb9-76"><a href="#cb9-76" aria-hidden="true"></a>    }  </span>
 <span id="cb9-77"><a href="#cb9-77" aria-hidden="true"></a></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
 <span id="cb9-79"><a href="#cb9-79" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb9-80"><a href="#cb9-80" aria-hidden="true"></a>        printf(<span class="st">"SQLExecDirect Failed: use test;</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
 <span id="cb9-81"><a href="#cb9-81" aria-hidden="true"></a>        Cleanup();  </span>
 <span id="cb9-82"><a href="#cb9-82" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
 <span id="cb9-83"><a href="#cb9-83" aria-hidden="true"></a>    }  </span>
 <span id="cb9-84"><a href="#cb9-84" aria-hidden="true"></a></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true"></a>    <span class="dt">uint8_t</span> content[<span class="dv">11</span>] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>};</span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true"></a>    SQLLEN contentLen = <span class="kw">sizeof</span>(content);</span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true"></a>    retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true"></a>	<span class="dt">uint8_t</span> content[<span class="dv">11</span>] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>};</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true"></a>	SQLLEN contentLen = <span class="kw">sizeof</span>(content);</span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true"></a>	retcode = SQLBindParameter(hstmt, <span class="dv">1</span>, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_BINARY,</span>
 <span id="cb9-88"><a href="#cb9-88" aria-hidden="true"></a>        MAX_CONTENT_LEN, <span class="dv">0</span>, content, <span class="kw">sizeof</span>(content), &amp;contentLen);</span>
 <span id="cb9-89"><a href="#cb9-89" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb9-90"><a href="#cb9-90" aria-hidden="true"></a>        printf(<span class="st">"SQLBindParameter Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
@@ -7396,7 +7508,7 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb9-93"><a href="#cb9-93" aria-hidden="true"></a>    }  </span>
 <span id="cb9-94"><a href="#cb9-94" aria-hidden="true"></a></span>
 <span id="cb9-95"><a href="#cb9-95" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO msgcontent VALUES(3, ?);"</span>;</span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
 <span id="cb9-97"><a href="#cb9-97" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb9-98"><a href="#cb9-98" aria-hidden="true"></a>        printf(<span class="st">"SQLExecDirect Failed: </span><span class="sc">%s\n\n</span><span class="st">"</span>, stmt);  </span>
 <span id="cb9-99"><a href="#cb9-99" aria-hidden="true"></a>        Cleanup();  </span>
@@ -7405,28 +7517,28 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb9-102"><a href="#cb9-102" aria-hidden="true"></a></span>
 <span id="cb9-103"><a href="#cb9-103" aria-hidden="true"></a>    SQLUBIGINT id = <span class="dv">3332</span>;</span>
 <span id="cb9-104"><a href="#cb9-104" aria-hidden="true"></a>    memset(content, <span class="dv">0</span>, <span class="kw">sizeof</span>(content));</span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true"></a>    stmt = <span class="st">"SELECT * FROM msgcontent;"</span>;</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true"></a>	stmt = <span class="st">"SELECT * FROM msgcontent;"</span>;</span>
 <span id="cb9-106"><a href="#cb9-106" aria-hidden="true"></a>    retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span>
 <span id="cb9-107"><a href="#cb9-107" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
 <span id="cb9-108"><a href="#cb9-108" aria-hidden="true"></a>        printf(<span class="st">"SQLExecDirect Failed: </span><span class="sc">%s\n\n</span><span class="st">"</span>, stmt);  </span>
 <span id="cb9-109"><a href="#cb9-109" aria-hidden="true"></a>        Cleanup();  </span>
 <span id="cb9-110"><a href="#cb9-110" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);</span>
 <span id="cb9-111"><a href="#cb9-111" aria-hidden="true"></a>    }</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true"></a>    SQLLEN idLen;</span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true"></a>	SQLLEN idLen;</span>
 <span id="cb9-113"><a href="#cb9-113" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"id</span><span class="sc">\t</span><span class="st">content</span><span class="sc">\n</span><span class="st">"</span>;</span>
 <span id="cb9-114"><a href="#cb9-114" aria-hidden="true"></a>    SQLBindCol(hstmt, <span class="dv">1</span>, SQL_C_UBIGINT, &amp;id, <span class="kw">sizeof</span>(id), &amp;idLen);</span>
 <span id="cb9-115"><a href="#cb9-115" aria-hidden="true"></a>    SQLBindCol(hstmt, <span class="dv">2</span>, SQL_C_BINARY, content, <span class="kw">sizeof</span>(content), &amp;contentLen);</span>
 <span id="cb9-116"><a href="#cb9-116" aria-hidden="true"></a>    <span class="cf">while</span> (SQL_NO_DATA != SQLFetch(hstmt)) {</span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true"></a>        cout &lt;&lt; id &lt;&lt; <span class="ch">'</span><span class="sc">\t</span><span class="ch">'</span>;</span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true"></a>        <span class="cf">if</span> (SQL_NULL_DATA == contentLen) {</span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true"></a>            cout &lt;&lt; <span class="st">"&lt;NULL&gt;"</span>;</span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true"></a>            cout &lt;&lt; <span class="ch">'('</span> &lt;&lt; contentLen &lt;&lt; <span class="ch">')'</span>;</span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true"></a>            <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; contentLen; ++i) {</span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true"></a>                printf(<span class="st">"</span><span class="sc">%02x</span><span class="st">"</span>, content[i]);</span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true"></a>            }</span>
-<span id="cb9-125"><a href="#cb9-125" aria-hidden="true"></a>        }</span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true"></a>        cout &lt;&lt; endl;</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true"></a>		cout &lt;&lt; id &lt;&lt; <span class="ch">'</span><span class="sc">\t</span><span class="ch">'</span>;</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true"></a>		<span class="cf">if</span> (SQL_NULL_DATA == contentLen) {</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true"></a>			cout &lt;&lt; <span class="st">"&lt;NULL&gt;"</span>;</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true"></a>			cout &lt;&lt; <span class="ch">'('</span> &lt;&lt; contentLen &lt;&lt; <span class="ch">')'</span>;</span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true"></a>			<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; contentLen; ++i) {</span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true"></a>				printf(<span class="st">"</span><span class="sc">%02x</span><span class="st">"</span>, content[i]);</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true"></a>			}</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true"></a>		}</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true"></a>		cout &lt;&lt; endl;</span>
 <span id="cb9-127"><a href="#cb9-127" aria-hidden="true"></a>    }</span>
 <span id="cb9-128"><a href="#cb9-128" aria-hidden="true"></a></span>
 <span id="cb9-129"><a href="#cb9-129" aria-hidden="true"></a>    Cleanup();</span>

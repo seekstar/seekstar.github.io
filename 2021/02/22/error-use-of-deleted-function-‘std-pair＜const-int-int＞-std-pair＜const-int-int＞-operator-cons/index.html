@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7107,21 +7219,21 @@ note: ‘std::pair&lt;const int, int&gt;&amp; std::pair&lt;const int, int&gt;::o
 <p>完整代码：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; c[<span class="dv">2</span>];</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    c[<span class="dv">0</span>] = <span class="bu">std::</span>make_pair(<span class="dv">1</span>, <span class="dv">1</span>);</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	<span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; c[<span class="dv">2</span>];</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	c[<span class="dv">0</span>] = <span class="bu">std::</span>make_pair(<span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>}</span></code></pre></div>
 <p>错误信息里说是因为定义了move constructor or move assignment，显然不对。<br>
 其实是因为<code>std::pair&lt;const int, int&gt;</code>里的first是const的，只能在定义的时候赋值，所以就把<code>operator=</code>给delete了。</p>
 <p>更改成这样才是对的：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; a[<span class="dv">2</span>];</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    a[<span class="dv">0</span>] = <span class="bu">std::</span>make_pair(<span class="dv">1</span>, <span class="dv">1</span>);</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; ret = a[<span class="dv">0</span>];</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="kw">auto</span> retp = <span class="kw">reinterpret_cast</span>&lt;<span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; *&gt;(a + <span class="dv">0</span>);</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	<span class="bu">std::</span>pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; a[<span class="dv">2</span>];</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>	a[<span class="dv">0</span>] = <span class="bu">std::</span>make_pair(<span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	<span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; ret = a[<span class="dv">0</span>];</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	<span class="kw">auto</span> retp = <span class="kw">reinterpret_cast</span>&lt;<span class="bu">std::</span>pair&lt;<span class="at">const</span> <span class="dt">int</span>, <span class="dt">int</span>&gt; *&gt;(a + <span class="dv">0</span>);</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>}</span></code></pre></div>
 <p>把存储类型改成<code>std::pair&lt;int, int&gt;</code>，然后要用的时候（比如函数返回值）转化成<code>std::pair&lt;const int, int&gt;</code>，就不怕把<code>first</code>给更改了。</p>
 <p>参考文献：<br>

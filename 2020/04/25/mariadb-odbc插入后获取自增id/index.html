@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7101,7 +7213,7 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>官方回复：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/last_insert_id/" class="uri">https://mariadb.com/kb/en/last_insert_id/</a></p>
 <h1 id="定义表">定义表</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> incid (</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTO_INCREMENT,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTO_INCREMENT,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    salary <span class="dt">INT</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>);</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
@@ -7116,7 +7228,7 @@ var _hmt = _hmt || [];
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>RETURNS bigint</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val);</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="kw">RETURN</span> LAST_INSERT_ID();</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="cf">END</span> <span class="op">//</span></span>
@@ -7153,7 +7265,7 @@ var _hmt = _hmt || [];
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>    {</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"AllocEnvHandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    }</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a></span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>    <span class="co">//分配连接句柄</span></span>
@@ -7161,25 +7273,25 @@ var _hmt = _hmt || [];
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>    {</span>
 <span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"AllocDbcHandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>    }</span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a></span>
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>    <span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>    ret = SQLConnect(serverhdbc,(SQLCHAR*)<span class="st">"company"</span>,SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);</span>
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a>    {</span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"SQL_Connect error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>    }</span>
 <span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a></span>
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>    <span class="co">//分配执行语句句柄</span></span>
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>    ret = SQLAllocHandle(SQL_HANDLE_STMT,serverhdbc,&amp;serverhstmt);</span>
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a>    SQLUBIGINT id;</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>    SQLINTEGER salary;</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>    ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>    ret = SQLExecDirect(serverhstmt, (SQLCHAR*)<span class="st">"select * from incid;"</span>, SQL_NTS);</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a>	SQLUBIGINT id;</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>	SQLINTEGER salary;</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt, (SQLCHAR*)<span class="st">"select * from incid;"</span>, SQL_NTS);</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
 <span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>        <span class="co">//绑定数据</span></span>
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>        SQLBindCol(serverhstmt,<span class="dv">1</span>, SQL_C_UBIGINT, (<span class="dt">void</span>*)&amp;id,<span class="kw">sizeof</span>(id), &amp;length);</span>
@@ -7191,19 +7303,19 @@ var _hmt = _hmt || [];
 <span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>            cout &lt;&lt; id &lt;&lt; <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> &lt;&lt; salary &lt;&lt; endl;</span>
 <span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a>        }</span>
 <span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"ERROR!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>    }</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"ERROR!</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>	}</span>
 <span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>    ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"select insert_sth(23333333);"</span>, SQL_NTS);</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"select insert_sth(23333333);"</span>, SQL_NTS);</span>
 <span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
 <span id="cb3-71"><a href="#cb3-71" aria-hidden="true"></a>        <span class="co">//绑定数据</span></span>
 <span id="cb3-72"><a href="#cb3-72" aria-hidden="true"></a>        SQLBindCol(serverhstmt,<span class="dv">1</span>, SQL_C_UBIGINT, (<span class="dt">void</span>*)&amp;id, <span class="kw">sizeof</span>(id), &amp;length);</span>
 <span id="cb3-73"><a href="#cb3-73" aria-hidden="true"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a>        SQLFetch(serverhstmt);</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a>		SQLFetch(serverhstmt);</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
 <span id="cb3-76"><a href="#cb3-76" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"Error</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true"></a>    }</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"Error</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true"></a>	}</span>
 <span id="cb3-79"><a href="#cb3-79" aria-hidden="true"></a></span>
 <span id="cb3-80"><a href="#cb3-80" aria-hidden="true"></a>    <span class="co">//释放语句句柄</span></span>
 <span id="cb3-81"><a href="#cb3-81" aria-hidden="true"></a>    ret=SQLFreeHandle(SQL_HANDLE_STMT,serverhstmt);</span>
@@ -7238,7 +7350,7 @@ var _hmt = _hmt || [];
 <div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>DELIMITER $$</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> insert_return_id(<span class="kw">IN</span> val <span class="dt">int</span>, <span class="kw">OUT</span> <span class="kw">id</span> bigint unsigned)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val);</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="kw">SET</span> <span class="kw">id</span> <span class="op">=</span> LAST_INSERT_ID();</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="cf">END</span></span>
@@ -7248,14 +7360,14 @@ var _hmt = _hmt || [];
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="kw">select</span> @id;</span></code></pre></div>
 <p>输出是自增的，说明存储过程写对了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.easysoft.com/developer/languages/c/examples/CallSPFindID.html" class="uri">https://www.easysoft.com/developer/languages/c/examples/CallSPFindID.html</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>    id = <span class="dv">2333</span>;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    SQLBindParameter(serverhstmt, <span class="dv">1</span>, SQL_PARAM_OUTPUT, SQL_C_UBIGINT, SQL_BIGINT, <span class="dv">0</span>, <span class="dv">0</span>, &amp;id, <span class="dv">0</span>, &amp;length);</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    ret = SQLExecDirect(serverhstmt, (SQLCHAR*)(<span class="st">"{CALL insert_return_id(23333, ?)}"</span>), SQL_NTS);</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>	id = <span class="dv">2333</span>;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>	SQLBindParameter(serverhstmt, <span class="dv">1</span>, SQL_PARAM_OUTPUT, SQL_C_UBIGINT, SQL_BIGINT, <span class="dv">0</span>, <span class="dv">0</span>, &amp;id, <span class="dv">0</span>, &amp;length);</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt, (SQLCHAR*)(<span class="st">"{CALL insert_return_id(23333, ?)}"</span>), SQL_NTS);</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"SQLExecute error</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>    }</span></code></pre></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"SQLExecute error</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	}</span></code></pre></div>
 <p>这个比方法１效率应该要高一点。</p>
 <h2 id="失败的方法">失败的方法</h2>
 <p>mariadb目前并不支持returning，所以下面的方法没用。下一个版本10.5就有这个功能了。</p>
@@ -7271,8 +7383,8 @@ var _hmt = _hmt || [];
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>RETURNS bigint</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>    <span class="kw">DECLARE</span> newid bigint;</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    <span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>	<span class="kw">DECLARE</span> newid bigint;</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val)</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    <span class="kw">RETURNING</span> <span class="kw">id</span> <span class="kw">into</span> newid;</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    <span class="kw">RETURN</span> newid;</span>

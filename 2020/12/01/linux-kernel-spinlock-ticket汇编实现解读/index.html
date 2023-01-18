@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7106,21 +7218,21 @@ queued spinlock详见<a target="_blank" rel="noopener" href="https://blog.csdn.n
 <p><img src="/2020/12/01/linux-kernel-spinlock-ticket%E6%B1%87%E7%BC%96%E5%AE%9E%E7%8E%B0%E8%A7%A3%E8%AF%BB/20201201125717472.png" alt="在这里插入图片描述"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">static</span> __always_inline <span class="dt">void</span> __ticket_spin_lock(raw_spinlock_t *lock)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>{</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        <span class="dt">short</span> inc = <span class="bn">0x0100</span>; <span class="co">// next为1，owner为0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        <span class="dt">short</span> inc = <span class="bn">0x0100</span>;	<span class="co">// next为1，owner为0</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        asm <span class="dt">volatile</span> (</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>                LOCK_PREFIX <span class="st">"xaddw %w0, %1/n"</span>   <span class="co">// xaddw指%w0 = %1和%1 += %w0同时进行。LOCK_PREFIX让xaddw是原子的。%w0表示第0个input (inc)的低16位。%1表示第1个input (lock-&gt;slock)。总的意思就是inc = lock-&gt;slock和++lock-&gt;slock.next同时进行。</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>                <span class="st">"1:/t"</span>  <span class="co">// 标号</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>                <span class="st">"cmpb %h0, %b0/n/t"</span> <span class="co">// 比较inc的高8位(next)和低8位(owner)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>                <span class="st">"je 2f/n/t"</span> <span class="co">// 如果相等则跳转到下面的标号2，其中f代表forward。</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>                <span class="st">"rep ; nop/n/t"</span> <span class="co">// 相当于pause。详见http://blog.sina.com.cn/s/blog_4bbf98c00100ysdq.html</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>                <span class="st">"movb %1, %b0/n/t"</span>  <span class="co">// inc.owner = lock-&gt;slock.owner</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>                LOCK_PREFIX <span class="st">"xaddw %w0, %1/n"</span>	<span class="co">// xaddw指%w0 = %1和%1 += %w0同时进行。LOCK_PREFIX让xaddw是原子的。%w0表示第0个input (inc)的低16位。%1表示第1个input (lock-&gt;slock)。总的意思就是inc = lock-&gt;slock和++lock-&gt;slock.next同时进行。</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>                <span class="st">"1:/t"</span>	<span class="co">// 标号</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>                <span class="st">"cmpb %h0, %b0/n/t"</span>	<span class="co">// 比较inc的高8位(next)和低8位(owner)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>                <span class="st">"je 2f/n/t"</span>	<span class="co">// 如果相等则跳转到下面的标号2，其中f代表forward。</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>                <span class="st">"rep ; nop/n/t"</span>	<span class="co">// 相当于pause。详见http://blog.sina.com.cn/s/blog_4bbf98c00100ysdq.html</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>                <span class="st">"movb %1, %b0/n/t"</span>	<span class="co">// inc.owner = lock-&gt;slock.owner</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>                <span class="co">/* don't need lfence here, because loads are in-order */</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>                <span class="st">"jmp 1b/n"</span>  <span class="co">// 跳到上面的标号1。其中b代表backward。</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>                <span class="st">"jmp 1b/n"</span>	<span class="co">// 跳到上面的标号1。其中b代表backward。</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>                <span class="st">"2:"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>                : <span class="st">"+Q"</span> (inc), <span class="st">"+m"</span> (lock-&gt;slock)    <span class="co">// 两个input。+表示读写，Q在x86中表示寄存器a、b、c或者d。</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>                : <span class="st">"+Q"</span> (inc), <span class="st">"+m"</span> (lock-&gt;slock)	<span class="co">// 两个input。+表示读写，Q在x86中表示寄存器a、b、c或者d。</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>                :</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>                : <span class="st">"memory"</span>, <span class="st">"cc"</span>);  <span class="co">// memory表示内存屏障（可是这里为什么要内存屏障呢？）。cc表示修改了标志寄存器。</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>                : <span class="st">"memory"</span>, <span class="st">"cc"</span>);	<span class="co">// memory表示内存屏障（可是这里为什么要内存屏障呢？）。cc表示修改了标志寄存器。</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>} </span></code></pre></div>
 <p>xaddw文档：<a target="_blank" rel="noopener" href="https://www.felixcloutier.com/x86/xadd" class="uri">https://www.felixcloutier.com/x86/xadd</a><br>
 Q在x86中表示寄存器a、b、c或者d：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cposture/p/9029043.html" class="uri">https://www.cnblogs.com/cposture/p/9029043.html</a></p>

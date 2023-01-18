@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7101,28 +7213,28 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>膜拜mstlq：<a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/330068401" class="uri">https://bbs.csdn.net/topics/330068401</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">//find the Power of 2 that Greater than or Equal to x</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="dt">uint32_t</span> p2ge(<span class="dt">uint32_t</span> x) {</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    --x;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">1</span>);</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">2</span>);</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">4</span>);</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">8</span>);</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">16</span>);</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="cf">return</span> x + <span class="dv">1</span>;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	--x;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">1</span>);</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">2</span>);</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">4</span>);</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">8</span>);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">16</span>);</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>	<span class="cf">return</span> x + <span class="dv">1</span>;</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>}</span></code></pre></div>
 <p>改一下就是我们要的</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">//x = 0时结果未定义</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="dt">uint32_t</span> highbit(<span class="dt">uint32_t</span> x) {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">1</span>);</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">2</span>);</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">4</span>);</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">8</span>);</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    x = x | (x &gt;&gt; <span class="dv">16</span>);</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="cf">return</span> (x &gt;&gt; <span class="dv">1</span>) + <span class="dv">1</span>;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">1</span>);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">2</span>);</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">4</span>);</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">8</span>);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>	x = x | (x &gt;&gt; <span class="dv">16</span>);</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>	<span class="cf">return</span> (x &gt;&gt; <span class="dv">1</span>) + <span class="dv">1</span>;</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>}</span></code></pre></div>
 <p>也可以用__builtin_clz</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">//x = 0时结果未定义</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">uint32_t</span> highbit(<span class="dt">uint32_t</span> x) {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="bu">u</span> &lt;&lt; (<span class="dv">31</span> - __builtin_clz(x));</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">1</span><span class="bu">u</span> &lt;&lt; (<span class="dv">31</span> - __builtin_clz(x));</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>

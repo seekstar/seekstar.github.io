@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7116,9 +7228,9 @@ var _hmt = _hmt || [];
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>...</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
 <h1 id="多行宏定义">多行宏定义</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define func</span>(x,<span class="pp"> </span>y)<span class="pp"> </span>{<span class="pp">    </span>\</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">    </span>statement;<span class="pp">          </span>\</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">    </span>statement;<span class="pp">          </span>\</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define func</span>(x,<span class="pp"> </span>y)<span class="pp"> </span>{<span class="pp">	</span>\</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">	</span>statement;<span class="pp">			</span>\</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">	</span>statement;<span class="pp">			</span>\</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>}</span></code></pre></div>
 <h1 id="把宏定义参数变成字符串">把宏定义参数变成字符串</h1>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#define ToStr</span>(x)<span class="pp"> #</span>x</span></code></pre></div>
@@ -7153,9 +7265,9 @@ var _hmt = _hmt || [];
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="pp">#define test</span>(x)<span class="pp"> </span>(test<span class="pp"> ## </span>x)</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>    cout &lt;&lt; test(<span class="dv">1</span>) &lt;&lt; endl &lt;&lt; test(<span class="dv">2</span>) &lt;&lt; endl;</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>	cout &lt;&lt; test(<span class="dv">1</span>) &lt;&lt; endl &lt;&lt; test(<span class="dv">2</span>) &lt;&lt; endl;</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre><code>1
@@ -7180,9 +7292,9 @@ DEBUG: test</code></pre>
 <code>__FILE__</code>: 当前源文件名。是一个字符串。<br>
 <code>__FUNCTION__</code>: 当前的函数名称。是一个字符串。</p>
 <p>可用于打印调试信息。</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#define dbgwarn(msg) {  \</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="pp">    if (DEBUG)  \</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="pp">        printf("In file " __FILE__ ", line %d, warning: " msg "\n", __LINE__);  \</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#define dbgwarn(msg) {	\</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="pp">	if (DEBUG)	\</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="pp">		printf("In file " __FILE__ ", line %d, warning: " msg "\n", __LINE__);	\</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="pp">}</span></span></code></pre></div>
 <p>用法：</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>dbgwarn(<span class="st">"2333"</span>);</span></code></pre></div>

@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7117,10 +7229,10 @@ sudo apt install default-jre</code></pre>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="kw">?&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">&lt;configuration&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">&lt;property&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">&lt;name&gt;</span>fs.defaultFS<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="kw">&lt;value&gt;</span>hdfs://hdfs-name:9000<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>fs.defaultFS<span class="kw">&lt;/name&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>hdfs://hdfs-name:9000<span class="kw">&lt;/value&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">&lt;/configuration&gt;</span></span></code></pre></div>
 <h3 id="workers">workers</h3>
 <p>放data node的名字。后续访问data node都是通过这些名字访问的。本例：</p>
@@ -7133,18 +7245,18 @@ hdfs-data-2</code></pre>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="kw">?&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">&lt;configuration&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>        <span class="kw">&lt;name&gt;</span>dfs.replication<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        <span class="kw">&lt;value&gt;</span>3<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="kw">&lt;/property&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>    <span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>        <span class="kw">&lt;name&gt;</span>dfs.namenode.name.dir<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>        <span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-name<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    <span class="kw">&lt;/property&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    <span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>        <span class="kw">&lt;name&gt;</span>dfs.datanode.data.dir<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>        <span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-data<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    <span class="kw">&lt;/property&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.replication<span class="kw">&lt;/name&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>3<span class="kw">&lt;/value&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.namenode.name.dir<span class="kw">&lt;/name&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-name<span class="kw">&lt;/value&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.datanode.data.dir<span class="kw">&lt;/name&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-data<span class="kw">&lt;/value&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a><span class="kw">&lt;/configuration&gt;</span></span></code></pre></div>
 <h2 id="etchosts">/etc/hosts</h2>
 <p>因为name node和data node依赖host name来通信，所以需要在<code>/etc/hosts</code>里添加对host name的解析。</p>

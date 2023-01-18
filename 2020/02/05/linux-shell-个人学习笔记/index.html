@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7118,9 +7230,9 @@ fi</code></pre>
 <del>上面的文章好像写反了</del><br>
 例子：判断环境变量DISPLAY是否存在（若不存在说明没有提供显示设备）</p>
 <pre class="shell"><code>if [ $DISPLAY ]; then
-    # DISPLAY存在
+	# DISPLAY存在
 else
-    # DISPLAY不存在
+	# DISPLAY不存在
 fi</code></pre>
 <p>或者</p>
 <pre class="shell"><code>if [ ! $DISPLAY ]; then</code></pre>
@@ -7262,8 +7374,8 @@ fi</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-func.html" class="uri">https://www.runoob.com/linux/linux-shell-func.html</a></p>
 <h4 id="定义">定义</h4>
 <pre class="shell"><code>function FunctionName {
-    do_some_thing_here
-    return Interger
+	do_some_thing_here
+	return Interger
 }</code></pre>
 <p>其中<code>function</code>可以省略，也可以不return。<br>
 参数用法与脚本类似。（<code>$#</code>表个数，<code>$1, $9, ${10}</code>表具体参数)</p>
@@ -7278,11 +7390,11 @@ do
 done</code></pre>
 <p>或者</p>
 <pre class="shell"><code>while [ Condition ]; do
-    Statement(s) to be executed if Condition is true
+	Statement(s) to be executed if Condition is true
 done</code></pre>
 <p>也可以对命令返回值取反，比如</p>
 <pre class="shell"><code>while ! Command; do
-    Statement(s) to be executed if Command is false
+	Statement(s) to be executed if Command is false
 done</code></pre>
 <h4 id="for">for</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/astraylinux/article/details/7016212" class="uri">https://blog.csdn.net/astraylinux/article/details/7016212</a></p>
@@ -7364,10 +7476,10 @@ jason</code></pre>
 <pre class="shell"><code>lsb_release -a</code></pre>
 <p>我的输出：</p>
 <pre><code>No LSB modules are available.
-Distributor ID: Deepin
-Description:    Deepin 15.11
-Release:    15.11
-Codename:   stable</code></pre>
+Distributor ID:	Deepin
+Description:	Deepin 15.11
+Release:	15.11
+Codename:	stable</code></pre>
 <h3 id="清空命令历史记录">清空命令历史记录</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1495253179240949419.html" class="uri">https://zhidao.baidu.com/question/1495253179240949419.html</a></p>
 <pre class="shell"><code>history -c</code></pre>

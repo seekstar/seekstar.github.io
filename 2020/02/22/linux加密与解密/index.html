@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7108,9 +7220,9 @@ var _hmt = _hmt || [];
 ori=$(pwd)
 cd $(dirname $1)
 if [ $2 ]; then
-    tar -zcf - $(basename $1) | openssl aes256 -salt -md sha256 &gt; $ori/$2
+	tar -zcf - $(basename $1) | openssl aes256 -salt -md sha256 &gt; $ori/$2
 else
-    echo Must specify the name of output file
+	echo Must specify the name of output file
 fi</code></pre>
 <ul>
 <li>解密</li>
@@ -7118,9 +7230,9 @@ fi</code></pre>
 <pre class="shell"><code>#!/bin/bash
 
 if [ $2 ]; then
-    cat $1 | openssl aes256 -md sha256 -d | tar zx -C $2
+	cat $1 | openssl aes256 -md sha256 -d | tar zx -C $2
 else
-    cat $1 | openssl aes256 -md sha256 -d | tar zx
+	cat $1 | openssl aes256 -md sha256 -d | tar zx
 fi</code></pre>
 <p>参考自：<a target="_blank" rel="noopener" href="http://www.chinaoc.com.cn/p/1141270.html" class="uri">http://www.chinaoc.com.cn/p/1141270.html</a><br>
 由于openssl 1.1 版本默认使用的摘要算法是sha256，而1.0默认使用的是md5，所以需要用-md选项指定摘要算法为sha256，防止不能解密不同版本的openssl加密的文件。</p>

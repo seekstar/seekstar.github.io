@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7162,7 +7274,7 @@ var _hmt = _hmt || [];
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>    <span class="dt">double</span> mid = (l+r) / <span class="dv">2</span>;</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>    <span class="dt">double</span> L = Simpson(fs, now, l, mid), R = Simpson(fs, now, mid, r), delta = L + R - pre;</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a>    <span class="cf">return</span> fabs(delta) &lt;= <span class="dv">15</span>*eps ? L + R + delta/<span class="dv">15</span> :</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>           Integrate(fs, now, l, mid, eps/<span class="dv">2</span>, L) + Integrate(fs, now, mid, r, eps/<span class="dv">2</span>, R); <span class="co">//If you TLE, then try not divide 2, i.e. "eps/2" -&gt; "eps"</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>           Integrate(fs, now, l, mid, eps/<span class="dv">2</span>, L) + Integrate(fs, now, mid, r, eps/<span class="dv">2</span>, R);	<span class="co">//If you TLE, then try not divide 2, i.e. "eps/2" -&gt; "eps"</span></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>}</span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a><span class="dt">double</span> Integrate(fsnow, <span class="dt">double</span> l, <span class="dt">double</span> r, <span class="dt">double</span> eps) {</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a>    <span class="cf">return</span> Integrate(fs, now, l, r, eps, Simpson(fs, now, l, r));</span>

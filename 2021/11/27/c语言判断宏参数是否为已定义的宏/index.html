@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7111,8 +7223,8 @@ var _hmt = _hmt || [];
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">#define CHECK2(name) do { \</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="pp">    puts(#name); \</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">    puts(STRINGIFY(name)); \</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="pp">	puts(#name); \</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="pp">} while (0)</span></span></code></pre></div>
 <p><code>puts(#name)</code>是直接将<code>name</code>变成其代表的字符串。但是假如<code>name</code>是一个已定义宏，那在将<code>name</code>传入到<code>STRINGIFY</code>里面前，会先将<code>name</code>展开，然后<code>STRINGIFY</code>里就是将展开后的<code>name</code>转成字符串。</p>
 <p>举个例子：</p>
@@ -7143,8 +7255,8 @@ var _hmt = _hmt || [];
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="pp">#define CHECK2(name) do { \</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="pp">    puts(#name); \</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="pp">    puts(STRINGIFY(name)); \</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="pp">	puts(#name); \</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a><span class="pp">} while (0)</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="co">//#define CHECK(name) (#name [0] != STRINGIFY(name) [0])</span></span>
@@ -7155,18 +7267,18 @@ var _hmt = _hmt || [];
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a><span class="pp">#define TEST2_DISABLED 1</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>    CHECK2(TEST1_DISABLED);</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a>    putchar(<span class="ch">'\n'</span>);</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a>    CHECK2(TEST2_DISABLED);</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a>    putchar(<span class="ch">'\n'</span>);</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a>    CHECK2(TEST3_DISABLED);</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a>    putchar(<span class="ch">'\n'</span>);</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>	CHECK2(TEST1_DISABLED);</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a>	CHECK2(TEST2_DISABLED);</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a>	CHECK2(TEST3_DISABLED);</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true"></a>    printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST1));</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true"></a>    printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST2));</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a>    printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST3));</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST1));</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST2));</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST3));</span>
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>

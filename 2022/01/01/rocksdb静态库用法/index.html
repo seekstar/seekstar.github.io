@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7113,15 +7225,15 @@ var _hmt = _hmt || [];
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">include</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/make_config.mk</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="cf">ifndef</span> DISABLE_JEMALLOC</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="cf">ifdef</span> JEMALLOC</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> -DROCKSDB_JEMALLOC -DJEMALLOC_NO_DEMANGLE</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="cf">endif</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="dt">EXEC_LDFLAGS </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_LIB</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span><span class="st"> -lpthread</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_INCLUDE</span><span class="ch">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>	<span class="cf">ifdef</span> JEMALLOC</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>		<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> -DROCKSDB_JEMALLOC -DJEMALLOC_NO_DEMANGLE</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="cf">endif</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>	<span class="dt">EXEC_LDFLAGS </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_LIB</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span><span class="st"> -lpthread</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>	<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_INCLUDE</span><span class="ch">)</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="cf">endif</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="cf">ifneq</span> (<span class="ch">$(</span><span class="dt">USE_RTTI</span><span class="ch">)</span>, 1)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    <span class="dt">CXXFLAGS </span><span class="ch">+=</span><span class="st"> -fno-rtti</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>	<span class="dt">CXXFLAGS </span><span class="ch">+=</span><span class="st"> -fno-rtti</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a><span class="cf">endif</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="dt">CFLAGS </span><span class="ch">+=</span><span class="st"> -Wstrict-prototypes</span></span>
@@ -7131,13 +7243,13 @@ var _hmt = _hmt || [];
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a><span class="dv">all:</span><span class="dt"> simple_example</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a><span class="dv">simple_example:</span><span class="dt"> librocksdb simple_example.cc</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>    <span class="ch">$(</span><span class="dt">CXX</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CXXFLAGS</span><span class="ch">)</span> <span class="ch">$@</span>.cc -o<span class="ch">$@</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/librocksdb.a -I<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/include -O2 -std=c++11 <span class="ch">$(</span><span class="dt">PLATFORM_LDFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">PLATFORM_CXXFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>	<span class="ch">$(</span><span class="dt">CXX</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CXXFLAGS</span><span class="ch">)</span> <span class="ch">$@</span>.cc -o<span class="ch">$@</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/librocksdb.a -I<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/include -O2 -std=c++11 <span class="ch">$(</span><span class="dt">PLATFORM_LDFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">PLATFORM_CXXFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a><span class="dv">clean:</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    rm -rf ./simple_example</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>	rm -rf ./simple_example</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a><span class="dv">librocksdb:</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>    cd <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span> &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> static_lib</span></code></pre></div>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a>	cd <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span> &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> static_lib</span></code></pre></div>
 <pre class="shell"><code>make
 ./simple_example</code></pre>
 <p>输出：</p>

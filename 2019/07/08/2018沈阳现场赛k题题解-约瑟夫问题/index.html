@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7153,12 +7265,12 @@ TLE代码：</p>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="cf">return</span> both || (one &amp;&amp; !(lhs &amp; HighBit));</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>}</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a><span class="dt">bool</span> SubEqULL(ULL&amp; lhs, ULL rhs) {</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>    <span class="dt">bool</span> ans = lhs &lt; rhs;</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    lhs -= rhs;</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>    <span class="cf">return</span> ans;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>	<span class="dt">bool</span> ans = lhs &lt; rhs;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>	lhs -= rhs;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>	<span class="cf">return</span> ans;</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>}</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a><span class="kw">struct</span> _uint128{</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    <span class="at">static</span> <span class="at">const</span> ULL ML32 = <span class="bn">0xffffffff</span><span class="bu">ULL</span>;  <span class="co">//mask low32</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>    <span class="at">static</span> <span class="at">const</span> ULL ML32 = <span class="bn">0xffffffff</span><span class="bu">ULL</span>;	<span class="co">//mask low32</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a>    <span class="at">static</span> <span class="at">const</span> ULL MH32 = <span class="bn">0xffffffff00000000</span><span class="bu">ULL</span>;</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a>    ULL H;  <span class="co">//Higher 64 bit</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>    ULL L;  <span class="co">//Lower 64 bit</span></span>
@@ -7174,9 +7286,9 @@ TLE代码：</p>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a>    <span class="kw">explicit</span> <span class="kw">operator</span> <span class="dt">bool</span>(){</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a>        <span class="cf">return</span> L || H;</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a>    }</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>    <span class="kw">explicit</span> <span class="kw">operator</span> ULL() {</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>        <span class="cf">return</span> L;</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>    }</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a>	<span class="kw">explicit</span> <span class="kw">operator</span> ULL() {</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a>		<span class="cf">return</span> L;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a>	}</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a>    <span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="at">const</span> _uint128 &amp;rhs) <span class="at">const</span>{</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a>        <span class="cf">return</span> H != rhs.H ? H &lt; rhs.H : L &lt; rhs.L;</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a>    }</span>
@@ -7193,16 +7305,16 @@ TLE代码：</p>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a>        <span class="cf">return</span> ans;</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a>    }</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>    _uint128&amp; <span class="kw">operator</span> -= (<span class="at">const</span> _uint128&amp; rhs) {</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>        <span class="cf">if</span> (SubEqULL(L, rhs.L))</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>            --H;</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a>        H -= rhs.H;</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a>        <span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>    }</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>    _uint128 <span class="kw">operator</span> - (<span class="at">const</span> _uint128&amp; rhs) <span class="at">const</span> {</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>        <span class="kw">auto</span> tmp = *<span class="kw">this</span>;</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>        <span class="cf">return</span> tmp -= rhs;</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a>    }</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a>	_uint128&amp; <span class="kw">operator</span> -= (<span class="at">const</span> _uint128&amp; rhs) {</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a>		<span class="cf">if</span> (SubEqULL(L, rhs.L))</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a>			--H;</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a>		H -= rhs.H;</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a>	}</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>	_uint128 <span class="kw">operator</span> - (<span class="at">const</span> _uint128&amp; rhs) <span class="at">const</span> {</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>		<span class="kw">auto</span> tmp = *<span class="kw">this</span>;</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>		<span class="cf">return</span> tmp -= rhs;</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a>	}</span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a></span>
 <span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a>    _uint128&amp; <span class="kw">operator</span> = (UINT rhs){</span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>        L = rhs;</span>
@@ -7253,15 +7365,15 @@ TLE代码：</p>
 <span id="cb1-117"><a href="#cb1-117" aria-hidden="true"></a>        rem %= x;</span>
 <span id="cb1-118"><a href="#cb1-118" aria-hidden="true"></a>        <span class="cf">return</span> *<span class="kw">this</span>;</span>
 <span id="cb1-119"><a href="#cb1-119" aria-hidden="true"></a>    }</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true"></a>    _uint128&amp; <span class="kw">operator</span> /= (UINT x) {</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true"></a>        ULL rem;</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true"></a>        DivEqMod(rem, x);</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true"></a>        <span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true"></a>    }</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true"></a>    _uint128 <span class="kw">operator</span> / (UINT x) <span class="at">const</span> {</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true"></a>        <span class="kw">auto</span> tmp = *<span class="kw">this</span>;</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true"></a>        <span class="cf">return</span> tmp /= x;</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true"></a>    }</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true"></a>	_uint128&amp; <span class="kw">operator</span> /= (UINT x) {</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true"></a>		ULL rem;</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true"></a>		DivEqMod(rem, x);</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true"></a>	}</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true"></a>	_uint128 <span class="kw">operator</span> / (UINT x) <span class="at">const</span> {</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true"></a>		<span class="kw">auto</span> tmp = *<span class="kw">this</span>;</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true"></a>		<span class="cf">return</span> tmp /= x;</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true"></a>	}</span>
 <span id="cb1-129"><a href="#cb1-129" aria-hidden="true"></a>    _uint128&amp; <span class="kw">operator</span> &lt;&lt;= (UINT x){</span>
 <span id="cb1-130"><a href="#cb1-130" aria-hidden="true"></a>        H &lt;&lt;= x;</span>
 <span id="cb1-131"><a href="#cb1-131" aria-hidden="true"></a>        H |= (L &gt;&gt; (<span class="dv">64</span><span class="bu">U</span>-x));</span>
@@ -7279,35 +7391,35 @@ TLE代码：</p>
 <span id="cb1-143"><a href="#cb1-143" aria-hidden="true"></a></span>
 <span id="cb1-144"><a href="#cb1-144" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
 <span id="cb1-145"><a href="#cb1-145" aria-hidden="true"></a><span class="pp">#ifndef ONLINE_JUDGE</span></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true"></a>    freopen(<span class="st">"in.in"</span>, <span class="st">"r"</span>, stdin);</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true"></a>    freopen(<span class="st">"out.out"</span>, <span class="st">"w"</span>, stdout);</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true"></a>	freopen(<span class="st">"in.in"</span>, <span class="st">"r"</span>, stdin);</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true"></a>	freopen(<span class="st">"out.out"</span>, <span class="st">"w"</span>, stdout);</span>
 <span id="cb1-148"><a href="#cb1-148" aria-hidden="true"></a><span class="pp">#endif</span></span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true"></a>    <span class="dt">int</span> T;</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true"></a>	<span class="dt">int</span> T;</span>
 <span id="cb1-150"><a href="#cb1-150" aria-hidden="true"></a></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true"></a>    ios::sync_with_stdio(<span class="kw">false</span>);</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true"></a>    cin.tie(<span class="dv">0</span>);</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true"></a>    cout.tie(<span class="dv">0</span>);</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true"></a>    cin &gt;&gt; T;</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true"></a>        LL n, m, k; <span class="co">//m is the length of a step, query the k_th man.</span></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true"></a>        LL ans;</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true"></a>	ios::sync_with_stdio(<span class="kw">false</span>);</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true"></a>	cin.tie(<span class="dv">0</span>);</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true"></a>	cout.tie(<span class="dv">0</span>);</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true"></a>	cin &gt;&gt; T;</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true"></a>		LL n, m, k;	<span class="co">//m is the length of a step, query the k_th man.</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true"></a>		LL ans;</span>
 <span id="cb1-158"><a href="#cb1-158" aria-hidden="true"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true"></a>        cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true"></a>        <span class="cf">if</span> (m &lt;= k) {</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true"></a>            _uint128 q;</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true"></a>            <span class="cf">for</span> (q = (_uint128)(k-<span class="dv">1</span>) * m + (m - <span class="dv">1</span>); !(q &lt; n); q = (q - n + (q - n) / (m - <span class="dv">1</span>)));</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true"></a>            ans = (ULL)q;</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true"></a>        } <span class="cf">else</span> {    <span class="co">//k &lt; m</span></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true"></a>            LL i = n - k + <span class="dv">1</span>;</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true"></a>            ans = (m-<span class="dv">1</span>) % i;</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true"></a>            <span class="cf">for</span> (++i; i &lt;= n; ++i) {</span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true"></a>                ans = (ans + m) % i;</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true"></a>            }</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true"></a>        }</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"Case #"</span> &lt;&lt; Ti &lt;&lt; <span class="st">": "</span> &lt;&lt; ans + <span class="dv">1</span> &lt;&lt; endl; </span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true"></a>    }</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true"></a>		cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true"></a>		<span class="cf">if</span> (m &lt;= k) {</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true"></a>			_uint128 q;</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true"></a>			<span class="cf">for</span> (q = (_uint128)(k-<span class="dv">1</span>) * m + (m - <span class="dv">1</span>); !(q &lt; n); q = (q - n + (q - n) / (m - <span class="dv">1</span>)));</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true"></a>			ans = (ULL)q;</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true"></a>		} <span class="cf">else</span> {	<span class="co">//k &lt; m</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true"></a>			LL i = n - k + <span class="dv">1</span>;</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true"></a>			ans = (m-<span class="dv">1</span>) % i;</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true"></a>			<span class="cf">for</span> (++i; i &lt;= n; ++i) {</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true"></a>				ans = (ans + m) % i;</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true"></a>			}</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true"></a>		}</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"Case #"</span> &lt;&lt; Ti &lt;&lt; <span class="st">": "</span> &lt;&lt; ans + <span class="dv">1</span> &lt;&lt; endl; </span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true"></a>	}</span>
 <span id="cb1-173"><a href="#cb1-173" aria-hidden="true"></a></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb1-175"><a href="#cb1-175" aria-hidden="true"></a>}</span></code></pre></div>
 <p>另外有一个比较巧妙的方法，不需要用到__int128。我就是用这个方法过掉的这题。<br>
 大佬博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LJHAHA/p/10854951.html" class="uri">https://www.cnblogs.com/LJHAHA/p/10854951.html</a><br>
@@ -7323,44 +7435,44 @@ TLE代码：</p>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="pp">#ifndef ONLINE_JUDGE</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    freopen(<span class="st">"in.in"</span>, <span class="st">"r"</span>, stdin);</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    freopen(<span class="st">"out.out"</span>, <span class="st">"w"</span>, stdout);</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>	freopen(<span class="st">"in.in"</span>, <span class="st">"r"</span>, stdin);</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>	freopen(<span class="st">"out.out"</span>, <span class="st">"w"</span>, stdout);</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="pp">#endif</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>    <span class="dt">int</span> T;</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>	<span class="dt">int</span> T;</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>    ios::sync_with_stdio(<span class="kw">false</span>);</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    cin.tie(<span class="dv">0</span>);</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>    cout.tie(<span class="dv">0</span>);</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    cin &gt;&gt; T;</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>        LL n, m, k; <span class="co">//m is the length of a step, query the k_th man.</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>        LL ans;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>	ios::sync_with_stdio(<span class="kw">false</span>);</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>	cin.tie(<span class="dv">0</span>);</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>	cout.tie(<span class="dv">0</span>);</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>	cin &gt;&gt; T;</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> Ti = <span class="dv">1</span>; Ti &lt;= T; ++Ti) {</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>		LL n, m, k;	<span class="co">//m is the length of a step, query the k_th man.</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>		LL ans;</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>        cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>        <span class="cf">if</span> (m &lt;= k) {</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>            <span class="cf">if</span> (<span class="dv">1</span> == m) {</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>                ans = k-<span class="dv">1</span>;</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>            } <span class="cf">else</span> {</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>                LL i = n - k + <span class="dv">1</span>;</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>                ans = (m-<span class="dv">1</span>) % i;</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>                <span class="cf">while</span> (i &lt; n) {</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>                    LL c = min(n - i, (i - ans + m - <span class="dv">2</span>) / (m - <span class="dv">1</span>));</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>                    ans += m * c;</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>                    i += c;</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>                    ans %= i;</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>                }</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>            }</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>        } <span class="cf">else</span> {    <span class="co">//k &lt; m</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>            LL i = n - k + <span class="dv">1</span>;</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>            ans = (m-<span class="dv">1</span>) % i;</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>            <span class="cf">for</span> (++i; i &lt;= n; ++i) {</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>                ans = (ans + m) % i;</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>            }</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>        }</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"Case #"</span> &lt;&lt; Ti &lt;&lt; <span class="st">": "</span> &lt;&lt; ans + <span class="dv">1</span> &lt;&lt; endl; </span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>    }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>		cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>		<span class="cf">if</span> (m &lt;= k) {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>			<span class="cf">if</span> (<span class="dv">1</span> == m) {</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>				ans = k-<span class="dv">1</span>;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>			} <span class="cf">else</span> {</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>				LL i = n - k + <span class="dv">1</span>;</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>				ans = (m-<span class="dv">1</span>) % i;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>				<span class="cf">while</span> (i &lt; n) {</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>					LL c = min(n - i, (i - ans + m - <span class="dv">2</span>) / (m - <span class="dv">1</span>));</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>					ans += m * c;</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>					i += c;</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>					ans %= i;</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>				}</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>			}</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>		} <span class="cf">else</span> {	<span class="co">//k &lt; m</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>			LL i = n - k + <span class="dv">1</span>;</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>			ans = (m-<span class="dv">1</span>) % i;</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>			<span class="cf">for</span> (++i; i &lt;= n; ++i) {</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>				ans = (ans + m) % i;</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>			}</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>		}</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"Case #"</span> &lt;&lt; Ti &lt;&lt; <span class="st">": "</span> &lt;&lt; ans + <span class="dv">1</span> &lt;&lt; endl; </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>	}</span>
 <span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>

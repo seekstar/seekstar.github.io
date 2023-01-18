@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7161,29 +7273,29 @@ CHARSET = UTF8</code></pre>
 看看它的依赖：</p>
 <pre class="shell"><code>ldd /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so</code></pre>
 <p>输出：</p>
-<pre><code>    linux-vdso.so.1 (0x00007ffe223e4000)
-    libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007f78c000a000)
-    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007f78bfe87000)
-    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78bfe82000)
-    libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f78bfe61000)
-    libssl.so.1.0.0 =&gt; not found
-    libcrypto.so.1.0.0 =&gt; not found
-    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78bfc9e000)
-    libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007f78bfc93000)
-    /lib64/ld-linux-x86-64.so.2 (0x00007f78c04d0000)</code></pre>
+<pre><code>	linux-vdso.so.1 (0x00007ffe223e4000)
+	libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007f78c000a000)
+	libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007f78bfe87000)
+	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78bfe82000)
+	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f78bfe61000)
+	libssl.so.1.0.0 =&gt; not found
+	libcrypto.so.1.0.0 =&gt; not found
+	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78bfc9e000)
+	libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007f78bfc93000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f78c04d0000)</code></pre>
 <p>可以看到找不到libssl.so.1.0.0和libcrypto.so.1.0.0。<br>
 解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/105141622" class="uri">https://blog.csdn.net/qq_41961459/article/details/105141622</a><br>
 再查看依赖</p>
 <pre><code>linux-vdso.so.1 (0x00007fff634cb000)
-    libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007fe427f12000)
-    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe427d8f000)
-    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe427d8a000)
-    libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe427d69000)
-    libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fe427b08000)
-    libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fe42770b000)
-    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe427548000)
-    libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007fe42753d000)
-    /lib64/ld-linux-x86-64.so.2 (0x00007fe4283d9000)</code></pre>
+	libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007fe427f12000)
+	libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe427d8f000)
+	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe427d8a000)
+	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe427d69000)
+	libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fe427b08000)
+	libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fe42770b000)
+	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe427548000)
+	libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007fe42753d000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fe4283d9000)</code></pre>
 <p>已经满足了。</p>
 <p>再跑一遍</p>
 <pre class="shell"><code>isql dbexp2 -v</code></pre>
@@ -7234,7 +7346,7 @@ SQL&gt; </code></pre>
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
 <span id="cb20-22"><a href="#cb20-22" aria-hidden="true"></a>    {</span>
 <span id="cb20-23"><a href="#cb20-23" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"allocenvhandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb20-25"><a href="#cb20-25" aria-hidden="true"></a>    }</span>
 <span id="cb20-26"><a href="#cb20-26" aria-hidden="true"></a></span>
 <span id="cb20-27"><a href="#cb20-27" aria-hidden="true"></a>    <span class="co">//分配连接句柄</span></span>
@@ -7242,7 +7354,7 @@ SQL&gt; </code></pre>
 <span id="cb20-29"><a href="#cb20-29" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
 <span id="cb20-30"><a href="#cb20-30" aria-hidden="true"></a>    {</span>
 <span id="cb20-31"><a href="#cb20-31" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"allocdbchandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb20-33"><a href="#cb20-33" aria-hidden="true"></a>    }</span>
 <span id="cb20-34"><a href="#cb20-34" aria-hidden="true"></a></span>
 <span id="cb20-35"><a href="#cb20-35" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
@@ -7250,7 +7362,7 @@ SQL&gt; </code></pre>
 <span id="cb20-37"><a href="#cb20-37" aria-hidden="true"></a>    <span class="cf">if</span>(!sql_succeeded(ret))</span>
 <span id="cb20-38"><a href="#cb20-38" aria-hidden="true"></a>    {</span>
 <span id="cb20-39"><a href="#cb20-39" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"sql_connect error!"</span>&lt;&lt;endl;</span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb20-41"><a href="#cb20-41" aria-hidden="true"></a>    }</span>
 <span id="cb20-42"><a href="#cb20-42" aria-hidden="true"></a></span>
 <span id="cb20-43"><a href="#cb20-43" aria-hidden="true"></a>    <span class="co">//分配执行语句句柄</span></span>
@@ -7298,12 +7410,12 @@ SQL&gt; </code></pre>
 <pre class="shell"><code>g++ main.cpp -lodbc -o main
 ./main</code></pre>
 <p>输出：</p>
-<pre><code>dname       dno
-Economy Department      000
-Sales Department        001
-Human Resource Department       010
-Produce Department      011
-Research Department     100
+<pre><code>dname		dno
+Economy Department		000
+Sales Department		001
+Human Resource Department		010
+Produce Department		011
+Research Department		100
 done</code></pre>
 </body></html>
 </div>

@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7116,47 +7228,47 @@ var _hmt = _hmt || [];
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>}</span></code></pre></div>
 <p>但是这个接口没有暴露给外部用户。但是外部用户也可以通过<code>GetIntProperty</code>来获得running/pending的flush/compaction的数目，如果它们其中有一个不为0，就说明有后台任务没有完成。因此对外部用户来说，可以这样等待后台任务完成：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">bool</span> has_background_work(rocksdb::DB *db) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="dt">uint64_t</span> flush_pending;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="dt">uint64_t</span> compaction_pending;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="dt">uint64_t</span> flush_running;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="dt">uint64_t</span> compaction_running;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="dt">bool</span> ok =</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>        db-&gt;GetIntProperty(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>            rocksdb::Slice(<span class="st">"rocksdb.mem-table-flush-pending"</span>), &amp;flush_pending);</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="ot">assert</span>(ok);</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    ok = db-&gt;GetIntProperty(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>            rocksdb::Slice(<span class="st">"rocksdb.compaction-pending"</span>), &amp;compaction_pending);</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    <span class="ot">assert</span>(ok);</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    ok = db-&gt;GetIntProperty(</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>            rocksdb::Slice(<span class="st">"rocksdb.num-running-flushes"</span>), &amp;flush_running);</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>    <span class="ot">assert</span>(ok);</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    ok = db-&gt;GetIntProperty(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>            rocksdb::Slice(<span class="st">"rocksdb.num-running-compactions"</span>),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>            &amp;compaction_running);</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>    <span class="ot">assert</span>(ok);</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    <span class="cf">return</span> flush_pending || compaction_pending || flush_running ||</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>        compaction_running;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="dt">uint64_t</span> flush_pending;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	<span class="dt">uint64_t</span> compaction_pending;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	<span class="dt">uint64_t</span> flush_running;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	<span class="dt">uint64_t</span> compaction_running;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>	<span class="dt">bool</span> ok =</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>		db-&gt;GetIntProperty(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>			rocksdb::Slice(<span class="st">"rocksdb.mem-table-flush-pending"</span>), &amp;flush_pending);</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>	<span class="ot">assert</span>(ok);</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>	ok = db-&gt;GetIntProperty(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>			rocksdb::Slice(<span class="st">"rocksdb.compaction-pending"</span>), &amp;compaction_pending);</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>	<span class="ot">assert</span>(ok);</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>	ok = db-&gt;GetIntProperty(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>			rocksdb::Slice(<span class="st">"rocksdb.num-running-flushes"</span>), &amp;flush_running);</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>	<span class="ot">assert</span>(ok);</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>	ok = db-&gt;GetIntProperty(</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>			rocksdb::Slice(<span class="st">"rocksdb.num-running-compactions"</span>),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>			&amp;compaction_running);</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>	<span class="ot">assert</span>(ok);</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>	<span class="cf">return</span> flush_pending || compaction_pending || flush_running ||</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>		compaction_running;</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>}</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a><span class="dt">void</span> wait_for_background_work(rocksdb::DB *db) {</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>        <span class="cf">if</span> (has_background_work(db)) {</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>            <span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(<span class="dv">1</span>));</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>            <span class="cf">continue</span>;</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>        }</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>        <span class="co">// The properties are not get atomically. Test for more 20 times.</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>        <span class="dt">int</span> i;</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>        <span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; <span class="dv">20</span>; ++i) {</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>            <span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds(<span class="dv">100</span>));</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>            <span class="cf">if</span> (has_background_work(db)) {</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>                <span class="cf">break</span>;</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>            }</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>        }</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>        <span class="cf">if</span> (i == <span class="dv">20</span>) {</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>            <span class="bu">std::</span>cout &lt;&lt; <span class="st">"There is no background work detected for more than 2 seconds. Exiting...</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>            <span class="cf">break</span>;</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>        }</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>    }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>	<span class="cf">while</span> (<span class="dv">1</span>) {</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>		<span class="cf">if</span> (has_background_work(db)) {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>			<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(<span class="dv">1</span>));</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>			<span class="cf">continue</span>;</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>		}</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>		<span class="co">// The properties are not get atomically. Test for more 20 times.</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>		<span class="dt">int</span> i;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>		<span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; <span class="dv">20</span>; ++i) {</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>			<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds(<span class="dv">100</span>));</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>			<span class="cf">if</span> (has_background_work(db)) {</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>				<span class="cf">break</span>;</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>			}</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>		}</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>		<span class="cf">if</span> (i == <span class="dv">20</span>) {</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; <span class="st">"There is no background work detected for more than 2 seconds. Exiting...</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>			<span class="cf">break</span>;</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>		}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>	}</span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>}</span></code></pre></div>
 <p>注意由于这几个值不是原子地获取的，因此在非常罕见的情况下，有可能出现这种情况：running/pending的flush/compaction的数目并不同时为0，但是<code>has_background_work</code>返回<code>false</code>。但是由于这里检测了至少21次，因此21次都出现这么罕见的情况的可能性微乎其微，可以忽略。</p>
 </body></html>

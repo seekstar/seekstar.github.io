@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7103,24 +7215,24 @@ var _hmt = _hmt || [];
 <p>思路：不存在某门课不在课程表中。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">select</span> <span class="kw">id</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">from</span> (</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">from</span> stu</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	<span class="kw">select</span> <span class="kw">DISTINCT</span> <span class="kw">id</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	<span class="kw">from</span> stu</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>) ids</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">where</span> <span class="kw">not</span> <span class="kw">exists</span> (</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="kw">select</span> c</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="kw">from</span> stu</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	<span class="kw">select</span> c</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="kw">from</span> stu</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>	<span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>		stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>);</span></code></pre></div>
 <p>测试</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">database</span> test;</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">use</span> test;</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">table</span> stu (</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="kw">id</span> <span class="dt">char</span>(<span class="dv">10</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	<span class="kw">id</span> <span class="dt">char</span>(<span class="dv">10</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	c <span class="dt">char</span>(<span class="dv">10</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>);</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">create</span> <span class="kw">table</span> cs (</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    c <span class="dt">char</span>(<span class="dv">10</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>	c <span class="dt">char</span>(<span class="dv">10</span>)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>);</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="kw">insert</span> <span class="kw">into</span> stu</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">values</span></span>
@@ -7151,7 +7263,7 @@ var _hmt = _hmt || [];
 <div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">select</span> c</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">from</span> stu</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">where</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> cs) <span class="kw">and</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>	stu.<span class="kw">id</span> <span class="op">=</span> ids.<span class="kw">id</span></span></code></pre></div>
 <p>这个子查询跑一次的复杂度为O(y)，因为只需要查询一个学生的信息，每个学生选了y门课，在哈希表中找这y门课即可。<br>
 这个子查询要跑x次，所以跑这个子查询总共的复杂度为O(xy)。<br>
 综上，总复杂度为O(xy)。</p>

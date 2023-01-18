@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7202,8 +7314,8 @@ all in one 代码：</p>
 <span id="cb1-98"><a href="#cb1-98" aria-hidden="true"></a>        <span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
 <span id="cb1-99"><a href="#cb1-99" aria-hidden="true"></a>        <span class="cf">if</span> (L1 &lt;= l &amp;&amp; r &lt;= R1) {</span>
 <span id="cb1-100"><a href="#cb1-100" aria-hidden="true"></a>            cnt = r - l + <span class="dv">1</span>;</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true"></a>            PushDown1(rt, l, (l + r) &gt;&gt; <span class="dv">1</span>, r);</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true"></a>            lazy1[rt] = LAZY{v, L2, R2};</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true"></a>			PushDown1(rt, l, (l + r) &gt;&gt; <span class="dv">1</span>, r);</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true"></a>			lazy1[rt] = LAZY{v, L2, R2};</span>
 <span id="cb1-103"><a href="#cb1-103" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
 <span id="cb1-104"><a href="#cb1-104" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
 <span id="cb1-105"><a href="#cb1-105" aria-hidden="true"></a>            PushDown1(rt, l, mid, r);</span>
@@ -7276,173 +7388,173 @@ all in one 代码：</p>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="pp">#define MAXM </span><span class="dv">2010</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="kw">inline</span> <span class="dt">int</span> ls(<span class="dt">int</span> rt) {</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="cf">return</span> rt &lt;&lt; <span class="dv">1</span>;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>	<span class="cf">return</span> rt &lt;&lt; <span class="dv">1</span>;</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>}</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="kw">inline</span> <span class="dt">int</span> rs(<span class="dt">int</span> rt) {</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    <span class="cf">return</span> rt &lt;&lt; <span class="dv">1</span> | <span class="dv">1</span>;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>	<span class="cf">return</span> rt &lt;&lt; <span class="dv">1</span> | <span class="dv">1</span>;</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>}</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="pp">#define MAX_NODE_SEGTREE </span>(MAXM&lt;&lt;<span class="dv">2</span>)</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> T&gt;</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="kw">struct</span> SGT {</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    T sum[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>	T sum[MAX_NODE_SEGTREE], lazy[MAX_NODE_SEGTREE];</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    <span class="dt">void</span> Init(<span class="dt">int</span> n) {</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>        memset(sum, <span class="dv">0</span>, (n&lt;&lt;<span class="dv">2</span>) * <span class="kw">sizeof</span>(T));</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>        memset(lazy, <span class="dv">0</span>, (n&lt;&lt;<span class="dv">2</span>) * <span class="kw">sizeof</span>(T));</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>    }</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>    <span class="dt">void</span> PushUp(<span class="dt">int</span> rt) {</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>        sum[rt] = sum[ls(rt)] + sum[rs(rt)];</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>    }</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>    <span class="dt">void</span> Build(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> arr[]) {</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>        <span class="cf">if</span> (l == r) {</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>            sum[rt] = arr[l];</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l+r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>            Build(ls(rt), l, mid, arr);</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>            Build(rs(rt), mid+<span class="dv">1</span>, r, arr);</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>            PushUp(rt);</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>        }</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>        lazy[rt] = <span class="dv">0</span>;</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>    }</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>    <span class="dt">void</span> PushDown(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> mid, <span class="dt">int</span> r) {</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>        <span class="cf">if</span> (lazy[rt]) {</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>            lazy[ls(rt)] += lazy[rt];</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>            lazy[rs(rt)] += lazy[rt];</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>            sum[ls(rt)] += lazy[rt] * (mid - l + <span class="dv">1</span>);</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>            sum[rs(rt)] += lazy[rt] * (r - mid);</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>            lazy[rt] = <span class="dv">0</span>;</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>        }</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>    }</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>    <span class="dt">void</span> Add(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L, <span class="dt">int</span> R, <span class="dt">int</span> v) {</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>        <span class="cf">if</span> (L &lt;= l &amp;&amp; r &lt;= R) {</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>            lazy[rt] += v;</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>            sum[rt] += (T)(r - l + <span class="dv">1</span>) * v;</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>            PushDown(rt, l, mid, r);</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>            <span class="cf">if</span> (L &lt;= mid)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a>                Add(ls(rt), l, mid, L, R, v);</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true"></a>            <span class="cf">if</span> (mid &lt; R)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true"></a>                Add(rs(rt), mid+<span class="dv">1</span>, r, L, R, v);</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true"></a>            PushUp(rt);</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true"></a>        }</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true"></a>    }</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true"></a>    T Sum(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L, <span class="dt">int</span> R) {</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true"></a>        <span class="cf">if</span> (L &lt;= l &amp;&amp; r &lt;= R)</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true"></a>            <span class="cf">return</span> sum[rt];</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true"></a>        T ans = <span class="dv">0</span>;</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true"></a>        <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true"></a>        PushDown(rt, l, mid, r);</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true"></a>        <span class="cf">if</span> (L &lt;= mid)</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true"></a>            ans = Sum(ls(rt), l, mid, L, R);</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true"></a>        <span class="cf">if</span> (mid &lt; R)</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true"></a>            ans += Sum(rs(rt), mid+<span class="dv">1</span>, r, L, R);</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true"></a>        <span class="cf">return</span> ans;</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true"></a>    }</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>	<span class="dt">void</span> Init(<span class="dt">int</span> n) {</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>		memset(sum, <span class="dv">0</span>, (n&lt;&lt;<span class="dv">2</span>) * <span class="kw">sizeof</span>(T));</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>		memset(lazy, <span class="dv">0</span>, (n&lt;&lt;<span class="dv">2</span>) * <span class="kw">sizeof</span>(T));</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>	}</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>	<span class="dt">void</span> PushUp(<span class="dt">int</span> rt) {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>		sum[rt] = sum[ls(rt)] + sum[rs(rt)];</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>	}</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>	<span class="dt">void</span> Build(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> arr[]) {</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>		<span class="cf">if</span> (l == r) {</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>			sum[rt] = arr[l];</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>			<span class="dt">int</span> mid = (l+r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>			Build(ls(rt), l, mid, arr);</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>			Build(rs(rt), mid+<span class="dv">1</span>, r, arr);</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>			PushUp(rt);</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>		}</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>		lazy[rt] = <span class="dv">0</span>;</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a>	}</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a>	<span class="dt">void</span> PushDown(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> mid, <span class="dt">int</span> r) {</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>		<span class="cf">if</span> (lazy[rt]) {</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>			lazy[ls(rt)] += lazy[rt];</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>			lazy[rs(rt)] += lazy[rt];</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>			sum[ls(rt)] += lazy[rt] * (mid - l + <span class="dv">1</span>);</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>			sum[rs(rt)] += lazy[rt] * (r - mid);</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>			lazy[rt] = <span class="dv">0</span>;</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>		}</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>	}</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>	<span class="dt">void</span> Add(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L, <span class="dt">int</span> R, <span class="dt">int</span> v) {</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>		<span class="cf">if</span> (L &lt;= l &amp;&amp; r &lt;= R) {</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>			lazy[rt] += v;</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>			sum[rt] += (T)(r - l + <span class="dv">1</span>) * v;</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>			<span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>			PushDown(rt, l, mid, r);</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>			<span class="cf">if</span> (L &lt;= mid)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a>				Add(ls(rt), l, mid, L, R, v);</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true"></a>			<span class="cf">if</span> (mid &lt; R)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true"></a>				Add(rs(rt), mid+<span class="dv">1</span>, r, L, R, v);</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true"></a>			PushUp(rt);</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true"></a>		}</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true"></a>	}</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true"></a>	T Sum(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L, <span class="dt">int</span> R) {</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true"></a>		<span class="cf">if</span> (L &lt;= l &amp;&amp; r &lt;= R)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true"></a>			<span class="cf">return</span> sum[rt];</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true"></a>		T ans = <span class="dv">0</span>;</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true"></a>		<span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true"></a>		PushDown(rt, l, mid, r);</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true"></a>		<span class="cf">if</span> (L &lt;= mid)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true"></a>			ans = Sum(ls(rt), l, mid, L, R);</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true"></a>		<span class="cf">if</span> (mid &lt; R)</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true"></a>			ans += Sum(rs(rt), mid+<span class="dv">1</span>, r, L, R);</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true"></a>		<span class="cf">return</span> ans;</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true"></a>	}</span>
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true"></a>};</span>
 <span id="cb2-74"><a href="#cb2-74" aria-hidden="true"></a></span>
 <span id="cb2-75"><a href="#cb2-75" aria-hidden="true"></a><span class="pp">#define MAX_NODE1 </span>(MAXN<span class="pp"> </span>&lt;&lt;<span class="pp"> </span><span class="dv">2</span>)</span>
 <span id="cb2-76"><a href="#cb2-76" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> T&gt;</span>
 <span id="cb2-77"><a href="#cb2-77" aria-hidden="true"></a><span class="kw">struct</span> LAZY {</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true"></a>    T v;</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true"></a>    <span class="dt">int</span> l, r;</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true"></a>	T v;</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true"></a>	<span class="dt">int</span> l, r;</span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true"></a>};</span>
 <span id="cb2-81"><a href="#cb2-81" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> T&gt;</span>
 <span id="cb2-82"><a href="#cb2-82" aria-hidden="true"></a><span class="kw">struct</span> SGT2 {</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true"></a>    SGT&lt;T&gt; s[MAX_NODE1];</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true"></a>    <span class="dt">int</span> n2;</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true"></a>    LAZY&lt;T&gt; lazy[MAX_NODE1];</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true"></a>	SGT&lt;T&gt; s[MAX_NODE1];</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true"></a>	<span class="dt">int</span> n2;</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true"></a>	LAZY&lt;T&gt; lazy[MAX_NODE1];</span>
 <span id="cb2-86"><a href="#cb2-86" aria-hidden="true"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true"></a>    <span class="dt">void</span> Init(<span class="dt">int</span> n1, <span class="dt">int</span> _n2) {</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true"></a>        n2 = _n2;</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true"></a>        memset(lazy, <span class="dv">0</span>, ((n1 &lt;&lt; <span class="dv">2</span>)+<span class="dv">1</span>) * <span class="kw">sizeof</span>(<span class="dt">int</span>));</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt;= (n1 &lt;&lt; <span class="dv">2</span>); ++i)</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true"></a>            s[i].Init(n2);</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true"></a>    }</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true"></a>    <span class="dt">void</span> Init(<span class="dt">int</span> n1, <span class="dt">int</span> _n2, <span class="dt">int</span> a[][MAXM]) {</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true"></a>        n2 = _n2;</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true"></a>        Build(<span class="dv">1</span>, <span class="dv">1</span>, n1, a);</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true"></a>    }</span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true"></a>    <span class="dt">void</span> Build(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> a[][MAXM]) {</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true"></a>        <span class="cf">if</span> (l == r) {</span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true"></a>            s[rt].Build(<span class="dv">1</span>, <span class="dv">1</span>, n2, a[l]);</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true"></a>            Build(ls(rt), l, mid, a);</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true"></a>            Build(rs(rt), mid+<span class="dv">1</span>, r, a);</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true"></a>            <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= (n2 &lt;&lt; <span class="dv">2</span>); ++i)</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true"></a>                s[rt].sum[i] = s[ls(rt)].sum[i] + s[rs(rt)].sum[i];</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true"></a>        }</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true"></a>        lazy[rt] = LAZY&lt;T&gt;{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>};</span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true"></a>    }</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true"></a>    <span class="dt">void</span> PushDown(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> mid, <span class="dt">int</span> r) {</span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true"></a>        T&amp; v = lazy[rt].v, L = lazy[rt].l, R = lazy[rt].r;</span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true"></a>        <span class="cf">if</span> (v) {</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true"></a>            lazy[ls(rt)].v += v;</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true"></a>            lazy[rs(rt)].v += v;</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true"></a>            s[ls(rt)].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L, R, v * (mid - l + <span class="dv">1</span>));</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true"></a>            s[rs(rt)].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L, R, v * (r - mid));</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true"></a>            v = <span class="dv">0</span>;</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true"></a>        }</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true"></a>    }</span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true"></a>    <span class="co">//return the width that is modified</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true"></a>    <span class="dt">int</span> Add(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L1, <span class="dt">int</span> R1, <span class="dt">int</span> L2, <span class="dt">int</span> R2, <span class="dt">int</span> v) {</span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true"></a>        <span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true"></a>        <span class="cf">if</span> (L1 &lt;= l &amp;&amp; r &lt;= R1) {</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true"></a>            cnt = r - l + <span class="dv">1</span>;</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true"></a>            PushDown(rt, l, (l + r) &gt;&gt; <span class="dv">1</span>, r);</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true"></a>            lazy[rt] = LAZY&lt;T&gt;{v, L2, R2};</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true"></a>            PushDown(rt, l, mid, r);</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true"></a>            <span class="cf">if</span> (L1 &lt;= mid) cnt = Add(ls(rt), l, mid, L1, R1, L2, R2, v);</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true"></a>            <span class="cf">if</span> (mid &lt; R1) cnt += Add(rs(rt), mid+<span class="dv">1</span>, r, L1, R1, L2, R2, v);</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true"></a>        }</span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true"></a>        s[rt].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L2, R2, v * cnt);</span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true"></a>        <span class="cf">return</span> cnt;</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true"></a>    }</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true"></a>    </span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true"></a>    T Sum(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L1, <span class="dt">int</span> R1, <span class="dt">int</span> L2, <span class="dt">int</span> R2) {</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true"></a>        <span class="cf">if</span> (L1 &lt;= l &amp;&amp; r &lt;= R1) {</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true"></a>            <span class="cf">return</span> s[rt].Sum(<span class="dv">1</span>, <span class="dv">1</span>, n2, L2, R2);</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true"></a>            T ans = <span class="dv">0</span>;</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true"></a>            <span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true"></a>            PushDown(rt, l, mid, r);</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true"></a>            <span class="cf">if</span> (L1 &lt;= mid) ans = Sum(ls(rt), l, mid, L1, R1, L2, R2);</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true"></a>            <span class="cf">if</span> (mid &lt; R1) ans += Sum(rs(rt), mid+<span class="dv">1</span>, r, L1, R1, L2, R2);</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true"></a>            <span class="cf">return</span> ans;</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true"></a>        }</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true"></a>    }</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true"></a>	<span class="dt">void</span> Init(<span class="dt">int</span> n1, <span class="dt">int</span> _n2) {</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true"></a>		n2 = _n2;</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true"></a>		memset(lazy, <span class="dv">0</span>, ((n1 &lt;&lt; <span class="dv">2</span>)+<span class="dv">1</span>) * <span class="kw">sizeof</span>(<span class="dt">int</span>));</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt;= (n1 &lt;&lt; <span class="dv">2</span>); ++i)</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true"></a>			s[i].Init(n2);</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true"></a>	}</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true"></a>	<span class="dt">void</span> Init(<span class="dt">int</span> n1, <span class="dt">int</span> _n2, <span class="dt">int</span> a[][MAXM]) {</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true"></a>		n2 = _n2;</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true"></a>		Build(<span class="dv">1</span>, <span class="dv">1</span>, n1, a);</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true"></a>	}</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true"></a>	<span class="dt">void</span> Build(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> a[][MAXM]) {</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true"></a>		<span class="cf">if</span> (l == r) {</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true"></a>			s[rt].Build(<span class="dv">1</span>, <span class="dv">1</span>, n2, a[l]);</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true"></a>			<span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true"></a>			Build(ls(rt), l, mid, a);</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true"></a>			Build(rs(rt), mid+<span class="dv">1</span>, r, a);</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true"></a>			<span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= (n2 &lt;&lt; <span class="dv">2</span>); ++i)</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true"></a>				s[rt].sum[i] = s[ls(rt)].sum[i] + s[rs(rt)].sum[i];</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true"></a>		}</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true"></a>		lazy[rt] = LAZY&lt;T&gt;{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>};</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true"></a>	}</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true"></a>	<span class="dt">void</span> PushDown(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> mid, <span class="dt">int</span> r) {</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true"></a>		T&amp; v = lazy[rt].v, L = lazy[rt].l, R = lazy[rt].r;</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true"></a>		<span class="cf">if</span> (v) {</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true"></a>			lazy[ls(rt)].v += v;</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true"></a>			lazy[rs(rt)].v += v;</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true"></a>			s[ls(rt)].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L, R, v * (mid - l + <span class="dv">1</span>));</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true"></a>			s[rs(rt)].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L, R, v * (r - mid));</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true"></a>			v = <span class="dv">0</span>;</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true"></a>		}</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true"></a>	}</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true"></a>	<span class="co">//return the width that is modified</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true"></a>	<span class="dt">int</span> Add(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L1, <span class="dt">int</span> R1, <span class="dt">int</span> L2, <span class="dt">int</span> R2, <span class="dt">int</span> v) {</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true"></a>		<span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true"></a>		<span class="cf">if</span> (L1 &lt;= l &amp;&amp; r &lt;= R1) {</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true"></a>			cnt = r - l + <span class="dv">1</span>;</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true"></a>			PushDown(rt, l, (l + r) &gt;&gt; <span class="dv">1</span>, r);</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true"></a>			lazy[rt] = LAZY&lt;T&gt;{v, L2, R2};</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true"></a>			<span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true"></a>			PushDown(rt, l, mid, r);</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true"></a>			<span class="cf">if</span> (L1 &lt;= mid) cnt = Add(ls(rt), l, mid, L1, R1, L2, R2, v);</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true"></a>			<span class="cf">if</span> (mid &lt; R1) cnt += Add(rs(rt), mid+<span class="dv">1</span>, r, L1, R1, L2, R2, v);</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true"></a>		}</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true"></a>		s[rt].Add(<span class="dv">1</span>, <span class="dv">1</span>, n2, L2, R2, v * cnt);</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true"></a>		<span class="cf">return</span> cnt;</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true"></a>	}</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true"></a>	</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true"></a>	T Sum(<span class="dt">int</span> rt, <span class="dt">int</span> l, <span class="dt">int</span> r, <span class="dt">int</span> L1, <span class="dt">int</span> R1, <span class="dt">int</span> L2, <span class="dt">int</span> R2) {</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true"></a>		<span class="cf">if</span> (L1 &lt;= l &amp;&amp; r &lt;= R1) {</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true"></a>			<span class="cf">return</span> s[rt].Sum(<span class="dv">1</span>, <span class="dv">1</span>, n2, L2, R2);</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true"></a>			T ans = <span class="dv">0</span>;</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true"></a>			<span class="dt">int</span> mid = (l + r) &gt;&gt; <span class="dv">1</span>;</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true"></a>			PushDown(rt, l, mid, r);</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true"></a>			<span class="cf">if</span> (L1 &lt;= mid) ans = Sum(ls(rt), l, mid, L1, R1, L2, R2);</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true"></a>			<span class="cf">if</span> (mid &lt; R1) ans += Sum(rs(rt), mid+<span class="dv">1</span>, r, L1, R1, L2, R2);</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true"></a>			<span class="cf">return</span> ans;</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true"></a>		}</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true"></a>	}</span>
 <span id="cb2-148"><a href="#cb2-148" aria-hidden="true"></a>};</span>
 <span id="cb2-149"><a href="#cb2-149" aria-hidden="true"></a></span>
 <span id="cb2-150"><a href="#cb2-150" aria-hidden="true"></a></span>
 <span id="cb2-151"><a href="#cb2-151" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true"></a>    <span class="dt">int</span> n, m, q;</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true"></a>    <span class="at">static</span> <span class="dt">int</span> a[MAXN][MAXM];</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true"></a>    <span class="at">static</span> SGT2&lt;<span class="dt">int</span>&gt; sgt2;</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true"></a>	<span class="dt">int</span> n, m, q;</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">int</span> a[MAXN][MAXM];</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true"></a>	<span class="at">static</span> SGT2&lt;<span class="dt">int</span>&gt; sgt2;</span>
 <span id="cb2-155"><a href="#cb2-155" aria-hidden="true"></a></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d%d%d</span><span class="st">"</span>, &amp;n, &amp;m, &amp;q);</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= n; ++i) {</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">1</span>; j &lt;= m; ++j) {</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true"></a>            scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, a[i] + j);</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true"></a>        }</span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true"></a>    }</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true"></a>    sgt2.Init(n, m, a);</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true"></a>	scanf(<span class="st">"</span><span class="sc">%d%d%d</span><span class="st">"</span>, &amp;n, &amp;m, &amp;q);</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= n; ++i) {</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">1</span>; j &lt;= m; ++j) {</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true"></a>			scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, a[i] + j);</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true"></a>		}</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true"></a>	}</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true"></a>	sgt2.Init(n, m, a);</span>
 <span id="cb2-163"><a href="#cb2-163" aria-hidden="true"></a></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true"></a>    <span class="cf">while</span> (q--) {</span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true"></a>        <span class="dt">int</span> p, x1, y1, x2, y2;</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true"></a>        scanf(<span class="st">"</span><span class="sc">%d%d%d%d%d</span><span class="st">"</span>, &amp;p, &amp;x1, &amp;y1, &amp;x2, &amp;y2);</span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true"></a>        <span class="cf">if</span> (<span class="dv">1</span> == p) {</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true"></a>            printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, sgt2.Sum(<span class="dv">1</span>, <span class="dv">1</span>, n, x1, x2, y1, y2));</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true"></a>        } <span class="cf">else</span> {</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true"></a>            <span class="dt">int</span> v;</span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true"></a>            scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;v);</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true"></a>            sgt2.Add(<span class="dv">1</span>, <span class="dv">1</span>, n, x1, x2, y1, y2, v);</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true"></a>        }</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true"></a>    }</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true"></a>	<span class="cf">while</span> (q--) {</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true"></a>		<span class="dt">int</span> p, x1, y1, x2, y2;</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true"></a>		scanf(<span class="st">"</span><span class="sc">%d%d%d%d%d</span><span class="st">"</span>, &amp;p, &amp;x1, &amp;y1, &amp;x2, &amp;y2);</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true"></a>		<span class="cf">if</span> (<span class="dv">1</span> == p) {</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true"></a>			printf(<span class="st">"</span><span class="sc">%d\n</span><span class="st">"</span>, sgt2.Sum(<span class="dv">1</span>, <span class="dv">1</span>, n, x1, x2, y1, y2));</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true"></a>			<span class="dt">int</span> v;</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true"></a>			scanf(<span class="st">"</span><span class="sc">%d</span><span class="st">"</span>, &amp;v);</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true"></a>			sgt2.Add(<span class="dv">1</span>, <span class="dv">1</span>, n, x1, x2, y1, y2, v);</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true"></a>		}</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true"></a>	}</span>
 <span id="cb2-175"><a href="#cb2-175" aria-hidden="true"></a></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb2-177"><a href="#cb2-177" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>

@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7114,7 +7226,7 @@ var _hmt = _hmt || [];
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="co"> * see the documentation there for more details.</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co"> */</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="pp">#define kthread_create(threadfn, data, namefmt, arg...) \</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="pp">    kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)</span></span></code></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="pp">	kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">/**</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co"> * kthread_run - create and wake a thread.</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="co"> * </span><span class="an">@threadfn:</span><span class="co"> the function to run until signal_pending(current).</span></span>
@@ -7124,18 +7236,18 @@ var _hmt = _hmt || [];
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="co"> * Description: Convenient wrapper for kthread_create() followed by</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co"> * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="co"> */</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="pp">#define kthread_run(threadfn, data, namefmt, ...)              \</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="pp">({                                     \</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="pp">    struct task_struct *__k                        \</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="pp">        = kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="pp">    if (!IS_ERR(__k))                          \</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="pp">        wake_up_process(__k);                      \</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a><span class="pp">    __k;                                   \</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="pp">#define kthread_run(threadfn, data, namefmt, ...)			   \</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="pp">({									   \</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="pp">	struct task_struct *__k						   \</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="pp">		= kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="pp">	if (!IS_ERR(__k))						   \</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="pp">		wake_up_process(__k);					   \</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a><span class="pp">	__k;								   \</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="pp">})</span></span></code></pre></div>
 <p>例子：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">struct</span> task_struct *t1 = kthread_create(threadfn, data, <span class="st">"name%d"</span>, i);</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="cf">if</span> (!IS_ERR(t1))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    wake_up_process(t1);</span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	wake_up_process(t1);</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> task_struct *t2 = kthread_run(threadfn, data, <span class="st">"name%d"</span>, i);</span></code></pre></div>
 <h2 id="终止线程">终止线程</h2>
 <p>其实可以不终止线程，就让它跑完自己return，但是return之后它会自己<code>do_exit</code>，貌似会把<code>task_struct</code>释放掉，导致无法获取返回值。所以如果要获取返回值，必须要手动终止。</p>
@@ -7153,44 +7265,44 @@ var _hmt = _hmt || [];
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>MODULE_LICENSE(<span class="st">"GPL"</span>);</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="kw">struct</span> para {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    <span class="dt">const</span> <span class="dt">char</span> *msg;</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>    <span class="kw">struct</span> completion entered;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="dt">const</span> <span class="dt">char</span> *msg;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>	<span class="kw">struct</span> completion entered;</span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>};</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">int</span> func(<span class="dt">void</span> *__para)</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>{</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>    <span class="kw">struct</span> para *para = (<span class="kw">struct</span> para *)__para;</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    complete(&amp;para-&gt;entered);</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>    <span class="co">// Do something here</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>	<span class="kw">struct</span> para *para = (<span class="kw">struct</span> para *)__para;</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>	complete(&amp;para-&gt;entered);</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>	<span class="co">// Do something here</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>    <span class="co">/* Wait for kthread_stop */</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>    set_current_state(TASK_INTERRUPTIBLE);</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>    <span class="cf">while</span> (!kthread_should_stop()) {</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>        schedule();</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>        set_current_state(TASK_INTERRUPTIBLE);</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>    }</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>    set_current_state(TASK_RUNNING);</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>    printk(<span class="st">"%s %s return</span><span class="sc">\n</span><span class="st">"</span>, __func__, para-&gt;msg);</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>	<span class="co">/* Wait for kthread_stop */</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>	set_current_state(TASK_INTERRUPTIBLE);</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>	<span class="cf">while</span> (!kthread_should_stop()) {</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>		schedule();</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>		set_current_state(TASK_INTERRUPTIBLE);</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>	}</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>	set_current_state(TASK_RUNNING);</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>	printk(<span class="st">"%s %s return</span><span class="sc">\n</span><span class="st">"</span>, __func__, para-&gt;msg);</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a>}</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">int</span> __init start_init(<span class="dt">void</span>)</span>
 <span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a>{</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>    <span class="kw">struct</span> task_struct *t1;</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>    <span class="kw">struct</span> para para;</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>    <span class="dt">int</span> ret;</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *t1;</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>	<span class="kw">struct</span> para para;</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>	<span class="dt">int</span> ret;</span>
 <span id="cb5-37"><a href="#cb5-37" aria-hidden="true"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>    printk(KERN_INFO <span class="st">"Thread Creating...</span><span class="sc">\n</span><span class="st">"</span>);</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a>    para.msg = <span class="st">"t1"</span>;</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a>    init_completion(&amp;para.entered);</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a>    t1 = kthread_run(func, &amp;para, <span class="st">"t1"</span>);</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a>    <span class="cf">if</span> (IS_ERR(t1)) {</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>        WARN_ON(<span class="dv">1</span>);</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a>    }</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a>    wait_for_completion(&amp;para.entered);</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>    ret = kthread_stop(t1);</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>    printk(<span class="st">"t1 stopped, exit code %d</span><span class="sc">\n</span><span class="st">"</span>, ret);</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>	printk(KERN_INFO <span class="st">"Thread Creating...</span><span class="sc">\n</span><span class="st">"</span>);</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a>	para.msg = <span class="st">"t1"</span>;</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a>	init_completion(&amp;para.entered);</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a>	t1 = kthread_run(func, &amp;para, <span class="st">"t1"</span>);</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a>	<span class="cf">if</span> (IS_ERR(t1)) {</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>		WARN_ON(<span class="dv">1</span>);</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a>	}</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a>	wait_for_completion(&amp;para.entered);</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>	ret = kthread_stop(t1);</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>	printk(<span class="st">"t1 stopped, exit code %d</span><span class="sc">\n</span><span class="st">"</span>, ret);</span>
 <span id="cb5-49"><a href="#cb5-49" aria-hidden="true"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true"></a>}</span>
 <span id="cb5-52"><a href="#cb5-52" aria-hidden="true"></a></span>
 <span id="cb5-53"><a href="#cb5-53" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">void</span> __exit end_exit(<span class="dt">void</span>)</span>

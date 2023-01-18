@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7100,15 +7212,15 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>转自：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/167305/how-do-i-get-rid-of-the-extra-blank-line-at-the-end-of-my-listing" class="uri">https://tex.stackexchange.com/questions/167305/how-do-i-get-rid-of-the-extra-blank-line-at-the-end-of-my-listing</a></p>
 <p>如果在<code>lstset</code>里设置了<code>keepspaces=true</code>，那代码后面可能会跟一个空行，例如</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="kw">\begin</span>{<span class="ex">lstlisting</span>}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="vs">    test</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="vs">    </span><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    testtesttest</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>	<span class="kw">\begin</span>{<span class="ex">lstlisting</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="vs">	test</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="vs">	</span><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	testtesttest</span></code></pre></div>
 <p><img src="/2021/01/01/latex%E5%8E%BB%E6%8E%89lstlisting%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E8%A1%8C/20210317174731526.png" alt="在这里插入图片描述"></p>
 <p>后面有一个空行。这是因为\end{lstlisting}前仍然有一个newline。所以需要把\end{lstlisting}提前。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>    <span class="kw">\begin</span>{<span class="ex">lstlisting</span>}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="vs">    test</span><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    testtesttest</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>	<span class="kw">\begin</span>{<span class="ex">lstlisting</span>}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="vs">	test</span><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	testtesttest</span></code></pre></div>
 <p><img src="/2021/01/01/latex%E5%8E%BB%E6%8E%89lstlisting%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E8%A1%8C/2021031717481824.png" alt="在这里插入图片描述"></p>
 <p>空行就没有了。</p>
 </body></html>

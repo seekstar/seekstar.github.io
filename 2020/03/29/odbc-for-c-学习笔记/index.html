@@ -75,7 +75,119 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<script>
@@ -7101,16 +7213,16 @@ var _hmt = _hmt || [];
 	<html><head></head><body><h1 id="连接服务器">连接服务器</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jadeshu/article/details/79474938" class="uri">https://blog.csdn.net/jadeshu/article/details/79474938</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>SQLRETURN  SQL_API SQLConnect(SQLHDBC ConnectionHandle,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    SQLCHAR *ServerName, SQLSMALLINT NameLength1,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    SQLCHAR *UserName, SQLSMALLINT NameLength2,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    SQLCHAR *Authentication, SQLSMALLINT NameLength3);</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	SQLCHAR *ServerName, SQLSMALLINT NameLength1,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	SQLCHAR *UserName, SQLSMALLINT NameLength2,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	SQLCHAR *Authentication, SQLSMALLINT NameLength3);</span></code></pre></div>
 <p>其中ServerName一般为数据源名称，NameLength1、2、3一般写SQL_NTS即可(Null Terminated String)。如果数据源配置了用户名和密码则UserName和Authentication直接填NULL，NameLength2和NameLength3直接写0即可（仍然填SQL_NTS也可以）。</p>
 <h1 id="读取数据">读取数据</h1>
 <h2 id="sqlbindcol">SQLBindCol</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>SQLRETURN  SQL_API SQLBindCol(SQLHSTMT StatementHandle,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    SQLPOINTER TargetValue, SQLLEN BufferLength,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    SQLLEN *StrLen_or_Ind);</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	SQLPOINTER TargetValue, SQLLEN BufferLength,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	SQLLEN *StrLen_or_Ind);</span></code></pre></div>
 <h2 id="columnnumber">ColumnNumber</h2>
 <p>从1开始。<br>
 ## TargetType<br>
@@ -7167,12 +7279,12 @@ var _hmt = _hmt || [];
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>SQLLEN dnoLen;</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>SQLBindCol(serverhstmt, <span class="dv">6</span>, SQL_C_CHAR, (<span class="dt">void</span>*)dno, <span class="kw">sizeof</span>(dno) - <span class="dv">1</span>, &amp;dnoLen);</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="cf">while</span> (SQL_NO_DATA != SQLFetch(serverhstmt) {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>    <span class="cf">if</span> (dnoLen != SQL_NULL_DATA) {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>        dno[dnoLen] = <span class="dv">0</span>;</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>        do_some_thing_with_dno</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>        handle_null_data</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    }</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>	<span class="cf">if</span> (dnoLen != SQL_NULL_DATA) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>		dno[dnoLen] = <span class="dv">0</span>;</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>		do_some_thing_with_dno</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>		handle_null_data</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>	}</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>}</span></code></pre></div>
 <h1 id="sqlbindparameter">SQLBindParameter</h1>
 <p>microsoft官方文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqlbindparameter-function?view=sql-server-ver15" class="uri">https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqlbindparameter-function?view=sql-server-ver15</a></p>
