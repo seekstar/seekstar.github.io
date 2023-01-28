@@ -7505,6 +7505,108 @@ length: 3
 <span id="cb19-31"><a href="#cb19-31" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb19-32"><a href="#cb19-32" aria-hidden="true"></a>}</span></code></pre></div>
 <p>但是这样比较麻烦，也很丑。</p>
+<h2 id="返回多个对象">返回多个对象</h2>
+<p>需要使用C++17的structured binding：</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;tuple&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>	A() {</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A constructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>	}</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>	A(A&amp;&amp;) {</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A moving</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>	}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>	~A() {</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A deconstructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true"></a>	}</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true"></a>};</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true"></a><span class="bu">std::</span>tuple&lt;<span class="dt">int</span>, A&gt; f() {</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>tuple(<span class="dv">233</span>, A());</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true"></a>}</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>	<span class="kw">auto</span> [x, a] = f();</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true"></a>}</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>A constructing
+A moving
+A deconstructing
+A deconstructing</code></pre>
+<p>可见接收返回值的时候调用的是move constructor。</p>
+<p>但是vscode显示那些返回的对象的类型是<code>&lt;unnamed&gt;</code>，而且也没有任何成员函数之类的提示。似乎是因为返回出来的实际上是指向返回值中的对象的引用类型，而且没有名字。所以这个特性对IDE非常不友好。</p>
+<h2 id="move-constructor里构造父类">move constructor里构造父类</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>	A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">a_</span>(a.<span class="va">a_</span>) {}</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a>	<span class="dt">void</span> PrintA() {</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a>	}</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">a_</span>;</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true"></a>};</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true"></a><span class="kw">struct</span> B : A {</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true"></a>	B(<span class="dt">int</span> a, <span class="dt">int</span> b) : A(a), <span class="va">b_</span>(b) {}</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true"></a>	<span class="co">// 直接调用父类的move constructor</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true"></a>	<span class="co">// B&amp;&amp;会被自动转换为A&amp;&amp;</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true"></a>	B(B&amp;&amp; r) : A(<span class="bu">std::</span>move(r)), <span class="va">b_</span>(r.<span class="va">b_</span>) {}</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true"></a>	B(<span class="at">const</span> B&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true"></a>	<span class="dt">void</span> PrintB() {</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">b_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true"></a>	}</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">b_</span>;</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true"></a>};</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true"></a></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true"></a>	B b(<span class="dv">1</span>, <span class="dv">2</span>);</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true"></a>	b.PrintA();</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true"></a>	b.PrintB();</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true"></a></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true"></a>	B c(<span class="bu">std::</span>move(b));</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true"></a>	c.PrintA();</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true"></a>	c.PrintB();</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true"></a>}</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37668952/move-constructor-for-derived-class" class="uri">https://stackoverflow.com/questions/37668952/move-constructor-for-derived-class</a></p>
+<h2 id="stdoptional">std::optional</h2>
+<p>Since C++17.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a><span class="bu">std::</span>optional&lt;<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;&gt; f(<span class="dt">bool</span> none) {</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>	<span class="cf">if</span> (none) {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;({<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>});</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>	}</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>}</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>	<span class="kw">auto</span> ret = f(<span class="kw">false</span>);</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a>	<span class="co">// If not none, then evaluated to true</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> v : ret.value())</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; v &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true"></a>	ret = f(<span class="kw">true</span>);</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true"></a>	<span class="co">// If none, then evaluated to false</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html>
 </div>
 
