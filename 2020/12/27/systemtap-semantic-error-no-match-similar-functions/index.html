@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7234,13 +7234,13 @@ var _hmt = _hmt || [];
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
 <p>保存为<code>test.c</code></p>
-<h2 id="c">C</h2>
+<h2 id="c"><a href="#c">¶</a> C</h2>
 <pre class="shell"><code>gcc test.c -o test
 objdump -D test | grep fun</code></pre>
 <p>输出的结果是</p>
 <pre class="text"><code>000000000000063a &lt;fun&gt;:
  656:   e8 df ff ff ff          callq  63a &lt;fun&gt;</code></pre>
-<h2 id="c-1">C++</h2>
+<h2 id="c-1"><a href="#c-1">¶</a> C++</h2>
 <p>用g++编译</p>
 <pre class="shell"><code>g++ test.c -o test
 objdump -D test | grep fun</code></pre>
@@ -7249,7 +7249,7 @@ objdump -D test | grep fun</code></pre>
  651:   e8 e4 ff ff ff          callq  63a &lt;_Z3funv&gt;</code></pre>
 <p>可以看到符号变成了<code>_Z3funv</code><br>
 就很恶心</p>
-<h2 id="rust">rust</h2>
+<h2 id="rust"><a href="#rust">¶</a> rust</h2>
 <p>rust也有这种问题（但是可以解决）。</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">fn</span> fun() <span class="op">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
@@ -7279,7 +7279,7 @@ objdump -D good | grep rs_fun</code></pre>
     46d7:       00 05 00 00 00 00       add    %al,0x0(%rip)        # 46dd &lt;rs_fun+0x1d&gt;
     464f:       65 64 4f 75 74          gs fs rex.WRXB jne 46c8 &lt;rs_fun+0x8&gt;</code></pre>
 <p>这样就好了。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

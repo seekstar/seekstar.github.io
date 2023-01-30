@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7223,7 +7223,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>详细知识点：<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv269765/?tdsourcetag=s_pctim_aiomsg" class="uri">https://www.bilibili.com/read/cv269765/?tdsourcetag=s_pctim_aiomsg</a></p>
 <p>使用gcc。</p>
-<h1 id="场景">场景</h1>
+<h1 id="场景"><a href="#场景">¶</a> 场景</h1>
 <p>add.c</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">int</span> add(<span class="dt">int</span> a, <span class="dt">int</span> b) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="cf">return</span> a + b;</span>
@@ -7244,7 +7244,7 @@ var _hmt = _hmt || [];
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>}</span></code></pre></div>
 <p>利用动态链接在main.c中使用add.c和sub.c中的add和sub函数。</p>
-<h1 id="windows">windows</h1>
+<h1 id="windows"><a href="#windows">¶</a> windows</h1>
 <p>windows的动态链接库的后缀名一般叫做dll（Dynamic Link Library）。</p>
 <p>以下命令都是在powershell里运行的。<br>
 ## 创建mymath.def</p>
@@ -7252,32 +7252,32 @@ var _hmt = _hmt || [];
 EXPORTS
 add
 sub</code></pre>
-<h2 id="得到mymathexp和mymathlib">得到mymath.exp和mymath.lib</h2>
+<h2 id="得到mymathexp和mymathlib"><a href="#得到mymathexp和mymathlib">¶</a> 得到mymath.exp和mymath.lib</h2>
 <p>其中mymath.exp是导出符号表，定义哪些符号需要导出。mymath.lib是导入符号表，定义哪些符号需要导入。</p>
 <pre class="shell"><code>dlltool --input-def=mymath.def --output-exp=mymath.exp --output-lib=mymath.lib</code></pre>
 <p>可以简写成</p>
 <pre class="shell"><code>dlltool -d mymath.def -e mymath.exp -l mymath.lib</code></pre>
-<h2 id="生成mymathdll">生成mymath.dll</h2>
+<h2 id="生成mymathdll"><a href="#生成mymathdll">¶</a> 生成mymath.dll</h2>
 <pre class="shell"><code>gcc -c add.c
 gcc -c sub.c
 gcc --shared mymath.exp add.o sub.o -o mymath.dll</code></pre>
 <p>可以理解为利用导出符号表mymath.exp来把add.o和sub.o中无用的符号都弄掉，只保留要导出的符号。</p>
-<h2 id="生成mainexe">生成main.exe</h2>
+<h2 id="生成mainexe"><a href="#生成mainexe">¶</a> 生成main.exe</h2>
 <pre class="shell"><code>gcc -c main.c
 gcc main.o mymath.lib -o main.exe</code></pre>
 <p>可以理解为利用导入符号表告诉链接器这些符号可以在运行时动态导入，不需要静态链接这个符号了。</p>
 <p>或者直接使用mymath.dll</p>
 <pre class="shell"><code>gcc main.c mymath.dll -o main</code></pre>
-<h2 id="运行">运行</h2>
+<h2 id="运行"><a href="#运行">¶</a> 运行</h2>
 <p>要确保mymath.dll与可执行文件在同一目录或者在<code>C:\Windows\System32\</code></p>
 <pre class="shell"><code>.\main.exe</code></pre>
 <p>输出</p>
 <pre><code>3, -1</code></pre>
-<h1 id="linux">linux</h1>
+<h1 id="linux"><a href="#linux">¶</a> linux</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zuofaqi/p/10440754.html" class="uri">https://www.cnblogs.com/zuofaqi/p/10440754.html</a><br>
 linux的动态链接库叫共享库，后缀名一般是so（Shared Object）。<br>
 先编辑好add.c、sub.c、mymath.def、main.c。</p>
-<h2 id="生成libmymathso">生成libmymath.so</h2>
+<h2 id="生成libmymathso"><a href="#生成libmymathso">¶</a> 生成libmymath.so</h2>
 <pre class="shell"><code>gcc -fPIC -c add.c
 gcc -fPIC -c sub.c</code></pre>
 <p>PIC: Position Independent Code</p>
@@ -7285,7 +7285,7 @@ gcc -fPIC -c sub.c</code></pre>
 <p>shared: 生成动态库而不是可执行文件</p>
 <p>合并成一个命令：</p>
 <pre class="shell"><code>gcc -fPIC -shared sub.c add.c -o libmymath.so</code></pre>
-<h2 id="生成main">生成main</h2>
+<h2 id="生成main"><a href="#生成main">¶</a> 生成main</h2>
 <p>如果libmymath.so在当前目录，则</p>
 <pre class="shell"><code>gcc -c main.c
 gcc main.o -L. -lmymath -o main</code></pre>
@@ -7294,7 +7294,7 @@ gcc main.o -L. -lmymath -o main</code></pre>
 <p><code>-L.</code>的作用是让操作系统在当前目录下找libmymath.so。<br>
 如果libmymath.so在共享库目录如<code>/lib</code>里，就不需要<code>-L.</code>。</p>
 <pre class="shell"><code>gcc main.c -lmymath -o main</code></pre>
-<h2 id="运行-1">运行</h2>
+<h2 id="运行-1"><a href="#运行-1">¶</a> 运行</h2>
 <p>操作系统要找到libmymath.so，才能在运行时将其链接到main上。windows中当动态链接库与可执行文件在同一目录下时便会自动链接上，但是linux中只会去共享库目录下去找。</p>
 <p>让操作系统找到libmymath.so有几种方法：</p>
 <ul>
@@ -7308,7 +7308,7 @@ gcc main.o -L. -lmymath -o main</code></pre>
 <ul>
 <li>编辑/etc/ld.so.conf文件，加入libmymath.so所在目录的绝对路径，然后<code>sudo ldconfig</code>重建/etc/ld.so.cache</li>
 </ul>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

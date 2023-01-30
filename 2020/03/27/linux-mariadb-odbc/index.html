@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7225,10 +7225,10 @@ var _hmt = _hmt || [];
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/mei777387/article/details/75331428" class="uri">https://blog.csdn.net/mei777387/article/details/75331428</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/pycode/p/9495793.html" class="uri">https://www.cnblogs.com/pycode/p/9495793.html</a></p>
 <p>mariadb与mysql非常像，甚至安装mariadb后可以使用mysql命令运行mariadb。</p>
-<h1 id="安装软件">安装软件</h1>
+<h1 id="安装软件"><a href="#安装软件">¶</a> 安装软件</h1>
 <pre class="shell"><code>sudo apt install -y mariadb-server mariadb-client</code></pre>
 <p>我这里安装的是mariadb19。如果是mariadb18，请把下面的mariadb19换成mariadb18。</p>
-<h1 id="设置密码">设置密码</h1>
+<h1 id="设置密码"><a href="#设置密码">¶</a> 设置密码</h1>
 <p>刚安装是没有密码的。先设置密码</p>
 <pre class="shell"><code>sudo -s</code></pre>
 <pre class="shell"><code>mysql</code></pre>
@@ -7238,14 +7238,14 @@ var _hmt = _hmt || [];
 <p>以后就可以使用</p>
 <pre class="shell"><code>mysql -u root -p</code></pre>
 <p>登录了</p>
-<h1 id="安装unixodbc">安装unixodbc</h1>
+<h1 id="安装unixodbc"><a href="#安装unixodbc">¶</a> 安装unixodbc</h1>
 <pre class="shell"><code>sudo apt install -y unixodbc</code></pre>
 <p>测试一下是否安装成功</p>
 <pre class="shell"><code>odbcinst -j</code></pre>
 <p>成功：<br>
 <img src="/2020/03/27/linux-mariadb-odbc/2020032715473971.png" alt="在这里插入图片描述"><br>
 失败的话看参考链接。</p>
-<h1 id="安装mariadb-connectorodbc">安装MariaDB Connector/ODBC</h1>
+<h1 id="安装mariadb-connectorodbc"><a href="#安装mariadb-connectorodbc">¶</a> 安装MariaDB Connector/ODBC</h1>
 <p><a target="_blank" rel="noopener" href="https://downloads.mariadb.org/connector-odbc/+releases/" class="uri">https://downloads.mariadb.org/connector-odbc/+releases/</a></p>
 <p>这是目前的<a target="_blank" rel="noopener" href="https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.6/mariadb-connector-odbc-3.1.6-ga-debian-x86_64.tar.gz">最新版本</a></p>
 <p>然后cd到下载目录</p>
@@ -7253,7 +7253,7 @@ var _hmt = _hmt || [];
 tar -zxvf mariadb-connector-odbc-3.1.6-ga-debian-x86_64.tar.gz -C mariadb-connector-odbc-3.1.6-ga-debian-x86_64
 cd mariadb-connector-odbc-3.1.6-ga-debian-x86_64/lib
 sudo cp libmaodbc.so /lib/x86_64-linux-gnu/mariadb19/</code></pre>
-<h1 id="编辑etcodbcinstini">编辑/etc/odbcinst.ini</h1>
+<h1 id="编辑etcodbcinstini"><a href="#编辑etcodbcinstini">¶</a> 编辑/etc/odbcinst.ini</h1>
 <pre><code># Example driver definitions
 # Driver from the postgresql-odbc package
 # Setup from the unixODBC package
@@ -7275,7 +7275,7 @@ Port = 3306
 USER = root
 Password = a
 CHARSET = UTF8</code></pre>
-<h1 id="测试">测试</h1>
+<h1 id="测试"><a href="#测试">¶</a> 测试</h1>
 <pre class="shell"><code>isql dbexp2 -v</code></pre>
 <p>大概率会出错。</p>
 <pre><code>[01000][unixODBC][Driver Manager]Can't open lib '/usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so' : file not found
@@ -7321,7 +7321,7 @@ CHARSET = UTF8</code></pre>
 |                                       |
 +---------------------------------------+
 SQL&gt; </code></pre>
-<h1 id="在cc中使用">在C/C++中使用</h1>
+<h1 id="在cc中使用"><a href="#在cc中使用">¶</a> 在C/C++中使用</h1>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/techtitan/article/details/6774859" class="uri">https://blog.csdn.net/techtitan/article/details/6774859</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40861091/article/details/89345860" class="uri">https://blog.csdn.net/qq_40861091/article/details/89345860</a></p>
@@ -7428,7 +7428,7 @@ Human Resource Department		010
 Produce Department		011
 Research Department		100
 done</code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

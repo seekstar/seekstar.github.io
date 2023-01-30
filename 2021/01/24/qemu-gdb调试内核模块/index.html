@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,25 +7221,25 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="制作qemu虚拟机">制作qemu虚拟机</h2>
+	<html><head></head><body><h2 id="制作qemu虚拟机"><a href="#制作qemu虚拟机">¶</a> 制作qemu虚拟机</h2>
 <p>看这里：<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="在服务器上用qemu制作虚拟机">在服务器上用qemu制作虚拟机</a></p>
 <p>如果是PC的话，就不用配置vnc了。</p>
 <p>虚拟机配置完毕后要把<code>-enable-kvm</code>去掉再重启，不然软件断点不起作用。此外，加上<code>-s</code>以启动gdbserver。</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 centos.img -net nic -net tap,ifname=tap0,script=no,downscript=no -s</code></pre>
 <p>关掉了kvm之后开机特别慢，我这要两百多秒。</p>
-<h2 id="设置nokaslr">设置nokaslr</h2>
+<h2 id="设置nokaslr"><a href="#设置nokaslr">¶</a> 设置nokaslr</h2>
 <a href="/2021/01/22/qemu-gdb-lx-symbols-python-exception-%EF%BC%9Cclass-%E2%80%98gdb-memoryerror%E2%80%98%EF%BC%9E-cannot-access-memory-at-address-0xfff/" title="qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff">qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff</a>
-<h2 id="编译内核模块">编译内核模块</h2>
+<h2 id="编译内核模块"><a href="#编译内核模块">¶</a> 编译内核模块</h2>
 <p>Makefile里加上</p>
 <pre class="text"><code>ccflags-y += -g -DDEBUG -O1</code></pre>
 <p>不能用<code>-O0</code>，可能会报错。</p>
-<h2 id="配置gdb">配置gdb</h2>
+<h2 id="配置gdb"><a href="#配置gdb">¶</a> 配置gdb</h2>
 <p>在~/.gdbinit里加上</p>
 <pre class="text"><code>add-auto-load-safe-path /full_path_to_kernel_build_dir/scripts/gdb/vmlinux-gdb.py</code></pre>
 <p>例如</p>
 <pre class="text"><code>add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</code></pre>
 <p>这样gdb里就可以用<code>lx-symbols</code>了。</p>
-<h2 id="gdb连上qemu并设置自动加载模块符号">gdb连上qemu并设置自动加载模块符号</h2>
+<h2 id="gdb连上qemu并设置自动加载模块符号"><a href="#gdb连上qemu并设置自动加载模块符号">¶</a> gdb连上qemu并设置自动加载模块符号</h2>
 <pre class="shell"><code>cd /path/to/kernel/build/dir
 gdb vmlinux</code></pre>
 <p>然后在gdb里执行</p>
@@ -7258,16 +7258,16 @@ loading @0xffffffffc1088000: /mnt/hdd/kernel/gdb/linux-nova/net/netfilter/nft_fi
 loading @0xffffffffc1080000: /mnt/hdd/kernel/gdb/linux-nova/net/ipv4/netfilter/nft_fib_ipv4.ko
 此处省略若干行
 loading @0xffffffffc0000000: /mnt/hdd/kernel/gdb/linux-nova/fs/autofs/autofs4.ko</code></pre>
-<h2 id="insmod">insmod</h2>
+<h2 id="insmod"><a href="#insmod">¶</a> insmod</h2>
 <p>在gdb里输入c</p>
 <pre class="text"><code>(gdb) c
 Continuing.</code></pre>
 <p>这样虚拟机就会继续运行。在虚拟机中用insmod加载模块。这时gdb会自动加载内核模块的符号。</p>
-<h2 id="在gdb中设置断点">在gdb中设置断点</h2>
+<h2 id="在gdb中设置断点"><a href="#在gdb中设置断点">¶</a> 在gdb中设置断点</h2>
 <p>由于已经关闭了<code>kvm</code>，所以可以直接设置软断点。</p>
 <pre class="text"><code>(gdb) b nova_init_blockmap
 Breakpoint 1 at 0xffffffffc10992ab: file /home/searchstar/git/projects/nova/balloc.c, line 212.</code></pre>
-<h2 id="跑起来">跑起来</h2>
+<h2 id="跑起来"><a href="#跑起来">¶</a> 跑起来</h2>
 <pre class="text"><code>(gdb) c
 Continuing.
 
@@ -7280,7 +7280,7 @@ Breakpoint 1, nova_init_blockmap (sb=0xffff88809ee9cb08)
 214             unsigned long mask_bits = ceil_log_2(sbi-&gt;num_blocks);
 (gdb) n
 224             while (a * 5 &lt; (1 &lt;&lt; max_bits_a)) {</code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

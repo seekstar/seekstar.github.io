@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7240,13 +7240,13 @@ rm -r /usr/lib/modules/5.13.0-40-generic</code></pre>
 <p>然后更新grub：</p>
 <pre class="shell"><code>update-grub</code></pre>
 <p>然后<code>apt --fix-broken install</code>就可以了。</p>
-<h2 id="讨论">讨论</h2>
+<h2 id="讨论"><a href="#讨论">¶</a> 讨论</h2>
 <p>其实如果能取消需要往<code>/boot</code>里安装新内核的包的安装更好：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/525088/how-to-delete-broken-packages-in-ubuntu" class="uri">https://askubuntu.com/questions/525088/how-to-delete-broken-packages-in-ubuntu</a></p>
 <pre class="shell"><code>sudo dpkg --remove --force-remove-reinstreq package_name
 sudo apt-get update</code></pre>
 <p>但是不知道为什么虽然<code>apt update</code>是成功了，但是此后使用<code>apt install</code>的时候还是会报以前的错，就好像<code>apt</code>不知道那个包已经被删掉了一样。</p>
 <p>而且下面的评论有人说<code>--force-remove-reinstreq</code>是个非常危险的选项。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

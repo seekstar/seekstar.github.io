@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,9 +7222,9 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>本文展示了如何使用另一个已安装的Linux系统安装ArchLinux。本文以Deepin V23为例。</p>
-<h2 id="必要工具">必要工具</h2>
+<h2 id="必要工具"><a href="#必要工具">¶</a> 必要工具</h2>
 <p>这些工具ArchLinux的启动盘已经提供了。我们不用启动盘的话就得自己编译安装。</p>
-<h3 id="pacstrap-和-arch-chroot">pacstrap 和 arch-chroot</h3>
+<h3 id="pacstrap-和-arch-chroot"><a href="#pacstrap-和-arch-chroot">¶</a> pacstrap 和 arch-chroot</h3>
 <pre class="shell"><code>sudo apt install m4
 # 这个六百多MB。不知道是不是必须的。
 #sudo apt install asciidoc
@@ -7232,7 +7232,7 @@ git clone https://github.com/archlinux/arch-install-scripts
 cd arch-install-scripts
 make
 sudo make install</code></pre>
-<h3 id="pacman">pacman</h3>
+<h3 id="pacman"><a href="#pacman">¶</a> pacman</h3>
 <pre class="shell"><code>sudo apt install libarchive-dev
 # bsdtar
 sudo apt install libarchive-tools
@@ -7280,7 +7280,7 @@ EOF
 
 sudo mkdir -p /etc/pacman.d/
 sudo bash -c "echo \"Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\\\$repo/os/\\\$arch\" &gt; /etc/pacman.d/mirrorlist"</code></pre>
-<h2 id="分区并挂载">分区并挂载</h2>
+<h2 id="分区并挂载"><a href="#分区并挂载">¶</a> 分区并挂载</h2>
 <pre class="shell"><code>sudo cfdisk /dev/sda
 #efidev=/dev/sda1
 #rootdev=/dev/sda3
@@ -7288,7 +7288,7 @@ sudo mkfs.ext4 $rootdev
 sudo mount $rootdev /mnt
 sudo mkdir /mnt/efi
 sudo mount $efidev /mnt/efi</code></pre>
-<h2 id="安装必要的包以及进行必要的配置">安装必要的包，以及进行必要的配置</h2>
+<h2 id="安装必要的包以及进行必要的配置"><a href="#安装必要的包以及进行必要的配置">¶</a> 安装必要的包，以及进行必要的配置</h2>
 <pre class="shell"><code>sudo pacstrap /mnt base base-devel linux linux-headers linux-firmware dhcpcd vim bash-completion
 sudo bash -c "genfstab -U /mnt &gt;&gt; /mnt/etc/fstab"
 #hostname=hasee-arch
@@ -7309,7 +7309,7 @@ sudo chroot /mnt /bin/bash -c "useradd -m -G wheel $admin_name &amp;&amp; passwd
 sudo chmod 740 /mnt/etc/sudoers
 sudo bash -c 'echo "%wheel ALL=(ALL) ALL" &gt;&gt; /mnt/etc/sudoers'
 sudo chmod 440 /mnt/etc/sudoers</code></pre>
-<h2 id="安装桌面环境">安装桌面环境</h2>
+<h2 id="安装桌面环境"><a href="#安装桌面环境">¶</a> 安装桌面环境</h2>
 <p>以KDE为例：</p>
 <pre class="shell"><code>sudo pacstrap /mnt plasma-meta konsole dolphin ark
 # Optional dependencies of ark
@@ -7317,15 +7317,15 @@ sudo pacstrap /mnt p7zip unrar unarchiver lzop lrzip
 sudo chroot /mnt /bin/bash -c "systemctl enable sddm"
 # Dependencies of Discover
 sudo pacstrap /mnt packagekit-qt5 packagekit appstream-qt appstream</code></pre>
-<h2 id="安装一些额外包">安装一些额外包</h2>
+<h2 id="安装一些额外包"><a href="#安装一些额外包">¶</a> 安装一些额外包</h2>
 <pre class="shell"><code># Sound
 sudo pacstrap /mnt sof-firmware alsa-firmware alsa-ucm-conf
 sudo pacstrap /mnt ntfs-3g
 sudo pacstrap /mnt adobe-source-han-serif-cn-fonts wqy-zenhei noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 sudo pacstrap /mnt firefox
 sudo pacstrap /mnt wget</code></pre>
-<h2 id="本地化">本地化</h2>
-<h3 id="locale">Locale</h3>
+<h2 id="本地化"><a href="#本地化">¶</a> 本地化</h2>
+<h3 id="locale"><a href="#locale">¶</a> Locale</h3>
 <p>ArchLinux没有默认的locale，所以一定要设置locale，否则之后运行一些命令时会出现这种报错：<code>bsdtar: Failed to set default locale</code>。</p>
 <p>为了方便出现问题后到国际平台上寻求帮助，这里设置成<code>en_US.UTF-8</code>。</p>
 <pre class="shell"><code>sudo chroot /mnt /bin/bash -c 'echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" &gt;&gt; /etc/locale.gen &amp;&amp; locale-gen'
@@ -7334,24 +7334,24 @@ sudo pacstrap /mnt wget</code></pre>
 sudo bash -c "echo LANG=en_US.UTF-8 &gt; /mnt/etc/locale.conf"
 # https://wiki.archlinux.org/title/Locale#My_system_is_still_using_wrong_language
 #rm ~/.config/plasma-localerc</code></pre>
-<h3 id="时区">时区</h3>
+<h3 id="时区"><a href="#时区">¶</a> 时区</h3>
 <pre class="shell"><code>sudo chroot /mnt /bin/bash -c "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"</code></pre>
-<h2 id="引导">引导</h2>
+<h2 id="引导"><a href="#引导">¶</a> 引导</h2>
 <p>可以直接使用原有的引导，也可以安装并使用ArchLinux的引导。</p>
-<h3 id="使用原有的引导">使用原有的引导</h3>
+<h3 id="使用原有的引导"><a href="#使用原有的引导">¶</a> 使用原有的引导</h3>
 <pre class="shell"><code>sudo update-grub</code></pre>
-<h3 id="安装并使用archlinux的引导">安装并使用ArchLinux的引导</h3>
+<h3 id="安装并使用archlinux的引导"><a href="#安装并使用archlinux的引导">¶</a> 安装并使用ArchLinux的引导</h3>
 <pre class="shell"><code>sudo pacstrap /mnt grub efibootmgr
 sudo arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB"
 sudo bash -c "echo GRUB_DISABLE_OS_PROBER=false &gt;&gt; /mnt/etc/default/grub"
 sudo arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"</code></pre>
-<h2 id="启动archlinux">启动ArchLinux</h2>
+<h2 id="启动archlinux"><a href="#启动archlinux">¶</a> 启动ArchLinux</h2>
 <p>重启电脑，应该就能在GRUB菜单里看到刚刚安装的ArchLinux了。</p>
 <p>进去之后可能会出现key出错的问题。可参考这里解决：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1790e92b2189/" class="uri">https://www.jianshu.com/p/1790e92b2189/</a></p>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://archlinuxstudio.github.io/ArchLinuxTutorial/#/" class="uri">https://archlinuxstudio.github.io/ArchLinuxTutorial/#/</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux" class="uri">https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

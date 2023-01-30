@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,16 +7221,16 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="安装">安装</h2>
+	<html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <p>flatpak是一款跨发行版的包管理器。官网：<a target="_blank" rel="noopener" href="https://flatpak.org/" class="uri">https://flatpak.org/</a></p>
 <p>这里有各个发行版的安装方法：<a target="_blank" rel="noopener" href="https://flatpak.org/setup/" class="uri">https://flatpak.org/setup/</a></p>
 <p>这里以Deepin为例。</p>
 <pre class="shell"><code>sudo apt install flatpak</code></pre>
-<h2 id="添加源">添加源</h2>
+<h2 id="添加源"><a href="#添加源">¶</a> 添加源</h2>
 <p>官方源：</p>
 <pre class="shell"><code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
 <p>但是这个太慢了，建议添加国内镜像源，教程：<a href="https://seekstar.github.io/2021/12/30/%E7%BB%99flatpak%E6%B7%BB%E5%8A%A0%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90/" class="uri">https://seekstar.github.io/2021/12/30/%E7%BB%99flatpak%E6%B7%BB%E5%8A%A0%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90/</a></p>
-<h2 id="重启">重启</h2>
+<h2 id="重启"><a href="#重启">¶</a> 重启</h2>
 <p>会有这样一个提示：</p>
 <pre class="shell"><code>Note that the directories 
 
@@ -7242,47 +7242,47 @@ applications installed by Flatpak may not appear on your desktop until the
 session is restarted.</code></pre>
 <p>意思是说，在重启之后，用flatpak安装的软件才能用桌面系统访问到。所以接下来先重启。</p>
 <p>重启之后就可以正常使用了。但是即使之后这两个目录加入到<code>XDG_DATA_DIRS</code>了，有些应用可能仍然需要注销并且重新登录才能在启动器找到。</p>
-<h2 id="常用的命令">常用的命令</h2>
+<h2 id="常用的命令"><a href="#常用的命令">¶</a> 常用的命令</h2>
 <pre class="shell"><code>flatpak search xxx
 flatpak install xxx
 flatpak uninstall xxx
 flatpak list # 列出已安装的包
 flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <p>不同于apt，flatpak可以并行安装。安装的软件存放在<code>~/.var/app/</code>和<code>/var/lib/flatpak/app</code>里。一般来讲，软件的启动入口一般在<code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin</code>。</p>
-<h2 id="为应用设置代理">为应用设置代理</h2>
+<h2 id="为应用设置代理"><a href="#为应用设置代理">¶</a> 为应用设置代理</h2>
 <p>由于flatpak的应用是运行在沙箱里的，看不到系统代理，所以如果应用需要使用代理的话，需要手动在沙箱环境里配置系统代理：</p>
 <p><a href="https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" class="uri">https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/</a></p>
-<h2 id="一些可以用flatpak安装的软件">一些可以用flatpak安装的软件</h2>
-<h3 id="xournal">Xournal++</h3>
+<h2 id="一些可以用flatpak安装的软件"><a href="#一些可以用flatpak安装的软件">¶</a> 一些可以用flatpak安装的软件</h2>
+<h3 id="xournal"><a href="#xournal">¶</a> Xournal++</h3>
 <p>PDF编辑软件。</p>
 <p>相关：<a href="https://seekstar.github.io/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/" class="uri">https://seekstar.github.io/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/</a></p>
-<h3 id="mypaint">MyPaint</h3>
+<h3 id="mypaint"><a href="#mypaint">¶</a> MyPaint</h3>
 <p>可以当草稿纸用。但是写多了字之后会很卡。</p>
 <p>相关：<a href="https://seekstar.github.io/2021/02/04/linux%E8%8D%89%E7%A8%BF%E7%BA%B8%E8%BD%AF%E4%BB%B6mypaint/" class="uri">https://seekstar.github.io/2021/02/04/linux%E8%8D%89%E7%A8%BF%E7%BA%B8%E8%BD%AF%E4%BB%B6mypaint/</a></p>
-<h3 id="zoom">Zoom</h3>
+<h3 id="zoom"><a href="#zoom">¶</a> Zoom</h3>
 <p>会议软件。</p>
-<h3 id="spotify">spotify</h3>
+<h3 id="spotify"><a href="#spotify">¶</a> spotify</h3>
 <p>音乐软件</p>
-<h3 id="motrix">Motrix</h3>
+<h3 id="motrix"><a href="#motrix">¶</a> Motrix</h3>
 <p>p2p下载客户端。支持多种p2p链接。</p>
-<h3 id="shadowsocks-qt5">Shadowsocks-Qt5</h3>
+<h3 id="shadowsocks-qt5"><a href="#shadowsocks-qt5">¶</a> Shadowsocks-Qt5</h3>
 <pre class="shell"><code>flatpak install shadowsocks</code></pre>
-<h3 id="国际版minecraft">国际版Minecraft</h3>
+<h3 id="国际版minecraft"><a href="#国际版minecraft">¶</a> 国际版Minecraft</h3>
 <p><code>com.mojang.Minecraft</code></p>
-<h3 id="clash-for-windows">Clash for Windows</h3>
+<h3 id="clash-for-windows"><a href="#clash-for-windows">¶</a> Clash for Windows</h3>
 <p><code>io.github.Fndroid.clash_for_windows</code></p>
 <p>别被名字骗了，现在支持Linux了。</p>
-<h3 id="libreoffice">LibreOffice</h3>
+<h3 id="libreoffice"><a href="#libreoffice">¶</a> LibreOffice</h3>
 <p><code>org.libreoffice.LibreOffice</code></p>
 <p>里面的<code>LibreOffice Draw</code>是很棒的PDF编辑工具。</p>
-<h3 id="zotero">Zotero</h3>
+<h3 id="zotero"><a href="#zotero">¶</a> Zotero</h3>
 <p>一款文献管理器。</p>
-<h3 id="keepassxc">KeePassXC</h3>
+<h3 id="keepassxc"><a href="#keepassxc">¶</a> KeePassXC</h3>
 <p>密码管理器。要把apt安装的旧版卸载之后，Deepin启动器上的才会变成flatpak的版本。</p>
 <p>其实我觉得2.6.6还没有2.3.4好用。新版上创建条目的时候不会要求输入两遍了，而且也不会显示密码强度。</p>
-<h3 id="seafile">Seafile</h3>
+<h3 id="seafile"><a href="#seafile">¶</a> Seafile</h3>
 <p>但是没有单点登录。</p>
-<h3 id="drawio">drawio</h3>
+<h3 id="drawio"><a href="#drawio">¶</a> drawio</h3>
 <p>画图软件。装完之后Deepin系统的启动器里并找不到drawio，只能这样启动：</p>
 <pre class="shell"><code>flatpak run com.jgraph.drawio.desktop</code></pre>
 <p>而且如果执行其启动脚本的话：</p>
@@ -7290,30 +7290,30 @@ flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <p>会报错：</p>
 <pre><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
 <p>这是因为这个脚本的后缀名是<code>.desktop</code>，然后系统以为它是启动器。</p>
-<h3 id="element">Element</h3>
+<h3 id="element"><a href="#element">¶</a> Element</h3>
 <p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，默认传文件时不能看到系统里的文件。可以设置其允许读取home目录下的文件：</p>
 <pre class="shell"><code># https://docs.flatpak.org/en/latest/sandbox-permissions.html#filesystem-access
 # https://github.com/flathub/im.riot.Riot/issues/33
 flatpak override --user --filesystem=home:ro im.riot.Riot</code></pre>
-<h3 id="telegram">Telegram</h3>
+<h3 id="telegram"><a href="#telegram">¶</a> Telegram</h3>
 <p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。</p>
-<h3 id="torbrowser-launcher">torbrowser-launcher</h3>
+<h3 id="torbrowser-launcher"><a href="#torbrowser-launcher">¶</a> torbrowser-launcher</h3>
 <p>launcher能打开，但是在系统启动器死活打不开tor browser。。。</p>
 <p>通过launcher下载好tor browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
 <pre class="shell"><code>~/.var/app/com.github.micahflee.torbrowser-launcher/data/torbrowser/tbb/x86_64/tor-browser_zh-CN/Browser/start-tor-browser</code></pre>
 <p>注意如果选择下载的是英文版，那其中的<code>tor-browser_zh-CN</code>要换掉。</p>
 <p>关于tor browser本身能不能进flatpak可以看这个issue:</p>
 <p><a target="_blank" rel="noopener" href="https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/25578" class="uri">https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/25578</a></p>
-<h3 id="vscode">vscode</h3>
+<h3 id="vscode"><a href="#vscode">¶</a> vscode</h3>
 <p>运行在容器里，所以不能访问系统里的SDK。而且好像不提供code命令？还是建议去官网下载安装包来安装。</p>
-<h3 id="firefox国际版">Firefox国际版</h3>
+<h3 id="firefox国际版"><a href="#firefox国际版">¶</a> Firefox国际版</h3>
 <p><code>org.mozilla.firefox</code></p>
 <p>要先把系统里旧的firefox卸载，不然启动器启动的还是旧版本。</p>
 <p>在浏览器里没法把自己设置为默认浏览器了。但是一般可以在系统设置里手动设置。Deepin是在<code>设置-&gt;默认程序-&gt;网页</code>。</p>
 <p>我这里一开始是正常的，但是过了几天之后显示就出问题了。</p>
-<h3 id="wps">WPS</h3>
+<h3 id="wps"><a href="#wps">¶</a> WPS</h3>
 <p>国产办公软件。但是flatpak上只有英文版的。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,7 +7221,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="安装texlive">安装texlive</h2>
+	<html><head></head><body><h2 id="安装texlive"><a href="#安装texlive">¶</a> 安装texlive</h2>
 <p>在Deepin上测试通过：</p>
 <pre class="shell"><code># texlive-extra-utils: texdef
 # latex-cjk-all: Chinese font package
@@ -7233,20 +7233,20 @@ sudo apt install -y texstudio texlive-xetex texlive-extra-utils latex-cjk-all te
 # texlive-science: siunitx.sty
 # latexmk: make clean要用
 sudo apt -y install texlive-science latexmk</code></pre>
-<h2 id="下载模板">下载模板</h2>
+<h2 id="下载模板"><a href="#下载模板">¶</a> 下载模板</h2>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/jingxuanyang/hitszthesis" class="uri">https://gitee.com/jingxuanyang/hitszthesis</a></p>
-<h2 id="配置vscode">配置vscode</h2>
+<h2 id="配置vscode"><a href="#配置vscode">¶</a> 配置vscode</h2>
 <p>我装了这几个插件</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210209161740856.png" alt="在这里插入图片描述"></p>
 <p>ctrl+s就可以自动编译，不需要命令行。</p>
-<h2 id="编译">编译</h2>
+<h2 id="编译"><a href="#编译">¶</a> 编译</h2>
 <pre class="shell"><code>make all</code></pre>
 <p>如果要用vscode的话，要把<code>main.tex</code>里的</p>
 <pre class="text"><code>% !TEX program  = XeLaTeX</code></pre>
 <p>改成</p>
 <pre class="text"><code>% !TEX program  = xelatex</code></pre>
 <p>否则vscode会报错：<code>Recipe terminated with fatal error: spawn XeLaTeX ENOENT.</code>，因为linux是大小写敏感的。</p>
-<h2 id="添加gitignore">添加.gitignore</h2>
+<h2 id="添加gitignore"><a href="#添加gitignore">¶</a> 添加.gitignore</h2>
 <pre class="text"><code>*.sty
 *.aux
 *.cfg
@@ -7270,7 +7270,7 @@ main.pdf
 *.thm</code></pre>
 <p>这样commit的时候可以不把这些临时文件commit进去。</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210209165811672.png" alt="在这里插入图片描述"></p>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p>在google scholar上搜索文献，然后点击引用</p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210131710785.png" alt="在这里插入图片描述"></p>
 <p>选Bibtex</p>
@@ -7287,14 +7287,14 @@ main.pdf
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210132152797.png" alt="在这里插入图片描述"></p>
 <p><img src="/2021/02/09/hitszthesis-linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/20210210132211113.png" alt="在这里插入图片描述"></p>
 <p>引用misc类型的参考文献可能会报错<code>Unsupported entry type</code>。参照<a target="_blank" rel="noopener" href="https://blog.csdn.net/haifeng_gu/article/details/107342684" class="uri">https://blog.csdn.net/haifeng_gu/article/details/107342684</a>，将<code>misc</code>改成<code>Online</code>即可。</p>
-<h2 id="伪代码">伪代码</h2>
+<h2 id="伪代码"><a href="#伪代码">¶</a> 伪代码</h2>
 <p>hitszthesis的伪代码用的是<code>algorithm2e</code>包，已经自带了，不需要另外usepackage。<br>
 注意algorithm2e里是用<code>\;</code>来结束一条语句，而不是用<code>\State</code>来开始一条语句。<br>
 algorithm2e教程：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/yq_forever/article/details/89815562" class="uri">https://blog.csdn.net/yq_forever/article/details/89815562</a><br>
 <a target="_blank" rel="noopener" href="https://wenda.latexstudio.net/article-5052.html" class="uri">https://wenda.latexstudio.net/article-5052.html</a><br>
 <a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/522327/how-to-change-the-type-of-vertical-line-in-algorithm-environment-while-minimizin" class="uri">https://tex.stackexchange.com/questions/522327/how-to-change-the-type-of-vertical-line-in-algorithm-environment-while-minimizin</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

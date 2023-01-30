@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7228,7 +7228,7 @@ var _hmt = _hmt || [];
 <p>参考：<a target="_blank" rel="noopener" href="https://security.stackexchange.com/questions/11839/what-is-the-difference-between-a-hash-function-and-a-cryptographic-hash-function" class="uri">https://security.stackexchange.com/questions/11839/what-is-the-difference-between-a-hash-function-and-a-cryptographic-hash-function</a><br>
 哈希有两种：加密哈希和非加密哈希。<br>
 加密哈希的目标是通过加密哈希的得到的哈希值很难逆推得到原始值，而非加密哈希的目标仅仅是减小哈希冲突。</p>
-<h1 id="加密哈希">加密哈希</h1>
+<h1 id="加密哈希"><a href="#加密哈希">¶</a> 加密哈希</h1>
 <p>linux内核官方文档中有一个例子：<br>
 <a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/latest/crypto/api-samples.html" class="uri">https://www.kernel.org/doc/html/latest/crypto/api-samples.html</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> sdesc {</span>
@@ -7284,18 +7284,18 @@ var _hmt = _hmt || [];
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>    <span class="cf">return</span> ret;</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a>}</span></code></pre></div>
 <p>下面根据我自己的理解解释这段代码。</p>
-<h2 id="加密handlerstruct-crypto_shash">加密handler：struct crypto_shash</h2>
-<h3 id="生成">生成</h3>
+<h2 id="加密handlerstruct-crypto_shash"><a href="#加密handlerstruct-crypto_shash">¶</a> 加密handler：struct crypto_shash</h2>
+<h3 id="生成"><a href="#生成">¶</a> 生成</h3>
 <p>crypto_alloc_shash：根据指定的哈希算法，生成handler，并返回其指针。<br>
 原型：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">struct</span> crypto_shash *crypto_alloc_shash(<span class="dt">const</span> <span class="dt">char</span> *alg_name, u32 type,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>					u32 mask);</span></code></pre></div>
 <p>alg_name: algorithm name，哈希算法名称<br>
 type和mask一般都是0。<del>其实我也不清楚</del></p>
-<h3 id="销毁">销毁</h3>
+<h3 id="销毁"><a href="#销毁">¶</a> 销毁</h3>
 <p>crypto_free_shash: 销毁由crypto_alloc_shash生成的handler。</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> crypto_free_shash(<span class="kw">struct</span> crypto_shash *tfm);</span></code></pre></div>
-<h2 id="struct-shash_desc">struct shash_desc</h2>
+<h2 id="struct-shash_desc"><a href="#struct-shash_desc">¶</a> struct shash_desc</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> shash_desc {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>	<span class="kw">struct</span> crypto_shash *tfm;</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	u32 flags;</span>
@@ -7306,14 +7306,14 @@ type和mask一般都是0。<del>其实我也不清楚</del></p>
 ctx: 空数组的首地址，相当于汇编里的一个标号，指向结构体的后一个字节。<br>
 这个结构体可能会跟一段buffer一起被申请，而ctx就相当于这段buffer的首地址，所以为了防止访问buffer时出现对齐错误，需要给ctx加上属性CRYPTO_MINALIGN_ATTR。<br>
 CRYPTO_MINALIGN_ATTR的含义是通过可能的字节填充，使得ctx是以最大的对齐标准对齐的，防止出现对齐错误。例如在我的机器上，CRYPTO_MINALIGN_ATTR的含义是强制以64位对齐。</p>
-<h2 id="struct-sdesc">struct sdesc</h2>
+<h2 id="struct-sdesc"><a href="#struct-sdesc">¶</a> struct sdesc</h2>
 <p>加密handler的第二层封装。我个人觉得上一层封装<code>struct shash_desc</code>已经可以用了。但是既然官方文档都自定义了一个结构体，就……</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">struct</span> sdesc {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    <span class="kw">struct</span> shash_desc shash;</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="dt">char</span> ctx[];</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>};</span></code></pre></div>
 <p>ctx作为后面跟着的buffer的首地址。由于struct shash_desc里已经进行过对齐，所以后面跟着的buffer的首地址一定是对齐的。</p>
-<h3 id="生成-1">生成</h3>
+<h3 id="生成-1"><a href="#生成-1">¶</a> 生成</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">static</span> <span class="kw">struct</span> sdesc *init_sdesc(<span class="kw">struct</span> crypto_shash *alg)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>{</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="kw">struct</span> sdesc *sdesc;</span>
@@ -7332,20 +7332,20 @@ CRYPTO_MINALIGN_ATTR的含义是通过可能的字节填充，使得ctx是以最
 <p>ERR_PTR: 把错误码变成指针。戳这篇文章：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/yaozhenguo2006/article/details/7967547" class="uri">https://blog.csdn.net/yaozhenguo2006/article/details/7967547</a><br>
 ENOMEM: error, no memory</p>
-<h3 id="销毁-1">销毁</h3>
+<h3 id="销毁-1"><a href="#销毁-1">¶</a> 销毁</h3>
 <p>kfree其内存即可</p>
-<h2 id="计算哈希值">计算哈希值</h2>
+<h2 id="计算哈希值"><a href="#计算哈希值">¶</a> 计算哈希值</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">int</span> crypto_shash_digest(<span class="kw">struct</span> shash_desc *desc, <span class="dt">const</span> u8 *data,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>			<span class="dt">unsigned</span> <span class="dt">int</span> len, u8 *out);</span></code></pre></div>
 <p>其中desc后面一定要有足够长的buffer（前面用crypto_shash_descsize保证了）<br>
 out就是生成的哈希值。</p>
-<h1 id="非加密哈希">非加密哈希</h1>
+<h1 id="非加密哈希"><a href="#非加密哈希">¶</a> 非加密哈希</h1>
 <p>一种非常快的哈希质量很好的非加密哈希函数为xxHash系列（xxh32和xxh64）<br>
 在<code>linux/xxhash.h</code>中xxh32的声明如下：</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="dt">uint32_t</span> xxh32(<span class="dt">const</span> <span class="dt">void</span> *input, <span class="dt">size_t</span> length, <span class="dt">uint32_t</span> seed);</span></code></pre></div>
 <p>用法是显然的。<br>
 benchmarks：<a target="_blank" rel="noopener" href="https://cyan4973.github.io/xxHash/" class="uri">https://cyan4973.github.io/xxHash/</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

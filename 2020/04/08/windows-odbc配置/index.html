@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,9 +7221,9 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="配置数据源">配置数据源</h1>
+	<html><head></head><body><h1 id="配置数据源"><a href="#配置数据源">¶</a> 配置数据源</h1>
 <p>看这里：<a target="_blank" rel="noopener" href="https://blog.csdn.net/buptlihang/article/details/80275641" class="uri">https://blog.csdn.net/buptlihang/article/details/80275641</a></p>
-<h1 id="代码">代码</h1>
+<h1 id="代码"><a href="#代码">¶</a> 代码</h1>
 <p>在windows下sqlext.h依赖于windows.h。详情看<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/105399612">我的另一篇文章</a><br>
 示例代码：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
@@ -7311,15 +7311,15 @@ var _hmt = _hmt || [];
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true"></a></span>
 <span id="cb1-84"><a href="#cb1-84" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true"></a>}</span></code></pre></div>
-<h1 id="编译">编译</h1>
+<h1 id="编译"><a href="#编译">¶</a> 编译</h1>
 <pre class="shell"><code>g++ main.cpp C:\Windows\System32\odbc32.dll -o main.exe</code></pre>
-<h1 id="执行">执行</h1>
+<h1 id="执行"><a href="#执行">¶</a> 执行</h1>
 <pre class="shell"><code>.\main.exe</code></pre>
 <p>前面的<code>.\</code>千万不能少。</p>
 <p>如果正确输出说明配置成功了。</p>
-<h1 id="在qt中使用">在Qt中使用</h1>
+<h1 id="在qt中使用"><a href="#在qt中使用">¶</a> 在Qt中使用</h1>
 <p>我使用的是Qt creator。</p>
-<h2 id="设置使用utf-8编译">设置使用utf-8编译</h2>
+<h2 id="设置使用utf-8编译"><a href="#设置使用utf-8编译">¶</a> 设置使用utf-8编译</h2>
 <p>Qt creator的编辑器默认使用utf-8，但是编译时默认使用unicode（无语<br>
 如果不修改的话，大概率会出现这个编译错误</p>
 <pre><code>D:\git\small_projects\qt\db\dbap_company\odbc.cpp:35: error: cannot convert 'SQLCHAR* {aka unsigned char*}' to 'SQLWCHAR* {aka wchar_t*}' for argument '2' to 'SQLRETURN SQLConnectW(SQLHDBC, SQLWCHAR*, SQLSMALLINT, SQLWCHAR*, SQLSMALLINT, SQLWCHAR*, SQLSMALLINT)'
@@ -7332,11 +7332,11 @@ var _hmt = _hmt || [];
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/seamanj/article/details/65861275" class="uri">https://blog.csdn.net/seamanj/article/details/65861275</a><br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9770636/cannot-convert-char-to-wchar-qt-c" class="uri">https://stackoverflow.com/questions/9770636/cannot-convert-char-to-wchar-qt-c</a></p>
 <p>vs里的修改方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/bzkmjczldxl/article/details/52053404" class="uri">https://blog.csdn.net/bzkmjczldxl/article/details/52053404</a></p>
-<h2 id="链接odbc">链接odbc</h2>
+<h2 id="链接odbc"><a href="#链接odbc">¶</a> 链接odbc</h2>
 <p>我这里使用的是odbc32<br>
 在<code>xxxx.pro</code>中加入</p>
 <pre><code>LIBS += -lodbc32</code></pre>
-<h2 id="总结">总结</h2>
+<h2 id="总结"><a href="#总结">¶</a> 总结</h2>
 <p>判断操作系统类型看<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/105401011">我的另一篇文章</a><br>
 在<code>xxxx.pro</code>中加入</p>
 <pre><code>win32 {
@@ -7347,11 +7347,11 @@ unix {
     LIBS += -lodbc
 }</code></pre>
 <p>即可同时支持windows和linux。</p>
-<h1 id="其他问题">其他问题</h1>
-<h2 id="查询结果乱码">查询结果乱码</h2>
+<h1 id="其他问题"><a href="#其他问题">¶</a> 其他问题</h1>
+<h2 id="查询结果乱码"><a href="#查询结果乱码">¶</a> 查询结果乱码</h2>
 <p>把odbc的数据源驱动从unicode版切换成ansi版</p>
 <p><img src="/2020/04/08/windows-odbc%E9%85%8D%E7%BD%AE/20200409111022529.png" alt="在这里插入图片描述"></p>
-<h2 id="执行sql语句时odbc返回hy000错误">执行sql语句时odbc返回HY000错误</h2>
+<h2 id="执行sql语句时odbc返回hy000错误"><a href="#执行sql语句时odbc返回hy000错误">¶</a> 执行sql语句时odbc返回HY000错误</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jiazhangyierzi/article/details/81215831" class="uri">https://blog.csdn.net/jiazhangyierzi/article/details/81215831</a><br>
 一般是因为数据库的字符集的问题。把数据库中所有的列的字符集都换成utf8即可。<br>
 ### 在workbench中修改列字符集<br>
@@ -7360,10 +7360,10 @@ unix {
 <p>然后把数据库的默认编码设置成utf8</p>
 <p><img src="/2020/04/08/windows-odbc%E9%85%8D%E7%BD%AE/2020040911264782.png" alt="在这里插入图片描述"></p>
 <p>然后点击下面的apply。</p>
-<h3 id="通过命令">通过命令</h3>
+<h3 id="通过命令"><a href="#通过命令">¶</a> 通过命令</h3>
 <p>似乎可以一次性把所有字段都设置为utf8（我没试过）<br>
 <a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/574c521976eea16c8d9dc1a1.html" class="uri">https://jingyan.baidu.com/article/574c521976eea16c8d9dc1a1.html</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

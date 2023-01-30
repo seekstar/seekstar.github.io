@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,25 +7222,25 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>由于panic后内核不能再将dmesg写入到存储介质中去，所以重启之后dmesg就丢失了。但是kdump可以在内核panic后启用一个小内核来将dmesg和一些内存信息写进存储介质。</p>
-<h2 id="安装kdump">安装<code>kdump</code></h2>
-<h3 id="debian系列我用的deepin-v20">debian系列(我用的deepin v20)</h3>
+<h2 id="安装kdump"><a href="#安装kdump">¶</a> 安装<code>kdump</code></h2>
+<h3 id="debian系列我用的deepin-v20"><a href="#debian系列我用的deepin-v20">¶</a> debian系列(我用的deepin v20)</h3>
 <pre class="shell"><code>sudo apt install -y kdump-tools</code></pre>
 <p>选项都选<code>是</code>就好了。</p>
 <p>根据<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingda/p/12566534.html">这篇文章</a>，默认给crash kernel分配的内存太少了，所以修改<code>/etc/default/grub.d/kdump-tools.cfg</code>：<code>crashkernel=512M-:768M</code>，然后<code>grub-mkconfig -o /boot/grub/grub.cfg</code>（如果是grub2就是<code>sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code>）。然后重启，使修改生效。</p>
-<h3 id="centos">centos</h3>
+<h3 id="centos"><a href="#centos">¶</a> centos</h3>
 <p>看这里：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8e031b28d98b" class="uri">https://www.jianshu.com/p/8e031b28d98b</a></p>
 <p>但是其中的</p>
 <pre class="text"><code>core_collector makedumpfile -c -l -message-level 1 -d 31</code></pre>
 <p>应该改为</p>
 <pre class="text"><code>core_collector makedumpfile -c -l --message-level 1 -d 31</code></pre>
 <p>即<code>message-level</code>前面应该有两个<code>-</code>。</p>
-<h2 id="手动触发panic">手动触发panic</h2>
+<h2 id="手动触发panic"><a href="#手动触发panic">¶</a> 手动触发panic</h2>
 <pre class="shell"><code>echo 1 &gt; /proc/sys/kernel/sysrq
 echo c &gt; /proc/sysrq-trigger  # 或者Alt+SysRq+c</code></pre>
 <p>然后等一段时间（可能有点长，因为要把内存镜像写入到<code>/var/crash</code>）</p>
 <p>然后就会自动重启，重启完了之后到<code>/var/crash</code>下就可以看到保存下来的dmesg了：</p>
 <p><img src="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/20201016235952642.png" alt="在这里插入图片描述"></p>
-<h2 id="减少dump文件的大小">减少dump文件的大小</h2>
+<h2 id="减少dump文件的大小"><a href="#减少dump文件的大小">¶</a> 减少dump文件的大小</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dongfei2033/article/details/87095938" class="uri">https://blog.csdn.net/dongfei2033/article/details/87095938</a></p>
 <pre class="shell"><code>man makedumpfile</code></pre>
 <p><img src="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/20201017160621585.png" alt="在这里插入图片描述"></p>
@@ -7248,7 +7248,7 @@ echo c &gt; /proc/sysrq-trigger  # 或者Alt+SysRq+c</code></pre>
 <pre class="text"><code>MAKEDUMP_ARGS="-c --message-level 1 -d 31"</code></pre>
 <p><img src="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/2020101716100078.png" alt="在这里插入图片描述"></p>
 <p>现在dump文件只有17MB了。</p>
-<h2 id="禁止生成vmcore">禁止生成vmcore</h2>
+<h2 id="禁止生成vmcore"><a href="#禁止生成vmcore">¶</a> 禁止生成vmcore</h2>
 <p>vmcore文件很大，生成要花费大量时间。我们这里只需要dmesg，所以可以禁止生成vmcore。</p>
 <p>编辑<code>/etc/default/kdump-tools</code></p>
 <pre class="text"><code>MAKEDUMP_ARGS="-c -d 31 --message-level 0 --dump-dmesg"</code></pre>
@@ -7256,7 +7256,7 @@ echo c &gt; /proc/sysrq-trigger  # 或者Alt+SysRq+c</code></pre>
 <p><img src="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/20201017170627300.png" alt="在这里插入图片描述"></p>
 <p>现在生成的文件都很小了，重启也非常快。</p>
 <p>参考文献：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Fedora/comments/84ffrf/how_to_capture_kernel_panic_logs_during_reboot/" class="uri">https://www.reddit.com/r/Fedora/comments/84ffrf/how_to_capture_kernel_panic_logs_during_reboot/</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

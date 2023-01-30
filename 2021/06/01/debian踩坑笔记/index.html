@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,7 +7221,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="安装">安装</h2>
+	<html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <p>下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/debian-cd/" class="uri">http://mirrors.ustc.edu.cn/debian-cd/</a><br>
 选择对应的版本和CPU类型，然后我选的<code>iso-dvd</code>，只下载<code>DVD-1.iso</code>就好了，其他的都是额外的软件包。</p>
 <p>安装前一定要把网线拔了，因为安装过程中，即使选了镜像，<code>http://security.debian.org/debian-security</code>仍然会被使用，这特别慢。</p>
@@ -7231,9 +7231,9 @@ var _hmt = _hmt || [];
 <p>网络镜像那里选否，因为我们已经把网线拔了。</p>
 <p>相信我，不要选debian桌面环境，那个桌面连个文本文档都放不了。我选的xfce。</p>
 <p>装完了之后，如果笔记本用了外接显示器，那笔记本自带的那个屏幕会被设置为主屏幕，上面的状态栏和下面的栏只会显示在主屏幕上，外接的那个显示器上啥都没有，坑的一批。</p>
-<h2 id="高分屏">高分屏</h2>
+<h2 id="高分屏"><a href="#高分屏">¶</a> 高分屏</h2>
 <p>我安装的是xfce，默认的scale是1，高分屏下字特别小。注意目前xfce的scale是越大字越小，越小字越大，跟其他桌面是反过来的。。。所以要把字调大，要在自定义的选项里把scale调成小于1的值，比如0.5。</p>
-<h2 id="换镜像源">换镜像源</h2>
+<h2 id="换镜像源"><a href="#换镜像源">¶</a> 换镜像源</h2>
 <p>这里换成中科大源。<br>
 编辑<code>/etc/apt/sources.list</code>，把内容替换成：</p>
 <pre><code>deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free
@@ -7248,22 +7248,22 @@ deb http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
 deb http://mirrors.ustc.edu.cn/debian-security/ stable/updates main non-free contrib
 # deb-src http://mirrors.ustc.edu.cn/debian-security/ stable/updates main non-free contrib</code></pre>
 <pre class="shell"><code>sudo apt update</code></pre>
-<h2 id="输入法">输入法</h2>
+<h2 id="输入法"><a href="#输入法">¶</a> 输入法</h2>
 <pre class="shell"><code>sudo apt install fcitx</code></pre>
 <p>然后可能要重新登录一下。<br>
 右键右上角的键盘图标，点击configure，就可以进入fcitx配置界面了。</p>
-<h3 id="sunpinyin">sunpinyin</h3>
+<h3 id="sunpinyin"><a href="#sunpinyin">¶</a> sunpinyin</h3>
 <pre class="shell"><code>sudo apt install fcitx-sunpinyin
 # 然后可能要重新登录一下。
 fcitx-config-gtk3</code></pre>
 <p>取消<code>Only Show Current Language</code>的勾，搜pinyin，点OK。</p>
-<h3 id="rime">rime</h3>
+<h3 id="rime"><a href="#rime">¶</a> rime</h3>
 <pre class="shell"><code>sudo apt install fcitx-rime
 # 然后可能要重新登录一下。
 fcitx-config-gtk3</code></pre>
 <p>取消<code>Only Show Current Language</code>的勾，搜rime，点OK。</p>
 <p>然后按ctrl+空格切换到rime输入法，然后右键右上角的rime图标，<code>Schema List -&gt; xx拼音-简化字</code>，就可以输入简体中文了。</p>
-<h2 id="安装wifi驱动">安装wifi驱动</h2>
+<h2 id="安装wifi驱动"><a href="#安装wifi驱动">¶</a> 安装wifi驱动</h2>
 <p>先查看当前debian的版本代号：<br>
 <a target="_blank" rel="noopener" href="https://www.debian.org/releases/index.zh-cn.html" class="uri">https://www.debian.org/releases/index.zh-cn.html</a><br>
 debian10是buster。</p>
@@ -7275,15 +7275,15 @@ debian10是buster。</p>
 <p>然后安装wifi驱动</p>
 <pre class="shell"><code>sudo apt install firmware-iwlwifi</code></pre>
 <p>然后重启。</p>
-<h2 id="没有声音">没有声音</h2>
+<h2 id="没有声音"><a href="#没有声音">¶</a> 没有声音</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chuanjizhen6999/article/details/101013021" class="uri">https://blog.csdn.net/chuanjizhen6999/article/details/101013021</a></p>
-<h2 id="存在的一些问题">存在的一些问题</h2>
+<h2 id="存在的一些问题"><a href="#存在的一些问题">¶</a> 存在的一些问题</h2>
 <p>笔记本装好之后，合上盖子再打开，桌面就进不去了。这可能是debian的bug，因为我更新了一下系统就好了：</p>
 <pre class="shell"><code>sudo apt upgrade</code></pre>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/debian.html" class="uri">https://mirrors.ustc.edu.cn/help/debian.html</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/gong_xucheng/article/details/81140727" class="uri">https://blog.csdn.net/gong_xucheng/article/details/81140727</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,7 +7222,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>主要参考：<a target="_blank" rel="noopener" href="https://willhaley.com/blog/custom-debian-live-environment/" class="uri">https://willhaley.com/blog/custom-debian-live-environment/</a></p>
-<h2 id="序章">序章</h2>
+<h2 id="序章"><a href="#序章">¶</a> 序章</h2>
 <p>先找到一块风水宝地作为我们的工作目录，所有相关文件都放到这个目录下。以下命令默认都是在这个目录下执行。</p>
 <pre class="shell"><code>mkdir -p 风水宝地
 cd 风水宝地</code></pre>
@@ -7241,9 +7241,9 @@ sudo apt install \
     grub-pc-bin \
     grub-efi-amd64-bin \
     mtools</code></pre>
-<h2 id="生成基本的linux根目录结构">生成基本的Linux根目录结构</h2>
+<h2 id="生成基本的linux根目录结构"><a href="#生成基本的linux根目录结构">¶</a> 生成基本的Linux根目录结构</h2>
 <pre class="shell"><code>sudo debootstrap bullseye $(pwd)/chroot https://mirrors.tuna.tsinghua.edu.cn/debian/</code></pre>
-<h2 id="安装linux内核">安装Linux内核</h2>
+<h2 id="安装linux内核"><a href="#安装linux内核">¶</a> 安装Linux内核</h2>
 <pre class="shell"><code>sudo chroot chroot/</code></pre>
 <p>然后在chroot里面：</p>
 <pre class="shell"><code># chroot
@@ -7261,7 +7261,7 @@ sudo cp chroot/boot/initrd.img-* \
     staging/live/initrd
 # 因为有些initramfs没有给others读权限。
 sudo chown $USER:$USER staging/live/initrd</code></pre>
-<h2 id="更改根文件系统">更改根文件系统</h2>
+<h2 id="更改根文件系统"><a href="#更改根文件系统">¶</a> 更改根文件系统</h2>
 <p>可以chroot进根文件系统更改：</p>
 <pre class="shell"><code>sudo chroot chroot/</code></pre>
 <p>可以更改<code>/etc/hostname</code>、添加用户、设置root密码等。也可以安装一些必要的包，修改一些配置：</p>
@@ -7278,7 +7278,7 @@ echo 'PermitRootLogin yes' &gt;&gt; /etc/ssh/sshd_config</code></pre>
     -e boot</code></pre>
 <p>注意这里把<code>/boot</code>目录排除了，这是因为系统启动的时候会先读取<code>/boot</code>下面的内核等，最后才挂载根文件系统，因此<code>/boot</code>目录不能放到根文件系统里，而是另外放。</p>
 <p>如果以后还要更改根文件系统，都要重新执行上面的命令生成<code>filesystem.squashfs</code>。</p>
-<h2 id="boot-loader-menus">Boot Loader Menus</h2>
+<h2 id="boot-loader-menus"><a href="#boot-loader-menus">¶</a> Boot Loader Menus</h2>
 <pre class="shell"><code>cat &lt;&lt;'EOF' &gt;staging/isolinux/isolinux.cfg
 UI vesamenu.c32
 
@@ -7336,7 +7336,7 @@ configfile /boot/grub/grub.cfg
 EOF</code></pre>
 <pre class="shell"><code>touch staging/DEBIAN_CUSTOM</code></pre>
 <p><code>DEBIAN_CUSTOM</code>的功能是帮助<code>GRUB</code>查找哪个设备包含了我们的live filesystem。因此其名字要全局唯一。</p>
-<h2 id="boot-loader-files">Boot Loader Files</h2>
+<h2 id="boot-loader-files"><a href="#boot-loader-files">¶</a> Boot Loader Files</h2>
 <p>这里直接把宿主机上的文件拷贝过来：</p>
 <pre class="shell"><code>cp /usr/lib/ISOLINUX/isohdpfx.bin tmp/
 cp /usr/lib/ISOLINUX/isolinux.bin staging/isolinux/ &amp;&amp; \
@@ -7357,7 +7357,7 @@ dd if=/dev/zero of=efiboot.img bs=1M count=20
 mmd -i efiboot.img efi efi/boot
 mcopy -vi efiboot.img ../../../tmp/bootx64.efi ::efi/boot/
 cd -</code></pre>
-<h2 id="生成iso">生成ISO</h2>
+<h2 id="生成iso"><a href="#生成iso">¶</a> 生成ISO</h2>
 <pre class="shell"><code>xorriso \
     -as mkisofs \
     -iso-level 3 \
@@ -7377,26 +7377,26 @@ cd -</code></pre>
         -isohybrid-gpt-basdat \
     -append_partition 2 0xef staging/EFI/boot/efiboot.img \
     "staging"</code></pre>
-<h2 id="用qemu测试">用QEMU测试</h2>
+<h2 id="用qemu测试"><a href="#用qemu测试">¶</a> 用QEMU测试</h2>
 <pre class="shell"><code>qemu-system-x86_64 -enable-kvm -cpu host -m 4096 -cdrom debian-custom.iso</code></pre>
 <p>联网、VNC等参考：<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="在服务器上用qemu制作虚拟机">在服务器上用qemu制作虚拟机</a></p>
-<h2 id="注意事项">注意事项</h2>
+<h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>这个ISO不支持ventoy。</p>
-<h2 id="常见问题">常见问题</h2>
-<h3 id="no-working-init">no working init</h3>
+<h2 id="常见问题"><a href="#常见问题">¶</a> 常见问题</h2>
+<h3 id="no-working-init"><a href="#no-working-init">¶</a> no working init</h3>
 <p>可能是内存不足。因为liveCD好像是把整个根文件系统放到内存里，所以给的内存要足够大？</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/655508/boot-ubuntu-iso-under-qemu" class="uri">https://unix.stackexchange.com/questions/655508/boot-ubuntu-iso-under-qemu</a></p>
-<h3 id="no-loop-devices-available">No loop devices available</h3>
+<h3 id="no-loop-devices-available"><a href="#no-loop-devices-available">¶</a> No loop devices available</h3>
 <p>检查内核的配置文件里<code>CONFIG_BLK_DEV_LOOP_MIN_COUNT</code>的值。如果是0的话，即使<code>modprobe loop</code>了，<code>ls /dev/loop0</code>仍然不存在。</p>
 <p>Debian生成的initramfs好像要求这个值不能是0。Torvalds内核的默认配置里这个值是8，但是CentOS的内核配置里这个值是0。因此如果发现这个值是0（比如这个内核来自CentOS），那只能把这个值改成非0然后重新编译了。编译安装Linux内核教程：<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/" title="编译安装linux内核">编译安装linux内核</a></p>
-<h3 id="fb0-switching-to-amdgpudrmfb-from-efi-vga">fb0: switching to amdgpudrmfb from EFI VGA</h3>
+<h3 id="fb0-switching-to-amdgpudrmfb-from-efi-vga"><a href="#fb0-switching-to-amdgpudrmfb-from-efi-vga">¶</a> fb0: switching to amdgpudrmfb from EFI VGA</h3>
 <p>使用nomodeset模式即可。intel的机器没有这个问题。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://forum.level1techs.com/t/fb0-switching-to-amdgpudrmfb-from-efi-vga/152112" class="uri">https://forum.level1techs.com/t/fb0-switching-to-amdgpudrmfb-from-efi-vga/152112</a></p>
 <p><code>nomodeset</code>的作用：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/207175/what-does-nomodeset-do" class="uri">https://askubuntu.com/questions/207175/what-does-nomodeset-do</a></p>
-<h3 id="chroot下dns解析失败">chroot下DNS解析失败</h3>
+<h3 id="chroot下dns解析失败"><a href="#chroot下dns解析失败">¶</a> chroot下DNS解析失败</h3>
 <p>chroot下貌似是不会自动更新<code>/etc/resolv.conf</code>的。因此把chroot目录转移到其他机器上再chroot就会出问题。可以把<code>/etc/resolv.conf</code>里改成<code>nameserver 8.8.8.8</code>之类的。</p>
 <p>LiveOS好像不存在这个问题，因为开机的时候会自动更改<code>/etc/resolv.conf</code>。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

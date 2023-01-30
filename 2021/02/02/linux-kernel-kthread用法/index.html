@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7223,7 +7223,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>先说巨坑：如果<code>kthread_run</code>之后立马<code>kthread_stop</code>，<code>threadfn</code>可能不会被执行，<code>kthread_stop</code>返回<code>-EINTR</code>。这一点网上的教程很少有提及。<br>
 参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65987208/kthread-stopped-without-running" class="uri">https://stackoverflow.com/questions/65987208/kthread-stopped-without-running</a></p>
-<h2 id="创建线程">创建线程</h2>
+<h2 id="创建线程"><a href="#创建线程">¶</a> 创建线程</h2>
 <p>可以用<code>kthread_create</code>和<code>kthread_run</code>。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">/**</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co"> * kthread_create - create a kthread on the current node</span></span>
@@ -7260,7 +7260,7 @@ var _hmt = _hmt || [];
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="cf">if</span> (!IS_ERR(t1))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	wake_up_process(t1);</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> task_struct *t2 = kthread_run(threadfn, data, <span class="st">"name%d"</span>, i);</span></code></pre></div>
-<h2 id="终止线程">终止线程</h2>
+<h2 id="终止线程"><a href="#终止线程">¶</a> 终止线程</h2>
 <p>其实可以不终止线程，就让它跑完自己return，但是return之后它会自己<code>do_exit</code>，貌似会把<code>task_struct</code>释放掉，导致无法获取返回值。所以如果要获取返回值，必须要手动终止。</p>
 <p>开头提到，如果<code>kthread_run</code>后直接<code>kthread_stop</code>，很容易导致在开始执行<code>threadfn</code>前被stop。所以可以传一个<code>struct completion</code>进去，然后在<code>threadfn</code>开头<code>complete</code>，而调用者<code>wait_for_completion</code>，然后再<code>kthread_stop</code>就好了。</p>
 <p>例子</p>
@@ -7335,7 +7335,7 @@ sudo insmod test1.ko</code></pre>
 <pre class="text"><code>[379459.914962] Thread Creating...
 [379459.915181] func t1 return
 [379459.915187] t1 stopped, exit code 0</code></pre>
-<h2 id="清理kthread_create的线程">清理<code>kthread_create</code>的线程</h2>
+<h2 id="清理kthread_create的线程"><a href="#清理kthread_create的线程">¶</a> 清理<code>kthread_create</code>的线程</h2>
 <p>为什么要在执行<code>threadfn</code>前检查一下<code>kthread_should_stop</code>呢？就是为了在<code>kthread_create</code>之后，在<code>wake_up_process</code>之前，可以取消运行这个线程。</p>
 <p>一个典型的应用就是需要申请很多个线程时，先申请，再<code>wake_up_process</code>。如果申请失败，就直接<code>kthread_stop</code>其他申请成功的线程，它们就在运行<code>threadfn</code>前就停掉，防止了资源的浪费。</p>
 <p>例子</p>
@@ -7396,10 +7396,10 @@ cancel:
 [ 1793.442840] t1 stopped, exit code -4
 [ 1793.442851] t2 stopped, exit code -4</code></pre>
 <p>可以看到<code>threadfn</code>（在这里是<code>func</code>）没有运行，直接就stop了，并且返回了<code>-4</code>，查表知它就是<code>-EINTR</code>。</p>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p>do_exit貌似会自己清理task_struct:<br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10177641/proper-way-of-handling-threads-in-kernel" class="uri">https://stackoverflow.com/questions/10177641/proper-way-of-handling-threads-in-kernel</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

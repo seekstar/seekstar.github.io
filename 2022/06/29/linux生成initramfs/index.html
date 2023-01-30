@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,20 +7221,20 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="dracut">dracut</h2>
+	<html><head></head><body><h2 id="dracut"><a href="#dracut">¶</a> dracut</h2>
 <p>各发行版通用。</p>
 <pre class="text"><code>dracut [OPTION...] [&lt;image&gt; [&lt;kernel version&gt;]]</code></pre>
 <p>例子：</p>
 <pre class="shell"><code>cd /boot
 # 给/boot/vmlinuz-5.1.0-amd64-desktop+生成initramfs
 dracut initramfs-5.1.0-amd64-desktop+.img 5.1.0-amd64-desktop+</code></pre>
-<h3 id="chroot">chroot</h3>
+<h3 id="chroot"><a href="#chroot">¶</a> chroot</h3>
 <p>如果是在chroot里生成的话，需要先挂载proc，不然会出现这个问题：</p>
 <pre class="text"><code>error: could not open file: /etc/mtab: No such file or directory</code></pre>
 <pre class="shell"><code>stat /etc/mtab</code></pre>
 <p>输出：</p>
 <pre class="text"><code>File: /etc/mtab -&gt; ../proc/self/mounts</code></pre>
-<h3 id="内核版本号的获取">内核版本号的获取</h3>
+<h3 id="内核版本号的获取"><a href="#内核版本号的获取">¶</a> 内核版本号的获取</h3>
 <p>有些发行版的内核文件名中不带内核版本号，如果内核版本号指定错误的话，会报错，比如：</p>
 <pre class="shell"><code>dracut initramfs-linux.img vmlinuz-linux</code></pre>
 <pre class="text"><code>dracut: Cannot find module directory /lib/modules/vmlinuz-linux/
@@ -7245,7 +7245,7 @@ dracut: and --no-kernel was not specified</code></pre>
 <p>然后这样就可以了：</p>
 <pre class="shell"><code>dracut initramfs-linux.img 5.18.9-arch1-1 --force
 dracut initramfs-linux-lts.img 5.15.52-1-lts --force</code></pre>
-<h3 id="dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found">dracut: dracut module 'xxx' will not be installed, because command 'xxx' could not be found!</h3>
+<h3 id="dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found"><a href="#dracut-dracut-module-xxx-will-not-be-installed-because-command-xxx-could-not-be-found">¶</a> dracut: dracut module 'xxx' will not be installed, because command 'xxx' could not be found!</h3>
 <p>这些报错貌似不用管也行。要消除这些报错，按照提示把对应的命令装上就行了：</p>
 <pre class="shell"><code>sudo pacman -S dash dbus-broker rng-tools dhclient multipath-tools tpm2-tools open-iscsi nbd nfs-utils nvme-cli procps-ng squashfs-tools</code></pre>
 <p>不过这些命令pacman的源里好像没有：</p>
@@ -7266,7 +7266,7 @@ dracut: dracut module 'memstrack' will not be installed, because command 'memstr
 dracut: memstrack is not available
 dracut: If you need to use rd.memdebug&gt;=4, please install memstrack and procps-ng</code></pre>
 <p>但是不影响启动。</p>
-<h3 id="a-start-is-running-for-loading-kernel-modules">A start is running for loading kernel modules</h3>
+<h3 id="a-start-is-running-for-loading-kernel-modules"><a href="#a-start-is-running-for-loading-kernel-modules">¶</a> A start is running for loading kernel modules</h3>
 <p>ArchLinux stable内核(5.18.9-arch1-1)在开机时会卡在这里一段时间：</p>
 <pre class="text"><code>A start is running for loading kernel modules.</code></pre>
 <p>dmesg:</p>
@@ -7283,10 +7283,10 @@ e=? addr=? terminal=? res=success'
 [   95.943095] audit: type=1334 audit(1657375436.353:115): prog-id=29 op=LOAD</code></pre>
 <p>不清楚是哪里出问题了。不过等一小段时间仍然能进入系统。</p>
 <p>此外，ArchLinux LTS内核(5.15.52-1-lts)没有这个问题。</p>
-<h2 id="update-initramfs">update-initramfs</h2>
+<h2 id="update-initramfs"><a href="#update-initramfs">¶</a> update-initramfs</h2>
 <p>Debian系可用。</p>
 <pre class="shell"><code>sudo update-initramfs -ck 要生成initramfs的内核版本</code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

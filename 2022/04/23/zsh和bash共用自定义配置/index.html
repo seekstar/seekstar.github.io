@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,17 +7222,17 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>根据这个博客：<a target="_blank" rel="noopener" href="https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e" class="uri">https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e</a>，正规的做法应该是将共用的自定义配置写到<code>~/.profile</code>里，然后在<code>~/.profile</code>里根据终端的不同调用<code>~/.bashrc</code>和<code>~/.zshrc</code>。但是<code>~/.profile</code>可能并不会在打开bash的时候执行，而可能只在登录（重启）的时候执行。让<code>~/.profile</code>中的更改生效，有几种方法：</p>
-<h2 id="重启">重启</h2>
+<h2 id="重启"><a href="#重启">¶</a> 重启</h2>
 <p>如果是公共服务器，那其实应该尽量避免重启的。</p>
-<h2 id="ssh---login--i">ssh --login -i</h2>
+<h2 id="ssh---login--i"><a href="#ssh---login--i">¶</a> ssh --login -i</h2>
 <p>根据这个回答：<a target="_blank" rel="noopener" href="https://superuser.com/a/564930" class="uri">https://superuser.com/a/564930</a>，如果要在ssh登录时让<code>~/.profile</code>执行，好像需要这样：</p>
 <pre class="shell"><code>ssh user@host bash --login -i</code></pre>
 <p>但是tab键自动补全就用不了了。</p>
-<h2 id="推荐在zshrc和bashrc中source-profile">（推荐）在<code>~/.zshrc</code>和<code>~/.bashrc</code>中<code>source ~/.profile</code></h2>
+<h2 id="推荐在zshrc和bashrc中source-profile"><a href="#推荐在zshrc和bashrc中source-profile">¶</a> （推荐）在<code>~/.zshrc</code>和<code>~/.bashrc</code>中<code>source ~/.profile</code></h2>
 <p><code>~/.zshrc</code>和<code>~/.bashrc</code>都是特化的配置文件，而<code>~/.profile</code>是通用的配置文件。我认为应该是由特化的配置文件调用通用的配置文件，而不是现在这样反过来。因此我采用了这里的方案：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/26020688" class="uri">https://stackoverflow.com/a/26020688</a>，将通用配置文件写入<code>~/.profile</code>，然后在<code>~/.bashrc</code>和<code>~/.zshrc</code>里source它。有些发行版里<code>~/.profile</code>调用了<code>~/.bashrc</code>，要把这个调用删掉，不然会导致互相调用造成死递归。</p>
-<h2 id="讨论">讨论</h2>
+<h2 id="讨论"><a href="#讨论">¶</a> 讨论</h2>
 <p>其实CentOS里的<code>~/.bash_profile</code>在用ssh登录时也会被调用。所以对于CentOS，其实也可以在<code>~/.bash_profile</code>里<code>source ~/.profile</code>。但是为了一致，还是统一在<code>~/.bashrc</code>里<code>source ~/.profile</code>吧。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

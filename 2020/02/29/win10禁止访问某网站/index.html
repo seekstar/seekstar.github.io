@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7224,22 +7224,22 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p><del>妹妹最近上网课需要用电脑，却总是趁机看某站，遂起意禁止访问某站。</del></p>
 <p>基本思路：找到这个网站的所有IP，然后在防火墙中阻止与这些IP的连接。</p>
 <p>以bilibili.com为例。</p>
-<h1 id="找到这个网站的所有ip">找到这个网站的所有IP</h1>
+<h1 id="找到这个网站的所有ip"><a href="#找到这个网站的所有ip">¶</a> 找到这个网站的所有IP</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/356275237.html" class="uri">https://zhidao.baidu.com/question/356275237.html</a><br>
 打开windows的cmd（可用win+r然后输入cmd然后回车打开），执行</p>
 <pre class="shell"><code>nslookup</code></pre>
 <p>在里面输入要查询的网址（这里是bilibili.com）然后回车，即可看到这个网站的所有IP。最后完事了之后可以输入exit退出。</p>
-<h1 id="在防火墙中阻止与这些ip的连接">在防火墙中阻止与这些IP的连接</h1>
+<h1 id="在防火墙中阻止与这些ip的连接"><a href="#在防火墙中阻止与这些ip的连接">¶</a> 在防火墙中阻止与这些IP的连接</h1>
 <p>打开windows的控制面板（可用win+r然后输入control然后回车打开）</p>
 <p>系统和安全 -&gt; 检查防火墙状态（在Windows Defender防火墙下面） -&gt; 高级设置 -&gt; 出站规则 -&gt; 操作 -&gt; 新建规则</p>
 <p>规则类型选择<code>自定义</code>，操作选择<code>阻止连接</code>，作用域中，<code>此规则应用于哪些远程IP地址</code>里，选择<code>下列IP地址</code>，然后点击右边的<code>添加</code>按钮，把之前得到的网站的所有IP逐条添加进去。然后回到<code>新建出站规则向导</code>，点击<code>名称</code>，为这个规则起一个名字，然后点击<code>完成</code>即可。</p>
 <p>回到<code>高级安全 Windows Defender防火墙</code>界面，可以看到出站规则里已经有这个规则了。防火墙就会阻止一切试图发往这个网站的信息，自然也就无法访问这个网站了。如果不放心，可以以同样的方式在入站规则里也加上这样一条规则，使得防火墙阻止一切从这个网站发来的信息。详细过程不再赘述。</p>
-<h1 id="清除浏览器缓存和历史记录">清除浏览器缓存和历史记录</h1>
+<h1 id="清除浏览器缓存和历史记录"><a href="#清除浏览器缓存和历史记录">¶</a> 清除浏览器缓存和历史记录</h1>
 <p>如果用浏览器访问过这个网站，则浏览器中的缓存可能还会使得这个网站还能被访问（<del>我也不知道为什么</del><br>
 需要清除浏览器缓存和历史记录。<br>
 清理方法每种浏览器都不一样，所以请自行百度。<br>
 清理完了之后，浏览器就彻底无法访问被禁止访问的网站了。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

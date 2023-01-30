@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,7 +7222,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>官方文档：<a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/buildinstructions.html" class="uri">https://h5bench.readthedocs.io/en/latest/buildinstructions.html</a></p>
-<h2 id="编译安装-hdfs">编译安装 HDFS</h2>
+<h2 id="编译安装-hdfs"><a href="#编译安装-hdfs">¶</a> 编译安装 HDFS</h2>
 <p>截至发文，这里最新版本只有1.12.1：<a target="_blank" rel="noopener" href="https://www.hdfgroup.org/downloads/hdf5/" class="uri">https://www.hdfgroup.org/downloads/hdf5/</a></p>
 <p>要下载1.13，需要到这里下载：<a target="_blank" rel="noopener" href="https://portal.hdfgroup.org/display/support/Downloads" class="uri">https://portal.hdfgroup.org/display/support/Downloads</a></p>
 <p>要按照这里面的提示安装启用了parallel的HDF5：<code>release_docs/INSTALL_parallel</code></p>
@@ -7233,12 +7233,12 @@ make -j$(nproc)
 make install
 echo "export HDF5_HOME=$(pwd)/install" &gt;&gt; ~/.bashrc
 source ~/.bashrc</code></pre>
-<h2 id="编译安装-argobots">编译安装 argobots</h2>
+<h2 id="编译安装-argobots"><a href="#编译安装-argobots">¶</a> 编译安装 argobots</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/pmodels/argobots" class="uri">https://github.com/pmodels/argobots</a></p>
 <pre class="shell"><code>./configure --prefix=$(pwd)/install
 make -j$(nproc)
 make install</code></pre>
-<h2 id="编译安装-vol-virtual-object-layer">编译安装 VOL (Virtual Object Layer)</h2>
+<h2 id="编译安装-vol-virtual-object-layer"><a href="#编译安装-vol-virtual-object-layer">¶</a> 编译安装 VOL (Virtual Object Layer)</h2>
 <p>所有可用的VOL: <a target="_blank" rel="noopener" href="https://portal.hdfgroup.org/display/support/Registered+VOL+Connectors" class="uri">https://portal.hdfgroup.org/display/support/Registered+VOL+Connectors</a></p>
 <p>这里用vol-async: <a target="_blank" rel="noopener" href="https://github.com/hpc-io/vol-async" class="uri">https://github.com/hpc-io/vol-async</a></p>
 <pre class="shell"><code>cd src
@@ -7247,7 +7247,7 @@ cp Makefile.summit Makefile</code></pre>
 <p>然后就可以编译了：</p>
 <pre class="shell"><code>make -j$(nproc)</code></pre>
 <p>注意，vol-async v1.1与 HDF5 v1.12.1不兼容。</p>
-<h2 id="编译-h5bench">编译 h5bench</h2>
+<h2 id="编译-h5bench"><a href="#编译-h5bench">¶</a> 编译 h5bench</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/hpc-io/h5bench" class="uri">https://github.com/hpc-io/h5bench</a></p>
 <pre class="shell"><code>sudo apt install libpnetcdf-dev</code></pre>
 <p>不知道为啥，就算没有<code>-DH5BENCH_ALL=ON</code>，也要依赖AMReX和openPMD。</p>
@@ -7261,7 +7261,7 @@ source ~/.bashrc</code></pre>
 <p>不需要跑<code>sudo make install</code>。而且跑了之后，安装在系统目录下的<code>h5bench</code>的权限位是700，所以普通用户没法执行。</p>
 <p>注意，一定要把build目录加入到<code>PATH</code>里，不然后面跑实验的时候会报这个错：</p>
 <pre class="text"><code>execvp error on file h5bench_write (No such file or directory)</code></pre>
-<h2 id="运行-h5bench">运行 h5bench</h2>
+<h2 id="运行-h5bench"><a href="#运行-h5bench">¶</a> 运行 h5bench</h2>
 <p>官方文档</p>
 <p><a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/running.html" class="uri">https://h5bench.readthedocs.io/en/latest/running.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://h5bench.readthedocs.io/en/latest/vpic.html" class="uri">https://h5bench.readthedocs.io/en/latest/vpic.html</a></p>
@@ -7314,10 +7314,10 @@ source ~/.bashrc</code></pre>
 <p>其中<code>DIM_1</code>乘上<code>1300</code>差不多就是生成的文件的字节数了。</p>
 <p>我保存为了<code>write.json</code>。然后运行测试：</p>
 <pre class="shell"><code>./h5bench write.json</code></pre>
-<h2 id="参考">参考</h2>
+<h2 id="参考"><a href="#参考">¶</a> 参考</h2>
 <p><a target="_blank" rel="noopener" href="https://support.hdfgroup.org/HDF5/PHDF5/" class="uri">https://support.hdfgroup.org/HDF5/PHDF5/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44759449/article/details/122136852">Linux下将某个include路径添加到g++的默认搜索路径</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

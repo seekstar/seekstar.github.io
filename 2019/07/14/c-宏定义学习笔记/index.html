@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7230,7 +7230,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shuzfan/article/details/52860664" class="uri">https://blog.csdn.net/shuzfan/article/details/52860664</a></p>
-<h1 id="基本语法">基本语法</h1>
+<h1 id="基本语法"><a href="#基本语法">¶</a> 基本语法</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#if CONDITION1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>...</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="pp">#elif CONDITION2</span></span>
@@ -7238,12 +7238,12 @@ var _hmt = _hmt || [];
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="pp">#else</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>...</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
-<h1 id="多行宏定义">多行宏定义</h1>
+<h1 id="多行宏定义"><a href="#多行宏定义">¶</a> 多行宏定义</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define func</span>(x,<span class="pp"> </span>y)<span class="pp"> </span>{<span class="pp">	</span>\</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">	</span>statement;<span class="pp">			</span>\</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">	</span>statement;<span class="pp">			</span>\</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>}</span></code></pre></div>
-<h1 id="把宏定义参数变成字符串">把宏定义参数变成字符串</h1>
+<h1 id="把宏定义参数变成字符串"><a href="#把宏定义参数变成字符串">¶</a> 把宏定义参数变成字符串</h1>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#define ToStr</span>(x)<span class="pp"> #</span>x</span></code></pre></div>
 <p>相当于给x加上双引号。</p>
 <p>可用于debug时打印变量名</p>
@@ -7253,16 +7253,16 @@ var _hmt = _hmt || [];
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="pp">#else</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">#define debug</span>(x)<span class="pp"> </span>{}</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="pp">#endif</span></span></code></pre></div>
-<h1 id="把宏定义参数变成字符">把宏定义参数变成字符</h1>
+<h1 id="把宏定义参数变成字符"><a href="#把宏定义参数变成字符">¶</a> 把宏定义参数变成字符</h1>
 <div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#define ToChar</span>(arg)<span class="pp"> #</span><span class="er">@</span>arg</span></code></pre></div>
 <p>相当于给arg加上单引号。</p>
-<h1 id="可变宏参数">可变宏参数</h1>
+<h1 id="可变宏参数"><a href="#可变宏参数">¶</a> 可变宏参数</h1>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#define p(...) printf("%s", #__VA_ARGS__)</span></span></code></pre></div>
 <p>效果：</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>p(fasd, <span class="dv">123</span>);</span></code></pre></div>
 <p>输出：</p>
 <pre><code>fasd, 123</code></pre>
-<h1 id="把宏定义参数连接起来">把宏定义参数连接起来</h1>
+<h1 id="把宏定义参数连接起来"><a href="#把宏定义参数连接起来">¶</a> 把宏定义参数连接起来</h1>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#define connect</span>(x,<span class="pp"> </span>y)<span class="pp"> </span>x<span class="pp"> ## </span>y</span></code></pre></div>
 <p>则connect(abc, def)相当于abcdef。</p>
 <p>例子：</p>
@@ -7283,12 +7283,12 @@ var _hmt = _hmt || [];
 <p>输出：</p>
 <pre><code>1
 2</code></pre>
-<h2 id="重要性质">重要性质</h2>
+<h2 id="重要性质"><a href="#重要性质">¶</a> 重要性质</h2>
 <p>如果<code>x</code>和<code>y</code>里有一个为空，则<code>x ## y</code>为空。</p>
-<h1 id="ifdef的与或">#ifdef的与或</h1>
+<h1 id="ifdef的与或"><a href="#ifdef的与或">¶</a> #ifdef的与或</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/72838" class="uri">https://cloud.tencent.com/developer/ask/72838</a></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#if (defined(MACRO1) || defined(MACRO2)) &amp;&amp; (defined(MACRO3) &amp;&amp; defined(MACRO4))</span></span></code></pre></div>
-<h1 id="应用宏定义实现debug语句">应用：宏定义实现debug语句</h1>
+<h1 id="应用宏定义实现debug语句"><a href="#应用宏定义实现debug语句">¶</a> 应用：宏定义实现debug语句</h1>
 <p>DeBuG Print</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="pp">#define dbgp(fmt, ...) printf("DEBUG: " fmt "\n", ##__VA_ARGS__)</span></span></code></pre></div>
 <p>如果可变参数个数为0，则<code>__VA_ARGS__</code>为空，所以<code>,##__VA_ARGS__</code>也为空。这样前面的逗号就被消掉了，不对造成编译错误。<br>
@@ -7298,7 +7298,7 @@ var _hmt = _hmt || [];
 <p>输出：</p>
 <pre><code>DEBUG: test = 13
 DEBUG: test</code></pre>
-<h1 id="常用预定义宏名">常用预定义宏名</h1>
+<h1 id="常用预定义宏名"><a href="#常用预定义宏名">¶</a> 常用预定义宏名</h1>
 <p><code>__LINE__</code>: 当前行在当前源文件所处的行数。是一个数字。<br>
 <code>__FILE__</code>: 当前源文件名。是一个字符串。<br>
 <code>__FUNCTION__</code>: 当前的函数名称。是一个字符串。</p>
@@ -7311,7 +7311,7 @@ DEBUG: test</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>dbgwarn(<span class="st">"2333"</span>);</span></code></pre></div>
 <p>输出：</p>
 <pre><code>In file test.c, line 11, warning: 2333</code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

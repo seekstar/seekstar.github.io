@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7224,12 +7224,12 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>本文主要参考SpanDB的安装教程：<a target="_blank" rel="noopener" href="https://github.com/SpanDB/SpanDB" class="uri">https://github.com/SpanDB/SpanDB</a></p>
 <p>SPDK全称：Storage Performance Development Kit</p>
 <p>这里以SPDK v20.01.2为例。</p>
-<h2 id="下载spdk">下载SPDK</h2>
+<h2 id="下载spdk"><a href="#下载spdk">¶</a> 下载SPDK</h2>
 <pre class="shell"><code>git clone https://github.com/spdk/spdk
 cd spdk
 git checkout v20.01.2
 git submodule update --init</code></pre>
-<h2 id="安装依赖">安装依赖</h2>
+<h2 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h2>
 <p>这个部分SpanDB的教程是：</p>
 <pre class="shell"><code>sudo ./scripts/pkgdep.sh</code></pre>
 <p>但是Debian 11上没有pep8包，所以手动安装一下其他依赖，pep8不装好像也没事：</p>
@@ -7239,7 +7239,7 @@ git submodule update --init</code></pre>
 sudo apt install nasm
 sudo apt install dh-autoreconf
 sudo apt install libnuma-dev</code></pre>
-<h2 id="编译安装spdk">编译安装SPDK</h2>
+<h2 id="编译安装spdk"><a href="#编译安装spdk">¶</a> 编译安装SPDK</h2>
 <pre class="shell"><code>./configure --with-shared
 make -j$(nproc)
 sudo make install
@@ -7247,7 +7247,7 @@ echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:$PWD/dpdk/build/lib
 echo "export DPDK_LIB=$PWD/dpdk/build/lib" &gt;&gt; ~/.bashrc
 echo "export DPDK_INCLUDE=$PWD/dpdk/build/include" &gt;&gt; ~/.bashrc
 source ~/.bashrc </code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

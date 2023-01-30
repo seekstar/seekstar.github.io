@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,7 +7222,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>官方回复：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/last_insert_id/" class="uri">https://mariadb.com/kb/en/last_insert_id/</a></p>
-<h1 id="定义表">定义表</h1>
+<h1 id="定义表"><a href="#定义表">¶</a> 定义表</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> incid (</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTO_INCREMENT,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    salary <span class="dt">INT</span></span>
@@ -7234,7 +7234,7 @@ var _hmt = _hmt || [];
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>(<span class="ot">"35432"</span>);</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> incid;</span></code></pre></div>
-<h1 id="方法１使用自定义函数">方法１：使用自定义函数</h1>
+<h1 id="方法１使用自定义函数"><a href="#方法１使用自定义函数">¶</a> 方法１：使用自定义函数</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>DELIMITER <span class="op">//</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>RETURNS bigint</span>
@@ -7352,7 +7352,7 @@ var _hmt = _hmt || [];
 <p>里面的数据源名<code>company</code>要改成你自己配置的数据源。</p>
 <pre class="shell"><code>g++ incid.cpp -lodbc -o incid
 ./incid</code></pre>
-<h1 id="方法２使用存储过程">方法２：使用存储过程</h1>
+<h1 id="方法２使用存储过程"><a href="#方法２使用存储过程">¶</a> 方法２：使用存储过程</h1>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013187074/article/details/52895801">SQLBindParameter 函数的参数解析及使用方法</a><br>
 <a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/390092241" class="uri">https://bbs.csdn.net/topics/390092241</a><br>
@@ -7380,7 +7380,7 @@ var _hmt = _hmt || [];
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"SQLExecute error</span><span class="sc">\n</span><span class="st">"</span>;</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	}</span></code></pre></div>
 <p>这个比方法１效率应该要高一点。</p>
-<h2 id="失败的方法">失败的方法</h2>
+<h2 id="失败的方法"><a href="#失败的方法">¶</a> 失败的方法</h2>
 <p>mariadb目前并不支持returning，所以下面的方法没用。下一个版本10.5就有这个功能了。</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5104830/retrieve-autoincrement-id-through-odbc" class="uri">https://stackoverflow.com/questions/5104830/retrieve-autoincrement-id-through-odbc</a></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
@@ -7401,7 +7401,7 @@ var _hmt = _hmt || [];
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    <span class="kw">RETURN</span> newid;</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a><span class="cf">END</span> <span class="op">//</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>DELIMITER ;</span></code></pre></div>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

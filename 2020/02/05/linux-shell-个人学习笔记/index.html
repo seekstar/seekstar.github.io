@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7223,10 +7223,10 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>安全重启：<br>
 按住<code>alt+&lt;PrtSc&gt;</code>，然后依次按下reisub即可安全重启。</p>
-<h2 id="语法">语法</h2>
-<h3 id="条件判断">条件判断</h3>
+<h2 id="语法"><a href="#语法">¶</a> 语法</h2>
+<h3 id="条件判断"><a href="#条件判断">¶</a> 条件判断</h3>
 <p><code>man bash</code>，然后搜索<code>CONDITIONAL EXPRESSIONS</code>，可以看到完整的列表。</p>
-<h4 id="if-elif-else">if elif else</h4>
+<h4 id="if-elif-else"><a href="#if-elif-else">¶</a> if elif else</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014783674/article/details/24474001" class="uri">https://blog.csdn.net/u014783674/article/details/24474001</a></p>
 <pre class="shell"><code>#!/bin/bash
 if [ condition1 ]; then
@@ -7236,7 +7236,7 @@ elif [ condition2 ]; then
 else
         # Do something
 fi</code></pre>
-<h4 id="判断某环境变量是否存在">判断某环境变量是否存在</h4>
+<h4 id="判断某环境变量是否存在"><a href="#判断某环境变量是否存在">¶</a> 判断某环境变量是否存在</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3" class="uri">https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3</a><br>
 <del>上面的文章好像写反了</del><br>
 例子：判断环境变量DISPLAY是否存在（若不存在说明没有提供显示设备）</p>
@@ -7248,7 +7248,7 @@ fi</code></pre>
 <p>或者</p>
 <pre class="shell"><code>if [ ! $DISPLAY ]; then</code></pre>
 <p>表示<code>如果$DISPLAY不存在</code></p>
-<h4 id="字符串">字符串</h4>
+<h4 id="字符串"><a href="#字符串">¶</a> 字符串</h4>
 <table>
 <thead>
 <tr class="header">
@@ -7277,7 +7277,7 @@ fi</code></pre>
 </table>
 <p>所以如果判断目录是否非空，可以这样：<code>if [ "$(ls -A xxx)" ]</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/" class="uri">https://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/</a></p>
-<h4 id="大小判断">大小判断</h4>
+<h4 id="大小判断"><a href="#大小判断">¶</a> 大小判断</h4>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/shang_feng_wei/article/details/90378017" class="uri">https://blog.csdn.net/shang_feng_wei/article/details/90378017</a><br>
 <a target="_blank" rel="noopener" href="https://www.jb51.net/article/56553.htm" class="uri">https://www.jb51.net/article/56553.htm</a><br>
@@ -7338,7 +7338,7 @@ fi</code></pre>
 例如下面这两句都表示<code>如果参数的个数等于０或者大于２</code></p>
 <pre class="text"><code>if [[ $# = 0 || $# &gt; 2 ]]; then</code></pre>
 <pre class="text"><code>if [ $# = 0 -o $# -gt 2 ]; then</code></pre>
-<h4 id="判断文件类型">判断文件类型</h4>
+<h4 id="判断文件类型"><a href="#判断文件类型">¶</a> 判断文件类型</h4>
 <p>来源：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/95c9d20d5ac536ec4e7561ad.html" class="uri">https://jingyan.baidu.com/article/95c9d20d5ac536ec4e7561ad.html</a></p>
 <pre class="shell"><code>#!/bin/bash
 if [ -z $1 ]; then      #如果没有输入参数，也就是第一个参数的字符串长度为0
@@ -7357,7 +7357,7 @@ else
                echo $1" is unknow file."
      fi
 fi</code></pre>
-<h4 id="判断文件权限">判断文件权限</h4>
+<h4 id="判断文件权限"><a href="#判断文件权限">¶</a> 判断文件权限</h4>
 <table>
 <thead>
 <tr class="header">
@@ -7381,19 +7381,19 @@ fi</code></pre>
 </tbody>
 </table>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10319652/check-if-a-file-is-executable" class="uri">https://stackoverflow.com/questions/10319652/check-if-a-file-is-executable</a></p>
-<h3 id="函数">函数</h3>
+<h3 id="函数"><a href="#函数">¶</a> 函数</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-func.html" class="uri">https://www.runoob.com/linux/linux-shell-func.html</a></p>
-<h4 id="定义">定义</h4>
+<h4 id="定义"><a href="#定义">¶</a> 定义</h4>
 <pre class="shell"><code>function FunctionName {
 	do_some_thing_here
 	return Interger
 }</code></pre>
 <p>其中<code>function</code>可以省略，也可以不return。<br>
 参数用法与脚本类似。（<code>$#</code>表个数，<code>$1, $9, ${10}</code>表具体参数)</p>
-<h4 id="使用">使用</h4>
+<h4 id="使用"><a href="#使用">¶</a> 使用</h4>
 <pre class="shell"><code>FunctionName par1 par2 par3</code></pre>
-<h3 id="循环">循环</h3>
-<h4 id="while">while</h4>
+<h3 id="循环"><a href="#循环">¶</a> 循环</h3>
+<h4 id="while"><a href="#while">¶</a> while</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.jikexueyuan.com/project/shell-tutorial/shell-while-loop.html" class="uri">https://wiki.jikexueyuan.com/project/shell-tutorial/shell-while-loop.html</a></p>
 <pre class="shell"><code>while Command
 do
@@ -7407,7 +7407,7 @@ done</code></pre>
 <pre class="shell"><code>while ! Command; do
 	Statement(s) to be executed if Command is false
 done</code></pre>
-<h4 id="for">for</h4>
+<h4 id="for"><a href="#for">¶</a> for</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/astraylinux/article/details/7016212" class="uri">https://blog.csdn.net/astraylinux/article/details/7016212</a></p>
 <pre class="shell"><code>for ((i=0; i&lt;10; ++i))  
 do  
@@ -7415,7 +7415,7 @@ do
 done  </code></pre>
 <p>注意是双括号。<br>
 还有其他用法。看参考链接</p>
-<h3 id="正则表达式">正则表达式</h3>
+<h3 id="正则表达式"><a href="#正则表达式">¶</a> 正则表达式</h3>
 <pre class="shell"><code>if [[ 字符串 =~ 模式 ]]; then
      echo 字符串中含有模式
 fi</code></pre>
@@ -7424,29 +7424,29 @@ fi</code></pre>
      echo yes;
 fi</code></pre>
 <p>会打印出<code>yes</code>。</p>
-<h2 id="组管理">组管理</h2>
-<h3 id="创建组">创建组</h3>
+<h2 id="组管理"><a href="#组管理">¶</a> 组管理</h2>
+<h3 id="创建组"><a href="#创建组">¶</a> 创建组</h3>
 <pre class="shell"><code>sudo groupadd GroupName</code></pre>
-<h3 id="向组中加入用户">向组中加入用户</h3>
+<h3 id="向组中加入用户"><a href="#向组中加入用户">¶</a> 向组中加入用户</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013078295/article/details/52173311" class="uri">https://blog.csdn.net/u013078295/article/details/52173311</a></p>
 <pre class="shell"><code>sudo usermod -aG GroupName UserName</code></pre>
-<h3 id="查看group里的用户">查看group里的用户</h3>
+<h3 id="查看group里的用户"><a href="#查看group里的用户">¶</a> 查看group里的用户</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/withiter/article/details/8132525" class="uri">https://blog.csdn.net/withiter/article/details/8132525</a>里的评论</p>
 <pre class="shell"><code>grep GroupName /etc/group</code></pre>
-<h2 id="按应用">按应用</h2>
-<h3 id="crontab">crontab</h3>
+<h2 id="按应用"><a href="#按应用">¶</a> 按应用</h2>
+<h3 id="crontab"><a href="#crontab">¶</a> crontab</h3>
 <p>启动</p>
 <pre class="shell"><code>service cron start</code></pre>
-<h2 id="按功能">按功能</h2>
-<h3 id="查看磁盘占用情况">查看磁盘占用情况</h3>
+<h2 id="按功能"><a href="#按功能">¶</a> 按功能</h2>
+<h3 id="查看磁盘占用情况"><a href="#查看磁盘占用情况">¶</a> 查看磁盘占用情况</h3>
 <pre class="shell"><code>df -h</code></pre>
-<h3 id="以默认应用打开文件">以默认应用打开文件</h3>
+<h3 id="以默认应用打开文件"><a href="#以默认应用打开文件">¶</a> 以默认应用打开文件</h3>
 <pre class="shell"><code>xdg-open FileName</code></pre>
-<h3 id="按照十六进制查看文件">按照十六进制查看文件</h3>
+<h3 id="按照十六进制查看文件"><a href="#按照十六进制查看文件">¶</a> 按照十六进制查看文件</h3>
 <pre class="shell"><code>hexdump -C FileName &gt; hex.out</code></pre>
-<h3 id="查看命令执行时间">查看命令执行时间</h3>
+<h3 id="查看命令执行时间"><a href="#查看命令执行时间">¶</a> 查看命令执行时间</h3>
 <pre class="shell"><code>time 命令</code></pre>
-<h3 id="去重">去重</h3>
+<h3 id="去重"><a href="#去重">¶</a> 去重</h3>
 <p>参考网站：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rwxwsblog/p/4564216.html" class="uri">https://www.cnblogs.com/rwxwsblog/p/4564216.html</a><br>
 例如txt中有</p>
 <pre><code>jason
@@ -7461,28 +7461,28 @@ jason</code></pre>
 jason</code></pre>
 <p>输出到文件</p>
 <pre class="shell"><code>sort -u txt -o txt1</code></pre>
-<h3 id="查看8进制文件权限">查看8进制文件权限</h3>
+<h3 id="查看8进制文件权限"><a href="#查看8进制文件权限">¶</a> 查看8进制文件权限</h3>
 <p>参考：<a target="_blank" rel="noopener" href="http://novell.me/Linux/201410/stat-get-file-permission-with-octal-numb.html" class="uri">http://novell.me/Linux/201410/stat-get-file-permission-with-octal-numb.html</a></p>
 <pre class="shell"><code>stat -c %a FileName</code></pre>
-<h3 id="监视某命令的执行结果">监视某命令的执行结果</h3>
+<h3 id="监视某命令的执行结果"><a href="#监视某命令的执行结果">¶</a> 监视某命令的执行结果</h3>
 <pre class="shell"><code>watch -n Interval Command</code></pre>
 <p>Interval: 执行间隔，以秒为单位</p>
-<h3 id="获取精确到纳秒的当前时间">获取精确到纳秒的当前时间</h3>
+<h3 id="获取精确到纳秒的当前时间"><a href="#获取精确到纳秒的当前时间">¶</a> 获取精确到纳秒的当前时间</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gengshenghong/article/details/7583580" class="uri">https://blog.csdn.net/gengshenghong/article/details/7583580</a></p>
 <pre class="shell"><code>date +%Y%m%d%X%N</code></pre>
 <p>时间戳</p>
 <pre class="shell"><code>date +%s%N</code></pre>
-<h3 id="把stderr和stdout都重定向到一个文件">把stderr和stdout都重定向到一个文件</h3>
+<h3 id="把stderr和stdout都重定向到一个文件"><a href="#把stderr和stdout都重定向到一个文件">¶</a> 把stderr和stdout都重定向到一个文件</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011630575/article/details/52151995" class="uri">https://blog.csdn.net/u011630575/article/details/52151995</a></p>
 <pre class="shell"><code>./shell.sh &gt; shell.log 2&gt;&amp;1</code></pre>
-<h3 id="以另一用户的身份执行命令">以另一用户的身份执行命令</h3>
+<h3 id="以另一用户的身份执行命令"><a href="#以另一用户的身份执行命令">¶</a> 以另一用户的身份执行命令</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html" class="uri">https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html</a></p>
 <pre class="shell"><code>sudo -u UserName Command</code></pre>
-<h3 id="查看端口占用情况">查看端口占用情况</h3>
+<h3 id="查看端口占用情况"><a href="#查看端口占用情况">¶</a> 查看端口占用情况</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/656db9183861cde381249c87.html" class="uri">https://jingyan.baidu.com/article/656db9183861cde381249c87.html</a></p>
 <pre class="shell"><code>lsof -i:8236</code></pre>
 <p>查看8236端口的占用情况。无输出表示没有被占用。</p>
-<h3 id="查看发行版信息">查看发行版信息</h3>
+<h3 id="查看发行版信息"><a href="#查看发行版信息">¶</a> 查看发行版信息</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sty945/article/details/96475882" class="uri">https://blog.csdn.net/sty945/article/details/96475882</a></p>
 <pre class="shell"><code>lsb_release -a</code></pre>
 <p>我的输出：</p>
@@ -7491,10 +7491,10 @@ Distributor ID:	Deepin
 Description:	Deepin 15.11
 Release:	15.11
 Codename:	stable</code></pre>
-<h3 id="清空命令历史记录">清空命令历史记录</h3>
+<h3 id="清空命令历史记录"><a href="#清空命令历史记录">¶</a> 清空命令历史记录</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1495253179240949419.html" class="uri">https://zhidao.baidu.com/question/1495253179240949419.html</a></p>
 <pre class="shell"><code>history -c</code></pre>
-<h3 id="创建临时文件">创建临时文件</h3>
+<h3 id="创建临时文件"><a href="#创建临时文件">¶</a> 创建临时文件</h3>
 <pre class="shell"><code>mktemp</code></pre>
 <p>便会在<code>/tmp</code>下创建一个文件并把文件名输出到stdout。<br>
 示例：</p>
@@ -7504,7 +7504,7 @@ tmp=$(mktemp)
 echo $input &gt; $tmp
 cat $tmp
 rm $tmp</code></pre>
-<h3 id="使用imagemagick将多个jpg转换为a4大小的pdf">使用ImageMagick将多个jpg转换为A4大小的PDF</h3>
+<h3 id="使用imagemagick将多个jpg转换为a4大小的pdf"><a href="#使用imagemagick将多个jpg转换为a4大小的pdf">¶</a> 使用ImageMagick将多个jpg转换为A4大小的PDF</h3>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lpwmm/article/details/83503736" class="uri">https://blog.csdn.net/lpwmm/article/details/83503736</a></p>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240x1753 \
                       -extent 1240x1753 -gravity center \
@@ -7513,8 +7513,8 @@ rm $tmp</code></pre>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240 \
                       -extent 1240 -gravity center \
                       -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
-<h2 id="按命令">按命令</h2>
-<h3 id="du">du</h3>
+<h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
+<h3 id="du"><a href="#du">¶</a> du</h3>
 <ul>
 <li>查看当前目录下所有文件夹的大小</li>
 </ul>
@@ -7526,18 +7526,18 @@ rm $tmp</code></pre>
 <pre class="shell"><code>du -sh</code></pre>
 <p><code>-s</code>是<code>--summarize</code>的缩写。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
-<h3 id="pidof-进程名">pidof 进程名</h3>
+<h3 id="pidof-进程名"><a href="#pidof-进程名">¶</a> pidof 进程名</h3>
 <p>返回某进程名对应的pid<br>
 例子：<br>
 杀掉所有名字为ssh-agent的进程</p>
 <pre class="shell"><code>kill $(pidof ssh-agent)</code></pre>
-<h3 id="ip">ip</h3>
+<h3 id="ip"><a href="#ip">¶</a> ip</h3>
 <p>查看本机ip地址</p>
 <pre class="shell"><code>ip addr</code></pre>
-<h3 id="dpkg">dpkg</h3>
+<h3 id="dpkg"><a href="#dpkg">¶</a> dpkg</h3>
 <pre class="shell"><code>dpkg --list</code></pre>
 <p>显示当前已经安装的软件</p>
-<h3 id="grep">grep</h3>
+<h3 id="grep"><a href="#grep">¶</a> grep</h3>
 <ul>
 <li>查找当前目录下有某字符串的文件：</li>
 </ul>
@@ -7551,7 +7551,7 @@ rm $tmp</code></pre>
 </ul>
 <pre class="shell"><code>grep -rn splay_safe_rs --include \*.rs</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions" class="uri">https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions</a></p>
-<h3 id="find">find</h3>
+<h3 id="find"><a href="#find">¶</a> find</h3>
 <pre><code>find [目录] [查找规则] [查找完后执行的action]
 查找规则：
 -name 根据文件名查找（精确查找）
@@ -7575,11 +7575,11 @@ sudo find / -path /media -path /mnt -prune -o -name gsettings
 sudo find . -name media -name mnt -prune -o -name gsettings
 sudo find . -path ./media -path ./mnt -prune -o -name gsettings
 sudo find . -name b ! -path “./a/*”</code></pre>
-<h3 id="locate">locate</h3>
+<h3 id="locate"><a href="#locate">¶</a> locate</h3>
 <pre class="shell"><code>locate name</code></pre>
 <p>查找文件（文件夹）</p>
-<h3 id="sed">sed</h3>
-<h4 id="模式匹配">模式匹配</h4>
+<h3 id="sed"><a href="#sed">¶</a> sed</h3>
+<h4 id="模式匹配"><a href="#模式匹配">¶</a> 模式匹配</h4>
 <p>从stdin读入，将修改后的结果写入到stdout：</p>
 <pre class="shell"><code>sed 's/源pattern/目的pattern/g'</code></pre>
 <p>其中<code>s</code>是指替换，<code>g</code>是全局替换，<code>/</code>是分隔符。然后sed就会逐行去找源pattern，并且替换为目的pattern。</p>
@@ -7590,7 +7590,7 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p><code>-i</code>: 直接修改文件（默认是输出编辑后的结果到stdout）。</p>
 <p><code>--follow-symlinks</code>: <code>-i</code>会破坏符号链接和硬链接，加上这个选项之后可以保护软链接不被破坏，但是不保护硬链接。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a></p>
 <p><code>-c</code>: 保护符号链接和硬链接（但是我的sed没有这个选项）。</p>
-<h4 id="匹配指定行">匹配指定行</h4>
+<h4 id="匹配指定行"><a href="#匹配指定行">¶</a> 匹配指定行</h4>
 <p><code>sed -n 起始行号[,终止行号]动作 file</code></p>
 <p>动作一般是<code>p</code>，即打印(Print)。</p>
 <p>sed默认会将文件的每行打印出来，然后对匹配的内容进行相应的操作。<code>-n</code>表示不把文件的每行都打印出来，只对匹配的内容做相应的操作。</p>
@@ -7598,7 +7598,7 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p>打印第2行：<code>sed -n '2p' file</code></p>
 <p>打印第2行到第4行：<code>sed -n '2,4p' file</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file" class="uri">https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file</a></p>
-<h3 id="less">less</h3>
+<h3 id="less"><a href="#less">¶</a> less</h3>
 <p>最基础用法：</p>
 <pre class="shell"><code>less 文件路径</code></pre>
 <p>显示行号：</p>
@@ -7606,20 +7606,20 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p>也可以在<code>less</code>里面按<code>-</code> <code>N</code> <code>Enter</code>即可显示/隐藏行号。</p>
 <p>跳转到指定行：在<code>less</code>里面输入自己要跳转的行号，然后按<code>g</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lovedingd/article/details/120885183">Linux之Less命令跳转到特定的行号</a></p>
-<h3 id="diff">diff</h3>
+<h3 id="diff"><a href="#diff">¶</a> diff</h3>
 <p>忽略换行符的区别：<code>--strip-trailing-cr</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files" class="uri">https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files</a></p>
-<h3 id="zsh不共享历史">zsh不共享历史</h3>
+<h3 id="zsh不共享历史"><a href="#zsh不共享历史">¶</a> zsh不共享历史</h3>
 <p><code>zsh</code>特性比bash丰富一些。zsh默认会在不同的会话之间共享历史，禁用这个特性：</p>
 <pre class="shell"><code># https://github.com/ohmyzsh/ohmyzsh/issues/2537
 echo "unsetopt share_history" &gt;&gt; ~/.zshrc</code></pre>
-<h2 id="其他">其他</h2>
+<h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mydriverc2/article/details/82623778">linux中怎么用shell显示文件某一行或几行内容</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hjxhjh/article/details/17264739">linux shell 将多行文件转换为一行</a></p>
 <p><a target="_blank" rel="noopener" href="https://m.runoob.com/linux/linux-comm-awk.html">Linux awk 命令</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK 条件语句与循环</a></p>
 <p><code>[</code>和<code>[[</code>的区别：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash" class="uri">https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7234,7 +7234,7 @@ var _hmt = _hmt || [];
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    pw BINARY(<span class="dv">4</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>)</span></code></pre></div>
-<h2 id="写入">写入</h2>
+<h2 id="写入"><a href="#写入">¶</a> 写入</h2>
 <p>官方文档中使用了<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqlputdata-function?view=sql-server-ver15">SQLPutData</a><br>
 但是比较麻烦。这里直接使用SQLBindParameter把数据绑定到参数上，然后用SQLExecDirect执行insert即可。<br>
 关键代码：</p>
@@ -7244,7 +7244,7 @@ var _hmt = _hmt || [];
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO pw VALUES(3, ?);"</span>;</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
 <p>注意SQLBindParameter的最后一个参数如果为NULL，则相当于告诉odbc遇到NULL时停止，也就是null-terminated。如果要写入含NULL的数据，则必须指定要写入的数据长度。</p>
-<h2 id="读取">读取</h2>
+<h2 id="读取"><a href="#读取">¶</a> 读取</h2>
 <p>直接用SQLExecDirect执行select，然后用SQLBindCol绑定参数，然后用SQLFetch把数据读出来即可。<br>
 关键代码：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>retcode = SQLExecDirect(hstmt, (SQLCHAR*)<span class="st">"SELECT * FROM pw;"</span>, SQL_NTS);</span>
@@ -7253,7 +7253,7 @@ var _hmt = _hmt || [];
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="cf">while</span> (SQL_NO_DATA != SQLFetch(hstmt)) {</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    cout &lt;&lt; id &lt;&lt; <span class="ch">'</span><span class="sc">\t</span><span class="ch">'</span> &lt;&lt; hex &lt;&lt; *(<span class="dt">uint32_t</span>*)binary &lt;&lt; endl;</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>}</span></code></pre></div>
-<h2 id="完整代码">完整代码</h2>
+<h2 id="完整代码"><a href="#完整代码">¶</a> 完整代码</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
@@ -7386,13 +7386,13 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/blob/">BLOB</a>: 最长65535字节<br>
 <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/longblob/">LONGBLOB</a>: 4,294,967,295字节</p>
 <p>varbinary文档：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/varbinary/" class="uri">https://mariadb.com/kb/en/varbinary/</a></p>
-<h2 id="blob">blob</h2>
-<h3 id="建表">建表</h3>
+<h2 id="blob"><a href="#blob">¶</a> blob</h2>
+<h3 id="建表"><a href="#建表">¶</a> 建表</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> msgcontent(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    msgid BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    content <span class="dt">BLOB</span>(<span class="dv">2000</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>);</span></code></pre></div>
-<h3 id="写入-1">写入</h3>
+<h3 id="写入-1"><a href="#写入-1">¶</a> 写入</h3>
 <p>关键代码：</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>	<span class="dt">uint8_t</span> content[<span class="dv">11</span>] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>};</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>	SQLLEN contentLen = <span class="kw">sizeof</span>(content);</span>
@@ -7401,7 +7401,7 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="at">const</span> <span class="dt">char</span> *stmt = <span class="st">"INSERT INTO msgcontent VALUES(3, ?);"</span>;</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>	retcode = SQLExecDirect(hstmt, (SQLCHAR*)stmt, SQL_NTS);</span></code></pre></div>
 <p>注意SQLBindParameter的最后一个参数如果为NULL，则相当于告诉odbc遇到NULL时停止，也就是null-terminated。如果要写入含NULL的数据，则必须指定要写入的数据长度。</p>
-<h3 id="读取-1">读取</h3>
+<h3 id="读取-1"><a href="#读取-1">¶</a> 读取</h3>
 <p>关键代码：</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>    SQLUBIGINT id = <span class="dv">3332</span>;</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    memset(content, <span class="dv">0</span>, <span class="kw">sizeof</span>(content));</span>
@@ -7423,7 +7423,7 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>		}</span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>		cout &lt;&lt; endl;</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>    }</span></code></pre></div>
-<h3 id="完整代码-1">完整代码</h3>
+<h3 id="完整代码-1"><a href="#完整代码-1">¶</a> 完整代码</h3>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a></span>
@@ -7556,7 +7556,7 @@ blob系列和varbinary都可以保存非定长二进制。<br>
 <span id="cb9-130"><a href="#cb9-130" aria-hidden="true"></a></span>
 <span id="cb9-131"><a href="#cb9-131" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb9-132"><a href="#cb9-132" aria-hidden="true"></a>}</span></code></pre></div>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

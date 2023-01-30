@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,7 +7222,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>相关：<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/" title="C语言调用Rust">C语言调用Rust</a></p>
-<h2 id="场景">场景</h2>
+<h2 id="场景"><a href="#场景">¶</a> 场景</h2>
 <p>在C++中有一个类想用Rust的<code>std::collections::BinaryHeap</code>维护：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> A {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">public</span>:</span>
@@ -7247,11 +7247,11 @@ var _hmt = _hmt || [];
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Push(<span class="dt">void</span>* heap, A a);</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="at">extern</span> A Pop(<span class="dt">void</span>* heap);</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Destroy(<span class="dt">void</span>* heap);</span></code></pre></div>
-<h2 id="思路">思路</h2>
+<h2 id="思路"><a href="#思路">¶</a> 思路</h2>
 <p>Rust只能提供C语言的接口，结构体也只认C语言的结构体。</p>
 <p>因此首先专门另写一份C++代码，调用Rust提供的C接口实现所需的C++接口，并且将C++提供的操作封装成C语言接口给Rust调用。</p>
-<h2 id="代码">代码</h2>
-<h3 id="结构">结构</h3>
+<h2 id="代码"><a href="#代码">¶</a> 代码</h2>
+<h3 id="结构"><a href="#结构">¶</a> 结构</h3>
 <pre class="text"><code>├── heap
 │&nbsp;&nbsp; ├── Cargo.lock
 │&nbsp;&nbsp; ├── Cargo.toml
@@ -7267,7 +7267,7 @@ var _hmt = _hmt || [];
 │&nbsp;&nbsp; └── target
 ├── test.cpp
 └── test.h</code></pre>
-<h3 id="c使用端">C++使用端</h3>
+<h3 id="c使用端"><a href="#c使用端">¶</a> C++使用端</h3>
 <p><code>test.h</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#ifndef TEST_H_</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#define TEST_H_</span></span>
@@ -7316,7 +7316,7 @@ var _hmt = _hmt || [];
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>}</span></code></pre></div>
-<h3 id="新建rust项目">新建Rust项目</h3>
+<h3 id="新建rust项目"><a href="#新建rust项目">¶</a> 新建Rust项目</h3>
 <pre class="shell"><code>cargo new heap --lib</code></pre>
 <p>在<code>heap/Cargo.toml</code>中加入：</p>
 <pre class="toml"><code>[lib]
@@ -7389,7 +7389,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb8-65"><a href="#cb8-65" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p><code>#[repr(C)]</code>: repr的意思是representation。<code>repr(C)</code>表示用C语言的方式来组织这个结构体，这样这个结构体就可以在C语言和Rust之间传递了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24105186/can-i-call-c-or-c-functions-from-rust-code" class="uri">https://stackoverflow.com/questions/24105186/can-i-call-c-or-c-functions-from-rust-code</a></p>
-<h3 id="c语言结构体">C语言结构体</h3>
+<h3 id="c语言结构体"><a href="#c语言结构体">¶</a> C语言结构体</h3>
 <p>Rust只兼容C语言结构体，所以要先把C++结构体变成C语言结构体，才能传给Rust用。同样，Rust传出来的结构体也只能是C语言结构体，要转成对应的C++结构体。</p>
 <p><code>heap/cpp/c_struct.h</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#ifndef C_STRUCT_H_</span></span>
@@ -7407,7 +7407,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a><span class="pp">#endif </span><span class="co">// C_STRUCT_H_</span></span></code></pre></div>
 <p>这里的<code>struct CA</code>就是Rust里的<code>struct C_A</code>。这里特定用了不同的名字，说明两者名字不一定要相同。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/62126501/how-to-pass-a-c-struct-to-rust" class="uri">https://stackoverflow.com/questions/62126501/how-to-pass-a-c-struct-to-rust</a></p>
-<h3 id="将c操作封装成c语言接口">将C++操作封装成C语言接口</h3>
+<h3 id="将c操作封装成c语言接口"><a href="#将c操作封装成c语言接口">¶</a> 将C++操作封装成C语言接口</h3>
 <p><code>BinaryHeap</code>需要用到比较操作。但是<code>A</code>的比较操作是<code>operator &lt;</code>，Rust显然不能直接用。因此需要将这个操作封装成C语言结构，Rust才能用。</p>
 <p><code>heap/cpp/cpp_to_rust.cpp</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
@@ -7422,7 +7422,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>	A b(cb-&gt;data, cb-&gt;size);</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>	<span class="cf">return</span> a &lt; b;</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>}</span></code></pre></div>
-<h3 id="使用rust接口实现所需的c接口">使用Rust接口实现所需的C++接口</h3>
+<h3 id="使用rust接口实现所需的c接口"><a href="#使用rust接口实现所需的c接口">¶</a> 使用Rust接口实现所需的C++接口</h3>
 <p><code>heap/cpp/rust_to_cpp.cpp</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"test.h"</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"c_struct.h"</span></span>
@@ -7457,7 +7457,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true"></a><span class="dt">void</span> Destroy(<span class="dt">void</span>* heap) {</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true"></a>	__rust_destroy(heap);</span>
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true"></a>}</span></code></pre></div>
-<h3 id="将实现的c接口放进头文件">将实现的C++接口放进头文件</h3>
+<h3 id="将实现的c接口放进头文件"><a href="#将实现的c接口放进头文件">¶</a> 将实现的C++接口放进头文件</h3>
 <p><code>include/heap.h</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#ifndef HEAP_H_</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="pp">#define HEAP_H_</span></span>
@@ -7470,7 +7470,7 @@ crate-type = ["staticlib"]</code></pre>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="at">extern</span> <span class="dt">void</span> Destroy(<span class="dt">void</span>* heap);</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="pp">#endif </span><span class="co">// HEAP_H_</span></span></code></pre></div>
-<h3 id="makefile">Makefile</h3>
+<h3 id="makefile"><a href="#makefile">¶</a> Makefile</h3>
 <p><code>heap/Makefile</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="cf">ifndef</span> INCLUDE_DIR</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="co"># 这里不能缩进。</span></span>
@@ -7508,7 +7508,7 @@ crate-type = ["staticlib"]</code></pre>
 <p><code>缩进后的语句一律视为编译目标的一部分，作为shell语句解释。</code>：<a target="_blank" rel="noopener" href="https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="uri">https://anclark.github.io/2021/02/09/Programming_Tips/Makefile_%E8%B8%A9%E5%9D%91%E8%AE%B0/</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make" class="uri">https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make</a></p>
 <p><code>-ldl</code>: [编译错误undefined reference to <code>dlsym'](https://blog.csdn.net/shareyao/article/details/5362642)。不过这里好像不加</code>-ldl`也不会报这个错误。</p>
-<h2 id="使用">使用</h2>
+<h2 id="使用"><a href="#使用">¶</a> 使用</h2>
 <p>用obj文件：</p>
 <pre class="shell"><code>gcc -I heap/include/ -I. heap/target/debug/libheap.o test.cpp -o test
 ./test</code></pre>
@@ -7519,9 +7519,9 @@ LD_LIBRARY_PATH=heap/target/debug/ ./test</code></pre>
 <pre class="text"><code>2333
 332
 233</code></pre>
-<h2 id="注意事项">注意事项</h2>
+<h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>由于Rust编译出来的目标文件里会自带很多符号，因此本博客提供的方法无法实现C++代码调用多个Rust工程提供的接口，需要将所有Rust接口的实现都塞进一个Rust工程。暂时不清楚解决方案。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

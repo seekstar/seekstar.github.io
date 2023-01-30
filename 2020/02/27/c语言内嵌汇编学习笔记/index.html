@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7234,7 +7234,7 @@ Extended Asm的基本语法：</p>
                  [ : Clobbers ] ])</code></pre>
 <p>其中asm-qualifiers是修饰符，常用的有volatile，表示不要优化。</p>
 <p>AssemblerTemplate 是汇编模板，可以有多条（一般用"隔开）。OutputOperands是输出，InputOperands是输入，Clobbers是受影响的东西。</p>
-<h2 id="assembler-template">Assembler Template</h2>
+<h2 id="assembler-template"><a href="#assembler-template">¶</a> Assembler Template</h2>
 <p>AssemblerTemplate 里引用C语言变量时可以使用编号，比如<code>%i</code>表示OutputOperands和InputOperands里的第i个变量。<br>
 例子：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">uint32_t</span> Mask = <span class="dv">1234</span>;</span>
@@ -7256,15 +7256,15 @@ Extended Asm的基本语法：</p>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>     : [aMask] <span class="st">"r"</span> (Mask)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>     : <span class="st">"cc"</span>);</span></code></pre></div>
 <p>其中aIndex可以直接换为Index，aMask可以直接换为Mask。</p>
-<h2 id="output-operands">Output Operands</h2>
+<h2 id="output-operands"><a href="#output-operands">¶</a> Output Operands</h2>
 <p>一个operand的格式如下：</p>
 <pre class="text"><code>[ [asmSymbolicName] ] constraint (cvariablename)</code></pre>
 <p>不同的operand之间用逗号隔开。</p>
-<h3 id="prefix">prefix</h3>
+<h3 id="prefix"><a href="#prefix">¶</a> prefix</h3>
 <p>Output operands的constraint必须以<code>=</code>或<code>+</code>开始。<br>
 <code>=</code>: 把结果写入<br>
 <code>+</code>: 既读又写。此时这个operand不需要在Input Operands里出现。</p>
-<h3 id="additional-constraints">additional constraints</h3>
+<h3 id="additional-constraints"><a href="#additional-constraints">¶</a> additional constraints</h3>
 <p>文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Constraints.html#Constraints" class="uri">https://gcc.gnu.org/onlinedocs/gcc/Constraints.html#Constraints</a></p>
 <p>常用：</p>
 <ul>
@@ -7283,10 +7283,10 @@ S: <code>si</code>，通常作为函数调用的第二个参数。<br>
 d: <code>dx</code>，通常作为函数调用的第三个参数。<br>
 a: <code>ax</code>，通常作为函数调用的返回值。</p>
 <p>完整列表：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Machine-Constraints.html#Machine-Constraints" class="uri">https://gcc.gnu.org/onlinedocs/gcc/Machine-Constraints.html#Machine-Constraints</a></p>
-<h2 id="input-operands">Input Operands</h2>
+<h2 id="input-operands"><a href="#input-operands">¶</a> Input Operands</h2>
 <p>一个operand的格式如下：</p>
 <pre class="text"><code>[ [asmSymbolicName] ] constraint (cexpression)</code></pre>
-<h3 id="constrain">constrain</h3>
+<h3 id="constrain"><a href="#constrain">¶</a> constrain</h3>
 <p>没有prefix</p>
 <ul>
 <li>数字（例如i）：表示这个输入操作数的物理位置必须与第i个输出操作数的物理位置一致。</li>
@@ -7303,7 +7303,7 @@ a: <code>ax</code>，通常作为函数调用的返回值。</p>
 <ul>
 <li>其他（与Output operands的constrain一样）</li>
 </ul>
-<h3 id="clobbers">Clobbers</h3>
+<h3 id="clobbers"><a href="#clobbers">¶</a> Clobbers</h3>
 <p>一些常见的：</p>
 <ul>
 <li>cc: 修改了标志寄存器</li>
@@ -7321,13 +7321,13 @@ a: <code>ax</code>，通常作为函数调用的返回值。</p>
 <p>这样虽然进行了内存读取，但是在Input operands和Output Operands范围内，不需要使用开销很大的"memory"。<br>
 同理，如果知道只会读后面的10个字节，可以把Input operand写成这样：</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="st">"m"</span> (*(<span class="dt">const</span> <span class="dt">char</span> (*)[<span class="dv">10</span>]) p)</span></code></pre></div>
-<h2 id="标号">标号</h2>
+<h2 id="标号"><a href="#标号">¶</a> 标号</h2>
 <p>来源：<a target="_blank" rel="noopener" href="https://fishc.com.cn/thread-39609-1-1.html" class="uri">https://fishc.com.cn/thread-39609-1-1.html</a><br>
 je 1f或者je 1b 是跳转到对应的标号的地方<br>
 这里的1表示标号(label),f和b表示向前还是向后,f(forward）向前（下），b(backward)向后 （上）</p>
 <p>吐个槽，这个前后是真的迷，不如叫上下。</p>
-<h2 id="x86">x86</h2>
-<h3 id="寄存器">寄存器</h3>
+<h2 id="x86"><a href="#x86">¶</a> x86</h2>
+<h3 id="寄存器"><a href="#寄存器">¶</a> 寄存器</h3>
 <p>函数调用的寄存器传参：</p>
 <p>第1个参数: <code>%rdi</code>。也作为串指令的destination。<br>
 第2个参数: <code>%rsi</code>。也作为串指令的source。<br>
@@ -7337,9 +7337,9 @@ je 1f或者je 1b 是跳转到对应的标号的地方<br>
 第6个参数: <code>%r9</code></p>
 <p>返回值：<code>%rax</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="http://6.s081.scripts.mit.edu/sp18/x86-64-architecture-guide.html" class="uri">http://6.s081.scripts.mit.edu/sp18/x86-64-architecture-guide.html</a></p>
-<h2 id="解读">解读</h2>
+<h2 id="解读"><a href="#解读">¶</a> 解读</h2>
 <a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/" title="Linux kernel读取和写入用户态内存">Linux kernel读取和写入用户态内存</a>
-<h3 id="clflush">clflush</h3>
+<h3 id="clflush"><a href="#clflush">¶</a> clflush</h3>
 <p>&lt;asm/special_insns.h&gt;</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> clflush(<span class="dt">volatile</span> <span class="dt">void</span> *__p)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>{</span>
@@ -7351,7 +7351,7 @@ je 1f或者je 1b 是跳转到对应的标号的地方<br>
 <p><code>clflush(p)</code>的含义简单来说就是把包含p指向的内存的cache line写入内存，然后将这个cache line无效化，也就是说今后读取这个cache line对应的部分时都要重新从内存中读取。</p>
 <p>"+m"指读写内存。<br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/36226627/why-does-clflush-needs-m-constant" class="uri">https://stackoverflow.com/questions/36226627/why-does-clflush-needs-m-constant</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

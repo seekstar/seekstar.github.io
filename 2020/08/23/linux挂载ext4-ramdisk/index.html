@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,13 +7221,13 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="划分一块dram作为ramdisk">划分一块DRAM作为ramdisk</h1>
+	<html><head></head><body><h1 id="划分一块dram作为ramdisk"><a href="#划分一块dram作为ramdisk">¶</a> 划分一块DRAM作为ramdisk</h1>
 <p>在/etc/default/grub改：</p>
 <pre><code>GRUB_CMDLINE_LINUX="memmap=4G!4G"</code></pre>
 <p>然后重启就可以看到/dev/pmem0，这就是划分出来的ramdisk了。</p>
-<h1 id="格式化">格式化</h1>
+<h1 id="格式化"><a href="#格式化">¶</a> 格式化</h1>
 <pre class="shell"><code>mkfs -t ext4 /dev/pmem0</code></pre>
-<h1 id="挂载">挂载</h1>
+<h1 id="挂载"><a href="#挂载">¶</a> 挂载</h1>
 <p>这里的挂载点设置为了<code>/mnt/pmem</code>。</p>
 <pre class="shell"><code>mkdir -p /mnt/pmem
 mount -t ext4 /dev/pmem0 /mnt/pmem -o dax</code></pre>
@@ -7235,10 +7235,10 @@ mount -t ext4 /dev/pmem0 /mnt/pmem -o dax</code></pre>
 <pre class="shell"><code>cd ..
 cd pmem</code></pre>
 <p>这样才能进入新的dentry。</p>
-<h1 id="chown">chown</h1>
+<h1 id="chown"><a href="#chown">¶</a> chown</h1>
 <p>挂载后挂载点默认是<code>root:root</code>的。如果想要让普通用户也能进去改，只需要chown成那个用户就好了。</p>
 <pre class="shell"><code>chown -R 用户名:组名 /mnt/pmem</code></pre>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

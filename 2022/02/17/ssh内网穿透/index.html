@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7245,7 +7245,7 @@ var _hmt = _hmt || [];
              sshd_config(5)).</code></pre>
 <p>一定要看英文的manual page，中文的好像很久没有更新了，不全。</p>
 <p>然后再跑<code>ssh -R 6100:localhost:8789 服务器IP</code>，服务器的<code>6100</code>端口就可以接受任何IP的连接请求了。注意已有的<code>ssh -R</code>连接好像仍然看不到<code>GatewayPorts yes</code>，要先把原来的<code>ssh -R</code>的连接断开才行（在客户端<code>ctrl+c</code>或者采用后面描述的方法在服务器端把监听这个端口的<code>sshd</code>进程杀掉）。</p>
-<h2 id="autossh">autossh</h2>
+<h2 id="autossh"><a href="#autossh">¶</a> autossh</h2>
 <p>直接用ssh的话，断开连接之后并不会重连。所以使用autossh，在连接断开后重连。网上的教程通常是使用monitor port监测连接是否正常的，但是这样要在服务器上额外占用一个端口。其实<code>man autossh</code>已经提示我们可以用SSH自带的<code>ServerAliveInterval</code>和<code>ServerAliveCountMax</code>来检测连接是否正常，而且这可能是更好的方法：</p>
 <pre class="text"><code>     -M port[:echo_port]
 ...
@@ -7259,13 +7259,13 @@ var _hmt = _hmt || [];
 <p>有些发行版比如Debian可以省略掉<code>-M 0</code>。</p>
 <p>可以在服务器端查一下有没有额外的monitor port:</p>
 <pre class="shell"><code>sudo lsof -i</code></pre>
-<h2 id="后台静默运行">后台静默运行</h2>
+<h2 id="后台静默运行"><a href="#后台静默运行">¶</a> 后台静默运行</h2>
 <p><code>-f</code>: 要求 ssh 在执行命令前退至后台。</p>
 <p><code>-N</code>: 不执行远程命令. 用于转发端口. (仅限协议第二版)。</p>
 <p>所以可以：</p>
 <pre class="shell"><code>autossh -M 0 -fNR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60</code></pre>
 <pre class="shell"><code>ssh -fNR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60</code></pre>
-<h2 id="开机自启">开机自启</h2>
+<h2 id="开机自启"><a href="#开机自启">¶</a> 开机自启</h2>
 <p>可以用supervisor设置开机自启，配置文件：</p>
 <pre class="text"><code>[program:ssh-intranet-penetration]
 command=ssh -NR 6100:localhost:8789 服务器IP -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes
@@ -7275,7 +7275,7 @@ stderr_logfile=/tmp/ssh-intranet-penetration_stderr.log
 stdout_logfile=/tmp/ssh-intranet-penetration_stdout.log
 user = searchstar</code></pre>
 <p>注意这里没有<code>-f</code>。这里用的是<code>ssh</code>而不是<code>autossh</code>，并且加上了<code>-o ExitOnForwardFailure=yes</code>，这样连接中断或者出现其他错误之后<code>supervisor</code>会自动重试。</p>
-<h2 id="客户端崩溃后重新连接">客户端崩溃后重新连接</h2>
+<h2 id="客户端崩溃后重新连接"><a href="#客户端崩溃后重新连接">¶</a> 客户端崩溃后重新连接</h2>
 <p>客户端崩溃后，重新连接时可能会出现这个错误：</p>
 <pre class="text"><code>Warning: remote port forwarding failed for listen port 端口号</code></pre>
 <p>这时可以在服务器上查找监听这个端口的进程：</p>
@@ -7283,11 +7283,11 @@ user = searchstar</code></pre>
 <p>这个进程是sshd fork出来的进程，杀掉它不影响其他端口的监听，而且可以把这个端口释放出来：</p>
 <pre class="shell"><code>kill 进程号</code></pre>
 <p>然后再在客户端上重新构建反向隧道即可。</p>
-<h2 id="参考">参考</h2>
+<h2 id="参考"><a href="#参考">¶</a> 参考</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiangbenchu/article/details/84438959">使用SSH反向隧道进行内网穿透——持续更新中</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/112227542">利用AutoSSH建立SSH隧道，实现内网穿透</a></p>
 <p><a target="_blank" rel="noopener" href="https://superuser.com/questions/1504220/ssh-tunnel-server-cant-close-listen-port-when-client-unexpected-close" class="uri">https://superuser.com/questions/1504220/ssh-tunnel-server-cant-close-listen-port-when-client-unexpected-close</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

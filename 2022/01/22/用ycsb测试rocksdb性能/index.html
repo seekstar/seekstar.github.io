@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7229,14 +7229,14 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="基础用法">基础用法</h2>
-<h3 id="编译">编译</h3>
+	<html><head></head><body><h2 id="基础用法"><a href="#基础用法">¶</a> 基础用法</h2>
+<h3 id="编译"><a href="#编译">¶</a> 编译</h3>
 <pre class="shell"><code>git clone https://github.com/brianfrankcooper/YCSB.git</code></pre>
 <pre class="shell"><code># 提供mvn命令
 sudo apt install -y maven</code></pre>
 <pre class="shell"><code>mvn -pl site.ycsb:rocksdb-binding -am clean package -T 线程数</code></pre>
 <p>有些老的教程里是用的<code>com.yahoo.ycsb</code>，最新版本的YCSB已经换成了<code>site.ycsb</code>。</p>
-<h3 id="负载测试">负载测试</h3>
+<h3 id="负载测试"><a href="#负载测试">¶</a> 负载测试</h3>
 <p>YCSB在<code>workloads</code>目录下有一些预定义的workload，这里以workloada为例：</p>
 <pre class="shell"><code>bin/ycsb.sh load rocksdb -s -P workloads/workloada -p rocksdb.dir=/tmp/rocksdb_test/</code></pre>
 <p>但是直接运行这个会报错，因为默认的<code>rocksdb/pom.xml</code>里少了依赖，要把<code>core/pom.xml</code>里的这两个依赖加到<code>rocksdb/pom.xml</code>里的<code>dependencies</code>里：</p>
@@ -7265,21 +7265,21 @@ sudo apt install -y maven</code></pre>
 <p>再跑<code>workloada</code>：</p>
 <pre class="shell"><code>rm -r /tmp/rocksdb_test/
 bin/ycsb.sh load rocksdb -s -P workloads/workloada -p rocksdb.dir=/tmp/rocksdb_test/</code></pre>
-<h3 id="切换rocksdb版本">切换rocksdb版本</h3>
+<h3 id="切换rocksdb版本"><a href="#切换rocksdb版本">¶</a> 切换rocksdb版本</h3>
 <p>YCSB项目根目录下的pom.xml里有一行：</p>
 <pre><code>&lt;rocksdb.version&gt;版本号&lt;/rocksdb.version&gt;</code></pre>
 <p>修改版本号就会自动下载对应版本的rocksdb来测试性能了。</p>
-<h2 id="测试自己改的rocksdb的性能">测试自己改的rocksdb的性能</h2>
-<h3 id="安装依赖">安装依赖</h3>
-<h4 id="jdk">JDK</h4>
+<h2 id="测试自己改的rocksdb的性能"><a href="#测试自己改的rocksdb的性能">¶</a> 测试自己改的rocksdb的性能</h2>
+<h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
+<h4 id="jdk"><a href="#jdk">¶</a> JDK</h4>
 <pre class="shell"><code>sudo apt install -y default-jdk
 export JAVA_HOME=/usr/lib/jvm/default-java</code></pre>
 <p>参考：<a href="https://seekstar.github.io/2022/01/21/java-home-is-not-set/" class="uri">https://seekstar.github.io/2022/01/21/java-home-is-not-set/</a></p>
-<h4 id="cmake">cmake</h4>
+<h4 id="cmake"><a href="#cmake">¶</a> cmake</h4>
 <pre class="shell"><code>sudo apt install -y cmake</code></pre>
-<h4 id="更改makefile取消跨平台">更改<code>Makefile</code>取消跨平台</h4>
+<h4 id="更改makefile取消跨平台"><a href="#更改makefile取消跨平台">¶</a> 更改<code>Makefile</code>取消跨平台</h4>
 <p>教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a993096281/article/details/87864340">rocksdb在YCSB中的运行教程</a>。注意，用<code>#</code>注释掉可能不太行，最好直接删掉。</p>
-<h3 id="构建并使用rocksdb-java包">构建并使用rocksdb java包</h3>
+<h3 id="构建并使用rocksdb-java包"><a href="#构建并使用rocksdb-java包">¶</a> 构建并使用rocksdb java包</h3>
 <p>因为YCSB是用java写的，所以要构建rocksdb的java包来测试。</p>
 <pre class="shell"><code>make rocksdbjavastaticrelease DEBUG_LEVEL=0</code></pre>
 <p>编译出来的文件在<code>java/target/rocksdbjni-6.27.3.jar</code>。</p>
@@ -7293,13 +7293,13 @@ export JAVA_HOME=/usr/lib/jvm/default-java</code></pre>
 <pre class="shell"><code>bin/ycsb.sh load rocksdb -s -P workloads/workloada -p rocksdb.dir=/tmp/rocksdb_test/</code></pre>
 <p>从输出可以看到已经用上了<code>rocksdbjni-6.27.3.jar</code>：</p>
 <pre><code>/usr/lib/jvm/default-java/bin/java  -classpath /home/searchstar/git/YCSB/conf:/home/searchstar/git/YCSB/core/target/core-0.18.0-SNAPSHOT.jar:/home/searchstar/git/YCSB/rocksdb/target/rocksdb-binding-0.18.0-SNAPSHOT.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/HdrHistogram-2.1.4.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/htrace-core4-4.1.0-incubating.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/jcip-annotations-1.0.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/rocksdbjni-6.27.3.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/slf4j-api-1.7.25.jar:/home/searchstar/git/YCSB/rocksdb/target/dependency/slf4j-simple-1.7.25.jar site.ycsb.Client -load -db site.ycsb.db.rocksdb.RocksDBClient -s -P workloads/workloada -p rocksdb.dir=/tmp/rocksdb_test/</code></pre>
-<h3 id="gitignore下载的依赖">gitignore下载的依赖</h3>
+<h3 id="gitignore下载的依赖"><a href="#gitignore下载的依赖">¶</a> gitignore下载的依赖</h3>
 <p>rocksdb编译了之后会下载很多.tar.gz，并且解压到项目目录了。.tar.gz文件可以直接删掉。在这些依赖的目录里执行</p>
 <pre class="shell"><code>echo \* &gt; .gitignore</code></pre>
 <p>来让git忽略这些依赖。</p>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a993096281/article/details/87864340">rocksdb在YCSB中的运行教程</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

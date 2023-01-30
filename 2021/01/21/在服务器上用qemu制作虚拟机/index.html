@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7226,15 +7226,15 @@ var _hmt = _hmt || [];
 <li><p>宿主机：Deepin、Debian 11、centos 8</p></li>
 <li><p>虚拟机：CentOS 8, CentOS Stream 9, Debian 11</p></li>
 </ul>
-<h2 id="下载操作系统镜像">下载操作系统镜像</h2>
+<h2 id="下载操作系统镜像"><a href="#下载操作系统镜像">¶</a> 下载操作系统镜像</h2>
 <p>可以用中科大的源下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a><br>
 找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。</p>
-<h2 id="安装qemu">安装qemu</h2>
+<h2 id="安装qemu"><a href="#安装qemu">¶</a> 安装qemu</h2>
 <pre class="shell"><code># debian系(deepin)
 sudo apt install qemu qemu-kvm
 # Centos 8 &amp; Centos stream 8
 sudo yum install qemu-kvm</code></pre>
-<h2 id="检查kvm是否可用">检查KVM是否可用</h2>
+<h2 id="检查kvm是否可用"><a href="#检查kvm是否可用">¶</a> 检查KVM是否可用</h2>
 <p>不开KVM的话性能会很低。</p>
 <pre class="shell"><code>grep -E 'vmx|svm' /proc/cpuinfo</code></pre>
 <p>如果有输出则表示硬件有虚拟化支持。其次要检查kvm模块是否已经加载：</p>
@@ -7252,8 +7252,8 @@ irqbypass              16384  1 kvm</code></pre>
 <p>按G翻到最后，如果有</p>
 <pre class="text"><code>kvm: disabled by bios</code></pre>
 <p>说明要去BIOS里开启一下KVM的支持。</p>
-<h2 id="启动虚拟机安装操作系统">启动虚拟机安装操作系统</h2>
-<h3 id="命令行安装">命令行安装</h3>
+<h2 id="启动虚拟机安装操作系统"><a href="#启动虚拟机安装操作系统">¶</a> 启动虚拟机安装操作系统</h2>
+<h3 id="命令行安装"><a href="#命令行安装">¶</a> 命令行安装</h3>
 <pre class="shell"><code># Centos stream 8
 sudo yum install libvirt virt-install
 # Ubuntu 20.04, deepin 20
@@ -7285,8 +7285,8 @@ Please make a selection from the above ['b' to begin installation, 'q' to quit,
 'r' to refresh]:</code></pre>
 <p>要把带<code>[!]</code>的都处理完。不过下面写了<code>(Processing...)</code>的可以按<code>r</code>刷新，等它出结果。<br>
 安装好了之后会自动重启，然后就可以登录了。</p>
-<h3 id="使用vnc安装">使用vnc安装</h3>
-<h4 id="创建虚拟机磁盘文件">创建虚拟机磁盘文件</h4>
+<h3 id="使用vnc安装"><a href="#使用vnc安装">¶</a> 使用vnc安装</h3>
+<h4 id="创建虚拟机磁盘文件"><a href="#创建虚拟机磁盘文件">¶</a> 创建虚拟机磁盘文件</h4>
 <p>不使用virt-install的话，要手动创建虚拟机的磁盘文件。</p>
 <pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
 <pre class="text"><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
@@ -7295,22 +7295,22 @@ raw: 默认格式。裸的磁盘文件。<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>: 最常用。支持稀疏文件、快照等。<br>
 其他：qemu还兼容其他的格式，比如VMDK, VDI, VHD(vpc), VHDX, qcow1 and QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
-<h4 id="debian系">debian系</h4>
+<h4 id="debian系"><a href="#debian系">¶</a> debian系</h4>
 <pre class="shell"><code># vnc=:2 可以换成其他可用端口。
 sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso -display vnc=:2</code></pre>
 <p>然后就会在<code>5902</code>端口（也可以换成其他可用端口）开一个vnc server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
-<h4 id="centos-8">Centos 8</h4>
+<h4 id="centos-8"><a href="#centos-8">¶</a> Centos 8</h4>
 <p>Centos 8比较特殊:</p>
 <pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
 <pre class="text"><code>VNC server running on ::1:5900</code></pre>
 <p>用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"><br>
 <code>ctrl+alt+g</code>可以取消捕获。</p>
-<h2 id="联网">联网</h2>
+<h2 id="联网"><a href="#联网">¶</a> 联网</h2>
 <p>虚拟机一开始是没有网络的。</p>
-<h3 id="virsh">virsh</h3>
+<h3 id="virsh"><a href="#virsh">¶</a> virsh</h3>
 <a href="/2021/08/08/virsh%E7%BB%88%E7%AB%AF%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E8%81%94%E7%BD%91/" title="virsh终端访问虚拟机并联网">virsh终端访问虚拟机并联网</a>
-<h3 id="桥接网卡有概率失败">桥接网卡（有概率失败）</h3>
+<h3 id="桥接网卡有概率失败"><a href="#桥接网卡有概率失败">¶</a> 桥接网卡（有概率失败）</h3>
 <pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
 <p>先看自己的机器的网卡编号</p>
 <pre class="shell"><code>ip addr</code></pre>
@@ -7366,7 +7366,7 @@ fi</code></pre>
 <p>才能拿到ip。</p>
 <p>这个相当于把虚拟机桥接到外面去了。如果外面的网络要登陆才能上网的话，还需要登陆一下。<br>
 <img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121113408209.png" alt="在这里插入图片描述"></p>
-<h3 id="nat有概率失败">NAT（有概率失败）</h3>
+<h3 id="nat有概率失败"><a href="#nat有概率失败">¶</a> NAT（有概率失败）</h3>
 <p>如果装的虚拟机没有GUI，但是外面的网络又需要在网页上登陆才能使用，那桥接就不太可行了，这时要用NAT模式，使虚拟机直接使用主机的网络。</p>
 <p><a target="_blank" rel="noopener" href="https://wiki.qemu.org/Documentation/Networking/NAT" class="uri">https://wiki.qemu.org/Documentation/Networking/NAT</a><br>
 把下面的保存为<code>ifup_nat.sh</code></p>
@@ -7507,10 +7507,10 @@ fi</code></pre>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,script=ifup_nat.sh</code></pre>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121153720100.png" alt="在这里插入图片描述"><br>
 这个方法我在家里的电脑上实验成功，但是在学校的服务器上失败了，不知道为什么。</p>
-<h2 id="其他">其他</h2>
-<h3 id="nographic启动">nographic启动</h3>
+<h2 id="其他"><a href="#其他">¶</a> 其他</h2>
+<h3 id="nographic启动"><a href="#nographic启动">¶</a> nographic启动</h3>
 <a href="/2021/07/26/qemu-system-x86-64-nographic/" title="qemu-system-x86_64 nographic">qemu-system-x86_64 nographic</a>
-<h3 id="嵌套虚拟化">嵌套虚拟化</h3>
+<h3 id="嵌套虚拟化"><a href="#嵌套虚拟化">¶</a> 嵌套虚拟化</h3>
 <p>就是虚拟机里套虚拟机：<br>
 参数里添加</p>
 <pre class="text"><code>-enable-kvm -cpu host</code></pre>
@@ -7518,19 +7518,19 @@ fi</code></pre>
 <pre class="shell"><code>/usr/libexec/qemu-kvm -cpu help</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jython/p/4458807.html" class="uri">https://www.cnblogs.com/jython/p/4458807.html</a><br>
 注：如果只放<code>-enable-kvm -cpu qemu64,+vmx</code>，我这<code>lsmod</code>里就没有<code>kvm_intel</code>。</p>
-<h3 id="centos开机自动联网">centos开机自动联网</h3>
+<h3 id="centos开机自动联网"><a href="#centos开机自动联网">¶</a> centos开机自动联网</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012972536/article/details/79827292" class="uri">https://blog.csdn.net/u012972536/article/details/79827292</a></p>
-<h3 id="uefi启动">UEFI启动</h3>
+<h3 id="uefi启动"><a href="#uefi启动">¶</a> UEFI启动</h3>
 <p>Debian 11：加上<code>-bios /usr/share/ovmf/OVMF.fd</code>即可。</p>
 <p>启动之后，发现<code>/sys/firmware/efi</code>目录存在，说明确实是UEFI启动的。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50698817/article/details/123530442">linux怎么查看操作系统是uefi启动还是bios启动？</a></p>
-<h3 id="克隆虚拟机">克隆虚拟机</h3>
+<h3 id="克隆虚拟机"><a href="#克隆虚拟机">¶</a> 克隆虚拟机</h3>
 <pre class="shell"><code>virt-clone --original 源虚拟机 --name 新虚拟机名字 --file 新虚拟机的磁盘文件路径</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/" class="uri">https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/</a></p>
-<h3 id="ttys0登录时输入用户名后卡住">ttyS0登录时输入用户名后卡住</h3>
+<h3 id="ttys0登录时输入用户名后卡住"><a href="#ttys0登录时输入用户名后卡住">¶</a> ttyS0登录时输入用户名后卡住</h3>
 <p>这个在deepin虚拟机里更换内核之后碰到过。解决方案：</p>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
-<h3 id="network-disk-service卡住">network disk service卡住</h3>
+<h3 id="network-disk-service卡住"><a href="#network-disk-service卡住">¶</a> network disk service卡住</h3>
 <p>centos虚拟机中出现过，要好几分钟才能进去，而且最终这几个服务会启动失败：</p>
 <pre class="text"><code>[FAILED] Failed to start System Security Services Daemon.
 [FAILED] Failed to start Disk Manager.
@@ -7539,7 +7539,7 @@ fi</code></pre>
 [FAILED] Failed to start Crash recovery kernel arming.</code></pre>
 <p>其实原因和解决方案都跟上一个一样，都是这个：</p>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1: 使用QEMU创建虚拟机</a> 其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
 <a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
@@ -7547,7 +7547,7 @@ fi</code></pre>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/sdulibh/article/details/51657260">KVM 使用 virt-install 创建虚拟机失败经历</a><br>
 <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock" class="uri">https://askubuntu.com/questions/1225216/failed-to-connect-socket-to-var-run-libvirt-libvirt-sock</a><br>
 <a target="_blank" rel="noopener" href="https://www.xmodulo.com/network-default-is-not-active.html" class="uri">https://www.xmodulo.com/network-default-is-not-active.html</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,23 +7221,23 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="默认进入命令行">默认进入命令行</h1>
+	<html><head></head><body><h1 id="默认进入命令行"><a href="#默认进入命令行">¶</a> 默认进入命令行</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhscn/p/8607822.html" class="uri">https://www.cnblogs.com/zhscn/p/8607822.html</a></p>
 <pre class="shell"><code>sudo systemctl disable lightdm</code></pre>
 <p>先别执行。先看下面怎么恢复默认进入GUI。</p>
-<h1 id="临时进入gui">临时进入GUI</h1>
+<h1 id="临时进入gui"><a href="#临时进入gui">¶</a> 临时进入GUI</h1>
 <pre class="shell"><code>startx</code></pre>
-<h1 id="默认进入gui">默认进入GUI</h1>
+<h1 id="默认进入gui"><a href="#默认进入gui">¶</a> 默认进入GUI</h1>
 <p>按理说<code>sudo systemctl enable lightdm</code>应该是可以的，但是我这里提示不能用<code>systemctl</code>启动lightdm。</p>
-<h2 id="方法1">方法1</h2>
+<h2 id="方法1"><a href="#方法1">¶</a> 方法1</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/5195178229" class="uri">https://tieba.baidu.com/p/5195178229</a></p>
 <pre class="shell"><code>sudo dpkg-reconfigure lightdm</code></pre>
-<h2 id="方法2不推荐">方法2(不推荐)</h2>
+<h2 id="方法2不推荐"><a href="#方法2不推荐">¶</a> 方法2(不推荐)</h2>
 <p>把下面的放到/etc/rc.local里</p>
 <pre class="shell"><code>sudo service lightdm start</code></pre>
 <p>缺点是开机的时候会短暂进入命令行界面。</p>
 <p>如果没有<code>/etc/rc.local</code>，自行百度，利用systemctl模拟之。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

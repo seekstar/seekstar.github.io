@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,13 +7221,13 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="安装">安装</h1>
+	<html><head></head><body><h1 id="安装"><a href="#安装">¶</a> 安装</h1>
 <p>在这里选择合适的下载方式：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html" class="uri">https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html</a></p>
 <p>如果没有GUI，就用<code>Command Line Installation</code>里的命令来下载安装。我的是这样的：</p>
 <pre class="shell"><code>wget https://registrationcenter-download.intel.com/akdlm/irc_nas/17769/l_BaseKit_p_2021.2.0.2883.sh
 sudo bash l_BaseKit_p_2021.2.0.2883.sh</code></pre>
 <p>注意在命令行下安装时，终端窗口要足够大，不然显示不全。</p>
-<h1 id="跑样例工程">跑样例工程</h1>
+<h1 id="跑样例工程"><a href="#跑样例工程">¶</a> 跑样例工程</h1>
 <p>安装完成后可以使用vscode来连接服务器使用vtune。官方教程：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-intel-oneapi-base-linux/top/run-a-sample-project-with-vscode.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-intel-oneapi-base-linux/top/run-a-sample-project-with-vscode.html</a></p>
 <p>下面简单介绍一下基础用法。</p>
 <p>首先安装两个插件：<code>Sample Browser for Intel oneAPI Toolkits</code>和<code>Environment Configurator for Intel oneAPI Toolkits</code></p>
@@ -7245,7 +7245,7 @@ Vector size: 10000
 ...
 [9999]: 9999 + 9999 = 19998
 Vector add successfully completed on device.</code></pre>
-<h1 id="vtune">vtune</h1>
+<h1 id="vtune"><a href="#vtune">¶</a> vtune</h1>
 <p>vtune的教程：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-vtune/top.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-vtune/top.html</a></p>
 <p>服务器上用的话，主要看命令行界面的用法：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/command-syntax.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/command-syntax.html</a></p>
 <p>注意如果是开普通终端，而不是在vscode里用的话，要先</p>
@@ -7332,7 +7332,7 @@ If you want to skip descriptions of detected performance issues in the report,
 enter: vtune -report summary -report-knob show-issues=false -r &lt;my_result_dir&gt;.
 Alternatively, you may view the report in the csv format: vtune -report
 &lt;report_name&gt; -format=csv.</code></pre>
-<h1 id="查看结果">查看结果</h1>
+<h1 id="查看结果"><a href="#查看结果">¶</a> 查看结果</h1>
 <p>运行<code>vtune -help report</code>来查看如何生成报告。最简单的例子：</p>
 <pre class="shell"><code>vtune -report hotspots -r &lt;结果目录&gt;</code></pre>
 <p>或者生成summary（其实就是刚跑完输出的那个东西）:</p>
@@ -7344,7 +7344,7 @@ Alternatively, you may view the report in the csv format: vtune -report
 <p><img src="/2021/09/19/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8vtune/c6903226a2fc4683bbd2dcd9c347f1df.png" alt="在这里插入图片描述"><br>
 事实上，通过vnc的方式，可以直接建一个vtune工程来做性能测试：</p>
 <p><img src="/2021/09/19/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8vtune/2776c634bdbb457283029ed15eecbc29.png" alt="在这里插入图片描述"></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

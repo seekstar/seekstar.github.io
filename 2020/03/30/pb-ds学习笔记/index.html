@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7225,18 +7225,18 @@ var _hmt = _hmt || [];
 <p>相关文章：<a href="https://seekstar.github.io/2019/06/30/pb-ds%E5%BA%93%E5%AE%9E%E7%8E%B0%E6%94%AF%E6%8C%81%E5%A4%9A%E4%B8%AA%E7%9B%B8%E5%90%8C%E7%9A%84%E5%80%BC%E7%9A%84%E5%90%8D%E6%AC%A1%E6%A0%91/">pb_ds库实现支持多个相同的值的名次树</a></p>
 <p>建议使用</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds;</span></code></pre></div>
-<h1 id="tree">tree</h1>
+<h1 id="tree"><a href="#tree">¶</a> tree</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/keshuqi/p/6257895.html" class="uri">https://www.cnblogs.com/keshuqi/p/6257895.html</a><br>
 文档：<br>
 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.1/libstdc++/api/a00378.html">tree</a><br>
 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.1/libstdc++/api/a00379.html">tree_order_statistics_node_update</a></p>
-<h2 id="头文件">头文件</h2>
+<h2 id="头文件"><a href="#头文件">¶</a> 头文件</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span></code></pre></div>
-<h2 id="原型">原型</h2>
+<h2 id="原型"><a href="#原型">¶</a> 原型</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> Key, <span class="kw">typename</span> Mapped, <span class="kw">typename</span> Cmp_Fn = <span class="bu">std::</span>less&lt;Key&gt;, <span class="kw">typename</span> Tag = rb_tree_tag, <span class="kw">template</span>&lt; <span class="kw">typename</span> Node_CItr, <span class="kw">typename</span> Node_Itr, <span class="kw">typename</span> Cmp_Fn_, <span class="kw">typename</span> _Alloc_ &gt; <span class="kw">class</span> Node_Update = null_node_update, <span class="kw">typename</span> _Alloc = <span class="bu">std::</span>allocator&lt;<span class="dt">char</span>&gt;&gt;</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">class</span> __gnu_pbds::tree&lt; Key, Mapped, Cmp_Fn, Tag, Node_Update, _Alloc &gt;</span></code></pre></div>
-<h2 id="说明">说明</h2>
+<h2 id="说明"><a href="#说明">¶</a> 说明</h2>
 <ul>
 <li>Mapped<br>
 被映射的东西。如果没有则为null_type</li>
@@ -7257,7 +7257,7 @@ var _hmt = _hmt || [];
 <li>一颗名次红黑树</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>tree&lt;<span class="dt">int</span>, <span class="dt">null_type</span>, less&lt;<span class="dt">int</span>&gt;, rb_tree_tag, tree_order_statistics_node_update&gt; t;</span></code></pre></div>
-<h2 id="常用成员函数">常用成员函数</h2>
+<h2 id="常用成员函数"><a href="#常用成员函数">¶</a> 常用成员函数</h2>
 <ul>
 <li>clear</li>
 <li>insert</li>
@@ -7271,19 +7271,19 @@ b并入a，前提是两棵树的key的取值范围不相交。b会被清空。</
 <li><code>a.split(Key v, tree&amp; b)</code><br>
 key小于等于v的元素属于a，其余的属于b。b原有的元素会被清空。</li>
 </ul>
-<h1 id="堆">堆</h1>
+<h1 id="堆"><a href="#堆">¶</a> 堆</h1>
 <p>文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.0/libstdc++/api/a00356.html" class="uri">https://gcc.gnu.org/onlinedocs/gcc-4.7.0/libstdc++/api/a00356.html</a></p>
 <p>具体用法和普通优先队列差不多。<br>
 ## 头文件</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;ext/pb_ds/priority_queue.hpp&gt;</span></span></code></pre></div>
-<h2 id="声明">声明</h2>
+<h2 id="声明"><a href="#声明">¶</a> 声明</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">typename</span> _Tv, <span class="kw">typename</span> Cmp_Fn = <span class="bu">std::</span>less&lt;_Tv&gt;, <span class="kw">typename</span> Tag = pairing_heap_tag, <span class="kw">typename</span> _Alloc = <span class="bu">std::</span>allocator&lt;<span class="dt">char</span>&gt;&gt;</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">class</span> __gnu_pbds::priority_queue&lt; _Tv, Cmp_Fn, Tag, _Alloc &gt;</span></code></pre></div>
 <p>使用时必须带上<code>__gnu_pbds::</code>，因为它与<code>std::priority_queue</code>重名了。</p>
-<h2 id="迭代器">迭代器</h2>
+<h2 id="迭代器"><a href="#迭代器">¶</a> 迭代器</h2>
 <p>它的迭代器叫做<code>point_iterator</code>。例如</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>__gnu_pbds::priority_queue&lt;<span class="dt">int</span>&gt;::point_iterator it;</span></code></pre></div>
-<h2 id="tag">Tag</h2>
+<h2 id="tag"><a href="#tag">¶</a> Tag</h2>
 <ul>
 <li>pairing_heap_tag<br>
 默认的，最快</li>
@@ -7292,7 +7292,7 @@ key小于等于v的元素属于a，其余的属于b。b原有的元素会被清�
 <li>rc_binomial_heap_tag</li>
 <li>thin_heap_tag</li>
 </ul>
-<h2 id="常用成员函数-1">常用成员函数</h2>
+<h2 id="常用成员函数-1"><a href="#常用成员函数-1">¶</a> 常用成员函数</h2>
 <p>同<code>std::priority_queue</code>的成员函数有<br>
 - top<br>
 - size<br>
@@ -7319,7 +7319,7 @@ key小于等于v的元素属于a，其余的属于b。b原有的元素会被清�
 <li><code>modify(point_iterator it,const key)</code><br>
 修改迭代器<code>it</code>指向的值为<code>key</code>。</li>
 </ul>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

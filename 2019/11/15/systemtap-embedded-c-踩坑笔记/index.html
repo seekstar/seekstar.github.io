@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7223,7 +7223,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><p>官方文档：<br>
 <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000" class="uri">https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000</a></p>
-<h1 id="打印">打印</h1>
+<h1 id="打印"><a href="#打印">¶</a> 打印</h1>
 <p>systemtap的embedded C中，不能#include &lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
 <p>还可以访问cript中的全局变量。<br>
 官方文档中的示例：</p>
@@ -7236,7 +7236,7 @@ var _hmt = _hmt || [];
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    STAP_GLOBAL_SET_var2(<span class="dv">1</span>, <span class="dv">1</span>, STAP_GLOBAL_GET_var2(<span class="dv">1</span>, <span class="dv">1</span>)+<span class="dv">1</span>); <span class="co">//var2[1,1]++</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>%}</span></code></pre></div>
 <p>注意function中头两行的注释不能删。具体意义看文档。</p>
-<h1 id="返回">返回</h1>
+<h1 id="返回"><a href="#返回">¶</a> 返回</h1>
 <p>获取一个task_struct的sibling的函数这样写：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>function GetSibling(task:<span class="dt">long</span>) %{</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *task = (<span class="kw">struct</span> task_struct*)STAP_ARG_task;</span>
@@ -7261,7 +7261,7 @@ cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-We
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *task = (<span class="kw">struct</span> task_struct*)STAP_ARG_task;</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	STAP_RETURN(list_entry(task-&gt;sibling.next, <span class="kw">struct</span> task_struct, sibling));</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>%}</span></code></pre></div>
-<h1 id="打印路径">打印路径</h1>
+<h1 id="打印路径"><a href="#打印路径">¶</a> 打印路径</h1>
 <p>可以用d_path把struct path解析为绝对路径。centos 7中d_path的声明如下：</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// include/linux/dcache.h</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">char</span> *d_path(<span class="dt">const</span> <span class="kw">struct</span> path *, <span class="dt">char</span> *, <span class="dt">int</span>);</span></code></pre></div>
@@ -7274,7 +7274,7 @@ cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-We
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">char</span> full_path[BUFFER_SIZE];</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>d_path(&amp;(f-&gt;f_path), full_path, BUFFER_SIZE);</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>STAP_PRINTF(<span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span>, full_path);</span></code></pre></div>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

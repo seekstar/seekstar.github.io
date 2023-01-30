@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7225,11 +7225,11 @@ var _hmt = _hmt || [];
 源码下载：&lt;<a target="_blank" rel="noopener" href="https://libvirt.org/sources/" class="uri">https://libvirt.org/sources/</a>&gt;</p>
 <p>先进root用户（用sudo好像会出问题？）</p>
 <pre class="shell"><code>sudo -s</code></pre>
-<h1 id="安装依赖">安装依赖</h1>
+<h1 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h1>
 <pre class="shell"><code>yum install libtirpc-devel
 meson configure --includedir /usr/include/tirpc/rpc/</code></pre>
 <p>libtirpc的rpc.h在<code>/usr/include/tirpc/rpc/rpc.h</code>，必须要手动告诉meson其目录位置，不然后面<code>ninja -C build</code>的时候会报错：rpc/rpc.h：没有那个文件或目录。</p>
-<h1 id="编译">编译</h1>
+<h1 id="编译"><a href="#编译">¶</a> 编译</h1>
 <pre class="shell"><code>yum install meson
 meson build
 ninja -C build
@@ -7240,30 +7240,30 @@ libvirtd --version</code></pre>
 <pre><code>7.6.0
 libvirtd (libvirt) 7.6.0</code></pre>
 <p>我这里要重启一下终端libvirtd的版本才会变成最新的。</p>
-<h1 id="常见报错的处理">常见报错的处理</h1>
-<h2 id="program-rpcgen-portable-rpcgen-not-found">Program 'rpcgen portable-rpcgen' not found</h2>
+<h1 id="常见报错的处理"><a href="#常见报错的处理">¶</a> 常见报错的处理</h1>
+<h2 id="program-rpcgen-portable-rpcgen-not-found"><a href="#program-rpcgen-portable-rpcgen-not-found">¶</a> Program 'rpcgen portable-rpcgen' not found</h2>
 <pre class="shell"><code>yum install rpcgen</code></pre>
-<h2 id="program-rst2html5-rst2html5py-rst2html5-3-not-found">Program 'rst2html5 rst2html5.py rst2html5-3' not found</h2>
+<h2 id="program-rst2html5-rst2html5py-rst2html5-3-not-found"><a href="#program-rst2html5-rst2html5py-rst2html5-3-not-found">¶</a> Program 'rst2html5 rst2html5.py rst2html5-3' not found</h2>
 <pre class="shell"><code>yum install python3-docutils</code></pre>
 <p>用pip3安装的rst2html5好像不行。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.mail-archive.com/libvirt-users@redhat.com/msg12432.html" class="uri">https://www.mail-archive.com/libvirt-users@redhat.com/msg12432.html</a></p>
-<h2 id="dependency-glib-20-not-found">Dependency "glib-2.0" not found</h2>
+<h2 id="dependency-glib-20-not-found"><a href="#dependency-glib-20-not-found">¶</a> Dependency "glib-2.0" not found</h2>
 <pre class="shell"><code>yum install glib2-devel</code></pre>
 <p>我这里如果是用普通用户跑的<code>meson build</code>就仍然报这个错，换成root用户就好了。</p>
-<h2 id="dependency-gnutls-not-found">Dependency "gnutls" not found</h2>
+<h2 id="dependency-gnutls-not-found"><a href="#dependency-gnutls-not-found">¶</a> Dependency "gnutls" not found</h2>
 <pre class="shell"><code>yum install gnutls-devel</code></pre>
-<h2 id="dependency-libxml-20-not-found">Dependency "libxml-2.0" not found</h2>
+<h2 id="dependency-libxml-20-not-found"><a href="#dependency-libxml-20-not-found">¶</a> Dependency "libxml-2.0" not found</h2>
 <pre class="shell"><code>yum install libxml2-devel</code></pre>
-<h2 id="problem-encountered-you-must-install-the-pciaccess-module-to-build-with-udev">Problem encountered: You must install the pciaccess module to build with udev</h2>
+<h2 id="problem-encountered-you-must-install-the-pciaccess-module-to-build-with-udev"><a href="#problem-encountered-you-must-install-the-pciaccess-module-to-build-with-udev">¶</a> Problem encountered: You must install the pciaccess module to build with udev</h2>
 <pre class="shell"><code>yum install libpciaccess-devel</code></pre>
-<h2 id="rpcrpch没有那个文件或目录">rpc/rpc.h：没有那个文件或目录</h2>
+<h2 id="rpcrpch没有那个文件或目录"><a href="#rpcrpch没有那个文件或目录">¶</a> rpc/rpc.h：没有那个文件或目录</h2>
 <pre class="shell"><code>yum install libtirpc-devel
 meson configure --includedir /usr/include/tirpc/rpc/</code></pre>
 <p>好像要把源码目录删掉重新编译才行。</p>
-<h1 id="参考文献">参考文献</h1>
+<h1 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h1>
 <p><a target="_blank" rel="noopener" href="https://blog.frytea.com/archives/546/">Centos7.6 下编译安装 Libvirt 7.5</a><br>
 <a target="_blank" rel="noopener" href="https://mesonbuild.com/Commands.html" class="uri">https://mesonbuild.com/Commands.html</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

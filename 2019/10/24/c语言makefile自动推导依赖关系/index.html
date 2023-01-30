@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7339,40 +7339,40 @@ var _hmt = _hmt || [];
 <p>执行</p>
 <pre class="shell"><code>make debug</code></pre>
 <p>可以把target文件夹里的<code>.c</code>文件都编译成可执行文件。</p>
-<h1 id="参考">参考：</h1>
+<h1 id="参考"><a href="#参考">¶</a> 参考：</h1>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lidabo/p/4928956.html" class="uri">https://www.cnblogs.com/lidabo/p/4928956.html</a><br>
 <a target="_blank" rel="noopener" href="https://www.linuxidc.com/Linux/2016-02/128726p3.htm" class="uri">https://www.linuxidc.com/Linux/2016-02/128726p3.htm</a><br>
 <a target="_blank" rel="noopener" href="https://www.gnu.org/software/make/manual/html_node/Include.html" class="uri">https://www.gnu.org/software/make/manual/html_node/Include.html</a></p>
-<h1 id="解释">解释：</h1>
-<h2 id="set--e">＠set -e</h2>
+<h1 id="解释"><a href="#解释">¶</a> 解释：</h1>
+<h2 id="set--e"><a href="#set--e">¶</a> ＠set -e</h2>
 <p>当脚本执行出现意料之外的情况时，立即退出，避免错误被忽略，导致最终结果不正确。<br>
 <a href="mailto:加了@表示makefile执行这条命令时不显示出来" class="email">加了@表示makefile执行这条命令时不显示出来</a>。</p>
-<h2 id="patsubst">patsubst</h2>
+<h2 id="patsubst"><a href="#patsubst">¶</a> patsubst</h2>
 <pre><code>DEP			:= dep
 DEPS		:= $(patsubst $(SRC)/%.cpp,$(DEP)/%.d,$(SRCS))
 
 在$(SRCS)中找模式“$(SRC)/%.cpp”，然后把其中的“%”对应的部分贴到$(DEP)/%.d的"%"处</code></pre>
-<h1 id="坑点">坑点</h1>
-<h2 id="1">1</h2>
+<h1 id="坑点"><a href="#坑点">¶</a> 坑点</h1>
+<h2 id="1"><a href="#1">¶</a> 1</h2>
 <p>如果把</p>
 <pre><code>-include $(DEPS)</code></pre>
 <p>打成</p>
 <pre><code>-include $(DPES)</code></pre>
 <p>则执行完Makefile之后会自动执行rm把生成的.d文件全部删掉。因为Makefile（好像）会自动把没有被用到的文件删除。</p>
-<h2 id="2">2</h2>
+<h2 id="2"><a href="#2">¶</a> 2</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/iosxiaoming/article/details/47669529" class="uri">https://blog.csdn.net/iosxiaoming/article/details/47669529</a><br>
 在makefile中有一个dir命令和一个basename命令，然后在shell中也有basename函数和dirname函数，两个是不相同的，在makefile中，<code>$(basename  NAMES)</code>函数功能是取出各个文件的前缀部分，dir命令<code>$(dir NAMES)</code>指的是取出各个文件名的目录部分，文件名的目录部分就是包含在文件名中的最后一个斜线之前的部分,而在shell中，basename命令能从路径中分离出文件名，及取出文件名部分，dirname的作用则和basename正好相反，它返回路径部分。</p>
-<h2 id="3">3</h2>
+<h2 id="3"><a href="#3">¶</a> 3</h2>
 <p>patsubst中的空格是有含义的，例如在逗号后面加空格，那个空格是算在后面那个字符串的。<br>
 例如<br>
 <code>$(patsubst a, b,g)</code><br>
 （注：b前面有一个空格）<br>
 会把a替换为 &lt;空格&gt;b，这样有时会出问题。因此建议不要乱加空格。</p>
-<h1 id="遇到的错误以及解决方案">遇到的错误以及解决方案：</h1>
-<h2 id="报错sed-e-表达式-1字符-22s的未知选项">报错：“sed:-e 表达式 #1,字符 22:“s”的未知选项”</h2>
+<h1 id="遇到的错误以及解决方案"><a href="#遇到的错误以及解决方案">¶</a> 遇到的错误以及解决方案：</h1>
+<h2 id="报错sed-e-表达式-1字符-22s的未知选项"><a href="#报错sed-e-表达式-1字符-22s的未知选项">¶</a> 报错：“sed:-e 表达式 #1,字符 22:“s”的未知选项”</h2>
 <p>解决方案：<br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/lemon-le/p/6020695.html" class="uri">https://www.cnblogs.com/lemon-le/p/6020695.html</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

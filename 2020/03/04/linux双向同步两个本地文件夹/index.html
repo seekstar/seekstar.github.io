@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,15 +7222,15 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>参考（膜大佬）：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26702065/article/details/52175560" class="uri">https://blog.csdn.net/qq_26702065/article/details/52175560</a></p>
-<h1 id="思路">思路</h1>
+<h1 id="思路"><a href="#思路">¶</a> 思路</h1>
 <ul>
 <li>用inotify监控文件夹，如果文件夹内有文件变化则输出变化情况</li>
 <li>每当inotify检测到文件变化时，就调用unison，把当前文件夹的变化发给另一个文件夹</li>
 <li>创建两个进程分别进行单向同步，从而变成了双向同步。</li>
 </ul>
-<h1 id="安装必要程序">安装必要程序：</h1>
+<h1 id="安装必要程序"><a href="#安装必要程序">¶</a> 安装必要程序：</h1>
 <pre class="shell"><code>sudo apt install -y inotify-tools unison</code></pre>
-<h1 id="单向同步">单向同步</h1>
+<h1 id="单向同步"><a href="#单向同步">¶</a> 单向同步</h1>
 <p>把下面的代码保存为syncto.sh</p>
 <pre class="shell"><code>#/bin/bash
 
@@ -7249,7 +7249,7 @@ e: (event)只监测后面的特定事件</li>
 <li>unison<br>
 batch: 不问任何问题</li>
 </ul>
-<h1 id="双向同步">双向同步</h1>
+<h1 id="双向同步"><a href="#双向同步">¶</a> 双向同步</h1>
 <p>保存为syncboth.sh</p>
 <pre class="shell"><code>nohup syncto.sh $1 $2 &amp;
 nohup syncto.sh $2 $1 &amp;</code></pre>
@@ -7257,7 +7257,7 @@ nohup syncto.sh $2 $1 &amp;</code></pre>
 <pre class="shell"><code>bash syncboth.sh dir1/ dir2/</code></pre>
 <p>其中dir1和dir2必须是绝对路径。</p>
 <p>这样即可同步两个文件夹了（前提是两个文件夹没有冲突的部分。建议先手动同步一下两个文件夹，否则容易出问题）</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

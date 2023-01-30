@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7221,7 +7221,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h1 id="问题">问题</h1>
+	<html><head></head><body><h1 id="问题"><a href="#问题">¶</a> 问题</h1>
 <p><code>kill -2</code>就是发送SIGINT信号。我们期望的行为是，进程接收到SIGINT信号后就停止运行。例如：</p>
 <pre class="shell"><code>yes &gt;/dev/null &amp;
 pid=$!
@@ -7242,15 +7242,15 @@ searchs+ 21520  0.0  0.0   9168   888 pts/2    S+   22:12   0:00 grep yes</code>
 searchs+ 21981  100  0.0   8340   748 pts/2    R+   22:14   0:04 yes
 searchs+ 21990  0.0  0.0   9168   892 pts/2    S+   22:14   0:00 grep yes</code></pre>
 <p>这时就没有被中断。</p>
-<h1 id="原因">原因</h1>
+<h1 id="原因"><a href="#原因">¶</a> 原因</h1>
 <p>在交互式shell中，有job control，ctrl+c是发送给前台进程组的，而后台进程是在后台进程组中的，因此不会受到ctrl+c的影响，所以沿用了SIGINT默认的信号处理，即直接终止进程。</p>
 <p>但是，在非交互式shell中，默认是没有job control的，即所有子进程，无论是前台进程还是后台进程，都跟shell在同一个进程组中。为了防止对这个shell进程发送SIGINT的时候把后台进程给一起杀掉了，在创建后台子进程时会默认将SIGINT忽略掉。不过如果后台子进程自己安装了SIGINT的处理函数，向其发送SIGINT仍然会起作用。</p>
-<h1 id="解决方法">解决方法</h1>
+<h1 id="解决方法"><a href="#解决方法">¶</a> 解决方法</h1>
 <p>在shell脚本的开头加上<code>set -m</code>，使其进入monitor mode，这样可以开启job control，从而使得生成的后台子进程默认不忽略SIGINT。</p>
-<h1 id="参考文献">参考文献</h1>
+<h1 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h1>
 <p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/372541/why-doesnt-sigint-work-on-a-background-process-in-a-script" class="uri">https://unix.stackexchange.com/questions/372541/why-doesnt-sigint-work-on-a-background-process-in-a-script</a><br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/45106725/why-do-shells-ignore-sigint-and-sigquit-in-backgrounded-processes" class="uri">https://stackoverflow.com/questions/45106725/why-do-shells-ignore-sigint-and-sigquit-in-backgrounded-processes</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

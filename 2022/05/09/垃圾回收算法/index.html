@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,12 +7222,12 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>垃圾回收算法分为跟踪式垃圾回收(Tracing garbage collection)和引用计数(Reference counting)两大类。</p>
-<h2 id="跟踪式垃圾回收">跟踪式垃圾回收</h2>
+<h2 id="跟踪式垃圾回收"><a href="#跟踪式垃圾回收">¶</a> 跟踪式垃圾回收</h2>
 <p>跟踪式垃圾回收的基本原理是先认定一些对象为root，比如全局变量和栈变量。然后跟踪(trace)哪些对象是从这些root可达的，而剩下的从这些root不可达的对象就是garbage，可以被回收。</p>
 <p>最简单的方法就是mark-and-sweep。首先stop the world，然后从root开始标记哪些对象是从root可达的(mark)，最后把那些没有标记的对象回收(sweep)。缺点就是需要stop the world，即停止一切其他工作，只进行垃圾回收。</p>
 <p>这篇文章说mark-and-sweep不能做到on-the-fly是因为“在不同阶段标记清扫法的标志位 0 和 1 有不同的含义，那么新增的对象无论标记为什么都有可能意外删除这个对象”：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/105495961" class="uri">https://zhuanlan.zhihu.com/p/105495961</a>。但是我觉得新增对象统一染成黑色，下次GC的时候所有对象都变成白色再从根开始染成黑色就行了，这样做的缺点就是新增对象要等到。</p>
 <p>我觉得三色标记法(tri-color marking)跟mark-and-sweep基本上是一回事，里面的gray set有点像广度优先搜索的队列。新增对象需要到下次GC才能释放的问题仍然存在。</p>
-<h2 id="引用计数">引用计数</h2>
+<h2 id="引用计数"><a href="#引用计数">¶</a> 引用计数</h2>
 <p>使用引用计数进行垃圾回收时，为每个对象保存其被引用的次数，如果引用次数为0，就说明这个对象不可达，就可以被当成垃圾回收掉了。</p>
 <p>但是引用计数法存在一些问题。引用计数法需要为每个对象额外存储引用计数，因此会增大空间开销，尤其是当对象比较小的时候。此外，引用计数法需要经常进行加减操作，而且在多线程程序中，引用计数的加减还需要是原子操作，这就引入了很高的额外时间开销。此外，如果当发现引用计数变成0之后当场将其释放掉，那么会导致程序的实时性变差，因为可能会一下子释放很多对象，不过这可以通过将释放的工作交给其他线程做来解决，但是会增加开销，并且减弱垃圾回收的及时性。</p>
 <p>以上的问题都是开销方面的。引用计数的一个最致命的问题是，当存在循环引用时，引用计数法将无法将这些循环引用的对象释放，因为它们的引用计数都不是0。一种缓解这种情况的方法是当需要进行双向引用时（例如双向链表），将其中一个引用设置成弱引用，即只引用它，而不增加其引用计数，从而避免了一部分循环引用。但是这种方法不能完全解决循环引用的问题。还有一种方法是周期性进行跟踪式垃圾回收，将不可达的环删掉，如果环的内存占用低，可以减少进行跟踪式垃圾回收的频率。</p>
@@ -7245,11 +7245,11 @@ var _hmt = _hmt || [];
 <p>最快的on-the-fly的好像是这个：</p>
 <p><a target="_blank" rel="noopener" href="https://www.researchgate.net/profile/Vadakkedathu-Rajan/publication/2528969_Concurrent_Cycle_Collection_in_Reference_Counted_Systems/links/0c9605177f3187ac92000000/Concurrent-Cycle-Collection-in-Reference-Counted-Systems.pdf">Paz, Harel, et al. "An efficient on-the-fly cycle collection." ACM Transactions on Programming Languages and Systems (TOPLAS) 29.4 (2007): 20-es.</a></p>
 <p>这篇论文还没看。</p>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)" class="uri">https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)</a></p>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tracing_garbage_collection" class="uri">https://en.wikipedia.org/wiki/Tracing_garbage_collection</a></p>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Reference_counting" class="uri">https://en.wikipedia.org/wiki/Reference_counting</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,7 +7222,7 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>以5.1.0为例。</p>
-<h2 id="简单的key">简单的key</h2>
+<h2 id="简单的key"><a href="#简单的key">¶</a> 简单的key</h2>
 <p><code>test1.c</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/module.h&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/kernel.h&gt;</span></span>
@@ -7319,7 +7319,7 @@ sudo rmmod test1
 dmesg | less</code></pre>
 <pre class="text"><code>[  340.782852] rhashtable_init returns 0</code></pre>
 <p>正常完成。</p>
-<h2 id="间接存储的key">间接存储的key</h2>
+<h2 id="间接存储的key"><a href="#间接存储的key">¶</a> 间接存储的key</h2>
 <p>比方说entry里只存key的指针之类的。这里方便起见，将key存到KV pair里。</p>
 <p>由于key是间接存储的，<code>rhashtable</code>不知道怎么把key读出来，所以需要提供<code>obj_hashfn</code>用于从entry中算出key的哈希值，还需要提供<code>obj_cmpfn</code>用于确定这个entry的key是不是跟给定的key一致。注意，这里仍然需要提供<code>key_len</code>，我也不知道为什么。。。</p>
 <p><code>test1.c</code>:</p>
@@ -7445,7 +7445,7 @@ dmesg | less</code></pre>
 <span id="cb5-120"><a href="#cb5-120" aria-hidden="true"></a>module_init(start_init)</span>
 <span id="cb5-121"><a href="#cb5-121" aria-hidden="true"></a>module_exit(end_exit)</span></code></pre></div>
 <p><code>Makefile</code>和编译运行的步骤跟上面一样。</p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

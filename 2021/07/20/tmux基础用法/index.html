@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7222,19 +7222,19 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>详细教程：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" class="uri">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></p>
-<h2 id="新建会话">新建会话</h2>
+<h2 id="新建会话"><a href="#新建会话">¶</a> 新建会话</h2>
 <pre class="shell"><code>tmux</code></pre>
 <p>底下的状态栏里最左边方括号里的就是自动分配的会话名称。<br>
 也可以手动指定会话名称：</p>
 <pre class="shell"><code>tmux new -s &lt;session-name&gt;</code></pre>
-<h2 id="关闭当前会话">关闭当前会话</h2>
+<h2 id="关闭当前会话"><a href="#关闭当前会话">¶</a> 关闭当前会话</h2>
 <p><code>Ctrl+d</code>或者输入<code>exit</code>。</p>
-<h2 id="分离会话">分离会话</h2>
+<h2 id="分离会话"><a href="#分离会话">¶</a> 分离会话</h2>
 <p><code>Ctrl+b d</code>，或者输入</p>
 <pre class="shell"><code>tmux detach</code></pre>
-<h2 id="查看所有会话">查看所有会话</h2>
+<h2 id="查看所有会话"><a href="#查看所有会话">¶</a> 查看所有会话</h2>
 <pre class="shell"><code>tmux ls</code></pre>
-<h2 id="接入会话">接入会话</h2>
+<h2 id="接入会话"><a href="#接入会话">¶</a> 接入会话</h2>
 <p>接入上一个会话，如果没有就新建会话：</p>
 <pre class="shell"><code>tmux attach</code></pre>
 <p>接入指定会话：</p>
@@ -7243,12 +7243,12 @@ var _hmt = _hmt || [];
 <p>有趣的是tmux允许重复接入一个会话，而screen不行。</p>
 <p>此外，screen不能只读接入会话，但是tmux可以（这就是我换成tmux的原因）：</p>
 <pre class="shell"><code>tmux attach -rt &lt;session-name&gt;</code></pre>
-<h2 id="杀死会话">杀死会话</h2>
+<h2 id="杀死会话"><a href="#杀死会话">¶</a> 杀死会话</h2>
 <p>杀死上一个会话：</p>
 <pre class="shell"><code>tmux kill-session</code></pre>
 <p>杀死指定会话：</p>
 <pre class="shell"><code>tmux kill-session -t &lt;session-name&gt;</code></pre>
-<h2 id="复制模式">复制模式</h2>
+<h2 id="复制模式"><a href="#复制模式">¶</a> 复制模式</h2>
 <p>详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yangzhongxuan/article/details/6890232">tmux复制模式使用说明</a></p>
 <p>进入复制模式：<code>Ctrl+b [</code>。<br>
 退出复制模式：默认是<code>q</code>或<code>Esc</code>。<br>
@@ -7258,11 +7258,11 @@ var _hmt = _hmt || [];
 在vi风格的光标操作方式中，可以<code>ctrl+u</code>或者<code>PgUp</code>上翻页，<code>ctrl+d</code>或者<code>PgDn</code>下翻页，这在默认设定中好像是做不到的。</p>
 <p>进入复制模式之后，按空格选择要复制的起始位置，然后移动光标到要复制的结束位置，然后按<code>Enter</code>复制，同时退出复制模式，按<code>ctrl+]</code>可以粘贴（只能在tmux内粘贴）。</p>
 <p>复制模式中，虽然不再显示新的输出，但是其实程序仍然在跑，在退出复制模式后新的输出就会显示出来。</p>
-<h2 id="插件">插件</h2>
+<h2 id="插件"><a href="#插件">¶</a> 插件</h2>
 <p>建议使用Tmux Plugin Manager管理插件：<a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tpm" class="uri">https://github.com/tmux-plugins/tpm</a></p>
 <p>可用插件列表：<a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/list" class="uri">https://github.com/tmux-plugins/list</a></p>
-<h3 id="tmux-plugin-manager">Tmux Plugin Manager</h3>
-<h4 id="apt安装">apt安装</h4>
+<h3 id="tmux-plugin-manager"><a href="#tmux-plugin-manager">¶</a> Tmux Plugin Manager</h3>
+<h4 id="apt安装"><a href="#apt安装">¶</a> apt安装</h4>
 <pre class="shell"><code>sudo apt install tmux-plugin-manager</code></pre>
 <p>然后Tmux Plugin Manager就被安装到了<code>/usr/share/tmux-plugin-manager</code>。</p>
 <p>然后在<code>~/.tmux.conf</code>中写入如下内容：</p>
@@ -7278,7 +7278,7 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '/usr/share/tmux-plugin-manager/tpm'</code></pre>
-<h4 id="手动安装">手动安装</h4>
+<h4 id="手动安装"><a href="#手动安装">¶</a> 手动安装</h4>
 <pre class="shell"><code>git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm</code></pre>
 <p>然后在<code>~/.tmux.conf</code>中写入如下内容：</p>
 <pre class="text"><code># List of plugins
@@ -7293,27 +7293,27 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'</code></pre>
-<h4 id="激活tmux-plugin-manager">激活Tmux Plugin Manager</h4>
+<h4 id="激活tmux-plugin-manager"><a href="#激活tmux-plugin-manager">¶</a> 激活Tmux Plugin Manager</h4>
 <p>可以先把所有tmux窗口都关闭，然后再新开tmux的时候，新开的tmux中就会自动读取<code>~/.tmux.conf</code>，从而激活Tmux Plugin Manager。</p>
 <p>如果要在已有的tmux里激活新安装的Tmux Plugin Manager，需要这样：</p>
 <pre class="shell"><code># 在已有tmux窗口里执行此命令
 tmux source ~/.tmux.conf</code></pre>
-<h4 id="安装并激活插件">安装并激活插件</h4>
+<h4 id="安装并激活插件"><a href="#安装并激活插件">¶</a> 安装并激活插件</h4>
 <p>往<code>~/.tmux.conf</code>里加入<code>set -g @plugin '...'</code>，然后在tmux窗口里按<code>ctrl+b</code>然后按<code>shift+i</code>即可。新插件会被自动clone到<code>~/.tmux/plugins/</code>并且激活。安装并激活插件的时候会卡一下。完成之后会显示这个：</p>
 <pre class="text"><code>TMUX environment reloaded.
 Done, press ENTER to continue.</code></pre>
 <p>注意有的是按ENTER继续，有的是按ESCAPE继续，不知道为什么。</p>
-<h3 id="tmux-sensible">tmux-sensible</h3>
+<h3 id="tmux-sensible"><a href="#tmux-sensible">¶</a> tmux-sensible</h3>
 <p>repo: <a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tmux-sensible" class="uri">https://github.com/tmux-plugins/tmux-sensible</a></p>
 <p>这是一款可以让所有用户都接受的插件。我也不清楚这个到底干了啥。</p>
 <pre class="text"><code>set -g @plugin 'tmux-plugins/tmux-sensible'</code></pre>
-<h3 id="tmux-logging">tmux-logging</h3>
+<h3 id="tmux-logging"><a href="#tmux-logging">¶</a> tmux-logging</h3>
 <p>repo: <a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tmux-logging" class="uri">https://github.com/tmux-plugins/tmux-logging</a></p>
 <p>按<code>ctrl+b</code>再按<code>shift+p</code>即可把tmux窗口里的内容log到文件。</p>
 <pre class="text"><code>set -g @plugin 'tmux-plugins/tmux-logging'</code></pre>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode" class="uri">https://unix.stackexchange.com/questions/13787/is-there-a-way-to-run-screen-in-read-only-mode</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 

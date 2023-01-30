@@ -6615,9 +6615,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -6626,9 +6626,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7229,7 +7229,7 @@ DirName表示目录名。</p>
 可以用vim预览压缩包里的东西，例如</p>
 <pre class="shell"><code>vim FileName.tar.xz</code></pre>
 <p>防止解压出一堆散的文件污染目标文件夹。</p>
-<h2 id="速记">速记</h2>
+<h2 id="速记"><a href="#速记">¶</a> 速记</h2>
 <p>对于<code>.tar.*</code>的格式，tar的类别参数如下：</p>
 <table>
 <thead>
@@ -7253,11 +7253,11 @@ DirName表示目录名。</p>
 </tr>
 </tbody>
 </table>
-<h2 id="rar">.rar</h2>
+<h2 id="rar"><a href="#rar">¶</a> .rar</h2>
 <p><del>参考网站中的.rar部分好像有误</del><br>
 先安装rar软件：</p>
 <pre class="shell"><code>sudo apt install rar</code></pre>
-<h3 id="解压">解压</h3>
+<h3 id="解压"><a href="#解压">¶</a> 解压</h3>
 <ul>
 <li>解压到当前目录：</li>
 </ul>
@@ -7269,13 +7269,13 @@ DirName表示目录名。</p>
 <pre class="shell"><code>rar x FileName.rar DirName/</code></pre>
 <p>x: extract的x<br>
 DirName后面一定要加“/”，例如~/lalala/</p>
-<h3 id="创建">创建</h3>
+<h3 id="创建"><a href="#创建">¶</a> 创建</h3>
 <pre class="shell"><code>rar a FileName.rar DirName</code></pre>
 <p>DirName后加不加“/”都行<br>
 如果要指定目标文件路径，可以在FileName指定。如~/backup/sth.rar</p>
-<h2 id="zip">.zip</h2>
+<h2 id="zip"><a href="#zip">¶</a> .zip</h2>
 <p><del>参考网站中的.zip部分好像有误</del></p>
-<h3 id="解压-1">解压</h3>
+<h3 id="解压-1"><a href="#解压-1">¶</a> 解压</h3>
 <ul>
 <li>解压到当前目录：</li>
 </ul>
@@ -7284,28 +7284,28 @@ DirName后面一定要加“/”，例如~/lalala/</p>
 <li>解压到指定目录：</li>
 </ul>
 <pre class="shell"><code>unzip FileName.zip -d DirName</code></pre>
-<h3 id="创建-1">创建</h3>
+<h3 id="创建-1"><a href="#创建-1">¶</a> 创建</h3>
 <pre class="shell"><code>zip FileName.zip -r DirName</code></pre>
 <p>如果有符号链接的话，<code>zip</code>会顺着符号链接把它指向的东西打包进来。如果想要把符号链接本身打包进来，需要加上<code>--symlinks</code>。</p>
-<h2 id="tar">.tar</h2>
+<h2 id="tar"><a href="#tar">¶</a> .tar</h2>
 <p>参考网站：<a target="_blank" rel="noopener" href="http://www.linuxdiyf.com/view_154669.html" class="uri">http://www.linuxdiyf.com/view_154669.html</a></p>
-<h3 id="解压到当前目录">解压到当前目录</h3>
+<h3 id="解压到当前目录"><a href="#解压到当前目录">¶</a> 解压到当前目录</h3>
 <pre class="shell"><code>tar -xvf FileName.tar</code></pre>
 <p>x: 解压文件(extract里的x)<br>
 v: 打印详细信息(verbose)<br>
 f: 指定文件名(file)</p>
-<h3 id="解压到指定目录">解压到指定目录</h3>
+<h3 id="解压到指定目录"><a href="#解压到指定目录">¶</a> 解压到指定目录</h3>
 <pre class="shell"><code>tar -xvf FileName.tar -C DirName</code></pre>
 <p>C: 解压到制定目录<br>
 凡是用tar命令解压，都可以使用这个选项来指定输出路径，如tar.gz和tar.xz。</p>
-<h3 id="创建-2">创建</h3>
+<h3 id="创建-2"><a href="#创建-2">¶</a> 创建</h3>
 <pre class="shell"><code>tar -cvf FileName.tar files</code></pre>
 <p>其中files可以是文件夹名，也可以是表示文件的正则表达式（如*.jpg）<br>
 c: 压缩(compress)</p>
 <p>尤其要注意，上面的files不要使用绝对路径如/usr/share/fonts，甚至~/backup也不行（因为”~“会被翻译成/home/用户名）。tar加入文件时会把文件的相对位置也加进去，解压出来的文件都根据它们的相对位置放到解压到的目录。因此进行压缩时要cd到要压缩的文件或文件夹所在目录。</p>
-<h2 id="gz">.gz</h2>
+<h2 id="gz"><a href="#gz">¶</a> .gz</h2>
 <p>参考网站：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zdx1515888659/article/details/82841100" class="uri">https://blog.csdn.net/zdx1515888659/article/details/82841100</a></p>
-<h3 id="单线程解压">单线程解压</h3>
+<h3 id="单线程解压"><a href="#单线程解压">¶</a> 单线程解压</h3>
 <pre class="shell"><code># 到当前目录
 gzip -d FileName.gz</code></pre>
 <p>d: 解压(decompress)<br>
@@ -7313,7 +7313,7 @@ gzip -d FileName.gz</code></pre>
 <p>可加上选项k保留原文件。</p>
 <pre class="shell"><code>gzip -dk FileName.gz</code></pre>
 <p>k: keep</p>
-<h3 id="单线程压缩">单线程压缩</h3>
+<h3 id="单线程压缩"><a href="#单线程压缩">¶</a> 单线程压缩</h3>
 <pre class="shell"><code># 到当前目录
 gzip FileName</code></pre>
 <p>会自动把原文件删掉并创建FileName.gz。<br>
@@ -7323,26 +7323,26 @@ k: 保留源文件(keep)</p>
 <li>gzip其他常用选项<br>
 v: 打印详细信息(verbose)</li>
 </ul>
-<h3 id="多线程解压">多线程解压</h3>
+<h3 id="多线程解压"><a href="#多线程解压">¶</a> 多线程解压</h3>
 <p><code>gzip</code>不支持多线程解压。一般来讲<code>gzip</code>的解压非常快，通常可以达到I/O设备的吞吐极限，所以一般也没必要多线程解压。</p>
 <p><code>unpigz</code>通过流水线的方式将解压并行化了，但是并行度有限。</p>
 <pre class="shell"><code># 到当前目录
 unpigz xxx.gz</code></pre>
 <p>默认使用所有核。可以加上<code>-p 线程数</code>限制使用的核数。</p>
 <p>默认解压完成后删除原文件。加上<code>-k</code>可以保留原文件。</p>
-<h3 id="多线程压缩">多线程压缩</h3>
+<h3 id="多线程压缩"><a href="#多线程压缩">¶</a> 多线程压缩</h3>
 <p><code>gzip</code>单线程压缩很慢，而且不支持多线程压缩。用<code>pigz</code>可以实现多线程压缩。</p>
 <pre class="shell"><code># 到当前目录
 pigz 文件名</code></pre>
 <p>实测压缩大文件可以跑满CPU，而且不影响压缩率。</p>
 <p>默认使用所有核。可以加上<code>-p 线程数</code>限制使用的核数。</p>
 <p>默认解压完成后删除原文件。加上<code>-k</code>可以保留原文件。</p>
-<h2 id="targz">.tar.gz</h2>
+<h2 id="targz"><a href="#targz">¶</a> .tar.gz</h2>
 <p>参考网站：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42628856/article/details/81332138" class="uri">https://blog.csdn.net/weixin_42628856/article/details/81332138</a><br>
 <a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/9844116.html" class="uri">https://zhidao.baidu.com/question/9844116.html</a></p>
 <p>顾名思义，.tar.gz就是对tar文件用gzip压缩得到的文件。所以解压可以先解压gz，再解压tar，压缩也可以先压缩成tar，再压缩成gz。</p>
 <p>也可以使用一条命令完成解压或压缩。</p>
-<h3 id="单线程解压-1">单线程解压</h3>
+<h3 id="单线程解压-1"><a href="#单线程解压-1">¶</a> 单线程解压</h3>
 <ul>
 <li>解压到当前目录</li>
 </ul>
@@ -7352,19 +7352,19 @@ pigz 文件名</code></pre>
 <li>解压到指定目录</li>
 </ul>
 <pre class="shell"><code>tar -zxvf FileName.tar.gz -C path</code></pre>
-<h3 id="单线程压缩-1">单线程压缩</h3>
+<h3 id="单线程压缩-1"><a href="#单线程压缩-1">¶</a> 单线程压缩</h3>
 <pre class="shell"><code>tar -zcvf FileName.tar.gz files</code></pre>
 <p>其中files可以是文件夹名，也可以是表示文件的正则表达式（如*.jpg）</p>
-<h3 id="多线程压缩-1">多线程压缩</h3>
+<h3 id="多线程压缩-1"><a href="#多线程压缩-1">¶</a> 多线程压缩</h3>
 <pre class="shell"><code># tar
 #   -c: create
 #   -f: archive file. 这里是“-”， 表示输出到stdout
 # pigz
 #   -: 文件名是"-"，表示从stdin读取，并且输出到stdout
 tar -cf - 文件或目录 | pigz - &gt; FileName.tar.gz</code></pre>
-<h2 id="xz">.xz</h2>
+<h2 id="xz"><a href="#xz">¶</a> .xz</h2>
 <p>xz格式压缩率极高，但是压缩和解压也极慢。</p>
-<h3 id="单线程解压-2">单线程解压</h3>
+<h3 id="单线程解压-2"><a href="#单线程解压-2">¶</a> 单线程解压</h3>
 <ul>
 <li>解压到当前目录</li>
 </ul>
@@ -7377,43 +7377,43 @@ tar -cf - 文件或目录 | pigz - &gt; FileName.tar.gz</code></pre>
 </ul>
 <pre class="shell"><code>xz -dc FileName.xz &gt; FileName2</code></pre>
 <p>c: 把压缩文件输出到stdout。不删除源文件</p>
-<h3 id="单线程压缩-2">单线程压缩</h3>
+<h3 id="单线程压缩-2"><a href="#单线程压缩-2">¶</a> 单线程压缩</h3>
 <ul>
 <li>压缩到当前目录</li>
 </ul>
 <pre class="shell"><code>xz -z FileName</code></pre>
 <p>会自动把原文件删掉，然后生成FileName.xz。可以用选项k保存原文件</p>
 <pre class="shell"><code>xz -zk FileName</code></pre>
-<h3 id="多线程压缩-2">多线程压缩</h3>
+<h3 id="多线程压缩-2"><a href="#多线程压缩-2">¶</a> 多线程压缩</h3>
 <pre class="shell"><code>xz -zkT0 FileName</code></pre>
 <p>T: 使用多线程，后面跟线程数。如果参数是0，则表示使用[机器核心数]个线程。</p>
 <p>这种方法只能压缩文件。多线程压缩目录的方法见.tar.xz</p>
-<h2 id="tarxz">.tar.xz</h2>
+<h2 id="tarxz"><a href="#tarxz">¶</a> .tar.xz</h2>
 <p>参考网站：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/wangshan3366/article/details/83095643" class="uri">https://blog.csdn.net/wangshan3366/article/details/83095643</a><br>
 <a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1639604825027635340.html" class="uri">https://zhidao.baidu.com/question/1639604825027635340.html</a></p>
 <p>顾名思义，就是把文件先打包成tar，再压缩成xz。<br>
 解压时可以先解压xz得到tar文件，再解压tar。</p>
 <p>也可以使用一条命令完成解压或压缩。</p>
-<h3 id="单线程解压-3">单线程解压</h3>
+<h3 id="单线程解压-3"><a href="#单线程解压-3">¶</a> 单线程解压</h3>
 <pre class="shell"><code>tar xJf name.tar.xz</code></pre>
 <p>x: extract<br>
 J: xz</p>
-<h3 id="单线程压缩-3">单线程压缩</h3>
+<h3 id="单线程压缩-3"><a href="#单线程压缩-3">¶</a> 单线程压缩</h3>
 <pre class="shell"><code>tar cJf name.tar.xz name</code></pre>
 <p>c: compress</p>
-<h3 id="多线程解压-1">多线程解压</h3>
+<h3 id="多线程解压-1"><a href="#多线程解压-1">¶</a> 多线程解压</h3>
 <pre class="shell"><code>xz -dcT0 FileName.tar.xz | tar -xC DirName</code></pre>
 <p>tar不带f选项，表示从stdin中读取。</p>
-<h3 id="多线程压缩-3">多线程压缩</h3>
+<h3 id="多线程压缩-3"><a href="#多线程压缩-3">¶</a> 多线程压缩</h3>
 <p>这种方法可以压缩文件，也可以压缩目录</p>
 <pre class="shell"><code>tar -cf - name | xz -T0 -c &gt; FileName.tar.xz</code></pre>
 <p>知识点：<br>
 tar如果输出的文件名是“-”，则会输出到stdout<br>
 如果xz没有指定源文件则会从stdin中读取</p>
-<h2 id="bzip2">bzip2</h2>
+<h2 id="bzip2"><a href="#bzip2">¶</a> bzip2</h2>
 <p>压缩解压过程都会把源文件删掉。如果要保留，选项里加个<code>k</code>就好了（keep)。</p>
-<h3 id="多线程">多线程</h3>
+<h3 id="多线程"><a href="#多线程">¶</a> 多线程</h3>
 <p>用pbzip2。如果不指定线程数，就自动检测能用多少个线程。</p>
 <p>解压：</p>
 <pre class="shell"><code>pbzip2 -dp线程数 FileName.bz2</code></pre>
@@ -7424,16 +7424,16 @@ tar如果输出的文件名是“-”，则会输出到stdout<br>
 其他压缩选项：<br>
 <code>--fast</code>: 牺牲压缩率，提高压缩和解压速度。<br>
 <code>--best</code>（默认）: 牺牲压缩速度，提高压缩率。</p>
-<h2 id="tarbz2">tar.bz2</h2>
-<h3 id="单线程压缩-4">单线程压缩</h3>
+<h2 id="tarbz2"><a href="#tarbz2">¶</a> tar.bz2</h2>
+<h3 id="单线程压缩-4"><a href="#单线程压缩-4">¶</a> 单线程压缩</h3>
 <pre class="shell"><code>tar -cjf name.tar.bz2 name</code></pre>
-<h3 id="单线程解压-4">单线程解压</h3>
+<h3 id="单线程解压-4"><a href="#单线程解压-4">¶</a> 单线程解压</h3>
 <pre class="shell"><code>tar xjf name.tar.bz2</code></pre>
-<h3 id="多线程解压-2">多线程解压</h3>
+<h3 id="多线程解压-2"><a href="#多线程解压-2">¶</a> 多线程解压</h3>
 <pre class="shell"><code>pbzip2 -cdp线程数 b.tar.bz2 | tar -xC DirName</code></pre>
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sinsenliu/p/9369729.html" class="uri">https://www.cnblogs.com/sinsenliu/p/9369729.html</a></p>
-</body></html>
+</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
 
