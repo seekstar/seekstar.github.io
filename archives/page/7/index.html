@@ -1101,6 +1101,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/02/04/nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Nix包管理器使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/16/vlc%E5%80%8D%E9%80%9F%E6%92%AD%E6%94%BE/">
                      
 										    VLC倍速播放
@@ -7217,6 +7228,30 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
+				<h2 class="index-title">
+					Linux杀死所有子进程
+				</h2>
+				<div class="index-brief">
+					杀死某一进程的所有子进程：
+pkill -P &lt;PID&gt;
+杀死当前进程的所有子进程：
+pkill -P $$
+如果要在脚本退出前杀死所有子进程，只需要：
+trap "pkill -P $$" EXIT
+但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-06-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/06/08/awk-fflush/">
 				<h2 class="index-title">
 					awk fflush
@@ -7418,27 +7453,6 @@ c
 			</a>
                 <div class="article-meta">
 				    <span>2022-06-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/01/rocksdb%E8%B0%83%E6%95%B4sstable%E7%9A%84%E5%A4%A7%E5%B0%8F/">
-				<h2 class="index-title">
-					RocksDB调整SSTable的大小
-				</h2>
-				<div class="index-brief">
-					struct AdvancedColumnFamilyOptions {
-  // Target file size for compaction.
-  // target_file_size_base is per-file size for level-1.
-  // Target file s
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-01</span>
                     
                             
                     

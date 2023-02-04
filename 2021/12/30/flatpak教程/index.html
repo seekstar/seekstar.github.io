@@ -1103,6 +1103,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/02/04/nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Nix包管理器使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/16/vlc%E5%80%8D%E9%80%9F%E6%92%AD%E6%94%BE/">
                      
 										    VLC倍速播放
@@ -7268,12 +7279,20 @@ session is restarted.</code></pre>
 flatpak install xxx
 flatpak uninstall xxx
 flatpak list # 列出已安装的包
-flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
+flatpak run 包名(比如com.jgraph.drawio.desktop)
+# 查看源列表
+flatpak remotes
+# 或者flatpak remote-list
+# 似乎不能看某个remote的URL之类的: https://github.com/flatpak/flatpak/issues/1983</code></pre>
 <p>不同于apt，flatpak可以并行安装。安装的软件存放在<code>~/.var/app/</code>和<code>/var/lib/flatpak/app</code>里。一般来讲，软件的启动入口一般在<code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin</code>。</p>
 <h2 id="为应用设置代理"><a href="#为应用设置代理">¶</a> 为应用设置代理</h2>
 <p>由于flatpak的应用是运行在沙箱里的，看不到系统代理，所以如果应用需要使用代理的话，需要手动在沙箱环境里配置系统代理：</p>
 <p><a href="https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" class="uri">https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/</a></p>
 <h2 id="一些可以用flatpak安装的软件"><a href="#一些可以用flatpak安装的软件">¶</a> 一些可以用flatpak安装的软件</h2>
+<h3 id="keepassxc"><a href="#keepassxc">¶</a> KeePassXC</h3>
+<p>密码管理器。要把apt安装的旧版卸载之后，Deepin启动器上的才会变成flatpak的版本。</p>
+<h3 id="thunderbird"><a href="#thunderbird">¶</a> Thunderbird</h3>
+<p>Mozilla出品的邮件客户端。</p>
 <h3 id="xournal"><a href="#xournal">¶</a> Xournal++</h3>
 <p>PDF编辑软件。</p>
 <p>相关：<a href="https://seekstar.github.io/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/" class="uri">https://seekstar.github.io/2021/10/10/linux-pdf%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/</a></p>
@@ -7298,24 +7317,24 @@ flatpak run 包名(比如com.jgraph.drawio.desktop)</code></pre>
 <p>里面的<code>LibreOffice Draw</code>是很棒的PDF编辑工具。</p>
 <h3 id="zotero"><a href="#zotero">¶</a> Zotero</h3>
 <p>一款文献管理器。</p>
-<h3 id="keepassxc"><a href="#keepassxc">¶</a> KeePassXC</h3>
-<p>密码管理器。要把apt安装的旧版卸载之后，Deepin启动器上的才会变成flatpak的版本。</p>
-<p>其实我觉得2.6.6还没有2.3.4好用。新版上创建条目的时候不会要求输入两遍了，而且也不会显示密码强度。</p>
 <h3 id="seafile"><a href="#seafile">¶</a> Seafile</h3>
-<p>但是没有单点登录。</p>
+<p>云盘客户端。但是flatpak版本没有单点登录。</p>
 <h3 id="drawio"><a href="#drawio">¶</a> drawio</h3>
 <p>画图软件。装完之后Deepin系统的启动器里并找不到drawio，只能这样启动：</p>
 <pre class="shell"><code>flatpak run com.jgraph.drawio.desktop</code></pre>
 <p>而且如果执行其启动脚本的话：</p>
 <pre class="shell"><code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop</code></pre>
 <p>会报错：</p>
-<pre><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
+<pre class="text"><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
 <p>这是因为这个脚本的后缀名是<code>.desktop</code>，然后系统以为它是启动器。</p>
-<h3 id="element"><a href="#element">¶</a> Element</h3>
+<h3 id="matrix客户端"><a href="#matrix客户端">¶</a> Matrix客户端</h3>
+<h4 id="element"><a href="#element">¶</a> Element</h4>
 <p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，默认传文件时不能看到系统里的文件。可以设置其允许读取home目录下的文件：</p>
 <pre class="shell"><code># https://docs.flatpak.org/en/latest/sandbox-permissions.html#filesystem-access
 # https://github.com/flathub/im.riot.Riot/issues/33
 flatpak override --user --filesystem=home:ro im.riot.Riot</code></pre>
+<h4 id="nheko"><a href="#nheko">¶</a> Nheko</h4>
+<pre class="shell"><code>flatpak install io.github.NhekoReborn.Nehko</code></pre>
 <h3 id="telegram"><a href="#telegram">¶</a> Telegram</h3>
 <p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。</p>
 <h3 id="torbrowser-launcher"><a href="#torbrowser-launcher">¶</a> torbrowser-launcher</h3>
