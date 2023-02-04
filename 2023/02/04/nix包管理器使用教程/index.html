@@ -7256,8 +7256,9 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>本文介绍Nix包管理器在非NixOS操作系统上的用法。</p>
 <h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <pre class="shell"><code># https://mirrors.tuna.tsinghua.edu.cn/help/nix/
-sh &lt;(curl https://mirrors.tuna.tsinghua.edu.cn/nix/latest/install) --daemon</code></pre>
-<p>这一步比较慢，只有大约200K/s，要多等一段时间：</p>
+sh &lt;(curl https://mirrors.tuna.tsinghua.edu.cn/nix/latest/install) --daemon --no-channel-add</code></pre>
+<p><code>--no-channel-add</code>: 不添加<code>nixpkgs-unstable</code>作为channel。</p>
+<p>否则这一步会很慢：</p>
 <pre class="text"><code>---- sudo execution ------------------------------------------------------------
 I am executing:                                                                      
 
@@ -7271,7 +7272,8 @@ sudo bash -c "echo substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-chann
 sudo -i nix-channel --add https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unstable nixpkgs
 sudo -i nix-channel --update
 nix-channel --add https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unstable nixpkgs
-nix-channel --update</code></pre>
+nix-channel --update
+sudo systemctl restart nix-daemon.service</code></pre>
 <p>清华镜像是cache。如果命中了cache，就会显示<code>copying path '/nix/store/xxx' from 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store'...</code>。如果没有命中，就会显示<code>copying path '/nix/store/xxx' from 'https://cache.nixos.org'...</code>，也就是从官方源<code>https://cache.nixos.org</code>下载。</p>
 <h2 id="代理"><a href="#代理">¶</a> 代理</h2>
 <p>设置代理可以提高未命中cache时从官方源下载的速度。</p>
@@ -7294,13 +7296,17 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <h2 id="基础用法"><a href="#基础用法">¶</a> 基础用法</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://nixos.org/manual/nix/stable/command-ref/nix-env.html" class="uri">https://nixos.org/manual/nix/stable/command-ref/nix-env.html</a></p>
 <p>搜索可用包：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p>
-<p>安装：<code>nix-env -iA 包名</code></p>
-<p>一些选项：</p>
+<p>安装：<code>nix-env -iA 源.包名</code></p>
+<p>卸载：<code>nix-env -e 包名</code></p>
+<p>一些<code>nix-env</code>的选项：</p>
 <ul>
-<li><p><code>-i</code>: --install</p></li>
-<li><p><code>-A</code>: --attr。表示从根开始解析，更快。</p></li>
-<li><p><code>-q</code>: --query。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
+<li><p><code>-i</code>: <code>--install</code></p></li>
+<li><p><code>-A</code>: <code>--attr</code>。表示从根开始解析，更快。</p></li>
+<li><p><code>-e</code>: <code>--uninstall</code></p></li>
+<li><p><code>-q</code>: <code>--query</code>。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
 </ul>
+<p>垃圾回收：<code>nix-collect-garbage -d</code>。</p>
+<pre class="text"><code>-d (--delete-old) deletes  all  old  generations of all profiles in /nix/var/nix/profiles by invoking nix-env --delete-generations old on all profiles (of course, this makes rollbacks to previous configurations impossible)</code></pre>
 <h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a> 运行OpenGL程序</h2>
 <p>在非NixOS中运行需要OpenGL的程序需要wrapper：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS" class="uri">https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS</a></p>
 <p>可以用nixGL来运行这些程序：<a target="_blank" rel="noopener" href="https://github.com/guibou/nixGL" class="uri">https://github.com/guibou/nixGL</a>。安装：</p>
