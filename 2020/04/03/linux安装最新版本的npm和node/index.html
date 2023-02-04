@@ -7260,15 +7260,21 @@ var _hmt = _hmt || [];
 <p>查看当前版本</p>
 <pre class="shell"><code>npm -v</code></pre>
 <p>我的输出是</p>
-<pre><code>3.5.2</code></pre>
+<pre class="text"><code>3.5.2</code></pre>
 <p>是非常老的版本</p>
+<h2 id="安装cnpm"><a href="#安装cnpm">¶</a> 安装cnpm</h2>
+<p>这样可以使用国内镜像来下载。</p>
+<pre class="shell"><code>sudo npm install -g cnpm --registry=https://registry.npmmirror.com</code></pre>
 <h2 id="安装最新版node"><a href="#安装最新版node">¶</a> 安装最新版node</h2>
 <p>新版npm可能不支持老版本的node：<a href="https://seekstar.github.io/2021/12/30/npm-does-not-support-node-js-v10-21-0-you-should-probably-upgrade-to-a-newer-version-of-node/" class="uri">https://seekstar.github.io/2021/12/30/npm-does-not-support-node-js-v10-21-0-you-should-probably-upgrade-to-a-newer-version-of-node/</a></p>
 <p>所以先升级node。</p>
-<pre class="shell"><code>sudo npm install -g n
-sudo n stable</code></pre>
+<pre class="shell"><code># 可能需要使用root执行
+cnpm install -g n
+# https://github.com/tj/n#custom-source
+export N_NODE_MIRROR=https://npmmirror.com/mirrors/node
+n stable</code></pre>
 <p>我的输出</p>
-<pre><code>searchstar@searchstar-mint19:~$ sudo n stable
+<pre class="text"><code>searchstar@searchstar-mint19:~$ sudo n stable
 
   installing : node-v12.16.1
        mkdir : /usr/local/n/versions/node/12.16.1
@@ -7284,18 +7290,18 @@ To reset the command location hash either start a new shell, or execute PATH="$P
 <p>才能使用最新版本</p>
 <p>查看现在的node版本</p>
 <pre class="shell"><code>node -v</code></pre>
-<pre><code>v12.16.1</code></pre>
+<pre class="text"><code>v12.16.1</code></pre>
 <p>已经是最新版了</p>
 <h2 id="安装最新npm"><a href="#安装最新npm">¶</a> 安装最新npm</h2>
 <p>可以通过旧版本npm直接安装新版npm</p>
-<pre class="shell"><code>sudo npm install npm@latest -g</code></pre>
+<pre class="shell"><code>sudo cnpm install npm@latest -g</code></pre>
 <p>非常坑的是，现在立即执行</p>
 <pre class="shell"><code>npm -v</code></pre>
 <p>得到的还是旧版本，这是因为此时npm仍然指向旧的npm可执行文件。其实只要重开终端或者执行</p>
 <pre class="shell"><code>PATH="$PATH"</code></pre>
 <p>就可以更新npm命令指向的文件了。<br>
 再查看版本：</p>
-<pre><code>6.14.4</code></pre>
+<pre class="text"><code>6.14.4</code></pre>
 <p>这就是最新版的npm了。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
