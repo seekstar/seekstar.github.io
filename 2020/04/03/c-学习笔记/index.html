@@ -7646,6 +7646,100 @@ A deconstructing</code></pre>
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true"></a></span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="二分搜索"><a href="#二分搜索">¶</a> 二分搜索</h2>
+<p><code>std::lower_bound</code>返回第一个&gt;=目标的元素迭代器，<code>std::upper_bound</code>返回第一个&gt;目标的元素的迭代器：</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>	<span class="dt">int</span> a[] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>};</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>	<span class="co">// 2</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>	<span class="co">// 3</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>}</span></code></pre></div>
+<p>但是<code>std::lower_bound</code>要求数组元素和目标可比较，而<code>std::upper_bound</code>要求目标和数组元素可比较。例如下面的代码可以正常使用<code>std::lower_bound</code>，因为<code>A</code>可以和目标<code>int</code>比较，但是<code>std::upper_bound</code>不能正常使用，因此<code>int</code>不能和<code>A</code>比较：</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>	<span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> b) <span class="at">const</span> {</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>		<span class="cf">return</span> v &lt; b;</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>	}</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>};</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>}</span></code></pre></div>
+<p>编译报错：</p>
+<pre class="text"><code>/usr/include/c++/12.2.1/bits/predefined_ops.h:98:22: error: no match for ‘operator&lt;’ (operand types are ‘const int’ and ‘A’)
+   98 |       { return __val &lt; *__it; }
+      |</code></pre>
+<p>要修复这个问题，只需要再加一个<code>int</code>和<code>A</code>的比较函数即可：</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> a, <span class="at">const</span> A&amp; b) {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>	<span class="cf">return</span> a &lt; b.v;</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>}</span></code></pre></div>
+<p>也可以用C++20的三路比较来实现只需要定义一个方向的比较函数的二分搜索：</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;compare&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true"></a>};</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true"></a><span class="kw">struct</span> Compare {</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true"></a>	<span class="bu">std::</span>weak_ordering <span class="kw">operator</span> () (A *a, <span class="dt">int</span> b) <span class="at">const</span> {</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true"></a>		<span class="cf">return</span> a-&gt;v &lt;=&gt; b;</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true"></a>	}</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true"></a>};</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true"></a>Addable LowerBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>less) {</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true"></a>			end = mid;</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true"></a>		}</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true"></a>	}</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true"></a>}</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true"></a>Addable UpperBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>greater) {</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true"></a>			end = mid;</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true"></a>		}</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true"></a>	}</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true"></a>}</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true"></a></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true"></a>	<span class="co">// 2</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; LowerBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true"></a>	<span class="co">// 3</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; UpperBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

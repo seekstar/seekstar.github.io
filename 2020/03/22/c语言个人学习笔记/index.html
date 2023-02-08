@@ -7341,6 +7341,22 @@ var _hmt = _hmt || [];
 <h4 id="memccpy"><a href="#memccpy">¶</a> memccpy</h4>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">void</span> * memccpy(<span class="dt">void</span> *dest, <span class="dt">const</span> <span class="dt">void</span> * src, <span class="dt">int</span> c, <span class="dt">size_t</span> n);</span></code></pre></div>
 <p>拷贝src 所指的内存内容前n 个字节到dest 所指的地址上，直到发现某一个字节的值与c相等，然后返回指向相等的字节的后一个字节的指针。如果没有相等的字节，就返回NULL。</p>
+<h2 id="创建临时目录"><a href="#创建临时目录">¶</a> 创建临时目录</h2>
+<p>用<code>mkdtemp</code>，文档：<a target="_blank" rel="noopener" href="https://linux.die.net/man/3/mkdtemp" class="uri">https://linux.die.net/man/3/mkdtemp</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	<span class="dt">char</span> template[] = <span class="st">"/tmp/test-XXXXXX"</span>;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	<span class="dt">char</span> *fname = mkdtemp(template);</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>	<span class="cf">if</span> (fname == NULL) {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>		perror(<span class="st">"mkdtemp"</span>);</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span>;</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>	}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>	puts(fname);</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

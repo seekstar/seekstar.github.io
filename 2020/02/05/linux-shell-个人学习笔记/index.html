@@ -7456,7 +7456,55 @@ fi</code></pre>
      echo yes;
 fi</code></pre>
 <p>会打印出<code>yes</code>。</p>
-<h2 id="组管理"><a href="#组管理">¶</a> 组管理</h2>
+<h3 id="重定向"><a href="#重定向">¶</a> 重定向</h3>
+<pre class="shell"><code># 将`stdout`重定向到`stdout.txt`
+Command &gt; stdout.txt
+# 将`stderr`重定向到`stderr.txt`
+Command 2&gt; stderr.txt
+# 将stderr重定向到stdout
+Command 2&gt;&amp;1
+# 将stderr和stdout都重定向到一个文件
+# 参考：&lt;https://blog.csdn.net/u011630575/article/details/52151995&gt;
+Command &gt; shell.log 2&gt;&amp;1
+Command &amp;&gt; shell.log
+# 将`stdin`重定向到`stdin.txt`
+Command &lt; stdin.txt
+# 将Command1的stdout输入到Command2的stdin
+Command1 | Command2 # 例如 echo 'whoami' | bash，可以让bash执行whoami。
+</code></pre>
+<h4 id="将多行字面量作为stdin"><a href="#将多行字面量作为stdin">¶</a> 将多行字面量作为stdin</h4>
+<pre class="text"><code>Command &lt;&lt;标记
+第一行
+第二行
+...
+标记</code></pre>
+<p>例如：</p>
+<pre class="shell"><code>bash &lt;&lt;EOF
+whoami
+echo 2333
+EOF</code></pre>
+<h2 id="用户管理"><a href="#用户管理">¶</a> 用户管理</h2>
+<h3 id="创建普通用户"><a href="#创建普通用户">¶</a> 创建普通用户</h3>
+<pre class="shell"><code>adduser 用户名</code></pre>
+<p>但是有些发行版没有<code>adduser</code>命令，就只能用<code>useradd</code>命令创建用户了：</p>
+<pre class="shell"><code># -m: 创建家目录
+useradd -m 用户名
+# 设置密码
+passwd 用户名</code></pre>
+<h3 id="创建系统用户"><a href="#创建系统用户">¶</a> 创建系统用户</h3>
+<pre class="shell"><code># -r, --system: 创建系统用户，UID小于1000，无密码，无家目录，无法登录。
+useradd --system 用户名</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://superuser.com/a/515909/1677998" class="uri">https://superuser.com/a/515909/1677998</a></p>
+<h3 id="以另一用户的身份执行命令"><a href="#以另一用户的身份执行命令">¶</a> 以另一用户的身份执行命令</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html" class="uri">https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html</a></p>
+<pre class="shell"><code>sudo -u UserName Command</code></pre>
+<h3 id="判断用户是否存在"><a href="#判断用户是否存在">¶</a> 判断用户是否存在</h3>
+<pre class="shell"><code>if id "$1" &amp;&gt;/dev/null; then
+    echo 'user found'
+else
+    echo 'user not found'
+fi</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14810684/check-whether-a-user-exists" class="uri">https://stackoverflow.com/questions/14810684/check-whether-a-user-exists</a></p>
 <h3 id="创建组"><a href="#创建组">¶</a> 创建组</h3>
 <pre class="shell"><code>sudo groupadd GroupName</code></pre>
 <h3 id="向组中加入用户"><a href="#向组中加入用户">¶</a> 向组中加入用户</h3>
@@ -7504,12 +7552,6 @@ jason</code></pre>
 <pre class="shell"><code>date +%Y%m%d%X%N</code></pre>
 <p>时间戳</p>
 <pre class="shell"><code>date +%s%N</code></pre>
-<h3 id="把stderr和stdout都重定向到一个文件"><a href="#把stderr和stdout都重定向到一个文件">¶</a> 把stderr和stdout都重定向到一个文件</h3>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011630575/article/details/52151995" class="uri">https://blog.csdn.net/u011630575/article/details/52151995</a></p>
-<pre class="shell"><code>./shell.sh &gt; shell.log 2&gt;&amp;1</code></pre>
-<h3 id="以另一用户的身份执行命令"><a href="#以另一用户的身份执行命令">¶</a> 以另一用户的身份执行命令</h3>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html" class="uri">https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html</a></p>
-<pre class="shell"><code>sudo -u UserName Command</code></pre>
 <h3 id="查看端口占用情况"><a href="#查看端口占用情况">¶</a> 查看端口占用情况</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/656db9183861cde381249c87.html" class="uri">https://jingyan.baidu.com/article/656db9183861cde381249c87.html</a></p>
 <pre class="shell"><code>lsof -i:8236</code></pre>
