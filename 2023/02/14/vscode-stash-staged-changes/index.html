@@ -7289,6 +7289,20 @@ var _hmt = _hmt || [];
 	<html><head></head><body><p>在以前的vscode版本中，在<code>Staged changes</code>右键就可以选择<code>stash all changes</code>就可以把这些staged changes给stash。但是新版本把这个<code>stash all changes</code>的行为改成了stash所有更改了。</p>
 <p>万幸的是从git 2.35开始提供了<code>-S | --staged</code>选项，<code>git stash -S</code>即可把staged changes给stash。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git/70231955#70231955" class="uri">https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git/70231955#70231955</a></p>
+<p>如果git版本不够（比如Debian 11），需要升级git。</p>
+<h2 id="从源码安装"><a href="#从源码安装">¶</a> 从源码安装</h2>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/download/linux" class="uri">https://git-scm.com/download/linux</a></p>
+<pre class="shell"><code>sudo apt install gettext
+wget https://www.kernel.org/pub/software/scm/git/git-2.39.1.tar.gz
+tar xzf git-2.39.1.tar.gz
+cd git-2.39.1
+# ./configure --help
+# --with-tcltk=no: 不要GUI
+./configure --prefix=$HOME/.local/ --with-tcltk=no
+make -j$(nproc)
+make install
+PATH=$PATH
+git --version</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
