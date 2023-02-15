@@ -1926,6 +1926,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/15/%E7%94%A8rust%E7%9A%84%E9%A3%8E%E6%A0%BC%E5%86%99c/">
+                     
+										    用Rust的风格写C++
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -7449,13 +7460,12 @@ length: 3
 <h3 id="迭代器"><a href="#迭代器">¶</a> 迭代器</h3>
 <p>建议自定义迭代器时使用Rust风格的接口：</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">class</span> Iterator {</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>	<span class="dt">void</span> Seek(T x);</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>	<span class="co">// Return owned object</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>	T Next();</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>	<span class="co">// If peekable</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>	<span class="co">// Return NULL if not exists</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>	T* Peek();</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>};</span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>	<span class="co">// Return owned object</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>	T Next();</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>	<span class="co">// If peekable</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>	<span class="co">// Return NULL if not exists</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>	T* Peek();</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>};</span></code></pre></div>
 <p>注意<code>Peek</code>返回的object不要保存，而是每次都调用<code>Peek</code>来访问，否则会出现下次调用<code>Next</code>之后原先保存的引用失效的问题。</p>
 <h2 id="模板类分离声明和定义"><a href="#模板类分离声明和定义">¶</a> 模板类分离声明和定义</h2>
 <div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
@@ -7773,6 +7783,89 @@ A deconstructing</code></pre>
 <span id="cb27-47"><a href="#cb27-47" aria-hidden="true"></a></span>
 <span id="cb27-48"><a href="#cb27-48" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb27-49"><a href="#cb27-49" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="覆盖不可复制对象"><a href="#覆盖不可复制对象">¶</a> 覆盖不可复制对象</h2>
+<p>比如对象<code>a</code>：</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true"></a>};</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="text"><code>overwrite_unclonable.cpp: 在函数‘int main()’中:
+overwrite_unclonable.cpp:15:16: 错误：使用了被删除的函数‘constexpr A&amp; A::operator=(const A&amp;)’
+   15 |         a = A(2);
+      |                ^
+overwrite_unclonable.cpp:3:7: 附注：‘constexpr A&amp; A::operator=(const A&amp;)’ is implicitly declared as deleted because ‘A’ declares a move constructor or move assignment operator
+    3 | class A {
+      |       ^</code></pre>
+<p>这是因为定义了move constructor之后就不再提供默认的copy assignment operator，但是move assignment operator又没有默认给出，因此<code>operator=</code>就没有定义了。要解决这个问题，只需要显式给出move assignment operator即可：</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span> = (A&amp;&amp; a) {</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a>	}</span></code></pre></div>
+<p>保险起见，最好把copy assignment operator给显式delete掉：</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span></code></pre></div>
+<h2 id="调用基类的operator"><a href="#调用基类的operator">¶</a> 调用基类的operator</h2>
+<p><code>对象.基类::operator=(派生类对象)</code></p>
+<p>例如：</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="kw">class</span> B {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a>	}</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a>};</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true"></a>	}</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true"></a>}</span></code></pre></div>
+<p>完整代码：</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="kw">class</span> B {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true"></a>	}</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true"></a>};</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true"></a>	}</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true"></a>};</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
