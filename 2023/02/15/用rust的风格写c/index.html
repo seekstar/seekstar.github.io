@@ -7302,6 +7302,9 @@ var _hmt = _hmt || [];
 <p><code>Box</code> -&gt; <code>std::unique_ptr</code></p>
 <p><code>Rc</code> -&gt; <code>std::shared_ptr</code></p>
 <p><code>Arc</code> -&gt; <code>std::atomic&lt;std::shared_ptr&gt;</code> (since C++20)</p>
+<p><code>Ord</code> -&gt; <code>std::weak_order</code>, <code>std::strong_order</code> (since C++20)</p>
+<p>注意C++中<code>std::weak_ordering::equivalent</code>不代表比较的双方可互相替换。而<code>std::strong_ordering::equivalent</code>代表比较的双方可以互相替换。</p>
+<p><code>PartialOrd</code> -&gt; <code>std::partial_order</code> (since C++20)</p>
 <h2 id="move-only-object"><a href="#move-only-object">¶</a> Move-only object</h2>
 <p>一个典型的move-only class：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> A {</span>
