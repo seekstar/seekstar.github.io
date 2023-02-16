@@ -7278,14 +7278,11 @@ var _hmt = _hmt || [];
 				</h2>
 				<div class="index-brief">
 					本文持续更新。
-¶ Move-only object
-一个典型的move-only class：
-class A {
-public:
-	A(int v);
-	A(const A&amp;) = delete;
-	A&amp; operator=(const A&amp;) = delete;
-	A(
+¶ Rust -&gt; C++
+Box -&gt; std::unique_ptr
+Rc -&gt; std::shared_ptr
+Arc -&gt; std::atomic&lt;std::shared_ptr&gt; (since C++20)
+¶ Move-only obj
 					...
 				</div>
 			</a>

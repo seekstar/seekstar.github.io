@@ -7298,6 +7298,10 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>本文持续更新。</p>
+<h2 id="rust---c"><a href="#rust---c">¶</a> Rust -&gt; C++</h2>
+<p><code>Box</code> -&gt; <code>std::unique_ptr</code></p>
+<p><code>Rc</code> -&gt; <code>std::shared_ptr</code></p>
+<p><code>Arc</code> -&gt; <code>std::atomic&lt;std::shared_ptr&gt;</code> (since C++20)</p>
 <h2 id="move-only-object"><a href="#move-only-object">¶</a> Move-only object</h2>
 <p>一个典型的move-only class：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> A {</span>
@@ -7405,6 +7409,112 @@ var _hmt = _hmt || [];
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">sizeof</span>(<span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">char</span>&gt;&gt;) &lt;&lt; <span class="bu">std::</span>endl;</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="enum---stdvariant"><a href="#enum---stdvariant">¶</a> <code>enum</code> -&gt; <code>std::variant</code></h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>}</span></code></pre></div>
+<p>用法：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>match(value, [](Type1&amp; type1) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>		;</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>	},</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>	[](Type2&amp; type2) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>		;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>	},</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>	...</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>	[](TypeN&amp; typeN) {</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>		;</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>	}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>);</span></code></pre></div>
+<p>例子：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>}</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>	A() : <span class="va">v_</span>(<span class="dv">0</span>) {}</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Initializing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>	}</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Copying "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl; }</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Moving "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>		a.Drop();</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>	}</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>	<span class="co">// Explicitly delete it just in case.</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>		a.Drop();</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Move assigning "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a>	}</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a>	~A() {</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a>		<span class="cf">if</span> (V()) {</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Deconstructing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>		}</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>	}</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>	<span class="dt">int</span> V() { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true"></a>	<span class="dt">void</span> Drop() {</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a>		<span class="va">v_</span> = <span class="dv">0</span>;</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a>	}</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>};</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">bool</span> choice) -&gt; <span class="bu">std::</span>variant&lt;A, <span class="dt">int</span>&gt; {</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>	<span class="cf">if</span> (choice) {</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>		<span class="co">// Initializing 1</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a>		<span class="cf">return</span> A(<span class="dv">1</span>);</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true"></a>		<span class="co">// Moving 1</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">233</span>;</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true"></a>	}</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true"></a>};</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true"></a><span class="kw">auto</span> main() -&gt; <span class="dt">int</span> {</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true"></a>	A a;</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; match(func(<span class="kw">true</span>),</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true"></a>		[&amp;](A&amp; ret) -&gt; <span class="bu">std::</span>string {</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true"></a>			<span class="co">// Move assigning 1</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true"></a>			a = <span class="bu">std::</span>move(ret);</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"A"</span>;</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true"></a>		},</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true"></a>		[&amp;](<span class="dt">int</span> ret) -&gt; <span class="bu">std::</span>string {</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true"></a>			a = A(ret);</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"int"</span>;</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true"></a>		}</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true"></a>	) &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// A</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true"></a>	<span class="co">// 1</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true"></a></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true"></a>	<span class="co">// Deconstructing 1</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true"></a>}</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>Initializing 1
+Moving 1
+Move assigning 1
+A
+1
+Deconstructing 1</code></pre>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/variant/visit" class="uri">https://en.cppreference.com/w/cpp/utility/variant/visit</a></p>
+<p><a target="_blank" rel="noopener" href="https://polomack.eu/std-variant/" class="uri">https://polomack.eu/std-variant/</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
