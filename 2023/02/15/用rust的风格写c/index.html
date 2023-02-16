@@ -7337,6 +7337,7 @@ var _hmt = _hmt || [];
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>}</span></code></pre></div>
 <p>尤其要注意的是，C++中moved object仍然要析构，因此在move constructor和move assignment operator中一定要把旧的object相关状态清空，从而使其析构函数成为空操作。</p>
+<p>可以用vscode clang-tidy静态检查是否使用了moved value：<code>bugprone-use-after-move</code>。教程：<a href="/2022/11/10/vscode-clang-tidy/" title="vscode clang-tidy">vscode clang-tidy</a></p>
 <h2 id="函数返回值类型后置"><a href="#函数返回值类型后置">¶</a> 函数返回值类型后置</h2>
 <p>C++11引入了函数返回值类型后置的写法(trailing return type)：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Trailing_return_type" class="uri">https://en.wikipedia.org/wiki/Trailing_return_type</a></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">auto</span> func() -&gt; <span class="dt">int</span> {</span>
