@@ -7314,6 +7314,7 @@ var _hmt = _hmt || [];
 <p>如果想添加<code>F-Droid Archive</code>存储库的清华镜像源的话，可以先把这个库的开关打开，然后复制链接：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/fdroid/archive?fingerprint=43238D512C1E5EB2D6569F4A3AFBF5523418B82E0A3ED1552770ABB9A9C9CCAB" class="uri">https://mirrors.tuna.tsinghua.edu.cn/fdroid/archive?fingerprint=43238D512C1E5EB2D6569F4A3AFBF5523418B82E0A3ED1552770ABB9A9C9CCAB</a></p>
 <p>之后的流程跟上面的一样。目前不知道这个<code>Archive</code>库有啥用。我感觉可以不添加。</p>
 <p>设置好存储库的镜像源之后，到<code>更新</code>界面，下划，更新一下库，就可以了。</p>
+<p>如果要让F-Droid自动安装软件，只能root手机，然后安装F-Droid Privileged Extension。</p>
 <p>这里推荐一些F-Droid上的不错的app：</p>
 <h2 id="keepassdx"><a href="#keepassdx">¶</a> KeePassDX</h2>
 <p>密码管理软件。配合坚果云可以实现密码全平台同步。</p>
@@ -7323,9 +7324,14 @@ var _hmt = _hmt || [];
 <pre class="shell"><code>apt install openssh
 sshd</code></pre>
 <p>然后SSH server就会开在8022端口了。</p>
-<h2 id="element"><a href="#element">¶</a> Element</h2>
-<p>基于Matrix协议的去中心化即时聊天软件。可以自己搭聊天服务器，可以跨服聊天。支持端到端加密。</p>
+<h2 id="matrix客户端"><a href="#matrix客户端">¶</a> Matrix客户端</h2>
+<p>Matrix协议是一款去中心化的即时聊天协议。可以自己搭聊天服务器，可以跨服聊天。支持端到端加密。</p>
+<h3 id="element"><a href="#element">¶</a> Element</h3>
+<p>官方客户端。</p>
 <p>使用教程：<a href="/2022/03/10/element-apk%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="Element apk使用教程">Element apk使用教程</a></p>
+<h3 id="fluffychat"><a href="#fluffychat">¶</a> FluffyChat</h3>
+<h3 id="schildichat"><a href="#schildichat">¶</a> SchildiChat</h3>
+<p>基于Element。界面跟Element很像。</p>
 <h2 id="telegram-foss"><a href="#telegram-foss">¶</a> Telegram FOSS</h2>
 <p>去除了专有部分的完全自由开源版Telegram。</p>
 <h2 id="syncthing"><a href="#syncthing">¶</a> syncthing</h2>
@@ -7348,23 +7354,62 @@ sshd</code></pre>
 <h2 id="collabora"><a href="#collabora">¶</a> collabora</h2>
 <p>相当于安卓版本的libreoffice。</p>
 <p>需要在F-Droid中添加repo：<a target="_blank" rel="noopener" href="https://www.collaboraoffice.com/downloads/fdroid/repo" class="uri">https://www.collaboraoffice.com/downloads/fdroid/repo</a></p>
-<p>缺点：pdf阅读体验极差，不能打开大型txt文档。</p>
+<p>缺点：pdf阅读体验极差，很卡，而且是糊的。不能打开大型txt文档。XLSX文件阅读模式不能复制，编辑模式范围选择之后会自动重新编号，不知道怎么关掉这个功能。</p>
 <h2 id="email"><a href="#email">¶</a> Email</h2>
 <h3 id="fairemail"><a href="#fairemail">¶</a> FairEmail</h3>
 <h3 id="k-9-mail"><a href="#k-9-mail">¶</a> K-9 Mail</h3>
 <h2 id="coffee"><a href="#coffee">¶</a> Coffee</h2>
 <p>临时保持屏幕常亮。要允许后台运行。</p>
 <h2 id="tor-browser"><a href="#tor-browser">¶</a> Tor Browser</h2>
+<h2 id="阅读器"><a href="#阅读器">¶</a> 阅读器</h2>
+<h3 id="mj-pdf-reader"><a href="#mj-pdf-reader">¶</a> MJ PDF reader</h3>
+<p>适合看论文。</p>
+<h3 id="editor"><a href="#editor">¶</a> Editor</h3>
+<p>读文本文件比较方便，还可以编辑。</p>
+<h3 id="book-reader"><a href="#book-reader">¶</a> Book Reader</h3>
+<p>电子书阅读体验极佳，但是不支持滚动阅读pdf，只能翻页，而且打开中文txt也有可能乱码</p>
+<h2 id="silentnotes"><a href="#silentnotes">¶</a> SilentNotes</h2>
+<p>可以加密笔记。如果用Seafile的webdav，要勾上使用Accept unsafe certificates。缺点：暂时没有linux客户端。</p>
+<h2 id="orgzly"><a href="#orgzly">¶</a> orgzly</h2>
+<p>不错的笔记软件。但是todo list里的todo标记done之后居然直接消失了。不能redo undo。不能在笔记内部搜索。编辑过程中如果直接杀掉进程，会导致编辑内容丢失。</p>
 <h2 id="capod"><a href="#capod">¶</a> CAPod</h2>
 <p>连接airpods和airports pro，可以看耳机和盒子的电量。</p>
 <h2 id="blue-square-speedometer"><a href="#blue-square-speedometer">¶</a> Blue Square Speedometer</h2>
 <p>通过GPS测速和海拔。要等一段时间才有海拔。</p>
+<h2 id="package-manager"><a href="#package-manager">¶</a> Package Manager</h2>
+<p>查看包名。用ADB删除系统软件时有用。</p>
+<h2 id="pocket-paint"><a href="#pocket-paint">¶</a> Pocket Paint</h2>
+<p>画画。</p>
 <h2 id="calculator"><a href="#calculator">¶</a> Calculator++</h2>
 <p>计算器。</p>
+<h2 id="simple-voice-recorder"><a href="#simple-voice-recorder">¶</a> Simple Voice Recorder</h2>
+<p>录音机。</p>
 <h2 id="timerdroid"><a href="#timerdroid">¶</a> TimerDroid</h2>
 <p>闹钟。但是手机关机的时候不能唤醒手机然后闹铃。</p>
+<h2 id="compass"><a href="#compass">¶</a> Compass</h2>
+<p>指南针。可惜没有同时显示重力传感器的信息。</p>
 <h2 id="g-droid"><a href="#g-droid">¶</a> G-Droid</h2>
 <p>另一个可以访问F-Droid的软件仓库的应用。里面有星级和评论。但是不支持F-Droid以外的软件仓库。</p>
+<h2 id="feeder"><a href="#feeder">¶</a> Feeder</h2>
+<p>RSS阅读器。订阅源可以在rsshub找，比如联合早报：<a target="_blank" rel="noopener" href="https://docs.rsshub.app/traditional-media.html#lian-he-zao-bao" class="uri">https://docs.rsshub.app/traditional-media.html#lian-he-zao-bao</a></p>
+<h3 id="中文订阅源"><a href="#中文订阅源">¶</a> 中文订阅源</h3>
+<p>推荐的：</p>
+<p>《联合早报》-中港台：<a target="_blank" rel="noopener" href="https://rsshub.app/zaobao/realtime/china" class="uri">https://rsshub.app/zaobao/realtime/china</a></p>
+<p>《联合早报》-国际：<a target="_blank" rel="noopener" href="https://rsshub.app/zaobao/realtime/world" class="uri">https://rsshub.app/zaobao/realtime/world</a></p>
+<p>奇客Solidot-传递最新科技情报：<a target="_blank" rel="noopener" href="https://www.solidot.org/index.rss" class="uri">https://www.solidot.org/index.rss</a></p>
+<p>其他：</p>
+<p>FT中文网_英国《金融时报》：<a target="_blank" rel="noopener" href="https://ftchinese.com/rss/feed" class="uri">https://ftchinese.com/rss/feed</a></p>
+<p>澎湃新闻：<a target="_blank" rel="noopener" href="https://feedx.net/rss/thepaper.xml" class="uri">https://feedx.net/rss/thepaper.xml</a></p>
+<p>知乎每日精选：<a target="_blank" rel="noopener" href="https://www.zhihu.com/rss" class="uri">https://www.zhihu.com/rss</a></p>
+<p>知乎日报：<a target="_blank" rel="noopener" href="https://feeds.feedburner.com/zhihu-daily" class="uri">https://feeds.feedburner.com/zhihu-daily</a></p>
+<p>人民网-国际频道：<a target="_blank" rel="noopener" href="https://www.people.com.cn/rss/world.xml" class="uri">https://www.people.com.cn/rss/world.xml</a></p>
+<p>人民网-时政频道：<a target="_blank" rel="noopener" href="https://www.people.com.cn/rss/politics.xml" class="uri">https://www.people.com.cn/rss/politics.xml</a></p>
+<h3 id="英文订阅源"><a href="#英文订阅源">¶</a> 英文订阅源</h3>
+<p>ECNS: <a target="_blank" rel="noopener" href="https://www.ecns.cn/rss/rss.xml" class="uri">https://www.ecns.cn/rss/rss.xml</a></p>
+<p>经济学人 The world this week：<a target="_blank" rel="noopener" href="https://www.economist.com/the-world-this-week/rss.xml" class="uri">https://www.economist.com/the-world-this-week/rss.xml</a></p>
+<p>南方早报：<a target="_blank" rel="noopener" href="https://www.scmp.com/rss/4/feed" class="uri">https://www.scmp.com/rss/4/feed</a></p>
+<h3 id="minetest"><a href="#minetest">¶</a> Minetest</h3>
+<p>类Minecraft的开源游戏。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
