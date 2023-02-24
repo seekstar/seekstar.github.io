@@ -1420,6 +1420,39 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/02/23/xfce%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    xfce使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+                     
+										    xfce命令行设置快捷键
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E9%AB%98%E5%88%86%E5%B1%8F%E7%BC%A9%E6%94%BE/">
+                     
+										    xfce高分屏缩放
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
@@ -7272,6 +7305,69 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+				<h2 class="index-title">
+					RocksDB单元测试
+				</h2>
+				<div class="index-brief">
+					make all check
+可以加上-j 线程数来做并行单元测试。
+如果出错了，看下出错的是哪个测试，比如假如是DBBasicTest.OpenWhenOpen，那这个测试就在db_basic_test，单独运行这个测试：
+./db_basic_test --gtest_filter="*DBBa
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%A2%86%E5%9F%9Fvanilla%E7%9A%84%E5%90%AB%E4%B9%89/">
+				<h2 class="index-title">
+					计算机领域vanilla的含义
+				</h2>
+				<div class="index-brief">
+					感觉vanilla的含义跟default比较像，意思是未经修改的版本。
+比如vanilla linux kernel就是指从https://www.kernel.org/直接下载安装的linux kernel。而各个发行版的linux kernel基本上都是基于vanilla linux kerne
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
+				<h2 class="index-title">
+					Linux配置网桥
+				</h2>
+				<div class="index-brief">
+					¶ virsh default network
+可以利用virsh自带的default network，它是利用NAT实现的。
+sudo virsh net-start default
+# 关闭
+# sudo virsh net-destroy default
+然后ip a就可以看到一个名为virb
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/17/nmcli-device-status-unmanaged/">
 				<h2 class="index-title">
 					nmcli device status unmanaged
@@ -7423,69 +7519,10 @@ sudo bash -c "echo 0 &gt; /pro
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/15/rocksdb%E7%AD%89%E5%BE%85%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90/">
-				<h2 class="index-title">
-					RocksDB等待后台任务完成
-				</h2>
-				<div class="index-brief">
-					如果在RocksDB内部，可以用这个：
-void DBImpl::WaitForBackgroundWork() {
-  // Wait for background work to finish
-  while (bg_bottom_compaction_scheduled_ || bg_comp
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-15</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/12/fairemail%E8%AE%BE%E7%BD%AEgmail/">
-				<h2 class="index-title">
-					FairEmail设置gmail
-				</h2>
-				<div class="index-brief">
-					google的OAuth只适用于google play和github版本的FairEmail，而F-Droid上的FairEmail的签名是用的另一个不被google信任的key，因此不能方便地适用OAuth来访问gmail。但是可以使用App Password来从google不信任的客户端访问gm
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-12</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/11/libreoffice%E5%BC%95%E7%94%A8%E6%96%87%E7%8C%AE/">
-				<h2 class="index-title">
-					LibreOffice引用文献
-				</h2>
-				<div class="index-brief">
-					先把参考文献放到文章末尾，然后把这些文献全部选中，点击工具栏中的切换有序号列表的下拉按钮，点击更多编号，然后在分隔符的之前里填入[，在之后里填入]，注意右方括号后面有一个空格。这时预览里就可以看到风格变成了[1] xxx了。
-
-然后再选择位置选项卡，将其中的对齐于和缩进于都设置成0，并且把编号之后设
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-11</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/11/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/60/">60</a><a class="extend next" rel="next" href="/archives/page/13/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/11/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/61/">61</a><a class="extend next" rel="next" href="/archives/page/13/">&gt;</a>
 		
 	</div>
 </div>

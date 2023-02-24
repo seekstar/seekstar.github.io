@@ -1420,6 +1420,39 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/02/23/xfce%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    xfce使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+                     
+										    xfce命令行设置快捷键
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E9%AB%98%E5%88%86%E5%B1%8F%E7%BC%A9%E6%94%BE/">
+                     
+										    xfce高分屏缩放
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
@@ -7272,6 +7305,69 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
+				<h2 class="index-title">
+					Debian 10升级为Debian 11
+				</h2>
+				<div class="index-brief">
+					可以通过ustc升级：官方教程：https://mirrors.ustc.edu.cn/help/debian.html
+参考：https://linux.cn/article-13647-1.html
+先把/etc/apt/sources.list里的所有行注释掉，然后加上
+deb http://
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
+				<h2 class="index-title">
+					slab分配器
+				</h2>
+				<div class="index-brief">
+					主要参考这本书：《Understanding the Linux virtual memory manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf，书上的Chapter 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/28/fatal-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-https-aur-archlinux-org-debtap-git-%EF%BC%9Aopenssl-ssl-connect-ssl-error-syscall-in-connection-to-aur-archlinux-org-443/">
+				<h2 class="index-title">
+					fatal: 无法访问 'https://aur.archlinux.org/debtap.git/'：OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to aur.archlinux.org:443
+				</h2>
+				<div class="index-brief">
+					我把~/.gitconfig里的
+[http]
+        proxy = socks5://127.0.0.1:8235
+改成
+[http]
+        proxy = http://127.0.0.1:8234
+就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-28</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
 				<h2 class="index-title">
 					在chroot环境中挂载dev, proc, sys
@@ -7415,73 +7511,10 @@ make -j$(nproc) shared_lib
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-				<h2 class="index-title">
-					RocksDB单元测试
-				</h2>
-				<div class="index-brief">
-					make all check
-可以加上-j 线程数来做并行单元测试。
-如果出错了，看下出错的是哪个测试，比如假如是DBBasicTest.OpenWhenOpen，那这个测试就在db_basic_test，单独运行这个测试：
-./db_basic_test --gtest_filter="*DBBa
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%A2%86%E5%9F%9Fvanilla%E7%9A%84%E5%90%AB%E4%B9%89/">
-				<h2 class="index-title">
-					计算机领域vanilla的含义
-				</h2>
-				<div class="index-brief">
-					感觉vanilla的含义跟default比较像，意思是未经修改的版本。
-比如vanilla linux kernel就是指从https://www.kernel.org/直接下载安装的linux kernel。而各个发行版的linux kernel基本上都是基于vanilla linux kerne
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
-				<h2 class="index-title">
-					Linux配置网桥
-				</h2>
-				<div class="index-brief">
-					¶ virsh default network
-可以利用virsh自带的default network，它是利用NAT实现的。
-sudo virsh net-start default
-# 关闭
-# sudo virsh net-destroy default
-然后ip a就可以看到一个名为virb
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-18</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/10/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/archives/page/12/">12</a><a class="page-number" href="/archives/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/60/">60</a><a class="extend next" rel="next" href="/archives/page/12/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/10/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/archives/page/12/">12</a><a class="page-number" href="/archives/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/61/">61</a><a class="extend next" rel="next" href="/archives/page/12/">&gt;</a>
 		
 	</div>
 </div>

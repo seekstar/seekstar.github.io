@@ -1420,6 +1420,39 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/02/23/xfce%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    xfce使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+                     
+										    xfce命令行设置快捷键
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/xfce%E9%AB%98%E5%88%86%E5%B1%8F%E7%BC%A9%E6%94%BE/">
+                     
+										    xfce高分屏缩放
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
@@ -7272,6 +7305,69 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/01/linux%E5%88%9B%E5%BB%BA%E5%8F%AA%E8%AF%BB%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5/">
+				<h2 class="index-title">
+					Linux创建只读目录链接
+				</h2>
+				<div class="index-brief">
+					相当于让一个可写的目录软链接到另一个地方变成只读的目录，但是原目录仍然保持可写。解决方法是用mount --bind，将目录挂载到目标点，变成只读文件系统。
+mount --bind -r /path/to/source/ /path/to/dest/
+umount /path/to/dest/
+原
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/01/cargo-build%E6%89%BE%E4%B8%8D%E5%88%B0openssl%E5%BA%93/">
+				<h2 class="index-title">
+					cargo build找不到openssl库
+				</h2>
+				<div class="index-brief">
+					ubuntu的话安装libssl-dev
+sudo apt install libssl-dev
+如果还是找不到，其实报错信息里有提示安装pkg-config可能可以解决问题：
+sudo apt install pkg-config
+然后再跑cargo build就可以了。
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/01/cargo-build%E6%8C%87%E5%AE%9A%E7%9B%AE%E6%A0%87/">
+				<h2 class="index-title">
+					cargo build指定目标
+				</h2>
+				<div class="index-brief">
+					cargo build --bin &lt;name&gt;
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/01/linux-shell%E6%9F%A5%E7%9C%8B%E5%AE%9E%E6%97%B6%E7%BD%91%E9%80%9F/">
 				<h2 class="index-title">
 					linux shell查看实时网速
@@ -7425,74 +7521,10 @@ _doi = {10.14778/3389133.3389134},
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/06/13/%E8%A7%A3%E5%86%B3latex-draw-io%E7%94%9F%E6%88%90%E7%9A%84pdf%E6%8F%92%E5%85%A5%E5%88%B0latex%E5%90%8E%E5%81%8F%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					解决latex draw.io生成的pdf插入到latex后偏小的问题
-				</h2>
-				<div class="index-brief">
-					latex中正文的字号设置成了10pt，所以将图中的字号也设置成10pt，但是导出pdf插入到latex里之后发现图偏小了，图中的字比正文里的字小得多。原本以为是draw.io和latex的字号标准不一样，但是导出为jpg再插入到latex之后却发现这个时候字体大小差不多了。所以原因就是draw.i
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/06/04/algorithm2e%E5%8C%85%E5%8F%82%E6%95%B0/">
-				<h2 class="index-title">
-					algorithm2e包参数
-				</h2>
-				<div class="index-brief">
-					完整参数见官方文档：http://tug.ctan.org/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf
-这里介绍几个常用的。
-测试代码：
-\documentclass[UTF8]{ctexart}
-
-\usepackage[linesnu
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-04</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/06/04/matplotlib-kwargs-text-properties-can-be-used-to-control-the-appearance-of-the-labels/">
-				<h2 class="index-title">
-					matplotlib: **kwargs: `.Text` properties can be used to control the appearance of the labels.
-				</h2>
-				<div class="index-brief">
-					就是说plt.Text的属性都可以用来控制标签的样式。
-完整的属性可以用?plt.Text查看。常用的有：
-fontfamily
-fontproperties
-fontsize
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-04</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/31/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><a class="extend next" rel="next" href="/page/33/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/31/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/61/">61</a><a class="extend next" rel="next" href="/page/33/">&gt;</a>
 		
 	</div>
 </div>
