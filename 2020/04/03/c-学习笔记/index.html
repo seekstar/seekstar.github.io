@@ -7910,6 +7910,22 @@ overwrite_unclonable.cpp:3:7: 附注：‘constexpr A&amp; A::operator=(const A&
 <span id="cb33-29"><a href="#cb33-29" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
 <span id="cb33-30"><a href="#cb33-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb33-31"><a href="#cb33-31" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="文件管理"><a href="#文件管理">¶</a> 文件管理</h2>
+<h3 id="新建文件"><a href="#新建文件">¶</a> 新建文件</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path);</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a><span class="bu">std::</span>ofstream f(path);</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a><span class="co">// 如果文件已存在则保持原样</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path, <span class="bu">std::</span>ios<span class="bu">::</span>app);</span></code></pre></div>
+<p>完整版: <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/basic_filebuf/open" class="uri">https://en.cppreference.com/w/cpp/io/basic_filebuf/open</a></p>
+<p>注意open mode里如果有<code>std::ios::in</code>的话，就不会自动新建文件了。</p>
+<h3 id="删除文件"><a href="#删除文件">¶</a> 删除文件</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="co">// 删除单个文件或者空目录。如果删除成功，则返回true，如果文件不存在，则返回false</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="dt">bool</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>remove(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="co">// 删除目录或文件。返回删除的目录或文件的个数。如果p一开始就不存在，则返回0。</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a><span class="bu">std::</span>uintmax_t remove_all(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span></code></pre></div>
+<p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/filesystem/remove" class="uri">https://en.cppreference.com/w/cpp/filesystem/remove</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

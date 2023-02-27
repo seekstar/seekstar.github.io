@@ -7342,6 +7342,8 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<html><head></head><body><p>XFCE是一款轻量级桌面环境，但是上手并不容易。本文以ArchLinux上的XFCE为例介绍其基础用法。</p>
+<h2 id="安装"><a href="#安装">¶</a> 安装</h2>
+<pre class="shell"><code>sudo pacman -S xfce4</code></pre>
 <h2 id="设置快捷键"><a href="#设置快捷键">¶</a> 设置快捷键</h2>
 <p>设置窗口相关的快捷键：Settings Manager -&gt; Window Manager -&gt; Keyboard</p>
 <p>设置执行自定义命令的快捷键：Settings Manager -&gt; Keyboard -&gt; Application Shortcuts</p>
@@ -7393,6 +7395,16 @@ nohup xfce4-screensaver &amp;</code></pre>
 <p>然后左键右上角，点击<code>Lock Screen</code>就可以锁屏了。</p>
 <p>快捷键设置在<code>Settings Manager -&gt; Keyboard -&gt; Application shortcuts -&gt; xflock4</code>。默认是<code>ctrl+alt+L</code>。可以改成<code>Super+L</code>。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Xfce#Lock_the_screen" class="uri">https://wiki.archlinux.org/title/Xfce#Lock_the_screen</a></p>
+<h2 id="剪切板管理工具"><a href="#剪切板管理工具">¶</a> 剪切板管理工具</h2>
+<h3 id="快捷键"><a href="#快捷键">¶</a> 快捷键</h3>
+<p>弹出所有剪切板历史的命令：</p>
+<pre class="shell"><code>xfce4-clipman-history</code></pre>
+<p>所以将快捷键映射到这个命令即可。用命令行设置快捷键：</p>
+<pre class="shell"><code># Super+v 弹出剪切板历史
+xfconf-query --create -c xfce4-keyboard-shortcuts -p "/commands/custom/&lt;Super&gt;v" -s "xfce4-clipman-history" --type string</code></pre>
+<h3 id="托盘项"><a href="#托盘项">¶</a> 托盘项</h3>
+<pre class="shell"><code>sudo pacman -S xfce4-clipman-plugin</code></pre>
+<p>然后在右上角的面板右键，依次点击<code>Panel -&gt; Panel Preferences -&gt; Items -&gt; Add</code>，选择Clipman，点击<code>Add</code>，然后托盘项就出现在托盘的最右边了。可以在<code>Items</code>界面调整其位置。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
