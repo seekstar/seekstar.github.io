@@ -9,7 +9,7 @@
 	
 	<title>
 	
-		Nix包管理器使用教程 | 
+		使用国内源安装和使用Nix包管理器 | 
 	 
 	searchstar
 	</title>
@@ -1102,17 +1102,6 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
-								<li class="file active">
-									<a href="/2023/02/04/nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
-                     
-										    Nix包管理器使用教程
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="file">
 									<a href="/2022/04/16/vlc%E5%80%8D%E9%80%9F%E6%92%AD%E6%94%BE/">
                      
@@ -1458,6 +1447,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file active">
+									<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/">
+                     
+										    使用国内源安装和使用Nix包管理器
                      
 									</a>
 								</li>
@@ -7327,12 +7327,12 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-	Nix包管理器使用教程
+	使用国内源安装和使用Nix包管理器
 </h1>
 <div class="article-meta">
 	
 		<span>
-			阅读量:<span id="/2023/02/04/nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Nix包管理器使用教程"></span>
+			阅读量:<span id="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" class="leancloud_visitors" data-flag-title="使用国内源安装和使用Nix包管理器"></span>
 		</span>
 	
 	<span>searchstar</span>
@@ -7352,10 +7352,11 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>本文介绍Nix包管理器在非NixOS操作系统上的用法。</p>
+	<html><head></head><body><p>本文介绍如何使用国内源（以清华源为例）在非NixOS操作系统上安装和使用Nix包管理器。</p>
 <h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <pre class="shell"><code># https://mirrors.tuna.tsinghua.edu.cn/help/nix/
-sh &lt;(curl https://mirrors.tuna.tsinghua.edu.cn/nix/latest/install) --daemon --no-channel-add</code></pre>
+sh &lt;(curl https://mirrors.tuna.tsinghua.edu.cn/nix/latest/install) --daemon --no-channel-add
+source /etc/profile</code></pre>
 <p><code>--no-channel-add</code>: 不添加<code>nixpkgs-unstable</code>作为channel。</p>
 <p>否则这一步会很慢：</p>
 <pre class="text"><code>---- sudo execution ------------------------------------------------------------
@@ -7364,8 +7365,8 @@ I am executing:
     $ sudo HOME=/root NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt /nix/store/lsr79q5xqd9dv97wn87x12kzax8s8i1s-nix-2.13.2/bin/nix-channel --update nixpkgs
 
 to update the default channel in the default profile</code></pre>
-<h2 id="镜像源"><a href="#镜像源">¶</a> 镜像源</h2>
-<p>这里以清华源为例：</p>
+<p>然后新开一个终端，这样才可以用</p>
+<h2 id="添加channel"><a href="#添加channel">¶</a> 添加channel</h2>
 <pre class="shell"><code># https://mirrors.tuna.tsinghua.edu.cn/help/nix/
 sudo bash -c "echo substituters = https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/ &gt;&gt; /etc/nix/nix.conf"
 sudo -i nix-channel --add https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unstable nixpkgs
@@ -7440,8 +7441,16 @@ Categories=Network;FileTransfer;</code></pre>
 2. Delete the files Nix added to your system:
 
   sudo rm -rf /etc/nix /nix /root/.nix-profile /root/.nix-defexpr /root/.nix-channels $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels</code></pre>
+<h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a> 允许安装闭源软件</h2>
+<p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
+<pre class="text"><code>{ allowUnfree = true; }</code></pre>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
 <p>如果不自己创建<code>.desktop</code>文件，Deepin启动器里好像没法找到安装的GUI软件：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av335652600/" class="uri">https://www.bilibili.com/video/av335652600/</a>。不知道其他系统是不是这样。</p>
+<h3 id="error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory"><a href="#error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory">¶</a> <code>error: opening lock file '/nix/var/nix/profiles/per-user/searchstar/profile.lock': No such file or directory</code></h3>
+<p>在ArchLinux上出现。原因未知。可以手动创建该目录解决：</p>
+<pre class="shell"><code>sudo mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
+sudo chown $USER:$USER /nix/var/nix/{profiles,gcroots}/per-user/$USER</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4" class="uri">https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
