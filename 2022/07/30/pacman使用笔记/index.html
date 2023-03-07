@@ -7352,20 +7352,30 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p><code>--needed</code>: 当未安装或者版本较旧时才安装。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://superuser.com/questions/568967/prevent-pacman-from-reinstalling-packages-that-were-already-installed" class="uri">https://superuser.com/questions/568967/prevent-pacman-from-reinstalling-packages-that-were-already-installed</a></p>
-<h2 id="查看已安装的包"><a href="#查看已安装的包">¶</a> 查看已安装的包</h2>
+	<html><head></head><body><h2 id="命令行选项"><a href="#命令行选项">¶</a> 命令行选项</h2>
+<h3 id="-s---sync源里的包"><a href="#-s---sync源里的包">¶</a> <code>-S, --sync</code>：源里的包</h3>
+<pre class="shell"><code># 安装或升级某包
+pacman -S 包名
+# 当未安装或者版本较旧时才安装
+# https://superuser.com/questions/568967/prevent-pacman-from-reinstalling-packages-that-were-already-installed
+pacman -S --needed 包名
+# 源中某包的详细信息
+pacman -Si 包名</code></pre>
+<h3 id="-r-移除某包"><a href="#-r-移除某包">¶</a> <code>-R</code>: 移除某包</h3>
+<p><code>-s</code>: recursive，同时移除该包的依赖。例如A依赖B依赖C，那么<code>pacman -Rs A</code>会同时移除A B C。</p>
+<p><code>-c</code>: cascade，同时移除依赖该包的其他包。例如A依赖B依赖C，那么<code>pacman -Rc C</code>会同时移除A B C。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=21470">pacman: cascade vs. recursive</a></p>
+<h3 id="-q-查看已安装的包"><a href="#-q-查看已安装的包">¶</a> <code>-Q</code>: 查看已安装的包</h3>
 <pre class="shell"><code># 所有包
 pacman -Q
-# 查看已安装的包的信息
+# 某包
+pacman -Q 包名
+# 详细信息
 pacman -Qi 包名
-# 查看已安装的包内的所有文件
+# 包内的所有文件
 pacman -Ql 包名</code></pre>
 <p>这里面也包括用yay安装的包。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://hustlei.github.io/2018/11/msys2-pacman.html">pacman常用命令</a></p>
-<h2 id="查看云端包"><a href="#查看云端包">¶</a> 查看云端包</h2>
-<pre class="shell"><code># 查看云端的包的信息
-pacman -Si 包名</code></pre>
 <h2 id="查看某包被哪些包依赖"><a href="#查看某包被哪些包依赖">¶</a> 查看某包被哪些包依赖</h2>
 <pre class="shell"><code>pacman -Qi 包名</code></pre>
 <p>里面的<code>Required By</code>后面的就是依赖这个包的包。</p>

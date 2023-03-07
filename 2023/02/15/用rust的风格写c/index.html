@@ -7396,186 +7396,208 @@ var _hmt = _hmt || [];
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>}</span></code></pre></div>
 <p>尤其要注意的是，C++中moved object仍然要析构，因此在move constructor和move assignment operator中一定要把旧的object相关状态清空，从而使其析构函数成为空操作。</p>
 <p>可以用vscode clang-tidy静态检查是否使用了moved value：<code>bugprone-use-after-move</code>。教程：<a href="/2022/11/10/vscode-clang-tidy/" title="vscode clang-tidy">vscode clang-tidy</a></p>
+<h2 id="不使用构造函数"><a href="#不使用构造函数">¶</a> 不使用构造函数</h2>
+<p>使用<code>New</code>等static member function来构造，而将构造函数隐藏起来：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	A(A&amp;&amp; a) { <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Moving</span><span class="sc">\n</span><span class="st">"</span>; }</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) { <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Move assigning</span><span class="sc">\n</span><span class="st">"</span>; <span class="cf">return</span> *<span class="kw">this</span>; }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	~A() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Deconstructing</span><span class="sc">\n</span><span class="st">"</span>; }</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>	<span class="at">static</span> A New() { <span class="cf">return</span> A(); }</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>	A() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Constructing</span><span class="sc">\n</span><span class="st">"</span>; }</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>};</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>	A a = A::New();</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>}</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>Constructing
+Deconstructing</code></pre>
+<p>可以看到只构造和析构了一次，实际上没有move assignment，所以跟使用构造函数的方法相比没有任何性能损失。</p>
 <h2 id="函数返回值类型后置"><a href="#函数返回值类型后置">¶</a> 函数返回值类型后置</h2>
 <p>C++11引入了函数返回值类型后置的写法(trailing return type)：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Trailing_return_type" class="uri">https://en.wikipedia.org/wiki/Trailing_return_type</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k) -&gt; <span class="dt">int</span> {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>}</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_1,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>	<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_2</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k) -&gt; <span class="dt">int</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_1,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>	<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_2</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="option---stdoptional"><a href="#option---stdoptional">¶</a> <code>Option</code> -&gt; <code>std::optional</code></h2>
 <h3 id="基础用法"><a href="#基础用法">¶</a> 基础用法</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">bool</span> cond) -&gt; <span class="bu">std::</span>optional&lt;<span class="bu">std::</span>string&gt; {</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>	<span class="cf">if</span> (cond) {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>		<span class="cf">return</span> <span class="st">"2333"</span>;</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>	}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>}</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>	<span class="co">// 2333</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; func(<span class="kw">true</span>).value() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>	<span class="co">// 0 (false)</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; func(<span class="kw">false</span>).has_value() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>}</span></code></pre></div>
-<h3 id="比较"><a href="#比较">¶</a> 比较</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>	<span class="co">// 1</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>)) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>	<span class="co">// 1</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	<span class="co">// 0</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="bu">std::</span>nullopt) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>}</span></code></pre></div>
-<h3 id="optional-reference"><a href="#optional-reference">¶</a> Optional reference</h3>
-<p><code>std::optional</code>里是不能存reference的，因为C++ reference设计的时候就是对一个对象的alias，不能在container中使用。</p>
-<p>而<code>std::reference_wrapper</code>可以看作一个保证不为空的指针，因此可以结合<code>std::optional</code>和<code>std::reference_wrapper</code>来实现optional reference，替代裸指针：</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="bu">std::</span>string&amp; a, <span class="bu">std::</span>string&amp; b, <span class="dt">int</span> index)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>	-&gt; <span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="bu">std::</span>string&gt;&gt; {</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>	<span class="cf">if</span> (index == <span class="dv">0</span>) {</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	} <span class="cf">else</span> <span class="cf">if</span> (index == <span class="dv">1</span>) {</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(b);</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>	}</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>}</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>	<span class="bu">std::</span>string a(<span class="st">"123"</span>);</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>	<span class="bu">std::</span>string b(<span class="st">"456"</span>);</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>	<span class="co">// 123</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">0</span>).value().get() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>	<span class="co">// 456</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">1</span>).value().get() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>	<span class="co">// 0: false</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">2</span>).has_value() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>}</span></code></pre></div>
-<p>需要注意的是目前C++没有对<code>std::optional&lt;std::reference_wrapper&lt;T&gt;&gt;</code>进行优化，它比<code>T *</code>要多用一个字节来保存是否有值的信息：</p>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">bool</span> cond) -&gt; <span class="bu">std::</span>optional&lt;<span class="bu">std::</span>string&gt; {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>	<span class="cf">if</span> (cond) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>		<span class="cf">return</span> <span class="st">"2333"</span>;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>	<span class="co">// 2333</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; func(<span class="kw">true</span>).value() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>	<span class="co">// 0 (false)</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; func(<span class="kw">false</span>).has_value() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>}</span></code></pre></div>
+<h3 id="比较"><a href="#比较">¶</a> 比较</h3>
 <div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>	<span class="co">// 8</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">sizeof</span>(<span class="dt">char</span> *) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>	<span class="co">// 16。多出来的1个字节因为做了padding所以实际占用8字节。</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">sizeof</span>(<span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">char</span>&gt;&gt;) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>	<span class="co">// 1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>)) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>	<span class="co">// 1</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>	<span class="co">// 0</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="bu">std::</span>optional&lt;<span class="dt">int</span>&gt;(<span class="dv">2</span>) == <span class="bu">std::</span>nullopt) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>}</span></code></pre></div>
+<h3 id="optional-reference"><a href="#optional-reference">¶</a> Optional reference</h3>
+<p><code>std::optional</code>里是不能存reference的，因为C++ reference设计的时候就是对一个对象的alias，不能在container中使用。</p>
+<p>而<code>std::reference_wrapper</code>可以看作一个保证不为空的指针，因此可以结合<code>std::optional</code>和<code>std::reference_wrapper</code>来实现optional reference，替代裸指针：</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="bu">std::</span>string&amp; a, <span class="bu">std::</span>string&amp; b, <span class="dt">int</span> index)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>	-&gt; <span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="bu">std::</span>string&gt;&gt; {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>	<span class="cf">if</span> (index == <span class="dv">0</span>) {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>	} <span class="cf">else</span> <span class="cf">if</span> (index == <span class="dv">1</span>) {</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(b);</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>	}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>}</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>	<span class="bu">std::</span>string a(<span class="st">"123"</span>);</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>	<span class="bu">std::</span>string b(<span class="st">"456"</span>);</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>	<span class="co">// 123</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">0</span>).value().get() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>	<span class="co">// 456</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">1</span>).value().get() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>	<span class="co">// 0: false</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; choose(a, b, <span class="dv">2</span>).has_value() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>}</span></code></pre></div>
+<p>需要注意的是目前C++没有对<code>std::optional&lt;std::reference_wrapper&lt;T&gt;&gt;</code>进行优化，它比<code>T *</code>要多用一个字节来保存是否有值的信息：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>	<span class="co">// 8</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">sizeof</span>(<span class="dt">char</span> *) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>	<span class="co">// 16。多出来的1个字节因为做了padding所以实际占用8字节。</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">sizeof</span>(<span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">char</span>&gt;&gt;) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="enum---stdvariant"><a href="#enum---stdvariant">¶</a> <code>enum</code> -&gt; <code>std::variant</code></h2>
 <h3 id="match"><a href="#match">¶</a> match</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>}</span></code></pre></div>
-<p>用法：</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>match(value, [](Type1&amp; type1) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>		;</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>	},</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>	[](Type2&amp; type2) {</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>		;</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>	},</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>	...</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>	[](TypeN&amp; typeN) {</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>		;</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>	}</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>);</span></code></pre></div>
-<p>例子：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>}</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a><span class="kw">class</span> A {</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>	A() : <span class="va">v_</span>(<span class="dv">0</span>) {}</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Initializing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>	}</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Copying "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl; }</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Moving "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>		a.Drop();</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>	}</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>	<span class="co">// Explicitly delete it just in case.</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>		a.Drop();</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Move assigning "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a>	}</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a>	~A() {</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a>		<span class="cf">if</span> (V()) {</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Deconstructing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>		}</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>	}</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>	<span class="dt">int</span> V() { <span class="cf">return</span> <span class="va">v_</span>; }</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true"></a>	<span class="dt">void</span> Drop() {</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a>		<span class="va">v_</span> = <span class="dv">0</span>;</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a>	}</span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>};</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">bool</span> choice) -&gt; <span class="bu">std::</span>variant&lt;A, <span class="dt">int</span>&gt; {</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>	<span class="cf">if</span> (choice) {</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>		<span class="co">// Initializing 1</span></span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a>		<span class="cf">return</span> A(<span class="dv">1</span>);</span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true"></a>		<span class="co">// Moving 1</span></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">233</span>;</span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true"></a>	}</span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true"></a>};</span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true"></a><span class="kw">auto</span> main() -&gt; <span class="dt">int</span> {</span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true"></a>	A a;</span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; match(func(<span class="kw">true</span>),</span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true"></a>		[&amp;](A&amp; ret) -&gt; <span class="bu">std::</span>string {</span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true"></a>			<span class="co">// Move assigning 1</span></span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true"></a>			a = <span class="bu">std::</span>move(ret);</span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"A"</span>;</span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true"></a>		},</span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true"></a>		[&amp;](<span class="dt">int</span> ret) -&gt; <span class="bu">std::</span>string {</span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true"></a>			a = A(ret);</span>
-<span id="cb10-66"><a href="#cb10-66" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"int"</span>;</span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true"></a>		}</span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true"></a>	) &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// A</span></span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true"></a>	<span class="co">// 1</span></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true"></a></span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb10-73"><a href="#cb10-73" aria-hidden="true"></a>	<span class="co">// Deconstructing 1</span></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>}</span></code></pre></div>
+<p>用法：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>match(value, [](Type1&amp; type1) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>		;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>	},</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>	[](Type2&amp; type2) {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>		;</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>	},</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>	...</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>	[](TypeN&amp; typeN) {</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>		;</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>	}</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>);</span></code></pre></div>
+<p>例子：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>}</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>	A() : <span class="va">v_</span>(<span class="dv">0</span>) {}</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Initializing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true"></a>	}</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Copying "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl; }</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Moving "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true"></a>		a.Drop();</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true"></a>	}</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true"></a>	<span class="co">// Explicitly delete it just in case.</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true"></a>		a.Drop();</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Move assigning "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true"></a>	}</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true"></a>	~A() {</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true"></a>		<span class="cf">if</span> (V()) {</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Deconstructing "</span> &lt;&lt; V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true"></a>		}</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true"></a>	}</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true"></a>	<span class="dt">int</span> V() { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true"></a>	<span class="dt">void</span> Drop() {</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true"></a>		<span class="va">v_</span> = <span class="dv">0</span>;</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true"></a>	}</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true"></a>};</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">bool</span> choice) -&gt; <span class="bu">std::</span>variant&lt;A, <span class="dt">int</span>&gt; {</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true"></a>	<span class="cf">if</span> (choice) {</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true"></a>		<span class="co">// Initializing 1</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true"></a>		<span class="cf">return</span> A(<span class="dv">1</span>);</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true"></a>		<span class="co">// Moving 1</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">233</span>;</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true"></a>	}</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true"></a>};</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true"></a><span class="kw">auto</span> main() -&gt; <span class="dt">int</span> {</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true"></a>	A a;</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; match(func(<span class="kw">true</span>),</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true"></a>		[&amp;](A&amp; ret) -&gt; <span class="bu">std::</span>string {</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true"></a>			<span class="co">// Move assigning 1</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true"></a>			a = <span class="bu">std::</span>move(ret);</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"A"</span>;</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true"></a>		},</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true"></a>		[&amp;](<span class="dt">int</span> ret) -&gt; <span class="bu">std::</span>string {</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true"></a>			a = A(ret);</span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true"></a>			<span class="cf">return</span> <span class="st">"int"</span>;</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true"></a>		}</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true"></a>	) &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// A</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true"></a>	<span class="co">// 1</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true"></a>	<span class="co">// Deconstructing 1</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>Initializing 1
 Moving 1
@@ -7584,85 +7606,85 @@ A
 1
 Deconstructing 1</code></pre>
 <p>如果类没有默认构造函数的话（比如<code>std::reference_wrapper</code>），按照Rust的写法，这个类应该通过返回值将其从visitor中传出来。但是C++要求所有visitor的返回值类型相同，因此这种方法行不通。比如这个：</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>}</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">233</span>;</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="dt">bool</span> err) -&gt; <span class="bu">std::</span>variant&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;, <span class="dt">int</span>&gt; {</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a>	<span class="cf">if</span> (err) {</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>		<span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true"></a>	}</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true"></a>}</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true"></a>	<span class="kw">auto</span> x = match(choose(<span class="kw">false</span>),</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true"></a>		[](<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt; x) {</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; x.get() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true"></a>			<span class="cf">return</span> x;</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true"></a>		},</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true"></a>		[](<span class="dt">int</span> err) {</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; err &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true"></a>			<span class="cf">throw</span> err;</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true"></a>		}</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true"></a>	);</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true"></a></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>}</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">233</span>;</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="dt">bool</span> err) -&gt; <span class="bu">std::</span>variant&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;, <span class="dt">int</span>&gt; {</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a>	<span class="cf">if</span> (err) {</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a>		<span class="cf">return</span> -<span class="dv">1</span>;</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a>	}</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a>}</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true"></a>	<span class="kw">auto</span> x = match(choose(<span class="kw">false</span>),</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true"></a>		[](<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt; x) {</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; x.get() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true"></a>			<span class="cf">return</span> x;</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true"></a>		},</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true"></a>		[](<span class="dt">int</span> err) {</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; err &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true"></a>			<span class="cf">throw</span> err;</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true"></a>		}</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true"></a>	);</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true"></a>}</span></code></pre></div>
 <p>编译会报错：</p>
 <pre class="text"><code>std::visit requires the visitor to have the same return type for all alternatives of a variant</code></pre>
 <p>其实我们可以通过<code>std::optional</code>来在外面声明一个未初始化的变量，然后在visitor里面将其初始化：</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>}</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">233</span>;</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="dt">bool</span> err) -&gt; <span class="bu">std::</span>variant&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;, <span class="dt">int</span>&gt; {</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a>	<span class="cf">if</span> (err) {</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a>		<span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a>	}</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true"></a>}</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true"></a></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true"></a>	<span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;&gt; x;</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true"></a>	match(choose(<span class="kw">false</span>),</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true"></a>		[&amp;x](<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt; ret) {</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; ret.get() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true"></a>			x = ret;</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true"></a>		},</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true"></a>		[](<span class="dt">int</span> err) {</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; err &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true"></a>		}</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true"></a>	);</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true"></a>	<span class="cf">if</span> (x.has_value()) {</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x.value() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true"></a>	}</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="co">// https://en.cppreference.com/w/cpp/utility/variant/visit</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; <span class="kw">struct</span> overloaded : Ts... { <span class="kw">using</span> Ts::<span class="kw">operator</span>()...; };</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="co">// explicit deduction guide (not needed as of C++20)</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a><span class="kw">template</span>&lt;<span class="kw">class</span>... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Val, <span class="kw">typename</span>... Ts&gt;</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a><span class="kw">auto</span> match(Val val, Ts... ts) {</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>visit(overloaded{ts...}, val);</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>}</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a><span class="dt">int</span> a = <span class="dv">233</span>;</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a><span class="kw">auto</span> choose(<span class="dt">bool</span> err) -&gt; <span class="bu">std::</span>variant&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;, <span class="dt">int</span>&gt; {</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>	<span class="cf">if</span> (err) {</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>		<span class="cf">return</span> -<span class="dv">1</span>;</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>ref(a);</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>	}</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a>}</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a>	<span class="bu">std::</span>optional&lt;<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt;&gt; x;</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a>	match(choose(<span class="kw">false</span>),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>		[&amp;x](<span class="bu">std::</span>reference_wrapper&lt;<span class="dt">int</span>&gt; ret) {</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; ret.get() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a>			x = ret;</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true"></a>		},</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true"></a>		[](<span class="dt">int</span> err) {</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true"></a>			<span class="bu">std::</span>cout &lt;&lt; err &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true"></a>		}</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true"></a>	);</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true"></a>	<span class="cf">if</span> (x.has_value()) {</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x.value() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true"></a>	}</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true"></a></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true"></a>}</span></code></pre></div>
 <p><code>std::unique_ptr</code>也是可以的，缺点是需要多一层indirection。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/variant/visit" class="uri">https://en.cppreference.com/w/cpp/utility/variant/visit</a></p>
@@ -7670,161 +7692,233 @@ Deconstructing 1</code></pre>
 <p><a target="_blank" rel="noopener" href="https://www.cppstories.com/2019/10/lazyinit/" class="uri">https://www.cppstories.com/2019/10/lazyinit/</a></p>
 <h3 id="stdvariantindex"><a href="#stdvariantindex">¶</a> <code>std::variant::index</code></h3>
 <p>可以用<code>index()</code>获取其类型的下标，用<code>std::get</code>获取对应的内容：</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>	<span class="bu">std::</span>variant&lt;<span class="dt">int</span>, <span class="dt">float</span>&gt; a(<span class="dv">2</span>);</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>	<span class="co">// 0 (int)</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.index() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>	<span class="co">// 2</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>get&lt;<span class="dv">0</span>&gt;(a) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>	<span class="bu">std::</span>variant&lt;<span class="dt">int</span>, <span class="dt">float</span>&gt; b((<span class="dt">float</span>)<span class="fl">2.33</span>);</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>	<span class="co">// 1 (float)</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; b.index() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a>	<span class="co">// 2.33</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>get&lt;<span class="dv">1</span>&gt;(b) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;variant&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>	<span class="bu">std::</span>variant&lt;<span class="dt">int</span>, <span class="dt">float</span>&gt; a(<span class="dv">2</span>);</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>	<span class="co">// 0 (int)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.index() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>	<span class="co">// 2</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>get&lt;<span class="dv">0</span>&gt;(a) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>	<span class="bu">std::</span>variant&lt;<span class="dt">int</span>, <span class="dt">float</span>&gt; b((<span class="dt">float</span>)<span class="fl">2.33</span>);</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>	<span class="co">// 1 (float)</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; b.index() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>	<span class="co">// 2.33</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>get&lt;<span class="dv">1</span>&gt;(b) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="trait"><a href="#trait">¶</a> Trait</h2>
 <p>Rust可以为已存在的类型实现trait，从而为其引进新的成员函数，但是C++不能为已存在的类型定义新的成员函数。不过C++可以通过以下方式实现Rust的trait的功能：</p>
-<h3 id="template-struct"><a href="#template-struct">¶</a> template struct</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>	A(<span class="dt">int</span> x) : <span class="va">x_</span>(x) {}</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) {</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Copying"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>	}</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">x_</span>;</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>};</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="kw">struct</span> Print {</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>();</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(T x) {</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>	}</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a>};</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a><span class="kw">template</span> &lt;&gt;</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a><span class="kw">struct</span> Print&lt;<span class="dt">int</span>&gt; {</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>() {</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"int"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a>	}</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(<span class="dt">int</span> x) {</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a>	}</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a>};</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a><span class="kw">template</span> &lt;&gt;</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a><span class="kw">struct</span> Print&lt;<span class="at">const</span> A&amp;&gt; {</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>() {</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"const A&amp;"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a>	}</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(<span class="at">const</span> A&amp; a) {</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; a.<span class="va">x_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true"></a>	}</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true"></a>};</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true"></a>	<span class="co">// int</span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true"></a>	Print&lt;<span class="dt">int</span>&gt;::<span class="dt">print_type</span>();</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true"></a>	<span class="co">// 233</span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true"></a>	Print&lt;<span class="dt">int</span>&gt;::print(<span class="dv">233</span>);</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true"></a>	<span class="co">// const A&amp;</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true"></a>	Print&lt;<span class="at">const</span> A&amp;&gt;::<span class="dt">print_type</span>();</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true"></a>	<span class="co">// 2333. Without copying</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true"></a>	Print&lt;<span class="at">const</span> A&amp;&gt;::print(A(<span class="dv">2333</span>));</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true"></a>}</span></code></pre></div>
-<p>它相当于：</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">struct</span> A <span class="op">{</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>    x<span class="op">:</span> <span class="dt">i32</span><span class="op">,</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="op">{</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    <span class="kw">fn</span> new(x<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> A <span class="op">{</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>        A <span class="op">{</span> x <span class="op">}</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a><span class="kw">trait</span> Print <span class="op">{</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>    <span class="kw">fn</span> print_type()<span class="op">;</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>)<span class="op">;</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a><span class="kw">impl</span> Print <span class="kw">for</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>    <span class="kw">fn</span> print_type() <span class="op">{</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"i32"</span>)<span class="op">;</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>) <span class="op">{</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="kw">self</span>)<span class="op">;</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true"></a><span class="kw">impl</span> Print <span class="kw">for</span> <span class="op">&amp;</span>A <span class="op">{</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true"></a>    <span class="kw">fn</span> print_type() <span class="op">{</span></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"&amp;A"</span>)<span class="op">;</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>) <span class="op">{</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="kw">self</span><span class="op">.</span>x)<span class="op">;</span></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true"></a>	<span class="co">// i32</span></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true"></a>    <span class="dt">i32</span><span class="pp">::</span>print_type()<span class="op">;</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">i32</span> <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true"></a>	<span class="co">// 233</span></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true"></a>    x<span class="op">.</span>print()<span class="op">;</span></span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true"></a>    <span class="co">// &amp;A</span></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true"></a>    <span class="op">&lt;&amp;</span>A<span class="op">&gt;</span><span class="pp">::</span>print_type()<span class="op">;</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true"></a>    <span class="pp">A::</span>new(<span class="dv">2333</span>)<span class="op">.</span>print()<span class="op">;</span></span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
-<h3 id="tag_invoke"><a href="#tag_invoke">¶</a> <code>tag_invoke</code></h3>
-<p>这里只给个例子，讲解看这里：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/431032074">c++ execution 与 coroutine （一) : CPO与tag_invoke</a></p>
+<h3 id="不推荐template-struct"><a href="#不推荐template-struct">¶</a> （不推荐）template struct</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a><span class="kw">namespace</span> lib {</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">namespace</span> detail {</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">print_t</span> {</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>	<span class="dt">void</span> <span class="kw">operator</span>()(T x) {</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>		tag_invoke(<span class="dt">print_t</span>{}, x);</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>	}</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>};</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(<span class="dt">print_t</span>, T x) {</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>}</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(<span class="dt">print_t</span>, <span class="at">const</span> <span class="bu">std::</span>vector&lt;T&gt;&amp; v) {</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="at">const</span> T&amp; x : v) {</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>		tag_invoke(<span class="dt">print_t</span>{}, x);</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>	A(<span class="dt">int</span> x) : <span class="va">x_</span>(x) {}</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) {</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Copying"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>	}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">x_</span>;</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>};</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a><span class="kw">struct</span> Print {</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>();</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(T x) {</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>	}</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>};</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a><span class="kw">template</span> &lt;&gt;</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a><span class="kw">struct</span> Print&lt;<span class="dt">int</span>&gt; {</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>() {</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"int"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true"></a>	}</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true"></a>}</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true"></a>} <span class="co">// namespace detail</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true"></a><span class="kw">inline</span> detail::print_t print{};</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">auto</span>&amp; Tag&gt;</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true"></a><span class="kw">using</span> <span class="dt">tag_t</span> = <span class="bu">std::</span>decay_t&lt;<span class="kw">decltype</span>(Tag)&gt;;</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true"></a>} <span class="co">// namespace lib</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true"></a><span class="kw">class</span> A {</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true"></a>	A(<span class="dt">int</span> x) : <span class="va">x_</span>(x) {}</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">x_</span>;</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true"></a>	<span class="kw">friend</span> <span class="dt">void</span> tag_invoke(lib::<span class="dt">tag_t</span>&lt;lib::print&gt;, <span class="at">const</span> A&amp; a);</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true"></a>};</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(lib::<span class="dt">tag_t</span>&lt;lib::print&gt;, <span class="at">const</span> A&amp; a) {</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.<span class="va">x_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true"></a>}</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true"></a></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(lib::<span class="dt">tag_t</span>&lt;lib::print&gt;, <span class="dt">int</span> x) {</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true"></a>}</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true"></a></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;A&gt; v1({A(<span class="dv">1</span>), A(<span class="dv">2</span>), A(<span class="dv">3</span>)});</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true"></a>	lib::print(v1);</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt; v2({<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>});</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true"></a>	lib::print(v2);</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true"></a></span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(<span class="dt">int</span> x) {</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true"></a>	}</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true"></a>};</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true"></a><span class="kw">template</span> &lt;&gt;</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true"></a><span class="kw">struct</span> Print&lt;<span class="at">const</span> A&amp;&gt; {</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> <span class="dt">print_type</span>() {</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"const A&amp;"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true"></a>	}</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true"></a>	<span class="at">static</span> <span class="dt">void</span> print(<span class="at">const</span> A&amp; a) {</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; a.<span class="va">x_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true"></a>	}</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true"></a>};</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true"></a>	<span class="co">// int</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true"></a>	Print&lt;<span class="dt">int</span>&gt;::<span class="dt">print_type</span>();</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true"></a>	<span class="co">// 233</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true"></a>	Print&lt;<span class="dt">int</span>&gt;::print(<span class="dv">233</span>);</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true"></a>	<span class="co">// const A&amp;</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true"></a>	Print&lt;<span class="at">const</span> A&amp;&gt;::<span class="dt">print_type</span>();</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true"></a>	<span class="co">// 2333. Without copying</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true"></a>	Print&lt;<span class="at">const</span> A&amp;&gt;::print(A(<span class="dv">2333</span>));</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true"></a>}</span></code></pre></div>
+<p>它相当于：</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">struct</span> A <span class="op">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>    x<span class="op">:</span> <span class="dt">i32</span><span class="op">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="op">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>    <span class="kw">fn</span> new(x<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> A <span class="op">{</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>        A <span class="op">{</span> x <span class="op">}</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a><span class="kw">trait</span> Print <span class="op">{</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>    <span class="kw">fn</span> print_type()<span class="op">;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>)<span class="op">;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a><span class="kw">impl</span> Print <span class="kw">for</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>    <span class="kw">fn</span> print_type() <span class="op">{</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"i32"</span>)<span class="op">;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>) <span class="op">{</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="kw">self</span>)<span class="op">;</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true"></a><span class="kw">impl</span> Print <span class="kw">for</span> <span class="op">&amp;</span>A <span class="op">{</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true"></a>    <span class="kw">fn</span> print_type() <span class="op">{</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"&amp;A"</span>)<span class="op">;</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true"></a>    <span class="kw">fn</span> print(<span class="kw">self</span>) <span class="op">{</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="kw">self</span><span class="op">.</span>x)<span class="op">;</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true"></a>	<span class="co">// i32</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true"></a>    <span class="dt">i32</span><span class="pp">::</span>print_type()<span class="op">;</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">i32</span> <span class="op">=</span> <span class="dv">233</span><span class="op">;</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true"></a>	<span class="co">// 233</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true"></a>    x<span class="op">.</span>print()<span class="op">;</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true"></a>    <span class="co">// &amp;A</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true"></a>    <span class="op">&lt;&amp;</span>A<span class="op">&gt;</span><span class="pp">::</span>print_type()<span class="op">;</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true"></a>    <span class="pp">A::</span>new(<span class="dv">2333</span>)<span class="op">.</span>print()<span class="op">;</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>但是这种方法要求所有的template class的specialization都在同一个namespace里。这可能会导致链接冲突，比方说在两个不同的obj文件分别specialize了<code>Print&lt;const A&amp;&gt;</code>。</p>
+<h3 id="cpo--tag_invoke"><a href="#cpo--tag_invoke">¶</a> <code>CPO + tag_invoke</code></h3>
+<p>CPO: Customization Point Object.</p>
+<p>详细的讲解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/431032074">c++ execution 与 coroutine （一) : CPO与tag_invoke</a></p>
+<p>这里简单归纳一下。</p>
+<h4 id="背景"><a href="#背景">¶</a> 背景</h4>
+<p>ADL (Argument Dependent Lookup)是指，如果有限定地调用某个函数时，比如<code>lib::print</code>，那么只会在限定的namespace里查询该函数。如果在没有限定(unqualified)地调用某个函数时，比方说<code>print(x, y)</code>，那么编译器不仅会在调用点的namespace里查询有没有叫做<code>print</code>的函数，也会在x和y的namespace里查询有没有叫做<code>print</code>的函数。如果x和y是实例化的模板的话，还会从模板参数所在的namespace里查询有没有叫做<code>print</code>的函数。</p>
+<p>例子：</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a><span class="kw">namespace</span> lib {</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a><span class="dt">void</span> print(T x) {</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x;</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>}</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a><span class="dt">void</span> print(<span class="at">const</span> <span class="bu">std::</span>vector&lt;T&gt;&amp; v) {</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span>&amp; x : v) {</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>		print(x);</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>	}</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a>}</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>}</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a><span class="kw">struct</span> A {<span class="dt">int</span> x;};</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true"></a><span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; out, <span class="at">const</span> A&amp; a) {</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true"></a>	out &lt;&lt; a.x;</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true"></a>	<span class="cf">return</span> out;</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true"></a>}</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true"></a><span class="dt">void</span> print(<span class="at">const</span> A&amp; a) {</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"{x:"</span> &lt;&lt; a.x &lt;&lt; <span class="st">"}"</span>;</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true"></a>}</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;A&gt; v({A{<span class="dv">2</span>}, A{<span class="dv">3</span>}, A{<span class="dv">4</span>}});</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true"></a>	lib::print(v);</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true"></a>}</span></code></pre></div>
+<p>输出：<code>{x:2}{x:3}{x:4}</code>。<code>lib::print</code>只会去<code>lib</code>中找<code>print</code>，显然找到的是<code>void print(const std::vector&lt;T&gt;&amp; v)</code>。然后在里面调用<code>print(x)</code>时，因为<code>x</code>的类型是<code>const A&amp;</code>，所以会去<code>A</code>所在的namespace里找<code>print</code>，显然找到的是<code>void print(const A&amp; a)</code>，然后就顺利打印出来了。</p>
+<p>但是如果我们在<code>main</code>函数里这样：</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>lib::print(A{<span class="dv">2</span>});</span></code></pre></div>
+<p>那么C++只会去<code>lib</code>里找<code>print</code>，找到的就是<code>void print(T x)</code>了。因此打印出来的就是<code>2</code>，而不是<code>{x:2}</code>。但是显然这时调用<code>void print(const A&amp; a)</code>是更合理的选择。</p>
+<h4 id="cpo-customization-point-object"><a href="#cpo-customization-point-object">¶</a> CPO (Customization Point Object)</h4>
+<p>CPO的目标是将原本的有限定的函数调用变成无限定的函数调用，而库只提供调用的接口。比如用CPO来实现<code>lib::print</code>：</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="kw">namespace</span> lib {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a><span class="kw">namespace</span> detail {</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">print_t</span> {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a>	<span class="dt">void</span> <span class="kw">operator</span>()(T x) {</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>		print(x);</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a>	}</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>};</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true"></a><span class="dt">void</span> print(T x) {</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x;</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true"></a>}</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true"></a><span class="dt">void</span> print(<span class="at">const</span> <span class="bu">std::</span>vector&lt;T&gt;&amp; v) {</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span>&amp; x : v) {</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true"></a>		print(x);</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true"></a>	}</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true"></a>}</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true"></a>} <span class="co">// namespace detail</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true"></a><span class="kw">inline</span> detail::print_t print{};</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true"></a>} <span class="co">// namespace lib</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true"></a><span class="kw">struct</span> A {<span class="dt">int</span> x;};</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true"></a><span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; out, <span class="at">const</span> A&amp; a) {</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true"></a>	out &lt;&lt; a.x;</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true"></a>	<span class="cf">return</span> out;</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true"></a>}</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true"></a><span class="dt">void</span> print(<span class="at">const</span> A&amp; a) {</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"{x:"</span> &lt;&lt; a.x &lt;&lt; <span class="st">"}"</span>;</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true"></a>}</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true"></a>	lib::print(A{<span class="dv">2</span>});</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true"></a>}</span></code></pre></div>
+<p>这时<code>lib::print</code>变成了一个对象(object)，<code>lib::print(A{2})</code>变成了调用<code>lib::detail::print_t::()</code>，在里面调用了<code>print(x)</code>，它是无限定的，所以既会在调用点的namespace（即<code>lib::detail</code>）里找<code>print</code>，也会在其参数的类型（即<code>const A&amp;</code>）的namespace里找，所以顺利找到了<code>void print(const A&amp; a)</code>，并且打印出来了<code>{x:2}</code>。</p>
+<p>可以看到，对于纯CPO的方式，如果某个类想要实现<code>lib</code>提供的<code>print</code>的接口，那么必须在其namespace中预留<code>print</code>的名字。这就会带来一个问题，假如另一个库<code>lib2</code>也提供了<code>print</code>接口，而某个类想要同时实现<code>lib::print</code>和<code>lib2::print</code>的接口，就会导致命名冲突。</p>
+<h4 id="tag_invoke--cpo"><a href="#tag_invoke--cpo">¶</a> <code>tag_invoke + CPO</code></h4>
+<p><code>tag_invoke</code>可以解决纯CPO的命名冲突，思路是让所有接口都通过<code>tag_invoke</code>实现，而调用时通过tag来指定具体要调用哪个实现。上面的例子用<code>tag_invoke + CPO</code>重写：</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a><span class="kw">namespace</span> lib {</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a><span class="kw">namespace</span> detail {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">print_t</span> {</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>	<span class="dt">void</span> <span class="kw">operator</span>()(T x) {</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>		tag_invoke(<span class="dt">print_t</span>{}, x);</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>	}</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>};</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(<span class="dt">print_t</span>, T x) {</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x;</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>}</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(<span class="dt">print_t</span>, <span class="at">const</span> <span class="bu">std::</span>vector&lt;T&gt;&amp; v) {</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span>&amp; x : v) {</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true"></a>		tag_invoke(<span class="dt">print_t</span>{}, x);</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true"></a>	}</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true"></a>}</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true"></a>} <span class="co">// namespace detail</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">auto</span>&amp; Tag&gt;</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true"></a><span class="kw">using</span> <span class="dt">tag_t</span> = <span class="bu">std::</span>decay_t&lt;<span class="kw">decltype</span>(Tag)&gt;;</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true"></a><span class="kw">inline</span> detail::print_t print{};</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true"></a>} <span class="co">// namespace lib</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true"></a><span class="kw">struct</span> A {<span class="dt">int</span> x;};</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true"></a><span class="bu">std::</span>ostream&amp; <span class="kw">operator</span>&lt;&lt;(<span class="bu">std::</span>ostream&amp; out, <span class="at">const</span> A&amp; a) {</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true"></a>	out &lt;&lt; a.x;</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true"></a>	<span class="cf">return</span> out;</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true"></a>}</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true"></a><span class="dt">void</span> tag_invoke(lib::<span class="dt">tag_t</span>&lt;lib::print&gt;, <span class="at">const</span> A&amp; a) {</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"{x:"</span> &lt;&lt; a.x &lt;&lt; <span class="st">"}"</span>;</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true"></a>}</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;A&gt; v({A{<span class="dv">2</span>}, A{<span class="dv">3</span>}, A{<span class="dv">4</span>}});</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true"></a>	lib::print(v);</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true"></a>	lib::print(A{<span class="dv">2</span>});</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true"></a>}</span></code></pre></div>
+<p>可以看到，这里的<code>lib::detail::print_t</code>成了tag，用于区分<code>tag_invoke</code>的各个实现。这个tag是在<code>detail</code>里的，所以另外提供了<code>std::tag_t</code>用来从接口（也就是<code>lib::print</code>）取得tag的类型。</p>
+<p>输出：</p>
+<pre class="text"><code>{x:2}{x:3}{x:4}
+{x:2}</code></pre>
 <p>相关：<a target="_blank" rel="noopener" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2279r0.html" class="uri">https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2279r0.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
