@@ -7424,16 +7424,22 @@ Deconstructing</code></pre>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>}</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="kw">auto</span> func(<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_1,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>	<span class="dt">int</span> very_very_loooooooooooooooooooooooooooooooog_arg_2</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="kw">auto</span> func(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>	<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>) -&gt; AVeryVeryLoooooooooooooooooooooooooooooooooooooooooooongType {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">2333</span>;</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>}</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="kw">auto</span> func(</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>	<span class="dt">int</span> i, <span class="dt">int</span> j, <span class="dt">int</span> k</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>) -&gt; <span class="bu">std::</span>tuple&lt;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>	Arg1,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>	Arg2,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>	...</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>	ArgN</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>&gt; {</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>	<span class="cf">return</span> xxx;</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="option---stdoptional"><a href="#option---stdoptional">¶</a> <code>Option</code> -&gt; <code>std::optional</code></h2>
 <h3 id="基础用法"><a href="#基础用法">¶</a> 基础用法</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
@@ -7920,6 +7926,89 @@ Deconstructing 1</code></pre>
 <pre class="text"><code>{x:2}{x:3}{x:4}
 {x:2}</code></pre>
 <p>相关：<a target="_blank" rel="noopener" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2279r0.html" class="uri">https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2279r0.html</a></p>
+<h4 id="tag_invoke--type-tag"><a href="#tag_invoke--type-tag">¶</a> <code>tag_invoke + type tag</code></h4>
+<p>如何利用<code>tag_invoke</code>实现反序列化（deserialize）呢？理想的tag应该是这样的：</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">deserialize_t</span> {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>	T <span class="kw">operator</span>()(<span class="bu">std::</span>string_view x) {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>		<span class="cf">return</span> tag_invoke(<span class="dt">deserialize_t</span>{}, x);</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a>	}</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a>};</span></code></pre></div>
+<p>但是C++目前无法根据返回值来推断<code>T</code>的类型，例如下面这段代码无法通过编译：</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>	A() { <span class="bu">std::</span>cout &lt;&lt; <span class="dv">233</span>; }</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>};</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a><span class="kw">struct</span> B {</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>	T <span class="kw">operator</span>()() {</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>		<span class="cf">return</span> T();</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a>	}</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>};</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>	B()();</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="text"><code>template_operator.cpp: In function ‘int main()’:
+template_operator.cpp:16:12: error: no match for call to ‘(B) ()’
+   16 |         B()();
+      |         ~~~^~
+template_operator.cpp:10:11: note: candidate: ‘template&lt;class T&gt; T B::operator()()’
+   10 |         T operator()() {
+      |           ^~~~~~~~
+template_operator.cpp:10:11: note:   template argument deduction/substitution failed:
+template_operator.cpp:16:12: note:   couldn’t deduce template parameter ‘T’
+   16 |         B()();
+      |         ~~~^~</code></pre>
+<p>要指定要调用的<code>operator()</code>的类型，只能这样：</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>B().<span class="kw">operator</span>()&lt;A&gt;();</span></code></pre></div>
+<p>这十分麻烦。因此这里采用type tag的方式，即定义一个空的模板结构体<code>template &lt;typename T&gt; struct type_tag {};</code>，它的功能仅仅是作为类型<code>T</code>的tag，用来帮助编译器找到对应的模板函数。结合<code>tag_invoke</code>和type tag实现的反序列化如下:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a><span class="kw">namespace</span> lib {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">type_tag_t</span> {};</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true"></a><span class="kw">inline</span> <span class="kw">constexpr</span> <span class="dt">type_tag_t</span>&lt;T&gt; type_tag{};</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true"></a><span class="kw">namespace</span> detail {</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true"></a><span class="kw">class</span> <span class="dt">deserialize_t</span>;</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true"></a>T tag_invoke(<span class="dt">deserialize_t</span>, <span class="dt">type_tag_t</span>&lt;T&gt;, <span class="bu">std::</span>string_view x);</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true"></a><span class="kw">struct</span> <span class="dt">deserialize_t</span> {</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true"></a>	T <span class="kw">operator</span>()(<span class="dt">type_tag_t</span>&lt;T&gt;, <span class="bu">std::</span>string_view x) {</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true"></a>		<span class="cf">return</span> tag_invoke(<span class="dt">deserialize_t</span>{}, type_tag&lt;T&gt;, x);</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true"></a>	}</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true"></a>};</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true"></a><span class="dt">int</span> tag_invoke(<span class="dt">deserialize_t</span>, <span class="dt">type_tag_t</span>&lt;<span class="dt">int</span>&gt;, <span class="bu">std::</span>string_view x) {</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true"></a>	<span class="cf">return</span> *(<span class="dt">int</span> *)x.data();</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true"></a>}</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true"></a>} <span class="co">// namespace detail</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">auto</span>&amp; Tag&gt;</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true"></a><span class="kw">using</span> <span class="dt">tag_t</span> = <span class="bu">std::</span>decay_t&lt;<span class="kw">decltype</span>(Tag)&gt;;</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true"></a><span class="kw">inline</span> detail::deserialize_t deserialize{};</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true"></a>} <span class="co">// namespace lib</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true"></a><span class="kw">struct</span> A {<span class="dt">int</span> x;};</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true"></a>A tag_invoke(lib::<span class="dt">tag_t</span>&lt;lib::deserialize&gt;, lib::<span class="dt">type_tag_t</span>&lt;A&gt;, <span class="bu">std::</span>string_view x) {</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true"></a>	<span class="cf">return</span> *(A *)x.data();</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true"></a>}</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true"></a>	<span class="dt">int</span> x = <span class="dv">2333</span>;</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true"></a>	<span class="bu">std::</span>string_view d((<span class="at">const</span> <span class="dt">char</span> *)&amp;x, <span class="kw">sizeof</span>(x));</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; lib::deserialize(lib::type_tag&lt;<span class="dt">int</span>&gt;, d) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true"></a></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true"></a>	A a{<span class="dv">233</span>};</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true"></a>	d = <span class="bu">std::</span>string_view((<span class="at">const</span> <span class="dt">char</span> *)&amp;a, <span class="kw">sizeof</span>(a));</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; lib::deserialize(lib::type_tag&lt;A&gt;, d).x &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true"></a></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true"></a>}</span></code></pre></div>
+<p>注意，由于ADL的限制，对基础数据类型（如float）和第三方类型（即不属于调用点的namespace），无法用这种方法定义其反序列化操作。Rust也采用了这种方式，即trait的implementation要么在trait声明的地方，要么在类型定义的地方。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

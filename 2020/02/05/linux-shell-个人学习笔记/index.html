@@ -7677,6 +7677,12 @@ tmp=$(mktemp)
 echo $input &gt; $tmp
 cat $tmp
 rm $tmp</code></pre>
+<h3 id="转义"><a href="#转义">¶</a> 转义</h3>
+<pre class="shell"><code># hello\\world
+printf "%q" "hello\world"
+# var='hello\\world'
+printf -v var "%q\n" "hello\world"</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/2856010/13688160" class="uri">https://stackoverflow.com/a/2856010/13688160</a></p>
 <h3 id="使用imagemagick将多个jpg转换为a4大小的pdf"><a href="#使用imagemagick将多个jpg转换为a4大小的pdf">¶</a> 使用ImageMagick将多个jpg转换为A4大小的PDF</h3>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lpwmm/article/details/83503736" class="uri">https://blog.csdn.net/lpwmm/article/details/83503736</a></p>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240x1753 \
