@@ -1895,6 +1895,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/16/c-memory-order/">
+                     
+										    C++ memory order
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/05/25/cppunit-for-linux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
                      
 										    cppunit for linux入门笔记
@@ -7451,42 +7462,46 @@ sudo chroot /mnt /bin/bash -c "useradd -m -G wheel $admin_name &amp;&amp; passwd
 sudo chmod 740 /mnt/etc/sudoers
 sudo bash -c 'echo "%wheel ALL=(ALL) ALL" &gt;&gt; /mnt/etc/sudoers'
 sudo chmod 440 /mnt/etc/sudoers</code></pre>
+<h2 id="chroot"><a href="#chroot">¶</a> chroot</h2>
+<p>使用<code>arch-chroot</code>来chroot，因为<code>arch-chroot</code>会自动挂载一些其他目录。</p>
+<pre class="shell"><code>sudo arch-chroot /mnt</code></pre>
+<p>接下来的操作都在chroot里执行。</p>
 <h2 id="安装桌面环境"><a href="#安装桌面环境">¶</a> 安装桌面环境</h2>
 <p>以KDE为例：</p>
-<pre class="shell"><code>sudo pacstrap /mnt plasma-meta konsole dolphin ark
+<pre class="shell"><code>pacman -S --needed plasma-meta konsole dolphin ark
 # Optional dependencies of ark
-sudo pacstrap /mnt p7zip unrar unarchiver lzop lrzip
-sudo chroot /mnt /bin/bash -c "systemctl enable sddm"
+pacman -S --needed p7zip unrar unarchiver lzop lrzip
+systemctl enable sddm
 # Dependencies of Discover
-sudo pacstrap /mnt packagekit-qt5 packagekit appstream-qt appstream</code></pre>
+pacman -S --needed packagekit-qt5 packagekit appstream-qt appstream</code></pre>
 <h2 id="安装一些额外包"><a href="#安装一些额外包">¶</a> 安装一些额外包</h2>
 <pre class="shell"><code># Sound
-sudo pacstrap /mnt sof-firmware alsa-firmware alsa-ucm-conf
-sudo pacstrap /mnt ntfs-3g
-sudo pacstrap /mnt adobe-source-han-serif-cn-fonts wqy-zenhei noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-sudo pacstrap /mnt firefox
-sudo pacstrap /mnt wget</code></pre>
+pacman -S --needed sof-firmware alsa-firmware alsa-ucm-conf
+pacman -S --needed ntfs-3g
+pacman -S --needed adobe-source-han-serif-cn-fonts wqy-zenhei noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+pacman -S --needed firefox
+pacman -S --needed wget</code></pre>
 <h2 id="本地化"><a href="#本地化">¶</a> 本地化</h2>
 <h3 id="locale"><a href="#locale">¶</a> Locale</h3>
 <p>ArchLinux没有默认的locale，所以一定要设置locale，否则之后运行一些命令时会出现这种报错：<code>bsdtar: Failed to set default locale</code>。</p>
 <p>为了方便出现问题后到国际平台上寻求帮助，这里设置成<code>en_US.UTF-8</code>。</p>
-<pre class="shell"><code>sudo chroot /mnt /bin/bash -c 'echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" &gt;&gt; /etc/locale.gen &amp;&amp; locale-gen'
+<pre class="shell"><code>echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" &gt;&gt; /etc/locale.gen &amp;&amp; locale-gen
 # https://wiki.archlinux.org/title/Locale
 #sudo localectl set-locale LANG=en_US.UTF-8
-sudo bash -c "echo LANG=en_US.UTF-8 &gt; /mnt/etc/locale.conf"
+echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
 # https://wiki.archlinux.org/title/Locale#My_system_is_still_using_wrong_language
 #rm ~/.config/plasma-localerc</code></pre>
 <h3 id="时区"><a href="#时区">¶</a> 时区</h3>
-<pre class="shell"><code>sudo chroot /mnt /bin/bash -c "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"</code></pre>
+<pre class="shell"><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></pre>
 <h2 id="引导"><a href="#引导">¶</a> 引导</h2>
 <p>可以直接使用原有的引导，也可以安装并使用ArchLinux的引导。</p>
 <h3 id="使用原有的引导"><a href="#使用原有的引导">¶</a> 使用原有的引导</h3>
-<pre class="shell"><code>sudo update-grub</code></pre>
+<pre class="shell"><code>update-grub</code></pre>
 <h3 id="安装并使用archlinux的引导"><a href="#安装并使用archlinux的引导">¶</a> 安装并使用ArchLinux的引导</h3>
-<pre class="shell"><code>sudo pacstrap /mnt grub efibootmgr
-sudo arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB"
-sudo bash -c "echo GRUB_DISABLE_OS_PROBER=false &gt;&gt; /mnt/etc/default/grub"
-sudo arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"</code></pre>
+<pre class="shell"><code>pacman -S --needed grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+echo GRUB_DISABLE_OS_PROBER=false &gt;&gt; /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg</code></pre>
 <h2 id="启动archlinux"><a href="#启动archlinux">¶</a> 启动ArchLinux</h2>
 <p>重启电脑，应该就能在GRUB菜单里看到刚刚安装的ArchLinux了。</p>
 <p>进去之后可能会出现key出错的问题。可参考这里解决：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1790e92b2189/" class="uri">https://www.jianshu.com/p/1790e92b2189/</a></p>

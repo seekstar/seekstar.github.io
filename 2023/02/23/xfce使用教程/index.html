@@ -1895,6 +1895,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/16/c-memory-order/">
+                     
+										    C++ memory order
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/05/25/cppunit-for-linux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
                      
 										    cppunit for linux入门笔记
@@ -7370,12 +7381,20 @@ var _hmt = _hmt || [];
 <p>设置窗口相关的快捷键：Settings Manager -&gt; Window Manager -&gt; Keyboard</p>
 <p>设置执行自定义命令的快捷键：Settings Manager -&gt; Keyboard -&gt; Application Shortcuts</p>
 <p>也可以用命令行来设置快捷键：<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="xfce命令行设置快捷键">xfce命令行设置快捷键</a></p>
-<h2 id="音量调节的托盘项"><a href="#音量调节的托盘项">¶</a> 音量调节的托盘项</h2>
+<h2 id="托盘项"><a href="#托盘项">¶</a> 托盘项</h2>
+<h3 id="音量调节"><a href="#音量调节">¶</a> 音量调节</h3>
 <pre class="shell"><code>sudo pacman -S xfce4-pulseaudio-plugin</code></pre>
 <p>然后在右上角的托盘右键，依次点击<code>Panel -&gt; Panel Preferences -&gt; Items -&gt; Add</code>，选择<code>PulseAudio Plugin</code>，点击<code>Add</code>，然后音量调节的托盘项就出现在托盘的最右边了。可以在<code>Items</code>界面调整其位置。</p>
-<h2 id="网络管理的托盘项"><a href="#网络管理的托盘项">¶</a> 网络管理的托盘项</h2>
+<p>如果用的是pipewire，需要安装pulseaudio的兼容层：</p>
+<pre class="shell"><code>sudo pacman -S --needed pipewire-pulse</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/PipeWire" class="uri">https://wiki.archlinux.org/title/PipeWire</a></p>
+<h3 id="网络管理"><a href="#网络管理">¶</a> 网络管理</h3>
 <pre class="shell"><code>sudo pacman -S --needed network-manager-applet</code></pre>
 <p>然后启动<code>nm-applet</code>：<code>nohup nm-applet &amp;</code>，托盘中就会出现网络管理的托盘项了。logout再login之后它会被自动启动。</p>
+<p>在Settings Manager里没有网络管理的入口。如果需要管理网络连接，需要右键网络管理的托盘项，选择<code>Edit Connections</code>，里面就可以设置自动连接之类的了。</p>
+<h3 id="蓝牙管理"><a href="#蓝牙管理">¶</a> 蓝牙管理</h3>
+<pre class="shell"><code>sudo pacman -S --needed blueman</code></pre>
+<p>然后<code>nohup blueman-applet &amp;</code>，托盘中就出现蓝牙管理的托盘项了。重启之后会被自动启动。</p>
 <h2 id="代理"><a href="#代理">¶</a> 代理</h2>
 <p>XFCE的桌面设置中没有提供系统代理的设置。可以将代理设置写入<code>/etc/profile.d/profile.sh</code>，例如：</p>
 <pre class="shell"><code>export http_proxy=http://localhost:端口号/
@@ -7424,7 +7443,7 @@ nohup xfce4-screensaver &amp;</code></pre>
 <p>所以将快捷键映射到这个命令即可。用命令行设置快捷键：</p>
 <pre class="shell"><code># Super+v 弹出剪切板历史
 xfconf-query --create -c xfce4-keyboard-shortcuts -p "/commands/custom/&lt;Super&gt;v" -s "xfce4-clipman-history" --type string</code></pre>
-<h3 id="托盘项"><a href="#托盘项">¶</a> 托盘项</h3>
+<h3 id="托盘项-1"><a href="#托盘项-1">¶</a> 托盘项</h3>
 <pre class="shell"><code>sudo pacman -S xfce4-clipman-plugin</code></pre>
 <p>然后在右上角的面板右键，依次点击<code>Panel -&gt; Panel Preferences -&gt; Items -&gt; Add</code>，选择Clipman，点击<code>Add</code>，然后托盘项就出现在托盘的最右边了。可以在<code>Items</code>界面调整其位置。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

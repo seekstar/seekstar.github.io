@@ -1895,6 +1895,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/16/c-memory-order/">
+                     
+										    C++ memory order
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/05/25/cppunit-for-linux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
                      
 										    cppunit for linux入门笔记
@@ -7384,9 +7395,13 @@ pacman -Q 包名
 # 详细信息
 pacman -Qi 包名
 # 包内的所有文件
-pacman -Ql 包名</code></pre>
+pacman -Ql 包名
+# 查看文件由哪个包提供
+pacman -Qo 相对路径或绝对路径</code></pre>
 <p>这里面也包括用yay安装的包。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://hustlei.github.io/2018/11/msys2-pacman.html">pacman常用命令</a></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://hustlei.github.io/2018/11/msys2-pacman.html">pacman常用命令</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=90635">How to find which package holds a file?</a></p>
 <h2 id="查看某包被哪些包依赖"><a href="#查看某包被哪些包依赖">¶</a> 查看某包被哪些包依赖</h2>
 <pre class="shell"><code>pacman -Qi 包名</code></pre>
 <p>里面的<code>Required By</code>后面的就是依赖这个包的包。</p>
