@@ -3655,6 +3655,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/19/ufw%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    UFW使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
                      
 										    chroot时硬链接ldd依赖的脚本
@@ -7387,6 +7398,12 @@ var _hmt = _hmt || [];
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  <span class="kw">add_compile_definitions</span>(MACRO_NAME)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">endif</span> ()</span></code></pre></div>
 <p>然后<code>cmake .. -DMACRO_NAME=ON</code>，再<code>make</code>就好了。</p>
+<h2 id="find_library"><a href="#find_library">¶</a> <code>find_library</code></h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29657195/how-to-test-if-cmake-found-a-library-with-find-library" class="uri">https://stackoverflow.com/questions/29657195/how-to-test-if-cmake-found-a-library-with-find-library</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">find_library</span>(LUA_LIB lua)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">if</span>(<span class="ot">NOT</span> LUA_LIB)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  <span class="kw">message</span>(<span class="ot">FATAL_ERROR</span> <span class="st">"lua library not found"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">endif</span>()</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

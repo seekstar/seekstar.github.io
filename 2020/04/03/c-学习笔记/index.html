@@ -3655,6 +3655,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/19/ufw%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    UFW使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
                      
 										    chroot时硬链接ldd依赖的脚本
@@ -7376,7 +7387,7 @@ var _hmt = _hmt || [];
 <div id="article-content">
 	<html><head></head><body><h2 id="vscode插件"><a href="#vscode插件">¶</a> vscode插件</h2>
 <h3 id="clangd"><a href="#clangd">¶</a> <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd">clangd</a></h3>
-<p>可替代微软的C/C++插件。它可以显示auto变量的类型，在template里也能报错。默认情况下它以<code>clang FILE</code>的方式来parse文件。在有多个文件的工程中需要使用cmake生成<code>compile_commands.json</code>告诉它文件是怎么编译的，它才能正确理解文件内容：</p>
+<p>可替代微软的C/C++插件（除了不能debug）。它可以显示auto变量的类型，在template里也能报错。默认情况下它以<code>clang FILE</code>的方式来parse文件。在有多个文件的工程中需要使用cmake生成<code>compile_commands.json</code>告诉它文件是怎么编译的，它才能正确理解文件内容：</p>
 <pre class="shell"><code>mkdir build
 cd build
 cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
@@ -7385,6 +7396,8 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 <p>注意它会往项目根目录的<code>.cache/clangd</code>下面存一些缓存文件，所以需要在<code>.cache</code>下面建立一个内容为<code>*</code>的<code>.gitignore</code>，让git忽略<code>.cache</code>下面的文件。也可以直接在项目根目录下面的<code>.gitignore</code>里加上<code>.cache</code>。</p>
 <p>进阶用法：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/566506467">使用Clangd提升C++代码编写体验</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://clangd.llvm.org/installation#project-setup" class="uri">https://clangd.llvm.org/installation#project-setup</a></p>
+<h3 id="c-testmate"><a href="#c-testmate">¶</a> C++ TestMate</h3>
+<p>可以运行和调试单个GTest测试。</p>
 <h2 id="string和int相互转化"><a href="#string和int相互转化">¶</a> string和int相互转化</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lxj434368832/article/details/78874108" class="uri">https://blog.csdn.net/lxj434368832/article/details/78874108</a></p>
 <p>string -&gt; int</p>

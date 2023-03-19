@@ -3655,6 +3655,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/03/19/ufw%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    UFW使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
                      
 										    chroot时硬链接ldd依赖的脚本
@@ -7466,6 +7477,17 @@ Categories=Network;FileTransfer;</code></pre>
 <h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a> 允许安装闭源软件</h2>
 <p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
 <pre class="text"><code>{ allowUnfree = true; }</code></pre>
+<h2 id="安装和使用库"><a href="#安装和使用库">¶</a> 安装和使用库</h2>
+<p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
+<p>因此如果用Nix包管理器安装了库，比如gtest: <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
+<p>如果是用cmake + make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick Cao说是cmake的setup hook去找依赖。之后需要把原来的<code>build</code>删掉，再重新<code>cmake ..</code>才行。</p>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
 <p>如果不自己创建<code>.desktop</code>文件，Deepin启动器里好像没法找到安装的GUI软件：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av335652600/" class="uri">https://www.bilibili.com/video/av335652600/</a>。不知道其他系统是不是这样。</p>
 <h3 id="error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory"><a href="#error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory">¶</a> <code>error: opening lock file '/nix/var/nix/profiles/per-user/searchstar/profile.lock': No such file or directory</code></h3>
