@@ -7414,22 +7414,25 @@ var _hmt = _hmt || [];
 </ul>
 <blockquote>
 <p>调用<code>DBImpl::PickCompactionFromQueue</code>从<code>compaction_queue_</code>里取出一个<code>ColumnFamilyData *cfd</code><br>
-调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>，作为要做的任务。<br>
-&gt;<code>ColumnFamilyData::PickCompaction</code>调用<code>compaction_picker_-&gt;PickCompaction</code>。<br>
-&gt;<code>ColumnFamilyData::compaction_picker_</code>是在<code>ColumnFamilyData</code>的构造函数里根据<code>ioptions_.compaction_style</code>赋值的。<br>
-&gt;<br>
-&gt;<code>cpp &gt;struct AdvancedColumnFamilyOptions { &gt;  // The compaction style. Default: kCompactionStyleLevel &gt;  CompactionStyle compaction_style = kCompactionStyleLevel; &gt;</code><br>
-&gt;<br>
-&gt;所以我们假设<code>ColumnFamilyData::compaction_picker_</code>是<code>LevelCompactionPicker</code>，即假设<code>ColumnFamilyData::PickCompaction</code>调用的<code>compaction_picker_-&gt;PickCompaction</code>其实是<code>LevelCompactionPicker::PickCompaction</code>。<br>
-&gt;<code>LevelCompactionPicker::PickCompaction</code>调用<code>LevelCompactionBuilder::PickCompaction</code>。<br>
-&gt;&gt;选择输入文件：<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/" title="RocksDB代码分析——Compaction的输入文件的选择">RocksDB代码分析——Compaction的输入文件的选择</a><br>
-&gt;&gt;调用<code>LevelCompactionBuilder::GetCompaction</code>构造<code>Compaction</code>对象。<br>
-&gt;&gt;&gt;将要返回的<code>Compaction *</code>中的score会被设置为start level的score。<br>
-&gt;&gt;&gt;在<code>Compaction</code>的构造函数中调用<code>Compaction::MarkFilesBeingCompacted</code>将输入文件标记为<code>being_compacted</code>，防止出现一边compaction一边上面compact到输入层的情况。<br>
-&gt;&gt;&gt;调用<code>VersionStorageInfo::ComputeCompactionScore</code>重新计算各层的score。<br>
-&gt;&gt;&gt;&gt;除了Level 0，其他层的score等于没有在compact的file的<code>compensated_file_size</code>除以该层的最大字节数。<br>
-&gt;&gt;&gt;&gt;只有score&gt;=1的层才会被选择作为compaction的start level，见<code>LevelCompactionBuilder::SetupInitialFiles</code>（<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/" title="RocksDB代码分析——Compaction的输入文件的选择">RocksDB代码分析——Compaction的输入文件的选择</a>）。<br>
-&gt;&gt;&gt;&gt;file的<code>compensated_file_size</code>在<code>VersionStorageInfo::ComputeCompensatedSizes</code>中计算得到。</p>
+调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>，作为要做的任务。</p>
+<blockquote>
+<p><code>ColumnFamilyData::PickCompaction</code>调用<code>compaction_picker_-&gt;PickCompaction</code>。<br>
+<code>ColumnFamilyData::compaction_picker_</code>是在<code>ColumnFamilyData</code>的构造函数里根据<code>ioptions_.compaction_style</code>赋值的。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> AdvancedColumnFamilyOptions {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a> <span class="co">// The compaction style. Default: kCompactionStyleLevel</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a> CompactionStyle compaction_style = kCompactionStyleLevel;</span></code></pre></div>
+<p>所以我们假设<code>ColumnFamilyData::compaction_picker_</code>是<code>LevelCompactionPicker</code>，即假设<code>ColumnFamilyData::PickCompaction</code>调用的<code>compaction_picker_-&gt;PickCompaction</code>其实是<code>LevelCompactionPicker::PickCompaction</code>。<br>
+<code>LevelCompactionPicker::PickCompaction</code>调用<code>LevelCompactionBuilder::PickCompaction</code>。</p>
+<blockquote>
+<p>选择输入文件：<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/" title="RocksDB代码分析——Compaction的输入文件的选择">RocksDB代码分析——Compaction的输入文件的选择</a><br>
+调用<code>LevelCompactionBuilder::GetCompaction</code>构造<code>Compaction</code>对象。</p>
+<blockquote>
+<p>将要返回的<code>Compaction *</code>中的score会被设置为start level的score。<br>
+在<code>Compaction</code>的构造函数中调用<code>Compaction::MarkFilesBeingCompacted</code>将输入文件标记为<code>being_compacted</code>，防止出现一边compaction一边上面compact到输入层的情况。<br>
+调用<code>VersionStorageInfo::ComputeCompactionScore</code>重新计算各层的score。除了Level 0，其他层的score等于没有在compact的file的<code>compensated_file_size</code>除以该层的最大字节数。只有score&gt;=1的层才会被选择作为compaction的start level，见<code>LevelCompactionBuilder::SetupInitialFiles</code>（<a href="/2022/06/02/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E7%9A%84%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9/" title="RocksDB代码分析——Compaction的输入文件的选择">RocksDB代码分析——Compaction的输入文件的选择</a>）。file的<code>compensated_file_size</code>在<code>VersionStorageInfo::ComputeCompensatedSizes</code>中计算得到。</p>
+</blockquote>
+</blockquote>
+</blockquote>
 </blockquote>
 <ul>
 <li>如果是<code>prepicked compaction</code>，那么就将<code>prepicked_compaction-&gt;compaction</code>作为要做的compaction任务。</li>
@@ -7457,14 +7460,14 @@ var _hmt = _hmt || [];
 <p>构造<code>CompactionJob</code>时，<code>FSDirectory* output_directory</code>被设置成<code>GetDataDir(c-&gt;column_family_data(), c-&gt;output_path_id())</code>。</p>
 <p><code>c-&gt;output_path_id()</code>返回的是<code>Compaction::output_path_id_</code>。它是从Compaction的构造函数的参数来的。</p>
 <p>假如compaction任务（<code>Compaction</code>）是通过<code>cfd-&gt;PickCompaction</code>得到的。根据前面的分析，这些compaction任务默认是由<code>LevelCompactionBuilder::GetCompaction</code>构造的，其中<code>output_path_id</code>: <code>GetPathId(ioptions_, mutable_cf_options_, output_level_)</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">/*</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co"> * Find the optimal path to place a file</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co"> * Given a level, finds the path where levels up to it will fit in levels</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co"> * up to and including this path</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="co"> */</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="dt">uint32_t</span> LevelCompactionBuilder::GetPathId(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="at">const</span> ImmutableCFOptions&amp; ioptions,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="at">const</span> MutableCFOptions&amp; mutable_cf_options, <span class="dt">int</span> level) {</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">/*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co"> * Find the optimal path to place a file</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="co"> * Given a level, finds the path where levels up to it will fit in levels</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co"> * up to and including this path</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="co"> */</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="dt">uint32_t</span> LevelCompactionBuilder::GetPathId(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="at">const</span> ImmutableCFOptions&amp; ioptions,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="at">const</span> MutableCFOptions&amp; mutable_cf_options, <span class="dt">int</span> level) {</span></code></pre></div>
 <p>大意就是检查<code>ImmutableCFOptions::cf_paths</code>的每个<code>cf_path</code>，直到找到某个path能放下要compact到的那个level。</p>
 <p>这个<code>ImmutableCFOptions</code>的来源见<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%90%84%E7%A7%8Doption%E7%9A%84%E4%BC%A0%E9%80%92/" title="RocksDB代码分析——各种option的传递">RocksDB代码分析——各种option的传递</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
