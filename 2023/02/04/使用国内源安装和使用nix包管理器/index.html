@@ -7499,6 +7499,19 @@ Categories=Network;FileTransfer;</code></pre>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake + make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick Cao说是cmake的setup hook去找依赖。之后需要把原来的<code>build</code>删掉，再重新<code>cmake ..</code>才行。</p>
+<h2 id="搜索哪个包提供了文件"><a href="#搜索哪个包提供了文件">¶</a> 搜索哪个包提供了文件</h2>
+<p>先安装<code>nix-index</code>：</p>
+<pre class="shell"><code>nix-env -iA nixpkgs.nix-index</code></pre>
+<p>生成数据库（可能需要很长一段时间）：</p>
+<pre class="shell"><code>nix-index</code></pre>
+<p>然后就可以用<code>nix-locate</code>查找哪个包提供了某个文件了：</p>
+<pre class="shell"><code>nix-locate -w xxx</code></pre>
+<p>例如</p>
+<pre class="shell"><code>nix-locate -w "/iostat"</code></pre>
+<p>这一行就是我们想要的：</p>
+<pre class="text"><code>sysstat.out                                      67,720 x /nix/store/39wxpjmmd6m082d492rg6wiwqcv5npvr-sysstat-12.6.2/bin/iostat</code></pre>
+<p>所以我们就知道了提供<code>iostat</code>命令的包是<code>sysstat</code>。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/252224/how-to-find-out-which-not-installed-package-a-file-belongs-to-on-nixos" class="uri">https://unix.stackexchange.com/questions/252224/how-to-find-out-which-not-installed-package-a-file-belongs-to-on-nixos</a></p>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
 <p>如果不自己创建<code>.desktop</code>文件，Deepin启动器里好像没法找到安装的GUI软件：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av335652600/" class="uri">https://www.bilibili.com/video/av335652600/</a>。不知道其他系统是不是这样。</p>
 <h3 id="error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory"><a href="#error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory">¶</a> <code>error: opening lock file '/nix/var/nix/profiles/per-user/searchstar/profile.lock': No such file or directory</code></h3>
@@ -7506,6 +7519,9 @@ Categories=Network;FileTransfer;</code></pre>
 <pre class="shell"><code>sudo mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
 sudo chown $USER:$USER /nix/var/nix/{profiles,gcroots}/per-user/$USER</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4" class="uri">https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4</a></p>
+<h3 id="error-this-derivation-has-bad-metaoutputstoinstall"><a href="#error-this-derivation-has-bad-metaoutputstoinstall">¶</a> <code>error: this derivation has bad 'meta.outputsToInstall'</code></h3>
+<p>可能是在<code>nix-env -iA</code>的时候<code>ctrl+c</code>导致的？反正回滚一下就行了：<code>nix-env --rollback</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://github.com/NixOS/nixpkgs/issues/189555" class="uri">https://github.com/NixOS/nixpkgs/issues/189555</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

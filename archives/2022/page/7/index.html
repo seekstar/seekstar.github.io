@@ -7438,8 +7438,7 @@ P.S. 收到了#archlinux-cn:nichi.co群的undefined用户的确认。
 				<div class="index-brief">
 					这里主要分析LevelCompactionBuilder::PickCompaction是如何选择输入文件的。
 
-SetupInitialFiles();找一个需要compact到下层的SST file。
-LevelCompactionBuilder::SetupOtherL0FilesIfNeed
+SetupInitialFiles();找一个需要compact到下层的SST file。只会在score &gt;= 1的level里找。score的计算见VersionStorage
 					...
 				</div>
 			</a>
