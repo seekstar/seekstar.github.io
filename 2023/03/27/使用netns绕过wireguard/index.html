@@ -7485,7 +7485,7 @@ sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</c
 <pre class="shell"><code>ip netns exec $spacename 命令 参数1 参数2 ...</code></pre>
 <p>比如可以在netns里开一个shell: <code>ip netns exec $spacename bash</code></p>
 <p>在netns里ping：<code>ip netns exec $spacename ping google.com</code></p>
-<p>我们可以对比一下netns里<code>ip gs</code>和在宿主机直接<code>ip gs</code>打印出来的IP，看看我们是否成功绕过了wireguard: <code>ip netns exec $spacename ip gs</code></p>
+<p>我们可以对比一下netns里<code>curl ip.gs</code>和在宿主机直接<code>curl ip.gs</code>打印出来的IP，看看我们是否成功绕过了wireguard: <code>ip netns exec $spacename curl ip.gs</code></p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <div id="footnotes">
 <hr>
