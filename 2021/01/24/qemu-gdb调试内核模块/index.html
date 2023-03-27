@@ -7419,13 +7419,13 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="制作qemu虚拟机"><a href="#制作qemu虚拟机">¶</a> 制作qemu虚拟机</h2>
-<p>看这里：<a href="#">Post not found: Linux/qemu/在服务器上用qemu制作虚拟机</a></p>
+<p>看这里：<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="在服务器上用qemu制作虚拟机">在服务器上用qemu制作虚拟机</a></p>
 <p>如果是PC的话，就不用配置vnc了。</p>
 <p>虚拟机配置完毕后要把<code>-enable-kvm</code>去掉再重启，不然软件断点不起作用。此外，加上<code>-s</code>以启动gdbserver。</p>
 <pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 centos.img -net nic -net tap,ifname=tap0,script=no,downscript=no -s</code></pre>
 <p>关掉了kvm之后开机特别慢，我这要两百多秒。</p>
 <h2 id="设置nokaslr"><a href="#设置nokaslr">¶</a> 设置nokaslr</h2>
-<a href="#">Post not found: Linux/qemu/qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff</a>
+<a href="/2021/01/22/qemu-gdb-lx-symbols-python-exception-%EF%BC%9Cclass-%E2%80%98gdb-memoryerror%E2%80%98%EF%BC%9E-cannot-access-memory-at-address-0xfff/" title="qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff">qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff</a>
 <h2 id="编译内核模块"><a href="#编译内核模块">¶</a> 编译内核模块</h2>
 <p>Makefile里加上</p>
 <pre class="text"><code>ccflags-y += -g -DDEBUG -O1</code></pre>
