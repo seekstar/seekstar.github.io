@@ -3786,17 +3786,6 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2020/08/22/virtualbox%E5%AE%89%E8%A3%85deepin-v15-11%E5%90%8E%E5%AE%89%E8%A3%85%E5%A2%9E%E5%BC%BA%E5%8A%9F%E8%83%BD/">
-                     
-										    virtualbox安装deepin v15.11后安装增强功能
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -7429,7 +7418,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>本文持续更新。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>本文持续更新。</p>
 <h2 id="代码风格"><a href="#代码风格">¶</a> 代码风格</h2>
 <h3 id="函数返回值类型后置"><a href="#函数返回值类型后置">¶</a> 函数返回值类型后置</h3>
 <p>C++11引入了函数返回值类型后置的写法(trailing return type)：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Trailing_return_type" class="uri">https://en.wikipedia.org/wiki/Trailing_return_type</a></p>
@@ -7474,6 +7463,7 @@ var _hmt = _hmt || [];
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="fu">ContinuationIndentWidth</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="fu">ConstructorInitializerIndentWidth</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="co">...</span></span></code></pre></div>
+<p><code>AlignAfterOpenBracket: BlockIndent</code>表示将圆括号里的东西按照block的风格来align：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/71710337/how-to-make-clang-format-not-align-parameters-to-function-call" class="uri">https://stackoverflow.com/questions/71710337/how-to-make-clang-format-not-align-parameters-to-function-call</a>。但是它需要安装clang-format 14。Debian 11提供的clang-format的版本是11，可以用<code>nix</code>安装最新版的clang-format：<code>nix-env -iA nixpkgs.clang-tools</code>，nix包管理器教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <pre class="shell"><code>find . -regex '.*\.\(cpp\|hpp\|cc\|cxx\)' -exec clang-format -style=file -i {} \;</code></pre>
 <p>存在的问题：</p>
 <ul>
