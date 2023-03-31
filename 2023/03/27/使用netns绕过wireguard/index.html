@@ -7476,8 +7476,7 @@ sudo ip netns exec $spacename ifconfig ${spacename}veth2 192.168.45.3 netmask 25
 <p>根据这篇博客：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/sammyliu/p/5760125.html">使用 NAT 将 Linux network namespace 连接外网</a>，还需要做如下路由设置，以确保netns子网和物理网卡之间的流量不会被拦截：</p>
 <pre class="shell"><code>sudo iptables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT
 sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</code></pre>
-<p>然后将来自该NAT网络的所有流量的fwmark都设置成51820<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/>
-">[4]</span></a></sup>：</p>
+<p>然后将来自该NAT网络的所有流量的fwmark都设置成51820<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/>">[4]</span></a></sup>：</p>
 <pre class="shell"><code>sudo iptables -t mangle -A PREROUTING -s 192.168.45.0/24 -j MARK --set-mark 51820</code></pre>
 <p>这样来自netns的所有流量都是直接流向物理网卡，不会经过wireguard了。</p>
 <h2 id="在netns中执行命令"><a href="#在netns中执行命令">¶</a> 在netns中执行命令</h2>
@@ -7486,6 +7485,43 @@ sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</c
 <p>比如可以在netns里开一个shell: <code>ip netns exec $spacename bash</code></p>
 <p>在netns里ping：<code>ip netns exec $spacename ping google.com</code></p>
 <p>我们可以对比一下netns里<code>curl ip.gs</code>和在宿主机直接<code>curl ip.gs</code>打印出来的IP，看看我们是否成功绕过了wireguard: <code>ip netns exec $spacename curl ip.gs</code></p>
+<h2 id="ipv6"><a href="#ipv6">¶</a> IPv6</h2>
+<p>如果没有配置IPv6的话，socks代理可能会出问题。因此这里在netns中另外再配置一下ipv6，使得netns中可以访问公网中的ipv6地址。本节主要参考这篇博客：<a target="_blank" rel="noopener" href="https://blogs.igalia.com/dpino/2016/05/02/network-namespaces-ipv6/" class="uri">https://blogs.igalia.com/dpino/2016/05/02/network-namespaces-ipv6/</a></p>
+<h3 id="打开ipv6的forwarding"><a href="#打开ipv6的forwarding">¶</a> 打开IPv6的forwarding</h3>
+<p><code>accept_ra</code>的全称是accept router advertisement，它有三个级别<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://sysctl-explorer.net/net/ipv6/accept_ra/>
+">[5]</span></a></sup>：</p>
+<pre class="text"><code>0: Do not accept Router Advertisements.
+1: Accept Router Advertisements if forwarding is disabled.
+2: Overrule forwarding behaviour. Accept Router Advertisements even if forwarding is enabled.</code></pre>
+<p>默认是1。此时直接打开IPv6的forwarding的话，如果default route是外界advertise进来的，就会导致default route消失：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/976775/ipv6-default-route-is-removed-after-net-ipv6-conf-all-forwarding-is-set-to-1" class="uri">https://serverfault.com/questions/976775/ipv6-default-route-is-removed-after-net-ipv6-conf-all-forwarding-is-set-to-1</a></p>
+<p>因此我们需要先将<code>accept_ra</code>设置为2，再打开IPv6的forwarding：</p>
+<pre class="shell"><code>sysctl net.ipv6.conf.$realdev.accept_ra
+# 2: Accept Router Advertisements even if forwarding is enabled.
+sysctl -w net.ipv6.conf.$realdev.accept_ra=2
+
+sysctl net.ipv6.conf.all.forwarding
+sysctl -w net.ipv6.conf.all.forwarding=1</code></pre>
+<h3 id="为veth的两端设置私有ipv6地址"><a href="#为veth的两端设置私有ipv6地址">¶</a> 为veth的两端设置私有IPv6地址</h3>
+<p><code>fd00::/8</code>是私有的IPv6地址块：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Private_network" class="uri">https://en.wikipedia.org/wiki/Private_network</a>。所以我们可以将<code>${spacename}veth1</code>的IP设置为<code>fd00::1/64 dev</code>，将<code>${spacename}veth2</code>的IP设置为<code>fd00::2/64 dev</code>：</p>
+<pre class="shell"><code>ip -6 addr add fd00::1/64 dev ${spacename}veth1
+ip link set dev ${spacename}veth1 up
+ip netns exec $spacename ip -6 addr add fd00::2/64 dev ${spacename}veth2
+ip netns exec $spacename ip link set dev ${spacename}veth2 up</code></pre>
+<h3 id="在netns里设置ipv6路由"><a href="#在netns里设置ipv6路由">¶</a> 在netns里设置IPv6路由</h3>
+<p>将<code>${spacename}veth1</code>设置成默认网关，让netns里的IPv6流量都通过<code>${spacename}veth2</code>发往<code>${spacename}veth1</code>：</p>
+<pre class="shell"><code>ip netns exec $spacename ip -6 route add default dev ${spacename}veth2 via fd00::1</code></pre>
+<h3 id="配置ipv6-nat"><a href="#配置ipv6-nat">¶</a> 配置IPv6 NAT</h3>
+<pre class="shell"><code>ip6tables -t nat -A POSTROUTING -o $realdev -j MASQUERADE</code></pre>
+<p>显式accept netns和物理网卡之间的流量：</p>
+<pre class="shell"><code>sudo ip6tables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT
+sudo ip6tables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</code></pre>
+<p>设置来自netns子网的流量的fwmark为51820，从而使得其bypass wireguard:</p>
+<pre class="shell"><code>sudo ip6tables -t mangle -A PREROUTING -s fd00::/64 -j MARK --set-mark 51820</code></pre>
+<h3 id="在netns中访问公网的ipv6地址"><a href="#在netns中访问公网的ipv6地址">¶</a> 在netns中访问公网的IPv6地址</h3>
+<pre class="shell"><code>$ sudo ip netns exec trojannowg ping ipv6.google.com
+PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 data bytes
+64 bytes from nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e): icmp_seq=1 ttl=105 time=2.37 ms</code></pre>
+<p>大功告成。</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <div id="footnotes">
 <hr>
@@ -7502,6 +7538,9 @@ sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</c
 </li>
 <li id="fn:4">
 <span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/">https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
+</li>
+<li id="fn:5">
+<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://sysctl-explorer.net/net/ipv6/accept_ra/">https://sysctl-explorer.net/net/ipv6/accept_ra/</a><a href="#fnref:5" rev="footnote"> ↩︎</a></span>
 </li>
 </ol>
 </div>
