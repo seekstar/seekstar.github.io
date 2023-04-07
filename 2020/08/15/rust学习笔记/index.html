@@ -7418,8 +7418,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lcloveyou/article/details/105595040">Rust编程知识拾遗：Rust 编程，读取命令行参数</a></p>
-<h2 id="安装"><a href="#安装">¶</a> 安装</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <pre class="shell"><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></pre>
 <p>或者：<a href="/2020/08/05/linux-%E9%9D%9E%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%89%E8%A3%85rust/" title="linux 非交互式安装rust">linux 非交互式安装rust</a></p>
 <p>安装rust之后<code>rustup doc</code>，文档就会在浏览器里打开。点击里面的The Rust Programming Language，就可以看到入门书的网页版了。</p>
@@ -7441,11 +7440,30 @@ var _hmt = _hmt || [];
 rm ~/.cargo/.package-cache</code></pre>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206" class="uri">https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206</a></p>
 <h2 id="语法"><a href="#语法">¶</a> 语法</h2>
+<p><a target="_blank" rel="noopener" href="https://www.yiibai.com/rust/rust-for-loop.html">Rust for循环</a></p>
 <ul>
 <li><code>_</code>是通配符</li>
 </ul>
 <p><img src="/2020/08/15/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200814170430309.png" alt="在这里插入图片描述"></p>
 <p>这里指匹配所有的Err，不管里面是啥。</p>
+<h2 id="io"><a href="#io">¶</a> I/O</h2>
+<ul>
+<li><a href="/2022/10/14/rust%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="Rust文件操作">Rust文件操作</a></li>
+<li><a href="/2021/07/05/rust%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%89%93%E5%8D%B0%E5%88%B0%E6%96%87%E4%BB%B6/" title="rust格式化打印到文件">rust格式化打印到文件</a></li>
+<li><a href="/2020/08/25/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%ADrust%E7%9A%84%E4%B8%80%E7%A7%8D%E6%AF%94%E8%BE%83%E5%81%A5%E5%A3%AE%E7%9A%84%E8%AF%BB%E5%85%A5/" title="算法竞赛中rust的一种比较健壮的读入">算法竞赛中rust的一种比较健壮的读入</a></li>
+<li><a href="/2020/08/17/rust%E8%AF%86%E5%88%ABeof/" title="rust识别EOF">rust识别EOF</a></li>
+<li><a href="/2021/12/03/rust-bufreader%E9%80%90%E5%AD%97%E7%AC%A6%E8%AF%BB%E5%8F%96/" title="rust BufReader逐字符读取">rust BufReader逐字符读取</a></li>
+<li><a href="/2020/08/15/rust%E5%8D%95%E8%A1%8C%E8%AF%BB%E5%8F%96%E5%A4%9A%E4%B8%AA%E6%95%B4%E6%95%B0/" title="rust单行读取多个整数">rust单行读取多个整数</a></li>
+<li><a href="/2020/08/26/rust%E4%BB%8E%E4%B8%80%E8%A1%8C%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E7%BB%84/" title="rust从一行中读取数组">rust从一行中读取数组</a></li>
+<li><a href="/2021/11/17/rust%E7%94%A8bufreader%E5%8A%A0%E9%80%9Fstdin%E8%AF%BB%E5%8F%96/" title="rust用BufReader加速stdin读取">rust用BufReader加速stdin读取</a></li>
+<li><a href="/2021/10/12/rust%E6%A0%BC%E5%BC%8F%E6%8E%A7%E5%88%B6/" title="rust格式控制">rust格式控制</a></li>
+<li><a href="/2020/08/25/rust-print%E5%9B%BA%E5%AE%9A%E5%AE%BD%E5%BA%A6%E5%B7%A6%E8%BE%B9%E8%A1%A5%E9%9B%B6/" title="rust print固定宽度左边补零">rust print固定宽度左边补零</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lcloveyou/article/details/105595040">Rust编程知识拾遗：Rust 编程，读取命令行参数</a></li>
+</ul>
+<h3 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a> 从文件中逐行读取</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在 Rust 中读取文件的 4 种方法</a></p>
 <h2 id="常见函数"><a href="#常见函数">¶</a> 常见函数</h2>
 <h3 id="字符串成员函数"><a href="#字符串成员函数">¶</a> 字符串成员函数</h3>
 <ul>
@@ -7456,25 +7474,25 @@ rm ~/.cargo/.package-cache</code></pre>
 </ul>
 <h2 id="c语言字符串转string"><a href="#c语言字符串转string">¶</a> C语言字符串转String</h2>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 <h2 id="trait"><a href="#trait">¶</a> trait</h2>
 <p>Rust的trait相当于定义了这个类型有哪些接口。定义了trait之后，可以对已知类型实现这个trait:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">trait</span> A <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span><span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="kw">for</span> <span class="dt">f32</span> <span class="op">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>        <span class="kw">return</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>	<span class="co">// 2333</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">trait</span> A <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="kw">for</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>        <span class="kw">return</span> <span class="dv">2333</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
