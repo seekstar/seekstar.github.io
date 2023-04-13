@@ -7493,6 +7493,91 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="获得vec里多个元素的mutable-reference"><a href="#获得vec里多个元素的mutable-reference">¶</a> 获得<code>Vec</code>里多个元素的mutable reference</h2>
+<p>比如要获得<code>a[1]</code>和<code>a[3]</code>的可变引用，可以用iterator:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> iter <span class="op">=</span> a<span class="op">.</span>iter_mut()<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    <span class="kw">let</span> a1 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="kw">let</span> a3 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">3</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>也可以用nightly特性<code>get_many_mut</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="at">#![</span>feature<span class="at">(</span>get_many_mut<span class="at">)]</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">let</span> [a1<span class="op">,</span> a3] <span class="op">=</span> a<span class="op">.</span>get_many_mut([<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span>])<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="struct成员变量默认值"><a href="#struct成员变量默认值">¶</a> struct成员变量默认值</h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19650265/is-there-a-faster-shorter-way-to-initialize-variables-in-a-rust-struct" class="uri">https://stackoverflow.com/questions/19650265/is-there-a-faster-shorter-way-to-initialize-variables-in-a-rust-struct</a></p>
+<h2 id="生成随机数"><a href="#生成随机数">¶</a> 生成随机数</h2>
+<p>用<code>rand</code> crate。文档：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/" class="uri">https://docs.rs/rand/latest/rand/</a>。</p>
+<p>基础用法：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/#quick-start" class="uri">https://docs.rs/rand/latest/rand/#quick-start</a></p>
+<p>自带的随机数生成器：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/rngs/index.html" class="uri">https://docs.rs/rand/latest/rand/rngs/index.html</a></p>
+<p>如果需要指定随机种子的话，一般<code>rand::rngs::StdRng</code>即可满足需求，文档：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/rngs/struct.StdRng.html" class="uri">https://docs.rs/rand/latest/rand/rngs/struct.StdRng.html</a></p>
+<p>一些自带的分布：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/distributions/index.html" class="uri">https://docs.rs/rand/latest/rand/distributions/index.html</a></p>
+<p>比较常见的均匀分布：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/distributions/struct.Uniform.html" class="uri">https://docs.rs/rand/latest/rand/distributions/struct.Uniform.html</a></p>
+<h2 id="lower_bound--upper_bound"><a href="#lower_bound--upper_bound">¶</a> lower_bound / upper_bound</h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48575866/how-to-get-the-lower-bound-and-upper-bound-of-an-element-in-a-btreeset" class="uri">https://stackoverflow.com/questions/48575866/how-to-get-the-lower-bound-and-upper-bound-of-an-element-in-a-btreeset</a></p>
+<h2 id="char---u8"><a href="#char---u8">¶</a> char -&gt; u8</h2>
+<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195" class="uri">https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195</a></p>
+<h2 id="已知问题"><a href="#已知问题">¶</a> 已知问题</h2>
+<h3 id="non-lexical-lifetimes-nll"><a href="#non-lexical-lifetimes-nll">¶</a> Non-lexical lifetimes (NLL)</h3>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.rust-lang.org/2022/08/05/nll-by-default.html" class="uri">https://blog.rust-lang.org/2022/08/05/nll-by-default.html</a></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="kw">let</span> <span class="cn">Some</span>(s) <span class="op">=</span> vec<span class="op">.</span>last() <span class="op">{</span> <span class="co">// borrows vec</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>        <span class="co">// returning s here forces vec to be borrowed</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>        <span class="co">// for the rest of the function, even though it</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>        <span class="co">// shouldn't have to be</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>    </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>    <span class="co">// Because vec is borrowed, this call to vec.push gives</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a>    <span class="co">// an error!</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span> <span class="co">// ERROR</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<pre class="text"><code>error[E0502]: cannot borrow `*vec` as mutable because it is also borrowed as immutable
+  --&gt; a.rs:11:5
+   |
+1  | fn last_or_push&lt;'a&gt;(vec: &amp;'a mut Vec&lt;String&gt;) -&gt; &amp;'a String {
+   |                 -- lifetime `'a` defined here
+2  |     if let Some(s) = vec.last() { // borrows vec
+   |                      ---------- immutable borrow occurs here
+...
+6  |         return s; 
+   |                - returning this value requires that `*vec` is borrowed for `'a`
+...
+11 |     vec.push("".to_string()); // ERROR
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here</code></pre>
+<p>这是因为<code>s</code> borrow了<code>vec</code>之后，<code>s</code>是conditional return的，但是编译器仍然将对<code>vec</code>的borrow拓展到所有条件分支了，就导致另一个没有borrow <code>vec</code>的分支也被认为borrow了<code>vec</code>，就编译报错了。</p>
+<p>据说下一代borrow checker polonius可以解决这个问题。现在只能通过推迟对<code>vec</code>的borrow绕过这个问题：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="op">!</span>vec<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>        <span class="kw">let</span> s <span class="op">=</span> vec<span class="op">.</span>last()<span class="op">.</span>unwrap()<span class="op">;</span> <span class="co">// borrows vec</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> <span class="co">// extends the borrow </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a>    </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>    <span class="co">// In this branch, the borrow has never happened, so even</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a>    <span class="co">// though it is extended, it doesn't cover this call;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a>    <span class="co">// the code compiles.</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a>    <span class="co">//</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a>    <span class="co">// Note the subtle difference with the previous example:</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true"></a>    <span class="co">// in that code, the borrow *always* happened, but it was</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true"></a>    <span class="co">// only *conditionally* returned (but the compiler lost track</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true"></a>    <span class="co">// of the fact that it was a conditional return).</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true"></a>    <span class="co">//</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true"></a>    <span class="co">// In this example, the *borrow itself* is conditional.</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
