@@ -7418,7 +7418,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="下载内核"><a href="#下载内核">¶</a> 下载内核</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="下载内核"><a href="#下载内核">¶</a> 下载内核</h2>
 <p><a target="_blank" rel="noopener" href="https://www.kernel.org/" class="uri">https://www.kernel.org/</a></p>
 <p><img src="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/20201228134406637.png" alt="在这里插入图片描述"></p>
 <p>一般下载tarball，也就是.tar.xz格式的源码包。如果<code>/</code>够大，可以直接解压到<code>/usr/src</code>，也可以解压到机械盘上。</p>
@@ -7533,6 +7533,7 @@ Adding boot menu entry for EFI firmware configuration
 done</code></pre>
 <p>但是其实也同时把当前操作系统的内核给识别出来了。</p>
 <h2 id="设置默认内核"><a href="#设置默认内核">¶</a> 设置默认内核</h2>
+<h3 id="grubby"><a href="#grubby">¶</a> grubby</h3>
 <p>CentOS使用grubby来管理启动项，因此需要使用grubby来设置默认内核：</p>
 <pre class="shell"><code>sudo grubby --add-kernel=/boot/vmlinuz-xxxx --title="随便写点啥"
 sudo grubby --set-default=/boot/vmlinuz-xxxx</code></pre>
@@ -7547,8 +7548,10 @@ sudo grubby --default-kernel
 sudo grubby --default-index
 # 将指定内核从grubby列表中移出
 sudo grubby --remove-kernel=kernel-path</code></pre>
-<p>如果可以与GRUB菜单交互，那么也可以这样：<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/" title="GRUB菜单记住上次的选择的内核">GRUB菜单记住上次的选择的内核</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.golinuxcloud.com/grubby-command-examples/" class="uri">https://www.golinuxcloud.com/grubby-command-examples/</a></p>
+<h3 id="设置grub默认项"><a href="#设置grub默认项">¶</a> 设置GRUB默认项</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cf_wu95/article/details/85984956">Ubuntu 切换系统默认启动内核</a></p>
+<p>如果可以与GRUB菜单交互，那么也可以这样：<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/" title="GRUB菜单记住上次的选择的内核">GRUB菜单记住上次的选择的内核</a></p>
 <h2 id="删除旧内核可选"><a href="#删除旧内核可选">¶</a> 删除旧内核（可选）</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/amanlikethis/p/3599170.html" class="uri">https://www.cnblogs.com/amanlikethis/p/3599170.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
