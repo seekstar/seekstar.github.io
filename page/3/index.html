@@ -2256,6 +2256,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+                     
+										    CentOS升级
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -2490,6 +2501,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
                      
 										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    yum使用笔记
                      
 									</a>
 								</li>
@@ -3777,6 +3799,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
                      
 										    perf.data生成火焰图
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    systemctl学习笔记
                      
 									</a>
 								</li>
@@ -7393,6 +7426,72 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/01/21/linux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					Linux使用笔记
+				</h2>
+				<div class="index-brief">
+					¶ WIFI热点
+使用linux-wifi-hotspot即可。ArchLinux安装方式：
+# archlinuxcn源
+sudo pacman -S linux-wifi-hotspot
+# 或者AUR
+yay -S linux-wifi-hotspot
+¶ KDE Connect
+¶ 控制媒体
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-01-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/01/16/%E8%A7%A3%E5%86%B3usb-burning-tool-v2%E5%9C%A8win10%E4%B8%AD%E6%8A%A5%E9%94%99mfc100-dll%E6%89%BE%E4%B8%8D%E5%88%B0/">
+				<h2 class="index-title">
+					解决USB Burning Tool V2在Win10中报错mfc100.dll找不到
+				</h2>
+				<div class="index-brief">
+					网上都说要用win7。其实在这里安装32位的Microsoft Visual C++ 2010 Service Pack 1 Redistributable Package MFC Security Update即可：
+https://www.microsoft.com/en-gb/download
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-01-16</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/01/13/nmap%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					nmap学习笔记
+				</h2>
+				<div class="index-brief">
+					¶ 端口扫描
+nmap -p端口 地址
+¶ 地址
+地址可以用通配符，比如192.168.*.1表示192.168.1.1、192.168.2.1、……、192.168.255.1。
+也可以用CIDR（Classless Inter-Domain Routing，无类别域间路由），比如192.168.
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-01-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/12/29/latex%E4%B8%AD%E6%96%87%E4%B8%8B%E5%88%92%E7%BA%BF%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
 				<h2 class="index-title">
 					Latex中文下划线自动换行
@@ -7538,66 +7637,6 @@ sudo pacman -S cups-pdf
 			</a>
                 <div class="article-meta">
 				    <span>2022-11-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/11/16/linux%E8%AE%BE%E7%BD%AE%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%BB%98%E8%AE%A4%E6%9D%83%E9%99%90/">
-				<h2 class="index-title">
-					Linux设置某目录下的默认权限
-				</h2>
-				<div class="index-brief">
-					（可选）首先设置setgid，使得在这个目录下新建的文件和目录都继承这个目录的组：
-chmod g+s &lt;directory&gt;
-然后用setfacl设置这个目录下面新建文件或者目录时的默认权限。例如让这个目录下面新建的目录的group权限默认为rwx：
-setfacl -d -m g::
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-11-16</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/11/10/vscode-clang-tidy/">
-				<h2 class="index-title">
-					vscode clang-tidy
-				</h2>
-				<div class="index-brief">
-					安装C/C++插件：https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools
-然后在设置中将这两项勾上，使得clang-tidy能够自动运行：
-C_Cpp › Code Analysis › Clang Tidy: 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-11-10</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/11/01/vscode%E5%9C%A8%E9%80%89%E4%B8%AD%E7%9A%84%E6%AF%8F%E8%A1%8C%E5%BC%80%E5%A4%B4%E6%8F%92%E5%85%A5/">
-				<h2 class="index-title">
-					vscode在选中的每行开头插入
-				</h2>
-				<div class="index-brief">
-					首先alt+shift+i在选中的每行末尾创建一个光标，然后再按两下Home键将光标移动到每行开头，然后再插入即可。按ESC即可退出多行编辑模式。
-如果vscode开启了自动换行，那么在自动换行的行也会创建光标，而这不是我们想要的。解决方案是alt+z临时关掉自动换行，插入完成后再alt+z重新开启
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-11-01</span>
                     
                             
                     

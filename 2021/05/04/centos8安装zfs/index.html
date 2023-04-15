@@ -2258,6 +2258,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+                     
+										    CentOS升级
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -2492,6 +2503,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
                      
 										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    yum使用笔记
                      
 									</a>
 								</li>
@@ -3779,6 +3801,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
                      
 										    perf.data生成火焰图
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    systemctl学习笔记
                      
 									</a>
 								</li>
@@ -7418,30 +7451,37 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>查看当前centos版本号</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>查看当前centos版本号</p>
 <pre class="shell"><code>cat /etc/redhat-release</code></pre>
-<pre><code>CentOS Linux release 8.3.2011</code></pre>
+<pre class="text"><code>CentOS Linux release 8.3.2011</code></pre>
 <p>然后</p>
 <pre class="shell"><code>sudo dnf install https://zfsonlinux.org/epel/zfs-release.&lt;dist&gt;.noarch.rpm
 gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux</code></pre>
 <p>其中<code>&lt;dist&gt;</code>换成版本号，比如我这个就是<code>el8_3</code>。</p>
-<h1 id="dkms"><a href="#dkms">¶</a> DKMS</h1>
+<h2 id="dkms"><a href="#dkms">¶</a> DKMS</h2>
 <pre class="shell"><code>yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 sudo dnf config-manager --set-enabled powertools</code></pre>
 <p>（上面这段是不是可以不要？）</p>
 <pre class="shell"><code>sudo dnf install epel-release
 sudo dnf install kernel-devel zfs</code></pre>
 <p>要等好久。</p>
-<h1 id="插入内核模块"><a href="#插入内核模块">¶</a> 插入内核模块</h1>
+<h2 id="插入内核模块"><a href="#插入内核模块">¶</a> 插入内核模块</h2>
 <pre class="shell"><code>/sbin/modprobe zfs</code></pre>
 <p>检查一下是否安装成功：</p>
 <pre class="shell"><code>sudo zfs list</code></pre>
 <p>显示这个就说明装好了。</p>
-<pre><code>no datasets available</code></pre>
-<h1 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h1>
-<p>官方教程：<a target="_blank" rel="noopener" href="https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html" class="uri">https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html</a><br>
-<a target="_blank" rel="noopener" href="https://github.com/openzfs/zfs" class="uri">https://github.com/openzfs/zfs</a><br>
-<a target="_blank" rel="noopener" href="https://www.howtogeek.com/175159/an-introduction-to-the-z-file-system-zfs-for-linux/" class="uri">https://www.howtogeek.com/175159/an-introduction-to-the-z-file-system-zfs-for-linux/</a></p>
+<pre class="text"><code>no datasets available</code></pre>
+<h2 id="卸载"><a href="#卸载">¶</a> 卸载</h2>
+<pre class="shell"><code>sudo yum remove zfs-release
+# https://stackoverflow.com/a/25500911
+rpm -e --nodeps $(yum list installed | grep zfs | awk '{ print $1 }')
+# https://superuser.com/questions/513159/how-to-remove-systemd-services
+sudo systemctl daemon-reload
+sudo systemctl reset-failed</code></pre>
+<h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
+<p>官方教程：<a target="_blank" rel="noopener" href="https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html" class="uri">https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/openzfs/zfs" class="uri">https://github.com/openzfs/zfs</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.howtogeek.com/175159/an-introduction-to-the-z-file-system-zfs-for-linux/" class="uri">https://www.howtogeek.com/175159/an-introduction-to-the-z-file-system-zfs-for-linux/</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

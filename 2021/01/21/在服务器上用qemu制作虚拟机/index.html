@@ -2258,6 +2258,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+                     
+										    CentOS升级
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -2492,6 +2503,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
                      
 										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    yum使用笔记
                      
 									</a>
 								</li>
@@ -3779,6 +3801,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
                      
 										    perf.data生成火焰图
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    systemctl学习笔记
                      
 									</a>
 								</li>
@@ -7424,8 +7457,13 @@ var _hmt = _hmt || [];
 <li><p>虚拟机：CentOS 8, CentOS Stream 9, Debian 11</p></li>
 </ul>
 <h2 id="下载操作系统镜像"><a href="#下载操作系统镜像">¶</a> 下载操作系统镜像</h2>
-<p>可以用中科大的源下载镜像：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a><br>
-找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。</p>
+<p>可以在国内的镜像源下载。常用的有：</p>
+<ul>
+<li>中科大源：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/" class="uri">http://mirrors.ustc.edu.cn/</a></li>
+<li>清华TUNA源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/" class="uri">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
+</ul>
+<p>CentOS的镜像一般在镜像源的<code>BaseOS/x86_64/iso</code>下面。比如<code>CentOS 9-stream</code>的ISO在这里：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos-stream/9-stream/BaseOS/x86_64/iso/" class="uri">https://mirrors.tuna.tsinghua.edu.cn/centos-stream/9-stream/BaseOS/x86_64/iso/</a></p>
+<p>找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。wget 403的话也可以尝试用<code>curl 链接 &gt; xxx.iso</code>下载。</p>
 <h2 id="安装qemu"><a href="#安装qemu">¶</a> 安装qemu</h2>
 <pre class="shell"><code># debian系(deepin)
 sudo apt install qemu qemu-kvm
@@ -7460,11 +7498,13 @@ sudo apt install virtinst libvirt-daemon-system
 sudo virsh net-start default</code></pre>
 <p>然后让普通用户使用libvirt时能使用KVM：<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a></p>
 <p>然后就可以开始安装了：</p>
-<pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --os-type=linux --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
+<pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --os-variant=rhel8.4 --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
+<p><code>--os-type=linux</code>已经deprecated了。</p>
 <p>os-variant不填也可以。其取值范围可以通过<code>osinfo-query os</code>查看，<code>osinfo-query</code>在<code>libosinfo-bin</code>包中。</p>
-<p>注意虚拟机deepin不支持命令行安装，会报错：</p>
+<p>注意虚拟机deepin以及CentOS的<code>-boot</code>后缀的镜像不能用这种方式安装，会报错：</p>
 <pre class="text"><code>ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'
 The location must be the root directory of an install tree.</code></pre>
+<p>CentOS的的<code>-dvd1</code>镜像没有这个问题。</p>
 <p>安装界面：</p>
 <pre class="text"><code>Installation
 

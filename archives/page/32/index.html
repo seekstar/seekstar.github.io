@@ -2256,6 +2256,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+                     
+										    CentOS升级
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -2490,6 +2501,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
                      
 										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    yum使用笔记
                      
 									</a>
 								</li>
@@ -3777,6 +3799,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
                      
 										    perf.data生成火焰图
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    systemctl学习笔记
                      
 									</a>
 								</li>
@@ -7393,6 +7426,88 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/18/cannot-stat-%E2%80%98-modules-builtin%E2%80%98-no-such-file-or-directory/">
+				<h2 class="index-title">
+					cannot stat ‘./modules.builtin‘: No such file or directory
+				</h2>
+				<div class="index-brief">
+					make modules_install时报错：
+cp: cannot stat './modules.builtin': No such file or directory
+这是因为make modules.builtin时出问题了，导致这个文件没有被编译出来。再跑一遍
+make modules.
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/15/rust%E5%BF%BD%E7%95%A5result/">
+				<h2 class="index-title">
+					rust忽略Result
+				</h2>
+				<div class="index-brief">
+					fn main() {
+    let _ = std::fs::remove_dir_all("tmp");
+}
+原文：https://stackoverflow.com/questions/51141672/how-do-i-ignore-an-error-returned-from-a-rus
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-15</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/14/rust-fragment-specifier/">
+				<h2 class="index-title">
+					rust fragment specifier
+				</h2>
+				<div class="index-brief">
+					
+
+
+Specifier
+Description
+Examples
+
+
+
+
+ident
+Identifier
+x, foo |
+
+
+path
+Qualified name | std::
+std::collection::HashSet, Vec::new |
+
+
+ty
+Type |
+i32, &a
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/14/rust-const-generic/">
 				<h2 class="index-title">
 					rust const generic
@@ -7539,71 +7654,6 @@ automake --add-missing
 ./configure
 然后make就不会报这个错了。
 原理见：https://b
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/less%E5%88%B7%E6%96%B0%E5%86%85%E5%AE%B9/">
-				<h2 class="index-title">
-					less刷新内容
-				</h2>
-				<div class="index-brief">
-					手动刷新：G即shift+g
-自动定时刷新：F即shift+f
-参考：https://unix.stackexchange.com/questions/4351/is-there-a-way-to-dynamically-refresh-the-less-command
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/linux%E5%88%9B%E5%BB%BA%E5%8F%AA%E8%AF%BB%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5/">
-				<h2 class="index-title">
-					Linux创建只读目录链接
-				</h2>
-				<div class="index-brief">
-					相当于让一个可写的目录软链接到另一个地方变成只读的目录，但是原目录仍然保持可写。解决方法是用mount --bind，将目录挂载到目标点，变成只读文件系统。
-mount --bind -r /path/to/source/ /path/to/dest/
-umount /path/to/dest/
-原
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/cargo-build%E6%89%BE%E4%B8%8D%E5%88%B0openssl%E5%BA%93/">
-				<h2 class="index-title">
-					cargo build找不到openssl库
-				</h2>
-				<div class="index-brief">
-					ubuntu的话安装libssl-dev
-sudo apt install libssl-dev
-如果还是找不到，其实报错信息里有提示安装pkg-config可能可以解决问题：
-sudo apt install pkg-config
-然后再跑cargo build就可以了。
-
 					...
 				</div>
 			</a>

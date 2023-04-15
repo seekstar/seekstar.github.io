@@ -2256,6 +2256,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+                     
+										    CentOS升级
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
@@ -2490,6 +2501,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
                      
 										    yay孤立包的含义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    yum使用笔记
                      
 									</a>
 								</li>
@@ -3777,6 +3799,17 @@ var _hmt = _hmt || [];
 									<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
                      
 										    perf.data生成火焰图
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    systemctl学习笔记
                      
 									</a>
 								</li>
@@ -7393,6 +7426,72 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					systemctl学习笔记
+				</h2>
+				<div class="index-brief">
+					# https://unix.stackexchange.com/questions/447561/systemctl-status-shows-state-degraded
+systemctl --failed
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-04-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					yum使用笔记
+				</h2>
+				<div class="index-brief">
+					yum search xxxx
+yum provides xxxx
+yum info 包名
+yum list installed
+yum repolist
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-04-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/04/14/centos%E5%8D%87%E7%BA%A7/">
+				<h2 class="index-title">
+					CentOS升级
+				</h2>
+				<div class="index-brief">
+					升级有风险，建议先备份数据。
+¶ 8升级到8-stream
+USTC mirror将CentOS 8升级为stream
+¶ 8-stream升级到9-stream
+先将原先的repos备份：
+mv /etc/yum.repos.d /etc/yum.repos.d-$(date +%Y.%m.%d.
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-04-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/03/27/%E4%BD%BF%E7%94%A8netns%E7%BB%95%E8%BF%87wireguard/">
 				<h2 class="index-title">
 					使用netns绕过wireguard
@@ -7548,75 +7647,10 @@ if (MACRO_NAME)
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2023/02/25/pacman%E6%9F%A5%E7%9C%8B%E6%9C%AA%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/">
-				<h2 class="index-title">
-					pacman查看未安装的包内的文件
-				</h2>
-				<div class="index-brief">
-					用pkgfile可实现。
-sudo pacman -S pkgfile
-sudo pkgfile --update
-pkgfile -l 包名
-来源：https://bbs.archlinux.org/viewtopic.php?id=170225
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-02-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/02/23/xfce%E9%AB%98%E5%88%86%E5%B1%8F%E7%BC%A9%E6%94%BE/">
-				<h2 class="index-title">
-					xfce高分屏缩放
-				</h2>
-				<div class="index-brief">
-					Settings Manager -&gt; Appearance -&gt; Settings -&gt; Window Scaling -&gt; 调成2x
-系统自带的组件就变大了。左上角的下拉框可能有问题，最好注销再重新登录一下。
-注意，与其他桌面不同，Settings Manager -&g
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-02-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/02/23/xfce%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
-				<h2 class="index-title">
-					xfce使用教程
-				</h2>
-				<div class="index-brief">
-					XFCE是一款轻量级桌面环境，但是上手并不容易。本文以ArchLinux上的XFCE为例介绍其基础用法。
-¶ 安装
-sudo pacman -S xfce4
-¶ 设置快捷键
-设置窗口相关的快捷键：Settings Manager -&gt; Window Manager -&gt; Keyboard
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-02-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<span class="page-number current">1</span><a class="page-number" href="/archives/2023/page/2/">2</a><a class="extend next" rel="next" href="/archives/2023/page/2/">&gt;</a>
+			<span class="page-number current">1</span><a class="page-number" href="/archives/2023/page/2/">2</a><a class="page-number" href="/archives/2023/page/3/">3</a><a class="extend next" rel="next" href="/archives/2023/page/2/">&gt;</a>
 		
 	</div>
 </div>
