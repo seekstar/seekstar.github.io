@@ -7560,6 +7560,8 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html" class="uri">https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html</a></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>cout &lt;&lt; (<span class="at">const</span> <span class="dt">void</span>*)char_pointer &lt;&lt; endl;</span></code></pre></div>
 <h2 id="多线程"><a href="#多线程">¶</a> 多线程</h2>
+<h3 id="atomic不能用vector存储"><a href="#atomic不能用vector存储">¶</a> <code>atomic</code>不能用<code>vector</code>存储</h3>
+<p>因为vector在倍增的时候需要移动元素，而atomic不是move constructable的，所以atomic不能用vector存储。但是可以用<code>std::deque</code>存储，因为它没有倍增的操作。</p>
 <h3 id="睡眠"><a href="#睡眠">¶</a> 睡眠</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/alanlvee/p/5152936.html" class="uri">https://www.cnblogs.com/alanlvee/p/5152936.html</a></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;chrono&gt;</span></span>
@@ -8163,6 +8165,56 @@ overwrite_unclonable.cpp:3:7: 附注：‘constexpr A&amp; A::operator=(const A&
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a><span class="co">// 删除目录或文件。返回删除的目录或文件的个数。如果p一开始就不存在，则返回0。</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a><span class="bu">std::</span>uintmax_t remove_all(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/filesystem/remove" class="uri">https://en.cppreference.com/w/cpp/filesystem/remove</a></p>
+<h2 id="boost"><a href="#boost">¶</a> boost</h2>
+<h3 id="program_options"><a href="#program_options">¶</a> program_options</h3>
+<p>可以处理命令行参数。</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_82_0/doc/html/program_options.html" class="uri">https://www.boost.org/doc/libs/1_82_0/doc/html/program_options.html</a></p>
+<pre class="shell"><code># Debian 11
+sudo apt install libboost-program-options-dev
+# Arch Linux
+sudo pacman -S boost</code></pre>
+<p>例子：</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/program_options.hpp&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv) {</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>	<span class="kw">namespace</span> po = <span class="ex">boost::</span>program_options;</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a>	po::options_description desc(<span class="st">"Available options"</span>);</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>	<span class="bu">std::</span>string format;</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a>	<span class="dt">bool</span> use_direct_reads;</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a>	<span class="bu">std::</span>string db_path;</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a>	desc.add_options()</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a>		(<span class="st">"help"</span>, <span class="st">"Print help message"</span>)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a>		(<span class="st">"cleanup,c"</span>, <span class="st">"Empty the directories first."</span>)</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>		(<span class="st">"format,f"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;format)-&gt;default_value(<span class="st">"ycsb"</span>), <span class="st">"Trace format: plain/ycsb"</span>)</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a>		(<span class="st">"use_direct_reads"</span>, po::value&lt;<span class="dt">bool</span>&gt;(&amp;use_direct_reads)-&gt;default_value(<span class="kw">true</span>), <span class="st">""</span>)</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true"></a>		(<span class="st">"db_path"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;db_path)-&gt;required(), <span class="st">"Path to database"</span>)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true"></a>	;</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true"></a>	po::variables_map vm;</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true"></a>	po::store(po::parse_command_line(argc, argv, desc), vm);</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"help"</span>)) {</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; desc &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span>;</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true"></a>	}</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true"></a>	po::notify(vm);</span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true"></a></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"cleanup"</span>)) {</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"cleanup</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true"></a>	}</span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; format &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"use_direct_reads: "</span> &lt;&lt; use_direct_reads &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"db_path: "</span> &lt;&lt; db_path &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="shell"><code>g++ program-options.cpp -lboost_program_options -o program-options
+./program-options --help</code></pre>
+<pre class="text"><code>Available options:
+  --help                      Print help message
+  -c [ --cleanup ]            Empty the directories first.
+  -f [ --format ] arg (=ycsb) Trace format: plain/ycsb
+  --use_direct_reads arg (=1)
+  --db_path arg               Path to database</code></pre>
+<p>参考文献：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5395503/required-and-optional-arguments-using-boost-library-program-options" class="uri">https://stackoverflow.com/questions/5395503/required-and-optional-arguments-using-boost-library-program-options</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
