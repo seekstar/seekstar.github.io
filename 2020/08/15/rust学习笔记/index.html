@@ -7473,6 +7473,9 @@ var _hmt = _hmt || [];
 rm ~/.cargo/.package-cache</code></pre>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206" class="uri">https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206</a></p>
 <h2 id="标准库"><a href="#标准库">¶</a> 标准库</h2>
+<h3 id="vecu8---string"><a href="#vecu8---string">¶</a> <code>Vec&lt;u8&gt;</code> -&gt; <code>String</code></h3>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string" class="uri">https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string</a></p>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8" class="uri">https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8</a></p>
 <h3 id="字符串成员函数"><a href="#字符串成员函数">¶</a> 字符串成员函数</h3>
 <ul>
 <li>trim<br>
@@ -7490,6 +7493,7 @@ rm ~/.cargo/.package-cache</code></pre>
 <a href="/2021/07/27/rust-serde-deserialize-borrowed-member/" title="rust serde deserialize borrowed member">rust serde deserialize borrowed member</a>
 <a href="/2021/07/28/rust%E5%AD%98%E5%8F%96%E4%B8%80%E4%B8%AA%E5%90%AB%E6%9C%89borrowed%E5%9F%9F%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93/" title="rust存取一个含有borrowed域的结构体">rust存取一个含有borrowed域的结构体</a>
 <p><a target="_blank" rel="noopener" href="https://serde.rs/attr-skip-serializing.html" class="uri">https://serde.rs/attr-skip-serializing.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/serde-rs/json#operating-on-untyped-json-values" class="uri">https://github.com/serde-rs/json#operating-on-untyped-json-values</a></p>
 <h3 id="其他"><a href="#其他">¶</a> 其他</h3>
 <p>enum_iterator: <a target="_blank" rel="noopener" href="https://docs.rs/enum-iterator/latest/enum_iterator/" class="uri">https://docs.rs/enum-iterator/latest/enum_iterator/</a></p>
 <p>可以获取enum的可能取值个数。</p>
@@ -7514,53 +7518,73 @@ rm ~/.cargo/.package-cache</code></pre>
 <li><a href="/2021/11/17/rust%E7%94%A8bufreader%E5%8A%A0%E9%80%9Fstdin%E8%AF%BB%E5%8F%96/" title="rust用BufReader加速stdin读取">rust用BufReader加速stdin读取</a></li>
 <li><a href="/2021/10/12/rust%E6%A0%BC%E5%BC%8F%E6%8E%A7%E5%88%B6/" title="rust格式控制">rust格式控制</a></li>
 <li><a href="/2020/08/25/rust-print%E5%9B%BA%E5%AE%9A%E5%AE%BD%E5%BA%A6%E5%B7%A6%E8%BE%B9%E8%A1%A5%E9%9B%B6/" title="rust print固定宽度左边补零">rust print固定宽度左边补零</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lcloveyou/article/details/105595040">Rust编程知识拾遗：Rust 编程，读取命令行参数</a></li>
 </ul>
+<h3 id="读取命令行参数"><a href="#读取命令行参数">¶</a> 读取命令行参数</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>io<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>env<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> args <span class="op">=</span> <span class="pp">env::</span>args()<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>    <span class="kw">let</span> arg0 <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>    <span class="co">// args.len(): Returns the exact remaining length of the iterator.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>    <span class="kw">if</span> args<span class="op">.</span>len() <span class="op">!=</span> <span class="dv">1</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>        <span class="pp">eprintln!</span>(<span class="st">"{} dump-file"</span><span class="op">,</span> arg0)<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>        <span class="kw">return</span> <span class="cn">Err</span>(<span class="dt">Box</span><span class="pp">::</span>new(<span class="pp">io::</span><span class="bu">Error</span><span class="pp">::</span>new(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>            <span class="pp">io::ErrorKind::</span>Other<span class="op">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>            <span class="st">"Invalid arguments"</span><span class="op">,</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>        )))<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>    <span class="kw">let</span> file_path <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> file_path)<span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>    <span class="cn">Ok</span>(())</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lcloveyou/article/details/105595040">Rust编程知识拾遗：Rust 编程，读取命令行参数</a></p>
 <h3 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a> 从文件中逐行读取</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在 Rust 中读取文件的 4 种方法</a></p>
 <h2 id="c语言字符串转string"><a href="#c语言字符串转string">¶</a> C语言字符串转String</h2>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 <h2 id="trait"><a href="#trait">¶</a> trait</h2>
 <p>Rust的trait相当于定义了这个类型有哪些接口。定义了trait之后，可以对已知类型实现这个trait:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">trait</span> A <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span><span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="kw">for</span> <span class="dt">f32</span> <span class="op">{</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>        <span class="kw">return</span> <span class="dv">2333</span><span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">trait</span> A <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="kw">impl</span> A <span class="kw">for</span> <span class="dt">f32</span> <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="kw">fn</span> a() <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>        <span class="kw">return</span> <span class="dv">2333</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="获得vec里多个元素的mutable-reference"><a href="#获得vec里多个元素的mutable-reference">¶</a> 获得<code>Vec</code>里多个元素的mutable reference</h2>
 <p>比如要获得<code>a[1]</code>和<code>a[3]</code>的可变引用，可以用iterator:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> iter <span class="op">=</span> a<span class="op">.</span>iter_mut()<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    <span class="kw">let</span> a1 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="kw">let</span> a3 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">3</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> iter <span class="op">=</span> a<span class="op">.</span>iter_mut()<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">let</span> a1 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="kw">let</span> a3 <span class="op">=</span> iter<span class="op">.</span>nth(<span class="dv">3</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">1</span>)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>也可以用nightly特性<code>get_many_mut</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="at">#![</span>feature<span class="at">(</span>get_many_mut<span class="at">)]</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">let</span> [a1<span class="op">,</span> a3] <span class="op">=</span> a<span class="op">.</span>get_many_mut([<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span>])<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="at">#![</span>feature<span class="at">(</span>get_many_mut<span class="at">)]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> a <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    <span class="kw">let</span> [a1<span class="op">,</span> a3] <span class="op">=</span> a<span class="op">.</span>get_many_mut([<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span>])<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>    <span class="op">*</span>a1 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>    <span class="op">*</span>a3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:?}"</span><span class="op">,</span> a)<span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="struct成员变量默认值"><a href="#struct成员变量默认值">¶</a> struct成员变量默认值</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19650265/is-there-a-faster-shorter-way-to-initialize-variables-in-a-rust-struct" class="uri">https://stackoverflow.com/questions/19650265/is-there-a-faster-shorter-way-to-initialize-variables-in-a-rust-struct</a></p>
 <h2 id="生成随机数"><a href="#生成随机数">¶</a> 生成随机数</h2>
@@ -7575,26 +7599,33 @@ rm ~/.cargo/.package-cache</code></pre>
 <h2 id="char---u8"><a href="#char---u8">¶</a> char -&gt; u8</h2>
 <p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195" class="uri">https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195</a></p>
 <h2 id="让main函数兼容多种error"><a href="#让main函数兼容多种error">¶</a> 让main函数兼容多种Error</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span></code></pre></div>
 <h2 id="module"><a href="#module">¶</a> Module</h2>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html" class="uri">https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html</a></p>
+<h2 id="条件编译"><a href="#条件编译">¶</a> 条件编译</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/reference/conditional-compilation.html" class="uri">https://doc.rust-lang.org/reference/conditional-compilation.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29857002/how-to-define-test-only-dependencies" class="uri">https://stackoverflow.com/questions/29857002/how-to-define-test-only-dependencies</a></p>
+<p>仅在测试时derive: <code>#[cfg_attr(test, derive(Deserialize))]</code>。来源：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/rust/comments/nwywqx/conditionally_derive_for_integration_tests/" class="uri">https://www.reddit.com/r/rust/comments/nwywqx/conditionally_derive_for_integration_tests/</a></p>
+<p>仅在测试时<code>impl</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>test<span class="at">)]</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">Default</span> <span class="kw">for</span> Status <span class="op">{</span></span></code></pre></div>
 <h2 id="已知问题"><a href="#已知问题">¶</a> 已知问题</h2>
 <h3 id="non-lexical-lifetimes-nll"><a href="#non-lexical-lifetimes-nll">¶</a> Non-lexical lifetimes (NLL)</h3>
 <p>来源：<a target="_blank" rel="noopener" href="https://blog.rust-lang.org/2022/08/05/nll-by-default.html" class="uri">https://blog.rust-lang.org/2022/08/05/nll-by-default.html</a></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="kw">let</span> <span class="cn">Some</span>(s) <span class="op">=</span> vec<span class="op">.</span>last() <span class="op">{</span> <span class="co">// borrows vec</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>        <span class="co">// returning s here forces vec to be borrowed</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>        <span class="co">// for the rest of the function, even though it</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>        <span class="co">// shouldn't have to be</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>    <span class="co">// Because vec is borrowed, this call to vec.push gives</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>    <span class="co">// an error!</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span> <span class="co">// ERROR</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="kw">let</span> <span class="cn">Some</span>(s) <span class="op">=</span> vec<span class="op">.</span>last() <span class="op">{</span> <span class="co">// borrows vec</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>        <span class="co">// returning s here forces vec to be borrowed</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>        <span class="co">// for the rest of the function, even though it</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>        <span class="co">// shouldn't have to be</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>    </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>    <span class="co">// Because vec is borrowed, this call to vec.push gives</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>    <span class="co">// an error!</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span> <span class="co">// ERROR</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <pre class="text"><code>error[E0502]: cannot borrow `*vec` as mutable because it is also borrowed as immutable
   --&gt; a.rs:11:5
    |
@@ -7610,27 +7641,27 @@ rm ~/.cargo/.package-cache</code></pre>
    |     ^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here</code></pre>
 <p>这是因为<code>s</code> borrow了<code>vec</code>之后，<code>s</code>是conditional return的，但是编译器仍然将对<code>vec</code>的borrow拓展到所有条件分支了，就导致另一个没有borrow <code>vec</code>的分支也被认为borrow了<code>vec</code>，就编译报错了。</p>
 <p>据说下一代borrow checker polonius可以解决这个问题。现在只能通过推迟对<code>vec</code>的borrow绕过这个问题：</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="op">!</span>vec<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>        <span class="kw">let</span> s <span class="op">=</span> vec<span class="op">.</span>last()<span class="op">.</span>unwrap()<span class="op">;</span> <span class="co">// borrows vec</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> <span class="co">// extends the borrow </span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>    <span class="co">// In this branch, the borrow has never happened, so even</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true"></a>    <span class="co">// though it is extended, it doesn't cover this call;</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true"></a>    <span class="co">// the code compiles.</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true"></a>    <span class="co">//</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true"></a>    <span class="co">// Note the subtle difference with the previous example:</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true"></a>    <span class="co">// in that code, the borrow *always* happened, but it was</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true"></a>    <span class="co">// only *conditionally* returned (but the compiler lost track</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true"></a>    <span class="co">// of the fact that it was a conditional return).</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true"></a>    <span class="co">//</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true"></a>    <span class="co">// In this example, the *borrow itself* is conditional.</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">fn</span> last_or_push<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(vec<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>    <span class="kw">if</span> <span class="op">!</span>vec<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>        <span class="kw">let</span> s <span class="op">=</span> vec<span class="op">.</span>last()<span class="op">.</span>unwrap()<span class="op">;</span> <span class="co">// borrows vec</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> <span class="co">// extends the borrow </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>    </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>    <span class="co">// In this branch, the borrow has never happened, so even</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>    <span class="co">// though it is extended, it doesn't cover this call;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>    <span class="co">// the code compiles.</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>    <span class="co">//</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>    <span class="co">// Note the subtle difference with the previous example:</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>    <span class="co">// in that code, the borrow *always* happened, but it was</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>    <span class="co">// only *conditionally* returned (but the compiler lost track</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>    <span class="co">// of the fact that it was a conditional return).</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a>    <span class="co">//</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a>    <span class="co">// In this example, the *borrow itself* is conditional.</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>    vec<span class="op">.</span>last()<span class="op">.</span>unwrap()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a><span class="op">}</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
