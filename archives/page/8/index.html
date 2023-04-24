@@ -3730,6 +3730,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/22/grub%E6%A3%80%E6%B5%8B%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                     
+										    grub检测其他操作系统
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/09/20/linux-perf%E5%BE%97%E5%88%B0%E5%AE%8C%E6%95%B4%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB/">
                      
 										    linux perf得到完整调用关系
@@ -7426,6 +7437,30 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/06/29/linux%E7%94%9F%E6%88%90initramfs/">
+				<h2 class="index-title">
+					Linux生成initramfs
+				</h2>
+				<div class="index-brief">
+					¶ dracut
+各发行版通用。
+dracut [OPTION...] [&lt;image&gt; [&lt;kernel version&gt;]]
+例子：
+cd /boot
+# 给/boot/vmlinuz-5.1.0-amd64-desktop+生成initramfs
+dracut init
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-06-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/06/26/linux-kernel%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E5%AD%98/">
 				<h2 class="index-title">
 					Linux kernel读取和写入用户态内存
@@ -7596,25 +7631,6 @@ pkill -P $$
 如果要在脚本退出前杀死所有子进程，只需要：
 trap "pkill -P $$" EXIT
 但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/08/awk-fflush/">
-				<h2 class="index-title">
-					awk fflush
-				</h2>
-				<div class="index-brief">
-					awk如果检测到stdout不是直接输出到终端的话，会对输出做buffering，因此如果是周期性连续数据，而且需要把stdout重定向给另一个命令的stdin，那么需要fflush(stdout)：
-iostat 1 | awk '{print $1; fflush(stdout)}' | gre
 					...
 				</div>
 			</a>

@@ -3732,6 +3732,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/22/grub%E6%A3%80%E6%B5%8B%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                     
+										    grub检测其他操作系统
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/09/20/linux-perf%E5%BE%97%E5%88%B0%E5%AE%8C%E6%95%B4%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB/">
                      
 										    linux perf得到完整调用关系
@@ -7778,6 +7789,8 @@ printf -v var "%q\n" "hello\world"</code></pre>
                       -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
 <h3 id="du"><a href="#du">¶</a> du</h3>
+<p><code>-d数字</code>: 目录层数。0表示当前目录，1表示当前目录下的所有文件和子目录，以此类推。</p>
+<p><code>--all</code>: 显示文件大小。默认只显示目录大小。</p>
 <ul>
 <li>查看当前目录下所有文件夹的大小</li>
 </ul>
@@ -7788,6 +7801,11 @@ printf -v var "%q\n" "hello\world"</code></pre>
 </ul>
 <pre class="shell"><code>du -sh</code></pre>
 <p><code>-s</code>是<code>--summarize</code>的缩写。</p>
+<ul>
+<li>按大小排序</li>
+</ul>
+<pre class="shell"><code>du -hd 1 --all 目录 | sort -h</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size" class="uri">https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
 <h3 id="pidof-进程名"><a href="#pidof-进程名">¶</a> pidof 进程名</h3>
 <p>返回某进程名对应的pid<br>
