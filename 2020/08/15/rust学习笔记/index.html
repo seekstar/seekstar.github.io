@@ -7362,6 +7362,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/25/vscode%E6%96%AD%E7%82%B9%E5%81%9C%E5%9C%A8%E9%94%99%E8%AF%AF%E7%9A%84%E6%96%87%E4%BB%B6/">
+                     
+										    vscode断点停在错误的文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/21/vscode%E6%9D%80%E6%AD%BBserver%E7%AB%AFnode%E8%BF%9B%E7%A8%8B/">
                      
 										    vscode杀死server端node进程
@@ -7517,6 +7528,10 @@ rm ~/.cargo/.package-cache</code></pre>
 </ul>
 <p><img src="/2020/08/15/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200814170430309.png" alt="在这里插入图片描述"></p>
 <p>这里指匹配所有的Err，不管里面是啥。</p>
+<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/calling-function-in-struct-field-requires-extra-parenthesis/14214/2" class="uri">https://users.rust-lang.org/t/calling-function-in-struct-field-requires-extra-parenthesis/14214/2</a></p>
+<h3 id="约束不同类型的associated-type相等"><a href="#约束不同类型的associated-type相等">¶</a> 约束不同类型的associated type相等</h3>
+<p>这是一个未实现的特性：<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rust/issues/20041" class="uri">https://github.com/rust-lang/rust/issues/20041</a></p>
+<p>但是可以绕过去：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/66359551/alternative-to-equality-constraints-for-associated-types" class="uri">https://stackoverflow.com/questions/66359551/alternative-to-equality-constraints-for-associated-types</a></p>
 <h2 id="io"><a href="#io">¶</a> I/O</h2>
 <ul>
 <li><a href="/2022/10/14/rust%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="Rust文件操作">Rust文件操作</a></li>
@@ -7576,6 +7591,9 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    <span class="co">// 2333</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> <span class="dt">f32</span><span class="pp">::</span>a())<span class="op">;</span></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>相关：</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44445730/how-to-call-a-method-when-a-trait-and-struct-use-the-same-method-name" class="uri">https://stackoverflow.com/questions/44445730/how-to-call-a-method-when-a-trait-and-struct-use-the-same-method-name</a></p>
+<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/box-with-a-trait-object-requires-static-lifetime/35261" class="uri">https://users.rust-lang.org/t/box-with-a-trait-object-requires-static-lifetime/35261</a></p>
 <h2 id="获得vec里多个元素的mutable-reference"><a href="#获得vec里多个元素的mutable-reference">¶</a> 获得<code>Vec</code>里多个元素的mutable reference</h2>
 <p>比如要获得<code>a[1]</code>和<code>a[3]</code>的可变引用，可以用iterator:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>

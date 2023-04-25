@@ -7360,6 +7360,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/04/25/vscode%E6%96%AD%E7%82%B9%E5%81%9C%E5%9C%A8%E9%94%99%E8%AF%AF%E7%9A%84%E6%96%87%E4%BB%B6/">
+                     
+										    vscode断点停在错误的文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/21/vscode%E6%9D%80%E6%AD%BBserver%E7%AB%AFnode%E8%BF%9B%E7%A8%8B/">
                      
 										    vscode杀死server端node进程
@@ -7435,6 +7446,28 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<div id="index">
+	
+		<div class="index-li">
+			<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
+				<h2 class="index-title">
+					ArchLinux修复系统目录和文件的权限
+				</h2>
+				<div class="index-brief">
+					有时会出现本地目录权限与包里的目录权限不一致的情况。这时可以使用pacman-fix-permissions来修复系统目录权限：
+yay -S pacman-fix-permissions
+sudo pacman-fix-permissions
+...
+==&gt; Scan completed. 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
 	
 		<div class="index-li">
 			<a href="/2022/06/29/linux%E7%94%9F%E6%88%90initramfs/">
@@ -7612,30 +7645,6 @@ kill -TERM -34325
 			</a>
                 <div class="article-meta">
 				    <span>2022-06-09</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
-				<h2 class="index-title">
-					Linux杀死所有子进程
-				</h2>
-				<div class="index-brief">
-					杀死某一进程的所有子进程：
-pkill -P &lt;PID&gt;
-杀死当前进程的所有子进程：
-pkill -P $$
-如果要在脚本退出前杀死所有子进程，只需要：
-trap "pkill -P $$" EXIT
-但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-08</span>
                     
                             
                     
