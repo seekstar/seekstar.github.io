@@ -7473,7 +7473,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>由于panic后内核不能再将dmesg写入到存储介质中去，所以重启之后dmesg就丢失了。但是kdump可以在内核panic后启用一个小内核来将dmesg和一些内存信息写进存储介质。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>由于panic后内核不能再将dmesg写入到存储介质中去，所以重启之后dmesg就丢失了。但是kdump可以在内核panic后启用一个小内核来将dmesg和一些内存信息写进存储介质。</p>
 <h2 id="安装kdump"><a href="#安装kdump">¶</a> 安装<code>kdump</code></h2>
 <h3 id="debian系列我用的deepin-v20"><a href="#debian系列我用的deepin-v20">¶</a> debian系列(我用的deepin v20)</h3>
 <pre class="shell"><code>sudo apt install -y kdump-tools</code></pre>
@@ -7486,6 +7486,7 @@ var _hmt = _hmt || [];
 <p>应该改为</p>
 <pre class="text"><code>core_collector makedumpfile -c -l --message-level 1 -d 31</code></pre>
 <p>即<code>message-level</code>前面应该有两个<code>-</code>。</p>
+<p>系统会自动为内核生成对应的<code>/boot/initramfs-xxxdump.img</code>。如果新安装了自己编译的内核，那么重启之后系统也会自动给它生成对应的<code>initramfs-xxxdump.img</code>。</p>
 <h2 id="手动触发panic"><a href="#手动触发panic">¶</a> 手动触发panic</h2>
 <pre class="shell"><code>echo 1 &gt; /proc/sys/kernel/sysrq
 echo c &gt; /proc/sysrq-trigger  # 或者Alt+SysRq+c</code></pre>

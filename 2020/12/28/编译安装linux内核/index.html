@@ -7591,6 +7591,7 @@ done</code></pre>
 <h3 id="grubby"><a href="#grubby">¶</a> grubby</h3>
 <p>CentOS使用grubby来管理启动项，因此需要使用grubby来设置默认内核：</p>
 <pre class="shell"><code>sudo grubby --add-kernel=/boot/vmlinuz-xxxx --title="随便写点啥"
+# 然后需要用grub2-mkconfig更新一下grub.cfg，grubby的args和root才会正常
 sudo grubby --set-default=/boot/vmlinuz-xxxx</code></pre>
 <p>其他实用grubby子命令：</p>
 <pre class="shell"><code># 查看grubby列表中的所有内核
