@@ -7506,9 +7506,6 @@ var _hmt = _hmt || [];
 rm ~/.cargo/.package-cache</code></pre>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206" class="uri">https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206</a></p>
 <h2 id="标准库"><a href="#标准库">¶</a> 标准库</h2>
-<h3 id="vecu8---string"><a href="#vecu8---string">¶</a> <code>Vec&lt;u8&gt;</code> -&gt; <code>String</code></h3>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string" class="uri">https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string</a></p>
-<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8" class="uri">https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8</a></p>
 <h3 id="字符串成员函数"><a href="#字符串成员函数">¶</a> 字符串成员函数</h3>
 <ul>
 <li>trim<br>
@@ -7562,6 +7559,20 @@ rm ~/.cargo/.package-cache</code></pre>
 <p>可以获取enum的可能取值个数。</p>
 <p>num-derive: <a target="_blank" rel="noopener" href="https://docs.rs/num-derive/latest/num_derive/" class="uri">https://docs.rs/num-derive/latest/num_derive/</a></p>
 <p>可以把enum转成基本类型。</p>
+<h2 id="类型转换"><a href="#类型转换">¶</a> 类型转换</h2>
+<a href="/2022/10/18/rust%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84%E5%92%8C%E6%95%B4%E5%9E%8B%E4%BA%92%E8%BD%AC/" title="Rust字节数组和整型互转">Rust字节数组和整型互转</a>
+<h3 id="vecu8---string"><a href="#vecu8---string">¶</a> <code>Vec&lt;u8&gt;</code> -&gt; <code>String</code></h3>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string" class="uri">https://stackoverflow.com/questions/19076719/how-do-i-convert-a-vector-of-bytes-u8-to-a-string</a></p>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8" class="uri">https://doc.rust-lang.org/stable/std/string/struct.String.html#method.from_utf8</a></p>
+<h3 id="char---u8"><a href="#char---u8">¶</a> char -&gt; u8</h3>
+<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195" class="uri">https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195</a></p>
+<h3 id="c语言字符串转string"><a href="#c语言字符串转string">¶</a> C语言字符串转String</h3>
+<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 <h2 id="语法"><a href="#语法">¶</a> 语法</h2>
 <p><a target="_blank" rel="noopener" href="https://www.yiibai.com/rust/rust-for-loop.html">Rust for循环</a></p>
 <ul>
@@ -7587,37 +7598,30 @@ rm ~/.cargo/.package-cache</code></pre>
 <li><a href="/2020/08/25/rust-print%E5%9B%BA%E5%AE%9A%E5%AE%BD%E5%BA%A6%E5%B7%A6%E8%BE%B9%E8%A1%A5%E9%9B%B6/" title="rust print固定宽度左边补零">rust print固定宽度左边补零</a></li>
 </ul>
 <h3 id="读取命令行参数"><a href="#读取命令行参数">¶</a> 读取命令行参数</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>io<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>env<span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> args <span class="op">=</span> <span class="pp">env::</span>args()<span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="kw">let</span> arg0 <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>    <span class="co">// args.len(): Returns the exact remaining length of the iterator.</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    <span class="kw">if</span> args<span class="op">.</span>len() <span class="op">!=</span> <span class="dv">1</span> <span class="op">{</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>        <span class="pp">eprintln!</span>(<span class="st">"{} dump-file"</span><span class="op">,</span> arg0)<span class="op">;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>        <span class="kw">return</span> <span class="cn">Err</span>(<span class="dt">Box</span><span class="pp">::</span>new(<span class="pp">io::</span><span class="bu">Error</span><span class="pp">::</span>new(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>            <span class="pp">io::ErrorKind::</span>Other<span class="op">,</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>            <span class="st">"Invalid arguments"</span><span class="op">,</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>        )))<span class="op">;</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    <span class="kw">let</span> file_path <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> file_path)<span class="op">;</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    <span class="cn">Ok</span>(())</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>io<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>env<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> args <span class="op">=</span> <span class="pp">env::</span>args()<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="kw">let</span> arg0 <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>    <span class="co">// args.len(): Returns the exact remaining length of the iterator.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>    <span class="kw">if</span> args<span class="op">.</span>len() <span class="op">!=</span> <span class="dv">1</span> <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>        <span class="pp">eprintln!</span>(<span class="st">"{} dump-file"</span><span class="op">,</span> arg0)<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>        <span class="kw">return</span> <span class="cn">Err</span>(<span class="dt">Box</span><span class="pp">::</span>new(<span class="pp">io::</span><span class="bu">Error</span><span class="pp">::</span>new(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>            <span class="pp">io::ErrorKind::</span>Other<span class="op">,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>            <span class="st">"Invalid arguments"</span><span class="op">,</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>        )))<span class="op">;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>    <span class="kw">let</span> file_path <span class="op">=</span> args<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> file_path)<span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>    <span class="cn">Ok</span>(())</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lcloveyou/article/details/105595040">Rust编程知识拾遗：Rust 编程，读取命令行参数</a></p>
 <h3 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a> 从文件中逐行读取</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在 Rust 中读取文件的 4 种方法</a></p>
-<h2 id="c语言字符串转string"><a href="#c语言字符串转string">¶</a> C语言字符串转String</h2>
-<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi" class="uri">https://stackoverflow.com/questions/24145823/how-do-i-convert-a-c-string-into-a-rust-string-and-back-via-ffi</a></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::ffi::</span>CStr<span class="op">;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">let</span> c_buf<span class="op">:</span> <span class="op">*</span><span class="kw">const</span> <span class="dt">c_char</span> <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> hello() <span class="op">};</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="kw">let</span> c_str<span class="op">:</span> <span class="op">&amp;</span>CStr <span class="op">=</span> <span class="kw">unsafe</span> <span class="op">{</span> <span class="pp">CStr::</span>from_ptr(c_buf) <span class="op">};</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="kw">let</span> str_slice<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">=</span> c_str<span class="op">.</span>to_str()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="kw">let</span> str_buf<span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> str_slice<span class="op">.</span>to_owned()<span class="op">;</span>  <span class="co">// if necessary</span></span></code></pre></div>
 <h2 id="trait"><a href="#trait">¶</a> trait</h2>
 <p>Rust的trait相当于定义了这个类型有哪些接口。定义了trait之后，可以对已知类型实现这个trait:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">trait</span> A <span class="op">{</span></span>
@@ -7666,8 +7670,6 @@ rm ~/.cargo/.package-cache</code></pre>
 <p>比较常见的均匀分布：<a target="_blank" rel="noopener" href="https://docs.rs/rand/latest/rand/distributions/struct.Uniform.html" class="uri">https://docs.rs/rand/latest/rand/distributions/struct.Uniform.html</a></p>
 <h2 id="lower_bound--upper_bound"><a href="#lower_bound--upper_bound">¶</a> lower_bound / upper_bound</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48575866/how-to-get-the-lower-bound-and-upper-bound-of-an-element-in-a-btreeset" class="uri">https://stackoverflow.com/questions/48575866/how-to-get-the-lower-bound-and-upper-bound-of-an-element-in-a-btreeset</a></p>
-<h2 id="char---u8"><a href="#char---u8">¶</a> char -&gt; u8</h2>
-<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195" class="uri">https://users.rust-lang.org/t/how-to-convert-char-to-u8/50195</a></p>
 <h2 id="让main函数兼容多种error"><a href="#让main函数兼容多种error">¶</a> 让main函数兼容多种Error</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::error::</span><span class="bu">Error</span><span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> <span class="dt">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="bu">Error</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span></code></pre></div>
