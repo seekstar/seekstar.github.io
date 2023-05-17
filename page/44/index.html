@@ -1893,6 +1893,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/05/16/conan%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    conan学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/27/constexpr%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF/">
                      
 										    constexpr函数中使用循环
@@ -4074,6 +4085,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/05/17/%E5%9C%A8chroot%E9%87%8C%E8%BF%90%E8%A1%8Csshd/">
+                     
+										    在chroot里运行sshd
                      
 									</a>
 								</li>
@@ -7459,6 +7481,51 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/09/19/deepin%E9%BB%98%E8%AE%A4%E8%BF%9B%E5%85%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%88%96%E8%80%85gui/">
+				<h2 class="index-title">
+					deepin默认进入命令行或者GUI
+				</h2>
+				<div class="index-brief">
+					¶ 默认进入命令行
+参考：https://www.cnblogs.com/zhscn/p/8607822.html
+sudo systemctl disable lightdm
+先别执行。先看下面怎么恢复默认进入GUI。
+¶ 临时进入GUI
+startx
+¶ 默认进入GUI
+按理说sudo syst
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/09/14/vscode-tasks-json-powershell-cmake-%E6%8A%A5%E9%94%99cmake-error-could-not-create-named-generator-unix/">
+				<h2 class="index-title">
+					vscode tasks.json powershell cmake 报错CMake Error: Could not create named generator Unix
+				</h2>
+				<div class="index-brief">
+					搞了半天，原来是因为tasks.json里要转义，powershell的单引号里面的东西还是要转义，然后vscode把它在powershell里执行的时候又要转义，所以要转义三层。
+            "windows": {
+                "command": "powers
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-09-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/09/14/powershell-%E8%AE%A9mkdir%E4%B8%8D%E8%BE%93%E5%87%BAalready-exists/">
 				<h2 class="index-title">
 					powershell 让mkdir不输出already exists
@@ -7627,53 +7694,6 @@ import (
 			</a>
                 <div class="article-meta">
 				    <span>2020-08-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/26/rust%E4%BB%8E%E4%B8%80%E8%A1%8C%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E7%BB%84/">
-				<h2 class="index-title">
-					rust从一行中读取数组
-				</h2>
-				<div class="index-brief">
-					use std::io;
-
-fn main() {
-    let mut input = String::new();
-    io::stdin().read_line(&amp;mut input).unwrap();
-    let ns: Vec&lt;i32&gt; = input.tr
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-26</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/25/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%ADrust%E7%9A%84%E4%B8%80%E7%A7%8D%E6%AF%94%E8%BE%83%E5%81%A5%E5%A3%AE%E7%9A%84%E8%AF%BB%E5%85%A5/">
-				<h2 class="index-title">
-					算法竞赛中rust的一种比较健壮的读入
-				</h2>
-				<div class="index-brief">
-					以PAT 甲级1004为例
-关键部位
-fn main() {
-    loop {
-        let mut input = String::new();
-        if 0 == io::stdin().read_line(&amp;mut input).unwrap() {
-    
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-25</span>
                     
                             
                     

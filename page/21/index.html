@@ -1893,6 +1893,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/05/16/conan%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    conan学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/27/constexpr%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF/">
                      
 										    constexpr函数中使用循环
@@ -4074,6 +4085,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/05/17/%E5%9C%A8chroot%E9%87%8C%E8%BF%90%E8%A1%8Csshd/">
+                     
+										    在chroot里运行sshd
                      
 									</a>
 								</li>
@@ -7459,6 +7481,51 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/01/01/rocksdb-src-tcmalloc-cc-332-attempt-to-free-invalid-pointer-0x556bc8784010/">
+				<h2 class="index-title">
+					rocksdb src/tcmalloc.cc:332] Attempt to free invalid pointer 0x556bc8784010
+				</h2>
+				<div class="index-brief">
+					编译的时候要加-ltcmalloc。
+完整命令：
+编译：
+g++ -I$HOME/git/shared_lib/rocksdb/include -L$HOME/git/shared_lib/rocksdb/ simple_example.cc -lrocksdb -lpthread -ltcmall
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/01/01/rocksdb-usr-bin-ld-memory-concurrent-arena-o-relocation-r-x86-64-tpoff32-against-symbol-zn7rocksdb15c/">
+				<h2 class="index-title">
+					rocksdb: /usr/bin/ld: ./memory/concurrent_arena.o: relocation R_X86_64_TPOFF32 against symbol `_ZN7rocksdb15C
+				</h2>
+				<div class="index-brief">
+					官方的编译教程：https://github.com/facebook/rocksdb/blob/main/INSTALL.md
+按照上面说的，先编译静态库：
+make static_lib
+这个正常。但是再编译动态库时：
+make shared_lib
+会报错：
+/usr/bin/ld: ./me
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/">
 				<h2 class="index-title">
 					flatpak教程
@@ -7622,52 +7689,6 @@ sudo apt install
 			</a>
                 <div class="article-meta">
 				    <span>2021-12-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/12/29/f-droid%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
-				<h2 class="index-title">
-					F-Droid使用教程
-				</h2>
-				<div class="index-brief">
-					F-Droid下载地址：https://f-droid.org/
-默认的官方源太慢了。建议更换清华源。官方教程：https://mirrors.tuna.tsinghua.edu.cn/help/fdroid/
-先打开F-Droid，进入设置-&gt;存储库
-
-点进F-Droid存储库，可能会看到一
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-12-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/12/28/linux%E8%8D%89%E7%A8%BF%E7%BA%B8%E8%BD%AF%E4%BB%B6/">
-				<h2 class="index-title">
-					Linux草稿纸软件
-				</h2>
-				<div class="index-brief">
-					¶ Lorien
-草稿纸无限大，按住鼠标中键拖动，滚动滚轮缩放。
-下载地址：https://github.com/mbrlabs/Lorien/releases
-
-如果按住鼠标中键不能拖动，请检查是否通过xmodmap禁用了鼠标中键。
-¶ mypaint
-使用教程：https://seekstar.
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-12-28</span>
                     
                             
                     

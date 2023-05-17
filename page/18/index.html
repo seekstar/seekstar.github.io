@@ -1893,6 +1893,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/05/16/conan%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    conan学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/27/constexpr%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF/">
                      
 										    constexpr函数中使用循环
@@ -4074,6 +4085,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/05/17/%E5%9C%A8chroot%E9%87%8C%E8%BF%90%E8%A1%8Csshd/">
+                     
+										    在chroot里运行sshd
                      
 									</a>
 								</li>
@@ -7459,6 +7481,51 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
+				<h2 class="index-title">
+					Shell查看某目录下某拓展名的文件所占总空间
+				</h2>
+				<div class="index-brief">
+					比如要查看目录下png文件占用的总空间：
+find 目录 -type f -name "*.png" -print0 | xargs -0r du -ch
+输出的最后一行就是占用的总空间。
+以下来自man find：
+-type f: 只查找普通文件。
+-print0: 返回true；在标准输出打印
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/02/17/ssh%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
+				<h2 class="index-title">
+					SSH内网穿透
+				</h2>
+				<div class="index-brief">
+					比方说要把当前机器的8789端口映射到服务器的6100端口：
+ssh -R 6100:localhost:8789 服务器IP
+然后登录上服务器，就能通过6100端口连上这台机器了：
+ssh localhost 6100
+要允许所有IP都能通过服务器的6100端口连接上这台机器，需要在服务器上的/e
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/02/17/pacman%E5%8D%87%E7%BA%A7%E6%8C%87%E5%AE%9A%E5%8C%85/">
 				<h2 class="index-title">
 					pacman升级指定包
@@ -7629,51 +7696,6 @@ ulimit -Sl unlimit
 			</a>
                 <div class="article-meta">
 				    <span>2022-01-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/23/debian-11-%E5%AE%89%E8%A3%85spdk/">
-				<h2 class="index-title">
-					Debian 11 安装SPDK
-				</h2>
-				<div class="index-brief">
-					本文主要参考SpanDB的安装教程：https://github.com/SpanDB/SpanDB
-SPDK全称：Storage Performance Development Kit
-这里以SPDK v20.01.2为例。
-¶ 下载SPDK
-git clone https://github.co
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
-				<h2 class="index-title">
-					用YCSB测试RocksDB性能
-				</h2>
-				<div class="index-brief">
-					¶ 基础用法
-¶ 编译
-git clone https://github.com/brianfrankcooper/YCSB.git
-# 提供mvn命令
-sudo apt install -y maven
-mvn -pl site.ycsb:rocksdb-binding -am clean pac
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-22</span>
                     
                             
                     

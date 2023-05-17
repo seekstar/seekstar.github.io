@@ -1893,6 +1893,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/05/16/conan%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    conan学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/12/27/constexpr%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF/">
                      
 										    constexpr函数中使用循环
@@ -4074,6 +4085,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/05/17/%E5%9C%A8chroot%E9%87%8C%E8%BF%90%E8%A1%8Csshd/">
+                     
+										    在chroot里运行sshd
                      
 									</a>
 								</li>
@@ -7459,6 +7481,45 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/02/04/grub-installer-fatal-error/">
+				<h2 class="index-title">
+					grub-installer fatal error
+				</h2>
+				<div class="index-brief">
+					我把EFI分区的类型从逻辑分区改成主分区就好了。
+好像除了EFI分区，所有分区都可以是逻辑分区，包括挂载到/的分区。
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-02-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/02/02/linux-kernel-kthread%E7%94%A8%E6%B3%95/">
+				<h2 class="index-title">
+					Linux kernel kthread用法
+				</h2>
+				<div class="index-brief">
+					先说巨坑：如果kthread_run之后立马kthread_stop，threadfn可能不会被执行，kthread_stop返回-EINTR。这一点网上的教程很少有提及。
+参考：https://stackoverflow.com/questions/65987208/kthread-stopped
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-02-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/02/02/usr-bin-xauth-timeout-in-locking-authority-file-home-searchstar-xauthority/">
 				<h2 class="index-title">
 					/usr/bin/xauth: timeout in locking authority file /home/searchstar/.Xauthority
@@ -7622,55 +7683,6 @@ sudo update-grub
 			</a>
                 <div class="article-meta">
 				    <span>2021-01-22</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/01/21/qemu%E6%8C%82%E8%BD%BD%E7%89%A9%E7%90%86%E7%A3%81%E7%9B%98/">
-				<h2 class="index-title">
-					qemu挂载物理磁盘
-				</h2>
-				<div class="index-brief">
-					参考：https://askubuntu.com/questions/572913/qemu-connect-physical-disk
-使用选项
--hdb /dev/sdX
-即可。进虚拟机之后就可以看到/dev/sdb了。然后用mount命令挂载即可。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-01-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-				<h2 class="index-title">
-					在服务器上用qemu制作虚拟机
-				</h2>
-				<div class="index-brief">
-					已测试的组合：
-
-宿主机：Deepin、Debian 11、centos 8
-虚拟机：CentOS 8, CentOS Stream 9, Debian 11
-
-¶ 下载操作系统镜像
-可以在国内的镜像源下载。常用的有：
-
-中科大源：http://mirrors.ustc.edu.cn/
-清华TUNA
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-01-21</span>
                     
                             
                     
