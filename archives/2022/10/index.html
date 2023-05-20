@@ -7589,11 +7589,12 @@ TUNA技术群
 					Rust文件操作
 				</h2>
 				<div class="index-brief">
-					¶ Path
-官方文档：https://doc.rust-lang.org/std/path/struct.Path.html
-常用：
-assert_eq!(Path::new("/etc").join("passwd"), PathBuf::from("/etc/passwd"));
-¶ 错误处理
+					¶ 获取文件长度
+let file = File::open(path)?;
+let len = file.metadata()?.len();
+参考：
+https://doc.rust-lang.org/stable/std/fs/struct.File.html#method.metadata
+
 					...
 				</div>
 			</a>
