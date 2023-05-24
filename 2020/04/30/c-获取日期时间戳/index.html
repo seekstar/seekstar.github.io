@@ -7539,27 +7539,19 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>使用C++11里的std::chrono，自定义一个叫做days的duration。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>使用C++11里的std::chrono，自定义一个叫做days的duration。</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;chrono&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">namespace</span> std {</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">namespace</span> chrono {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="kw">typedef</span> duration&lt;<span class="dt">int</span>, ratio&lt;<span class="dv">3600</span>*<span class="dv">24</span>, <span class="dv">1</span>&gt; &gt; days;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>	<span class="kw">using</span> <span class="kw">namespace</span> <span class="bu">std::</span>chrono;</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>	cout &lt;&lt; duration_cast&lt;milliseconds&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"ms</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>	cout &lt;&lt; duration_cast&lt;hours&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"h</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>	cout &lt;&lt; duration_cast&lt;days&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"d</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">typedef</span> <span class="bu">std::</span>chrono<span class="bu">::</span>duration&lt;<span class="dt">int</span>, <span class="bu">std::</span>ratio&lt;<span class="dv">3600</span>*<span class="dv">24</span>, <span class="dv">1</span>&gt; &gt; days;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>	<span class="kw">using</span> <span class="kw">namespace</span> <span class="bu">std::</span>chrono;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; duration_cast&lt;milliseconds&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"ms</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; duration_cast&lt;hours&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"h</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; duration_cast&lt;days&gt;(system_clock::now().time_since_epoch()).count() &lt;&lt; <span class="st">"d</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
-<pre><code>1588220587696ms
+<pre class="text"><code>1588220587696ms
 441172h
 18382d</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
