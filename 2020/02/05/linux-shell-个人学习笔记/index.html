@@ -7548,11 +7548,11 @@ var _hmt = _hmt || [];
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014783674/article/details/24474001" class="uri">https://blog.csdn.net/u014783674/article/details/24474001</a></p>
 <pre class="shell"><code>#!/bin/bash
 if [ condition1 ]; then
-        # Do something
+	# Do something
 elif [ condition2 ]; then
-        # Do something
+	# Do something
 else
-        # Do something
+	# Do something
 fi</code></pre>
 <h4 id="判断某环境变量是否存在"><a href="#判断某环境变量是否存在">¶</a> 判断某环境变量是否存在</h4>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3" class="uri">https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3</a><br>
@@ -7662,18 +7662,18 @@ fi</code></pre>
 if [ -z $1 ]; then      #如果没有输入参数，也就是第一个参数的字符串长度为0
     :                          #空语句
 else
-     if [ -e $1 ]; then       #如果文件存在的话
-          if [ -f $1 ]; then   #如果文件是个普通文件？
-               echo $1" is a text file."
-          elif [ -d $1 ]; then #如果文件是个目录文件？
-               echo $1" is a directory."
-          elif [ -c $1 ]; then #如果文件是个字符设备？
-               echo $1" is a char device."
-          elif [ -b $1 ]; then #如果文件是个块设备？
-               echo $1" is a block device."
-          else #否则
-               echo $1" is unknow file."
-     fi
+	if [ -e $1 ]; then       #如果文件存在的话
+		if [ -f $1 ]; then   #如果文件是个普通文件？
+			echo $1" is a text file."
+		elif [ -d $1 ]; then #如果文件是个目录文件？
+			echo $1" is a directory."
+		elif [ -c $1 ]; then #如果文件是个字符设备？
+			echo $1" is a char device."
+		elif [ -b $1 ]; then #如果文件是个块设备？
+			echo $1" is a block device."
+		else #否则
+			echo $1" is unknow file."
+	fi
 fi</code></pre>
 <h4 id="判断文件权限"><a href="#判断文件权限">¶</a> 判断文件权限</h4>
 <table>
@@ -7735,11 +7735,11 @@ done  </code></pre>
 还有其他用法。看参考链接</p>
 <h3 id="正则表达式"><a href="#正则表达式">¶</a> 正则表达式</h3>
 <pre class="shell"><code>if [[ 字符串 =~ 模式 ]]; then
-     echo 字符串中含有模式
+	echo 字符串中含有模式
 fi</code></pre>
 <p>比如最简单的：</p>
 <pre class="shell"><code>if [[ 2333test233222 =~ test233 ]]; then
-     echo yes;
+	echo yes;
 fi</code></pre>
 <p>会打印出<code>yes</code>。</p>
 <h3 id="重定向"><a href="#重定向">¶</a> 重定向</h3>
@@ -7769,6 +7769,71 @@ Command1 | Command2 # 例如 echo 'whoami' | bash，可以让bash执行whoami。
 whoami
 echo 2333
 EOF</code></pre>
+<h3 id="数组"><a href="#数组">¶</a> 数组</h3>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.yiibai.com/bash/bash-array.html" class="uri">https://www.yiibai.com/bash/bash-array.html</a></p>
+<h4 id="定义-1"><a href="#定义-1">¶</a> 定义</h4>
+<pre class="shell"><code>ARRAY_NAME=(element_1st element_2nd element_Nth)</code></pre>
+<h4 id="访问某个下标的元素"><a href="#访问某个下标的元素">¶</a> 访问某个下标的元素</h4>
+<p>下标从0开始。</p>
+<pre class="shell"><code>echo ${ARRAY_NAME[2]}</code></pre>
+<h4 id="访问所有元素"><a href="#访问所有元素">¶</a> 访问所有元素</h4>
+<pre class="shell"><code># 每个元素一个结果
+echo ${ARRAY_NAME[@]}
+# 每个元素一个结果
+echo ${ARRAY_NAME[*]}
+# 所有元素组成一个结果
+echo "${ARRAY_NAME[*]}"</code></pre>
+<p>例如：</p>
+<pre class="shell"><code>a=(1 2 3)</code></pre>
+<p>这四个都打印<code>1 2 3</code>：</p>
+<pre class="shell"><code>echo ${a[@]}
+echo "${a[@]}"
+echo ${a[*]}
+echo "${a[*]}"</code></pre>
+<p>这三个的输出都一样：</p>
+<pre class="shell"><code>for x in ${a[@]}; do
+	echo $x
+done
+for x in "${a[@]}"; do
+	echo $x
+done
+for x in ${a[*]}; do
+	echo $x
+done</code></pre>
+<p>输出：</p>
+<pre class="text"><code>1
+2
+3</code></pre>
+<p>但是这个不同：</p>
+<pre class="shell"><code>for x in "${a[*]}"; do
+	echo $x
+done</code></pre>
+<p>输出：<code>1 2 3</code></p>
+<h4 id="访问slice"><a href="#访问slice">¶</a> 访问slice</h4>
+<pre class="shell"><code># 从第m个开始一直到末尾
+${ARRAY_NAME[@]:m}
+# 从第m个开始取n个。下标从0开始。
+${ARRAY_NAME[@]:m:n}</code></pre>
+<p>保存为新的数组：</p>
+<pre class="shell"><code>SLICED_ARRAY=(${ARRAY_NAME[@]:m:n})</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1335815/how-to-slice-an-array-in-bash" class="uri">https://stackoverflow.com/questions/1335815/how-to-slice-an-array-in-bash</a></p>
+<h4 id="命令行参数"><a href="#命令行参数">¶</a> 命令行参数</h4>
+<p>命令行参数也是数组，用法跟上面的差不多：</p>
+<pre class="shell"><code># 访问某参数
+echo $2
+# 所有参数
+echo $@
+echo $*
+# 从第m个参数开始一直取到末尾
+echo ${@:m}
+# 从第m个参数开始取n个参数
+echo ${@:m:n}
+# 参数个数（不含$0）
+echo $#</code></pre>
+<p>当数组被用于命令行参数时，会被展开成一个个参数：</p>
+<pre class="shell"><code># 等价于./test.sh 1 2 3
+a=(1 2 3)
+./test.sh ${a[@]}</code></pre>
 <h2 id="用户管理"><a href="#用户管理">¶</a> 用户管理</h2>
 <h3 id="创建普通用户"><a href="#创建普通用户">¶</a> 创建普通用户</h3>
 <pre class="shell"><code>adduser 用户名</code></pre>
@@ -7831,7 +7896,7 @@ fi</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sty945/article/details/96475882" class="uri">https://blog.csdn.net/sty945/article/details/96475882</a></p>
 <pre class="shell"><code>lsb_release -a</code></pre>
 <p>我的输出：</p>
-<pre><code>No LSB modules are available.
+<pre class="text"><code>No LSB modules are available.
 Distributor ID:	Deepin
 Description:	Deepin 15.11
 Release:	15.11
@@ -7858,12 +7923,12 @@ printf -v var "%q\n" "hello\world"</code></pre>
 <h3 id="使用imagemagick将多个jpg转换为a4大小的pdf"><a href="#使用imagemagick将多个jpg转换为a4大小的pdf">¶</a> 使用ImageMagick将多个jpg转换为A4大小的PDF</h3>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lpwmm/article/details/83503736" class="uri">https://blog.csdn.net/lpwmm/article/details/83503736</a></p>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240x1753 \
-                      -extent 1240x1753 -gravity center \
-                      -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
+				  -extent 1240x1753 -gravity center \
+				  -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
 <p>如果不想限定高度，可以</p>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240 \
-                      -extent 1240 -gravity center \
-                      -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
+				  -extent 1240 -gravity center \
+				  -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
 <h3 id="du"><a href="#du">¶</a> du</h3>
 <p><code>-d数字</code>: 目录层数。0表示当前目录，1表示当前目录下的所有文件和子目录，以此类推。</p>
