@@ -7547,7 +7547,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="别人的博客"><a href="#别人的博客">¶</a> 别人的博客</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="别人的博客"><a href="#别人的博客">¶</a> 别人的博客</h2>
 <p><a target="_blank" rel="noopener" href="https://www.latexstudio.net/archives/4257">各种width</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/seaskying/article/details/51316607">各种空格</a></p>
 <h2 id="技巧"><a href="#技巧">¶</a> 技巧</h2>
@@ -7833,6 +7833,7 @@ var _hmt = _hmt || [];
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26837705" class="uri">https://www.zhihu.com/question/26837705</a><br>
 <a href="https://seekstar.github.io/2020/04/20/latex-wrapfigure%E6%8C%87%E5%AE%9A%E8%A1%8C%E6%95%B0/">wrapfigure指定行数</a></p>
 <h2 id="枚举"><a href="#枚举">¶</a> 枚举</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/z_feng12489/article/details/99684143">LaTex 解决Itemize和Enumerate的item之间行距过大的问题</a></p>
 <h3 id="编号"><a href="#编号">¶</a> 编号</h3>
 <p>使用enumerate。可以自定义enumerate的编号样式。<br>
 自定义编号样式时要用到的包：</p>
@@ -7878,8 +7879,9 @@ var _hmt = _hmt || [];
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>    <span class="fu">\hline</span></span>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">tabular</span>}</span></code></pre></div>
 <ul>
-<li><code>|c|</code>: 居中并且单元格两侧添加竖线。(Centering)</li>
-<li>hline: 水平线（Horizontal LINE)</li>
+<li><code>c</code>: Centering，居中。另外两种对齐方式是l: Left, 左对齐，r: Right, 右对齐。</li>
+<li><code>|c|</code>: 单元格两侧添加竖线。</li>
+<li>hline: 水平线（Horizontal LINE）</li>
 </ul>
 <p>效果<br>
 <img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200408133652135.png" alt="在这里插入图片描述"></p>
@@ -7977,7 +7979,7 @@ var _hmt = _hmt || [];
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true"></a>    <span class="fu">\hline</span></span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">tabular</span>}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200408143817192.png" alt="在这里插入图片描述"></p>
-<h4 id="去掉左边的缩进"><a href="#去掉左边的缩进">¶</a> 去掉左边的缩进</h4>
+<h3 id="去掉左边的缩进"><a href="#去掉左边的缩进">¶</a> 去掉左边的缩进</h3>
 <p>默认情况下，tabular左边可能会有缩进，如图</p>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101133334334.png" alt="在这里插入图片描述"></p>
 <p>如果不想要这个缩进，将tabular包裹在一个<code>table</code>环境中即可。</p>
@@ -8008,9 +8010,15 @@ var _hmt = _hmt || [];
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true"></a>		<span class="kw">\end</span>{<span class="ex">table</span>}</span>
 <span id="cb31-26"><a href="#cb31-26" aria-hidden="true"></a>	<span class="kw">\end</span>{<span class="ex">enumerate</span>}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101134058576.png" alt="在这里插入图片描述"></p>
+<h3 id="去掉单元格里面的边距"><a href="#去掉单元格里面的边距">¶</a> 去掉单元格里面的边距</h3>
+<p>用<code>@{}</code>，例如去掉左边的边距：<code>\begin{tabular}{@{}lr}</code>，去掉右边的边距：<code>\begin{tabular}{lr@{}}</code>，去掉两边的边距：<code>\begin{tabular}{@{}lr@{}}</code>。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.oomake.com/question/703820" class="uri">https://www.oomake.com/question/703820</a></p>
 <h2 id="设置页边距"><a href="#设置页边距">¶</a> 设置页边距</h2>
 <div class="sourceCode" id="cb32"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="fu">\geometry</span>{top=1.5cm,bottom=1.5cm, left=1.5cm, right=1.5cm}</span></code></pre></div>
+<h2 id="去掉段首缩进"><a href="#去掉段首缩进">¶</a> 去掉段首缩进</h2>
+<p><code>\noindent</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43301333/article/details/122137471">latex段落取消缩进</a></p>
 <h2 id="标签"><a href="#标签">¶</a> 标签</h2>
 <p>用<code>\label</code>创建标签，用<code>\ref</code>引用标签</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}<span class="sc">\label</span><span class="ss">{t1}</span></span>
@@ -8064,8 +8072,23 @@ var _hmt = _hmt || [];
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dyzok88/article/details/44222765" class="uri">https://blog.csdn.net/dyzok88/article/details/44222765</a></p>
 <p>左单引号（键盘上1左边那个）<code>`</code></p>
 <p>左双引号（按两下键盘上1左边的按键）<code>``</code></p>
-<h2 id="bibliography-url"><a href="#bibliography-url">¶</a> Bibliography URL</h2>
+<h2 id="bibliography"><a href="#bibliography">¶</a> Bibliography</h2>
+<h3 id="url"><a href="#url">¶</a> URL</h3>
 <p>Bibliography里URL不要用<code>url = {https://xxx}</code>的形式，要用<code>note = {\url{https://xxx}}</code>的形式，因为有些论文模板不认前者。</p>
+<h3 id="不cite也列出参考文献"><a href="#不cite也列出参考文献">¶</a> 不cite也列出参考文献</h3>
+<p><code>\nocite{xxx}</code>来强制列出单个参考文献。<code>\nocite{*}</code>强制列出所有参<br>
+考文献。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing" class="uri">https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing</a></p>
+<h3 id="去掉标题"><a href="#去掉标题">¶</a> 去掉标题</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">etoolbox</span>}</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="fu">\patchcmd</span>{<span class="fu">\thebibliography</span>}{<span class="kw">\section*</span>{<span class="fu">\refname</span>}}{}{}{}</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title" class="uri">https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title</a></p>
+<h2 id="去掉页码"><a href="#去掉页码">¶</a> 去掉页码</h2>
+<p>在导言区加入：</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="fu">\pagestyle</span>{empty}</span></code></pre></div>
+<h2 id="调整页边距"><a href="#调整页边距">¶</a> 调整页边距</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="fu">\geometry</span>{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}</span></code></pre></div>
 <h2 id="异常处理"><a href="#异常处理">¶</a> 异常处理</h2>
 <h3 id="textbf加粗对英文无效"><a href="#textbf加粗对英文无效">¶</a> <code>textbf{}</code>加粗对英文无效</h3>
 <p><code>\usepackage[T1]{fontenc}</code></p>

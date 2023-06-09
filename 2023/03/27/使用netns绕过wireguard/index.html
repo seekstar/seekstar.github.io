@@ -7639,7 +7639,7 @@ sudo ip6tables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</
 <p>设置来自netns子网的流量的fwmark为51820，从而使得其bypass wireguard:</p>
 <pre class="shell"><code>sudo ip6tables -t mangle -A PREROUTING -s fd00::/64 -j MARK --set-mark 51820</code></pre>
 <h3 id="在netns中访问公网的ipv6地址"><a href="#在netns中访问公网的ipv6地址">¶</a> 在netns中访问公网的IPv6地址</h3>
-<pre class="shell"><code>$ sudo ip netns exec trojannowg ping ipv6.google.com
+<pre class="shell"><code>$ sudo ip netns exec $spacename ping ipv6.google.com
 PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 data bytes
 64 bytes from nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e): icmp_seq=1 ttl=105 time=2.37 ms</code></pre>
 <p>大功告成。</p>

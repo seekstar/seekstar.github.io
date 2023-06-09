@@ -7929,6 +7929,11 @@ printf -v var "%q\n" "hello\world"</code></pre>
 <pre class="shell"><code>convert a.png b.png -compress jpeg -resize 1240 \
 				  -extent 1240 -gravity center \
 				  -units PixelsPerInch -density 150x150 multipage.pdf</code></pre>
+<h3 id="生成随机数"><a href="#生成随机数">¶</a> 生成随机数</h3>
+<pre class="shell"><code>echo $RANDOM</code></pre>
+<p>生成长度为n字节的16进制随机数（最终生成的16进制字符串的长度是2n）：</p>
+<pre class="shell"><code>openssl rand -hex n</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30325071/article/details/94910182">Linux Shell产生16进制随机数</a></p>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
 <h3 id="du"><a href="#du">¶</a> du</h3>
 <p><code>-d数字</code>: 目录层数。0表示当前目录，1表示当前目录下的所有文件和子目录，以此类推。</p>
