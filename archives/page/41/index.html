@@ -2124,6 +2124,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3821,6 +3832,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7052,6 +7074,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7514,6 +7547,65 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/01/07/linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9F%A5%E7%9C%8B%E5%93%AA%E4%BA%9B%E4%BA%BA%E5%9C%A8%E7%94%A8/">
+				<h2 class="index-title">
+					Linux服务器查看哪些人在用
+				</h2>
+				<div class="index-brief">
+					w和who只能查看哪些人登陆了，但是如果是用vscode登陆的就看不到，只有一个node进程。而且如果有人在后台跑程序也看不到。
+所以需要一个可以查看系统中哪些人的进程在跑的命令：
+ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u |
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-07</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/01/01/latex%E5%8E%BB%E6%8E%89lstlisting%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E8%A1%8C/">
+				<h2 class="index-title">
+					Latex去掉lstlisting后面的空行
+				</h2>
+				<div class="index-brief">
+					转自：https://tex.stackexchange.com/questions/167305/how-do-i-get-rid-of-the-extra-blank-line-at-the-end-of-my-listing
+如果在lstset里设置了keepspaces=true，那代码后面
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/01/01/latex%E5%AF%BC%E5%85%A5pgf%E5%9B%BE%E7%89%87/">
+				<h2 class="index-title">
+					Latex导入pgf图片
+				</h2>
+				<div class="index-brief">
+					转自：https://tex.stackexchange.com/questions/117042/set-the-size-of-pgf-picture
+			\begin{figure}\label{HPL}
+                \resizebox{\textwidth}{!}{\
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/01/01/matplotlib%E7%94%9F%E6%88%90%E6%B2%A1%E6%9C%89%E7%95%99%E7%99%BD%E7%9A%84%E5%9B%BE%E7%89%87/">
 				<h2 class="index-title">
 					matplotlib生成没有留白的图片
@@ -7672,67 +7764,10 @@ https://www.kernel.org/
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2020/12/27/systemtap%E8%B7%9F%E8%B8%AA%E8%BF%9B%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-				<h2 class="index-title">
-					systemtap跟踪进程生命周期
-				</h2>
-				<div class="index-brief">
-					systemtap man: https://sourceware.org/systemtap/man/
-本来追踪进程生命周期可以用syscall.fork和syscall.exit之类的。但是有时候它们会失效（或者部分失效）。
-所以更好的方式是用kprocess系列，文档：https://sour
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/12/27/systemtap-semantic-error-no-match-similar-functions/">
-				<h2 class="index-title">
-					systemtap semantic error: no match (similar functions:
-				</h2>
-				<div class="index-brief">
-					用户态probe文档：https://sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html
-这是process("PATH").function("function")报的错，意思是没有在ELF文件中找到这
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/12/26/systemtap%E5%8E%9F%E7%90%86/">
-				<h2 class="index-title">
-					systemtap原理
-				</h2>
-				<div class="index-brief">
-					systemtap的核心是probe（探针），可以在任何一条语句上加上探针，当执行到这条语句时将控制流转移到探针的handler上。其实现原理是在module_init时将相应指令的第一个字节替换成0xcc，也就是INT 3。这样执行到这条指令时就会跳转到INT 3的中断处理函数，由其判断出应该跳转
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-26</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/40/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/39/">39</a><a class="page-number" href="/archives/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/archives/page/42/">42</a><a class="page-number" href="/archives/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/62/">62</a><a class="extend next" rel="next" href="/archives/page/42/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/40/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/39/">39</a><a class="page-number" href="/archives/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/archives/page/42/">42</a><a class="page-number" href="/archives/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/63/">63</a><a class="extend next" rel="next" href="/archives/page/42/">&gt;</a>
 		
 	</div>
 </div>

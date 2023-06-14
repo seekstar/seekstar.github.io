@@ -2124,6 +2124,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3821,6 +3832,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7052,6 +7074,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7514,6 +7547,74 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/11/linux%E6%9B%B4%E6%94%B9machine-id/">
+				<h2 class="index-title">
+					Linux更改machine ID
+				</h2>
+				<div class="index-brief">
+					用systemd-machine-id-setup可以重新生成machine ID。
+如果DBUS machine ID存在的话，会直接将其拷贝过来，所以可以先更新DBUS machine ID：
+sudo bash -c "dbus-uuidgen &gt; /var/lib/dbus/machi
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/11/%E6%9B%B4%E6%94%B9ssh-host-key/">
+				<h2 class="index-title">
+					更改SSH host key
+				</h2>
+				<div class="index-brief">
+					为了避免中间人攻击，每台SSH服务器都会生成一对公钥和私钥，在第一次连接SSH服务器时，SSH客户端会将公钥保存到~/.ssh/known_hosts里，以后每次登录这台服务器时都会验证服务器是否具有这个公钥对应的私钥，有的话才连上。
+服务器的SSH host key存储在/etc/ssh/下面：
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/09/golang-slice%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">
+				<h2 class="index-title">
+					golang slice实现队列
+				</h2>
+				<div class="index-brief">
+					golang的slice相当于对一段连续空间的引用。当底层数组的前面一段空间没有被任何slice引用时，这段连续空间可以被释放。用一个小实验证明这一点：
+package main
+
+import (
+	"fmt"
+	"runtime"
+	"time"
+)
+
+func main() {
+	a := m
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/09/golang%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91gc/">
 				<h2 class="index-title">
 					golang手动触发GC
@@ -7660,75 +7761,10 @@ deb http://
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
-				<h2 class="index-title">
-					slab分配器
-				</h2>
-				<div class="index-brief">
-					主要参考这本书：《Understanding the Linux virtual memory manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf，书上的Chapter 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/28/fatal-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-https-aur-archlinux-org-debtap-git-%EF%BC%9Aopenssl-ssl-connect-ssl-error-syscall-in-connection-to-aur-archlinux-org-443/">
-				<h2 class="index-title">
-					fatal: 无法访问 'https://aur.archlinux.org/debtap.git/'：OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to aur.archlinux.org:443
-				</h2>
-				<div class="index-brief">
-					我把~/.gitconfig里的
-[http]
-        proxy = socks5://127.0.0.1:8235
-改成
-[http]
-        proxy = http://127.0.0.1:8234
-就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
-				<h2 class="index-title">
-					在chroot环境中挂载dev, proc, sys
-				</h2>
-				<div class="index-brief">
-					¶ mount
-cd /location/of/new/root
-mount -t proc /proc proc/
-mount -t sysfs /sys sys/
-mount --rbind /dev dev/
-按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/11/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/62/">62</a><a class="extend next" rel="next" href="/archives/page/13/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/11/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/page/13/">13</a><a class="page-number" href="/archives/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/63/">63</a><a class="extend next" rel="next" href="/archives/page/13/">&gt;</a>
 		
 	</div>
 </div>

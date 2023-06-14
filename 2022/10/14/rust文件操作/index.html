@@ -2126,6 +2126,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3823,6 +3834,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7054,6 +7076,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7539,7 +7572,17 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="获取文件长度"><a href="#获取文件长度">¶</a> 获取文件长度</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="文件管理"><a href="#文件管理">¶</a> 文件管理</h2>
+<h3 id="mkdir"><a href="#mkdir">¶</a> <code>mkdir</code></h3>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fs/fn.create_dir.html" class="uri">https://doc.rust-lang.org/std/fs/fn.create_dir.html</a></p>
+<h3 id="mkdir--p"><a href="#mkdir--p">¶</a> <code>mkdir -p</code></h3>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fs/fn.create_dir_all.html" class="uri">https://doc.rust-lang.org/std/fs/fn.create_dir_all.html</a></p>
+<h3 id="mv"><a href="#mv">¶</a> <code>mv</code></h3>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fs/fn.rename.html" class="uri">https://doc.rust-lang.org/std/fs/fn.rename.html</a></p>
+<h2 id="临时文件目录"><a href="#临时文件目录">¶</a> 临时文件/目录</h2>
+<p><a target="_blank" rel="noopener" href="https://crates.io/crates/tempfile" class="uri">https://crates.io/crates/tempfile</a></p>
+<p>临时目录：<a target="_blank" rel="noopener" href="https://docs.rs/tempfile/latest/tempfile/fn.tempdir.html" class="uri">https://docs.rs/tempfile/latest/tempfile/fn.tempdir.html</a></p>
+<h2 id="获取文件长度"><a href="#获取文件长度">¶</a> 获取文件长度</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(path)<span class="op">?;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">let</span> len <span class="op">=</span> file<span class="op">.</span>metadata()<span class="op">?.</span>len()<span class="op">;</span></span></code></pre></div>
 <p>参考：</p>
@@ -7565,6 +7608,17 @@ var _hmt = _hmt || [];
 <p>相关：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/blob/master/text/2930-read-buf.md" class="uri">https://github.com/rust-lang/rfcs/blob/master/text/2930-read-buf.md</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.rs/binread/latest/binread/" class="uri">https://docs.rs/binread/latest/binread/</a></p>
+<h2 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a> 从文件中逐行读取</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">for</span> line <span class="kw">in</span> reader<span class="op">.</span>lines() <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>值得注意的是，<code>io::stdin()</code>也可以这样：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">for</span> line <span class="kw">in</span> <span class="pp">io::</span>stdin()<span class="op">.</span>lines() <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在 Rust 中读取文件的 4 种方法</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <a href="/2021/07/05/rust%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%89%93%E5%8D%B0%E5%88%B0%E6%96%87%E4%BB%B6/" title="rust格式化打印到文件">rust格式化打印到文件</a>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

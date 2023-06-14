@@ -2126,6 +2126,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3823,6 +3834,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7054,6 +7076,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7608,33 +7641,47 @@ var _hmt = _hmt || [];
 <h2 id="文件"><a href="#文件">¶</a> 文件</h2>
 <a href="/2021/07/22/python%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" title="python文件管理">python文件管理</a>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiankang66/article/details/125981793">python基础之写文件操作</a></p>
+<h3 id="切换到脚本所在目录"><a href="#切换到脚本所在目录">¶</a> 切换到脚本所在目录</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="im">import</span> os</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>abspath <span class="op">=</span> os.path.abspath(sys.argv[<span class="dv">0</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>dname <span class="op">=</span> os.path.dirname(abspath)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>os.chdir(dname)</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1432924/python-change-the-scripts-working-directory-to-the-scripts-own-directory" class="uri">https://stackoverflow.com/questions/1432924/python-change-the-scripts-working-directory-to-the-scripts-own-directory</a></p>
 <h2 id="排序"><a href="#排序">¶</a> 排序</h2>
 <p>用<code>sorted</code>。</p>
 <h3 id="对字典的key排序"><a href="#对字典的key排序">¶</a> 对字典的key排序</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>}</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="bu">sorted</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="bu">sorted</span>(x)</span></code></pre></div>
 <pre class="text"><code>[1, 2, 4]</code></pre>
 <h3 id="对字典的值排序"><a href="#对字典的值排序">¶</a> 对字典的值排序</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>, <span class="dv">0</span>: <span class="dv">0</span>}</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>, <span class="dv">0</span>: <span class="dv">0</span>}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
 <pre class="text"><code>[(0, 0), (2, 1), (1, 2), (4, 3), (3, 4)]</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value" class="uri">https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value</a></p>
 <h2 id="标准库"><a href="#标准库">¶</a> 标准库</h2>
 <h3 id="时间"><a href="#时间">¶</a> 时间</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html" class="uri">https://docs.python.org/3/library/datetime.html</a></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
 <p>也可以用<code>time</code>包：<a target="_blank" rel="noopener" href="https://blog.csdn.net/google19890102/article/details/51355282">Python中时间与时间戳之间的转换</a></p>
 <h3 id="math"><a href="#math">¶</a> math</h3>
 <h4 id="阶乘"><a href="#阶乘">¶</a> 阶乘</h4>
 <p>10!</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>factorial(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>factorial(<span class="dv">10</span>)</span></code></pre></div>
 <h3 id="正则"><a href="#正则">¶</a> 正则</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/re.html" class="uri">https://docs.python.org/3/library/re.html</a></p>
+<h3 id="执行命令"><a href="#执行命令">¶</a> 执行命令</h3>
+<h4 id="简单执行命令"><a href="#简单执行命令">¶</a> 简单执行命令</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="im">import</span> subprocess</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>subprocess.call([<span class="st">'./executable'</span>, arg1, arg2])</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5788891/execute-a-file-with-arguments-in-python-shell" class="uri">https://stackoverflow.com/questions/5788891/execute-a-file-with-arguments-in-python-shell</a></p>
+<h4 id="获取命令输出"><a href="#获取命令输出">¶</a> 获取命令输出</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></p>
 <h3 id="其他"><a href="#其他">¶</a> 其他</h3>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/python30/python-30-command-line-arguments.html">Python 3 命令行参数</a></p></li>
-<li><p>获取命令输出：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/robert_chen1988/article/details/82887820">python 生成随机数的三种方法</a></p></li>
 <li><p>Waiting for I/O completion: <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/select.html" class="uri">https://docs.python.org/3/library/select.html</a></p></li>
 <li><p>字符串trim: <a target="_blank" rel="noopener" href="https://www.freecodecamp.org/news/python-strip-how-to-trim-a-string-or-line/" class="uri">https://www.freecodecamp.org/news/python-strip-how-to-trim-a-string-or-line/</a></p></li>
@@ -7657,7 +7704,7 @@ var _hmt = _hmt || [];
 </ul>
 <h4 id="等差数列"><a href="#等差数列">¶</a> 等差数列</h4>
 <p>文档：<a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.linspace.html</a></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)[source]</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)[source]</span></code></pre></div>
 <h3 id="其他-1"><a href="#其他-1">¶</a> 其他</h3>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36899414/article/details/77817195">python字典和JSON格式的转换</a></li>

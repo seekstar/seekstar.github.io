@@ -2126,6 +2126,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3823,6 +3834,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7054,6 +7076,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7539,23 +7572,34 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="逐字符读入"><a href="#逐字符读入">¶</a> 逐字符读入</h2>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/104201928" class="uri">https://blog.csdn.net/qq_41961459/article/details/104201928</a></p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="逐字符读入"><a href="#逐字符读入">¶</a> 逐字符读入</h2>
 <h2 id="逐行读入"><a href="#逐行读入">¶</a> 逐行读入</h2>
-<p>文件：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html" class="uri">https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html</a></p>
-<p>从stdin中逐行读入只需要把上面中的文件换成<code>sys.stdin</code>即可。例子：</p>
+<h3 id="stdin"><a href="#stdin">¶</a> stdin</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> sys.stdin:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	<span class="co"># 去掉末尾换行符</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	line <span class="op">=</span> line.strip()</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
-<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin" class="uri">https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin</a></p>
-<h2 id="从文件读入"><a href="#从文件读入">¶</a> 从文件读入</h2>
+<p>参考</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/104201928" class="uri">https://blog.csdn.net/qq_41961459/article/details/104201928</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin" class="uri">https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin</a></p>
+<h3 id="文件"><a href="#文件">¶</a> 文件</h3>
 <p>把上面的<code>sys.stdin</code>换成<code>open('path/to/file')</code>：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'/path/to/file'</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="co"># 去掉末尾换行符</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	line <span class="op">=</span> line.strip()</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	<span class="bu">print</span>(line)</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html" class="uri">https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html</a></p>
+<h2 id="一次性读取并按行保存为list"><a href="#一次性读取并按行保存为list">¶</a> 一次性读取并按行保存为list</h2>
+<p>不保留每行末尾的换行符：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>f.read().splitlines()</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3925614/how-do-you-read-a-file-into-a-list-in-python" class="uri">https://stackoverflow.com/questions/3925614/how-do-you-read-a-file-into-a-list-in-python</a></p>
+<p>保留每行末尾的换行符：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>f.readlines()</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/inputoutput.html" class="uri">https://docs.python.org/3/tutorial/inputoutput.html</a></p>
+<p>读取为整型：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>[<span class="bu">int</span>(line) <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'hits_cdf'</span>)]</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6583573/how-to-read-numbers-from-file-in-python" class="uri">https://stackoverflow.com/questions/6583573/how-to-read-numbers-from-file-in-python</a></p>
 <h2 id="读取参数"><a href="#读取参数">¶</a> 读取参数</h2>
 <p><code>sys.argv</code>: 参数列表。<code>sys.argv[0]</code>一般是当前命令。</p>
 <p><code>len(sys.argv)</code>是参数个数。</p>

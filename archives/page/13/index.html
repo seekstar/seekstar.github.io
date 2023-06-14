@@ -2124,6 +2124,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3821,6 +3832,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7052,6 +7074,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7514,6 +7547,71 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
+				<h2 class="index-title">
+					slab分配器
+				</h2>
+				<div class="index-brief">
+					主要参考这本书：《Understanding the Linux virtual memory manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344_2017w/linux-vmm.pdf，书上的Chapter 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/28/fatal-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-https-aur-archlinux-org-debtap-git-%EF%BC%9Aopenssl-ssl-connect-ssl-error-syscall-in-connection-to-aur-archlinux-org-443/">
+				<h2 class="index-title">
+					fatal: 无法访问 'https://aur.archlinux.org/debtap.git/'：OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to aur.archlinux.org:443
+				</h2>
+				<div class="index-brief">
+					我把~/.gitconfig里的
+[http]
+        proxy = socks5://127.0.0.1:8235
+改成
+[http]
+        proxy = http://127.0.0.1:8234
+就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-28</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
+				<h2 class="index-title">
+					在chroot环境中挂载dev, proc, sys
+				</h2>
+				<div class="index-brief">
+					¶ mount
+cd /location/of/new/root
+mount -t proc /proc proc/
+mount -t sysfs /sys sys/
+mount --rbind /dev dev/
+按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/27/linux-sysrq/">
 				<h2 class="index-title">
 					Linux SysRq
@@ -7655,73 +7753,10 @@ make -j$(nproc) shared_lib
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%A2%86%E5%9F%9Fvanilla%E7%9A%84%E5%90%AB%E4%B9%89/">
-				<h2 class="index-title">
-					计算机领域vanilla的含义
-				</h2>
-				<div class="index-brief">
-					感觉vanilla的含义跟default比较像，意思是未经修改的版本。
-比如vanilla linux kernel就是指从https://www.kernel.org/直接下载安装的linux kernel。而各个发行版的linux kernel基本上都是基于vanilla linux kerne
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
-				<h2 class="index-title">
-					Linux配置网桥
-				</h2>
-				<div class="index-brief">
-					¶ virsh default network
-可以利用virsh自带的default network，它是利用NAT实现的。
-sudo virsh net-start default
-# 关闭
-# sudo virsh net-destroy default
-然后ip a就可以看到一个名为virb
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-18</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/nmcli-device-status-unmanaged/">
-				<h2 class="index-title">
-					nmcli device status unmanaged
-				</h2>
-				<div class="index-brief">
-					症状：
-nmcli device status
-DEVICE        TYPE      STATE                                  CONNECTION
-enp89s0       ethernet  unmanaged                   
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/12/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="page-number" href="/archives/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/archives/page/14/">14</a><a class="page-number" href="/archives/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/62/">62</a><a class="extend next" rel="next" href="/archives/page/14/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/12/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="page-number" href="/archives/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/archives/page/14/">14</a><a class="page-number" href="/archives/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/63/">63</a><a class="extend next" rel="next" href="/archives/page/14/">&gt;</a>
 		
 	</div>
 </div>

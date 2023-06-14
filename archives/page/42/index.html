@@ -2124,6 +2124,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/">
+                     
+										    mailx v15_compat配置教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/03/20/screen%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
                      
 										    screen基础用法
@@ -3821,6 +3832,17 @@ var _hmt = _hmt || [];
 									<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
                      
 										    linux查看系统安装时间
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    nginx学习笔记
                      
 									</a>
 								</li>
@@ -7052,6 +7074,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+                     
+										    bash获取exit code
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/01/07/bash%E8%AE%A1%E7%AE%97%E6%B5%AE%E7%82%B9%E6%95%B0/">
                      
 										    bash计算浮点数
@@ -7514,6 +7547,63 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/12/27/systemtap%E8%B7%9F%E8%B8%AA%E8%BF%9B%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+				<h2 class="index-title">
+					systemtap跟踪进程生命周期
+				</h2>
+				<div class="index-brief">
+					systemtap man: https://sourceware.org/systemtap/man/
+本来追踪进程生命周期可以用syscall.fork和syscall.exit之类的。但是有时候它们会失效（或者部分失效）。
+所以更好的方式是用kprocess系列，文档：https://sour
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-12-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/12/27/systemtap-semantic-error-no-match-similar-functions/">
+				<h2 class="index-title">
+					systemtap semantic error: no match (similar functions:
+				</h2>
+				<div class="index-brief">
+					用户态probe文档：https://sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html
+这是process("PATH").function("function")报的错，意思是没有在ELF文件中找到这
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-12-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/12/26/systemtap%E5%8E%9F%E7%90%86/">
+				<h2 class="index-title">
+					systemtap原理
+				</h2>
+				<div class="index-brief">
+					systemtap的核心是probe（探针），可以在任何一条语句上加上探针，当执行到这条语句时将控制流转移到探针的handler上。其实现原理是在module_init时将相应指令的第一个字节替换成0xcc，也就是INT 3。这样执行到这条指令时就会跳转到INT 3的中断处理函数，由其判断出应该跳转
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-12-26</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/12/20/vscode%E5%9C%A8%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5%E4%B8%AD%E8%BD%AC%E5%88%B0%E5%AE%9A%E4%B9%89%E6%89%93%E5%BC%80%E4%BA%86%E7%9C%9F%E5%AE%9E%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6/">
 				<h2 class="index-title">
 					vscode在符号链接中转到定义打开了真实目录下的文件
@@ -7655,80 +7745,10 @@ queued spinlock详见https://blog.csdn.net/y33988979/article/detail
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2020/12/01/%E8%A2%AB%E9%94%81%E4%BF%9D%E6%8A%A4%E7%9A%84%E5%8F%98%E9%87%8F%E4%B8%8D%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8volatile/">
-				<h2 class="index-title">
-					被锁保护的变量不需要使用volatile
-				</h2>
-				<div class="index-brief">
-					https://stackoverflow.com/questions/6837699/are-mutex-lock-functions-sufficient-without-volatile
-因为进行函数调用的时候，编译器不知道它会不会修改全局变量，所以就防止了这个共享变量被放到寄存器中？
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-12-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/11/20/ggplot%E5%88%86%E7%BB%84%E6%9F%B1%E5%BD%A2%E5%9B%BE%E8%B0%83%E6%95%B4legend%E7%9A%84%E5%A4%A7%E5%B0%8F/">
-				<h2 class="index-title">
-					ggplot分组柱形图调整legend的大小
-				</h2>
-				<div class="index-brief">
-					参考：https://www.cnblogs.com/emanlee/p/5373649.html
-先放一个gallery里的例子
- # library
-library(ggplot2)
- 
-# create a dataset
-specie &lt;- c(rep("sorgho" , 3) , 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-11-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/11/15/wps%E5%9B%BE%E7%89%87%E7%AB%A0%E8%8A%82%E7%BC%96%E5%8F%B7/">
-				<h2 class="index-title">
-					WPS图片章节编号
-				</h2>
-				<div class="index-brief">
-					右键图片，选择题注，点击编号
-
-选中包含章节编号，并且留意章节起始样式。
-
-将章节标题设置成章节起始样式
-
-章节起始样式只能从几个标题里选。如果要选择其他样式作为章节起始样式，则可以右键样式栏里的标题，点击修改，然后选择基于的样式。
-
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-11-15</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/41/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/40/">40</a><a class="page-number" href="/archives/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/archives/page/43/">43</a><a class="page-number" href="/archives/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/62/">62</a><a class="extend next" rel="next" href="/archives/page/43/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/41/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/40/">40</a><a class="page-number" href="/archives/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/archives/page/43/">43</a><a class="page-number" href="/archives/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/63/">63</a><a class="extend next" rel="next" href="/archives/page/43/">&gt;</a>
 		
 	</div>
 </div>
