@@ -7572,7 +7572,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>详细教程：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" class="uri">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>详细教程：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" class="uri">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></p>
 <h2 id="新建会话"><a href="#新建会话">¶</a> 新建会话</h2>
 <pre class="shell"><code>tmux</code></pre>
 <p>底下的状态栏里最左边方括号里的就是自动分配的会话名称。<br>
@@ -7662,6 +7662,23 @@ Done, press ENTER to continue.</code></pre>
 <p>repo: <a target="_blank" rel="noopener" href="https://github.com/tmux-plugins/tmux-logging" class="uri">https://github.com/tmux-plugins/tmux-logging</a></p>
 <p>按<code>ctrl+b</code>再按<code>shift+p</code>即可把tmux窗口里的内容log到文件。</p>
 <pre class="text"><code>set -g @plugin 'tmux-plugins/tmux-logging'</code></pre>
+<h3 id="tmux-notify"><a href="#tmux-notify">¶</a> tmux-notify</h3>
+<p>在命令完成之后发送提醒。</p>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/rickstaa/tmux-notify/" class="uri">https://github.com/rickstaa/tmux-notify/</a></p>
+<pre class="text"><code>set -g @plugin 'rickstaa/tmux-notify'</code></pre>
+<p><code>ctrl+b</code>，然后再<code>m</code>，即可开始监控命令是否完成，完成之后会自动发送一条通知，默认会发送到用户的桌面。</p>
+<p>tmux-notify识别命令有没有执行完的原理很简单，就是监视屏幕上的字符是不是以<code>$</code>、<code>#</code>、<code>%</code>结尾的。所以如果你的shell prompt不是以这几个字符结尾的，就要更改shell prompt，或者增加shell后缀：<a target="_blank" rel="noopener" href="https://github.com/rickstaa/tmux-notify/#add-additional-shell-suffixes" class="uri">https://github.com/rickstaa/tmux-notify/#add-additional-shell-suffixes</a>。目前已知oh my zsh的prompt是没有后缀的，所以只能往它的prompt里加入后缀：在<code>~/.zshrc</code>里的最后加上<code>PROMPT="$PROMPT%# "</code>，其中<code>%#</code>在普通用户模式下显示为<code>%</code>，在root模式下显示为<code>#</code>，参考：<a target="_blank" rel="noopener" href="https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/" class="uri">https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/</a></p>
+<p>tmux-notify还支持在命令完成时执行用户自定义的命令：<a target="_blank" rel="noopener" href="https://github.com/rickstaa/tmux-notify/#execute-custom-notification-commands" class="uri">https://github.com/rickstaa/tmux-notify/#execute-custom-notification-commands</a>，可以实现邮件提醒等。下面介绍基于mailx的邮件提醒的方法。</p>
+<p>首先安装并配置mailx: <a href="/2023/06/14/mailx-v15-compat%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="mailx v15_compat配置教程">mailx v15_compat配置教程</a></p>
+<p>然后在<code>.tmux.conf</code>里加入：</p>
+<details>
+<p></p><summary>ArchLinux</summary><p></p>
+<pre class="text"><code>set -g @tnotify-custom-cmd 'echo "tmux程序跑完啦" | mailx --subject="tmux complete notification" 接收人@163.com'</code></pre>
+</details>
+<details>
+<p></p><summary>Debian</summary><p></p>
+<pre class="text"><code>set -g @tnotify-custom-cmd 'echo "tmux程序跑完啦" | s-nail --subject="tmux complete notification" 接收人@163.com'</code></pre>
+</details>
 <h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h2>
 <p>tmux会用空格填充到行末。如果直接复制tmux中的文本的话，会把后面填充的空格也复制出来。<code>screen</code>没有这个问题：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/333983" class="uri">https://unix.stackexchange.com/a/333983</a></p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>

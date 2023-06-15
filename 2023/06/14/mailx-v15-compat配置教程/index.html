@@ -7572,9 +7572,12 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>GNU的mailutils里的mailx好像不太好使，所以这里使用s-nail。</p>
+<h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <pre class="shell"><code># ArchLinux
-sudo pacman -S s-nail</code></pre>
+sudo pacman -S s-nail
+# Debian
+sudo apt install s-nail</code></pre>
 <h2 id="mailrc"><a href="#mailrc">¶</a> <code>~/.mailrc</code></h2>
 <p>主要参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/S-nail" class="uri">https://wiki.archlinux.org/title/S-nail</a></p>
 <pre class="text"><code># All the examples require v15-compat!
@@ -7608,10 +7611,6 @@ set folder=mail
 set MBOX=+mbox.mbox record=+sent.mbox DEAD=+dead.mbox
 set inbox=+system.mbox
 
-# Define some shortcuts; now one may say, e.g., file mymbo
-shortcut mymbo %:+mbox.mbox \
-         myrec +sent.mbox
-
 # It can be as easy as
 # (Remember USER and PASS must be URL percent encoded)
 set mta=smtp://用户名:授权码@smtp.163.com \
@@ -7621,6 +7620,8 @@ set mta=smtp://用户名:授权码@smtp.163.com \
 # if the "SERVER" of smtp and "domain" of from do not match.
 # Reading the "ON URL SYNTAX.." and smtp manual entries may be worthwhile
 set from="用户名@163.com"</code></pre>
+<pre class="shell"><code>mkdir ~/mail</code></pre>
+<p>然后已发送的邮件就会存入<code>~/mail/sent.mbox</code></p>
 <p>Arch wiki里还设置了<code>ssl-ca-file</code>等变量，但我这里运行后会报这种错：</p>
 <pre class="text"><code>mail: Warning: variable superseded or obsoleted: ssl-ca-file
 mail: Warning: variable superseded or obsoleted: ssl-ca-no-defaults
@@ -7629,7 +7630,12 @@ mail: Warning: variable superseded or obsoleted: ssl-cipher-list
 mail: Warning: variable superseded or obsoleted: ssl-verify</code></pre>
 <p>所以我没有设置这些ssl相关的配置，实测也能跑。</p>
 <h2 id="发邮件"><a href="#发邮件">¶</a> 发邮件</h2>
-<p>echo "test mails" | mailx --subject="test" <a href="mailto:接收人@163.com" class="email">接收人@163.com</a></p>
+<p>ArchLinux用<code>mailx</code>命令：</p>
+<pre class="shell"><code>echo "test mailx" | mailx --subject="test" 接收人@163.com</code></pre>
+<p>Debian用<code>s-nail</code>命令：</p>
+<pre class="shell"><code>echo "test s-nail" | s-nail --subject="test" 接收人@163.com</code></pre>
+<h2 id="相关"><a href="#相关">¶</a> 相关</h2>
+<p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/send-email-linux-command-line" class="uri">https://www.digitalocean.com/community/tutorials/send-email-linux-command-line</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
