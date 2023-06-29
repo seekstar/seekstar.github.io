@@ -7583,26 +7583,23 @@ var _hmt = _hmt || [];
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin())<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">loop</span> <span class="op">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">let</span> len <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="cn">Ok</span>(buf) <span class="op">=</span> cin<span class="op">.</span>fill_buf() <span class="op">{</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>                <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>            <span class="kw">for</span> c <span class="kw">in</span> buf <span class="op">{</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>                <span class="co">// Your code here</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>                <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>            buf<span class="op">.</span>len()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>            <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>        <span class="op">};</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        cin<span class="op">.</span>consume(len)<span class="op">;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">while</span> <span class="kw">let</span> <span class="cn">Ok</span>(buf) <span class="op">=</span> cin<span class="op">.</span>fill_buf() <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="kw">break</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        <span class="kw">for</span> c <span class="kw">in</span> buf <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>            <span class="co">// Your code here</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>            <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>        <span class="kw">let</span> len <span class="op">=</span> buf<span class="op">.</span>len()<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        drop(buf)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>        cin<span class="op">.</span>consume(len)<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>输入：</p>
-<pre><code>abc</code></pre>
+<pre class="text"><code>abc</code></pre>
 <p>输出：</p>
-<pre><code>97
+<pre class="text"><code>97
 98
 99
 10</code></pre>

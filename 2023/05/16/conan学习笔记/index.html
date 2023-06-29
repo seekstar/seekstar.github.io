@@ -7585,6 +7585,13 @@ vim ~/.conan2/profiles/default</code></pre>
 <pre class="shell"><code>conan new cmake_lib -d name=包名 -d version=0.1.0</code></pre>
 <p>然后编辑<code>CMakeLists.txt</code>和<code>conanfile.py</code>。</p>
 <h3 id="conanfilepy"><a href="#conanfilepy">¶</a> <code>conanfile.py</code></h3>
+<h4 id="requirements"><a href="#requirements">¶</a> requirements</h4>
+<p>定义包的依赖。例子：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">def</span> requirements(<span class="va">self</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="va">self</span>.requires(<span class="st">"rusty-cpp/[&gt;=0.1.1]"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>    <span class="co"># 0.1.x都行</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>    <span class="va">self</span>.requires(<span class="st">"rcu-vector/[~0.1]"</span>)</span></code></pre></div>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/versioning/version_ranges.html#range-expressions" class="uri">https://docs.conan.io/2/tutorial/versioning/version_ranges.html#range-expressions</a></p>
 <h4 id="generate"><a href="#generate">¶</a> generate</h4>
 <p>在<code>conan install</code>的时候被调用，用于生成用于编译的文件。</p>
 <h4 id="build"><a href="#build">¶</a> build</h4>
@@ -7611,25 +7618,27 @@ vim ~/.conan2/profiles/default</code></pre>
 <h3 id="只有头文件的包-header-only"><a href="#只有头文件的包-header-only">¶</a> 只有头文件的包 (header-only)</h3>
 <p>例子：<a target="_blank" rel="noopener" href="https://github.com/seekstar/rusty-cpp" class="uri">https://github.com/seekstar/rusty-cpp</a></p>
 <p><code>CMakeLists.txt</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> 3.15)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">project</span>(rusty-cpp <span class="ot">CXX</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="kw">add_library</span>(rusty-cpp <span class="ot">INTERFACE</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="kw">target_include_directories</span>(rusty-cpp <span class="ot">INTERFACE</span> include)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="co"># PUBLIC_HEADER会被install</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="kw">set</span>_target_properties(rusty-cpp PROPERTIES PUBLIC_HEADER <span class="st">"include/rusty/macro.h"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="co"># 这里要设置DESTINATION，不然install的时候会直接被copy到include目录下面。</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="kw">install</span>(<span class="ot">TARGETS</span> rusty-cpp <span class="ot">DESTINATION</span> <span class="st">"include/rusty"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> 3.15)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">project</span>(rusty-cpp <span class="ot">CXX</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="kw">add_library</span>(rusty-cpp <span class="ot">INTERFACE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="kw">target_include_directories</span>(rusty-cpp <span class="ot">INTERFACE</span> include)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="co"># https://stackoverflow.com/a/59257505</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="kw">file</span>(<span class="ot">GLOB_RECURSE</span> RUSTY_HEADERS <span class="st">"include/rusty/*"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="co"># PUBLIC_HEADER会被install</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="kw">set</span>_target_properties(rusty-cpp PROPERTIES PUBLIC_HEADER <span class="st">"</span><span class="dv">${</span>RUSTY_HEADERS<span class="dv">}</span><span class="st">"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="co"># 这里要设置DESTINATION，不然install的时候会直接被copy到include目录下面。</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="kw">install</span>(<span class="ot">TARGETS</span> rusty-cpp <span class="ot">DESTINATION</span> <span class="st">"include/rusty"</span>)</span></code></pre></div>
 <p><code>conanfile.py</code>的关键部分：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">def</span> package_info(<span class="va">self</span>):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    <span class="co"># 让依赖这个包的其他包知道这个包对应的CMake target叫什么名字</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.set_property(<span class="st">"cmake_target_name"</span>, <span class="st">"rusty-cpp"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    <span class="co"># For header-only packages, libdirs and bindirs are not used</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>    <span class="co"># so it's necessary to set those as empty.</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.libdirs <span class="op">=</span> []</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.bindirs <span class="op">=</span> []</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">def</span> package_info(<span class="va">self</span>):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="co"># 让依赖这个包的其他包知道这个包对应的CMake target叫什么名字</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.set_property(<span class="st">"cmake_target_name"</span>, <span class="st">"rusty-cpp"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    <span class="co"># For header-only packages, libdirs and bindirs are not used</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    <span class="co"># so it's necessary to set those as empty.</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.libdirs <span class="op">=</span> []</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    <span class="va">self</span>.cpp_info.bindirs <span class="op">=</span> []</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/header_only_packages.html" class="uri">https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/header_only_packages.html</a></p>
 <h3 id="含多个库的包-package-with-multiple-libraries"><a href="#含多个库的包-package-with-multiple-libraries">¶</a> 含多个库的包 (package with multiple libraries)</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.conan.io/2/examples/conanfile/package_info/components.html#examples-conanfile-package-info-components" class="uri">https://docs.conan.io/2/examples/conanfile/package_info/components.html#examples-conanfile-package-info-components</a></p>
@@ -7640,19 +7649,19 @@ vim ~/.conan2/profiles/default</code></pre>
 <p>网上通常说是通过<code>cmake.definitions</code>：<a target="_blank" rel="noopener" href="https://github.com/conan-io/conan/issues/4572">passing command line arguments to cmake during conan build</a></p>
 <p>但是在conan2上会报这个错：<code>AttributeError: 'CMake' object has no attribute 'definitions'</code></p>
 <p>实际上应该用cmake.configure的cli_args参数把变量传给cmake：</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>    options <span class="op">=</span> {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>        <span class="st">"ARG1"</span>: [<span class="st">"ANY"</span>],</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>        <span class="st">"ARG2"</span>: [<span class="st">"ANY"</span>],</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    }</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    <span class="kw">def</span> build(<span class="va">self</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>        cmake <span class="op">=</span> CMake(<span class="va">self</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>        cli_args<span class="op">=</span>[</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>            <span class="st">"-DARG1="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG1),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>            <span class="st">"-DARG2="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG2),</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>        ]</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>        cmake.configure(cli_args<span class="op">=</span>cli_args)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>        cmake.build()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>    options <span class="op">=</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>        <span class="st">"ARG1"</span>: [<span class="st">"ANY"</span>],</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>        <span class="st">"ARG2"</span>: [<span class="st">"ANY"</span>],</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    }</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    <span class="kw">def</span> build(<span class="va">self</span>):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>        cmake <span class="op">=</span> CMake(<span class="va">self</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>        cli_args<span class="op">=</span>[</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>            <span class="st">"-DARG1="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG1),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>            <span class="st">"-DARG2="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG2),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>        ]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>        cmake.configure(cli_args<span class="op">=</span>cli_args)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>        cmake.build()</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/reference/tools/cmake/cmake.html#conan.tools.cmake.cmake.CMake.configure" class="uri">https://docs.conan.io/2/reference/tools/cmake/cmake.html#conan.tools.cmake.cmake.CMake.configure</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

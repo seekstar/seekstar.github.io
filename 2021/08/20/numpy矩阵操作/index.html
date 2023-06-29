@@ -7612,6 +7612,14 @@ var _hmt = _hmt || [];
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>	<span class="cf">return</span> res</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>mean_every_n(a, <span class="dv">4</span>)</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/averaging-over-every-n-elements-of-a-numpy-array/#" class="uri">https://www.geeksforgeeks.org/averaging-over-every-n-elements-of-a-numpy-array/#</a></p>
+<h2 id="percentile"><a href="#percentile">¶</a> percentile</h2>
+<p><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#</a></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co"># 10000个0到1的随机数</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>a <span class="op">=</span> np.random.rand(<span class="dv">10000</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co"># 求20%分位数，即小于此数的值的数量占总数的20%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>np.percentile(a, <span class="dv">20</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="co"># 求多个分位数</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>np.percentile(a, [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="fl">99.9</span>, <span class="fl">99.99</span>])</span></code></pre></div>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/abella/p/10207945.html">python中矩阵的用法</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouweiyu/article/details/78806711">numpy创建矩阵常用方法</a><br>

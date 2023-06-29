@@ -7588,9 +7588,35 @@ var _hmt = _hmt || [];
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="co">// Upper bound</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> a<span class="op">.</span>partition_point(<span class="op">|</span>x<span class="op">|</span> <span class="op">*</span>x <span class="op">&lt;=</span> <span class="dv">3</span>))<span class="op">;</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
-<pre><code>2
+<pre class="text"><code>2
 4</code></pre>
-<p>相关链接：<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/issues/2184" class="uri">https://github.com/rust-lang/rfcs/issues/2184</a></p>
+<p>相关：<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/issues/2184">Add lower_bound, upper_bound and equal_range for slices where T: Ord to complement binary_search</a></p>
+<p>但是要注意的是，如果要搜索某个符合条件的值，那么不要用<code>collect</code>做一个<code>Vec</code>再用<code>partition_point</code>，因为rust（目前）并不会将这个构建<code>Vec</code>的过程优化掉，时间复杂度和空间复杂度都是<code>O(n)</code>。例子：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> (<span class="dv">0usize</span><span class="op">..</span><span class="dv">2usize</span><span class="op">.</span>pow(<span class="dv">29</span>))<span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">usize</span><span class="op">&gt;&gt;</span>()<span class="op">.</span>partition_point(<span class="op">|</span>v<span class="op">|</span> v <span class="op">&lt;</span> <span class="op">&amp;</span><span class="dv">233usize</span>))<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<p>内存使用量会达到4GB。</p>
+<p>自己写一个二分搜索就不存在这个问题了：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">fn</span> partition_point_addable<span class="op">&lt;</span>T<span class="op">,</span> F<span class="op">&gt;</span>(<span class="kw">mut</span> start<span class="op">:</span> T<span class="op">,</span> <span class="kw">mut</span> end<span class="op">:</span> T<span class="op">,</span> pred<span class="op">:</span> F) <span class="op">-&gt;</span> T</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">where</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    T<span class="op">:</span> <span class="bu">Copy</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>        <span class="op">+</span> <span class="bu">Add</span><span class="op">&lt;</span>T<span class="op">,</span> Output <span class="op">=</span> T<span class="op">&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>        <span class="op">+</span> <span class="bu">Sub</span><span class="op">&lt;</span>T<span class="op">,</span> Output <span class="op">=</span> T<span class="op">&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>        <span class="op">+</span> <span class="bu">PartialEq</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>        <span class="op">+</span> One</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>        <span class="op">+</span> <span class="bu">Shr</span><span class="op">&lt;</span><span class="dt">i8</span><span class="op">,</span> Output <span class="op">=</span> T<span class="op">&gt;,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>    F<span class="op">:</span> <span class="bu">Fn</span>(<span class="op">&amp;</span>T) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="op">{</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    <span class="kw">while</span> start <span class="op">!=</span> end <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>        <span class="kw">let</span> mid <span class="op">=</span> start <span class="op">+</span> ((end <span class="op">-</span> start) <span class="op">&gt;&gt;</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>        <span class="kw">if</span> pred(<span class="op">&amp;</span>mid) <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>            start <span class="op">=</span> mid <span class="op">+</span> <span class="pp">T::</span>one()<span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>            end <span class="op">=</span> mid<span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>        <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>    <span class="op">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    start</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
