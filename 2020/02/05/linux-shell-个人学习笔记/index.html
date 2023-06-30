@@ -7974,6 +7974,26 @@ humanfriendly --parse-size="2 KB"
 humanfriendly --parse-size="2 KiB"</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/46373468" class="uri">https://stackoverflow.com/a/46373468</a></p>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
+<h3 id="awk"><a href="#awk">¶</a> awk</h3>
+<p><a target="_blank" rel="noopener" href="https://m.runoob.com/linux/linux-comm-awk.html">Linux awk 命令</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK 条件语句与循环</a></p>
+<h4 id="求和"><a href="#求和">¶</a> 求和</h4>
+<pre class="shell"><code>seq 1 10 | awk '{s+=$1} END {print s}'</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line" class="uri">https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line</a></p>
+<h3 id="comm"><a href="#comm">¶</a> comm</h3>
+<p>求两个有序文件中的相同行和不同行。第一列是只在第一个文件中的行，第二列是只在第二个文件中的行，第三列是两个文件都存在的行。常用命令行选项：</p>
+<ul>
+<li><code>-1</code>: 不输出第一列</li>
+<li><code>-2</code>: 不输出第二列</li>
+<li><code>-3</code>: 不输出第三列</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set" class="uri">https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set</a></p>
+<h3 id="diff"><a href="#diff">¶</a> diff</h3>
+<p>忽略换行符的区别：<code>--strip-trailing-cr</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files" class="uri">https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files</a></p>
+<h3 id="dpkg"><a href="#dpkg">¶</a> dpkg</h3>
+<pre class="shell"><code>dpkg --list</code></pre>
+<p>显示当前已经安装的软件</p>
 <h3 id="du"><a href="#du">¶</a> du</h3>
 <p><code>-d数字</code>: 目录层数。0表示当前目录，1表示当前目录下的所有文件和子目录，以此类推。</p>
 <p><code>--all</code>: 显示文件大小。默认只显示目录大小。</p>
@@ -7993,33 +8013,8 @@ humanfriendly --parse-size="2 KiB"</code></pre>
 <pre class="shell"><code>du -hd 1 --all 目录 | sort -h</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size" class="uri">https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
-<h3 id="pidof-进程名"><a href="#pidof-进程名">¶</a> pidof 进程名</h3>
-<p>返回某进程名对应的pid<br>
-例子：<br>
-杀掉所有名字为ssh-agent的进程</p>
-<pre class="shell"><code>kill $(pidof ssh-agent)</code></pre>
-<h3 id="ip"><a href="#ip">¶</a> ip</h3>
-<p>查看本机ip地址</p>
-<pre class="shell"><code>ip addr</code></pre>
-<h3 id="dpkg"><a href="#dpkg">¶</a> dpkg</h3>
-<pre class="shell"><code>dpkg --list</code></pre>
-<p>显示当前已经安装的软件</p>
-<h3 id="grep"><a href="#grep">¶</a> grep</h3>
-<ul>
-<li>查找当前目录下有某字符串的文件：</li>
-</ul>
-<pre class="shell"><code>grep -rn string *</code></pre>
-<p>-r:递归查找<br>
--n:显示行号<br>
--i:忽略大小写<br>
-*:当前目录所有文件。可以换成某个文件名。</p>
-<ul>
-<li>查找当前目录下后缀名为<code>.rs</code>的文件中含有<code>splay_safe_rs</code>的文件：</li>
-</ul>
-<pre class="shell"><code>grep -rn splay_safe_rs --include \*.rs</code></pre>
-<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions" class="uri">https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions</a></p>
 <h3 id="find"><a href="#find">¶</a> find</h3>
-<pre><code>find [目录] [查找规则] [查找完后执行的action]
+<pre class="text"><code>find [目录] [查找规则] [查找完后执行的action]
 查找规则：
 -name 根据文件名查找（精确查找）
 -iname 不区分大小写</code></pre>
@@ -8042,9 +8037,41 @@ sudo find / -path /media -path /mnt -prune -o -name gsettings
 sudo find . -name media -name mnt -prune -o -name gsettings
 sudo find . -path ./media -path ./mnt -prune -o -name gsettings
 sudo find . -name b ! -path “./a/*”</code></pre>
+<h3 id="grep"><a href="#grep">¶</a> grep</h3>
+<ul>
+<li>查找当前目录下有某字符串的文件：</li>
+</ul>
+<pre class="shell"><code>grep -rn string *</code></pre>
+<p>-r:递归查找<br>
+-n:显示行号<br>
+-i:忽略大小写<br>
+*:当前目录所有文件。可以换成某个文件名。</p>
+<ul>
+<li>查找当前目录下后缀名为<code>.rs</code>的文件中含有<code>splay_safe_rs</code>的文件：</li>
+</ul>
+<pre class="shell"><code>grep -rn splay_safe_rs --include \*.rs</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions" class="uri">https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions</a></p>
+<h3 id="ip"><a href="#ip">¶</a> ip</h3>
+<p>查看本机ip地址</p>
+<pre class="shell"><code>ip addr</code></pre>
+<h3 id="join"><a href="#join">¶</a> join</h3>
+<p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/join-command-linux/" class="uri">https://www.geeksforgeeks.org/join-command-linux/</a></p>
+<h3 id="less"><a href="#less">¶</a> less</h3>
+<p>最基础用法：</p>
+<pre class="shell"><code>less 文件路径</code></pre>
+<p>显示行号：</p>
+<pre class="shell"><code>less -N 文件路径</code></pre>
+<p>也可以在<code>less</code>里面按<code>-</code> <code>N</code> <code>Enter</code>即可显示/隐藏行号。</p>
+<p>跳转到指定行：在<code>less</code>里面输入自己要跳转的行号，然后按<code>g</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lovedingd/article/details/120885183">Linux之Less命令跳转到特定的行号</a></p>
 <h3 id="locate"><a href="#locate">¶</a> locate</h3>
 <pre class="shell"><code>locate name</code></pre>
 <p>查找文件（文件夹）</p>
+<h3 id="pidof-进程名"><a href="#pidof-进程名">¶</a> pidof 进程名</h3>
+<p>返回某进程名对应的pid<br>
+例子：<br>
+杀掉所有名字为ssh-agent的进程</p>
+<pre class="shell"><code>kill $(pidof ssh-agent)</code></pre>
 <h3 id="sed"><a href="#sed">¶</a> sed</h3>
 <h4 id="模式匹配"><a href="#模式匹配">¶</a> 模式匹配</h4>
 <p>从stdin读入，将修改后的结果写入到stdout：</p>
@@ -8065,17 +8092,6 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p>打印第2行：<code>sed -n '2p' file</code></p>
 <p>打印第2行到第4行：<code>sed -n '2,4p' file</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file" class="uri">https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file</a></p>
-<h3 id="less"><a href="#less">¶</a> less</h3>
-<p>最基础用法：</p>
-<pre class="shell"><code>less 文件路径</code></pre>
-<p>显示行号：</p>
-<pre class="shell"><code>less -N 文件路径</code></pre>
-<p>也可以在<code>less</code>里面按<code>-</code> <code>N</code> <code>Enter</code>即可显示/隐藏行号。</p>
-<p>跳转到指定行：在<code>less</code>里面输入自己要跳转的行号，然后按<code>g</code></p>
-<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lovedingd/article/details/120885183">Linux之Less命令跳转到特定的行号</a></p>
-<h3 id="diff"><a href="#diff">¶</a> diff</h3>
-<p>忽略换行符的区别：<code>--strip-trailing-cr</code></p>
-<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files" class="uri">https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files</a></p>
 <h3 id="sort"><a href="#sort">¶</a> sort</h3>
 <p><code>-k列号</code>: 按这一列排序。列号从1开始。</p>
 <p><code>-r</code>: 逆序</p>
@@ -8098,18 +8114,10 @@ jason</code></pre>
 jason</code></pre>
 <p>输出到文件</p>
 <pre class="shell"><code>sort -u txt -o txt1</code></pre>
-<h3 id="join"><a href="#join">¶</a> join</h3>
-<p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/join-command-linux/" class="uri">https://www.geeksforgeeks.org/join-command-linux/</a></p>
 <h3 id="zsh不共享历史"><a href="#zsh不共享历史">¶</a> zsh不共享历史</h3>
 <p><code>zsh</code>特性比bash丰富一些。zsh默认会在不同的会话之间共享历史，禁用这个特性：</p>
 <pre class="shell"><code># https://github.com/ohmyzsh/ohmyzsh/issues/2537
 echo "unsetopt share_history" &gt;&gt; ~/.zshrc</code></pre>
-<h3 id="awk"><a href="#awk">¶</a> awk</h3>
-<p><a target="_blank" rel="noopener" href="https://m.runoob.com/linux/linux-comm-awk.html">Linux awk 命令</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK 条件语句与循环</a></p>
-<h4 id="求和"><a href="#求和">¶</a> 求和</h4>
-<pre class="shell"><code>seq 1 10 | awk '{s+=$1} END {print s}'</code></pre>
-<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line" class="uri">https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mydriverc2/article/details/82623778">linux中怎么用shell显示文件某一行或几行内容</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hjxhjh/article/details/17264739">linux shell 将多行文件转换为一行</a></p>
