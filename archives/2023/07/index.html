@@ -7563,16 +7563,13 @@ var _hmt = _hmt || [];
 					Linux获取进程cpu使用率
 				</h2>
 				<div class="index-brief">
-					ps -q 进程PID -o %cpu
-输出：
-%CPU
-52.3
-同理也可以获取进程的内存占用：
-ps -q 进程PID -o %cpu,%mem
-输出：
-%CPU %MEM
-52.2  4.1
-
+					¶ pidstat (推荐)
+pidstat -p 进程PID 间隔秒数 -u | awk '{print $8}'
+-u: Report CPU utilization.
+¶ top
+top -b -p 进程PID -d 间隔秒数
+-b: Batch mode.
+配合awk等可以把CPU使用率给提
 					...
 				</div>
 			</a>
