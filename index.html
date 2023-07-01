@@ -7564,12 +7564,10 @@ var _hmt = _hmt || [];
 				</h2>
 				<div class="index-brief">
 					¶ pidstat (推荐)
-pidstat -p 进程PID 间隔秒数 -u | awk '{print $8}'
--u: Report CPU utilization.
-¶ top
-top -b -p 进程PID -d 间隔秒数
--b: Batch mode.
-配合awk等可以把CPU使用率给提
+pidstat -p 进程PID -H -u 间隔秒数 | awk '{if(NR&gt;3){print $1,$8}}'
+
+-H: Display timestamp in seconds since the epoch.
+-u: Report CPU utiliz
 					...
 				</div>
 			</a>

@@ -7584,8 +7584,13 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="pidstat-推荐"><a href="#pidstat-推荐">¶</a> pidstat (推荐)</h2>
-<pre class="shell"><code>pidstat -p 进程PID 间隔秒数 -u | awk '{print $8}'</code></pre>
-<p><code>-u</code>: Report CPU utilization.</p>
+<pre class="shell"><code>pidstat -p 进程PID -H -u 间隔秒数 | awk '{if(NR&gt;3){print $1,$8}}'</code></pre>
+<ul>
+<li><code>-H</code>: Display timestamp in seconds since the epoch.</li>
+<li><code>-u</code>: Report CPU utilization.</li>
+<li><code>NR&gt;3</code>: 第四行开始才是有效输出。</li>
+</ul>
+<p>awk可能需要加上<code>fflush(stdout)</code>: <a href="/2022/06/08/awk-fflush/" title="awk fflush">awk fflush</a></p>
 <h2 id="top"><a href="#top">¶</a> top</h2>
 <pre class="shell"><code>top -b -p 进程PID -d 间隔秒数</code></pre>
 <p><code>-b</code>: Batch mode.</p>
