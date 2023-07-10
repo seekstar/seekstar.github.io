@@ -7625,7 +7625,9 @@ rm ~/.cargo/.package-cache</code></pre>
 <p>复杂度不稳定但是常数小的排序用<code>sort_unstable_by</code>：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/primitive.slice.html#method.sort_unstable_by" class="uri">https://doc.rust-lang.org/std/primitive.slice.html#method.sort_unstable_by</a></p>
 <h3 id="entry-api"><a href="#entry-api">¶</a> Entry API</h3>
 <p>以BTreeMap的Entry API为例。基础用法见标准库文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/collections/struct.BTreeMap.html#method.entry" class="uri">https://doc.rust-lang.org/stable/std/collections/struct.BTreeMap.html#method.entry</a></p>
-<p>这里介绍如何用它实现modify and optionally remove：</p>
+<p>但是基础的<code>and_modify</code>和<code>or_insert_with</code>接口有个问题，就是它们虽然是互斥的，但是却不能把一个object的ownership同时传给这两个接口。要解决这个问题，假如这个object有一个empty的状态，可以先<code>or_insert</code>把它变成empty，再进行修改操作。来源：<a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/hashmap-entry-api-and-ownership/81368" class="uri">https://users.rust-lang.org/t/hashmap-entry-api-and-ownership/81368</a></p>
+<p>另一种比较通用的方法是用<code>match</code>判断返回的Entry是Occupied还是Vacant，这样编译器就知道这两种情况是互斥的了。</p>
+<p><code>match</code>的另一个例子：modify and optionally remove</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::collections::btree_map::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> BTreeMap<span class="op">};</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">fn</span> pop(m<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> BTreeMap<span class="op">&lt;</span><span class="dt">u32</span><span class="op">,</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">u32</span><span class="op">&gt;&gt;,</span> key<span class="op">:</span> <span class="dt">u32</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">u32</span><span class="op">&gt;</span> <span class="op">{</span></span>
@@ -7650,7 +7652,6 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>    <span class="pp">assert_eq!</span>(pop(<span class="op">&amp;</span><span class="kw">mut</span> m<span class="op">,</span> <span class="dv">1</span>)<span class="op">,</span> <span class="cn">Some</span>(<span class="dv">2</span>))<span class="op">;</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>    <span class="pp">assert!</span>(m<span class="op">.</span>is_empty())<span class="op">;</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
-<p>但是entry API有个问题，就是<code>and_modify</code>和<code>or_insert_with</code>虽然是互斥的，但是却不能把一个object的ownership同时传给这两个接口。要解决这个问题，一种比较通用的方法是将object包在<code>Option</code>里，然后在<code>and_modify</code>和<code>or_insert_with</code>里分别用<code>.take().unwrap()</code>。假如这个object有一个empty的状态，也可以先<code>or_insert</code>把它变成empty，再进行修改操作。来源：<a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/hashmap-entry-api-and-ownership/81368" class="uri">https://users.rust-lang.org/t/hashmap-entry-api-and-ownership/81368</a></p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/collections/btree_map/enum.Entry.html" class="uri">https://doc.rust-lang.org/stable/std/collections/btree_map/enum.Entry.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/collections/btree_map/struct.VacantEntry.html" class="uri">https://doc.rust-lang.org/stable/std/collections/btree_map/struct.VacantEntry.html</a></p>
@@ -7860,6 +7861,8 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">Default</span> <span class="kw">for</span> Status <span class="op">{</span></span></code></pre></div>
 <h2 id="rfc"><a href="#rfc">¶</a> RFC</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/2600">Multiple Attributes in an Attribute Container</a> (postponed)</p>
+<p>支持不允许Drop的类型：[<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/776" class="uri">https://github.com/rust-lang/rfcs/pull/776</a>] (postponed)</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/issues/690">Improving Entry API to get the keys back when they are unused</a></p>
 <h2 id="已知问题"><a href="#已知问题">¶</a> 已知问题</h2>
 <h3 id="non-lexical-lifetimes-nll"><a href="#non-lexical-lifetimes-nll">¶</a> Non-lexical lifetimes (NLL)</h3>
 <p>来源：<a target="_blank" rel="noopener" href="https://blog.rust-lang.org/2022/08/05/nll-by-default.html" class="uri">https://blog.rust-lang.org/2022/08/05/nll-by-default.html</a></p>
