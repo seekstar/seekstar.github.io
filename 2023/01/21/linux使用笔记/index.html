@@ -7583,7 +7583,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><h2 id="wifi热点"><a href="#wifi热点">¶</a> WIFI热点</h2>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="wifi热点"><a href="#wifi热点">¶</a> WIFI热点</h2>
 <p>使用<code>linux-wifi-hotspot</code>即可。ArchLinux安装方式：</p>
 <pre class="shell"><code># archlinuxcn源
 sudo pacman -S linux-wifi-hotspot
@@ -7599,6 +7599,12 @@ yay -S linux-wifi-hotspot</code></pre>
 <p>可以看到设备名是<code>CDY-TN90</code>。然后就可以发送到这台手机了：</p>
 <pre class="shell"><code>kdeconnect-cli --name CDY-TN90 --share-text testtest233</code></pre>
 <p>文本会被自动保存到手机剪切板。</p>
+<h2 id="安装字体"><a href="#安装字体">¶</a> 安装字体</h2>
+<p>以Debian为例：</p>
+<pre class="shell"><code># Times New Roman
+sudo apt install ttf-mscorefonts-installer
+# 如果是matplotlib，还得清一下cache：https://stackoverflow.com/a/49884009
+rm ~/.cache/matplotlib -rf</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
