@@ -7583,11 +7583,24 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://vi.stackexchange.com/questions/13398/are-there-any-comprehensive-docs-for-vimrc" class="uri">https://vi.stackexchange.com/questions/13398/are-there-any-comprehensive-docs-for-vimrc</a></p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://vi.stackexchange.com/questions/13398/are-there-any-comprehensive-docs-for-vimrc" class="uri">https://vi.stackexchange.com/questions/13398/are-there-any-comprehensive-docs-for-vimrc</a></p>
 <p>在vim中输入</p>
-<pre><code>:options</code></pre>
+<pre class="text"><code>:options</code></pre>
 <p>然后里面就有各种选项的解释。<br>
 <img src="/2020/08/05/vimrc%E6%96%87%E6%A1%A3/20200805174011900.png" alt="在这里插入图片描述"></p>
+<h2 id="将缩进设置为空格"><a href="#将缩进设置为空格">¶</a> 将缩进设置为空格</h2>
+<p>比如设置成4个空格：</p>
+<pre class="vim"><code>" tabstop: number of spaces a &lt;Tab&gt; in the text stands for
+set ts=4
+" softtabstop: if non-zero, number of spaces to insert for a &lt;Tab&gt;
+" Makes backspace in insert mode delete four spaces at once.
+set sts=4
+" expandtab: expand &lt;Tab&gt; to spaces in Insert mode
+set et
+" smartindent: do clever autoindenting
+set si
+" shiftwidth: number of spaces used for each step of (auto)indent
+set sw=4</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
