@@ -1849,6 +1849,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/07/17/c-backports/">
+                     
+										    C++ backports
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/09/30/c-panic/">
                      
 										    C++ panic
@@ -2281,6 +2292,17 @@ var _hmt = _hmt || [];
 									<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
                      
 										    ArchLinux根目录权限变成777的原因
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/07/18/centos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    CentOS使用笔记
                      
 									</a>
 								</li>
@@ -7558,6 +7580,45 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/04/22/grub%E6%A3%80%E6%B5%8B%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+				<h2 class="index-title">
+					grub检测其他操作系统
+				</h2>
+				<div class="index-brief">
+					新版本grub出于安全原因默认禁用了检测其他操作系统的功能。如果要开启这个功能的话，需要在/etc/default/grub里添加GRUB_DISABLE_OS_PROBER=false。此外，很坑的是，这个功能是依赖os-prober命令的，因此需要先安装os-prober才行：
+# ArchLi
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-04-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					systemctl学习笔记
+				</h2>
+				<div class="index-brief">
+					# https://unix.stackexchange.com/questions/447561/systemctl-status-shows-state-degraded
+systemctl --failed
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-04-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/04/14/yum%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					yum使用笔记
@@ -7568,6 +7629,9 @@ yum provides xxxx
 yum info 包名
 yum list installed
 yum repolist
+
+# 查看包内文件
+repoquery --list 包名
 
 					...
 				</div>
@@ -7733,49 +7797,6 @@ if (MACRO_NAME)
 			</a>
                 <div class="article-meta">
 				    <span>2023-03-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
-				<h2 class="index-title">
-					ArchLinux根目录权限变成777的原因
-				</h2>
-				<div class="index-brief">
-					可能是AUR里的wps-office-cn导致的：https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049
-可以用flatpak安装国际版的WPS。教程：flatpak教程
-权限修复教程：ArchLinux修复系统目录和
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-03-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/02/25/pacman%E6%9F%A5%E7%9C%8B%E6%9C%AA%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/">
-				<h2 class="index-title">
-					pacman查看未安装的包内的文件
-				</h2>
-				<div class="index-brief">
-					用pkgfile可实现。
-sudo pacman -S pkgfile
-sudo pkgfile --update
-pkgfile -l 包名
-来源：https://bbs.archlinux.org/viewtopic.php?id=170225
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-02-25</span>
                     
                             
                     
