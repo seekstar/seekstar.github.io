@@ -7613,17 +7613,25 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>这里从<code>DBImpl::MaybeScheduleFlushOrCompaction</code>开始讲起。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>这里从<code>DBImpl::MaybeScheduleFlushOrCompaction</code>开始讲起。</p>
 <p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Flush。Compaction部分见：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
 <p><code>DBImpl::BGWorkFlush</code>中调用了<code>DBImpl::BackgroundCallFlush</code>。</p>
-<p><code>DBImpl::BackgroundCallFlush</code>中调用了<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
+<p><code>DBImpl::BackgroundCallFlush</code>中先上DB锁，然后调用<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
 <p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），从中再取出<code>ColumnFamilyData</code>。再把这些<code>ColumnFamilyData</code>放进<code>bg_flush_args</code>，作为<code>DBImpl::FlushMemTablesToOutputFiles</code>的参数。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a></p>
-<p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。把<code>ColumnFamilyData</code>拿出来，作为参数传给<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
-<p><code>DBImpl::FlushMemTableToOutputFile</code>中，构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code>，然后把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。</p>
-<p><code>DBImpl::InstallSuperVersionAndScheduleWork</code>会把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code>，以及调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>，因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层。</p>
-<p><code>DBImpl::SchedulePendingCompaction</code>将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。</p>
-<p>接下来的compaction流程看这里：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
-<p><code>FlushJob::Run</code>中，调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。</p>
+<p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。把<code>ColumnFamilyData</code>拿出来，作为参数传给<code>DBImpl::FlushMemTableToOutputFile</code>。<br>
+&gt;构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code><br>
+&gt;&gt;调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。在里面会先把DB锁解开，写入完成之后再锁上。<br>
+&gt;&gt;调用<code>MemTableList::TryInstallMemtableFlushResults</code><br>
+&gt;&gt;&gt;将被flush的memory table的<code>flush_completed_</code>标记为<code>true</code>。<br>
+&gt;&gt;&gt;从老到新把所有<code>flush_completed_</code>的immutable memory table都通过<code>VersionSet::LogAndApply</code> commit。<br>
+&gt;<br>
+&gt;然后把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。<br>
+&gt;&gt;因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层，所以接下来准备schedule compaction。<br>
+&gt;&gt;把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code><br>
+&gt;&gt;&gt;将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。<br>
+&gt;&gt;<br>
+&gt;&gt;调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code><br>
+&gt;&gt;接下来的compaction流程看这里：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
