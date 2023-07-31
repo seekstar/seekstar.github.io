@@ -6416,6 +6416,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/07/28/rocksdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    RocksDB学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/02/rocksdb%E5%B0%86%E4%B8%8A%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E5%BF%AB%E9%80%9F%E8%AE%BE%E5%A4%87-%E4%B8%8B%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E6%85%A2%E9%80%9F%E8%AE%BE%E5%A4%87/">
                      
 										    RocksDB将上面几层放到快速设备,下面几层放到慢速设备
@@ -7613,7 +7624,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>分析均基于<code>v6.27.3</code>。以下流程为了方便理解均经过了简化。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>分析均基于<code>v6.27.3</code>。以下流程为了方便理解均经过了简化。</p>
 <p>首先，我们通过调用<code>DB::Open</code>来创建数据库，它返回了一个<code>DB*</code>。<code>DB::Open</code>内部调用了<code>DBImpl::Open</code>，在里面构造了一个<code>DBImpl*</code>并转换成<code>DB*</code>返回。所以我们拿到的<code>DB*</code>其实是<code>DBImpl*</code>。</p>
 <p>然后我们调用<code>DB::Put</code>来写入数据。<code>DB::Put</code>是个virtual函数，它被<code>DBImpl::Put</code>给override了：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>Status DBImpl::Put(<span class="at">const</span> WriteOptions&amp; o, ColumnFamilyHandle* column_family,</span>
@@ -7623,13 +7634,25 @@ var _hmt = _hmt || [];
 <p>它显式调用了<code>DB::Put</code>。<code>DB::Put</code>中首先构造了WriteBatch，然后调用了<code>DB::Write</code>，它是个纯虚函数，被<code>DBImpl::Write</code> override了。<code>DBImpl::Write</code>调用了<code>DBImpl::WriteImpl</code>。</p>
 <p><code>DBImpl::WriteImpl</code>先检查了一堆option，这里我们先不管。然后将<code>WriteBatch *my_batch</code>以及<code>WriteOption</code>都转移到了<code>WriteThread::Writer w</code>中。然后调用<code>WriteThread::JoinBatchGroup</code>。</p>
 <ul>
-<li><p>假如我们不是leader，那么调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable中，然后返回。</p></li>
-<li><p>假如我们是leader，那么我们先调用<code>DBImpl::PreprocessWrite</code>，然后写入WAL，然后调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable。</p>
-<p><code>DBImpl::PreprocessWrite</code>中，如果<code>flush_scheduler_</code>中有任务，那么就调用<code>DBImpl::ScheduleFlushes</code>（唯一调用者）。</p>
-<p><code>DBImpl::ScheduleFlushes</code>中，先调用<code>FlushScheduler::TakeNextColumnFamily</code>（正常状态下唯一调用者），它是唯一从<code>FlushScheduler</code>中取出flush任务（以<code>ColumnFamilyData</code>的形式）的方法。然后用取出的<code>ColumnFamilyData cfd</code>作为<code>DBImpl::GenerateFlushRequest</code>的参数，得到<code>FlushRequest flush_req</code>，再将其作为<code>DBImpl::SchedulePendingFlush</code>的参数。</p>
-<p><code>DBImpl::SchedulePendingFlush</code>中，将传进来的<code>flush_req</code>加入到<code>DBImpl::flush_queue_</code>里。</p>
-<p>接下来的flush流程看这里：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p></li>
+<li>假如我们不是leader</li>
 </ul>
+<p>leader可能帮我们做了插入，这时直接返回即可。</p>
+<p>如果leader告诉我们要自己插入到MemTable，那么调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable中，然后返回。</p>
+<ul>
+<li>假如我们是leader（每个时刻只有一个leader）</li>
+</ul>
+<blockquote>
+<p>调用<code>DBImpl::PreprocessWrite</code><br>
+&gt;如果<code>flush_scheduler_</code>中有任务，那么就调用<code>DBImpl::ScheduleFlushes</code>（唯一调用者）。<br>
+&gt;&gt;先调用<code>FlushScheduler::TakeNextColumnFamily</code>（正常状态下唯一调用者），它是唯一从<code>FlushScheduler</code>中取出flush任务（以<code>ColumnFamilyData</code>的形式）的方法。<br>
+&gt;&gt;逐个将这些取出的<code>ColumnFamilyData cfd</code>作为参数调用<code>DBImpl::SwitchMemtable</code>，将这些column family data的memory table变成immutable memory table，然后新建一个memory table。这里没有用原子操作，所以这个时候rocksdb应该通过某些方式保证了此时不会有其他parallel writer，具体没细看。<br>
+&gt;&gt;将之前取出的<code>ColumnFamilyData cfd</code>作为<code>DBImpl::GenerateFlushRequest</code>的参数，得到<code>FlushRequest flush_req</code>，再将其作为<code>DBImpl::SchedulePendingFlush</code>的参数。<br>
+&gt;<br>
+&gt;<code>DBImpl::SchedulePendingFlush</code>中，将传进来的<code>flush_req</code>加入到<code>DBImpl::flush_queue_</code>里。<br>
+&gt;接下来的flush流程看这里：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p>
+<p>写入WAL<br>
+调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable。</p>
+</blockquote>
 <p><code>WriteBatchInternal::InsertInto</code>中先构造了<code>MemTableInserter inserter</code>，然后执行<code>writer-&gt;batch-&gt;Iterate(&amp;inserter)</code>，即执行<code>WriteBatch::Iterate(Handler* handler)</code>，其中handler其实是<code>MemTableInserter*</code>类型的。<code>WriteBatch::Iterate</code>中调用了<code>WriteBatchInternal::Iterate</code>，</p>
 <p><code>WriteBatchInternal::Iterate</code>中将WriteBatch中的record逐个读出来，按照record上的tag执行相应的操作。我们这里只关注tag为<code>kTypeValue</code>和<code>kTypeColumnFamilyValue</code>的record，对这种record，执行<code>handler-&gt;PutCF(column_family, key, value)</code>，即调用<code>WriteBatch::Handler::PutCF</code>，将对应的key和value插入。<code>WriteBatch::Handler::PutCF</code>是个virtual函数，注意到这里的<code>handler</code>其实是<code>MemTableInserter*</code>类型的，所以这里调用的其实是<code>MemTableInserter::PutCF</code>。<code>MemTableInserter::PutCF</code>中又调用了<code>MemTableInserter::PutCFImpl</code>。</p>
 <p><code>MemTableInserter::PutCFImpl</code>先调用<code>MemTable::Add</code>将key和value插入到MemTable中，再调用<code>MemTableInserter::CheckMemtableFull</code>。</p>
