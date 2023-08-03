@@ -1849,6 +1849,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/03/c-debug%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%9C%A8%E5%BA%93%E5%92%8Cmain%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%90%8C%E7%9A%84%E7%B1%BB%E5%90%8D%E5%BC%95%E5%8F%91%E7%9A%84%E6%83%A8%E6%A1%88/">
+                     
+										    C++ Debug笔记——在库和main中使用相同的类名引发的惨案
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/07/17/c-backports/">
                      
 										    C++ backports
@@ -7591,6 +7602,33 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/09/17/linux%E6%9F%A5%E7%9C%8B%E6%B1%87%E7%BC%96%E7%A0%81%E5%AF%B9%E5%BA%94%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81/">
+				<h2 class="index-title">
+					Linux查看汇编码对应的源代码
+				</h2>
+				<div class="index-brief">
+					例如这个objdump.c：
+#include &lt;stdio.h&gt;
+
+int main() {
+	printf("Hello world!\n");
+
+	return 0;
+}
+编译选项中加入-g编译：gcc objdump.c -g -o objdump。
+然后查看编译结果的汇编码：o
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/09/16/linux-ocr/">
 				<h2 class="index-title">
 					Linux OCR
@@ -7791,26 +7829,6 @@ If
 			</a>
                 <div class="article-meta">
 				    <span>2022-08-26</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/08/24/rust%E7%B4%A2%E5%BC%95string/">
-				<h2 class="index-title">
-					Rust索引String
-				</h2>
-				<div class="index-brief">
-					Rust的String里其实是UTF-8编码的，而UTF-8是变长编码，因此会导致Rust索引String时，可能是索引第k个UTF-8字符（需要遍历字符串），也可能是索引第k个字节。因此，Rust不支持直接用下标来索引String。
-如果要找到第k个UTF-8字符：
-s.chars().nth(k
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-08-24</span>
                     
                             
                     

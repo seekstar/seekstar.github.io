@@ -1851,6 +1851,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/03/c-debug%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%9C%A8%E5%BA%93%E5%92%8Cmain%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%90%8C%E7%9A%84%E7%B1%BB%E5%90%8D%E5%BC%95%E5%8F%91%E7%9A%84%E6%83%A8%E6%A1%88/">
+                     
+										    C++ Debug笔记——在库和main中使用相同的类名引发的惨案
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/07/17/c-backports/">
                      
 										    C++ backports
@@ -7628,7 +7639,7 @@ var _hmt = _hmt || [];
 <p><code>DBImpl::MaybeScheduleFlushOrCompaction</code>可能会schedule<code>DBImpl::BGWorkFlush</code>和<code>DBImpl::BGWorkCompaction</code>。这里主要看Flush。Compaction部分见：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
 <p><code>DBImpl::BGWorkFlush</code>中调用了<code>DBImpl::BackgroundCallFlush</code>。</p>
 <p><code>DBImpl::BackgroundCallFlush</code>中先上DB锁，然后调用<code>DBImpl::BackgroundFlush</code>，最后再调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code>。</p>
-<p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），从中再取出<code>ColumnFamilyData</code>。再把这些<code>ColumnFamilyData</code>放进<code>bg_flush_args</code>，作为<code>DBImpl::FlushMemTablesToOutputFiles</code>的参数。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a></p>
+<p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），从中再取出<code>ColumnFamilyData</code>。再把这些<code>ColumnFamilyData</code>放进<code>bg_flush_args</code>，作为<code>DBImpl::FlushMemTablesToOutputFiles</code>的参数。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>。最后再将这些<code>ColumnFamilyData</code>给<code>UnrefAndTryDelete</code>。</p>
 <p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。把<code>ColumnFamilyData</code>拿出来，作为参数传给<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
 <blockquote>
 <p>构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code><br>
