@@ -6392,6 +6392,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/09/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94logandapply/">
+                     
+										    RocksDB代码分析——LogAndApply
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -7327,6 +7338,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/13/zsh%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    zsh使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/23/zsh%E5%92%8Cbash%E5%85%B1%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/">
                      
 										    zsh和bash共用自定义配置
@@ -7602,6 +7624,47 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/07/20/ctrl-c%E6%9D%80%E6%AD%BB%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84timeout%E5%91%BD%E4%BB%A4/">
+				<h2 class="index-title">
+					ctrl+c杀死脚本中的timeout命令
+				</h2>
+				<div class="index-brief">
+					timeout命令默认运行在单独的进程组中，而终端的ctrl+c的SIGINT信号只发送给脚本，timeout命令接收不到。想让timeout命令接收到终端的ctrl+c发送的SIGINT的信号，需要加上参数--foreground，这样timeout命令就会继承父进程的进程组。例子：
+timeou
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/07/13/linux%E7%A6%81%E7%94%A8swap/">
+				<h2 class="index-title">
+					Linux禁用swap
+				</h2>
+				<div class="index-brief">
+					¶ sudo swapoff -a
+这一步会立即禁用swap，但是下次重启还会启用。
+¶ 从/etc/fstab中删除swap条目
+¶ mask相关systemd unit
+systemd可能会从/etc/fstab中的swap条目生成对应的systemd unit：https://www.free
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/07/11/%E4%BF%AE%E5%A4%8Dpacman%E5%8D%87%E7%BA%A7%E6%97%B6%E6%96%AD%E7%94%B5%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
 				<h2 class="index-title">
 					修复pacman升级时断电导致的问题
@@ -7761,45 +7824,6 @@ pandoc --t
 			</a>
                 <div class="article-meta">
 				    <span>2022-06-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/12/google-docs%E6%8F%92%E5%85%A5%E4%BB%A3%E7%A0%81/">
-				<h2 class="index-title">
-					google docs插入代码
-				</h2>
-				<div class="index-brief">
-					Extensions-&gt;Add-ons-&gt;Get add-ons，安装Code Blocks插件，然后点击Extensions-&gt;Code Blocks-&gt;Start，然后选中要格式化的代码，点击弹窗里的Format即可。
-格式化的时候可以选择No background，然后
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-12</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/10/linux%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">
-				<h2 class="index-title">
-					Linux删除用户密码
-				</h2>
-				<div class="index-brief">
-					sudo passwd --delete username
-来源：https://www.cyberciti.biz/faq/linux-delete-user-password/
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-10</span>
                     
                             
                     

@@ -6392,6 +6392,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/09/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94logandapply/">
+                     
+										    RocksDB代码分析——LogAndApply
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -7327,6 +7338,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/13/zsh%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    zsh使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/23/zsh%E5%92%8Cbash%E5%85%B1%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/">
                      
 										    zsh和bash共用自定义配置
@@ -7602,6 +7624,51 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/">
+				<h2 class="index-title">
+					libvirt让普通用户能用kvm
+				</h2>
+				<div class="index-brief">
+					有些发行版中，普通用户可能没法用KVM：
+virsh capabilities | grep domain
+      &lt;domain type='qemu'/&gt;
+      &lt;domain type='qemu'/&gt;
+作为对比：
+sudo virsh capabilitie
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/">
+				<h2 class="index-title">
+					重定向正在运行的进程的输出
+				</h2>
+				<div class="index-brief">
+					用reredirect可以实现：https://github.com/jerome-pouiller/reredirect/
+基础用法：
+reredirect -m FILE PID
+然后进程的stdout和stderr都重定向到FILE了。
+如果要把stdout和stderr分别重定向到两个文件：
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
 				<h2 class="index-title">
 					终端关闭时子进程的反应
@@ -7764,46 +7831,6 @@ USS、PSS、RSS的含义：Linux：VSS、RSS、PSS和USS的图解说明
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-10</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/07/undefined-reference-to-typeinfo-for-rocksdb-customizable/">
-				<h2 class="index-title">
-					undefined reference to typeinfo for rocksdb::Customizable
-				</h2>
-				<div class="index-brief">
-					如果是用的cmake编译，要在cmake的参数里加上-DUSE_RTTI=true。
-来源：
-https://groups.google.com/g/rocksdb/c/ODArfKT61XE
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/03/linux-kernel-spinlock/">
-				<h2 class="index-title">
-					Linux kernel spinlock
-				</h2>
-				<div class="index-brief">
-					spin_lock的基本流程是先关抢占，然后一直spin，直到成功申请到锁。因此被spinlock保护的部分必须是atomic的，即必须一直执行到解锁，而不能睡眠。这是因为，一旦睡眠，切换到其他线程后，另一个线程可能会申请同一个锁，这样那个线程就会一直等待锁释放，因为持有锁的线程一直无法被调度。
-因
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-03</span>
                     
                             
                     

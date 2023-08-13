@@ -6392,6 +6392,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/09/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94logandapply/">
+                     
+										    RocksDB代码分析——LogAndApply
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
                      
 										    RocksDB代码分析——写入流程
@@ -7327,6 +7338,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/08/13/zsh%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    zsh使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/23/zsh%E5%92%8Cbash%E5%85%B1%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/">
                      
 										    zsh和bash共用自定义配置
@@ -7602,6 +7624,46 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/27/linux-sysrq/">
+				<h2 class="index-title">
+					Linux SysRq
+				</h2>
+				<div class="index-brief">
+					目前的Linux发行版一般都开启了SysRq。
+cat /proc/sys/kernel/sysrq
+如果输出非0，就说明开启了SysRq，如果输出为0，可以临时启用SysRq：
+echo 1 &gt; /proc/sys/kernel/sysrq
+也可以在/etc/sysctl.conf里写入ke
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/27/pacman%E6%B8%85%E7%90%86%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%BC%93%E5%AD%98/">
+				<h2 class="index-title">
+					pacman清理软件包缓存
+				</h2>
+				<div class="index-brief">
+					pacman并不会自动清理下载的软件包，这样的好处是出问题之后可以方便地进行reinstall和downgrade，不然就只能从官方的仓库下载了，但是官方的仓库只保存最新版，所以只能将整个系统升级到最新版，而且出问题的时候可能会没有网络。但是软件包缓存过多的话可能会占用太多存储，所以如果存储不够可以
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/24/%E4%BF%AE%E5%A4%8Dwindows%E5%BC%95%E5%AF%BC/">
 				<h2 class="index-title">
 					修复Windows引导
@@ -7755,51 +7817,6 @@ sudo virsh net-start default
 nmcli device status
 DEVICE        TYPE      STATE                                  CONNECTION
 enp89s0       ethernet  unmanaged                   
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/">
-				<h2 class="index-title">
-					libvirt让普通用户能用kvm
-				</h2>
-				<div class="index-brief">
-					有些发行版中，普通用户可能没法用KVM：
-virsh capabilities | grep domain
-      &lt;domain type='qemu'/&gt;
-      &lt;domain type='qemu'/&gt;
-作为对比：
-sudo virsh capabilitie
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/">
-				<h2 class="index-title">
-					重定向正在运行的进程的输出
-				</h2>
-				<div class="index-brief">
-					用reredirect可以实现：https://github.com/jerome-pouiller/reredirect/
-基础用法：
-reredirect -m FILE PID
-然后进程的stdout和stderr都重定向到FILE了。
-如果要把stdout和stderr分别重定向到两个文件：
 					...
 				</div>
 			</a>
