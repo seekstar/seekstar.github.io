@@ -7771,7 +7771,38 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"233"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 233</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"0xf"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 15</span></span></code></pre></div>
 <h3 id="string---数值"><a href="#string---数值">¶</a> string -&gt; 数值</h3>
-<p>可以用C++11里的<code>std::stoul</code>和<code>std::stoull</code>把string转换为unsigned long和unsigned long long：</p>
+<p>可以用C++11里的<code>std::sto*</code>系列把string转换为基本数据类型：</p>
+<table>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>返回的类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>std::stoi</code></td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td><code>std::stol</code></td>
+<td>long</td>
+</tr>
+<tr class="odd">
+<td><code>std::stoll</code></td>
+<td>long long</td>
+</tr>
+<tr class="even">
+<td><code>std::stoul</code></td>
+<td>unsigned long</td>
+</tr>
+<tr class="odd">
+<td><code>std::stoull</code></td>
+<td>unsigned long long</td>
+</tr>
+</tbody>
+</table>
+<p>例子：</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> x = <span class="bu">std::</span>stoul(<span class="st">"233"</span>);</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// 233</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>x = <span class="bu">std::</span>stoul(<span class="st">"0xf"</span>, <span class="kw">nullptr</span>, <span class="dv">16</span>);</span>
