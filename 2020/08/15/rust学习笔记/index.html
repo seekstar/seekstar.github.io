@@ -7722,6 +7722,10 @@ rm ~/.cargo/.package-cache</code></pre>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/collections/btree_map/enum.Entry.html" class="uri">https://doc.rust-lang.org/stable/std/collections/btree_map/enum.Entry.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/collections/btree_map/struct.VacantEntry.html" class="uri">https://doc.rust-lang.org/stable/std/collections/btree_map/struct.VacantEntry.html</a></p>
 <h2 id="crates"><a href="#crates">¶</a> Crates</h2>
+<p>enum_iterator: <a target="_blank" rel="noopener" href="https://docs.rs/enum-iterator/latest/enum_iterator/" class="uri">https://docs.rs/enum-iterator/latest/enum_iterator/</a></p>
+<p>可以获取enum的可能取值个数。</p>
+<p>num-derive: <a target="_blank" rel="noopener" href="https://docs.rs/num-derive/latest/num_derive/" class="uri">https://docs.rs/num-derive/latest/num_derive/</a></p>
+<p>可以把enum转成基本类型。</p>
 <h3 id="serde"><a href="#serde">¶</a> serde</h3>
 <ul>
 <li><a href="/2021/07/27/rust-serde-deserialize-borrowed-member/" title="rust serde deserialize borrowed member">rust serde deserialize borrowed member</a></li>
@@ -7731,11 +7735,6 @@ rm ~/.cargo/.package-cache</code></pre>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/serde-rs/json#operating-on-untyped-json-values" class="uri">https://github.com/serde-rs/json#operating-on-untyped-json-values</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://serde.rs/impl-deserialize.html" class="uri">https://serde.rs/impl-deserialize.html</a></p></li>
 </ul>
-<h3 id="其他"><a href="#其他">¶</a> 其他</h3>
-<p>enum_iterator: <a target="_blank" rel="noopener" href="https://docs.rs/enum-iterator/latest/enum_iterator/" class="uri">https://docs.rs/enum-iterator/latest/enum_iterator/</a></p>
-<p>可以获取enum的可能取值个数。</p>
-<p>num-derive: <a target="_blank" rel="noopener" href="https://docs.rs/num-derive/latest/num_derive/" class="uri">https://docs.rs/num-derive/latest/num_derive/</a></p>
-<p>可以把enum转成基本类型。</p>
 <h2 id="api-guidelines"><a href="#api-guidelines">¶</a> API guidelines</h2>
 <h3 id="generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value"><a href="#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value">¶</a> Generic reader/writer functions take R: Read and W: Write by value (C-RW-VALUE)</h3>
 <p><a target="_blank" rel="noopener" href="https://rust-lang.github.io/api-guidelines/interoperability.html#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value" class="uri">https://rust-lang.github.io/api-guidelines/interoperability.html#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value</a></p>
@@ -7925,6 +7924,8 @@ rm ~/.cargo/.package-cache</code></pre>
 <p>仅在测试时<code>impl</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>test<span class="at">)]</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">Default</span> <span class="kw">for</span> Status <span class="op">{</span></span></code></pre></div>
+<h2 id="其他"><a href="#其他">¶</a> 其他</h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/60253791/why-can-i-not-mutably-borrow-separate-fields-from-a-mutex-guard" class="uri">https://stackoverflow.com/questions/60253791/why-can-i-not-mutably-borrow-separate-fields-from-a-mutex-guard</a></p>
 <h2 id="rfc"><a href="#rfc">¶</a> RFC</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/2600">Multiple Attributes in an Attribute Container</a> (postponed)</p>
 <p>支持不允许Drop的类型：[<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/776" class="uri">https://github.com/rust-lang/rfcs/pull/776</a>] (postponed)</p>
@@ -7937,9 +7938,9 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>        <span class="co">// returning s here forces vec to be borrowed</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>        <span class="co">// for the rest of the function, even though it</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>        <span class="co">// shouldn't have to be</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>        <span class="kw">return</span> s<span class="op">;</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>    <span class="co">// Because vec is borrowed, this call to vec.push gives</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a>    <span class="co">// an error!</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a>    vec<span class="op">.</span>push(<span class="st">""</span><span class="op">.</span>to_string())<span class="op">;</span> <span class="co">// ERROR</span></span>
@@ -7983,6 +7984,21 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
 <h3 id="调试时不能执行复杂代码"><a href="#调试时不能执行复杂代码">¶</a> 调试时不能执行复杂代码</h3>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68232945/execute-a-statement-while-debugging-in-rust" class="uri">https://stackoverflow.com/questions/68232945/execute-a-statement-while-debugging-in-rust</a></p>
+<h3 id="raw-pointers-are-sync-and-send"><a href="#raw-pointers-are-sync-and-send">¶</a> Raw pointers are <code>!Sync</code> and <code>!Send</code></h3>
+<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/nomicon/send-and-sync.html" class="uri">https://doc.rust-lang.org/nomicon/send-and-sync.html</a></p>
+<p>主要目的是防止含有裸指针的struct被自动标记为thread-safe。</p>
+<p>所以如果需要在不同线程之间共享裸指针，而且可以保证裸指针引用的部分已经做了并发控制的话，可以写一个wrapper：</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">struct</span> ThreadSafePtr<span class="op">&lt;</span>T<span class="op">&gt;</span>(<span class="op">*</span><span class="kw">mut</span> T)<span class="op">;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">Send</span> <span class="kw">for</span> ThreadSafePtr<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{}</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">Sync</span> <span class="kw">for</span> ThreadSafePtr<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{}</span></span></code></pre></div>
+<p>但我觉得应该让raw pointer本身是thread safe的，然后在编译器层面不让含有裸指针的struct被自动标记为thread safe。</p>
+<p>相关讨论：<a target="_blank" rel="noopener" href="https://internals.rust-lang.org/t/shouldnt-pointers-be-send-sync-or/8818" class="uri">https://internals.rust-lang.org/t/shouldnt-pointers-be-send-sync-or/8818</a></p>
+<h3 id="drop的时候拿的是mutable-reference而不是ownership"><a href="#drop的时候拿的是mutable-reference而不是ownership">¶</a> drop的时候拿的是mutable reference而不是ownership</h3>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/30905826/why-does-drop-take-mut-self-instead-of-self" class="uri">https://stackoverflow.com/questions/30905826/why-does-drop-take-mut-self-instead-of-self</a></p>
+<p>这是为了防止编译器在<code>drop</code>的最后又自动调用<code>drop</code>。</p>
+<p>如果需要在drop的时候consume某个field，可以通过把这个field放在<code>Option</code>里实现。或者把这个field用<code>unsafe</code>的<code>ManuallyDrop</code>包起来，然后在<code>drop</code>的时候<code>take</code>：<a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/can-drop-handler-take-ownership-of-a-field/74301/7" class="uri">https://users.rust-lang.org/t/can-drop-handler-take-ownership-of-a-field/74301/7</a></p>
+<p>我觉得最好的实现应该是让<code>drop</code>拿ownership，然后在编译器里特殊处理这个case，在<code>drop</code>的最后不再调用<code>drop</code>。但是rust核心开发者觉得这个特性需要对编译器做太多修改：<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rust/issues/4330" class="uri">https://github.com/rust-lang/rust/issues/4330</a></p>
+<h3 id="如果有自定义的dropdrop就不能单独拿某个field的ownership"><a href="#如果有自定义的dropdrop就不能单独拿某个field的ownership">¶</a> 如果有自定义的<code>Drop::drop</code>，就不能单独拿某个field的ownership</h3>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
