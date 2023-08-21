@@ -7657,6 +7657,12 @@ echo "unsetopt share_history" &gt;&gt; ~/.zshrc</code></pre>
 <h2 id="禁止zsh解析"><a href="#禁止zsh解析">¶</a> 禁止zsh解析<code>*</code></h2>
 <pre class="shell"><code>echo "setopt no_nomatch" &gt;&gt; ~/.zshrc</code></pre>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/87d85593006e">zsh不兼容的坑-zsh:no matches found</a></p>
+<h2 id="自带的rm-提醒"><a href="#自带的rm-提醒">¶</a> 自带的<code>rm *</code>提醒</h2>
+<pre class="shell"><code>$ rm -f *
+zsh: sure you want to delete all 3 files in /tmp/test [yn]?</code></pre>
+<p>明明已经用了<code>-f</code>但还是有prompt，很烦。可以这样关掉：</p>
+<pre class="shell"><code>echo "setopt rmstarsilent" &gt;&gt; ~/.zshrc</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/issues/10268" class="uri">https://github.com/ohmyzsh/ohmyzsh/issues/10268</a></p>
 <h2 id="多行命令换行"><a href="#多行命令换行">¶</a> 多行命令换行</h2>
 <p><code>Alt</code>+<code>Enter</code></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
