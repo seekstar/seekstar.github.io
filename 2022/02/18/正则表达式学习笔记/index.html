@@ -7660,31 +7660,47 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>这里在pattern两边分别放置了<code>/</code>，放置pattern中含有空格。比如<code>/test/</code>就表示pattern是<code>test</code>。</p>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>这里在pattern两边分别放置了<code>/</code>，放置pattern中含有空格。比如<code>/test/</code>就表示pattern是<code>test</code>。</p>
 <p>比较完整的教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 - 教程</a></p>
-<h2 id="或"><a href="#或">¶</a> 或</h2>
-<p><code>/pattern1|pattern2|pattern3/</code></p>
-<p>来源：<a target="_blank" rel="noopener" href="http://zhidao.baidu.com/question/492936840/answer/3110802142" class="uri">http://zhidao.baidu.com/question/492936840/answer/3110802142</a></p>
-<h2 id="把文件中的crlf替换成lf"><a href="#把文件中的crlf替换成lf">¶</a> 把文件中的CRLF替换成LF</h2>
-<p>源pattern: <code>/\r/</code></p>
-<p>目标pattern: <code>//</code>，即空pattern。</p>
-<h2 id="把文件中的lf替换成crlf"><a href="#把文件中的lf替换成crlf">¶</a> 把文件中的LF替换成CRLF</h2>
-<p>源pattern: <code>/$/</code></p>
-<p>目的pattern: <code>/\r/</code></p>
-<p><code>$</code>的意思是每行的末尾。在每行的末尾把空字符串替换成<code>\r</code>（CR），也就是插入<code>\r</code>（CR）。在linux中换行是LF，所以相当于在LF前面插入一个CR，变成CRLF。</p>
-<h2 id="保留每行的最后一个单词"><a href="#保留每行的最后一个单词">¶</a> 保留每行的最后一个单词</h2>
-<p>源pattern: <code>/.* /</code></p>
-<p>目的pattern: <code>//</code>，即空pattern</p>
-<p>正则表达式里，点<code>.</code>几乎可以匹配任何字符，所以<code>.*</code>会尽量匹配尽量长的字符串。<code>/.* /</code>表示最长的以空格结尾的字符串。目的pattern为空，这样就相当于把每行的最长的以空格结尾的字符串删掉。所以每行只留下了最后一个单词了。</p>
-<h2 id="在每个单词前插入"><a href="#在每个单词前插入">¶</a> 在每个单词前插入</h2>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lwlfox/article/details/85065026" class="uri">https://blog.csdn.net/lwlfox/article/details/85065026</a></p>
-<p>源pattern: <code>/\b\S*\b/</code></p>
-<p>目的pattern: <code>/test&amp;/</code></p>
-<p><code>\b</code>: 单词边界<br>
-<code>&amp;</code>: 前面匹配的字符串</p>
-<h2 id="保留部分内容的替换"><a href="#保留部分内容的替换">¶</a> 保留部分内容的替换</h2>
-<p>有点像<code>scanf</code>和<code>printf</code>的组合：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/scl323/article/details/84098366" class="uri">https://blog.csdn.net/scl323/article/details/84098366</a></p>
+<p>这里节选一些比较常见的：</p>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.</code></td>
+<td>除换行符(<code>\n</code>, <code>\r</code>)以外的任意字符</td>
+</tr>
+<tr class="even">
+<td><code>*</code></td>
+<td>匹配前面的表达式&gt;=0次</td>
+</tr>
+<tr class="odd">
+<td><code>$</code></td>
+<td>行末</td>
+</tr>
+<tr class="even">
+<td><code>\b</code></td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如， 'er 可以匹配"never" 中的 'er'，但不能匹配 "verb" 中的 'er'。</td>
+</tr>
+<tr class="odd">
+<td><code>\S</code></td>
+<td>任何非空白字符</td>
+</tr>
+<tr class="even">
+<td>x</td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

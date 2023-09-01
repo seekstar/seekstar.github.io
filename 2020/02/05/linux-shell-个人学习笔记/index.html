@@ -8169,21 +8169,62 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 杀掉所有名字为ssh-agent的进程</p>
 <pre class="shell"><code>kill $(pidof ssh-agent)</code></pre>
 <h3 id="sed"><a href="#sed">¶</a> sed</h3>
-<h4 id="模式匹配"><a href="#模式匹配">¶</a> 模式匹配</h4>
 <p>从stdin读入，将修改后的结果写入到stdout：</p>
-<pre class="shell"><code>sed 's/源pattern/目的pattern/g'</code></pre>
-<p>其中<code>s</code>是指替换，<code>g</code>是全局替换，<code>/</code>是分隔符。然后sed就会逐行去找源pattern，并且替换为目的pattern。</p>
+<pre class="shell"><code>sed '命令'</code></pre>
+<p>其中<code>命令</code>形如<code>s/源pattern/目的pattern/g</code>（全局替换）</p>
 <p>从文件读入，将修改后的结果写入到stdout：</p>
-<pre class="shell"><code>sed 's/源pattern/目的pattern/g' FileName</code></pre>
-<p>源pattern和目的pattern的一些例子见：<a href="/2022/02/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="正则表达式学习笔记">正则表达式学习笔记</a></p>
-<p>此外，sed提供了一些选项：</p>
+<pre class="shell"><code>sed '命令' FileName</code></pre>
+<h4 id="基础知识"><a href="#基础知识">¶</a> 基础知识</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/demon7552003/article/details/72854231">sed模式空间(pattern space)和保持空间(hold space)</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed" class="uri">https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed</a></p>
+<p>sed读取一行时，会先将其暂存到模式空间。处理完一行之后就会把模式空间中的内容打印到标准输出，然后自动清空缓存。</p>
+<p>保持空间是sed中的另外一个缓冲区，此缓冲区正如其名，不会自动清空，但也不会主动把此缓冲区中的内容打印到标准输出中。</p>
+<p>d: 删除模式空间的内容，开始下一个循环</p>
+<p>g: 复制保持空间的内容到模式空间</p>
+<p><code>s/regexp/replacement/</code>: 在模式空间中如果匹配到了正则表达式<code>regexp</code>，就将其替换为<code>replacement</code></p>
+<a href="/2022/02/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="正则表达式学习笔记">正则表达式学习笔记</a>
+<p>需要注意的是，<code>sed</code>的正则表达式中，如果用到了<code>(</code>, <code>)</code>, <code>|</code>，需要在前面放一个<code>\</code>将它们转义，例如<code>sed '/\(patternx\|patterny\)/p'</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14813145/boolean-or-in-sed-regex" class="uri">https://stackoverflow.com/questions/14813145/boolean-or-in-sed-regex</a></p>
+<h4 id="全局替换"><a href="#全局替换">¶</a> 全局替换</h4>
+<p><code>sed 's/regexp/replacement/g'</code></p>
+<p>其中<code>s</code>是替换命令，表示在模式空间尝试匹配正则表达式<code>regexp</code>，找到了就将其替换为<code>replacement</code>。</p>
+<p>这里的<code>g</code>不是命令，而是隶属于<code>s</code>命令的一个flag，表示全局替换，也就是说在匹配到一个之后不停下来，而是马上继续尝试匹配下一个。</p>
+<p>一些例子：</p>
+<ul>
+<li>把文件中的CRLF替换成LF</li>
+</ul>
+<p><code>sed 's/\r//g</code></p>
+<p><code>\r</code>就是CR，将其替换成空就相当于把它删了。</p>
+<ul>
+<li>把文件中的LF替换成CRLF</li>
+</ul>
+<p><code>sed 's/$/\r/g</code></p>
+<p><code>$</code>的意思是每行的末尾。在每行的末尾把空字符串替换成<code>\r</code>（CR），也就是插入<code>\r</code>（CR）。在linux中换行是LF，所以相当于在LF前面插入一个CR，变成CRLF。</p>
+<ul>
+<li>保留每行的最后一个单词</li>
+</ul>
+<p><code>sed 's/.* //g</code></p>
+<p>正则表达式里，点<code>.</code>几乎可以匹配任何字符，所以<code>.*</code>会尽量匹配尽量长的字符串。<code>/.* /</code>表示最长的以空格结尾的字符串。目的pattern为空，这样就相当于把每行的最长的以空格结尾的字符串删掉。所以每行只留下了最后一个单词了。</p>
+<ul>
+<li>在每个单词前插入</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lwlfox/article/details/85065026" class="uri">https://blog.csdn.net/lwlfox/article/details/85065026</a></p>
+<p><code>sed 's/\b\S*\b/test&amp;/g</code></p>
+<p><code>\b</code>: 单词边界<br>
+<code>&amp;</code>: 前面匹配的字符串</p>
+<ul>
+<li>保留部分内容的替换</li>
+</ul>
+<p>有点像<code>scanf</code>和<code>printf</code>的组合：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/scl323/article/details/84098366" class="uri">https://blog.csdn.net/scl323/article/details/84098366</a></p>
+<h4 id="删除匹配行"><a href="#删除匹配行">¶</a> 删除匹配行</h4>
+<p><code>sed '/regexp/d'</code></p>
+<p>如果模式空间有可以匹配正则表达式<code>regexp</code>的子串，那么就将模式空间删除，然后继续读取下一行到模式空间。</p>
+<h4 id="常用选项"><a href="#常用选项">¶</a> 常用选项</h4>
 <p><code>-i</code>: 直接修改文件（默认是输出编辑后的结果到stdout）。</p>
 <p><code>--follow-symlinks</code>: <code>-i</code>会破坏符号链接和硬链接，加上这个选项之后可以保护软链接不被破坏，但是不保护硬链接。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a></p>
 <p><code>-c</code>: 保护符号链接和硬链接（但是我的sed没有这个选项）。</p>
-<h4 id="匹配指定行"><a href="#匹配指定行">¶</a> 匹配指定行</h4>
-<p><code>sed -n 起始行号[,终止行号]动作 file</code></p>
-<p>动作一般是<code>p</code>，即打印(Print)。</p>
-<p>sed默认会将文件的每行打印出来，然后对匹配的内容进行相应的操作。<code>-n</code>表示不把文件的每行都打印出来，只对匹配的内容做相应的操作。</p>
+<p><code>-n</code>: sed默认会将文件的每行打印出来，然后对匹配的内容进行相应的操作。<code>-n</code>表示不把文件的每行都打印出来，只对匹配的内容做相应的操作。</p>
+<p>匹配指定行：<code>sed -n 起始行号[,终止行号]动作 file</code>，动作一般是<code>p</code>，即打印(Print)。</p>
 <p>例子：</p>
 <p>打印第2行：<code>sed -n '2p' file</code></p>
 <p>打印第2行到第4行：<code>sed -n '2,4p' file</code></p>
