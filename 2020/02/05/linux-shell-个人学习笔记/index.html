@@ -7940,6 +7940,16 @@ echo $#</code></pre>
 <pre class="shell"><code># 等价于./test.sh 1 2 3
 a=(1 2 3)
 ./test.sh ${a[@]}</code></pre>
+<h2 id="进程"><a href="#进程">¶</a> 进程</h2>
+<p>获取当前subshell的PID：</p>
+<pre class="shell"><code>pid=$(exec sh -c 'echo "$PPID"')</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/484464" class="uri">https://unix.stackexchange.com/a/484464</a></p>
+<h2 id="信号"><a href="#信号">¶</a> 信号</h2>
+<pre class="shell"><code>trap 信号处理命令 信号名</code></pre>
+<p>例如：</p>
+<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/" title="Linux杀死所有子进程">Linux杀死所有子进程</a>
+<pre class="shell"><code># 在脚本退出前杀死所有子进程
+trap "pkill -P $$" EXIT</code></pre>
 <h2 id="用户管理"><a href="#用户管理">¶</a> 用户管理</h2>
 <h3 id="创建普通用户"><a href="#创建普通用户">¶</a> 创建普通用户</h3>
 <pre class="shell"><code>adduser 用户名</code></pre>
