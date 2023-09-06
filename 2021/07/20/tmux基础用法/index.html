@@ -2390,6 +2390,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/09/05/apt%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    apt学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/apt%E5%AE%89%E8%A3%85%E7%9A%84doc%E7%9A%84%E7%94%A8%E6%B3%95/">
                      
 										    apt安装的doc的用法
@@ -7732,11 +7743,15 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'</code></pre>
+<p>手动安装的tmux plugin manager可以非交互式安装plugin:</p>
+<pre class="shell"><code># https://github.com/tmux-plugins/tpm/issues/6
+~/.tmux/plugins/tpm/scripts/install_plugins.sh</code></pre>
 <h4 id="激活tmux-plugin-manager"><a href="#激活tmux-plugin-manager">¶</a> 激活Tmux Plugin Manager</h4>
 <p>可以先把所有tmux窗口都关闭，然后再新开tmux的时候，新开的tmux中就会自动读取<code>~/.tmux.conf</code>，从而激活Tmux Plugin Manager。</p>
 <p>如果要在已有的tmux里激活新安装的Tmux Plugin Manager，需要这样：</p>
 <pre class="shell"><code># 在已有tmux窗口里执行此命令
 tmux source ~/.tmux.conf</code></pre>
+<p>只要在一个tmux窗口里执行它，所有已有的tmux窗口都会激活Tmux Plugin Manager。</p>
 <h4 id="安装并激活插件"><a href="#安装并激活插件">¶</a> 安装并激活插件</h4>
 <p>往<code>~/.tmux.conf</code>里加入<code>set -g @plugin '...'</code>，然后在tmux窗口里按<code>ctrl+b</code>然后按<code>shift+i</code>即可。新插件会被自动clone到<code>~/.tmux/plugins/</code>并且激活。安装并激活插件的时候会卡一下。完成之后会显示这个：</p>
 <pre class="text"><code>TMUX environment reloaded.
