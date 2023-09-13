@@ -8145,60 +8145,99 @@ var _hmt = _hmt || [];
 <h3 id="去掉单元格里面的边距"><a href="#去掉单元格里面的边距">¶</a> 去掉单元格里面的边距</h3>
 <p>用<code>@{}</code>，例如去掉左边的边距：<code>\begin{tabular}{@{}lr}</code>，去掉右边的边距：<code>\begin{tabular}{lr@{}}</code>，去掉两边的边距：<code>\begin{tabular}{@{}lr@{}}</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.oomake.com/question/703820" class="uri">https://www.oomake.com/question/703820</a></p>
-<h2 id="设置页边距"><a href="#设置页边距">¶</a> 设置页边距</h2>
-<div class="sourceCode" id="cb32"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="fu">\geometry</span>{top=1.5cm,bottom=1.5cm, left=1.5cm, right=1.5cm}</span></code></pre></div>
+<h2 id="页面"><a href="#页面">¶</a> 页面</h2>
+<h3 id="去掉页码"><a href="#去掉页码">¶</a> 去掉页码</h3>
+<p>在导言区加入：</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="fu">\pagestyle</span>{empty}</span></code></pre></div>
+<h3 id="调整页边距"><a href="#调整页边距">¶</a> 调整页边距</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="fu">\geometry</span>{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}</span></code></pre></div>
 <h2 id="去掉段首缩进"><a href="#去掉段首缩进">¶</a> 去掉段首缩进</h2>
 <p><code>\noindent</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43301333/article/details/122137471">latex段落取消缩进</a></p>
+<h2 id="字体符号"><a href="#字体符号">¶</a> 字体符号</h2>
+<p>作为字体的符号，不需要在公式环境。</p>
+<table>
+<thead>
+<tr class="header">
+<th>描述</th>
+<th>代码</th>
+<th>usepackage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>锁</td>
+<td><code>\faLock</code></td>
+<td>fontawesome</td>
+</tr>
+<tr class="even">
+<td>开锁</td>
+<td><code>\faUnlock</code></td>
+<td>fontawesome</td>
+</tr>
+</tbody>
+</table>
+<p>来源：<a target="_blank" rel="noopener" href="https://tug.ctan.org/info/symbols/comprehensive/symbols-letter.pdf" class="uri">https://tug.ctan.org/info/symbols/comprehensive/symbols-letter.pdf</a></p>
+<h2 id="各种下划线"><a href="#各种下划线">¶</a> 各种下划线</h2>
+<h3 id="直下划线"><a href="#直下划线">¶</a> 直下划线</h3>
+<p>中文：<a href="/2022/12/29/latex%E4%B8%AD%E6%96%87%E4%B8%8B%E5%88%92%E7%BA%BF%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/" title="Latex中文下划线自动换行">Latex中文下划线自动换行</a></p>
+<p>英文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44465434/article/details/126912203">用soul宏包解决Latex </a></p>
+<p>似乎如果里面有<code>\</code>这种东西就会报错<code>Reconstruction failed</code>，不过可以用<code>~</code>来替代。</p>
+<h3 id="波浪下划线"><a href="#波浪下划线">¶</a> 波浪下划线</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="bu">\usepackage</span>[normalem]{<span class="ex">ulem</span>}</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="fu">\uwave</span>{text here}</span></code></pre></div>
+<p>其中<code>normalem</code>是为了防止它把<code>\emph</code>变成下划线而不是斜体。来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/396106/256676" class="uri">https://tex.stackexchange.com/a/396106/256676</a></p>
+<p>但是似乎不能自动加hyphenation <code>-</code>换行，会导致overfull的问题。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ProgramChangesWorld/article/details/51465154">LaTeX技巧004：给文字添加下划线、波浪线等样式</a></p>
 <h2 id="标签"><a href="#标签">¶</a> 标签</h2>
 <p>用<code>\label</code>创建标签，用<code>\ref</code>引用标签</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}<span class="sc">\label</span><span class="ss">{t1}</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="ss">    10 - </span><span class="sc">\frac</span><span class="ss">{20}{(1+y)^{</span><span class="sc">\frac</span><span class="ss">{5}{12}}} = 0</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a>代入(<span class="kw">\ref</span>{<span class="ex">t1</span>})中，得</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}<span class="sc">\label</span><span class="ss">{t1}</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a><span class="ss">    10 - </span><span class="sc">\frac</span><span class="ss">{20}{(1+y)^{</span><span class="sc">\frac</span><span class="ss">{5}{12}}} = 0</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a>代入(<span class="kw">\ref</span>{<span class="ex">t1</span>})中，得</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200411111358519.png" alt="在这里插入图片描述"><br>
 <img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/202004111114168.png" alt="在这里插入图片描述"></p>
 <h2 id="插入超链接"><a href="#插入超链接">¶</a> 插入超链接</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34809033/article/details/80734433" class="uri">https://blog.csdn.net/qq_34809033/article/details/80734433</a></p>
 <h2 id="插入代码"><a href="#插入代码">¶</a> 插入代码</h2>
-<div class="sourceCode" id="cb34"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">listings</span>}</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">xcolor</span>}</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a><span class="fu">\fontspec</span>{inconsolata}</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%1 or 3??? 让0中间有一个斜线，让l不像1。</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">listings</span>}</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">xcolor</span>}</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true"></a><span class="fu">\fontspec</span>{inconsolata}</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%1 or 3??? 让0中间有一个斜线，让l不像1。</span></span></code></pre></div>
 <p>在<code>\maketitle</code>后面设定默认的代码样式。下面是适合黑白打印的设定：</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>	<span class="fu">\lstset</span>{ <span class="co">%  </span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a>		backgroundcolor=<span class="fu">\color</span>{white},   <span class="co">% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}  </span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a>		basicstyle=<span class="fu">\ttfamily</span>,			 <span class="co">%ttfamily is consolas</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a>		breakatwhitespace=false,         <span class="co">% sets if automatic breaks should only happen at whitespace  </span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a>		breaklines=true,                 <span class="co">% sets automatic line breaking  </span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true"></a>		deletekeywords={...},            <span class="co">% if you want to delete keywords from the given language  </span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true"></a>		escapeinside={<span class="fu">\%</span>*}{*)},          <span class="co">% if you want to add LaTeX within your code  </span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true"></a>		extendedchars=true,              <span class="co">% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8  </span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true"></a>		keepspaces=true,                 <span class="co">% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  </span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true"></a>		morekeywords={*,...},            <span class="co">% if you want to add more keywords to the set  </span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true"></a>		numbers=left,                    <span class="co">% where to put the line-numbers; possible values are (none, left, right)  </span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true"></a>		numbersep=5pt,                   <span class="co">% how far the line-numbers are from the code  </span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true"></a>		numberstyle=<span class="fu">\ttfamily</span>,</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true"></a>		rulecolor=<span class="fu">\color</span>{black},         <span class="co">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))  </span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true"></a>		showspaces=false,                <span class="co">% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'  </span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true"></a>		showstringspaces=false,          <span class="co">% underline spaces within strings only  </span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true"></a>		showtabs=false,                  <span class="co">% show tabs within strings adding particular underscores  </span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true"></a>		stepnumber=1,                    <span class="co">% the step between two line-numbers. If it's 1, each line will be numbered  </span></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true"></a>		tabsize=4,                       <span class="co">% sets default tabsize to 2 spaces  </span></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true"></a>		columns=fullflexible,</span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>	<span class="fu">\lstset</span>{ <span class="co">%  </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a>		backgroundcolor=<span class="fu">\color</span>{white},   <span class="co">% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}  </span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a>		basicstyle=<span class="fu">\ttfamily</span>,			 <span class="co">%ttfamily is consolas</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a>		breakatwhitespace=false,         <span class="co">% sets if automatic breaks should only happen at whitespace  </span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a>		breaklines=true,                 <span class="co">% sets automatic line breaking  </span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a>		deletekeywords={...},            <span class="co">% if you want to delete keywords from the given language  </span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a>		escapeinside={<span class="fu">\%</span>*}{*)},          <span class="co">% if you want to add LaTeX within your code  </span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true"></a>		extendedchars=true,              <span class="co">% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8  </span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true"></a>		keepspaces=true,                 <span class="co">% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  </span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true"></a>		morekeywords={*,...},            <span class="co">% if you want to add more keywords to the set  </span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true"></a>		numbers=left,                    <span class="co">% where to put the line-numbers; possible values are (none, left, right)  </span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true"></a>		numbersep=5pt,                   <span class="co">% how far the line-numbers are from the code  </span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true"></a>		numberstyle=<span class="fu">\ttfamily</span>,</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true"></a>		rulecolor=<span class="fu">\color</span>{black},         <span class="co">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))  </span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true"></a>		showspaces=false,                <span class="co">% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'  </span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true"></a>		showstringspaces=false,          <span class="co">% underline spaces within strings only  </span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true"></a>		showtabs=false,                  <span class="co">% show tabs within strings adding particular underscores  </span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true"></a>		stepnumber=1,                    <span class="co">% the step between two line-numbers. If it's 1, each line will be numbered  </span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true"></a>		tabsize=4,                       <span class="co">% sets default tabsize to 2 spaces  </span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true"></a>		columns=fullflexible,</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true"></a>    }</span></code></pre></div>
 <h3 id="直接插入代码"><a href="#直接插入代码">¶</a> 直接插入代码</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">lstlisting</span>}[numbers=none]</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a><span class="vs">mpirun -n 20 ./xhpl</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">lstlisting</span>}[numbers=none]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="vs">mpirun -n 20 ./xhpl</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101140501277.png" alt="在这里插入图片描述"></p>
 <p>注意代码块里的空格和tab都会如实显示出来。</p>
 <h3 id="从文本中读取代码"><a href="#从文本中读取代码">¶</a> 从文本中读取代码</h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="fu">\lstinputlisting</span>{hello.c}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="fu">\lstinputlisting</span>{hello.c}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101140526555.png" alt="在这里插入图片描述"></p>
 <h2 id="左引号"><a href="#左引号">¶</a> 左引号</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dyzok88/article/details/44222765" class="uri">https://blog.csdn.net/dyzok88/article/details/44222765</a></p>
@@ -8212,15 +8251,9 @@ var _hmt = _hmt || [];
 考文献。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing" class="uri">https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing</a></p>
 <h3 id="去掉标题"><a href="#去掉标题">¶</a> 去掉标题</h3>
-<div class="sourceCode" id="cb38"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">etoolbox</span>}</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="fu">\patchcmd</span>{<span class="fu">\thebibliography</span>}{<span class="kw">\section*</span>{<span class="fu">\refname</span>}}{}{}{}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">etoolbox</span>}</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="fu">\patchcmd</span>{<span class="fu">\thebibliography</span>}{<span class="kw">\section*</span>{<span class="fu">\refname</span>}}{}{}{}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title" class="uri">https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title</a></p>
-<h2 id="去掉页码"><a href="#去掉页码">¶</a> 去掉页码</h2>
-<p>在导言区加入：</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="fu">\pagestyle</span>{empty}</span></code></pre></div>
-<h2 id="调整页边距"><a href="#调整页边距">¶</a> 调整页边距</h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="fu">\geometry</span>{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}</span></code></pre></div>
 <h2 id="异常处理"><a href="#异常处理">¶</a> 异常处理</h2>
 <h3 id="textbf加粗对英文无效"><a href="#textbf加粗对英文无效">¶</a> <code>textbf{}</code>加粗对英文无效</h3>
 <p><code>\usepackage[T1]{fontenc}</code></p>
