@@ -80,7 +80,7 @@
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
-<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -7848,17 +7848,29 @@ npm install</code></pre>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="uri">https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</a></p>
 <h2 id="让文章的url中不含目录"><a href="#让文章的url中不含目录">¶</a> 让文章的URL中不含目录</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/" class="uri">https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/</a></p>
-<h2 id="升级hexo版本"><a href="#升级hexo版本">¶</a> 升级hexo版本</h2>
+<h2 id="升级"><a href="#升级">¶</a> 升级</h2>
+<h3 id="升级某个包的版本"><a href="#升级某个包的版本">¶</a> 升级某个包的版本</h3>
+<p>以hexo为例：</p>
 <pre class="shell"><code>npm i hexo@latest
 hexo --version</code></pre>
+<h3 id="检查更新"><a href="#检查更新">¶</a> 检查更新</h3>
+<pre class="shell"><code>npm outdated</code></pre>
+<p>或者用<code>npm-check-updates</code>:</p>
+<pre class="shell"><code>npm i -g npm-check-updates
+ncu</code></pre>
+<h3 id="升级全部"><a href="#升级全部">¶</a> 升级全部</h3>
+<pre class="shell"><code>npm i -g npm-check-updates
+ncu -u
+npm i</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.freecodecamp.org/news/how-to-update-npm-dependencies/" class="uri">https://www.freecodecamp.org/news/how-to-update-npm-dependencies/</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <h3 id="折叠部分文字"><a href="#折叠部分文字">¶</a> 折叠部分文字</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36408085/article/details/104323711">Hexo+Github博客：如何折叠(显示/隐藏)部分文字</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a> 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <h3 id="标题锚点"><a href="#标题锚点">¶</a> 标题锚点</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/seekstar/hexo-pandoc-header-anchor" class="uri">https://github.com/seekstar/hexo-pandoc-header-anchor</a></p>
