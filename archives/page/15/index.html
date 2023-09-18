@@ -7107,6 +7107,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/09/18/linux%E7%A7%BB%E5%8A%A8%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%9B%AE%E5%BD%95/">
+                     
+										    Linux移动目录下所有文件或文件夹到另一个目录
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/07/01/linux%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
                      
 										    Linux获取进程cpu使用率
@@ -7657,6 +7668,27 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+				<h2 class="index-title">
+					RocksDB单元测试
+				</h2>
+				<div class="index-brief">
+					make all check
+可以加上-j 线程数来做并行单元测试。
+如果出错了，看下出错的是哪个测试，比如假如是DBBasicTest.OpenWhenOpen，那这个测试就在db_basic_test，单独运行这个测试：
+./db_basic_test --gtest_filter="*DBBa
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E9%A2%86%E5%9F%9Fvanilla%E7%9A%84%E5%90%AB%E4%B9%89/">
 				<h2 class="index-title">
 					计算机领域vanilla的含义
@@ -7844,27 +7876,6 @@ sudo bash -c "echo 0 &gt; /pro
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-16</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/15/rocksdb%E7%AD%89%E5%BE%85%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90/">
-				<h2 class="index-title">
-					RocksDB等待后台任务完成
-				</h2>
-				<div class="index-brief">
-					如果在RocksDB内部，可以用这个：
-void DBImpl::WaitForBackgroundWork() {
-  // Wait for background work to finish
-  while (bg_bottom_compaction_scheduled_ || bg_comp
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-15</span>
                     
                             
                     
