@@ -1673,6 +1673,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/09/24/cmake%E6%89%93%E5%8D%B0%E5%AF%BC%E5%85%A5%E7%9A%84%E5%8C%85%E4%B8%AD%E7%9A%84warning/">
+                     
+										    cmake打印导入的包中的warning
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/02/22/cmake%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4cmake-build-type/">
                      
 										    cmake设置默认CMAKE_BUILD_TYPE
@@ -7668,6 +7679,27 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/27/git%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/">
+				<h2 class="index-title">
+					git协议使用代理
+				</h2>
+				<div class="index-brief">
+					首先，github.com的git@github.com:xxx/xxxx.git使用的其实不是git协议，而是SSH协议，所以如果要代理之，需要配置的其实是SSH代理，在~/.ssh/config里配置如下：
+Host github.com
+        User git
+        # P
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/27/libreoffice%E9%80%89%E4%B8%AD%E8%A2%AB%E7%9B%96%E4%BD%8F%E7%9A%84%E5%AF%B9%E8%B1%A1/">
 				<h2 class="index-title">
 					LibreOffice选中被盖住的对象
@@ -7856,24 +7888,6 @@ nmap -p- localhost
 			</a>
                 <div class="article-meta">
 				    <span>2022-05-16</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/05/15/linux-kernel-rcu/">
-				<h2 class="index-title">
-					Linux kernel RCU
-				</h2>
-				<div class="index-brief">
-					RCU的全称是Read-Copy Update。详解：浅谈Linux内核源码RCU机制。基本思路是不阻塞读，而更新的时候先把原来的数据复制一份，在副本上修改，修改完了一次性更新到受RCU保护的数据结构上。但是由于可能还有并发的reader在读老的副本，所以不能马上把老的副本释放掉。那么什么时候可以释
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-05-15</span>
                     
                             
                     

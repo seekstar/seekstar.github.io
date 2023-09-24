@@ -1675,6 +1675,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/09/24/cmake%E6%89%93%E5%8D%B0%E5%AF%BC%E5%85%A5%E7%9A%84%E5%8C%85%E4%B8%AD%E7%9A%84warning/">
+                     
+										    cmake打印导入的包中的warning
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/02/22/cmake%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4cmake-build-type/">
                      
 										    cmake设置默认CMAKE_BUILD_TYPE
@@ -8508,34 +8519,50 @@ sudo pacman -S boost</code></pre>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a>	desc.add_options()</span>
 <span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a>		(<span class="st">"help"</span>, <span class="st">"Print help message"</span>)</span>
 <span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a>		(<span class="st">"cleanup,c"</span>, <span class="st">"Empty the directories first."</span>)</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a>		(<span class="st">"format,f"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;format)-&gt;default_value(<span class="st">"ycsb"</span>), <span class="st">"Trace format: plain/ycsb"</span>)</span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>		(<span class="st">"use_direct_reads"</span>, po::value&lt;<span class="dt">bool</span>&gt;(&amp;use_direct_reads)-&gt;default_value(<span class="kw">true</span>), <span class="st">""</span>)</span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a>		(<span class="st">"db_path"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;db_path)-&gt;required(), <span class="st">"Path to database"</span>)</span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a>	;</span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>	po::variables_map vm;</span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a>	po::store(po::parse_command_line(argc, argv, desc), vm);</span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"help"</span>)) {</span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; desc &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span>;</span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true"></a>	}</span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true"></a>	po::notify(vm);</span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true"></a></span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"cleanup"</span>)) {</span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"cleanup</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true"></a>	}</span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; format &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"use_direct_reads: "</span> &lt;&lt; use_direct_reads &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"db_path: "</span> &lt;&lt; db_path &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-31"><a href="#cb54-31" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb54-32"><a href="#cb54-32" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a>		(</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>			<span class="st">"format,f"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;format)-&gt;default_value(<span class="st">"ycsb"</span>),</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a>			<span class="st">"Trace format: plain/ycsb"</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a>		) (</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>			<span class="st">"use_direct_reads"</span>,</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a>			po::value&lt;<span class="dt">bool</span>&gt;(&amp;use_direct_reads)-&gt;default_value(<span class="kw">true</span>), <span class="st">""</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a>		) (</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>			<span class="st">"db_path"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;db_path)-&gt;required(),</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a>			<span class="st">"Path to database"</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true"></a>		) (</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true"></a>			<span class="st">"level0_file_num_compaction_trigger"</span>, po::value&lt;<span class="dt">int</span>&gt;(),</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true"></a>			<span class="st">"Number of files in level-0 when compactions start"</span></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true"></a>		);</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true"></a>	po::variables_map vm;</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true"></a>	po::store(po::parse_command_line(argc, argv, desc), vm);</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"help"</span>)) {</span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; desc &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true"></a>	}</span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true"></a>	po::notify(vm);</span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true"></a></span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"cleanup"</span>)) {</span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"cleanup</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true"></a>	}</span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; format &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"use_direct_reads: "</span> &lt;&lt; use_direct_reads &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"db_path: "</span> &lt;&lt; db_path &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"level0_file_num_compaction_trigger"</span>)) {</span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; vm[<span class="st">"level0_file_num_compaction_trigger"</span>].as&lt;<span class="dt">int</span>&gt;()</span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true"></a>			&lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb54-43"><a href="#cb54-43" aria-hidden="true"></a>	}</span>
+<span id="cb54-44"><a href="#cb54-44" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb54-45"><a href="#cb54-45" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>g++ program-options.cpp -lboost_program_options -o program-options
 ./program-options --help</code></pre>
 <pre class="text"><code>Available options:
-  --help                      Print help message
-  -c [ --cleanup ]            Empty the directories first.
-  -f [ --format ] arg (=ycsb) Trace format: plain/ycsb
+  --help                                Print help message
+  -c [ --cleanup ]                      Empty the directories first.
+  -f [ --format ] arg (=ycsb)           Trace format: plain/ycsb
   --use_direct_reads arg (=1)
-  --db_path arg               Path to database</code></pre>
+  --db_path arg                         Path to database
+  --level0_file_num_compaction_trigger arg
+                                        Number of files in level-0 when 
+                                        compactions start</code></pre>
 <p>参考文献：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5395503/required-and-optional-arguments-using-boost-library-program-options" class="uri">https://stackoverflow.com/questions/5395503/required-and-optional-arguments-using-boost-library-program-options</a></p>
 <h2 id="执行命令"><a href="#执行命令">¶</a> 执行命令</h2>
 <p><code>std::system</code>: <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/program/system" class="uri">https://en.cppreference.com/w/cpp/utility/program/system</a></p>
