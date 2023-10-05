@@ -7885,53 +7885,52 @@ var _hmt = _hmt || [];
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;random&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">class</span> E&gt;</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">class</span> ZipfianGenerator {</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>	ZipfianGenerator(</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>		<span class="dt">size_t</span> n, <span class="dt">double</span> theta, E &amp;&amp;engine</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>	) : <span class="va">engine_</span>(<span class="bu">std::</span>move(engine)),</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>		<span class="va">n_</span>(n),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>		<span class="va">alpha_</span>(<span class="dv">1</span> / (<span class="dv">1</span> - theta)),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>		<span class="va">zeta2_</span>(<span class="dv">1</span> + pow(<span class="fl">2.0</span>, -theta))</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>	{</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>		<span class="ot">assert</span>(n &gt; <span class="dv">2</span>);</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>		<span class="va">zetan_</span> = <span class="va">zeta2_</span>;</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">3</span>; i &lt;= n; ++i) {</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>			<span class="va">zetan_</span> += pow((<span class="dt">double</span>)i, -theta);</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>		}</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a>		<span class="va">eta_</span> = (<span class="dv">1</span> - pow(<span class="fl">2.0</span> / n, <span class="dv">1</span> - theta)) / (<span class="dv">1</span> - <span class="va">zeta2_</span> / <span class="va">zetan_</span>);</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>	}</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>	<span class="dt">size_t</span> <span class="kw">operator</span>()() {</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>		<span class="bu">std::</span>uniform_real_distribution&lt;&gt; dis(<span class="fl">0.0</span>, <span class="fl">1.0</span>);</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>		<span class="dt">double</span> u = dis(<span class="va">engine_</span>);</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>		<span class="dt">double</span> uz = u * <span class="va">zetan_</span>;</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>		<span class="cf">if</span> (uz &lt; <span class="dv">1</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>			<span class="cf">return</span> <span class="dv">1</span>;</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>		<span class="cf">if</span> (uz &lt; <span class="va">zeta2_</span>)</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>			<span class="cf">return</span> <span class="dv">2</span>;</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span> + (<span class="dt">size_t</span>)(<span class="va">n_</span> * pow(<span class="va">eta_</span> * u - <span class="va">eta_</span> + <span class="dv">1</span>, <span class="va">alpha_</span>));</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a>	}</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>	E <span class="va">engine_</span>;</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>	<span class="dt">size_t</span> <span class="va">n_</span>;</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">alpha_</span>;</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">zeta2_</span>;</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">zetan_</span>;</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">eta_</span>;</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a>};</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>	<span class="bu">std::</span>random_device rd;</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>	<span class="dt">size_t</span> n = <span class="dv">20000000</span>;</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a>	ZipfianGenerator g(n, <span class="fl">0.99</span>, <span class="bu">std::</span>mt19937(rd()));</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; g() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true"></a>	}</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="kw">class</span> ZipfianGenerator {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	ZipfianGenerator(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>		<span class="dt">size_t</span> n, <span class="dt">double</span> theta</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>	) : <span class="va">n_</span>(n),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>		<span class="va">alpha_</span>(<span class="dv">1</span> / (<span class="dv">1</span> - theta)),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>		<span class="va">zeta2_</span>(<span class="dv">1</span> + pow(<span class="fl">2.0</span>, -theta))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	{</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>		<span class="ot">assert</span>(n &gt; <span class="dv">2</span>);</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>		<span class="va">zetan_</span> = <span class="va">zeta2_</span>;</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">3</span>; i &lt;= n; ++i) {</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>			<span class="va">zetan_</span> += pow((<span class="dt">double</span>)i, -theta);</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>		}</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>		<span class="va">eta_</span> = (<span class="dv">1</span> - pow(<span class="fl">2.0</span> / n, <span class="dv">1</span> - theta)) / (<span class="dv">1</span> - <span class="va">zeta2_</span> / <span class="va">zetan_</span>);</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>	}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a>	<span class="kw">template</span> &lt;<span class="kw">typename</span> E&gt;</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>	<span class="dt">size_t</span> <span class="kw">operator</span>()(E &amp;e) {</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>		<span class="bu">std::</span>uniform_real_distribution&lt;&gt; dis(<span class="fl">0.0</span>, <span class="fl">1.0</span>);</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>		<span class="dt">double</span> u = dis(e);</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>		<span class="dt">double</span> uz = u * <span class="va">zetan_</span>;</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>		<span class="cf">if</span> (uz &lt; <span class="dv">1</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>			<span class="cf">return</span> <span class="dv">1</span>;</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>		<span class="cf">if</span> (uz &lt; <span class="va">zeta2_</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>			<span class="cf">return</span> <span class="dv">2</span>;</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span> + (<span class="dt">size_t</span>)(<span class="va">n_</span> * pow(<span class="va">eta_</span> * u - <span class="va">eta_</span> + <span class="dv">1</span>, <span class="va">alpha_</span>));</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a>	}</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a>	<span class="dt">size_t</span> <span class="va">n_</span>;</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">alpha_</span>;</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">zeta2_</span>;</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">zetan_</span>;</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true"></a>	<span class="dt">double</span> <span class="va">eta_</span>;</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>};</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a>	<span class="bu">std::</span>random_device rd;</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a>	<span class="bu">std::</span>mt19937 e(rd());</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>	<span class="dt">size_t</span> n = <span class="dv">20000000</span>;</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>	ZipfianGenerator g(n, <span class="fl">0.99</span>);</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; g(e) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>	}</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>YCSB里的zipfian似乎默认是scrambled zipfian，它的item count被指定为了1e10，导致它生成的分布跟zipfian的理论分布不一致。建议不要用YCSB生成zipfian，而是用它的公式自己写一个。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
