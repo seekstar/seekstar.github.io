@@ -7749,12 +7749,14 @@ nix-channel --add https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unst
 nix-channel --update
 sudo systemctl restart nix-daemon.service</code></pre>
 <p>清华镜像是cache。如果命中了cache，就会显示<code>copying path '/nix/store/xxx' from 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store'...</code>。如果没有命中，就会显示<code>copying path '/nix/store/xxx' from 'https://cache.nixos.org'...</code>，也就是从官方源<code>https://cache.nixos.org</code>下载。</p>
+<p>镜像通常不会缓存旧版本，所以如果发现cache总是不命中，可以试试更新channel来安装最新版：</p>
+<pre class="shell"><code>nix-channel --update</code></pre>
 <h2 id="代理"><a href="#代理">¶</a> 代理</h2>
 <p>设置代理可以提高未命中cache时从官方源下载的速度。</p>
 <pre class="shell"><code>sudo systemctl edit nix-daemon.service</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">[Service]</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"http_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"https_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">[Service]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"http_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"https_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span></code></pre></div>
 <p>然后重启<code>nix-daemon</code>：</p>
 <pre class="shell"><code>sudo systemctl restart nix-daemon.service</code></pre>
 <p>或者直接把内容写进<code>override.conf</code>：</p>
@@ -7822,12 +7824,12 @@ Categories=Network;FileTransfer;</code></pre>
 <h2 id="安装和使用库"><a href="#安装和使用库">¶</a> 安装和使用库</h2>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
 <p>因此如果用Nix包管理器安装了库，比如gtest: <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake + make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick Cao说是cmake的setup hook去找依赖。之后需要把原来的<code>build</code>删掉，再重新<code>cmake ..</code>才行。</p>
 <h2 id="搜索哪个包提供了文件"><a href="#搜索哪个包提供了文件">¶</a> 搜索哪个包提供了文件</h2>
