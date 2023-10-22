@@ -3952,6 +3952,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/10/22/netstat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    netstat学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    nginx学习笔记
@@ -7821,6 +7832,9 @@ mail: Warning: variable superseded or obsoleted: ssl-verify</code></pre>
 <pre class="shell"><code>echo "test mailx" | mailx --subject="test" 接收人@163.com</code></pre>
 <p>Debian用<code>s-nail</code>命令：</p>
 <pre class="shell"><code>echo "test s-nail" | s-nail --subject="test" 接收人@163.com</code></pre>
+<h2 id="使用代理"><a href="#使用代理">¶</a> 使用代理</h2>
+<p>云服务器商似乎会拦截SMTP协议的流量，aliyun和AWS上邮件都发不出去。走socks5代理给一台不存在此限制的服务器上即可：</p>
+<pre class="shell"><code>echo "test s-nail" | s-nail -Ssocks-proxy=socks5://地址:端口号 --subject="test" 接收人@163.com</code></pre>
 <h2 id="相关"><a href="#相关">¶</a> 相关</h2>
 <p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/send-email-linux-command-line" class="uri">https://www.digitalocean.com/community/tutorials/send-email-linux-command-line</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
