@@ -7773,14 +7773,10 @@ var _hmt = _hmt || [];
 					Linux使用笔记
 				</h2>
 				<div class="index-brief">
-					¶ WIFI热点
-使用linux-wifi-hotspot即可。ArchLinux安装方式：
-# archlinuxcn源
-sudo pacman -S linux-wifi-hotspot
-# 或者AUR
-yay -S linux-wifi-hotspot
-¶ KDE Connect
-¶ 控制媒体
+					¶ 更改hostname
+如果直接更改/etc/hostname的话，终端上的hostname要重启之后才会显示为新的。另一种更好的方法是用hostnamectl:
+hostnamectl set-hostname xxxxx
+新的hostname会被自动写入/etc/hostname，而且重启终端
 					...
 				</div>
 			</a>
