@@ -1816,6 +1816,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/10/25/c-%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90/">
+                     
+										    C++内存占用分析
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/03/c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    C++学习笔记
@@ -7745,6 +7756,29 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/09/30/c-panic/">
+				<h2 class="index-title">
+					C++ panic
+				</h2>
+				<div class="index-brief">
+					#define panic(...) do { \
+	fprintf(stderr, "panic: %s:%u: %s:", \
+		__FILE__, __LINE__, __func__); \
+	fprintf(stderr, " " __VA_ARGS__);	\
+	abort(); \
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-30</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/09/30/make%E4%BC%A0%E5%85%A5%E5%8F%98%E9%87%8F/">
 				<h2 class="index-title">
 					make传入变量
@@ -7949,35 +7983,10 @@ public:
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/">
-				<h2 class="index-title">
-					C语言调用Rust
-				</h2>
-				<div class="index-brief">
-					比方说要把这个函数暴露给C语言使用：
-fn add(a: i32, b: i32) -&gt; i32 {
-    return a + b;
-}
-cargo new add --lib
-在add/src/lib.rs里写入：
-#[no_mangle]
-pub extern "C" fn add(a
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-09-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/7/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/64/">64</a><a class="extend next" rel="next" href="/archives/page/9/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/7/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/65/">65</a><a class="extend next" rel="next" href="/archives/page/9/">&gt;</a>
 		
 	</div>
 </div>
