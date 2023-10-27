@@ -7781,15 +7781,73 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="valgrind"><a href="#valgrind">¶</a> valgrind</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="heaptrack"><a href="#heaptrack">¶</a> heaptrack</h2>
+<p>可以打印出消耗内存最多的地方、申请内存次数最多的地方、临时申请内存最多的地方。</p>
+<p><a target="_blank" rel="noopener" href="https://milianw.de/blog/heaptrack-a-heap-memory-profiler-for-linux.html" class="uri">https://milianw.de/blog/heaptrack-a-heap-memory-profiler-for-linux.html</a></p>
+<p>官方文档：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/KDE/heaptrack" class="uri">https://github.com/KDE/heaptrack</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/KDE/heaptrack#heaptrack_print" class="uri">https://github.com/KDE/heaptrack#heaptrack_print</a></p>
+<pre class="shell"><code>sudo apt install heaptrack</code></pre>
+<pre class="shell"><code>heaptrack 可执行文件 参数...</code></pre>
+<pre class="shell"><code>heaptrack_print xxx.gz &gt; report</code></pre>
+<p>有几个section:</p>
+<ul>
+<li><code>MOST CALLS TO ALLOCATION FUNCTIONS</code></li>
+<li><code>PEAK MEMORY CONSUMERS</code></li>
+<li><code>MOST TEMPORARY ALLOCATIONS</code></li>
+<li>最后的summary</li>
+</ul>
+<p>运行速度差不多是正常运行的三四倍。输出的trace虽然经过了压缩，但还是很大。</p>
+<h2 id="valgrind"><a href="#valgrind">¶</a> valgrind</h2>
 <p><code>valgrind --tools=massif 你的程序 参数...</code></p>
 <p>能够知道哪些地方分配的内存最多。</p>
 <p>文档：<a target="_blank" rel="noopener" href="https://valgrind.org/docs/manual/ms-manual.html" class="uri">https://valgrind.org/docs/manual/ms-manual.html</a></p>
 <p>但是valgrind会模拟出一个CPU来运行，所以运行速度会慢很多。</p>
+<h2 id="libtcmalloc"><a href="#libtcmalloc">¶</a> libtcmalloc</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://goog-perftools.sourceforge.net/doc/heap_profiler.html" class="uri">https://goog-perftools.sourceforge.net/doc/heap_profiler.html</a></p>
+<pre class="shell"><code># Debian 11
+# libtcmalloc.so
+sudo apt install libgoogle-perftools-dev
+# pprof-symbolize
+sudo apt install google-perftools</code></pre>
+<p>以<code>ls</code>为例：</p>
+<pre class="shell"><code>mkdir ~/profile
+LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=$HOME/profile/profile ls
+cd ~/profile
+google-pprof --text /usr/bin/ls profile.0001.heap</code></pre>
+<p>然后就会打印出内存消耗最多的地方：</p>
+<pre class="shell"><code>Starting tracking the heap
+Using local file /usr/bin/ls.
+Using local file profile.0001.heap.
+Total: 0.0 MB
+     0.0  68.1%  68.1%      0.0 100.0% _obstack_begin
+     0.0  11.6%  79.8%      0.0  11.6% _nl_make_l10nflist
+     0.0   9.7%  89.5%      0.0   9.7% _nl_intern_locale_data
+     0.0   5.3%  94.9%      0.0   5.3% read_alias_file
+     0.0   4.2%  99.0%      0.0   4.2% extend_alias_table
+     0.0   0.3%  99.4%      0.0   0.3% _obstack_memory_used
+     0.0   0.3%  99.6%      0.0   0.3% __GI___strdup
+     0.0   0.3%  99.9%      0.0   0.3% __GI___strndup
+     0.0   0.1% 100.0%      0.0   0.1% set_binding_values
+     0.0   0.0% 100.0%      0.0   0.0% new_composite_name
+     0.0   0.0% 100.0%      0.0  31.4% __GI_setlocale
+     0.0   0.0% 100.0%      0.0 100.0% __libc_start_main@@GLIBC_2.2.5
+     0.0   0.0% 100.0%      0.0   0.0% __textdomain
+     0.0   0.0% 100.0%      0.0   9.5% _nl_expand_alias
+     0.0   0.0% 100.0%      0.0  31.1% _nl_find_locale
+     0.0   0.0% 100.0%      0.0   9.7% _nl_load_locale</code></pre>
+<p><code>google-pprof</code>的一些选项：</p>
+<p><code>--text</code>: 不进入interactive模式，而是直接打印报告。</p>
+<pre class="text"><code>   --add_lib=&lt;file&gt;    Read additional symbols and line info from the given library</code></pre>
+<p>但是没有行号。而且跑得很慢。这里说libtcmalloc开了heap profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
 <h2 id="没试过"><a href="#没试过">¶</a> 没试过</h2>
+<h3 id="mtuner"><a href="#mtuner">¶</a> MTuner</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/RudjiGames/MTuner" class="uri">https://github.com/RudjiGames/MTuner</a></p>
-<p><a target="_blank" rel="noopener" href="https://doordash.engineering/2021/04/01/examining-problematic-memory-with-bpf-perf-and-memcheck/" class="uri">https://doordash.engineering/2021/04/01/examining-problematic-memory-with-bpf-perf-and-memcheck/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
+<p>看起来似乎不支持linux</p>
+<h3 id="memleak"><a href="#memleak">¶</a> memleak</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/iovisor/bcc" class="uri">https://github.com/iovisor/bcc</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/iovisor/bcc/blob/master/tools/memleak_example.txt" class="uri">https://github.com/iovisor/bcc/blob/master/tools/memleak_example.txt</a></p>
+<p>好像只是打印一段时间没有被free的内存。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
