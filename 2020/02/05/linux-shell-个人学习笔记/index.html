@@ -7792,7 +7792,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>安全重启：<br>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>安全重启：<br>
 按住<code>alt+&lt;PrtSc&gt;</code>，然后依次按下reisub即可安全重启。</p>
 <h2 id="语法"><a href="#语法">¶</a> 语法</h2>
 <h3 id="条件判断"><a href="#条件判断">¶</a> 条件判断</h3>
@@ -7995,6 +7995,19 @@ fi</code></pre>
 	echo yes;
 fi</code></pre>
 <p>会打印出<code>yes</code>。</p>
+<p>如果要判断是否不包含：</p>
+<pre class="shell"><code>if ! [[ 2333test233222 =~ test233 ]]; then
+	echo yes;
+fi</code></pre>
+<p>或操作：</p>
+<pre class="shell"><code>if [[ 2333test233222 =~ abc || 2333test233222 =~ test233 ]]; then
+	echo yes;
+fi
+# yes</code></pre>
+<p>与操作：</p>
+<pre class="shell"><code>if [[ 2333test233222 =~ abc &amp;&amp; 2333test233222 =~ test233 ]]; then
+	echo yes;
+fi</code></pre>
 <h3 id="重定向"><a href="#重定向">¶</a> 重定向</h3>
 <pre class="shell"><code># 将`stdout`重定向到`stdout.txt`
 Command &gt; stdout.txt
@@ -8203,6 +8216,34 @@ humanfriendly --parse-size="2 KB"
 # 2048
 humanfriendly --parse-size="2 KiB"</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/46373468" class="uri">https://stackoverflow.com/a/46373468</a></p>
+<h3 id="读取json"><a href="#读取json">¶</a> 读取JSON</h3>
+<p>用<code>jq</code></p>
+<pre class="shell"><code># Debian
+sudo apt install jq
+# ArchLinux
+sudo pacman -S jq</code></pre>
+<pre class="shell"><code>curl -s 'https://api.github.com/users/lambda' | jq -r '.name'</code></pre>
+<pre class="text"><code>Brian Campbell</code></pre>
+<p>如果field不一定存在，可以用这个方式判断：</p>
+<pre class="shell"><code>name=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name')
+if [ $? -eq 0 ]; then
+	echo $name
+else
+	echo name does not exist
+fi
+
+name1=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name1')
+if [ $? -eq 0 ]; then
+	echo $name1
+else
+	echo name1 does not exist
+fi</code></pre>
+<pre class="text"><code>Brian Campbell
+name1 does not exist</code></pre>
+<pre class="text"><code>○   -e / --exit-status:
+
+	Sets  the  exit status of jq to 0 if the last output values was neither false nor null, 1 if the last output value was either false or null, or 4 if no valid result was ever produced.</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/53135202/13688160" class="uri">https://stackoverflow.com/a/53135202/13688160</a></p>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
 <h3 id="awk"><a href="#awk">¶</a> awk</h3>
 <p><a target="_blank" rel="noopener" href="https://m.runoob.com/linux/linux-comm-awk.html">Linux awk 命令</a></p>

@@ -7839,10 +7839,8 @@ git reset --hard HEAD~3
 					可以用rsync。例子：
 # 相当于scp sshname:/path/to/file .
 rsync -zP -e ssh sshname:/path/to/file .
-常用选项：
--v: verbose
--z: --compress。
--P: -partial -progress，部分传送和显
+# 类似于scp -r sshname:/path/to/dir .
+# 但是当/path/to/dir已经存在时不会在下面新
 					...
 				</div>
 			</a>

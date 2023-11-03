@@ -7792,14 +7792,28 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>可以用<code>rsync</code>。例子：</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>可以用<code>rsync</code>。例子：</p>
 <pre class="shell"><code># 相当于scp sshname:/path/to/file .
-rsync -zP -e ssh sshname:/path/to/file .</code></pre>
+rsync -zP -e ssh sshname:/path/to/file .
+# 类似于scp -r sshname:/path/to/dir .
+# 但是当/path/to/dir已经存在时不会在下面新建一个文件夹，而是直接把文件夹内容拷贝到/path/to/dir里面。
+rsync -zPrt -e ssh sshname:/path/to/dir .</code></pre>
 <p>常用选项：</p>
 <p>-v: verbose</p>
 <p>-z: --compress。</p>
 <p>-P: <code>-partial -progress</code>，部分传送和显示进度。</p>
 <p>--bwlimit: 限速。用法：<code>--bwlimit=RATE</code>。单位默认<code>KiB/s</code>。也可以指定单位，比如<code>m</code>表示单位是<code>MiB/s</code>，<code>--bwlimit=1.5m</code>就表示限速到<code>1.5MiB/s</code>。</p>
+<pre class="text"><code>--archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
+--recursive, -r          recurse into directories
+--links, -l              copy symlinks as symlinks
+--perms, -p              preserve permissions
+--times, -t              preserve modification times
+--group, -g              preserve group
+--owner, -o              preserve owner (super-user only)
+-D                       same as --devices --specials
+--devices                preserve device files (super-user only)
+--specials               preserve special files</code></pre>
+<p>--include, --exclude: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively" class="uri">https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively</a></p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/" class="uri">https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hepeng597/article/details/8960885" class="uri">https://blog.csdn.net/hepeng597/article/details/8960885</a></p>

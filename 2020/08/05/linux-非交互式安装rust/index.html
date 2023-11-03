@@ -7792,7 +7792,8 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>官网提供的安装方式是交互式的，需要手动输入回车来使用默认配置。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="使用官方源"><a href="#使用官方源">¶</a> 使用官方源</h2>
+<p>官网提供的安装方式是交互式的，需要手动输入回车来使用默认配置。</p>
 <pre class="shell"><code>curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh</code></pre>
 <p>其实下载下来的脚本里有使用帮助</p>
 <pre class="shell"><code>rustup-init 1.22.1 (76644d669 2020-07-08)
@@ -7818,10 +7819,32 @@ OPTIONS:
     -t, --target &lt;targets&gt;...                      Target name to also install</code></pre>
 <p>可以看到<code>-y</code>就是非交互式模式了。<br>
 所以在脚本中写入：</p>
-<pre class="shell"><code>curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf &gt; rustup.sh
-sh rustup.sh -y
-sudo bash -c "echo source $HOME/.cargo/env &gt;&gt; /etc/bash.bashrc"</code></pre>
+<pre class="shell"><code>sh &lt;(curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf) -y</code></pre>
 <p>就可以非交互式安装rust了。</p>
+<h2 id="使用国内镜像"><a href="#使用国内镜像">¶</a> 使用国内镜像</h2>
+<p>详情：<a target="_blank" rel="noopener" href="https://blog.csdn.net/inthat/article/details/106742193">Rust使用国内Crates 源、 rustup源 |字节跳动新的 Rust 镜像源以及安装rust</a></p>
+<p>这里直接给脚本：</p>
+<pre class="shell"><code>mkdir -p ~/.cargo
+cat &gt;&gt; ~/.cargo/config &lt;&lt;EOF
+[source.crates-io]
+replace-with = 'rsproxy'
+
+[source.rsproxy]
+registry = "https://rsproxy.cn/crates.io-index"
+
+[registries.rsproxy]
+index = "https://rsproxy.cn/crates.io-index"
+
+[net]
+git-fetch-with-cli = true
+EOF
+cat &gt;&gt; ~/.profile &lt;&lt;EOF
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+EOF
+source ~/.profile
+sh &lt;(curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh) -y
+source "$HOME/.cargo/env"</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
