@@ -7792,7 +7792,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="语法"><a href="#语法">¶</a> 语法</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="语法"><a href="#语法">¶</a> 语法</h2>
 <p>缩进应该使用4个空格而不是tab：<a target="_blank" rel="noopener" href="https://peps.python.org/pep-0008/#tabs-or-spaces" class="uri">https://peps.python.org/pep-0008/#tabs-or-spaces</a></p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://m.runoob.com/python3/python3-if-example.html">Python if 语句</a></p></li>
@@ -7933,11 +7933,19 @@ var _hmt = _hmt || [];
 <h4 id="等差数列"><a href="#等差数列">¶</a> 等差数列</h4>
 <p>文档：<a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.linspace.html</a></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)[source]</span></code></pre></div>
-<h3 id="其他-1"><a href="#其他-1">¶</a> 其他</h3>
+<h3 id="json"><a href="#json">¶</a> json</h3>
+<h4 id="字典和json字符串的转换"><a href="#字典和json字符串的转换">¶</a> 字典和json字符串的转换</h4>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36899414/article/details/77817195">python字典和JSON格式的转换</a></li>
 </ul>
 <p><code>json.dumps(obj, indent='\t')</code>可以使用tab进行缩进。</p>
+<h4 id="从文件读取"><a href="#从文件读取">¶</a> 从文件读取</h4>
+<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="im">import</span> json</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>json.load(<span class="bu">open</span>(路径))</span></code></pre></div>
+<p>但是遇到trailing comma会报错。可以用json5: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas" class="uri">https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas</a></p>
+<pre class="shell"><code>pip3 install json5</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="im">import</span> json5</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>json5.load(<span class="bu">open</span>(路径))</span></code></pre></div>
 <h2 id="pip"><a href="#pip">¶</a> pip</h2>
 <p>安装指定版本：<a target="_blank" rel="noopener" href="https://www.marsja.se/pip-install-specific-version-of-python-package/" class="uri">https://www.marsja.se/pip-install-specific-version-of-python-package/</a></p>
 <p>requirements.txt: <a target="_blank" rel="noopener" href="https://note.nkmk.me/en/python-pip-install-requirements/" class="uri">https://note.nkmk.me/en/python-pip-install-requirements/</a></p>
