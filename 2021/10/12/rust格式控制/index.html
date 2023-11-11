@@ -7792,13 +7792,18 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>官方教程：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fmt/" class="uri">https://doc.rust-lang.org/std/fmt/</a></p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>官方教程：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fmt/" class="uri">https://doc.rust-lang.org/std/fmt/</a></p>
 <p>注意，标准库里的格式控制字符串必须是字面量：<br>
 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/rust/comments/48jzw0/formatting_with_a_static_string_literal/" class="uri">https://www.reddit.com/r/rust/comments/48jzw0/formatting_with_a_static_string_literal/</a><br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46788199/how-to-create-a-constant-string-literal-in-rust" class="uri">https://stackoverflow.com/questions/46788199/how-to-create-a-constant-string-literal-in-rust</a><br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32572486/how-can-i-use-a-dynamic-format-string-with-the-format-macro" class="uri">https://stackoverflow.com/questions/32572486/how-can-i-use-a-dynamic-format-string-with-the-format-macro</a></p>
 <p>如果想要动态的格式控制字符串，可以试试strfmt:<br>
 <a target="_blank" rel="noopener" href="https://github.com/vitiral/strfmt" class="uri">https://github.com/vitiral/strfmt</a></p>
+<h2 id="浮点数打印时忽略浮点误差"><a href="#浮点数打印时忽略浮点误差">¶</a> 浮点数打印时忽略浮点误差</h2>
+<p>rust不支持<code>%g</code>:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rust/issues/29472">Pretty print isn't pretty for floats</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sampsyo/bril/pull/218" class="uri">https://github.com/sampsyo/bril/pull/218</a></p>
+<p>不过可以用crate <code>gpoint</code>实现：<a target="_blank" rel="noopener" href="https://crates.io/crates/gpoint" class="uri">https://crates.io/crates/gpoint</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

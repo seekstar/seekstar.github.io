@@ -7808,30 +7808,49 @@ var _hmt = _hmt || [];
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>) :</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	Statements</span></code></pre></div>
 <p>在交互式环境中（如命令行形式）后面要多打一个回车才开始运行</p>
-<h2 id="类"><a href="#类">¶</a> 类</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="at">@dataclass</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">class</span> A:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    a: <span class="bu">int</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    b: <span class="bu">str</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    c: <span class="bu">float</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>li: <span class="bu">list</span>[A] <span class="op">=</span> []</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>li.append(A(<span class="dv">1</span>, <span class="st">"2"</span>, <span class="fl">3.3</span>))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>li.append(A(<span class="dv">2</span>, <span class="st">"3"</span>, <span class="fl">4.4</span>))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="bu">print</span>(li)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="co"># [&lt;class '__main__.A'&gt;, A(a=1, b='2', c=3.3), A(a=2, b='3', c=4.4)]</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>item <span class="op">=</span> li[<span class="dv">1</span>]</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="bu">print</span>(item.c)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="co"># 3.3</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="bu">sorted</span>(li, key <span class="op">=</span> <span class="kw">lambda</span> item: item.c, reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35988/c-like-structures-in-python" class="uri">https://stackoverflow.com/questions/35988/c-like-structures-in-python</a></p>
-<p>完整教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-object.html">Python 面向对象</a></p>
 <h2 id="内置数据结构"><a href="#内置数据结构">¶</a> 内置数据结构</h2>
+<h3 id="list"><a href="#list">¶</a> List</h3>
+<p>教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-lists.html">Python 列表(List)</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="co"># 最后一个元素</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co"># 4</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>a[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="co"># 从index为1的元素开始的所有元素</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co"># [2, 3, 4]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>a[<span class="dv">1</span>:]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="co"># 以最后一个元素结尾（不含）的所有元素</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="co"># [1, 2, 3]</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>a[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="co"># 以倒数第二个元素结尾（不含）的所有元素</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a><span class="co"># [1, 2]</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>a[:<span class="op">-</span><span class="dv">2</span>]</span></code></pre></div>
+<h3 id="其他"><a href="#其他">¶</a> 其他</h3>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1694102996150591628&amp;wfr=spider&amp;for=pc">Python教学: Python Dictionary完全教学一次搞懂</a></p></li>
-<li><p><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-lists.html">Python 列表(List)</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wsq119/article/details/105385142">Python中Tuple（元组）</a></p></li>
 </ul>
+<h2 id="类"><a href="#类">¶</a> 类</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="at">@dataclass</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">class</span> A:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    a: <span class="bu">int</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    b: <span class="bu">str</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    c: <span class="bu">float</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>li: <span class="bu">list</span>[A] <span class="op">=</span> []</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>li.append(A(<span class="dv">1</span>, <span class="st">"2"</span>, <span class="fl">3.3</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>li.append(A(<span class="dv">2</span>, <span class="st">"3"</span>, <span class="fl">4.4</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="bu">print</span>(li)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="co"># [&lt;class '__main__.A'&gt;, A(a=1, b='2', c=3.3), A(a=2, b='3', c=4.4)]</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>item <span class="op">=</span> li[<span class="dv">1</span>]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="bu">print</span>(item.c)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="co"># 3.3</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="bu">sorted</span>(li, key <span class="op">=</span> <span class="kw">lambda</span> item: item.c, reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/35988/c-like-structures-in-python" class="uri">https://stackoverflow.com/questions/35988/c-like-structures-in-python</a></p>
+<p>完整教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-object.html">Python 面向对象</a></p>
 <h2 id="输入"><a href="#输入">¶</a> 输入</h2>
 <ul>
 <li><a href="/2021/07/22/python%E5%B8%B8%E7%94%A8%E8%BE%93%E5%85%A5%E6%96%B9%E5%BC%8F/" title="python常用输入方式">python常用输入方式</a></li>
@@ -7840,78 +7859,83 @@ var _hmt = _hmt || [];
 <p>完整版：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/python3-print-func-b.html">Python3 print 函数用法总结</a></p>
 <h3 id="输出为科学计数法"><a href="#输出为科学计数法">¶</a> 输出为科学计数法</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45434742/article/details/102094577?fps=1&amp;locationNum=2" class="uri">https://blog.csdn.net/qq_45434742/article/details/102094577?fps=1&amp;locationNum=2</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span><span class="dv">111</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">111</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>x)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>(<span class="dv">111</span> <span class="op">+</span> <span class="dv">111</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st"> </span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>(x, <span class="dv">111</span> <span class="op">+</span> <span class="dv">111</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span><span class="dv">111</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>x <span class="op">=</span> <span class="dv">111</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>x)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>(<span class="dv">111</span> <span class="op">+</span> <span class="dv">111</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%e</span><span class="st"> </span><span class="sc">%e</span><span class="st">"</span> <span class="op">%</span>(x, <span class="dv">111</span> <span class="op">+</span> <span class="dv">111</span>))</span></code></pre></div>
 <h3 id="不打印换行符"><a href="#不打印换行符">¶</a> 不打印换行符</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'hello'</span>, end<span class="op">=</span><span class="st">''</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'hello'</span>, end<span class="op">=</span><span class="st">''</span>)</span></code></pre></div>
 <h3 id="打印到stderr"><a href="#打印到stderr">¶</a> 打印到stderr</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'xxx'</span>, <span class="bu">file</span><span class="op">=</span>sys.stderr)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'xxx'</span>, <span class="bu">file</span><span class="op">=</span>sys.stderr)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python" class="uri">https://stackoverflow.com/questions/5574702/how-do-i-print-to-stderr-in-python</a></p>
 <h3 id="指定分隔符打印数组"><a href="#指定分隔符打印数组">¶</a> 指定分隔符打印数组</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">', '</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">' -&gt; '</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="dv">1</span> <span class="op">-&gt;</span> <span class="dv">2</span> <span class="op">-&gt;</span> <span class="dv">3</span> <span class="op">-&gt;</span> <span class="dv">4</span> <span class="op">-&gt;</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> L <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">', '</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="op">*</span>L, sep<span class="op">=</span><span class="st">' -&gt; '</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="dv">1</span> <span class="op">-&gt;</span> <span class="dv">2</span> <span class="op">-&gt;</span> <span class="dv">3</span> <span class="op">-&gt;</span> <span class="dv">4</span> <span class="op">-&gt;</span> <span class="dv">5</span></span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22556449/print-a-list-of-space-separated-elements" class="uri">https://stackoverflow.com/questions/22556449/print-a-list-of-space-separated-elements</a></p>
 <h2 id="文件"><a href="#文件">¶</a> 文件</h2>
 <a href="/2021/07/22/python%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" title="python文件管理">python文件管理</a>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiankang66/article/details/125981793">python基础之写文件操作</a></p>
 <h3 id="切换到脚本所在目录"><a href="#切换到脚本所在目录">¶</a> 切换到脚本所在目录</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="im">import</span> os</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>abspath <span class="op">=</span> os.path.abspath(sys.argv[<span class="dv">0</span>])</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>dname <span class="op">=</span> os.path.dirname(abspath)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>os.chdir(dname)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="im">import</span> os</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>abspath <span class="op">=</span> os.path.abspath(sys.argv[<span class="dv">0</span>])</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>dname <span class="op">=</span> os.path.dirname(abspath)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>os.chdir(dname)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1432924/python-change-the-scripts-working-directory-to-the-scripts-own-directory" class="uri">https://stackoverflow.com/questions/1432924/python-change-the-scripts-working-directory-to-the-scripts-own-directory</a></p>
+<h3 id="打印到文件"><a href="#打印到文件">¶</a> 打印到文件</h3>
+<p>使用<code>print</code>的<code>file</code>参数：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>f <span class="op">=</span> <span class="bu">open</span>(路径, <span class="st">'w'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">'Average </span><span class="sc">%f</span><span class="st">'</span> <span class="op">%</span>average, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.askpython.com/python/built-in-methods/python-print-to-file" class="uri">https://www.askpython.com/python/built-in-methods/python-print-to-file</a></p>
 <h2 id="标准库"><a href="#标准库">¶</a> 标准库</h2>
 <h3 id="时间"><a href="#时间">¶</a> 时间</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html" class="uri">https://docs.python.org/3/library/datetime.html</a></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>datetime.datetime.fromtimestamp(<span class="dv">1516332287</span>)</span></code></pre></div>
 <p>也可以用<code>time</code>包：<a target="_blank" rel="noopener" href="https://blog.csdn.net/google19890102/article/details/51355282">Python中时间与时间戳之间的转换</a></p>
 <h3 id="math"><a href="#math">¶</a> math</h3>
 <h4 id="阶乘"><a href="#阶乘">¶</a> 阶乘</h4>
 <p>10!</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>factorial(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>factorial(<span class="dv">10</span>)</span></code></pre></div>
 <h3 id="正则"><a href="#正则">¶</a> 正则</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/re.html" class="uri">https://docs.python.org/3/library/re.html</a></p>
 <h3 id="执行命令"><a href="#执行命令">¶</a> 执行命令</h3>
 <h4 id="简单执行命令"><a href="#简单执行命令">¶</a> 简单执行命令</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="im">import</span> subprocess</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>subprocess.call([<span class="st">'./executable'</span>, arg1, arg2])</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="im">import</span> subprocess</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>subprocess.call([<span class="st">'./executable'</span>, arg1, arg2])</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5788891/execute-a-file-with-arguments-in-python-shell" class="uri">https://stackoverflow.com/questions/5788891/execute-a-file-with-arguments-in-python-shell</a></p>
 <h4 id="获取命令输出"><a href="#获取命令输出">¶</a> 获取命令输出</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></p>
 <h3 id="排序"><a href="#排序">¶</a> 排序</h3>
 <p>用<code>sorted</code>。</p>
 <h4 id="对字典的key排序"><a href="#对字典的key排序">¶</a> 对字典的key排序</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>}</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="bu">sorted</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>}</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="bu">sorted</span>(x)</span></code></pre></div>
 <pre class="text"><code>[1, 2, 4]</code></pre>
 <h4 id="对字典的值排序"><a href="#对字典的值排序">¶</a> 对字典的值排序</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>, <span class="dv">0</span>: <span class="dv">0</span>}</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>x <span class="op">=</span> {<span class="dv">1</span>: <span class="dv">2</span>, <span class="dv">3</span>: <span class="dv">4</span>, <span class="dv">4</span>: <span class="dv">3</span>, <span class="dv">2</span>: <span class="dv">1</span>, <span class="dv">0</span>: <span class="dv">0</span>}</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="bu">sorted</span>(x.items(), key<span class="op">=</span><span class="kw">lambda</span> item: item[<span class="dv">1</span>])</span></code></pre></div>
 <pre class="text"><code>[(0, 0), (2, 1), (1, 2), (4, 3), (3, 4)]</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value" class="uri">https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value</a></p>
 <h3 id="shlex"><a href="#shlex">¶</a> shlex</h3>
 <p>可以用解析命令行参数的方式解析字符串。文档：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/shlex.html" class="uri">https://docs.python.org/3/library/shlex.html</a></p>
 <p>例子：</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co"># https://stackoverflow.com/a/899314</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="im">import</span> shlex</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>shlex.split(<span class="st">'-o 1 --long "Some long string"'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="co"># https://stackoverflow.com/a/899314</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="im">import</span> shlex</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>shlex.split(<span class="st">'-o 1 --long "Some long string"'</span>)</span></code></pre></div>
 <pre class="text"><code>['-o', '1', '--long', 'Some long string']</code></pre>
 <h3 id="取整"><a href="#取整">¶</a> 取整</h3>
 <p>四舍五入：<code>round</code></p>
 <p>向上取整：<code>math.ceil</code></p>
 <p>向下取整：<code>math.floor</code></p>
-<h3 id="其他"><a href="#其他">¶</a> 其他</h3>
+<h3 id="其他-1"><a href="#其他-1">¶</a> 其他</h3>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/python30/python-30-command-line-arguments.html">Python 3 命令行参数</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/robert_chen1988/article/details/82887820">python 生成随机数的三种方法</a></p></li>
@@ -7930,13 +7954,32 @@ var _hmt = _hmt || [];
 <a href="/2021/08/21/pandas%E6%95%B0%E6%8D%AE%E6%A1%86%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="pandas数据框常用操作">pandas数据框常用操作</a>
 <h3 id="numpy"><a href="#numpy">¶</a> numpy</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/" class="uri">https://numpy.org/doc/stable/</a></p>
+<h4 id="numpyarray"><a href="#numpyarray">¶</a> numpy.array</h4>
+<h5 id="从python-list创建"><a href="#从python-list创建">¶</a> 从python list创建</h5>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code></pre></div>
+<h5 id="从多个python-list创建一维数组"><a href="#从多个python-list创建一维数组">¶</a> 从多个python list创建一维数组</h5>
+<p>如果是确定数量的list，可以用<code>np.concatenate</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>b <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>np.concatenate((a, b))</span></code></pre></div>
+<p>输出：<code>array([1, 2, 3, 4, 5, 6])</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/54773471/13688160" class="uri">https://stackoverflow.com/a/54773471/13688160</a></p>
+<p>如果有不定数量的list，用迭代器：</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a>listOfLists <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>np.array([ elem <span class="cf">for</span> singleList <span class="kw">in</span> listOfLists <span class="cf">for</span> elem <span class="kw">in</span> singleList])</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>array([1, 2, 3, 4, 5, 6])</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://thispointer.com/python-numpy-create-a-ndarray-from-list-tuple-or-list-of-lists-using-numpy-array/" class="uri">https://thispointer.com/python-numpy-create-a-ndarray-from-list-tuple-or-list-of-lists-using-numpy-array/</a></p>
+<h5 id="二分搜索"><a href="#二分搜索">¶</a> 二分搜索</h5>
+<p><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html</a></p>
+<p>left相当于lower_bound, right相当于upper_bound, 默认是left。</p>
 <h4 id="矩阵操作"><a href="#矩阵操作">¶</a> 矩阵操作</h4>
 <ul>
 <li><a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/" title="numpy矩阵操作">numpy矩阵操作</a></li>
 </ul>
 <h4 id="等差数列"><a href="#等差数列">¶</a> 等差数列</h4>
 <p>文档：<a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.linspace.html</a></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)[source]</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)[source]</span></code></pre></div>
 <h3 id="json"><a href="#json">¶</a> json</h3>
 <h4 id="字典和json字符串的转换"><a href="#字典和json字符串的转换">¶</a> 字典和json字符串的转换</h4>
 <ul>
@@ -7944,12 +7987,12 @@ var _hmt = _hmt || [];
 </ul>
 <p><code>json.dumps(obj, indent='\t')</code>可以使用tab进行缩进。</p>
 <h4 id="从文件读取"><a href="#从文件读取">¶</a> 从文件读取</h4>
-<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="im">import</span> json</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>json.load(<span class="bu">open</span>(路径))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="im">import</span> json</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>json.load(<span class="bu">open</span>(路径))</span></code></pre></div>
 <p>但是遇到trailing comma会报错。可以用json5: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas" class="uri">https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas</a></p>
 <pre class="shell"><code>pip3 install json5</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="im">import</span> json5</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>json5.load(<span class="bu">open</span>(路径))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="im">import</span> json5</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>json5.load(<span class="bu">open</span>(路径))</span></code></pre></div>
 <h2 id="pip"><a href="#pip">¶</a> pip</h2>
 <p>安装指定版本：<a target="_blank" rel="noopener" href="https://www.marsja.se/pip-install-specific-version-of-python-package/" class="uri">https://www.marsja.se/pip-install-specific-version-of-python-package/</a></p>
 <p>requirements.txt: <a target="_blank" rel="noopener" href="https://note.nkmk.me/en/python-pip-install-requirements/" class="uri">https://note.nkmk.me/en/python-pip-install-requirements/</a></p>
