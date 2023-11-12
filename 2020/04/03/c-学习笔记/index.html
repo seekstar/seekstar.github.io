@@ -7792,7 +7792,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="clang-format"><a href="#clang-format">¶</a> <code>.clang-format</code></h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="clang-format"><a href="#clang-format">¶</a> <code>.clang-format</code></h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># &lt;https://clang.llvm.org/docs/ClangFormatStyleOptions.html&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">IndentWidth</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
@@ -8655,6 +8655,36 @@ sudo pacman -S boost</code></pre>
 <h2 id="执行命令"><a href="#执行命令">¶</a> 执行命令</h2>
 <p><code>std::system</code>: <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/program/system" class="uri">https://en.cppreference.com/w/cpp/utility/program/system</a></p>
 <p>当前线程会一直阻塞到命令完成。如果想要非阻塞的话，可以在命令的最后加一个<code>&amp;</code>，让它在后台执行。当前进程退出时这个后台进程会自动被杀掉。</p>
+<h2 id="non-portable"><a href="#non-portable">¶</a> Non-portable</h2>
+<p>给线程取名字：</p>
+<p>用<code>pthread_setname_np</code>:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a>pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span></code></pre></div>
+<p>例子：</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true"></a>	<span class="dt">size_t</span> n = <span class="dv">50000</span>;</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true"></a>	<span class="dt">size_t</span> sum = <span class="dv">0</span>;</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true"></a>			sum += i * j;</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true"></a>		}</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true"></a>	}</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true"></a>	pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true"></a></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true"></a>	sum = <span class="dv">0</span>;</span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true"></a>			sum += i * j;</span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true"></a>		}</span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true"></a>	}</span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true"></a></span>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true"></a>}</span></code></pre></div>
+<p>用<code>top</code>可以看到运行到一半线程的名字会变成<code>thread_name</code>。</p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <a href="/2020/04/30/c-%E8%8E%B7%E5%8F%96%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%88%B3/" title="C++获取日期时间戳">C++获取日期时间戳</a>
 <a href="/2023/10/25/c-%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90/" title="C++内存占用分析">C++内存占用分析</a>
