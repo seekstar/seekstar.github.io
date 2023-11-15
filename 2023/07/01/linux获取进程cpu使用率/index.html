@@ -7218,6 +7218,17 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
+								<li class="file">
+									<a href="/2023/11/14/linux%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/">
+                     
+										    Linux获取线程CPU使用情况
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
 								<li class="file active">
 									<a href="/2023/07/01/linux%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
                      
@@ -7792,7 +7803,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><h2 id="pidstat-推荐"><a href="#pidstat-推荐">¶</a> pidstat (推荐)</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="pidstat-推荐"><a href="#pidstat-推荐">¶</a> pidstat (推荐)</h2>
 <pre class="shell"><code>pidstat -p 进程PID -H -u 间隔秒数 | awk '{if(NR&gt;3){print $1,$8}}'</code></pre>
 <ul>
 <li><code>-H</code>: Display timestamp in seconds since the epoch.</li>
@@ -7810,12 +7821,22 @@ var _hmt = _hmt || [];
 <p>输出：</p>
 <pre class="text"><code>%CPU
 52.3</code></pre>
+<p>不过用来获取累积CPU time的秒数挺好用的：</p>
+<pre class="shell"><code>ps -q 进程PID -o cputimes</code></pre>
 <p>同理也可以获取进程的内存占用：</p>
 <pre class="shell"><code>ps -q 进程PID -o %cpu,%mem</code></pre>
 <p>输出：</p>
 <pre class="text"><code>%CPU %MEM
 52.2  4.1</code></pre>
 <p>这个内存占用应该是瞬时的。</p>
+<pre class="text"><code>       %cpu        %CPU      cpu utilization of the process in "##.#" format.  Currently, it is the CPU time used
+                             divided by the time the process has been running (cputime/realtime ratio), expressed
+                             as a percentage.  It will not add up to 100% unless you are lucky.  (alias pcpu).
+
+       %mem        %MEM      ratio of the process's resident set size  to the physical memory on the machine,
+                             expressed as a percentage.  (alias pmem).
+
+       cputimes    TIME      cumulative CPU time in seconds (alias times).</code></pre>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.baeldung.com/linux/process-periodic-cpu-usage" class="uri">https://www.baeldung.com/linux/process-periodic-cpu-usage</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
