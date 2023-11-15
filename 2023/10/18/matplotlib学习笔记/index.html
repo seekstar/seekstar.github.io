@@ -7816,29 +7816,44 @@ var _hmt = _hmt || [];
 <h2 id="pyplot"><a href="#pyplot">¶</a> pyplot</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <p>yscale: <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yscale.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yscale.html</a></p>
+<h3 id="设置tick的个数"><a href="#设置tick的个数">¶</a> 设置tick的个数</h3>
+<p>比如让y轴有4个tick:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/13418954/13688160" class="uri">https://stackoverflow.com/a/13418954/13688160</a></p>
 <h2 id="axes"><a href="#axes">¶</a> Axes</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>ax <span class="op">=</span> plt.gca()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>ax <span class="op">=</span> plt.gca()</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/axes_api.html" class="uri">https://matplotlib.org/stable/api/axes_api.html</a></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15067668/how-to-get-a-matplotlib-axes-instance" class="uri">https://stackoverflow.com/questions/15067668/how-to-get-a-matplotlib-axes-instance</a></p>
 <h3 id="tick-formatter"><a href="#tick-formatter">¶</a> tick formatter</h3>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/ticks/tick-formatters.html" class="uri">https://matplotlib.org/stable/gallery/ticks/tick-formatters.html</a></p>
 <p>例子：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>ax1.xaxis.set_major_formatter(<span class="kw">lambda</span> x, pos: <span class="bu">str</span>(x<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>ax1.xaxis.set_major_formatter(<span class="kw">lambda</span> x, pos: <span class="bu">str</span>(x<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
+<h3 id="grid"><a href="#grid">¶</a> grid</h3>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html</a></p>
+<p>让参考线在柱状图的柱子后面:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co"># https://stackoverflow.com/a/68344604</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>ax.set_axisbelow(<span class="va">True</span>)</span></code></pre></div>
+<p>给y轴画参考线：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>)</span></code></pre></div>
 <h4 id="指定指数"><a href="#指定指数">¶</a> 指定指数</h4>
 <p>比如指定指数为1e-9:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits" class="uri">https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits</a></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/77442842/13688160" class="uri">https://stackoverflow.com/a/77442842/13688160</a></p>
 <p>设置fontsize:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/34228384/13688160" class="uri">https://stackoverflow.com/a/34228384/13688160</a></p>
 <h2 id="翻转坐标轴"><a href="#翻转坐标轴">¶</a> 翻转坐标轴</h2>
 <p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html</a></p>
-<h2 id="gridspec"><a href="#gridspec">¶</a> gridspec</h2>
+<h2 id="子图"><a href="#子图">¶</a> 子图</h2>
+<p>用gridspec</p>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html</a></p>
 <p>官方例子：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/align_labels_demo.html#sphx-glr-gallery-subplots-axes-and-figures-align-labels-demo-py" class="uri">https://matplotlib.org/stable/gallery/subplots_axes_and_figures/align_labels_demo.html#sphx-glr-gallery-subplots-axes-and-figures-align-labels-demo-py</a></p>
+<h2 id="调整坐标轴label与tick-label之间的空隙"><a href="#调整坐标轴label与tick-label之间的空隙">¶</a> 调整坐标轴label与tick label之间的空隙</h2>
+<p>用<code>labelpad</code></p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.xlabel.html" class="uri">https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.xlabel.html</a></p>
 <h2 id="疑难杂症"><a href="#疑难杂症">¶</a> 疑难杂症</h2>
 <p>在安装了<code>ttf-mscorefonts-installer</code>的情况下<code>matplotlib</code>找不到Times New Roman:</p>
 <pre class="shell"><code>sudo apt install msttcorefonts -qq
