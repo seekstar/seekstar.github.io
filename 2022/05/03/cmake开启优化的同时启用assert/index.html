@@ -2894,6 +2894,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/11/17/%E9%85%8D%E8%89%B2/">
+                     
+										    配色
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5657,6 +5668,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/11/17/numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    numpy学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/">
                      
 										    numpy矩阵操作
@@ -7098,9 +7120,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7109,9 +7131,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7803,7 +7825,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>cmake在将<code>CMAKE_BUILD_TYPE</code>设置成<code>Release</code>、<code>RelWithDebInfo</code>、<code>MinSizeRel</code>时，都会加上<code>-DNDEBUG</code>选项，将<code>assert</code>给优化掉。<code>Debug</code>虽然启用了<code>assert</code>，但是又没有开优化。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>cmake在将<code>CMAKE_BUILD_TYPE</code>设置成<code>Release</code>、<code>RelWithDebInfo</code>、<code>MinSizeRel</code>时，都会加上<code>-DNDEBUG</code>选项，将<code>assert</code>给优化掉。<code>Debug</code>虽然启用了<code>assert</code>，但是又没有开优化。</p>
 <p>如果需要在开启优化的同时启用<code>assert</code>，可以将<code>CMAKE_BUILD_TYPE</code>设置成<code>None</code>（因为有些project会设置默认<code>CMAKE_BUILD_TYPE</code>），然后另外传入编译选项，C语言的编译选项通过设置<code>CMAKE_C_FLAGS</code>传入，C++的编译选项通过设置<code>CMAKE_CXX_FLAGS</code>传入，两者可以一起设置：</p>
 <pre class="shell"><code>cmake .. -DCMAKE_BUILD_TYPE=None -DCMAKE_C_FLAGS="-Wall -O3" -DCMAKE_CXX_FLAGS="-Wall -O3"</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html" class="uri">https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html</a></p>

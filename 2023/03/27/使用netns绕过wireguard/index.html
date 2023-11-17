@@ -2894,6 +2894,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/11/17/%E9%85%8D%E8%89%B2/">
+                     
+										    配色
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5657,6 +5668,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/11/17/numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    numpy学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/">
                      
 										    numpy矩阵操作
@@ -7098,9 +7120,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7109,9 +7131,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7803,12 +7825,12 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><html><head></head><body><p>最近需要使用cloudflare warp获得原生IP来访问ChatGPT和New Bing<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://github.com/haoel/haoel.github.io#94-cloudflare-warp-原生-ip>">[1]</span></a></sup>。使用<a target="_blank" rel="noopener" href="https://p3terx.com/archives/cloudflare-warp-configuration-script.html">Cloudflare WARP 一键安装脚本 使用教程</a>部署了之后发现套了一层cloudflare warp之后延迟上来了，带宽也被限制在了50Mbps左右。因此想要在同一个VPS上配置另一套代理，使其绕过cloudflare warp，直接访问互联网。由于上述一键部署脚本借助wireguard使用cloudflare warp，因此本教程介绍如何使用netns绕过wireguard。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>最近需要使用cloudflare warp获得原生IP来访问ChatGPT和New Bing<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://github.com/haoel/haoel.github.io#94-cloudflare-warp-原生-ip>">[1]</span></a></sup>。使用<a target="_blank" rel="noopener" href="https://p3terx.com/archives/cloudflare-warp-configuration-script.html">Cloudflare WARP 一键安装脚本 使用教程</a>部署了之后发现套了一层cloudflare warp之后延迟上来了，带宽也被限制在了50Mbps左右。因此想要在同一个VPS上配置另一套代理，使其绕过cloudflare warp，直接访问互联网。由于上述一键部署脚本借助wireguard使用cloudflare warp，因此本教程介绍如何使用netns绕过wireguard。</p>
 <h2 id="wireguard"><a href="#wireguard">¶</a> WireGuard</h2>
 <p>WireGuard是一种VPN技术<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://en.wikipedia.org/wiki/WireGuard>">[2]</span></a></sup>。上述<a target="_blank" rel="noopener" href="https://p3terx.com/archives/cloudflare-warp-configuration-script.html">一键脚本</a>使用<a target="_blank" rel="noopener" href="https://github.com/ViRb3/wgcf">wgcf</a>生成wireguard的配置文件，进而生成一个叫做<code>wgcf</code>的device，这个就是VPN的device。流向<code>wgcf</code> device的流量会通过wireguard协议流向cloudflare warp，然后从cloudflare warp提供的原生IP流向目标IP。</p>
-<p>传统VPN是通过路由表实现访问内网资源的，即在路由表中加入条目，将目标IP是目标内网的流量的出口设置为VPN的device。但是wireguard的目标是使得机器上所有的流量的出口都为它的device。因此wireguard官方的wg-quick工具在配置wireguard的时候，会加入这样一条路由设置<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies>">[3]</span></a></sup>：</p>
+<p>传统VPN是通过路由表实现访问内网资源的，即在路由表中加入条目，将目标IP是目标内网的流量的出口设置为VPN的device。但是wireguard的目标是使得机器上所有的流量的出口都为它的device。因此wireguard官方的wg-quick工具在配置wireguard的时候，会加入这样一条路由设置：</p>
 <pre class="shell"><code>ip -4 route add 0.0.0.0/0 dev wgcf table 51820</code></pre>
-<p>它新建了一个路由表<code>51820</code>，它将<code>0.0.0.0/0</code>也就是任何IP的出口device都设置成了wireguard设备（这里是<code>wgcf</code>）。注意<code>ip route show</code>看到的是<code>main</code> table，而这里的table 51820必须用<code>ip route show table 51820</code>才能看到，其内容为<code>default dev wgcf scope link</code>。按照我的理解，路由表要靠<code>ip rule</code>来调用。wg-quick添加了如下rule来调用刚刚定义的table 51820<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies>">[3]</span></a></sup>：</p>
+<p>它新建了一个路由表<code>51820</code>，它将<code>0.0.0.0/0</code>也就是任何IP的出口device都设置成了wireguard设备（这里是<code>wgcf</code>）。注意<code>ip route show</code>看到的是<code>main</code> table，而这里的table 51820必须用<code>ip route show table 51820</code>才能看到，其内容为<code>default dev wgcf scope link</code>。按照我的理解，路由表要靠<code>ip rule</code>来调用。wg-quick添加了如下rule来调用刚刚定义的table 51820<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies>">[4]</span></a></sup>：</p>
 <pre class="shell"><code>ip -4 rule add not fwmark 51820 table 51820</code></pre>
 <p>其含义为<code>fwmark</code>不为51820的流量使用table 51820来路由。这条rule可以使用<code>ip rule list</code>查看：</p>
 <pre class="text"><code>0:	from all lookup local
@@ -7861,7 +7883,7 @@ sudo ip netns exec $spacename ifconfig ${spacename}veth2 192.168.45.3 netmask 25
 <p>根据这篇博客：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/sammyliu/p/5760125.html">使用 NAT 将 Linux network namespace 连接外网</a>，还需要做如下路由设置，以确保netns子网和物理网卡之间的流量不会被拦截：</p>
 <pre class="shell"><code>sudo iptables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT
 sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</code></pre>
-<p>然后将来自该NAT网络的所有流量的fwmark都设置成51820<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/>">[4]</span></a></sup>：</p>
+<p>然后将来自该NAT网络的所有流量的fwmark都设置成51820<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/>">[5]</span></a></sup>：</p>
 <pre class="shell"><code>sudo iptables -t mangle -A PREROUTING -s 192.168.45.0/24 -j MARK --set-mark 51820</code></pre>
 <p>这样来自netns的所有流量都是直接流向物理网卡，不会经过wireguard了。</p>
 <h2 id="在netns中执行命令"><a href="#在netns中执行命令">¶</a> 在netns中执行命令</h2>
@@ -7873,8 +7895,8 @@ sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</c
 <h2 id="ipv6"><a href="#ipv6">¶</a> IPv6</h2>
 <p>如果没有配置IPv6的话，socks代理可能会出问题。因此这里在netns中另外再配置一下ipv6，使得netns中可以访问公网中的ipv6地址。本节主要参考这篇博客：<a target="_blank" rel="noopener" href="https://blogs.igalia.com/dpino/2016/05/02/network-namespaces-ipv6/" class="uri">https://blogs.igalia.com/dpino/2016/05/02/network-namespaces-ipv6/</a></p>
 <h3 id="打开ipv6的forwarding"><a href="#打开ipv6的forwarding">¶</a> 打开IPv6的forwarding</h3>
-<p><code>accept_ra</code>的全称是accept router advertisement，它有三个级别<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://sysctl-explorer.net/net/ipv6/accept_ra/>
-">[5]</span></a></sup>：</p>
+<p><code>accept_ra</code>的全称是accept router advertisement，它有三个级别<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://sysctl-explorer.net/net/ipv6/accept_ra/>
+">[6]</span></a></sup>：</p>
 <pre class="text"><code>0: Do not accept Router Advertisements.
 1: Accept Router Advertisements if forwarding is disabled.
 2: Overrule forwarding behaviour. Accept Router Advertisements even if forwarding is enabled.</code></pre>
@@ -7918,14 +7940,14 @@ PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 da
 <li id="fn:2">
 <span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/WireGuard">https://en.wikipedia.org/wiki/WireGuard</a><a href="#fnref:2" rev="footnote"> ↩︎</a></span>
 </li>
-<li id="fn:3">
-<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies">https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies</a><a href="#fnref:3" rev="footnote"> ↩︎</a></span>
-</li>
 <li id="fn:4">
-<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/">https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
+<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies">https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
 </li>
 <li id="fn:5">
-<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://sysctl-explorer.net/net/ipv6/accept_ra/">https://sysctl-explorer.net/net/ipv6/accept_ra/</a><a href="#fnref:5" rev="footnote"> ↩︎</a></span>
+<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/">https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/</a><a href="#fnref:5" rev="footnote"> ↩︎</a></span>
+</li>
+<li id="fn:6">
+<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://sysctl-explorer.net/net/ipv6/accept_ra/">https://sysctl-explorer.net/net/ipv6/accept_ra/</a><a href="#fnref:6" rev="footnote"> ↩︎</a></span>
 </li>
 </ol>
 </div>

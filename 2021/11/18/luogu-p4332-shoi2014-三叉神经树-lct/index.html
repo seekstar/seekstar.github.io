@@ -2894,6 +2894,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/11/17/%E9%85%8D%E8%89%B2/">
+                     
+										    配色
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5657,6 +5668,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/11/17/numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    numpy学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/">
                      
 										    numpy矩阵操作
@@ -7098,9 +7120,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7109,9 +7131,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7803,7 +7825,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>将节点的值定义为其输入中1的个数。观察发现，每次修改的都是一条链上的值：如果是将某个节点的值从1改成0，那么就是要将这个节点到其祖先中离该节点最近的值非2的节点的值全部减一，如果是将某个节点的值从0改成1，那么就是要将这个节点到其祖先中离该节点最近的值非1的节点的值全部加1。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>将节点的值定义为其输入中1的个数。观察发现，每次修改的都是一条链上的值：如果是将某个节点的值从1改成0，那么就是要将这个节点到其祖先中离该节点最近的值非2的节点的值全部减一，如果是将某个节点的值从0改成1，那么就是要将这个节点到其祖先中离该节点最近的值非1的节点的值全部加1。</p>
 <p>所以维护splay表示的链中最后一个值非1和值非2的节点的位置即可。修改节点x的值的时候，先<code>access(x)</code>，然后将最后一个值非1（或者非2）的节点（记为y）splay到根，然后对y节点做单点修改，对y的右子树做区间加。有一个特殊情况，就是找不到这样的节点y，这说明从x一直到根都是1（或者2），这时直接对整条链做区间加就好了，而且此时根的输出必然会翻转。</p>
 <p>注意，这题中，LCT并不需要做换根操作。</p>
 <p>这题告诉我们，LCT要灵活应用，不要只记得<code>link</code>和<code>cut</code>以及区间操作之类的标准化的用法。灵活运用<code>splay</code>和<code>access</code>更强大。</p>

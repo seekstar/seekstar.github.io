@@ -2894,6 +2894,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/11/17/%E9%85%8D%E8%89%B2/">
+                     
+										    配色
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5657,6 +5668,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/11/17/numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    numpy学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/">
                      
 										    numpy矩阵操作
@@ -7098,9 +7120,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7109,9 +7131,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7803,7 +7825,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>jerry3128 大佬的 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user27338/solution-p2147">题解</a> 和 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user27338/qian-tan-ett">浅谈ETT</a> 都讲得很好，我这里补充一下换根和删边的细节，以及提供一个 splay 的 ETT 实现。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>jerry3128 大佬的 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user27338/solution-p2147">题解</a> 和 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/user27338/qian-tan-ett">浅谈ETT</a> 都讲得很好，我这里补充一下换根和删边的细节，以及提供一个 splay 的 ETT 实现。</p>
 <h2 id="换根"><a href="#换根">¶</a> 换根</h2>
 <p>括号序的 ETT 支持链查询，但是不支持换根。欧拉序的ETT支持换根，但是（应该）不支持链查询。</p>
 <p>假设要将根从 a 换成 u。先找到 u 的任意一次出现的位置，这样原欧拉序一定为 aAuBa 的形式。由于其中 u 不一定是其第一次出现，所以 A 中也可以有 u，但是这不影响。我们观察一下，原先的欧拉序是先从 a 沿着 A 走到 u，再沿着 B 走回去。那么把根换成 u 后，只需要从 u 出发，沿着 B 走到 a，再沿着 A 走回 B 即可，生成的欧拉序为 uBaAu。所以换根的算法就是先把欧拉序拆成 aA 和 uBa 两部分，然后把第一个 a 删掉，再将 A 接到 uBa 后，成为 uBaA，最后再将 u 接到后面，变成 uBaAu。</p>

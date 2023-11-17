@@ -2894,6 +2894,17 @@ var _hmt = _hmt || [];
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2023/11/17/%E9%85%8D%E8%89%B2/">
+                     
+										    配色
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5657,6 +5668,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/11/17/numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    numpy学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/08/20/numpy%E7%9F%A9%E9%98%B5%E6%93%8D%E4%BD%9C/">
                      
 										    numpy矩阵操作
@@ -7098,9 +7120,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7109,9 +7131,9 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7803,7 +7825,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head></head><body><p>awk如果检测到stdout不是直接输出到终端的话，会对输出做buffering，因此如果是周期性连续数据，而且需要把stdout重定向给另一个命令的stdin，那么需要<code>fflush(stdout)</code>：</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>awk如果检测到stdout不是直接输出到终端的话，会对输出做buffering，因此如果是周期性连续数据，而且需要把stdout重定向给另一个命令的stdin，那么需要<code>fflush(stdout)</code>：</p>
 <pre class="shell"><code>iostat 1 | awk '{print $1; fflush(stdout)}' | grep sda</code></pre>
 <p>不然<code>awk</code>的输出会被缓存住，<code>grep</code>会长时间收不到输入，从而导致终端很长一段时间都没有打印出东西。</p>
 <p>同理，<code>grep</code>如果检测到stdout不是直接输出到终端的话，也会对输出做buffering，因此需要加上<code>--line-buffered</code>，让<code>grep</code>按行来buffer而不是按size来buffer，这样就可以保证每行都可以及时输出到下一个命令：</p>
