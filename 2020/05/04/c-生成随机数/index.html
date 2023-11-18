@@ -7826,7 +7826,11 @@ var _hmt = _hmt || [];
 
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="大段随机二进制"><a href="#大段随机二进制">¶</a> 大段随机二进制</h2>
-<p>思路：先用<code>std::random_device</code>生成真随机数，用来初始化长周期随机数发生器<code>std::mt19937</code>，然后再用<code>std::mt19937</code>来不断生成随机数。代码：</p>
+<p>思路：先用<code>std::random_device</code>生成真随机数，用来初始化长周期随机数发生器<code>std::mt19937</code>，然后再用<code>std::mt19937</code>来不断生成随机数。</p>
+<p>生成大段随机二进制的部分C++17之后可以用这些：</p>
+<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/generate" class="uri">https://en.cppreference.com/w/cpp/algorithm/generate</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/generate_n" class="uri">https://en.cppreference.com/w/cpp/algorithm/generate_n</a></p>
+<p>否则只能手写了。代码：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;random&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
