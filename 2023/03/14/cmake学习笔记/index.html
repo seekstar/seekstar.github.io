@@ -6427,6 +6427,17 @@ var _hmt = _hmt || [];
 									
 							<ul>
 								<li class="file">
+									<a href="/2023/11/22/cachelib%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    CacheLib学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/05/04/centos8%E5%AE%89%E8%A3%85zfs/">
                      
 										    Centos8安装ZFS
@@ -7846,6 +7857,14 @@ var _hmt = _hmt || [];
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">endif</span>()</span></code></pre></div>
 <h2 id="message"><a href="#message">¶</a> message</h2>
 <p><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/command/message.html" class="uri">https://cmake.org/cmake/help/latest/command/message.html</a></p>
+<h2 id="public-private-interface"><a href="#public-private-interface">¶</a> PUBLIC, PRIVATE, INTERFACE</h2>
+<p><a target="_blank" rel="noopener" href="https://cmake.org/pipermail/cmake/2016-May/063400.html">Difference between PRIVATE and PUBLIC with target_link_libraries</a></p>
+<p>假设A PRIVATE依赖B，A是静态库，B是动态库。如果executable C依赖A的话，cmake会自动把B链接到C上。</p>
+<h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
+<h3 id="忽略ld_library_path"><a href="#忽略ld_library_path">¶</a> 忽略<code>LD_LIBRARY_PATH</code></h3>
+<p>CMake会忽略<code>LD_LIBRARY_PATH</code>。因此把库放进<code>LD_LIBRARY_PATH</code>里CMake还是找不到。</p>
+<p>不过可以在cmake里读取环境变量<code>LD_LIBRARY_PATH</code>：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/49738486/13688160" class="uri">https://stackoverflow.com/a/49738486/13688160</a></p>
+<p>然后就可以把它作为<code>find_package</code>的参数或者加入到<code>target_link_directories</code>里。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

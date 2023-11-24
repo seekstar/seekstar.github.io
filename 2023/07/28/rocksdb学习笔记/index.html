@@ -6427,6 +6427,17 @@ var _hmt = _hmt || [];
 									
 							<ul>
 								<li class="file">
+									<a href="/2023/11/22/cachelib%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    CacheLib学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2021/05/04/centos8%E5%AE%89%E8%A3%85zfs/">
                      
 										    Centos8安装ZFS
@@ -7843,6 +7854,30 @@ var _hmt = _hmt || [];
 <p>ColumnFamilyData和SuperVersion互相保存了对方的引用。在<code>ColumnFamilyData::InstallSuperVersion</code>中，会先调用<code>SuperVersion::Init</code>将SuperVersion的ref变成1，并且让这个SuperVersion引用自己，让自己的引用计数+1。</p>
 <p>Get的时候如果不是在snapshot上get，那么先拿thread local的SuperVersion，再在上面Get。在<code>ColumnFamilyData::InstallSuperVersion</code>中会更新thread local SuperVersion。</p>
 <p>在hold DB mutex的情况下，可以直接调用<code>ColumnFamilyData::GetSuperVersion</code>拿最新的SuperVersion。</p>
+<h2 id="secondary-cache"><a href="#secondary-cache">¶</a> Secondary cache</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)" class="uri">https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)</a></p>
+<p>官方讲解：<a target="_blank" rel="noopener" href="https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html" class="uri">https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html</a></p>
+<h3 id="compressedsecondarycacheoptions-in-memory"><a href="#compressedsecondarycacheoptions-in-memory">¶</a> CompressedSecondaryCacheOptions (in-memory)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>  rocksdb::CompressedSecondaryCacheOptions secondary_cache_opts;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  secondary_cache_opts.capacity = 字节数;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  secondary_cache_opts.<span class="dt">compression_type</span> = CompressionType的某一项;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  rocksdb::LRUCacheOptions lru_cache_opts;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  lru_cache_opts.capacity = 字节数;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  lru_cache_opts.secondary_cache =</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>      NewCompressedSecondaryCache(secondary_cache_opts);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  rocksdb::BlockBasedTableOptions table_options;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>  table_options.block_cache = rocksdb::NewLRUCache(lru_cache_opts);</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>  rocksdb::Options options;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>  options.table_factory.reset(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>      rocksdb::NewBlockBasedTableFactory(table_options));</span></code></pre></div>
+<h3 id="rockscachelibwrapper"><a href="#rockscachelibwrapper">¶</a> RocksCachelibWrapper</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/blob/main/cachelib/adaptor/rocks_secondary_cache/CachelibWrapper.h" class="uri">https://github.com/facebook/CacheLib/blob/main/cachelib/adaptor/rocks_secondary_cache/CachelibWrapper.h</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>facebook::rocks_secondary_cache::RocksCachelibWrapper</span></code></pre></div>
+<p>可惜其中有一部分没有开源，所以无法编译：<a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/issues/278" class="uri">https://github.com/facebook/CacheLib/issues/278</a></p>
+<p>其实只要把<code>CachelibWrapper.h</code>和<code>CachelibWrapper.cpp</code>这两个文件拷贝到自己的project里，然后把里面引用了facebook内部代码的代码删掉即可：<a target="_blank" rel="noopener" href="https://github.com/seekstar/RocksCachelibWrapper" class="uri">https://github.com/seekstar/RocksCachelibWrapper</a></p>
+<p>相关：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/issues/8347" class="uri">https://github.com/facebook/rocksdb/issues/8347</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/pull/184" class="uri">https://github.com/facebook/CacheLib/pull/184</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
