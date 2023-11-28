@@ -7858,6 +7858,7 @@ var _hmt = _hmt || [];
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="bu">std::</span>string rocksdb_stats;</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>db-&gt;GetProperty(<span class="st">"rocksdb.stats"</span>, &amp;rocksdb_stats)</span></code></pre></div>
 <p>其中Compaction Stats里每行是以该level为output level的compaction的stats，<code>Rn</code>是non output level的读取量，<code>Rnp1</code>是output level的读取量，其中<code>p1</code>应该是<code>plus 1</code>的意思。<code>Rn</code>和<code>Rnp1</code>相加就是<code>Read</code>。</p>
+<p>值得注意的是，flush到L0的I/O也被算进了L0的write里。</p>
 <h2 id="secondary-cache"><a href="#secondary-cache">¶</a> Secondary cache</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)" class="uri">https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)</a></p>
 <p>官方讲解：<a target="_blank" rel="noopener" href="https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html" class="uri">https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html</a></p>
