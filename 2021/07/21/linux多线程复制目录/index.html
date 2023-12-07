@@ -7861,6 +7861,7 @@ tree ../d</code></pre>
 <p>或者用xargs</p>
 <pre class="shell"><code>find . -type f | xargs -P 4 -I {} cp --parents {} ../d</code></pre>
 <p><code>-P</code>: <code>--max-procs</code></p>
+<p>这种方法的缺点是分配给各个线程的文件总大小可能很不均匀。所以我写了mcp，先扫描目录然后尽量均匀地分配文件给各个线程：<a target="_blank" rel="noopener" href="https://github.com/light-Dedup/mcp" class="uri">https://github.com/light-Dedup/mcp</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
