@@ -6568,6 +6568,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/12/07/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">
+                     
+										    RocksDB代码分析——读取流程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
                      
 										    RocksDB单元测试
@@ -7811,6 +7822,31 @@ var _hmt = _hmt || [];
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
+				<h2 class="index-title">
+					chroot时硬链接ldd依赖的脚本
+				</h2>
+				<div class="index-brief">
+					chroot_ln_file.sh
+#!/bin/bash
+
+mkdir -p $(dirname $2/$1)
+ln $1 $2/$1 &amp;&gt; /dev/null
+ori=$(readlink $1)
+if [ -n "$ori" ]; then
+	real=$(realpath -s
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-06-06</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/06/05/bash%E6%9F%A5%E8%AF%A2%E6%9F%90%E6%96%87%E4%BB%B6%E7%9A%84%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/">
 				<h2 class="index-title">
 					bash查询某文件的绝对路径
@@ -8041,31 +8077,6 @@ Instructi
 			</a>
                 <div class="article-meta">
 				    <span>2020-05-18</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/05/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">
-				<h2 class="index-title">
-					内存屏障
-				</h2>
-				<div class="index-brief">
-					¶ 硬件指令
-
-sfense: store fense
-在sfence指令前的写操作当必须在sfence指令后的写操作前完成。
-lfense: load fense
-在lfence指令前的读操作当必须在lfence指令后的读操作前完成。
-mfence: memory fence
-在mfence指令前
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-05-12</span>
                     
                             
                     
