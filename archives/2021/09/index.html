@@ -4016,6 +4016,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/12/08/perf%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    perf学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    systemctl学习笔记
@@ -7992,7 +8003,8 @@ pip install pysha3
 					linux perf得到完整调用关系
 				</h2>
 				<div class="index-brief">
-					一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。即使自己的代码用了-fno-omit-frame-pointer来编译，从而使得自己的代码不破坏栈帧，库的代码可能仍然会破坏栈帧。这时就应该使用linux perf的--call-graph=dwarf，这样perf
+					一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项-fno-omit-frame-pointer编译自己的代码，从而使得自己的代码不破坏栈帧。
+由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用-fno-omi
 					...
 				</div>
 			</a>

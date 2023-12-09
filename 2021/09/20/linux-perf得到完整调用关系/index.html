@@ -4018,6 +4018,17 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/12/08/perf%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    perf学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/04/14/systemctl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    systemctl学习笔记
@@ -7847,10 +7858,117 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。即使自己的代码用了<code>-fno-omit-frame-pointer</code>来编译，从而使得自己的代码不破坏栈帧，库的代码可能仍然会破坏栈帧。这时就应该使用linux perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到完整的调用栈。但是这会导致采样的时间开销和空间开销增大，所以采样频率可能要稍微调低一点。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项<code>-fno-omit-frame-pointer</code>编译自己的代码，从而使得自己的代码不破坏栈帧。</p>
+<p>由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用<code>-fno-omit-frame-pointer</code>重新编译系统库。</p>
+<h2 id="glibc"><a href="#glibc">¶</a> <code>glibc</code></h2>
+<h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
+<p>这里用nix安装，不需要root权限：</p>
+<pre class="shell"><code>nix-env -iA nixpkgs.bison</code></pre>
+<h3 id="获取源码"><a href="#获取源码">¶</a> 获取源码</h3>
+<p>glibc每六个月发布类似于2.31这样的minor version，然后在这里fork出这个minor version的branch，比如<code>release/2.31/master</code>，以后的bug fix都commit到这个branch上，不再单独发布bug fix version。因此我们可以先clone glibc的repo，然后checkout到目标minor version的branch即可。我的系统上glibc版本是<code>2.31-13+deb11u7</code>，所以这里获取<code>2.31</code>的源码：</p>
+<pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/glibc.git
+cd glibc
+git checkout release/2.31/master</code></pre>
+<h3 id="编译"><a href="#编译">¶</a> 编译</h3>
+<pre class="shell"><code>mkdir -p build
+cd build
+CFLAGS='-O2 -fno-omit-frame-pointer'
+CXXFLAGS='-O2 -fno-omit-frame-pointer'
+../configure --prefix=$HOME/no-omit-frame-pointer CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS"
+make -j$(nproc)
+make install
+cd ../..</code></pre>
+<p>这里面包含了这些库：</p>
+<pre class="text"><code>ld-linux-x86-64.so.2
+libc.so
+libm.so
+libpthread.so.0</code></pre>
+<h2 id="gcc"><a href="#gcc">¶</a> <code>gcc</code></h2>
+<p>如果要编译C++程序的话，还需要编译<code>gcc</code>，因为<code>libstdc++</code>是<code>gcc</code>提供的。</p>
+<h3 id="获取源码-1"><a href="#获取源码-1">¶</a> 获取源码</h3>
+<p>gcc的功能更新会更新major version，后面的minor version都是bug fix version，官方文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/develop.html" class="uri">https://gcc.gnu.org/develop.html</a></p>
+<p>我的系统上的gcc版本是<code>10.2.1</code>，所以这里编译安装它的最新bug fix版本<code>10.5.0</code>:</p>
+<pre class="shell"><code>wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-10.5.0/gcc-10.5.0.tar.gz
+tar xzf gcc-10.5.0.tar.gz
+cd gcc-10.5.0</code></pre>
+<p>或者也可以用git获取最新的bug fix版本：</p>
+<pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/gcc.git
+cd gcc
+git checkout releases/gcc-10</code></pre>
+<p>然后下载它的依赖：</p>
+<pre class="shell"><code>./contrib/download_prerequisites</code></pre>
+<h3 id="用系统自带的glibc编译"><a href="#用系统自带的glibc编译">¶</a> 用系统自带的glibc编译</h3>
+<p>理论上这里使用刚刚编译的glibc编译gcc最好，但是这需要使用交叉编译的方法，太复杂了，我试了很久都没有成功。由于我们之前编译安装的glibc跟系统里自带的glibc是兼容的（多了一些bug fix），所以这里可以直接用系统自带的glibc编译。</p>
+<pre class="shell"><code>mkdir -p build
+cd build
+export CFLAGS="-O2 -fno-omit-frame-pointer"
+export CXXFLAGS=$CFLAGS
+../configure --disable-multilib --enable-languages=c,c++ --prefix=$HOME/no-omit-frame-pointer
+make -j$(nproc)
+make install
+cd ../..</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/51946224/13688160">How to edit and re-build the GCC libstdc++ C++ standard library source?</a></p>
+<h2 id="编译选项"><a href="#编译选项">¶</a> 编译选项</h2>
+<p>以后我们用这套编译选项来编译其他软件：</p>
+<pre class="shell"><code>INSTALL_ROOT=$HOME/no-omit-frame-pointer
+export CC=$INSTALL_ROOT/bin/gcc
+export CXX=$INSTALL_ROOT/bin/g++
+export CFLAGS="-O2 -fno-omit-frame-pointer"
+export CXXFLAGS=$CFLAGS
+export LDFLAGS="-Wl,-rpath=$INSTALL_ROOT/lib -Wl,-rpath=$INSTALL_ROOT/lib64 -Wl,--dynamic-linker=$INSTALL_ROOT/lib/ld-linux-x86-64.so.2"</code></pre>
+<h2 id="常见库的编译"><a href="#常见库的编译">¶</a> 常见库的编译</h2>
+<p>先export上面说的编译选项，然后就可以用正常的方法编译了。</p>
+<h3 id="libgflags"><a href="#libgflags">¶</a> <code>libgflags</code></h3>
+<pre class="shell"><code>git clone https://github.com/gflags/gflags.git
+cd gflags
+mkdir -p build
+cd build
+cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$INSTALL_ROOT
+make -j$(nproc)
+make install
+cd ../..</code></pre>
+<h2 id="编译目标应用"><a href="#编译目标应用">¶</a> 编译目标应用</h2>
+<h3 id="直接使用gcc"><a href="#直接使用gcc">¶</a> 直接使用gcc</h3>
+<p><code>hello.c</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="dt">int</span> main() {                                                                       </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>        printf(<span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span>);                                                      </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;                                                                      </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="shell"><code>$CC hello.c -o hello $CFLAGS $LDFLAGS
+ldd hello
+./hello</code></pre>
+<pre class="text"><code>        linux-vdso.so.1 (0x00007ffc37f52000)
+        libc.so.6 =&gt; /home/searchstar/no-omit-frame-pointer/lib/libc.so.6 (0x00007f2d2bce3000)
+        /home/searchstar/no-omit-frame-pointer/lib/ld-linux-x86-64.so.2 =&gt; /lib64/ld-linux-x86-64.so.2 (0x00007f2d2beb8000)
+Hello world!</code></pre>
+<p>可以看到这里用的是我们自己编译的glibc</p>
+<p>参考：</p>
+<p><code>-Wl,-rpath</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/6562437/13688160" class="uri">https://stackoverflow.com/a/6562437/13688160</a></p>
+<p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the dynamic linker / loader to be used when launching an executable on Linux</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58657036/where-is-linux-vdso-so-1-present-on-the-file-system">Where is linux-vdso.so.1 present on the file system</a></p>
+<h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
+<p><code>hello.cpp</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>        <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Hello world!"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>}</span></code></pre></div>
+<pre class="shell"><code>$CXX hello.cpp -o hello $CXXFLAGS $LDFLAGS
+ldd hello
+./hello</code></pre>
+<pre class="text"><code>        linux-vdso.so.1 (0x00007ffff89fe000)
+        libstdc++.so.6 =&gt; /home/searchstar/no-omit-frame-pointer/lib64/libstdc++.so.6 (0x00007f650bbc6000)
+        libm.so.6 =&gt; /home/searchstar/no-omit-frame-pointer/lib/libm.so.6 (0x00007f650ba85000)
+        libgcc_s.so.1 =&gt; /home/searchstar/no-omit-frame-pointer/lib64/libgcc_s.so.1 (0x00007f650ba6b000)
+        libc.so.6 =&gt; /home/searchstar/no-omit-frame-pointer/lib/libc.so.6 (0x00007f650b89d000)
+        /home/searchstar/no-omit-frame-pointer/lib/ld-linux-x86-64.so.2 =&gt; /lib64/ld-linux-x86-64.so.2 (0x00007f650bd9c000)
+Hello world!</code></pre>
+<h2 id="不推荐--call-graphdwarf"><a href="#不推荐--call-graphdwarf">¶</a> 不推荐：<code>--call-graph=dwarf</code></h2>
+<p>如果不想重新编译系统库的话，可以使用linux perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到完整的调用栈。但是这会导致采样的时间开销和空间开销增大，所以采样频率可能要稍微调低一点。而且仍然会存在调用关系错乱的问题。</p>
 <p>参考文献：</p>
-<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7" class="uri">https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7</a><br>
-<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do" class="uri">https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do</a></p>
+<p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7" class="uri">https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do" class="uri">https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
