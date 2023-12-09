@@ -1477,17 +1477,6 @@ var _hmt = _hmt || [];
 			
 							<ul>
 								<li class="file">
-									<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/">
-                     
-										    使用国内源安装和使用Nix包管理器
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/05/11/%E6%89%B9%E9%87%8Fssh%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/">
                      
 										    批量ssh执行命令
@@ -2679,6 +2668,17 @@ var _hmt = _hmt || [];
 									<a href="/2020/01/19/%E4%BD%BF%E7%94%A8apt%E6%9B%B4%E6%94%B9%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC/">
                      
 										    使用apt更改内核版本
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/">
+                     
+										    使用国内源安装和使用Nix包管理器
                      
 									</a>
 								</li>
@@ -7862,10 +7862,12 @@ var _hmt = _hmt || [];
 <p>由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用<code>-fno-omit-frame-pointer</code>重新编译系统库。</p>
 <h2 id="glibc"><a href="#glibc">¶</a> <code>glibc</code></h2>
 <h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
-<p>这里用nix安装，不需要root权限：</p>
+<p>可以用nix安装，不需要root权限：</p>
 <pre class="shell"><code>nix-env -iA nixpkgs.bison</code></pre>
+<p>Nix包管理器安装和使用教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <h3 id="获取源码"><a href="#获取源码">¶</a> 获取源码</h3>
-<p>glibc每六个月发布类似于2.31这样的minor version，然后在这里fork出这个minor version的branch，比如<code>release/2.31/master</code>，以后的bug fix都commit到这个branch上，不再单独发布bug fix version。因此我们可以先clone glibc的repo，然后checkout到目标minor version的branch即可。我的系统上glibc版本是<code>2.31-13+deb11u7</code>，所以这里获取<code>2.31</code>的源码：</p>
+<p>glibc每六个月发布类似于2.31这样的minor version，然后在这里fork出这个minor version的branch，比如<code>release/2.31/master</code>，以后的bug fix都commit到这个branch上，不再单独发布bug fix version。因此我们可以先clone glibc的repo，然后checkout到目标minor version的branch即可。</p>
+<p>我的系统上glibc版本是<code>2.31-13+deb11u7</code>，所以这里获取<code>2.31</code>的源码：</p>
 <pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/glibc.git
 cd glibc
 git checkout release/2.31/master</code></pre>
@@ -7895,10 +7897,10 @@ cd gcc-10.5.0</code></pre>
 <pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/gcc.git
 cd gcc
 git checkout releases/gcc-10</code></pre>
-<p>然后下载它的依赖：</p>
+<h3 id="下载依赖"><a href="#下载依赖">¶</a> 下载依赖</h3>
 <pre class="shell"><code>./contrib/download_prerequisites</code></pre>
 <h3 id="用系统自带的glibc编译"><a href="#用系统自带的glibc编译">¶</a> 用系统自带的glibc编译</h3>
-<p>理论上这里使用刚刚编译的glibc编译gcc最好，但是这需要使用交叉编译的方法，太复杂了，我试了很久都没有成功。由于我们之前编译安装的glibc跟系统里自带的glibc是兼容的（多了一些bug fix），所以这里可以直接用系统自带的glibc编译。</p>
+<p>理论上这里使用刚刚编译的glibc编译gcc最好，但是这需要使用交叉编译的方法，太复杂了，我试了很久都没有成功。由于我们之前编译安装的glibc跟系统里自带的glibc是兼容的（只是修了一些BUG），所以这里可以直接用系统自带的glibc编译。</p>
 <pre class="shell"><code>mkdir -p build
 cd build
 export CFLAGS="-O2 -fno-omit-frame-pointer"
@@ -7916,6 +7918,8 @@ export CXX=$INSTALL_ROOT/bin/g++
 export CFLAGS="-O2 -fno-omit-frame-pointer"
 export CXXFLAGS=$CFLAGS
 export LDFLAGS="-Wl,-rpath=$INSTALL_ROOT/lib -Wl,-rpath=$INSTALL_ROOT/lib64 -Wl,--dynamic-linker=$INSTALL_ROOT/lib/ld-linux-x86-64.so.2"</code></pre>
+<p><code>-Wl,-rpath</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/6562437/13688160" class="uri">https://stackoverflow.com/a/6562437/13688160</a></p>
+<p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the dynamic linker / loader to be used when launching an executable on Linux</a></p>
 <h2 id="常见库的编译"><a href="#常见库的编译">¶</a> 常见库的编译</h2>
 <p>先export上面说的编译选项，然后就可以用正常的方法编译了。</p>
 <h3 id="libgflags"><a href="#libgflags">¶</a> <code>libgflags</code></h3>
@@ -7944,8 +7948,6 @@ ldd hello
 Hello world!</code></pre>
 <p>可以看到这里用的是我们自己编译的glibc</p>
 <p>参考：</p>
-<p><code>-Wl,-rpath</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/6562437/13688160" class="uri">https://stackoverflow.com/a/6562437/13688160</a></p>
-<p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the dynamic linker / loader to be used when launching an executable on Linux</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58657036/where-is-linux-vdso-so-1-present-on-the-file-system">Where is linux-vdso.so.1 present on the file system</a></p>
 <h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
 <p><code>hello.cpp</code>:</p>
@@ -7965,7 +7967,7 @@ ldd hello
         /home/searchstar/no-omit-frame-pointer/lib/ld-linux-x86-64.so.2 =&gt; /lib64/ld-linux-x86-64.so.2 (0x00007f650bd9c000)
 Hello world!</code></pre>
 <h2 id="不推荐--call-graphdwarf"><a href="#不推荐--call-graphdwarf">¶</a> 不推荐：<code>--call-graph=dwarf</code></h2>
-<p>如果不想重新编译系统库的话，可以使用linux perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到完整的调用栈。但是这会导致采样的时间开销和空间开销增大，所以采样频率可能要稍微调低一点。而且仍然会存在调用关系错乱的问题。</p>
+<p>如果不想重新编译系统库的话，可以使用linux perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到调用栈。但是这种方法仍然存在调用关系错乱的问题，而且采样的时间开销和空间开销很大，采样频率需要稍微调低一点。</p>
 <p>参考文献：</p>
 <p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7" class="uri">https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do" class="uri">https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do</a></p>
