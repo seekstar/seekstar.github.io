@@ -7876,10 +7876,14 @@ var _hmt = _hmt || [];
 </ul>
 <p>运行速度差不多是正常运行的三四倍。输出的trace虽然经过了压缩，但还是很大。</p>
 <h2 id="valgrind"><a href="#valgrind">¶</a> valgrind</h2>
-<p><code>valgrind --tools=massif 你的程序 参数...</code></p>
+<p><code>valgrind --tool=massif 你的程序 参数...</code></p>
 <p>能够知道哪些地方分配的内存最多。</p>
 <p>文档：<a target="_blank" rel="noopener" href="https://valgrind.org/docs/manual/ms-manual.html" class="uri">https://valgrind.org/docs/manual/ms-manual.html</a></p>
 <p>但是valgrind会模拟出一个CPU来运行，所以运行速度会慢很多。</p>
+<h3 id="illegal-instruction"><a href="#illegal-instruction">¶</a> <code>Illegal instruction</code></h3>
+<p>可能是因为用到了本地CPU支持但是valgrind不支持的指令。调整编译选项使其编译出来的指令portable就行。</p>
+<p>例如，rocksdb <code>cmake</code>的时候加上<code>-DPORTABLE=ON</code>即可。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html" class="uri">https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html</a></p>
 <h2 id="libtcmalloc"><a href="#libtcmalloc">¶</a> libtcmalloc</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://goog-perftools.sourceforge.net/doc/heap_profiler.html" class="uri">https://goog-perftools.sourceforge.net/doc/heap_profiler.html</a></p>
 <pre class="shell"><code># Debian 11
