@@ -7858,7 +7858,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<html><head><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项<code>-fno-omit-frame-pointer</code>编译自己的代码，从而使得自己的代码不破坏栈帧。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项<code>-fno-omit-frame-pointer</code>编译自己的代码，从而使得自己的代码不破坏栈帧。</p>
 <p>由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用<code>-fno-omit-frame-pointer</code>重新编译系统库。</p>
 <h2 id="glibc"><a href="#glibc">¶</a> <code>glibc</code></h2>
 <h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
@@ -7945,12 +7945,12 @@ make install
 cd ../..</code></pre>
 <h3 id="boost"><a href="#boost">¶</a> <code>boost</code></h3>
 <p>官网：<a target="_blank" rel="noopener" href="https://www.boost.org/" class="uri">https://www.boost.org/</a></p>
-<p>编译安装教程：<a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html#or-build-custom-binaries" class="uri">https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html#or-build-custom-binaries</a></p>
+<p>编译安装教程：<a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html" class="uri">https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html</a></p>
 <pre class="shell"><code>wget https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.gz
 tar xzf boost_1_74_0.tar.gz
 cd boost_1_74_0
 ./bootstrap.sh --prefix=$INSTALL_ROOT
-# 用b2用我们编译的gcc
+# 让b2用我们编译的gcc
 export PATH=$INSTALL_ROOT/bin:$PATH</code></pre>
 <p>编译安装所有库：</p>
 <pre class="shell"><code>./b2 --prefix=$INSTALL_ROOT install link=shared cflags="$CFLAGS" cxxflags="$CXXFLAGS" linkflags="$LDFLAGS"</code></pre>
