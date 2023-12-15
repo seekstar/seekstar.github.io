@@ -7858,7 +7858,7 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项<code>-fno-omit-frame-pointer</code>编译自己的代码，从而使得自己的代码不破坏栈帧。</p>
+	<html><head><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"></head><body><p>一般情况下，在高优化等级时，编译器会把栈帧破坏掉，导致生成的火焰图调用关系是错误的。因此我们需要用编译选项<code>-fno-omit-frame-pointer</code>编译自己的代码，从而使得自己的代码不破坏栈帧。</p>
 <p>由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用<code>-fno-omit-frame-pointer</code>重新编译系统库。</p>
 <h2 id="glibc"><a href="#glibc">¶</a> <code>glibc</code></h2>
 <h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
@@ -7939,18 +7939,35 @@ tar xjf userspace-rcu-0.12.5.tar.bz2
 cd userspace-rcu-0.12.5
 mkdir build
 cd build
-../configure --prefix=$HOME/no-omit-frame-pointer
+../configure --prefix=$INSTALL_ROOT
 make -j$(nproc)
 make install
 cd ../..</code></pre>
+<h3 id="boost"><a href="#boost">¶</a> <code>boost</code></h3>
+<p>官网：<a target="_blank" rel="noopener" href="https://www.boost.org/" class="uri">https://www.boost.org/</a></p>
+<p>编译安装教程：<a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html#or-build-custom-binaries" class="uri">https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html#or-build-custom-binaries</a></p>
+<pre class="shell"><code>wget https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.gz
+tar xzf boost_1_74_0.tar.gz
+cd boost_1_74_0
+./bootstrap.sh --prefix=$INSTALL_ROOT
+# 用b2用我们编译的gcc
+export PATH=$INSTALL_ROOT/bin:$PATH</code></pre>
+<p>编译安装所有库：</p>
+<pre class="shell"><code>./b2 --prefix=$INSTALL_ROOT install link=shared cflags="$CFLAGS" cxxflags="$CXXFLAGS" linkflags="$LDFLAGS"</code></pre>
+<p>也可以选择性编译安装某些库。查看有哪些库：</p>
+<pre class="shell"><code>./b2 --show-libraries</code></pre>
+<p>编译安装某个库，比如<code>program_options</code>，加上<code>--with-program_options</code>即可：</p>
+<pre class="shell"><code>./b2 --with-program_options --prefix=$INSTALL_ROOT install link=shared cflags="$CFLAGS" cxxflags="$CXXFLAGS" linkflags="$LDFLAGS"</code></pre>
+<p>文档写的<code>--with-libraries=library-name-list</code>应该是<code>bootstrap.sh</code>的参数，没试过。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6945012/passing-compiler-flags-to-boost-libraries-such-as-thread-which-require-compila" class="uri">https://stackoverflow.com/questions/6945012/passing-compiler-flags-to-boost-libraries-such-as-thread-which-require-compila</a></p>
 <h2 id="编译目标应用"><a href="#编译目标应用">¶</a> 编译目标应用</h2>
 <h3 id="直接使用gcc"><a href="#直接使用gcc">¶</a> 直接使用gcc</h3>
 <p><code>hello.c</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="dt">int</span> main() {                                                                       </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>        printf(<span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span>);                                                      </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;                                                                      </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="dt">int</span> main() {                                                                       </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>        printf(<span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span>);                                                      </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;                                                                      </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>$CC hello.c -o hello $CFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
@@ -7963,11 +7980,11 @@ Hello world!</code></pre>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58657036/where-is-linux-vdso-so-1-present-on-the-file-system">Where is linux-vdso.so.1 present on the file system</a></p>
 <h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
 <p><code>hello.cpp</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>        <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Hello world!"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>        <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Hello world!"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>$CXX hello.cpp -o hello $CXXFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
