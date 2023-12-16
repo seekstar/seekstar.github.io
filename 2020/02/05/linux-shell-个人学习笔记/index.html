@@ -8317,6 +8317,9 @@ name1 does not exist</code></pre>
 <h4 id="求和"><a href="#求和">¶</a> 求和</h4>
 <pre class="shell"><code>seq 1 10 | awk '{s+=$1} END {print s}'</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line" class="uri">https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line</a></p>
+<h3 id="column"><a href="#column">¶</a> column</h3>
+<p><code>cat table | column -t</code>可以输出一个漂亮的表格。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/28755377/13688160" class="uri">https://stackoverflow.com/a/28755377/13688160</a></p>
 <h3 id="comm"><a href="#comm">¶</a> comm</h3>
 <p>求两个有序文件中的相同行和不同行。第一列是只在第一个文件中的行，第二列是只在第二个文件中的行，第三列是两个文件都存在的行。常用命令行选项：</p>
 <ul>
@@ -8378,6 +8381,20 @@ sudo find / -path /media -path /mnt -prune -o -name gsettings
 sudo find . -name media -name mnt -prune -o -name gsettings
 sudo find . -path ./media -path ./mnt -prune -o -name gsettings
 sudo find . -name b ! -path “./a/*”</code></pre>
+<h4 id="正则"><a href="#正则">¶</a> 正则</h4>
+<p><code>查找规则</code>部分：<code>-regex '正则表达式'</code></p>
+<p>正则表达式匹配的是完整路径。</p>
+<p>例子：</p>
+<pre class="shell"><code>find . -regex '.*/latency-[0-9]*'</code></pre>
+<pre class="text"><code>./latency-2
+./latency-4
+./latency-3
+./latency-5
+./latency-1
+./latency-6
+./latency-7
+./latency-0</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command" class="uri">https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command</a></p>
 <h3 id="grep"><a href="#grep">¶</a> grep</h3>
 <ul>
 <li>查找当前目录下有某字符串的文件：</li>
@@ -8427,8 +8444,6 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 <p>其中<code>命令</code>形如<code>s/源pattern/目的pattern/g</code>（全局替换）</p>
 <p>从文件读入，将修改后的结果写入到stdout：</p>
 <pre class="shell"><code>sed '命令' FileName</code></pre>
-<h3 id="top"><a href="#top">¶</a> top</h3>
-<p><code>-H</code>: 显示单个线程。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats" class="uri">https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats</a></p>
 <h4 id="基础知识"><a href="#基础知识">¶</a> 基础知识</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/demon7552003/article/details/72854231">sed模式空间(pattern space)和保持空间(hold space)</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed" class="uri">https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed</a></p>
@@ -8506,9 +8521,8 @@ jason</code></pre>
 jason</code></pre>
 <p>输出到文件</p>
 <pre class="shell"><code>sort -u txt -o txt1</code></pre>
-<h3 id="column"><a href="#column">¶</a> column</h3>
-<p><code>cat table | column -t</code>可以输出一个漂亮的表格。</p>
-<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/28755377/13688160" class="uri">https://stackoverflow.com/a/28755377/13688160</a></p>
+<h3 id="top"><a href="#top">¶</a> top</h3>
+<p><code>-H</code>: 显示单个线程。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats" class="uri">https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p>{ post_link shell/'zsh使用笔记' }</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mydriverc2/article/details/82623778">linux中怎么用shell显示文件某一行或几行内容</a></p>
