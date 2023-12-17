@@ -7908,8 +7908,7 @@ colormap: https://matplotlib.org/stable/users/explain/colo
 用pidstat:
 pidstat -p 线程tid -H -u 间隔秒数 -t | awk '{if ($4 == 线程tid) print $9}'
 ¶ 累积CPU time
-用ps:
-ps -eT -o tid,cputimes | aw
+可以用clock_gettime得到CPU时间戳，两个CPU时间
 					...
 				</div>
 			</a>

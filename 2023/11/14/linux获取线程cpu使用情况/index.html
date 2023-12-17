@@ -7863,7 +7863,89 @@ var _hmt = _hmt || [];
 <p>用<code>pidstat</code>:</p>
 <pre class="shell"><code>pidstat -p 线程tid -H -u 间隔秒数 -t | awk '{if ($4 == 线程tid) print $9}'</code></pre>
 <h2 id="累积cpu-time"><a href="#累积cpu-time">¶</a> 累积CPU time</h2>
-<p>用<code>ps</code>:</p>
+<p>可以用<code>clock_gettime</code>得到CPU时间戳，两个CPU时间戳相减就是中间的CPU time。</p>
+<h3 id="获取当前线程的cpu时间戳"><a href="#获取当前线程的cpu时间戳">¶</a> 获取当前线程的CPU时间戳</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;currTime)</span></code></pre></div>
+<h3 id="获取其他线程的cpu时间戳"><a href="#获取其他线程的cpu时间戳">¶</a> 获取其他线程的CPU时间戳</h3>
+<p>通过thread ID可以得到clockid:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">int</span> pthread_getcpuclockid(<span class="dt">pthread_t</span> thread, <span class="dt">clockid_t</span> *clockid);</span></code></pre></div>
+<p><code>std::thread</code>的thread ID可以通过<code>std::thread::native_handle()</code>得到。自己的thread ID可以通过<code>pthread_self()</code>得到。</p>
+<p>获取<code>std::thread</code>的CPU时间戳的例子：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;condition_variable&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ctime&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;mutex&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="at">static</span> <span class="kw">inline</span> <span class="dt">time_t</span> cpu_timestamp_ns(<span class="dt">clockid_t</span> clockid) {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>  <span class="kw">struct</span> timespec t;</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>  <span class="cf">if</span> (-<span class="dv">1</span> == clock_gettime(clockid, &amp;t)) {</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>    perror(<span class="st">"clock_gettime"</span>);</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>  }</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>  <span class="cf">return</span> t.tv_sec * <span class="dv">1000000000</span> + t.tv_nsec;</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>}</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a><span class="at">static</span> <span class="dt">void</span> foo(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a>	<span class="dt">size_t</span> secs, <span class="bu">std::</span>atomic&lt;<span class="dt">size_t</span>&gt; *finished, <span class="at">const</span> <span class="dt">bool</span> *permit_join,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>	<span class="bu">std::</span>condition_variable *cv, <span class="bu">std::</span>mutex *mu</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>) {</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a>	<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(secs));</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a>	finished-&gt;fetch_add(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a>	<span class="bu">std::</span>unique_lock&lt;<span class="bu">std::</span>mutex&gt; lock(*mu);</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a>	<span class="co">// 等到外面不再读取自己的cpu time再结束，不然clock_gettime会报错</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a>	cv-&gt;wait(lock, [permit_join]() { <span class="cf">return</span> *permit_join; });</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a>}</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true"></a>	<span class="kw">constexpr</span> <span class="dt">size_t</span> num_threads = <span class="dv">8</span>;</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true"></a>	<span class="bu">std::</span>atomic&lt;<span class="dt">size_t</span>&gt; finished(<span class="dv">0</span>);</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true"></a>	<span class="dt">bool</span> permit_join = <span class="kw">false</span>;</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true"></a>	<span class="bu">std::</span>condition_variable cv;</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true"></a>	<span class="bu">std::</span>mutex mu;</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>thread&gt; ts;</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="dt">clockid_t</span>&gt; clock_ids;</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true"></a>		<span class="co">// 让这些thread sleep不同的时间</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true"></a>		ts.emplace_back(foo, i, &amp;finished, &amp;permit_join, &amp;cv, &amp;mu);</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true"></a>		<span class="dt">pthread_t</span> thread_id = ts[i].native_handle();</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true"></a>		<span class="dt">clockid_t</span> clock_id;</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true"></a>		<span class="ot">assert</span>(pthread_getcpuclockid(thread_id, &amp;clock_id) == <span class="dv">0</span>);</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true"></a>		clock_ids.push_back(clock_id);</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true"></a>	}</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true"></a>	<span class="co">// 每个线程最开始的时间戳</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="dt">time_t</span>&gt; ori;</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true"></a>		ori.push_back(cpu_timestamp_ns(clock_ids[i]));</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true"></a>	}</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true"></a>	<span class="cf">while</span> (finished.load(<span class="bu">std::</span>memory_order_relaxed) != num_threads) {</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true"></a>		<span class="dt">time_t</span> tot = <span class="dv">0</span>;</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true"></a>			<span class="co">// 当前时间戳减去开始的时间戳就是中间经过的CPU time</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true"></a>			tot += cpu_timestamp_ns(clock_ids[i]) - ori[i];</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true"></a>		}</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; tot &lt;&lt; <span class="st">" ns"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true"></a>		<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(<span class="dv">1</span>));</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true"></a>	}</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true"></a>	{</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true"></a>		<span class="bu">std::</span>unique_lock&lt;<span class="bu">std::</span>mutex&gt; lock(mu);</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true"></a>		permit_join = <span class="kw">true</span>;</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true"></a>	}</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true"></a>	cv.notify_all();</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true"></a>		ts[i].join();</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true"></a>	}</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true"></a>}</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/44917411/13688160" class="uri">https://stackoverflow.com/a/44917411/13688160</a></p>
+<h3 id="ps-不推荐"><a href="#ps-不推荐">¶</a> ps (不推荐)</h3>
 <pre class="shell"><code>ps -eT -o tid,cputimes | awk '{if ($1 == 线程tid) print $2}'</code></pre>
 <pre class="text"><code>       tid         TID       the unique number representing a dispatchable entity (alias lwp, spid).  This value
                              may also appear as: a process ID (pid); a process group ID (pgrp); a session ID for
@@ -7871,84 +7953,7 @@ var _hmt = _hmt || [];
                              a tty process group ID for the process group leader (tpgid).
 
        cputimes    TIME      cumulative CPU time in seconds (alias times).</code></pre>
-<p>如果是C/C++的话，可以用<code>clock_gettime</code>得到CPU时间戳，两个CPU时间戳相减就是中间的CPU time。</p>
-<p>获取当前线程的CPU时间戳：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;currTime)</span></code></pre></div>
-<p>获取<code>std::thread</code>的CPU时间戳：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;condition_variable&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;ctime&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;mutex&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="at">static</span> <span class="kw">inline</span> <span class="dt">time_t</span> cpu_timestamp_ns(<span class="dt">clockid_t</span> clockid) {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>  <span class="kw">struct</span> timespec t;</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>  <span class="cf">if</span> (-<span class="dv">1</span> == clock_gettime(clockid, &amp;t)) {</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>    perror(<span class="st">"clock_gettime"</span>);</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>  }</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>  <span class="cf">return</span> t.tv_sec * <span class="dv">1000000000</span> + t.tv_nsec;</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>}</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a><span class="at">static</span> <span class="dt">void</span> foo(</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>	<span class="dt">size_t</span> secs, <span class="bu">std::</span>atomic&lt;<span class="dt">size_t</span>&gt; *finished, <span class="at">const</span> <span class="dt">bool</span> *permit_join,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>	<span class="bu">std::</span>condition_variable *cv, <span class="bu">std::</span>mutex *mu</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>) {</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>	<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(secs));</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>	finished-&gt;fetch_add(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>	<span class="bu">std::</span>unique_lock&lt;<span class="bu">std::</span>mutex&gt; lock(*mu);</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>	<span class="co">// 等到外面不再读取自己的cpu time再结束，不然clock_gettime会报错</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>	cv-&gt;wait(lock, [permit_join]() { <span class="cf">return</span> *permit_join; });</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a>}</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>	<span class="kw">constexpr</span> <span class="dt">size_t</span> num_threads = <span class="dv">8</span>;</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>	<span class="bu">std::</span>atomic&lt;<span class="dt">size_t</span>&gt; finished(<span class="dv">0</span>);</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>	<span class="dt">bool</span> permit_join = <span class="kw">false</span>;</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true"></a>	<span class="bu">std::</span>condition_variable cv;</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>	<span class="bu">std::</span>mutex mu;</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>thread&gt; ts;</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="dt">clockid_t</span>&gt; clock_ids;</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a>		<span class="co">// 让这些thread sleep不同的时间</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>		ts.emplace_back(foo, i, &amp;finished, &amp;permit_join, &amp;cv, &amp;mu);</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>		<span class="dt">pthread_t</span> thread_id = ts[i].native_handle();</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a>		<span class="dt">clockid_t</span> clock_id;</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a>		<span class="ot">assert</span>(pthread_getcpuclockid(thread_id, &amp;clock_id) == <span class="dv">0</span>);</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>		clock_ids.push_back(clock_id);</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>	}</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true"></a>	<span class="co">// 每个线程最开始的时间戳</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="dt">time_t</span>&gt; ori;</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true"></a>		ori.push_back(cpu_timestamp_ns(clock_ids[i]));</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true"></a>	}</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true"></a>	<span class="cf">while</span> (finished.load(<span class="bu">std::</span>memory_order_relaxed) != num_threads) {</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true"></a>		<span class="dt">time_t</span> tot = <span class="dv">0</span>;</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true"></a>			<span class="co">// 当前时间戳减去开始的时间戳就是中间经过的CPU time</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true"></a>			tot += cpu_timestamp_ns(clock_ids[i]) - ori[i];</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true"></a>		}</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; tot &lt;&lt; <span class="st">" ns"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true"></a>		<span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>seconds(<span class="dv">1</span>));</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true"></a>	}</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true"></a>	{</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true"></a>		<span class="bu">std::</span>unique_lock&lt;<span class="bu">std::</span>mutex&gt; lock(mu);</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true"></a>		permit_join = <span class="kw">true</span>;</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true"></a>	}</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true"></a>	cv.notify_all();</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; num_threads; ++i) {</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true"></a>		ts[i].join();</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true"></a>	}</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true"></a>}</span></code></pre></div>
-<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/44917411/13688160" class="uri">https://stackoverflow.com/a/44917411/13688160</a></p>
+<p>主要问题是太耗CPU了。执行一次大约要耗费0.01秒的CPU时间。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
