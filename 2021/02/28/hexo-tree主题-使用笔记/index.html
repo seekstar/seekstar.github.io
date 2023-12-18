@@ -15,7 +15,8 @@
 	</title>
 	
 	<!-- keywords,description -->
-	 
+	
+	
 
 	<!-- favicon -->
 	
@@ -55,7 +56,7 @@
 
 
 	
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 
 	
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
@@ -69,17 +70,19 @@
 	
 <script src="/js/main.js"></script>
 
+
 	
 		
 <script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
 
 		
-<script src="https://cdn.jsdelivr.net/npm/valine@v1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.5.1/dist/Valine.min.js"></script>
 
 	
 	
 		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
+
 <meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
@@ -195,34 +198,22 @@ mjx-container[display="true"] + br {
 </style></head>
 
 <body>
-	<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?3efe99c287df5a1d6f0d02d187e403c1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-<header id="header">
+	<header id="header">
     <a id="title" href="/" class="logo">searchstar</a>
 
 	<ul id="menu">
-		<li class="menu-item">
-			<a href="/about" class="menu-item-link">ABOUT</a>
-		</li>
     
+      <li class="menu-item">
+        <a href="/about" class="menu-item-link">关于</a>
+      </li>
+    
+
     
       <li class="menu-item">
         <a href="/tags" class="menu-item-link">标签</a>
       </li>
     
 
-    
-      <li class="menu-item">
-        <a href="/categories" class="menu-item-link">分类</a>
-      </li>
     
 
     
@@ -7831,32 +7822,37 @@ var _hmt = _hmt || [];
 </div>
 
 	<!-- 引入正文 -->
-	<div id="content">
+	<div id="content" class="content">
 		<h1 id="article-title">
 	hexo-tree主题-使用笔记
 </h1>
+
+<!-- meta -->
 <div class="article-meta">
 	
 		<span>
 			阅读量:<span id="/2021/02/28/hexo-tree%E4%B8%BB%E9%A2%98-%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="hexo-tree主题-使用笔记"></span>
 		</span>
 	
+
 	<span>searchstar</span>
 	<span>2021-02-28 13:59:30</span>
-		<div id="article-categories">
+
+  <div id="article-categories">
     
-		<span>Categories：</span>
-            
+		  <span>Categories：</span>
+      
     
 
     
-		<span>Tags：</span>
-            
+		    <span>Tags：</span>
+        
     
-		</div>
+  </div>
 
 </div>
 
+<!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="先说坑点"><a href="#先说坑点">¶</a> 先说坑点</h2>
 <ul>
@@ -7930,10 +7926,8 @@ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</code></p
 <h2 id="更换主题"><a href="#更换主题">¶</a> 更换主题</h2>
 <p>这里选择tree主题。在<code>themes</code>下执行</p>
 <pre class="shell"><code>git clone https://github.com/wujun234/hexo-theme-tree tree
-cd tree
-rm -rf .git</code></pre>
-<p>不做成git子模块的原因是这个主题的header目前只能通过改动代码的方式更改。<br>
-然后再在<code>_config.yml</code>里把默认的</p>
+cd tree</code></pre>
+<p>然后再在<code>_config.yml</code>里把默认的</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> landscape</span></span></code></pre></div>
 <p>改成</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> tree</span></span></code></pre></div>
@@ -7949,12 +7943,11 @@ rm -rf .git</code></pre>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> UidGenerator</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="at">      </span><span class="fu">URL</span><span class="kw">:</span><span class="at"> https://github.com/wujun234/uid-generator-spring-boot-starter</span></span></code></pre></div>
 <p>默认有一个作者自己的项目<code>UidGenerator</code>，删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
-<h2 id="开启标签和分类"><a href="#开启标签和分类">¶</a> 开启标签和分类</h2>
-<p>在<code>themes/tree/_config.yml</code>的最后把这两行取消注释：</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="fu">categories</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
-<p>然后在<code>source</code>目录下执行</p>
+<h2 id="开启标签"><a href="#开启标签">¶</a> 开启标签</h2>
+<p>在<code>source</code>目录下执行</p>
 <pre class="shell"><code>hexo new page "tags"</code></pre>
+<p>在<code>themes/tree/_config.yml</code>开启标签：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>然后编辑<code>source/tags/index.md</code>，在<code>date</code>后面加上</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span></code></pre></div>
@@ -7965,45 +7958,41 @@ rm -rf .git</code></pre>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="an">type:</span><span class="co"> "tags"</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="an">layout:</span><span class="co"> "tags"</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="co">---</span></span></code></pre></div>
-<p>同样，在<code>source</code>目录下执行</p>
-<pre class="shell"><code>hexo new page "categories"</code></pre>
-<p>然后编辑<code>source/categories/index.md</code>，在<code>date</code>后面加上</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"categories"</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> </span><span class="st">"categories"</span></span></code></pre></div>
-<p>然后预览一下，就能看到右上角多了<code>标签</code>和<code>分类</code>。</p>
+<p>然后预览一下，就能看到右上角多了<code>标签</code>或者<code>Tags</code>。</p>
+<p>分类就不开了，因为tree主题的文件夹自带了分类功能。不开分类有助于节约header的空间。</p>
 <h2 id="开启评论统计访问量"><a href="#开启评论统计访问量">¶</a> 开启评论，统计访问量</h2>
 <p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
 <p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/" class="uri">https://www.leancloud.cn/</a><br>
 点击免费试用，然后注册就好了。有一定的免费额度。</p>
 <p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>themes/tree/_config.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="co"># valine </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="fu">valine</span><span class="kw">:</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="co">    # 评论</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableComment</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="co">    # 阅读量</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableCounter</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a><span class="co">    # valine appID</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a><span class="at">    </span><span class="fu">appID</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a><span class="co">    # valine appKey</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a><span class="at">    </span><span class="fu">appKey</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a><span class="at">    </span><span class="fu">placeholder</span><span class="kw">:</span><span class="at"> 请输入评论</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co"># valine </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="fu">valine</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co">    # 评论</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableComment</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="co">    # 阅读量</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableCounter</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="co">    # valine appID</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a><span class="at">    </span><span class="fu">appID</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a><span class="co">    # valine appKey</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="at">    </span><span class="fu">appKey</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a><span class="at">    </span><span class="fu">placeholder</span><span class="kw">:</span><span class="at"> 请输入评论</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
 <p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
 <p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
 <h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a> 修改底部版权开始年份</h2>
 <p><code>themes/tree/_config.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
 <h2 id="更改网站图标"><a href="#更改网站图标">¶</a> 更改网站图标</h2>
 <p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>themes/tree/_config.yml</code>：</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
 <p>即可让网站使用新的网站图标。</p>
 <h2 id="将渲染器更换为hexo-renderer-pandoc"><a href="#将渲染器更换为hexo-renderer-pandoc">¶</a> 将渲染器更换为<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a></h2>
 <p>默认的渲染器是<code>hexo-renderer-marked</code>，没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。所以需要更换渲染器。<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-markdown-it">hexo-renderer-markdown-it</a>比较流行，但是不支持Latex风格的数学公式。所以这里把渲染器换成<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>：</p>
 <pre class="shell"><code>npm uninstall hexo-renderer-marked
 npm install hexo-renderer-pandoc --save</code></pre>
 <p>更换渲染器之后要在<code>_config.yml</code>中把默认的highlight关掉，才能使用新的渲染器提供的highlight：</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="fu">highlight</span><span class="kw">:</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="fu">highlight</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
 <p>然后就可以开启对Latex风格的公式的支持了：<a href="/2021/11/16/hexo%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BC%96%E8%BE%91/" title="Hexo支持Latex风格的公式编辑">Hexo支持Latex风格的公式编辑</a></p>
 <h2 id="写博客"><a href="#写博客">¶</a> 写博客</h2>
@@ -8044,10 +8033,15 @@ npm i</code></pre>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36408085/article/details/104323711">Hexo+Github博客：如何折叠(显示/隐藏)部分文字</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a> 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
+<p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a>pre{</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>}</span></code></pre></div>
+<p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
 <h3 id="标题锚点"><a href="#标题锚点">¶</a> 标题锚点</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/seekstar/hexo-pandoc-header-anchor" class="uri">https://github.com/seekstar/hexo-pandoc-header-anchor</a></p>
 <p>通过锚点可以得到指向标题的URL，例如：<a href="https://seekstar.github.io/2022/03/10/a-collection-of-matrix-groups/#matrix" class="uri">https://seekstar.github.io/2022/03/10/a-collection-of-matrix-groups/#matrix</a></p>
@@ -8056,6 +8050,7 @@ npm i</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
+<!-- post-guide -->
 
     <div class="post-guide">
         <div class="item left">
@@ -8077,6 +8072,10 @@ npm i</code></pre>
     </div>
 
 
+<!-- comment - giscus -->
+
+
+<!-- comment - valine -->
 
 	<div id="vcomments"></div>
 
@@ -8136,8 +8135,12 @@ npm i</code></pre>
 	<p>
 	Except as otherwise noted, this blog is licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> License.
 	<br>
-	©2021-<span id="footerYear"></span> 
-	<a href="/">searchstar</a> 
+
+	©<span id="footerYear-start">2021</span>-<span id="footerYear-end"></span>
+
+	
+	    <a href="/">searchstar</a>
+	
 	
 	
 		|
@@ -8153,13 +8156,16 @@ npm i</code></pre>
 	
 	<br>
 	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
-	by <a href="//github.com/wujun234" target="_blank">WuJun</a>
+	by <a href="//wujun.me" target="_blank">Wu Jun</a>
 	Powered by <a href="//hexo.io" target="_blank">Hexo</a>
 	</p>
 </div>
-<script type="text/javascript"> 
-	document.getElementById('footerYear').innerHTML = new Date().getFullYear() + '';
+
+
+<script type="text/javascript">
+	document.getElementById('footerYear-end').innerHTML = new Date().getFullYear() + '';
 </script>
+
 	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
 </body>
 </html>
