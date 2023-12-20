@@ -7276,9 +7276,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2023/07/01/linux%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
+									<a href="/2023/07/01/linux%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/">
                      
-										    Linux获取进程cpu使用率
+										    Linux获取进程cpu使用情况
                      
 									</a>
 								</li>
@@ -7858,13 +7858,11 @@ mjx-container[display="true"] + br {
 <li><a href="/2021/06/04/matplotlib-kwargs-text-properties-can-be-used-to-control-the-appearance-of-the-labels/" title="matplotlib: **kwargs: `.Text` properties can be used to control the appearance of the labels.">matplotlib: **kwargs: `.Text` properties can be used to control the appearance of the labels.</a></li>
 <li><a href="/2021/06/02/matplotlib-the-pdf-backend-does-not-currently-support-the-selected-font/" title="matplotlib: The PDF backend does not currently support the selected font.">matplotlib: The PDF backend does not currently support the selected font.</a></li>
 <li><a href="/2021/05/07/matplotlib%E6%89%93%E5%8D%B0%E5%BE%AE%E7%A7%92/" title="matplotlib打印微秒">matplotlib打印微秒</a></li>
-<li><a href="/2021/01/01/matplotlib%E8%AE%BE%E7%BD%AElegend%E5%9D%90%E6%A0%87/" title="matplotlib设置legend坐标">matplotlib设置legend坐标</a></li>
 <li><a href="/2021/01/01/matplotlib%E7%94%9F%E6%88%90%E6%B2%A1%E6%9C%89%E7%95%99%E7%99%BD%E7%9A%84%E5%9B%BE%E7%89%87/" title="matplotlib生成没有留白的图片">matplotlib生成没有留白的图片</a></li>
 <li><a href="/2021/05/08/matplotlib%E7%AE%B1%E7%BA%BF%E5%9B%BE%E8%B0%83%E6%95%B4%E7%AE%B1%E5%AD%90%E7%9A%84%E5%AE%BD%E5%BA%A6/" title="matplotlib箱线图调整箱子的宽度">matplotlib箱线图调整箱子的宽度</a></li>
 <li><a href="/2020/12/10/matplotlib%E4%B8%AD%E4%BD%BF%E7%94%A8latex/" title="matplotlib中使用latex">matplotlib中使用latex</a></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gsgbgxp/article/details/125077492">python matplotlib坐标轴刻度设置</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/math_gao/article/details/109592302">Python -- Matplotlib：画一条水平线或竖直线</a></p></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chichoxian/article/details/101058046">Matplotlib 放置legend(bbox_to_anchor)</a></p></li>
 </ul>
 <h2 id="pyplot"><a href="#pyplot">¶</a> pyplot</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
@@ -7872,6 +7870,13 @@ mjx-container[display="true"] + br {
 <p>非阻塞显示图片：<code>plt.show(block=False)</code></p>
 <p>开始画下一张：<code>plt.figure()</code></p>
 <p><code>plt.plot(y)</code>的横坐标是从0开始的数组下标。</p>
+<h3 id="legend"><a href="#legend">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">legend</a></h3>
+<ul>
+<li><a href="/2021/01/01/matplotlib%E8%AE%BE%E7%BD%AElegend%E5%9D%90%E6%A0%87/" title="matplotlib设置legend坐标">matplotlib设置legend坐标</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chichoxian/article/details/101058046">Matplotlib 放置legend(bbox_to_anchor)</a></p></li>
+<li><p>frameon: bool, default: rcParams["legend.frameon"] (default: True)</p></li>
+</ul>
+<p>Whether the legend should be drawn on a patch (frame).</p>
 <h2 id="axes"><a href="#axes">¶</a> Axes</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>ax <span class="op">=</span> plt.gca()</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/axes_api.html" class="uri">https://matplotlib.org/stable/api/axes_api.html</a></p>
@@ -7887,6 +7892,46 @@ mjx-container[display="true"] + br {
 <p>设置Y轴最小值：</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>ax.set_ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/22642641/13688160" class="uri">https://stackoverflow.com/a/22642641/13688160</a></p>
+<h3 id="annotate-画箭头"><a href="#annotate-画箭头">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.annotate.html">annotate</a> 画箭头</h3>
+<ul>
+<li><p><code>text</code></p></li>
+<li><p><code>xy</code>: (float, float)</p></li>
+</ul>
+<p>The point (x, y) to annotate. The coordinate system is determined by xycoords.</p>
+<ul>
+<li><code>xytext</code>: (float, float), default: xy</li>
+</ul>
+<p>The position (x, y) to place the text at. The coordinate system is determined by textcoords.</p>
+<ul>
+<li><code>xycoords</code>, <code>textcoords</code>: default: 'data'</li>
+</ul>
+<p>完整列表见文档。这里放常用的。</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data</code></td>
+<td>Use the coordinate system of the object being annotated (default)</td>
+</tr>
+<tr class="even">
+<td><code>figure fraction</code></td>
+<td>Fraction of figure from lower left</td>
+</tr>
+<tr class="odd">
+<td><code>subfigure fraction</code></td>
+<td>Fraction of subfigure from lower left</td>
+</tr>
+<tr class="even">
+<td><code>axes fraction</code></td>
+<td>Fraction of axes from lower left</td>
+</tr>
+</tbody>
+</table>
 <h3 id="tick-formatter"><a href="#tick-formatter">¶</a> tick formatter</h3>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/ticks/tick-formatters.html" class="uri">https://matplotlib.org/stable/gallery/ticks/tick-formatters.html</a></p>
 <p>例子：</p>
