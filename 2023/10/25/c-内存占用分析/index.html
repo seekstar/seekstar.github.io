@@ -2348,6 +2348,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/12/22/archlinux%E5%BE%AE%E4%BF%A1/">
+                     
+										    ArchLinux微信
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
                      
 										    ArchLinux根目录权限变成777的原因
@@ -7927,10 +7938,10 @@ LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/prof
 &lt;prefix&gt;.0001.heap
 &lt;prefix&gt;.0002.heap
 ...</code></pre>
-<p>分析一个heap文件：</p>
-<pre class="shell"><code>google-pprof --text --lines 可执行文件的路径 profile.xxxx.heap</code></pre>
-<p><code>--text</code>: 不进入interactive模式，而是直接打印报告。但是只打印内存消耗最多的地方，没有调用栈。如果加上<code>--stacks</code>，好像不会打印inline函数的调用栈，而且调用栈的打印顺序是随机的，不是按内存大小从大到小打印，看起来很难受。</p>
-<p><code>--svg</code>: 生成<code>svg</code>文件。里面有很漂亮的调用关系。</p>
+<p>注意，生成报告的时候似乎要读取文件里的符号，所以不要重新编译之类的，不然生成的报告里的符号不对。</p>
+<h3 id="生成文本报告"><a href="#生成文本报告">¶</a> 生成文本报告</h3>
+<pre class="shell"><code>google-pprof --text --lines 可执行文件的路径 profile/profile.xxxx.heap</code></pre>
+<p><code>--text</code>: 不进入interactive模式，而是直接打印报告。</p>
 <p><code>--lines</code>: 输出行号</p>
 <pre class="text"><code>   --add_lib=&lt;file&gt;    Read additional symbols and line info from the given library</code></pre>
 <p>会打印出内存消耗最多的地方。官方的例子（没有<code>--lines</code>，所以没有行号）：</p>
@@ -7947,6 +7958,12 @@ LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/prof
 <li><p>The second and fifth columns are just percentage representations of the numbers in the first and fourth（原文是fifth，应该是写错了） columns.</p></li>
 <li><p>The third column is a cumulative sum of the second column (i.e., the kth entry in the third column is the sum of the first k entries in the second column.)</p></li>
 </ul>
+<p>但是只打印内存消耗最多的地方，没有调用栈。如果加上<code>--stacks</code>，好像不会打印inline函数的调用栈，而且调用栈的打印顺序是随机的，不是按内存大小从大到小打印，看起来很难受。</p>
+<h3 id="生成图片"><a href="#生成图片">¶</a> 生成图片</h3>
+<p>里面有很漂亮的调用关系。</p>
+<p>以svg为例：</p>
+<pre class="shell"><code>google-pprof --svg --lines 可执行文件的路径 profile/profile.xxxx.heap &gt; xxxx.svg</code></pre>
+<h3 id="存在的问题-1"><a href="#存在的问题-1">¶</a> 存在的问题</h3>
 <p>跑得很慢。这里说libtcmalloc开了heap profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
 <h2 id="没试过"><a href="#没试过">¶</a> 没试过</h2>
 <h3 id="mtuner"><a href="#mtuner">¶</a> MTuner</h3>
