@@ -8013,6 +8013,20 @@ mjx-container[display="true"] + br {
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="执行命令并获取输出"><a href="#执行命令并获取输出">¶</a> 执行命令并获取输出</h2>
+<p>用<code>popen</code>: <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/popen.3.html" class="uri">https://man7.org/linux/man-pages/man3/popen.3.html</a></p>
+<p>用完记得用<code>pclose</code>关掉。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="dt">FILE</span> *pipe = popen(command, <span class="st">"r"</span>);</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="cf">if</span> (pipe == NULL) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	perror(<span class="st">"popen"</span>);</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>	abort();</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">// Read pipe</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="cf">if</span> (-<span class="dv">1</span> == pclose(pipe)) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>	perror(<span class="st">"pclose"</span>);</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>	abort();</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>}</span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po" class="uri">https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

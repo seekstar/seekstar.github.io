@@ -7865,7 +7865,78 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="heaptrack"><a href="#heaptrack">¶</a> heaptrack</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="max-resident-set-size-rss"><a href="#max-resident-set-size-rss">¶</a> Max resident set size (RSS)</h2>
+<p>用<code>getrusage</code></p>
+<p>文档：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/getrusage.2.html" class="uri">https://man7.org/linux/man-pages/man2/getrusage.2.html</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;sys/resource.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="dt">int</span> getrusage(<span class="dt">int</span> who, <span class="kw">struct</span> rusage *usage);</span></code></pre></div>
+<h3 id="who"><a href="#who">¶</a> <code>who</code></h3>
+<pre class="text"><code>RUSAGE_SELF
+      Return resource usage statistics for the calling process,
+      which is the sum of resources used by all threads in the
+      process.
+
+RUSAGE_CHILDREN
+      Return resource usage statistics for all children of the
+      calling process that have terminated and been waited for.
+      These statistics will include the resources used by
+      grandchildren, and further removed descendants, if all of
+      the intervening descendants waited on their terminated
+      children.
+
+RUSAGE_THREAD (since Linux 2.6.26)
+      Return resource usage statistics for the calling thread.
+      The _GNU_SOURCE feature test macro must be defined (before
+      including any header file) in order to obtain the
+      definition of this constant from &lt;sys/resource.h&gt;.</code></pre>
+<h3 id="struct-rusage"><a href="#struct-rusage">¶</a> <code>struct rusage</code></h3>
+<p>Max RSS是这个域：</p>
+<pre class="shell"><code>long   ru_maxrss;        /* maximum resident set size */</code></pre>
+<p>单位是KiB，见<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/12050966/13688160" class="uri">https://stackoverflow.com/a/12050966/13688160</a>的第一条评论。</p>
+<p>其他常用的域：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> timeval ru_utime; <span class="co">/* user CPU time used */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">struct</span> timeval ru_stime; <span class="co">/* system CPU time used */</span></span></code></pre></div>
+<p>这几个域在Linux上是unmaintained状态，始终是0：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="dt">long</span>   ru_ixrss;         <span class="co">/* integral shared memory size */</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="dt">long</span>   ru_idrss;         <span class="co">/* integral unshared data size */</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="dt">long</span>   ru_isrss;         <span class="co">/* integral unshared stack size */</span></span></code></pre></div>
+<p>所以目前通过<code>getrusage</code>不能获得current RSS</p>
+<h3 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h3>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/68284459/13688160" class="uri">https://stackoverflow.com/a/68284459/13688160</a></p>
+<h2 id="current-resident-set-size-rss"><a href="#current-resident-set-size-rss">¶</a> Current resident set size (RSS)</h2>
+<h3 id="ps"><a href="#ps">¶</a> <code>ps</code></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="bu">std::</span>string pid = <span class="bu">std::</span>to_string(getpid());</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="bu">std::</span>string mem_command = <span class="st">"ps -q "</span> + pid + <span class="st">" -o rss | tail -n 1"</span>;</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dt">FILE</span>* pipe = popen(mem_command.c_str(), <span class="st">"r"</span>);</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="cf">if</span> (pipe == NULL) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>	perror(<span class="st">"popen"</span>);</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>	rusty_panic();</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>}</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>rusty_assert(fgets(buf, <span class="kw">sizeof</span>(buf), pipe) != NULL, <span class="st">"buf too short"</span>);</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a><span class="dt">size_t</span> buflen = strlen(buf);</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>rusty_assert(buflen &gt; <span class="dv">0</span>);</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>rusty_assert(buf[--buflen] == <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span>);</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>buf[buflen] = <span class="dv">0</span>;</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a><span class="cf">if</span> (-<span class="dv">1</span> == pclose(pipe)) {</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>	perror(<span class="st">"pclose"</span>);</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>	rusty_panic();</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>}</span></code></pre></div>
+<p><code>buf</code>里面就是字符串形式的current resident set size，单位是KiB：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/683319" class="uri">https://unix.stackexchange.com/a/683319</a></p>
+<p><code>rusty_panic</code>和<code>rusty_assert</code>: <a target="_blank" rel="noopener" href="https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h" class="uri">https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h</a></p>
+<h2 id="mallinfo"><a href="#mallinfo">¶</a> <code>mallinfo</code></h2>
+<p>文档：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/mallinfo.3.html" class="uri">https://man7.org/linux/man-pages/man3/mallinfo.3.html</a></p>
+<p>glibc 2.33之后用<code>mallinfo2</code>。</p>
+<p>Debian 11是2.31，用<code>mallinfo</code>。</p>
+<p>常用的域：</p>
+<pre class="text"><code>uordblks
+      The total number of bytes used by in-use allocations.
+      应该就是真正被应用分配的空间。
+
+fordblks
+      The total number of bytes in free blocks.
+      应该是因为fragmentation没有分配给应用也没有还给OS的空间。</code></pre>
+<p>注意，这个只对glibc malloc有用。jemalloc这两个域始终为0。</p>
+<h2 id="heaptrack"><a href="#heaptrack">¶</a> heaptrack</h2>
 <p>可以打印出消耗内存最多的地方、申请内存次数最多的地方、临时申请内存最多的地方。</p>
 <p>运行速度差不多是正常运行的三四倍。输出的trace虽然经过了压缩，但还是很大。</p>
 <p><a target="_blank" rel="noopener" href="https://milianw.de/blog/heaptrack-a-heap-memory-profiler-for-linux.html" class="uri">https://milianw.de/blog/heaptrack-a-heap-memory-profiler-for-linux.html</a></p>
@@ -7893,14 +7964,20 @@ mjx-container[display="true"] + br {
 <h3 id="最后的summary"><a href="#最后的summary">¶</a> 最后的summary</h3>
 <h4 id="peak-heap-memory-consumption"><a href="#peak-heap-memory-consumption">¶</a> peak heap memory consumption</h4>
 <p>注意，这里是程序实际使用的heap memory，而不是整个heap占用的memory。如果使用的是glibc的内存分配器，可能会出现peak RSS显著大于peak heap memory consumption的情况，这可能是因为内存分配器出现了碎片化，导致程序实际使用的heap memory显著小于heap实际占用的memory：<a target="_blank" rel="noopener" href="https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/" class="uri">https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/</a></p>
-<p>可以通过把glibc的内存分配器换成tcmalloc解决。jemalloc虽然比glibc和tcmalloc快，但是在碎片化严重的情况下内存消耗比较大：<a target="_blank" rel="noopener" href="https://github.com/cms-sw/cmssw/issues/42387" class="uri">https://github.com/cms-sw/cmssw/issues/42387</a></p>
+<p>可以通过把glibc的内存分配器换成tcmalloc或者jemalloc解决。jemalloc的速度好像比tcmalloc快一点：<a target="_blank" rel="noopener" href="https://github.com/cms-sw/cmssw/issues/42387" class="uri">https://github.com/cms-sw/cmssw/issues/42387</a></p>
 <p>rocksdb的cmake自带了使用jemalloc的选项：<code>WITH_JEMALLOC</code>，但是使用这个选项好像只会让rocksdb自己使用jemalloc，主程序似乎仍然使用glibc malloc：<a target="_blank" rel="noopener" href="https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/" class="uri">https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/</a></p>
-<p>让整个程序使用tcmalloc或者jemalloc，最保险的方法是用<code>LD_PRELOAD</code>:</p>
+<p>让整个程序使用tcmalloc或者jemalloc，最保险的方法是用<code>LD_PRELOAD</code>。</p>
+<p>tcmalloc:</p>
 <pre class="shell"><code>sudo apt install libtcmalloc-minimal4
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...
-
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so 程序 参数...</code></pre>
-<p>也可以不用<code>LD_PRELOAD</code>，但好像不太通用：</p>
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...</code></pre>
+<p>jemalloc:</p>
+<pre class="shell"><code>MALLOC_CONF="dirty_decay_ms:0" LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so 程序 参数...</code></pre>
+<p>其中<code>dirty_decay_ms</code>是用来调节页面free之后多久会还给操作系统。<code>0</code>应该是表示立即归还。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://engineering.linkedin.com/blog/2021/taming-memory-fragmentation-in-venice-with-jemalloc" class="uri">https://engineering.linkedin.com/blog/2021/taming-memory-fragmentation-in-venice-with-jemalloc</a></p>
+<p>文档：</p>
+<p><a target="_blank" rel="noopener" href="https://jemalloc.net/jemalloc.3.html#opt.dirty_decay_ms" class="uri">https://jemalloc.net/jemalloc.3.html#opt.dirty_decay_ms</a></p>
+<p><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/external/jemalloc_new/+/6e6a93170475c05ebddbaf3f0df6add65ba19f01/TUNING.md" class="uri">https://android.googlesource.com/platform/external/jemalloc_new/+/6e6a93170475c05ebddbaf3f0df6add65ba19f01/TUNING.md</a></p>
+<p>据说也可以不用<code>LD_PRELOAD</code>，但好像不太通用：</p>
 <p><a target="_blank" rel="noopener" href="https://forums.gentoo.org/viewtopic-t-1056432-start-0.html" class="uri">https://forums.gentoo.org/viewtopic-t-1056432-start-0.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40915820/override-libc-functions-without-ld-preload" class="uri">https://stackoverflow.com/questions/40915820/override-libc-functions-without-ld-preload</a></p>
 <h4 id="peak-rss"><a href="#peak-rss">¶</a> peak RSS</h4>
