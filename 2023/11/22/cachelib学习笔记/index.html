@@ -7584,6 +7584,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2023/12/25/%E8%84%9A%E6%9C%AC%E7%AE%A1%E7%90%86aws-ec2/">
+                     
+										    脚本管理AWS EC2
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/10/31/%E9%9D%9E%E4%BA%A4%E4%BA%92%E4%BB%8Egithub%E4%B8%AD%E4%B8%8B%E8%BD%BD%E6%9C%80%E6%96%B0%E7%89%88%E5%AE%89%E8%A3%85%E5%8C%85/">
                      
 										    非交互从github中下载最新版安装包
@@ -7884,40 +7895,53 @@ mjx-container[display="true"] + br {
 <pre class="shell"><code>sudo apt remove liburing1 liburing-dev</code></pre>
 <p>然后编译：</p>
 <pre class="shell"><code>./contrib/build.sh -j -T</code></pre>
-<p>编译结果默认存在<code>./opt/cachelib</code>里。把该目录的绝对路径存入<code>CACHELIB_HOME</code>里，然后在<code>~/.profile</code>里加入如下内容来将其头文件和库暴露出去：</p>
+<p>编译结果默认存在<code>./opt/cachelib</code>里。如果要编译安装到另一个目录，比如<code>$HOME/opt</code>：</p>
+<pre class="shell"><code>./contrib/build.sh -j -T -p $HOME/opt</code></pre>
+<p>注意，编译安装好了之后是不能移动的，因为里面有些so文件中硬编码了RUNPATH，比如：</p>
+<pre class="text"><code>% readelf -d libthriftprotocol.so.1.0.0 | grep PATH
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/searchstar/opt/lib:/usr/local/lib]</code></pre>
+<p>移动了位置之后就会发生library not found的错误：<a href="/2023/12/25/%E8%A7%A3%E5%86%B3%E6%89%BE%E4%B8%8D%E5%88%B0runpath%E4%B8%8B%E7%9A%84%E5%BA%93%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决找不到RUNPATH下的库的问题">解决找不到RUNPATH下的库的问题</a></p>
+<h3 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h3>
+<h4 id="gcc-internal-error"><a href="#gcc-internal-error">¶</a> gcc internal error</h4>
+<p>Debian 11上的gcc版本为<code>10.2.1 20210110</code>，太老了。如果出现了internal error的话，可以用<code>nix</code>安装新版本的<code>gcc10</code>：</p>
+<pre class="shell"><code>nix-env -iA nixpkgs.gcc10</code></pre>
+<p><code>nix</code>包管理器教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
+<h2 id="配置环境变量"><a href="#配置环境变量">¶</a> 配置环境变量</h2>
+<p>把编译安装的目录的绝对路径存入<code>CACHELIB_HOME</code>里，然后在<code>~/.profile</code>里加入如下内容来将其头文件和库暴露出去：</p>
 <pre class="shell"><code>export CPLUS_INCLUDE_PATH=$CACHELIB_HOME/include:$CPLUS_INCLUDE_PATH
 export LIBRARY_PATH=$CACHELIB_HOME/lib:$LIBRARY_PATH
 export LD_LIBRARY_PATH=$CACHELIB_HOME/lib:$LD_LIBRARY_PATH</code></pre>
 <p>然后<code>source ~/.profile</code></p>
+<h2 id="使用"><a href="#使用">¶</a> 使用</h2>
 <p>在目标项目的cmake里这么写：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>	<span class="fu">PRIVATE</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">		# 这些是静态链接库，所以是PRIVATE</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="fu">		cachelib_allocator</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="fu">		cachelib_navy</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="fu">		cachelib_common</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="fu">		cachelib_shm</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="fu">	PUBLIC</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="fu">		# 这些是动态链接库，所以是PUBLIC</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_allocator</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="fu">		numa</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a><span class="fu">		folly</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="fu">		thriftprotocol</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_navy</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a><span class="fu">		boost_context</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_shm</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a><span class="fu">		rt</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a><span class="fu">		# Deps of folly</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a><span class="fu">		fmt</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a><span class="fu">		double-conversion</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a><span class="fu">		glog</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a><span class="fu">		# Deps of thriftprotocol</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a><span class="fu">		rpcmetadata</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>	<span class="fu">PRIVATE</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="fu">		# 这些是静态链接库，所以是PRIVATE</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="fu">		cachelib_allocator</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="fu">		cachelib_navy</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="fu">		cachelib_common</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="fu">		cachelib_shm</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="fu">	PUBLIC</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="fu">		# 这些是动态链接库，所以是PUBLIC</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_allocator</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="fu">		numa</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="fu">		folly</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="fu">		thriftprotocol</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_navy</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a><span class="fu">		boost_context</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="fu">		# Deps of cachelib_shm</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a><span class="fu">		rt</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a><span class="fu">		# Deps of folly</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a><span class="fu">		fmt</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a><span class="fu">		double-conversion</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="fu">		glog</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="fu">		# Deps of thriftprotocol</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a><span class="fu">		rpcmetadata</span></span></code></pre></div>
 <p>或者直接link这个library: <a target="_blank" rel="noopener" href="https://github.com/seekstar/RocksCachelibWrapper" class="uri">https://github.com/seekstar/RocksCachelibWrapper</a></p>
 <p>然后正常编译即可。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
