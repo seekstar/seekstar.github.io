@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">About</a>
+        <a href="/about" class="menu-item-link">关于</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">Tags</a>
+        <a href="/tags" class="menu-item-link">标签</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
 		<div id="tree">
 			
 
@@ -7921,50 +7921,75 @@ region=ap-northeast-1</code></pre>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    <span class="co"># https://stackoverflow.com/a/36142844/13688160</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>    default<span class="op">=</span><span class="bu">str</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>))</span></code></pre></div>
-<p>打印private IP:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="st">'Reservations'</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="dv">0</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>instances <span class="op">=</span> response[<span class="st">'Instances'</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(instances) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>instance <span class="op">=</span> instances[<span class="dv">0</span>]</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'PrivateIpAddress'</span>])</span></code></pre></div>
+<h3 id="打印private-ip"><a href="#打印private-ip">¶</a> 打印private IP</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>response <span class="op">=</span> client.describe_instances(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    InstanceIds<span class="op">=</span>[</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>        sys.argv[<span class="dv">1</span>],</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    ],  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="st">'Reservations'</span>]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="dv">0</span>]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>instances <span class="op">=</span> response[<span class="st">'Instances'</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(instances) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>instance <span class="op">=</span> instances[<span class="dv">0</span>]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'PrivateIpAddress'</span>])</span></code></pre></div>
+<h3 id="打印instance个数"><a href="#打印instance个数">¶</a> 打印instance个数</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>response <span class="op">=</span> client.describe_instances(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    Filters<span class="op">=</span>[</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>        {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>            <span class="st">'Name'</span>: <span class="st">'instance-state-name'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>            <span class="st">'Values'</span>: [</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>                <span class="st">'pending'</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>                <span class="st">'running'</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>                <span class="st">'shutting-down'</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>                <span class="st">'stopping'</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>                <span class="st">'stopped'</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>            ]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>        },</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    ],  </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="st">'Reservations'</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="dv">0</span>]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>instances <span class="op">=</span> response[<span class="st">'Instances'</span>]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">len</span>(instances))</span></code></pre></div>
 <h2 id="run_instances"><a href="#run_instances">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/run_instances.html">run_instances</a></h2>
 <p>创建实例。</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>response <span class="op">=</span> client.run_instances(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    BlockDeviceMappings<span class="op">=</span>[</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>        {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>            <span class="st">'DeviceName'</span>: <span class="st">'/dev/nvme0n1'</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>            <span class="st">'Ebs'</span>: {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>                <span class="st">'DeleteOnTermination'</span>: <span class="va">True</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>                <span class="st">'Iops'</span>: <span class="dv">16000</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>                <span class="st">'VolumeSize'</span>: <span class="dv">512</span>, <span class="co"># GiBs</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>                <span class="st">'VolumeType'</span>: <span class="st">'gp3'</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>                <span class="st">'Throughput'</span>: <span class="dv">600</span>, <span class="co"># MiB/s</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>                <span class="st">'Encrypted'</span>: <span class="va">False</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>            },</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>        },</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    ],</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    ImageId<span class="op">=</span><span class="st">'ami-08c2888d01ed84209'</span>, <span class="co"># Debian 12</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    InstanceType<span class="op">=</span><span class="st">'i4i.2xlarge'</span>,</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>    KeyName<span class="op">=</span><span class="st">'string'</span>,</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    MinCount<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>    MaxCount<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>    SecurityGroupIds<span class="op">=</span>[</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a>    ],</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a>    EbsOptimized<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true"></a>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response[<span class="st">'Instances'</span>]) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true"></a>instance <span class="op">=</span> response[<span class="st">'Instances'</span>][<span class="dv">0</span>]</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'InstanceId'</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>response <span class="op">=</span> client.run_instances(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    BlockDeviceMappings<span class="op">=</span>[</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>        {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>            <span class="st">'DeviceName'</span>: <span class="st">'/dev/nvme0n1'</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>            <span class="st">'Ebs'</span>: {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>                <span class="st">'DeleteOnTermination'</span>: <span class="va">True</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>                <span class="st">'Iops'</span>: <span class="dv">16000</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>                <span class="st">'VolumeSize'</span>: <span class="dv">512</span>, <span class="co"># GiBs</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>                <span class="st">'VolumeType'</span>: <span class="st">'gp3'</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>                <span class="st">'Throughput'</span>: <span class="dv">600</span>, <span class="co"># MiB/s</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>                <span class="st">'Encrypted'</span>: <span class="va">False</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>            },</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>        },</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>    ],</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>    ImageId<span class="op">=</span><span class="st">'ami-08c2888d01ed84209'</span>, <span class="co"># Debian 12</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>    InstanceType<span class="op">=</span><span class="st">'i4i.2xlarge'</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>    KeyName<span class="op">=</span><span class="st">'string'</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>    MinCount<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>    MaxCount<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>    SecurityGroupIds<span class="op">=</span>[</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>    ],</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>    EbsOptimized<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response[<span class="st">'Instances'</span>]) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>instance <span class="op">=</span> response[<span class="st">'Instances'</span>][<span class="dv">0</span>]</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'InstanceId'</span>])</span></code></pre></div>
 <p>但是不能设置hostname。</p>
 <h2 id="terminate_instances"><a href="#terminate_instances">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/terminate_instances.html">terminate_instances</a></h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>client.terminate_instances(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    InstanceIds<span class="op">=</span>[</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    ],</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>client.terminate_instances(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    InstanceIds<span class="op">=</span>[</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    ],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>)</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
