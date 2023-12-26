@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -7901,9 +7901,8 @@ aws_access_key_id = YOUR_ACCESS_KEY
 aws_secret_access_key = YOUR_SECRET_KEY
 region=ap-northeast-1</code></pre>
 <p>然后进入AWS EC2 console，点击右上角的下拉框，点击里面的security credentials，在里面创建access key和对应的secret key，其中secret key只在创建的时候显示，一定要妥善保存，丢失后只能再创建一个新的。</p>
-<h2 id="ec2-client"><a href="#ec2-client">¶</a> EC2 client</h2>
+<h2 id="ec2-client"><a href="#ec2-client">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html">EC2 client</a></h2>
 <p>官方示例：<a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/ec2-example-managing-instances.html" class="uri">https://boto3.amazonaws.com/v1/documentation/api/latest/guide/ec2-example-managing-instances.html</a></p>
-<p><code>EC2.Client</code>文档：<a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html" class="uri">https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html</a></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="im">import</span> boto3</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>client <span class="op">=</span> boto3.client(<span class="st">'ec2'</span>)</span></code></pre></div>
 <p>下面介绍一些常用的。</p>
@@ -7949,11 +7948,10 @@ region=ap-northeast-1</code></pre>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>        },</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    ],  </span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="st">'Reservations'</span>]</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>response <span class="op">=</span> response[<span class="dv">0</span>]</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>instances <span class="op">=</span> response[<span class="st">'Instances'</span>]</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">len</span>(instances))</span></code></pre></div>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>reservations <span class="op">=</span> response[<span class="st">'Reservations'</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">len</span>(reservations))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a><span class="cf">for</span> reservation <span class="kw">in</span> reservations:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    <span class="cf">assert</span> <span class="bu">len</span>(reservation[<span class="st">'Instances'</span>]) <span class="op">==</span> <span class="dv">1</span></span></code></pre></div>
 <h2 id="run_instances"><a href="#run_instances">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/run_instances.html">run_instances</a></h2>
 <p>创建实例。</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>response <span class="op">=</span> client.run_instances(</span>
@@ -7984,12 +7982,21 @@ region=ap-northeast-1</code></pre>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>instance <span class="op">=</span> response[<span class="st">'Instances'</span>][<span class="dv">0</span>]</span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'InstanceId'</span>])</span></code></pre></div>
 <p>但是不能设置hostname。</p>
+<p>在使用前先用下面介绍的<code>wait_until_exists</code>等待instance成功创建，不然会报instance不存在的错误。</p>
+<h2 id="instance"><a href="#instance">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/instance/index.html">Instance</a></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="im">import</span> boto3</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>ec2 <span class="op">=</span> boto3.resource(<span class="st">'ec2'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>instance <span class="op">=</span> ec2.Instance(<span class="st">'id'</span>)</span></code></pre></div>
+<h3 id="wait_until_exists"><a href="#wait_until_exists">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/instance/wait_until_exists.html">wait_until_exists</a></h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>instance.wait_until_exists()</span></code></pre></div>
+<h3 id="wait_until_running"><a href="#wait_until_running">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/instance/wait_until_running.html">wait_until_running</a></h3>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19054081/ec2-waiting-until-a-new-instance-is-in-running-state" class="uri">https://stackoverflow.com/questions/19054081/ec2-waiting-until-a-new-instance-is-in-running-state</a></p>
 <h2 id="terminate_instances"><a href="#terminate_instances">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/terminate_instances.html">terminate_instances</a></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>client.terminate_instances(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    InstanceIds<span class="op">=</span>[</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    ],</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>client.terminate_instances(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    InstanceIds<span class="op">=</span>[</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>    ],</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>)</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
