@@ -7925,14 +7925,14 @@ mjx-container[display="true"] + br {
 <h3 id="github"><a href="#github">¶</a> github</h3>
 <p>新建名字为<code>自己用户名.github.io</code>的仓库。</p>
 <h2 id="安装hexo"><a href="#安装hexo">¶</a> 安装hexo</h2>
-<p>Linux上可以用npm安装：</p>
-<pre class="shell"><code>sudo npm install hexo-cli -g</code></pre>
+<p>可以用npm安装：</p>
+<pre class="shell"><code>npm install hexo-cli -g</code></pre>
 <h2 id="初始化博客"><a href="#初始化博客">¶</a> 初始化博客</h2>
 <p>在本地新建一个<code>blog</code>空文件夹（不要clone），然后执行</p>
 <pre class="shell"><code>hexo init</code></pre>
 <p>就初始化了目录结构。然后才能<code>git init</code>，把gitee上的remote加上去。</p>
 <h2 id="预览"><a href="#预览">¶</a> 预览</h2>
-<pre class="shell"><code>hexo g &amp;&amp; hexo s</code></pre>
+<pre class="shell"><code>hexo s -g</code></pre>
 <p>就会编译并且在本地<code>4000</code>端口开一个网站</p>
 <pre class="text"><code>INFO  Validating config
 INFO  Start processing
@@ -7976,9 +7976,9 @@ cd tree</code></pre>
 <p>改成</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> tree</span></span></code></pre></div>
 <p>然后预览一下就可以看到主题换了。</p>
-<p>主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
+<p>在blog根目录新建<code>_config.tree.yml</code>，放tree theme的配置文件。主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
 <h2 id="修改header"><a href="#修改header">¶</a> 修改header</h2>
-<p>通过<code>themes/tree/_config.yml</code>里的<code>links</code>配置：</p>
+<p>通过<code>_config.tree.yml</code>里的<code>links</code>配置：</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="fu">links</span><span class="kw">:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co">  # 改成自己的github链接</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="at">  </span><span class="fu">github</span><span class="kw">:</span><span class="at"> https://github.com/wujun234</span></span>
@@ -7988,7 +7988,7 @@ cd tree</code></pre>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="at">      </span><span class="fu">URL</span><span class="kw">:</span><span class="at"> https://github.com/wujun234/uid-generator-spring-boot-starter</span></span></code></pre></div>
 <p>默认有一个作者自己的项目<code>UidGenerator</code>，删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
 <h2 id="开启标签"><a href="#开启标签">¶</a> 开启标签</h2>
-<p>在<code>themes/tree/_config.yml</code>开启标签：</p>
+<p>在<code>_config.tree.yml</code>开启标签：</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>在<code>source</code>目录下执行</p>
 <pre class="shell"><code>hexo new page "tags"</code></pre>
@@ -8008,7 +8008,7 @@ cd tree</code></pre>
 <p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
 <p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/" class="uri">https://www.leancloud.cn/</a><br>
 点击免费试用，然后注册就好了。有一定的免费额度。</p>
-<p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>themes/tree/_config.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
+<p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>_config.tree.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co"># valine </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="fu">valine</span><span class="kw">:</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co">    # 评论</span></span>
@@ -8024,9 +8024,9 @@ cd tree</code></pre>
 <p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
 <p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
 <h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a> 修改底部版权开始年份</h2>
-<p><code>themes/tree/_config.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
+<p><code>_config.tree.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
 <h2 id="更改网站图标"><a href="#更改网站图标">¶</a> 更改网站图标</h2>
-<p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>themes/tree/_config.yml</code>：</p>
+<p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>_config.tree.yml</code>：</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
 <p>即可让网站使用新的网站图标。</p>
