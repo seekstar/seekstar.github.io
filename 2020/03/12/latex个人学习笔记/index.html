@@ -8514,22 +8514,36 @@ In this new paragraph we have a reference to the first
 footnote\footref{note1}.</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/74668" class="uri">https://tex.stackexchange.com/a/74668</a></p>
 <p><code>footmisc</code>和<code>scrextend</code>都提供<code>footref</code>，但是<code>\usepackage{scrextend}</code>会报错<code>Command \@subtitlefont already defined.</code>。所以这里用<code>footmisc</code>。</p>
-<h2 id="bibliography"><a href="#bibliography">¶</a> Bibliography</h2>
-<h3 id="url"><a href="#url">¶</a> URL</h3>
-<p>Bibliography里URL不要用<code>url = {https://xxx}</code>的形式，要用<code>note = {\url{https://xxx}}</code>的形式，因为有些论文模板不认前者。</p>
-<h3 id="不cite也列出参考文献"><a href="#不cite也列出参考文献">¶</a> 不cite也列出参考文献</h3>
-<p><code>\nocite{xxx}</code>来强制列出单个参考文献。<code>\nocite{*}</code>强制列出所有参<br>
-考文献。</p>
-<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing" class="uri">https://tex.stackexchange.com/questions/17653/how-to-list-all-bibliography-entries-without-citing</a></p>
-<h3 id="去掉标题"><a href="#去掉标题">¶</a> 去掉标题</h3>
-<div class="sourceCode" id="cb45"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">etoolbox</span>}</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="fu">\patchcmd</span>{<span class="fu">\thebibliography</span>}{<span class="kw">\section*</span>{<span class="fu">\refname</span>}}{}{}{}</span></code></pre></div>
-<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title" class="uri">https://tex.stackexchange.com/questions/132646/how-to-remove-the-references-title</a></p>
-<h2 id="异常处理"><a href="#异常处理">¶</a> 异常处理</h2>
-<h3 id="textbf加粗对英文无效"><a href="#textbf加粗对英文无效">¶</a> <code>textbf{}</code>加粗对英文无效</h3>
-<p><code>\usepackage[T1]{fontenc}</code></p>
-<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dongqing0315/article/details/125385922">latex  字体加粗失效</a></p>
-<p>相关：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc" class="uri">https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc</a></p>
+<h2 id="圆圈编号"><a href="#圆圈编号">¶</a> 圆圈编号</h2>
+<p>原文：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/8473/256676" class="uri">https://tex.stackexchange.com/a/8473/256676</a></p>
+<h3 id="textcircled"><a href="#textcircled">¶</a> <code>\textcircled</code></h3>
+<p>原文：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/8553/256676" class="uri">https://tex.stackexchange.com/a/8553/256676</a></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{1}}</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{2}}</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{3}}</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{4}}</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{5}}</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{6}}</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{7}}</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{8}}</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{9}}</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{10}}</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{11}}</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{22}}</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{33}}</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{44}}</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{55}}</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{66}}</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{77}}</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{88}}</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{99}}</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true"></a>fg</span></code></pre></div>
+<p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/202401022349.png"></p>
+<h3 id="tikz"><a href="#tikz">¶</a> tikz</h3>
+<p>基于[Ch'en Meng的回答]，把<code>sep</code>改成了0.5pt，参数外面套了一层<code>\small</code>，从而变得更紧凑：</p>
+```tex<br>
+
+<p>\newcommand{}[2][]</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
