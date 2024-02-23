@@ -8409,11 +8409,14 @@ coreutils: /bin/ls</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size" class="uri">https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
 <h3 id="find"><a href="#find">¶</a> find</h3>
-<pre class="text"><code>find [目录] [查找规则] [查找完后执行的action]
-查找规则：
--name 根据文件名查找（精确查找）
--iname 不区分大小写</code></pre>
-<p>例子</p>
+<pre class="text"><code>find [目录] [查找规则] [查找完后执行的action]</code></pre>
+<h4 id="查找规则"><a href="#查找规则">¶</a> 查找规则</h4>
+<ul>
+<li><p><code>-name</code>: 根据文件名查找（精确查找）</p></li>
+<li><p><code>-iname</code>: 不区分大小写</p></li>
+<li><p><code>!</code>: 逻辑取反，比如<code>\! -name "xxx"</code>就是查找名字跟<code>xxx</code>不匹配的项</p></li>
+</ul>
+<h4 id="查找示例"><a href="#查找示例">¶</a> 查找示例</h4>
 <ul>
 <li>在当前目录下找到所有名字为input.txt的文件并将其放入回收站</li>
 </ul>
@@ -8447,6 +8450,8 @@ sudo find . -name b ! -path “./a/*”</code></pre>
 ./latency-0</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command" class="uri">https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command</a></p>
 <h3 id="grep"><a href="#grep">¶</a> grep</h3>
+<pre class="text"><code>       -v, --invert-match
+              Invert the sense of matching, to select non-matching lines.</code></pre>
 <ul>
 <li>查找当前目录下有某字符串的文件：</li>
 </ul>

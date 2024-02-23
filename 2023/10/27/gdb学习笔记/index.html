@@ -7943,6 +7943,12 @@ mjx-container[display="true"] + br {
 <pre class="text"><code>  10   Thread 0x7f199dffb700 (LWP 1530942) "checker"       __lll_lock_wait (futex=futex@entry=0x55aea2384ea8, 
     private=0) at lowlevellock.c:52</code></pre>
 <p>就输入<code>thread 10</code></p>
+<h2 id="-ex-gdb命令"><a href="#-ex-gdb命令">¶</a> <code>-ex gdb命令</code></h2>
+<p>执行一条gdb命令。比如让gdb立即执行命令：<code>gdb -ex run --args 命令 参数...</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2119564/how-to-automatically-run-the-executable-in-gdb" class="uri">https://stackoverflow.com/questions/2119564/how-to-automatically-run-the-executable-in-gdb</a></p>
+<p>如果还需要让命令正常退出时gdb也退出，但是命令异常时暂停：</p>
+<pre class="shell"><code>gdb -ex='set confirm on' -ex='set pagination off' -ex=run -ex=quit --args 命令 参数...</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/8657833" class="uri">https://stackoverflow.com/a/8657833</a></p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://sourceware.org/gdb/download/onlinedocs/gdb/Threads.html" class="uri">https://sourceware.org/gdb/download/onlinedocs/gdb/Threads.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

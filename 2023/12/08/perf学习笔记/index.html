@@ -7910,10 +7910,23 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>官方文档：<a target="_blank" rel="noopener" href="https://perf.wiki.kernel.org/index.php/Main_Page" class="uri">https://perf.wiki.kernel.org/index.php/Main_Page</a></p>
-<p>简单用法：</p>
+<h2 id="安装"><a href="#安装">¶</a> 安装</h2>
+<p>Debian:</p>
+<pre class="shell"><code>sudo apt install linux-perf</code></pre>
+<h2 id="开启权限"><a href="#开启权限">¶</a> 开启权限</h2>
+<p>设置<code>/proc/sys/kernel/perf_event_paranoid</code>:</p>
+<pre class="text"><code>  -1: Allow use of (almost) all events by all users
+      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK
+&gt;= 0: Disallow raw and ftrace function tracepoint access
+&gt;= 1: Disallow CPU event access
+&gt;= 2: Disallow kernel profiling</code></pre>
+<pre class="shell"><code>sudo bash -c "echo 0 &gt; /proc/sys/kernel/perf_event_paranoid"</code></pre>
+<h2 id="简单用法"><a href="#简单用法">¶</a> 简单用法</h2>
 <pre class="shell"><code>perf record 命令 参数...</code></pre>
 <p>会生成perf.data，可以用来生成火焰图： <a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/" title="perf.data生成火焰图">perf.data生成火焰图</a></p>
 <p>注意所有代码（包括系统库）都要<code>-fno-omit-frame-pointer</code>来编译，不然生成的火焰图调用关系是错的。具体方法请参考：<a href="/2021/09/20/linux-perf%E5%BE%97%E5%88%B0%E5%AE%8C%E6%95%B4%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB/" title="linux perf得到完整调用关系">linux perf得到完整调用关系</a></p>
+<h2 id="选项"><a href="#选项">¶</a> 选项</h2>
+<p>指定<code>perf.data</code>的路径：<code>-o /path/to/perf.data</code></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
