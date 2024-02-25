@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -7949,6 +7949,15 @@ mjx-container[display="true"] + br {
 <p>如果还需要让命令正常退出时gdb也退出，但是命令异常时暂停：</p>
 <pre class="shell"><code>gdb -ex='set confirm on' -ex='set pagination off' -ex=run -ex=quit --args 命令 参数...</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/8657833" class="uri">https://stackoverflow.com/a/8657833</a></p>
+<h2 id="core-dump"><a href="#core-dump">¶</a> core dump</h2>
+<p>系统可能默认禁用了core dump:</p>
+<pre class="shell"><code>ulimit -c</code></pre>
+<p>返回0说明不允许core dump。要启用core dump，可以在当前shell里把它设置成unlimited:</p>
+<pre class="shell"><code>ulimit -c unlimited</code></pre>
+<p>然后在同一个shell里运行程序时再出现segfault就会dump core。</p>
+<p>然后就可以用gdb来解析这个core file:</p>
+<pre class="shell"><code>gdb executable core-file</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.bogotobogo.com/cplusplus/debugging_core_memory_dump_segmentation_fault_gdb.php" class="uri">https://www.bogotobogo.com/cplusplus/debugging_core_memory_dump_segmentation_fault_gdb.php</a></p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://sourceware.org/gdb/download/onlinedocs/gdb/Threads.html" class="uri">https://sourceware.org/gdb/download/onlinedocs/gdb/Threads.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

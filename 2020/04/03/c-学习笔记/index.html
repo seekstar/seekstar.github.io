@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -8019,33 +8019,66 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>	a.emplace_back(<span class="bu">std::</span>piecewise_construct, <span class="bu">std::</span>make_tuple(<span class="dv">1</span>, <span class="fl">1.0</span>), <span class="bu">std::</span>make_tuple(<span class="dv">1</span>, <span class="fl">1.0</span>));</span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a>}</span></code></pre></div>
+<p>坑点是map的<code>piecewise_construct</code>似乎是无条件的，也就是说就算是插入失败了也会先construct这个node再将其destruct。例子：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;map&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;tuple&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>	A(<span class="dt">int</span> x) : <span class="va">x_</span>(x) {</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"Constructing "</span> &lt;&lt; <span class="va">x_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>	}</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>	~A() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Destructing "</span> &lt;&lt; <span class="va">x_</span> &lt;&lt; <span class="bu">std::</span>endl; }</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">x_</span>;</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>};</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>	<span class="bu">std::</span>map&lt;<span class="dt">int</span>, A&gt; m;</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true"></a>	<span class="kw">auto</span> ret = m.emplace(<span class="bu">std::</span>piecewise_construct, <span class="bu">std::</span>make_tuple(<span class="dv">1</span>), <span class="bu">std::</span>make_tuple(<span class="dv">1</span>));</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true"></a>	<span class="ot">assert</span>(ret.second == <span class="kw">true</span>);</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true"></a>	ret = m.emplace(<span class="bu">std::</span>piecewise_construct, <span class="bu">std::</span>make_tuple(<span class="dv">1</span>), <span class="bu">std::</span>make_tuple(<span class="dv">233</span>));</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true"></a>	<span class="ot">assert</span>(ret.second == <span class="kw">false</span>);</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true"></a>}</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>Constructing 1
+Constructing 233
+Destructing 233
+
+Destructing 1</code></pre>
 <h2 id="字符串和数值相互转化"><a href="#字符串和数值相互转化">¶</a> 字符串和数值相互转化</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lxj434368832/article/details/78874108" class="uri">https://blog.csdn.net/lxj434368832/article/details/78874108</a></p>
 <h3 id="c字符串---数值"><a href="#c字符串---数值">¶</a> C字符串 -&gt; 数值</h3>
 <p>C字符串是以<code>\0</code>结尾的<code>const char *</code>。</p>
 <h4 id="ato系列"><a href="#ato系列">¶</a> <code>ato</code>系列</h4>
 <p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/string/byte/atoi" class="uri">https://en.cppreference.com/w/cpp/string/byte/atoi</a></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="dt">int</span>       atoi( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>	(<span class="dv">1</span>) 	</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="dt">long</span>      atol( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>	(<span class="dv">2</span>) 	</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="dt">long</span> <span class="dt">long</span> atoll( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>	(<span class="dv">3</span>) 	(since C++<span class="dv">11</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="dt">int</span> ret = atoi(<span class="st">"123"</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="dt">int</span>       atoi( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>	(<span class="dv">1</span>) 	</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="dt">long</span>      atol( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>	(<span class="dv">2</span>) 	</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="dt">long</span> <span class="dt">long</span> atoll( <span class="dt">const</span> <span class="dt">char</span>* str );</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>	(<span class="dv">3</span>) 	(since C++<span class="dv">11</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="dt">int</span> ret = atoi(<span class="st">"123"</span>);</span></code></pre></div>
 <h4 id="strto系列"><a href="#strto系列">¶</a> <code>strto</code>系列</h4>
 <p>C99提供了<code>strtoul</code>和<code>strtoull</code>将C字符串转成unsigned long和unsigned long long。文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/c/string/byte/strtoul" class="uri">https://en.cppreference.com/w/c/string/byte/strtoul</a></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span>      strtoul( <span class="dt">const</span> <span class="dt">char</span> *<span class="dt">restrict</span> str, <span class="dt">char</span> **<span class="dt">restrict</span> str_end,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>                            <span class="dt">int</span> base );</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> strtoull( <span class="dt">const</span> <span class="dt">char</span> *<span class="dt">restrict</span> str, <span class="dt">char</span> **<span class="dt">restrict</span> str_end,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>                             <span class="dt">int</span> base );</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span>      strtoul( <span class="dt">const</span> <span class="dt">char</span> *<span class="dt">restrict</span> str, <span class="dt">char</span> **<span class="dt">restrict</span> str_end,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>                            <span class="dt">int</span> base );</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> strtoull( <span class="dt">const</span> <span class="dt">char</span> *<span class="dt">restrict</span> str, <span class="dt">char</span> **<span class="dt">restrict</span> str_end,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>                             <span class="dt">int</span> base );</span></code></pre></div>
 <p>例子：</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> x = strtoul(<span class="st">"233"</span>, NULL, <span class="dv">10</span>);</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, x); <span class="co">// 233</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>x = strtoul(<span class="st">"0xf"</span>, NULL, <span class="dv">16</span>);</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, x); <span class="co">// 15</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="co">// 将base设置为0可以自动检测</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"233"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 233</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"0xf"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 15</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> x = strtoul(<span class="st">"233"</span>, NULL, <span class="dv">10</span>);</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, x); <span class="co">// 233</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>x = strtoul(<span class="st">"0xf"</span>, NULL, <span class="dv">16</span>);</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, x); <span class="co">// 15</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a><span class="co">// 将base设置为0可以自动检测</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"233"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 233</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>printf(<span class="st">"%lu</span><span class="sc">\n</span><span class="st">"</span>, strtoul(<span class="st">"0xf"</span>, NULL, <span class="dv">0</span>)); <span class="co">// 15</span></span></code></pre></div>
 <h3 id="string---数值"><a href="#string---数值">¶</a> string -&gt; 数值</h3>
 <p>可以用C++11里的<code>std::sto*</code>系列把string转换为基本数据类型：</p>
 <table>
@@ -8079,92 +8112,92 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 </tbody>
 </table>
 <p>例子：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> x = <span class="bu">std::</span>stoul(<span class="st">"233"</span>);</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// 233</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>x = <span class="bu">std::</span>stoul(<span class="st">"0xf"</span>, <span class="kw">nullptr</span>, <span class="dv">16</span>);</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// 15</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="co">// 将base设置为0可以自动检测</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>stoul(<span class="st">"0xf"</span>, <span class="kw">nullptr</span>, <span class="dv">0</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>stoul(<span class="st">"233"</span>, <span class="kw">nullptr</span>, <span class="dv">0</span>) &lt;&lt; <span class="bu">std::</span>endl;</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">long</span> x = <span class="bu">std::</span>stoul(<span class="st">"233"</span>);</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// 233</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>x = <span class="bu">std::</span>stoul(<span class="st">"0xf"</span>, <span class="kw">nullptr</span>, <span class="dv">16</span>);</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; x &lt;&lt; <span class="bu">std::</span>endl; <span class="co">// 15</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="co">// 将base设置为0可以自动检测</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>stoul(<span class="st">"0xf"</span>, <span class="kw">nullptr</span>, <span class="dv">0</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a><span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>stoul(<span class="st">"233"</span>, <span class="kw">nullptr</span>, <span class="dv">0</span>) &lt;&lt; <span class="bu">std::</span>endl;</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/string/basic_string/stoul" class="uri">https://en.cppreference.com/w/cpp/string/basic_string/stoul</a></p>
 <p>同理，C++11还提供了string转signed integer的函数：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/string/basic_string/stol" class="uri">https://en.cppreference.com/w/cpp/string/basic_string/stol</a></p>
 <p>以及string转浮点数的函数：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/string/basic_string/stof" class="uri">https://en.cppreference.com/w/cpp/string/basic_string/stof</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1070497/c-convert-hex-string-to-signed-integer" class="uri">https://stackoverflow.com/questions/1070497/c-convert-hex-string-to-signed-integer</a></p>
 <h3 id="数值---string"><a href="#数值---string">¶</a> 数值 -&gt; string</h3>
 <p>C++11中可以用<code>std::to_string</code>，文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/string/basic_string/to_string" class="uri">https://en.cppreference.com/w/cpp/string/basic_string/to_string</a></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="dv">123</span>;</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a><span class="bu">std::</span>string str = <span class="bu">std::</span>to_string(x);</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="dv">123</span>;</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="bu">std::</span>string str = <span class="bu">std::</span>to_string(x);</span></code></pre></div>
 <h2 id="输出字符型指针指向的地址"><a href="#输出字符型指针指向的地址">¶</a> 输出字符型指针指向的地址</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html" class="uri">https://www.cnblogs.com/wxxweb/archive/2011/05/20/2052256.html</a></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>cout &lt;&lt; (<span class="at">const</span> <span class="dt">void</span>*)char_pointer &lt;&lt; endl;</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>cout &lt;&lt; (<span class="at">const</span> <span class="dt">void</span>*)char_pointer &lt;&lt; endl;</span></code></pre></div>
 <h2 id="多线程"><a href="#多线程">¶</a> 多线程</h2>
 <h3 id="atomic不能用vector存储"><a href="#atomic不能用vector存储">¶</a> <code>atomic</code>不能用<code>vector</code>存储</h3>
 <p>因为vector在倍增的时候需要移动元素，而atomic不是move constructable的，所以atomic不能用vector存储。但是可以用<code>std::deque</code>存储，因为它没有倍增的操作。</p>
 <h3 id="睡眠"><a href="#睡眠">¶</a> 睡眠</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/alanlvee/p/5152936.html" class="uri">https://www.cnblogs.com/alanlvee/p/5152936.html</a></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;chrono&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;thread&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="co">//睡眠233ms</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a><span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds(<span class="dv">233</span>));</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;chrono&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="pp">#include</span><span class="im">&lt;thread&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="co">//睡眠233ms</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="bu">std::</span>this_thread<span class="bu">::</span>sleep_for(<span class="bu">std::</span>chrono<span class="bu">::</span>milliseconds(<span class="dv">233</span>));</span></code></pre></div>
 <h3 id="memory-order"><a href="#memory-order">¶</a> Memory order</h3>
 <a href="/2023/03/16/c-memory-order/" title="C++ memory order">C++ memory order</a>
 <h3 id="cas-compare-and-swap"><a href="#cas-compare-and-swap">¶</a> CAS (Compare And Swap)</h3>
 <p><code>std::atomic</code>通过<code>compare_exchange_weak</code>和<code>compare_exchange_strong</code>来实现CAS操作：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange" class="uri">https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange</a></p>
 <p>基础接口：</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="dt">bool</span> compare_exchange_weak( T&amp; expected, T desired);</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="dt">bool</span> compare_exchange_strong( T&amp; expected, T desired);</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="dt">bool</span> compare_exchange_weak( T&amp; expected, T desired);</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a><span class="dt">bool</span> compare_exchange_strong( T&amp; expected, T desired);</span></code></pre></div>
 <p>如果原子变量的值等于expected，那么就将其赋值为desired，并返回true。如果原子变量的值不等于expected，那么就将真正的值赋值到expected里，并返回false。</p>
 <p>换言之，调用结束之后expected为原子变量中最终存的值。</p>
 <p><code>compare_exchange_weak</code>与<code>compare_exchange_strong</code>不同的地方在于，即使原子变量的值等于expected，<code>compare_exchange_weak</code>也可能会返回false，而<code>compare_exchange_strong</code>不会出现这种情况，但是性能可能比<code>compare_exchange_weak</code>低。因此如果CAS本来就在一个循环里，比如它来实现原子加1，那么可以直接用<code>compare_exchange_weak</code>：</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; x;</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true"></a><span class="dt">void</span> add1() {</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true"></a>	<span class="dt">int</span> ori;</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true"></a>		ori = x.load(<span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true"></a>	} <span class="cf">while</span> (!x.compare_exchange_weak(ori, ori + <span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed));</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true"></a>}</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>thread&gt; ts;</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10000</span>; ++i)</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true"></a>		ts.emplace_back(add1);</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="kw">auto</span>&amp; t : ts)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true"></a>		t.join();</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x.load() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; x;</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a><span class="dt">void</span> add1() {</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>	<span class="dt">int</span> ori;</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>		ori = x.load(<span class="bu">std::</span>memory_order_relaxed);</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>	} <span class="cf">while</span> (!x.compare_exchange_weak(ori, ori + <span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed));</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>}</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>	<span class="bu">std::</span>vector&lt;<span class="bu">std::</span>thread&gt; ts;</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10000</span>; ++i)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a>		ts.emplace_back(add1);</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="kw">auto</span>&amp; t : ts)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>		t.join();</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; x.load() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="正则表达式"><a href="#正则表达式">¶</a> 正则表达式</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/philpanic9/article/details/88141305" class="uri">https://blog.csdn.net/philpanic9/article/details/88141305</a><br>
 文档：<a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/regex/basic_regex/" class="uri">http://www.cplusplus.com/reference/regex/basic_regex/</a></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span></code></pre></div>
 <p>REGular EXpression</p>
 <p>C++默认使用ECMAScript的正则表达式文法。<br>
 教程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cycxtz/p/4804115.html" class="uri">https://www.cnblogs.com/cycxtz/p/4804115.html</a></p>
 <h3 id="regex_match"><a href="#regex_match">¶</a> regex_match</h3>
 <p>判断是否为格式为yyyy-mm-dd的日期</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a><span class="at">const</span> regex regex_date(<span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{4}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">"</span>);</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a><span class="dt">bool</span> validDate(<span class="at">const</span> string&amp; s) {</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>	    <span class="cf">return</span> regex_match(s, regex_date);</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>}</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-06"</span>) &lt;&lt; endl;</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"202-04-06"</span>) &lt;&lt; endl;</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"20204-06"</span>) &lt;&lt; endl;</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-06-"</span>) &lt;&lt; endl;</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-6"</span>) &lt;&lt; endl;</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a><span class="at">const</span> regex regex_date(<span class="st">"</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{4}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">-</span><span class="sc">\\</span><span class="st">d</span><span class="sc">{2}</span><span class="st">"</span>);</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a><span class="dt">bool</span> validDate(<span class="at">const</span> string&amp; s) {</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>	    <span class="cf">return</span> regex_match(s, regex_date);</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>}</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-06"</span>) &lt;&lt; endl;</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"202-04-06"</span>) &lt;&lt; endl;</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"20204-06"</span>) &lt;&lt; endl;</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-06-"</span>) &lt;&lt; endl;</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true"></a>	cout &lt;&lt; validDate(<span class="st">"2020-04-6"</span>) &lt;&lt; endl;</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true"></a></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>1
 0
@@ -8173,39 +8206,39 @@ cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 0</code></pre>
 <h3 id="regex_search"><a href="#regex_search">¶</a> regex_search</h3>
 <p>搜索出所有连续的数字。</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>	regex e(<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>);</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>	<span class="at">const</span> <span class="dt">char</span> s[] = <span class="st">"(123, 456), (789, 452)"</span>;</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a>	cmatch m;</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>	<span class="at">const</span> <span class="dt">char</span>* now = s;</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>	<span class="cf">while</span> (regex_search(now, m, e)) {</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="kw">auto</span> x : m) {</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a>			cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true"></a>		}</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true"></a>		cout &lt;&lt; endl &lt;&lt; <span class="st">"position: "</span> &lt;&lt; m.position() &lt;&lt; endl &lt;&lt;  <span class="st">"length: "</span> &lt;&lt; m.length() &lt;&lt; endl;</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true"></a>		now += m.position() + m.length();</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true"></a>	}</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true"></a>	cout &lt;&lt; endl;</span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true"></a></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true"></a>	string str(<span class="st">"(123, 456), (789, 452)"</span>);</span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true"></a>	smatch sm;</span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true"></a>	<span class="cf">while</span> (regex_search(str, sm, e)) {</span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="kw">auto</span> x : sm) {</span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true"></a>			cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true"></a>		}</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true"></a>		cout &lt;&lt; endl;</span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true"></a>		str = sm.suffix().str();</span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true"></a>	}</span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true"></a></span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>	regex e(<span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>);</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true"></a>	<span class="at">const</span> <span class="dt">char</span> s[] = <span class="st">"(123, 456), (789, 452)"</span>;</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true"></a>	cmatch m;</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true"></a>	<span class="at">const</span> <span class="dt">char</span>* now = s;</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true"></a>	<span class="cf">while</span> (regex_search(now, m, e)) {</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="kw">auto</span> x : m) {</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true"></a>			cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true"></a>		}</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true"></a>		cout &lt;&lt; endl &lt;&lt; <span class="st">"position: "</span> &lt;&lt; m.position() &lt;&lt; endl &lt;&lt;  <span class="st">"length: "</span> &lt;&lt; m.length() &lt;&lt; endl;</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true"></a>		now += m.position() + m.length();</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true"></a>	}</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true"></a>	cout &lt;&lt; endl;</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true"></a>	string str(<span class="st">"(123, 456), (789, 452)"</span>);</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true"></a>	smatch sm;</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true"></a>	<span class="cf">while</span> (regex_search(str, sm, e)) {</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="kw">auto</span> x : sm) {</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true"></a>			cout &lt;&lt; x &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true"></a>		}</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true"></a>		cout &lt;&lt; endl;</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true"></a>		str = sm.suffix().str();</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true"></a>	}</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true"></a></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>123 
 position: 1
@@ -8225,19 +8258,19 @@ length: 3
 789 
 452</code></pre>
 <h3 id="regex_replace"><a href="#regex_replace">¶</a> regex_replace</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a>	string s(<span class="st">"abcdefgdd"</span>);</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a>	regex e(<span class="st">"d"</span>);</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true"></a>	cout &lt;&lt; regex_replace(s, e, <span class="st">"233"</span>) &lt;&lt; endl;</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true"></a></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;regex&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true"></a>	string s(<span class="st">"abcdefgdd"</span>);</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true"></a>	regex e(<span class="st">"d"</span>);</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true"></a>	cout &lt;&lt; regex_replace(s, e, <span class="st">"233"</span>) &lt;&lt; endl;</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>abc233efg233233</code></pre>
 <h2 id="内存安全"><a href="#内存安全">¶</a> 内存安全</h2>
@@ -8246,96 +8279,96 @@ length: 3
 <p>注意<code>std::unique_ptr</code>可以转换成<code>std::shared_ptr</code>，但是<code>std::shared_ptr</code>不能转换成<code>std::unique_ptr</code>。如果碰到某个<code>std::unique_ptr</code>需要临时共享的情况，可以强转成裸指针做。</p>
 <h3 id="注意野引用"><a href="#注意野引用">¶</a> 注意野引用</h3>
 <p>此外，C++的引用只能保证不为NULL，但是并不能保证它一定指向一个有效的对象。例如下面的代码可以编译通过：</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true"></a>	A(<span class="dt">int</span>&amp; a) : <span class="va">a_</span>(a) {}</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true"></a>	<span class="dt">int</span>&amp; <span class="va">a_</span>;</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true"></a>};</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true"></a>A test() {</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true"></a>	<span class="dt">int</span> a = <span class="dv">233</span>;</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true"></a>	<span class="cf">return</span> A(a);</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true"></a>}</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true"></a>	A a = test();</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.<span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a>	A(<span class="dt">int</span>&amp; a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a>	<span class="dt">int</span>&amp; <span class="va">a_</span>;</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a>};</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a>A test() {</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a>	<span class="dt">int</span> a = <span class="dv">233</span>;</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true"></a>	<span class="cf">return</span> A(a);</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true"></a>}</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true"></a>	A a = test();</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.<span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true"></a>}</span></code></pre></div>
 <p>而且在传入引用时看起来与传值一样。因此如果需要长期持有这个引用，例如在保存在某个结构体中，那么还是建议用裸指针，而不是引用。例如上面的例子这样写就很容易看出来有问题：</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a>	A(<span class="dt">int</span>* a) : <span class="va">a_</span>(a) {}</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a>	<span class="dt">int</span>* <span class="va">a_</span>;</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>};</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true"></a>A test() {</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true"></a>	<span class="dt">int</span> a = <span class="dv">233</span>;</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true"></a>	<span class="cf">return</span> A(&amp;a);</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true"></a>}</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true"></a>	A a = test();</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *a.<span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a>	A(<span class="dt">int</span>* a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a>	<span class="dt">int</span>* <span class="va">a_</span>;</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a>};</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a>A test() {</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true"></a>	<span class="dt">int</span> a = <span class="dv">233</span>;</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true"></a>	<span class="cf">return</span> A(&amp;a);</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true"></a>}</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true"></a>	A a = test();</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *a.<span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true"></a>}</span></code></pre></div>
 <h3 id="vscode-clang-tidy静态检查"><a href="#vscode-clang-tidy静态检查">¶</a> vscode clang-tidy静态检查</h3>
 <p>比如检查是否使用了moved value：<code>bugprone-use-after-move</code></p>
 <p>教程：<a href="/2022/11/10/vscode-clang-tidy/" title="vscode clang-tidy">vscode clang-tidy</a></p>
 <h3 id="迭代器"><a href="#迭代器">¶</a> 迭代器</h3>
 <p>建议自定义迭代器时使用Rust风格的接口：</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="kw">class</span> Iterator {</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a>	<span class="co">// Return owned object</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a>	T Next();</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a>	<span class="co">// If peekable</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a>	<span class="co">// Return NULL if not exists</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a>	T* Peek();</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a>};</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="kw">class</span> Iterator {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a>	<span class="co">// Return owned object</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a>	T Next();</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a>	<span class="co">// If peekable</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a>	<span class="co">// Return NULL if not exists</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a>	T* Peek();</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a>};</span></code></pre></div>
 <p>注意<code>Peek</code>返回的object不要保存，而是每次都调用<code>Peek</code>来访问，否则会出现下次调用<code>Next</code>之后原先保存的引用失效的问题。</p>
 <h2 id="模板类分离声明和定义"><a href="#模板类分离声明和定义">¶</a> 模板类分离声明和定义</h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true"></a>	A();</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true"></a>	<span class="dt">void</span> Print();</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true"></a>	T <span class="va">a_</span>;</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true"></a>};</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true"></a></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true"></a>A&lt;T&gt;::A() : <span class="va">a_</span>(<span class="dv">233</span>) {}</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true"></a></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::Print() {</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true"></a>}</span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true"></a></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true"></a>	A&lt;<span class="dt">int</span>&gt;().Print();</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true"></a></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true"></a>	A();</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true"></a>	<span class="dt">void</span> Print();</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true"></a>	T <span class="va">a_</span>;</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true"></a>};</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true"></a>A&lt;T&gt;::A() : <span class="va">a_</span>(<span class="dv">233</span>) {}</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::Print() {</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true"></a>}</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true"></a></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true"></a>	A&lt;<span class="dt">int</span>&gt;().Print();</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true"></a>}</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2464296/is-it-possible-to-defer-member-initialization-to-the-constructor-body" class="uri">https://stackoverflow.com/questions/2464296/is-it-possible-to-defer-member-initialization-to-the-constructor-body</a></p>
 <p>嵌套类同理：</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a>	<span class="kw">struct</span> B {</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true"></a>		<span class="at">static</span> <span class="dt">void</span> Print();</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true"></a>	};</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true"></a>};</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::B::Print() {</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">typeid</span>(T).name() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true"></a>}</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true"></a></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true"></a>	A&lt;<span class="dt">int</span>&gt;::B::Print();</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true"></a></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true"></a>	<span class="kw">struct</span> B {</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true"></a>		<span class="at">static</span> <span class="dt">void</span> Print();</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true"></a>	};</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true"></a>};</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true"></a><span class="dt">void</span> A&lt;T&gt;::B::Print() {</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="kw">typeid</span>(T).name() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true"></a>}</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true"></a></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true"></a>	A&lt;<span class="dt">int</span>&gt;::B::Print();</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true"></a>}</span></code></pre></div>
 <p>如果已知需要用到哪些类型的话，似乎还可以把template的定义放到cpp文件：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/115703/storing-c-template-function-definitions-in-a-cpp-file" class="uri">https://stackoverflow.com/questions/115703/storing-c-template-function-definitions-in-a-cpp-file</a></p>
 <h2 id="隐藏构造函数"><a href="#隐藏构造函数">¶</a> 隐藏构造函数</h2>
@@ -8344,30 +8377,30 @@ length: 3
 <p>这是最优雅的方法。但是却不总是可行。</p>
 <h3 id="friend"><a href="#friend">¶</a> friend</h3>
 <p>把要访问隐藏的构造函数的函数和类声明为friend即可。</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a><span class="kw">class</span> A {</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true"></a>	<span class="dt">void</span> Print() {</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true"></a>	}</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true"></a>	A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">a_</span>;</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true"></a>	<span class="kw">friend</span> A Create();</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true"></a>};</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true"></a></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true"></a>A Create() {</span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true"></a>	<span class="cf">return</span> A(<span class="dv">233</span>);</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true"></a>}</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true"></a></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true"></a>	Create().Print();</span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true"></a></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true"></a>	<span class="dt">void</span> Print() {</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true"></a>	}</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true"></a>	A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">a_</span>;</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true"></a>	<span class="kw">friend</span> A Create();</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true"></a>};</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true"></a>A Create() {</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true"></a>	<span class="cf">return</span> A(<span class="dv">233</span>);</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true"></a>}</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true"></a></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true"></a>	Create().Print();</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true"></a>}</span></code></pre></div>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         （不推荐）引入隐藏的namespace
@@ -8412,32 +8445,32 @@ length: 3
 </div>
 <h2 id="返回多个对象"><a href="#返回多个对象">¶</a> 返回多个对象</h2>
 <p>需要使用C++17的structured binding：</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;tuple&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true"></a>	A() {</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A constructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true"></a>	}</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true"></a>	A(A&amp;&amp;) {</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A moving</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true"></a>	}</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true"></a>	~A() {</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A deconstructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true"></a>	}</span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true"></a>};</span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true"></a></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true"></a><span class="bu">std::</span>tuple&lt;<span class="dt">int</span>, A&gt; f() {</span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>tuple(<span class="dv">233</span>, A());</span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true"></a>}</span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true"></a></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true"></a>	<span class="kw">auto</span> [x, a] = f();</span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;tuple&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true"></a>	A() {</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A constructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true"></a>	}</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true"></a>	A(A&amp;&amp;) {</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A moving</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true"></a>	}</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true"></a>	~A() {</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"A deconstructing</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true"></a>	}</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true"></a>};</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true"></a><span class="bu">std::</span>tuple&lt;<span class="dt">int</span>, A&gt; f() {</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true"></a>	<span class="cf">return</span> <span class="bu">std::</span>tuple(<span class="dv">233</span>, A());</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true"></a>}</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true"></a></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true"></a>	<span class="kw">auto</span> [x, a] = f();</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true"></a>}</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>A constructing
 A moving
@@ -8446,186 +8479,186 @@ A deconstructing</code></pre>
 <p>可见接收返回值的时候调用的是move constructor。</p>
 <p>但是vscode显示那些返回的对象的类型是<code>&lt;unnamed&gt;</code>，而且也没有任何成员函数之类的提示。似乎是因为返回出来的实际上是指向返回值中的对象的引用类型，而且没有名字。所以这个特性对IDE非常不友好。</p>
 <h2 id="move-constructor里构造父类"><a href="#move-constructor里构造父类">¶</a> move constructor里构造父类</h2>
-<div class="sourceCode" id="cb38"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true"></a>	A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">a_</span>(a.<span class="va">a_</span>) {}</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true"></a>	<span class="dt">void</span> PrintA() {</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true"></a>	}</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">a_</span>;</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true"></a>};</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true"></a></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true"></a><span class="kw">struct</span> B : A {</span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true"></a>	B(<span class="dt">int</span> a, <span class="dt">int</span> b) : A(a), <span class="va">b_</span>(b) {}</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true"></a>	<span class="co">// 直接调用父类的move constructor</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true"></a>	<span class="co">// B&amp;&amp;会被自动转换为A&amp;&amp;</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true"></a>	B(B&amp;&amp; r) : A(<span class="bu">std::</span>move(r)), <span class="va">b_</span>(r.<span class="va">b_</span>) {}</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true"></a>	B(<span class="at">const</span> B&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true"></a>	<span class="dt">void</span> PrintB() {</span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">b_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true"></a>	}</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">b_</span>;</span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true"></a>};</span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true"></a></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true"></a>	B b(<span class="dv">1</span>, <span class="dv">2</span>);</span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true"></a>	b.PrintA();</span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true"></a>	b.PrintB();</span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true"></a></span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true"></a>	B c(<span class="bu">std::</span>move(b));</span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true"></a>	c.PrintA();</span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true"></a>	c.PrintB();</span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true"></a></span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a>	A(<span class="dt">int</span> a) : <span class="va">a_</span>(a) {}</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">a_</span>(a.<span class="va">a_</span>) {}</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true"></a>	<span class="dt">void</span> PrintA() {</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">a_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true"></a>	}</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">a_</span>;</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true"></a>};</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true"></a><span class="kw">struct</span> B : A {</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true"></a>	B(<span class="dt">int</span> a, <span class="dt">int</span> b) : A(a), <span class="va">b_</span>(b) {}</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true"></a>	<span class="co">// 直接调用父类的move constructor</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true"></a>	<span class="co">// B&amp;&amp;会被自动转换为A&amp;&amp;</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true"></a>	B(B&amp;&amp; r) : A(<span class="bu">std::</span>move(r)), <span class="va">b_</span>(r.<span class="va">b_</span>) {}</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true"></a>	B(<span class="at">const</span> B&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true"></a>	<span class="dt">void</span> PrintB() {</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="va">b_</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true"></a>	}</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">b_</span>;</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true"></a>};</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true"></a></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true"></a>	B b(<span class="dv">1</span>, <span class="dv">2</span>);</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true"></a>	b.PrintA();</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true"></a>	b.PrintB();</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true"></a></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true"></a>	B c(<span class="bu">std::</span>move(b));</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true"></a>	c.PrintA();</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true"></a>	c.PrintB();</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true"></a></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true"></a>}</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37668952/move-constructor-for-derived-class" class="uri">https://stackoverflow.com/questions/37668952/move-constructor-for-derived-class</a></p>
 <h2 id="stdoptional"><a href="#stdoptional">¶</a> std::optional</h2>
 <p>Since C++17.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true"></a><span class="bu">std::</span>optional&lt;<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;&gt; f(<span class="dt">bool</span> none) {</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true"></a>	<span class="cf">if</span> (none) {</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;({<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>});</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true"></a>	}</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true"></a>}</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true"></a>	<span class="kw">auto</span> ret = f(<span class="kw">false</span>);</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true"></a>	<span class="co">// If not none, then evaluated to true</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> v : ret.value())</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; v &lt;&lt; <span class="ch">' '</span>;</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true"></a></span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true"></a>	ret = f(<span class="kw">true</span>);</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true"></a>	<span class="co">// If none, then evaluated to false</span></span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true"></a></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true"></a>}</span></code></pre></div>
-<h2 id="二分搜索"><a href="#二分搜索">¶</a> 二分搜索</h2>
-<p><code>std::lower_bound</code>返回第一个&gt;=目标的元素迭代器，<code>std::upper_bound</code>返回第一个&gt;目标的元素的迭代器：</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true"></a>	<span class="dt">int</span> a[] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>};</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true"></a>	<span class="co">// 2</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true"></a>	<span class="co">// 3</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true"></a></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true"></a>}</span></code></pre></div>
-<p>但是<code>std::lower_bound</code>要求数组元素和目标可比较，而<code>std::upper_bound</code>要求目标和数组元素可比较。例如下面的代码可以正常使用<code>std::lower_bound</code>，因为<code>A</code>可以和目标<code>int</code>比较，但是<code>std::upper_bound</code>不能正常使用，因此<code>int</code>不能和<code>A</code>比较：</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a>	<span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> b) <span class="at">const</span> {</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a>		<span class="cf">return</span> v &lt; b;</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;optional&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true"></a><span class="bu">std::</span>optional&lt;<span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;&gt; f(<span class="dt">bool</span> none) {</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true"></a>	<span class="cf">if</span> (none) {</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>nullopt;</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="bu">std::</span>vector&lt;<span class="dt">int</span>&gt;({<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>});</span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true"></a>	}</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true"></a>};</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true"></a>}</span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true"></a></span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true"></a></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true"></a>	<span class="kw">auto</span> ret = f(<span class="kw">false</span>);</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true"></a>	<span class="co">// If not none, then evaluated to true</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">int</span> v : ret.value())</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; v &lt;&lt; <span class="ch">' '</span>;</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true"></a>	ret = f(<span class="kw">true</span>);</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true"></a>	<span class="co">// If none, then evaluated to false</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; (<span class="dt">bool</span>)ret &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true"></a></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="二分搜索"><a href="#二分搜索">¶</a> 二分搜索</h2>
+<p><code>std::lower_bound</code>返回第一个&gt;=目标的元素迭代器，<code>std::upper_bound</code>返回第一个&gt;目标的元素的迭代器：</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true"></a>	<span class="dt">int</span> a[] = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>};</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true"></a>	<span class="co">// 2</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true"></a>	<span class="co">// 3</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *<span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(a[<span class="dv">0</span>]), <span class="dv">2</span>) &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true"></a></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true"></a>}</span></code></pre></div>
+<p>但是<code>std::lower_bound</code>要求数组元素和目标可比较，而<code>std::upper_bound</code>要求目标和数组元素可比较。例如下面的代码可以正常使用<code>std::lower_bound</code>，因为<code>A</code>可以和目标<code>int</code>比较，但是<code>std::upper_bound</code>不能正常使用，因此<code>int</code>不能和<code>A</code>比较：</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true"></a>	<span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> b) <span class="at">const</span> {</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true"></a>		<span class="cf">return</span> v &lt; b;</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true"></a>	}</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true"></a>};</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>lower_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>upper_bound(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>)-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true"></a>}</span></code></pre></div>
 <p>编译报错：</p>
 <pre class="text"><code>/usr/include/c++/12.2.1/bits/predefined_ops.h:98:22: error: no match for ‘operator&lt;’ (operand types are ‘const int’ and ‘A’)
    98 |       { return __val &lt; *__it; }
       |</code></pre>
 <p>要修复这个问题，只需要再加一个<code>int</code>和<code>A</code>的比较函数即可：</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a><span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> a, <span class="at">const</span> A&amp; b) {</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true"></a>	<span class="cf">return</span> a &lt; b.v;</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="dt">bool</span> <span class="kw">operator</span> &lt; (<span class="dt">int</span> a, <span class="at">const</span> A&amp; b) {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a>	<span class="cf">return</span> a &lt; b.v;</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a>}</span></code></pre></div>
 <p>也可以用C++20的三路比较来实现只需要定义一个方向的比较函数的二分搜索：</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;compare&gt;</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true"></a>};</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true"></a></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true"></a><span class="kw">struct</span> Compare {</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true"></a>	<span class="bu">std::</span>weak_ordering <span class="kw">operator</span> () (A *a, <span class="dt">int</span> b) <span class="at">const</span> {</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true"></a>		<span class="cf">return</span> a-&gt;v &lt;=&gt; b;</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true"></a>	}</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true"></a>};</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true"></a></span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true"></a>Addable LowerBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>less) {</span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true"></a>			end = mid;</span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true"></a>		}</span>
-<span id="cb44-25"><a href="#cb44-25" aria-hidden="true"></a>	}</span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
-<span id="cb44-27"><a href="#cb44-27" aria-hidden="true"></a>}</span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
-<span id="cb44-29"><a href="#cb44-29" aria-hidden="true"></a>Addable UpperBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
-<span id="cb44-30"><a href="#cb44-30" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
-<span id="cb44-31"><a href="#cb44-31" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
-<span id="cb44-32"><a href="#cb44-32" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>greater) {</span>
-<span id="cb44-33"><a href="#cb44-33" aria-hidden="true"></a>			end = mid;</span>
-<span id="cb44-34"><a href="#cb44-34" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
-<span id="cb44-35"><a href="#cb44-35" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
-<span id="cb44-36"><a href="#cb44-36" aria-hidden="true"></a>		}</span>
-<span id="cb44-37"><a href="#cb44-37" aria-hidden="true"></a>	}</span>
-<span id="cb44-38"><a href="#cb44-38" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
-<span id="cb44-39"><a href="#cb44-39" aria-hidden="true"></a>}</span>
-<span id="cb44-40"><a href="#cb44-40" aria-hidden="true"></a></span>
-<span id="cb44-41"><a href="#cb44-41" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb44-42"><a href="#cb44-42" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
-<span id="cb44-43"><a href="#cb44-43" aria-hidden="true"></a>	<span class="co">// 2</span></span>
-<span id="cb44-44"><a href="#cb44-44" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; LowerBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb44-45"><a href="#cb44-45" aria-hidden="true"></a>	<span class="co">// 3</span></span>
-<span id="cb44-46"><a href="#cb44-46" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; UpperBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb44-47"><a href="#cb44-47" aria-hidden="true"></a></span>
-<span id="cb44-48"><a href="#cb44-48" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb44-49"><a href="#cb44-49" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;compare&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true"></a><span class="kw">struct</span> A {</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true"></a>	<span class="dt">int</span> v;</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true"></a>};</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true"></a><span class="kw">struct</span> Compare {</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true"></a>	<span class="bu">std::</span>weak_ordering <span class="kw">operator</span> () (A *a, <span class="dt">int</span> b) <span class="at">const</span> {</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true"></a>		<span class="cf">return</span> a-&gt;v &lt;=&gt; b;</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true"></a>	}</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true"></a>};</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true"></a></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true"></a>Addable LowerBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>less) {</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true"></a>			end = mid;</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true"></a>		}</span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true"></a>	}</span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true"></a>}</span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Addable, <span class="kw">typename</span> T, <span class="kw">typename</span> ThreeWayCompare&gt;</span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true"></a>Addable UpperBoundAddable(Addable start, Addable end, T d, ThreeWayCompare comp) {</span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true"></a>	<span class="cf">while</span> (start != end) {</span>
+<span id="cb46-31"><a href="#cb46-31" aria-hidden="true"></a>		Addable mid = start + (end - start) / <span class="dv">2</span>;</span>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true"></a>		<span class="cf">if</span> (comp(mid, d) == <span class="bu">std::</span>weak_ordering<span class="bu">::</span>greater) {</span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true"></a>			end = mid;</span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true"></a>		} <span class="cf">else</span> {</span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true"></a>			start = mid + <span class="dv">1</span>;</span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true"></a>		}</span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true"></a>	}</span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true"></a>	<span class="cf">return</span> start;</span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true"></a>}</span>
+<span id="cb46-40"><a href="#cb46-40" aria-hidden="true"></a></span>
+<span id="cb46-41"><a href="#cb46-41" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb46-42"><a href="#cb46-42" aria-hidden="true"></a>	A a[] = {A{<span class="dv">1</span>}, A{<span class="dv">2</span>}, A{<span class="dv">3</span>}};</span>
+<span id="cb46-43"><a href="#cb46-43" aria-hidden="true"></a>	<span class="co">// 2</span></span>
+<span id="cb46-44"><a href="#cb46-44" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; LowerBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb46-45"><a href="#cb46-45" aria-hidden="true"></a>	<span class="co">// 3</span></span>
+<span id="cb46-46"><a href="#cb46-46" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; UpperBoundAddable(a, a + <span class="kw">sizeof</span>(a) / <span class="kw">sizeof</span>(A), <span class="dv">2</span>, Compare())-&gt;v &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb46-47"><a href="#cb46-47" aria-hidden="true"></a></span>
+<span id="cb46-48"><a href="#cb46-48" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb46-49"><a href="#cb46-49" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="覆盖不可复制对象"><a href="#覆盖不可复制对象">¶</a> 覆盖不可复制对象</h2>
 <p>比如对象<code>a</code>：</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true"></a><span class="kw">class</span> A {</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true"></a>};</span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a><span class="kw">class</span> A {</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true"></a>};</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="text"><code>overwrite_unclonable.cpp: 在函数‘int main()’中:
 overwrite_unclonable.cpp:15:16: 错误：使用了被删除的函数‘constexpr A&amp; A::operator=(const A&amp;)’
    15 |         a = A(2);
@@ -8634,76 +8667,76 @@ overwrite_unclonable.cpp:3:7: 附注：‘constexpr A&amp; A::operator=(const A&
     3 | class A {
       |       ^</code></pre>
 <p>这是因为定义了move constructor之后就不再提供默认的copy assignment operator，但是move assignment operator又没有默认给出，因此<code>operator=</code>就没有定义了。要解决这个问题，只需要显式给出move assignment operator即可：</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span> = (A&amp;&amp; a) {</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true"></a>	}</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span> = (A&amp;&amp; a) {</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a>	}</span></code></pre></div>
 <p>保险起见，最好把copy assignment operator给显式delete掉：</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span></code></pre></div>
 <h2 id="调用基类的operator"><a href="#调用基类的operator">¶</a> 调用基类的operator</h2>
 <p><code>对象.基类::operator=(派生类对象)</code></p>
 <p>例如：</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a><span class="kw">class</span> B {</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true"></a>	}</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true"></a>};</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true"></a>	}</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="kw">class</span> B {</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true"></a>	}</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true"></a>};</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true"></a>	}</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true"></a>}</span></code></pre></div>
 <p>完整代码：</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true"></a><span class="kw">class</span> B {</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true"></a>	}</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true"></a>};</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true"></a>	}</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true"></a><span class="kw">private</span>:</span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true"></a>};</span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a><span class="kw">class</span> B {</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true"></a>	B&amp; <span class="kw">operator</span> = (B&amp;&amp; b) {</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true"></a>		<span class="bu">std::</span>cout &lt;&lt; <span class="st">"B</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true"></a>	}</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true"></a>};</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true"></a><span class="kw">class</span> A : B {</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true"></a><span class="kw">public</span>:</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true"></a>	A(<span class="dt">int</span> v) : <span class="va">v_</span>(v) {}</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true"></a>	A(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true"></a>	A(A&amp;&amp; a) : <span class="va">v_</span>(a.<span class="va">v_</span>) {}</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(A&amp;&amp; a) {</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true"></a>		B::<span class="kw">operator</span>=(<span class="bu">std::</span>move(a));</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true"></a>		<span class="va">v_</span> = a.<span class="va">v_</span>;</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true"></a>		<span class="cf">return</span> *<span class="kw">this</span>;</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true"></a>	}</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true"></a>	A&amp; <span class="kw">operator</span>=(<span class="at">const</span> A&amp;) = <span class="kw">delete</span>;</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true"></a>	<span class="dt">int</span> V() <span class="at">const</span> { <span class="cf">return</span> <span class="va">v_</span>; }</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true"></a><span class="kw">private</span>:</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true"></a>	<span class="dt">int</span> <span class="va">v_</span>;</span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true"></a>};</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true"></a>	A a(<span class="dv">1</span>);</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true"></a>	a = A(<span class="dv">2</span>);</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; a.V() &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true"></a>}</span></code></pre></div>
 <h2 id="文件管理"><a href="#文件管理">¶</a> 文件管理</h2>
 <h3 id="新建文件"><a href="#新建文件">¶</a> 新建文件</h3>
-<div class="sourceCode" id="cb51"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path);</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true"></a><span class="bu">std::</span>ofstream f(path);</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true"></a><span class="co">// 如果文件已存在则保持原样</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path, <span class="bu">std::</span>ios<span class="bu">::</span>app);</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path);</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true"></a><span class="co">// 如果文件已存在就将长度截断为0</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true"></a><span class="bu">std::</span>ofstream f(path);</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true"></a><span class="co">// 如果文件已存在则保持原样</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true"></a><span class="bu">std::</span>fstream f(path, <span class="bu">std::</span>ios<span class="bu">::</span>app);</span></code></pre></div>
 <p>完整版: <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/io/basic_filebuf/open" class="uri">https://en.cppreference.com/w/cpp/io/basic_filebuf/open</a></p>
 <p>注意open mode里如果有<code>std::ios::in</code>的话，就不会自动新建文件了。</p>
 <h3 id="删除文件"><a href="#删除文件">¶</a> 删除文件</h3>
-<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="co">// 删除单个文件或者空目录。如果删除成功，则返回true，如果文件不存在，则返回false</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true"></a><span class="dt">bool</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>remove(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true"></a><span class="co">// 删除目录或文件。返回删除的目录或文件的个数。如果p一开始就不存在，则返回0。</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true"></a><span class="bu">std::</span>uintmax_t remove_all(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="co">// 删除单个文件或者空目录。如果删除成功，则返回true，如果文件不存在，则返回false</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a><span class="dt">bool</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>remove(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a><span class="co">// 删除目录或文件。返回删除的目录或文件的个数。如果p一开始就不存在，则返回0。</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="bu">std::</span>uintmax_t remove_all(<span class="at">const</span> <span class="bu">std::</span>filesystem<span class="bu">::</span>path&amp; p);</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/filesystem/remove" class="uri">https://en.cppreference.com/w/cpp/filesystem/remove</a></p>
 <h2 id="boost"><a href="#boost">¶</a> boost</h2>
 <h3 id="program_options"><a href="#program_options">¶</a> program_options</h3>
@@ -8714,51 +8747,51 @@ sudo apt install libboost-program-options-dev
 # Arch Linux
 sudo pacman -S boost</code></pre>
 <p>例子：</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/program_options.hpp&gt;</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true"></a></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv) {</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true"></a>	<span class="kw">namespace</span> po = <span class="ex">boost::</span>program_options;</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true"></a>	po::options_description desc(<span class="st">"Available options"</span>);</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true"></a>	<span class="bu">std::</span>string format;</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true"></a>	<span class="dt">bool</span> use_direct_reads;</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true"></a>	<span class="bu">std::</span>string db_path;</span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true"></a>	desc.add_options()</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true"></a>		(<span class="st">"help"</span>, <span class="st">"Print help message"</span>)</span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true"></a>		(<span class="st">"cleanup,c"</span>, <span class="st">"Empty the directories first."</span>)</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true"></a>		(</span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true"></a>			<span class="st">"format,f"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;format)-&gt;default_value(<span class="st">"ycsb"</span>),</span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true"></a>			<span class="st">"Trace format: plain/ycsb"</span></span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true"></a>		) (</span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true"></a>			<span class="st">"use_direct_reads"</span>,</span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true"></a>			po::value&lt;<span class="dt">bool</span>&gt;(&amp;use_direct_reads)-&gt;default_value(<span class="kw">true</span>), <span class="st">""</span></span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true"></a>		) (</span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true"></a>			<span class="st">"db_path"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;db_path)-&gt;required(),</span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true"></a>			<span class="st">"Path to database"</span></span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true"></a>		) (</span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true"></a>			<span class="st">"level0_file_num_compaction_trigger"</span>, po::value&lt;<span class="dt">int</span>&gt;(),</span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true"></a>			<span class="st">"Number of files in level-0 when compactions start"</span></span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true"></a>		);</span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true"></a>	po::variables_map vm;</span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true"></a>	po::store(po::parse_command_line(argc, argv, desc), vm);</span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"help"</span>)) {</span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; desc &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb54-31"><a href="#cb54-31" aria-hidden="true"></a>	}</span>
-<span id="cb54-32"><a href="#cb54-32" aria-hidden="true"></a>	po::notify(vm);</span>
-<span id="cb54-33"><a href="#cb54-33" aria-hidden="true"></a></span>
-<span id="cb54-34"><a href="#cb54-34" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"cleanup"</span>)) {</span>
-<span id="cb54-35"><a href="#cb54-35" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"cleanup</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb54-36"><a href="#cb54-36" aria-hidden="true"></a>	}</span>
-<span id="cb54-37"><a href="#cb54-37" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; format &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-38"><a href="#cb54-38" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"use_direct_reads: "</span> &lt;&lt; use_direct_reads &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-39"><a href="#cb54-39" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"db_path: "</span> &lt;&lt; db_path &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-40"><a href="#cb54-40" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"level0_file_num_compaction_trigger"</span>)) {</span>
-<span id="cb54-41"><a href="#cb54-41" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; vm[<span class="st">"level0_file_num_compaction_trigger"</span>].as&lt;<span class="dt">int</span>&gt;()</span>
-<span id="cb54-42"><a href="#cb54-42" aria-hidden="true"></a>			&lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb54-43"><a href="#cb54-43" aria-hidden="true"></a>	}</span>
-<span id="cb54-44"><a href="#cb54-44" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb54-45"><a href="#cb54-45" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;boost/program_options.hpp&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv) {</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true"></a>	<span class="kw">namespace</span> po = <span class="ex">boost::</span>program_options;</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true"></a>	po::options_description desc(<span class="st">"Available options"</span>);</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true"></a>	<span class="bu">std::</span>string format;</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true"></a>	<span class="dt">bool</span> use_direct_reads;</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true"></a>	<span class="bu">std::</span>string db_path;</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true"></a>	desc.add_options()</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true"></a>		(<span class="st">"help"</span>, <span class="st">"Print help message"</span>)</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true"></a>		(<span class="st">"cleanup,c"</span>, <span class="st">"Empty the directories first."</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true"></a>		(</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true"></a>			<span class="st">"format,f"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;format)-&gt;default_value(<span class="st">"ycsb"</span>),</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true"></a>			<span class="st">"Trace format: plain/ycsb"</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true"></a>		) (</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true"></a>			<span class="st">"use_direct_reads"</span>,</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true"></a>			po::value&lt;<span class="dt">bool</span>&gt;(&amp;use_direct_reads)-&gt;default_value(<span class="kw">true</span>), <span class="st">""</span></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true"></a>		) (</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true"></a>			<span class="st">"db_path"</span>, po::value&lt;<span class="bu">std::</span>string&gt;(&amp;db_path)-&gt;required(),</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true"></a>			<span class="st">"Path to database"</span></span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true"></a>		) (</span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true"></a>			<span class="st">"level0_file_num_compaction_trigger"</span>, po::value&lt;<span class="dt">int</span>&gt;(),</span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true"></a>			<span class="st">"Number of files in level-0 when compactions start"</span></span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true"></a>		);</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true"></a>	po::variables_map vm;</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true"></a>	po::store(po::parse_command_line(argc, argv, desc), vm);</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"help"</span>)) {</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; desc &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true"></a>	}</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true"></a>	po::notify(vm);</span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true"></a></span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"cleanup"</span>)) {</span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"cleanup</span><span class="sc">\n</span><span class="st">"</span>;</span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true"></a>	}</span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; format &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"use_direct_reads: "</span> &lt;&lt; use_direct_reads &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true"></a>	<span class="bu">std::</span>cerr &lt;&lt; <span class="st">"db_path: "</span> &lt;&lt; db_path &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true"></a>	<span class="cf">if</span> (vm.count(<span class="st">"level0_file_num_compaction_trigger"</span>)) {</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true"></a>		<span class="bu">std::</span>cerr &lt;&lt; vm[<span class="st">"level0_file_num_compaction_trigger"</span>].as&lt;<span class="dt">int</span>&gt;()</span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true"></a>			&lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true"></a>	}</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true"></a>}</span></code></pre></div>
 <pre class="shell"><code>g++ program-options.cpp -lboost_program_options -o program-options
 ./program-options --help</code></pre>
 <pre class="text"><code>Available options:
@@ -8777,32 +8810,32 @@ sudo pacman -S boost</code></pre>
 <h2 id="non-portable"><a href="#non-portable">¶</a> Non-portable</h2>
 <p>给线程取名字：</p>
 <p>用<code>pthread_setname_np</code>:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a>pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a>pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span></code></pre></div>
 <p>例子：</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true"></a></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true"></a>	<span class="dt">size_t</span> n = <span class="dv">50000</span>;</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true"></a>	<span class="dt">size_t</span> sum = <span class="dv">0</span>;</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true"></a>			sum += i * j;</span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true"></a>		}</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true"></a>	}</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true"></a>	pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true"></a></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true"></a>	sum = <span class="dv">0</span>;</span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true"></a>			sum += i * j;</span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true"></a>		}</span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true"></a>	}</span>
-<span id="cb58-21"><a href="#cb58-21" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true"></a></span>
-<span id="cb58-23"><a href="#cb58-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb58-24"><a href="#cb58-24" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;pthread.h&gt;</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true"></a>	<span class="dt">size_t</span> n = <span class="dv">50000</span>;</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true"></a>	<span class="dt">size_t</span> sum = <span class="dv">0</span>;</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true"></a>			sum += i * j;</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true"></a>		}</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true"></a>	}</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true"></a>	pthread_setname_np(pthread_self(), <span class="st">"thread_name"</span>);</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true"></a></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true"></a>	sum = <span class="dv">0</span>;</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true"></a>	<span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true"></a>		<span class="cf">for</span> (<span class="dt">size_t</span> j = <span class="dv">0</span>; j &lt; n; ++j) {</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true"></a>			sum += i * j;</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true"></a>		}</span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true"></a>	}</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; sum &lt;&lt; <span class="bu">std::</span>endl;</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true"></a></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true"></a>}</span></code></pre></div>
 <p>用<code>top</code>可以看到运行到一半线程的名字会变成<code>thread_name</code>。</p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <a href="/2020/04/30/c-%E8%8E%B7%E5%8F%96%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%88%B3/" title="C++获取日期时间戳">C++获取日期时间戳</a>
