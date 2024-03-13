@@ -7925,14 +7925,35 @@ mjx-container[display="true"] + br {
 <p>sshname表示在<code>.ssh/config</code>里的名字，可以是IP地址。<br>
 注：测试用的服务器的sshname都为L1707</p>
 <h2 id="服务器"><a href="#服务器">¶</a> 服务器</h2>
-<h3 id="安装vnc-server"><a href="#安装vnc-server">¶</a> 安装VNC server</h3>
-<p>debian系:</p>
-<pre class="shell"><code>sudo apt install tightvncserver</code></pre>
+<h3 id="tigervnc"><a href="#tigervnc">¶</a> TigerVNC</h3>
+<p>TigerVNC会创建一个新的桌面环境。</p>
+<h4 id="安装"><a href="#安装">¶</a> 安装</h4>
+<p>Debian 12:</p>
+<pre class="shell"><code>sudo apt install tigervnc-standalone-server</code></pre>
+<p>卸载</p>
+<pre class="shell"><code>sudo apt remove tigervnc-standalone-server
+sudo apt autoremove</code></pre>
 <p>Centos 8:</p>
 <pre class="shell"><code>sudo yum install tigervnc-server.x86_64</code></pre>
-<h3 id="启动vnc-server"><a href="#启动vnc-server">¶</a> 启动VNC server</h3>
-<pre class="shell"><code>vncserver</code></pre>
-<p><code>Would you like to enter a view-only password (y/n)?</code>选<code>n</code>，因为我们要用ssh隧道连接，所以不需要设置密码。</p>
+<h4 id="设置密码"><a href="#设置密码">¶</a> 设置密码</h4>
+<pre class="shell"><code>vncpasswd</code></pre>
+<h4 id="启动"><a href="#启动">¶</a> 启动</h4>
+<pre class="shell"><code>Xvnc :1 PasswordFile=$HOME/.vnc/passwd</code></pre>
+<pre class="shell"><code>tigervncserver</code></pre>
+<p>或者指定号码：</p>
+<pre class="shell"><code>tigervncserver :1</code></pre>
+<h4 id="关闭"><a href="#关闭">¶</a> 关闭</h4>
+<pre class="shell"><code>tigervncserver -kill :1</code></pre>
+<h3 id="tightvnc"><a href="#tightvnc">¶</a> TightVNC</h3>
+<h4 id="安装vnc-server"><a href="#安装vnc-server">¶</a> 安装VNC server</h4>
+<p>debian系:</p>
+<pre class="shell"><code>sudo apt install tightvncserver</code></pre>
+<h4 id="设置--重置-密码"><a href="#设置--重置-密码">¶</a> 设置 / 重置 密码</h4>
+<pre class="shell"><code>vncpasswd</code></pre>
+<h4 id="启动vnc-server"><a href="#启动vnc-server">¶</a> 启动VNC server</h4>
+<pre class="shell"><code>vncserver -localhost</code></pre>
+<p><code>-localhost</code>表示只接受localhost的连接。</p>
+<p><code>Would you like to enter a view-only password (y/n)?</code>选<code>n</code>。</p>
 <p><code>New 'X' desktop is L1707:1</code>，表示新建的桌面在<code>:1</code>，端口号为<code>5901</code>。</p>
 <p>完整输出：</p>
 <pre class="text"><code>searchstar@L1707:~$  vncserver
@@ -7949,9 +7970,19 @@ New 'X' desktop is L1707:1
 Creating default startup script /home/searchstar/.vnc/xstartup
 Starting applications specified in /home/searchstar/.vnc/xstartup
 Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
-<h3 id="关闭vnc-server"><a href="#关闭vnc-server">¶</a> 关闭VNC server</h3>
+<h4 id="关闭vnc-server"><a href="#关闭vnc-server">¶</a> 关闭VNC server</h4>
 <p>使用完毕后可以关掉VNC server的session：</p>
 <pre class="shell"><code>vncserver -kill :1</code></pre>
+<h3 id="x11vnc"><a href="#x11vnc">¶</a> X11VNC</h3>
+<p>X11VNC把当前显示器的内容共享出去。但对于没有显示器的机器，分辨率会很低：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/linuxquestions/comments/5y80m0/higher_resolutions_with_x11vnc_on_headless_box/" class="uri">https://www.reddit.com/r/linuxquestions/comments/5y80m0/higher_resolutions_with_x11vnc_on_headless_box/</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/X11vnc" class="uri">https://wiki.archlinux.org/title/X11vnc</a></p>
+<pre class="shell"><code>sudo apt install x11vnc</code></pre>
+<p>创建密码文件<code>~/.vnc/passwd</code>：</p>
+<pre class="shell"><code>x11vnc -storepasswd</code></pre>
+<pre class="shell"><code>x11vnc -display :0 -localhost -usepw -forever -geometry 1920x1080</code></pre>
+<p><code>-localhost</code>: 只允许localhost的连接请求<br>
+<code>-usepw</code>: 使用<code>~/.vnc/passwd</code>里的密码<br>
+<code>-forever</code>: 在第一个client退出后也继续监听</p>
 <h2 id="客户端"><a href="#客户端">¶</a> 客户端</h2>
 <h3 id="构建ssh隧道"><a href="#构建ssh隧道">¶</a> 构建ssh隧道</h3>
 <p>语法如下：</p>
@@ -7973,14 +8004,16 @@ Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
 <p>在vncviewer中查看<code>localhost:1</code>即可。</p>
 <p>Debian系：</p>
 <pre class="shell"><code>sudo apt install xtightvncviewer
-vncviewer localhost:1</code></pre>
+vncviewer :1</code></pre>
 <p>ArchLinux:</p>
 <pre class="shell"><code>sudo pacman -S tigervnc
-vncviewer localhost:1</code></pre>
+vncviewer :1</code></pre>
 <p>MacOS: <code>brew install tigervnc-viewer</code>，然后打开tigervnc，在弹出的窗口里输入<code>localhost:1</code>即可。</p>
 <p><img src="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/20210120205541777.png" alt="在这里插入图片描述"><br>
 就是任务栏没了。。。</p>
 <p>当然显示出来是一片灰色也是正常的。</p>
+<p>指定分辨率：</p>
+<pre class="shell"><code>vncviewer :1 -geometry=1280x720</code></pre>
 <h3 id="在终端中执行gui程序"><a href="#在终端中执行gui程序">¶</a> 在终端中执行GUI程序</h3>
 <p>先查看<code>DISPLAY</code>环境变量是否已经设置了：</p>
 <pre class="shell"><code>echo $DISPLAY</code></pre>
