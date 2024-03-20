@@ -202,13 +202,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -231,7 +231,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -6867,6 +6867,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/03/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-lsm-bush/">
+                     
+										    论文阅读笔记-LSM-bush
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/03/%E9%97%AA%E5%AD%98%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/">
                      
 										    闪存的层级结构
@@ -7890,6 +7901,30 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/04/shell%E4%BA%A4%E6%8D%A2stdout-stderr/">
+				<h2 class="index-title">
+					shell交换stdout stderr
+				</h2>
+				<div class="index-brief">
+					比如这个脚本myscript.sh：
+#!/bin/sh
+
+echo "I'm stdout";
+echo "I'm stderr" &gt;&amp;2;
+交换它的stdout和stderr可以这样做：
+(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&a
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/03/rust-private-super-trait/">
 				<h2 class="index-title">
 					rust private super trait
@@ -8091,27 +8126,6 @@ ip tuntap del tap0 mod tap
 ip tuntap list
 查看帮助：
 ip tunt
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-26</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/26/qemu-system-x86-64-nographic/">
-				<h2 class="index-title">
-					qemu-system-x86_64 nographic
-				</h2>
-				<div class="index-brief">
-					即使把图形界面删掉了，仍然是默认输出到显示器上的，这样nographic选项就没啥用。为了使其产生作用，在虚拟机中将/etc/default/grub里的
-GRUB_CMDLINE_LINUX=""
-改成
-GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"
 					...
 				</div>
 			</a>
