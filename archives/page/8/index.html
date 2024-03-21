@@ -5360,6 +5360,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/03/21/mkdocs%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F/">
+                     
+										    mkdocs支持Latex风格的公式
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/23/sha256sum%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E5%80%BC%E5%92%8C%E7%9B%B4%E6%8E%A5%E5%93%88%E5%B8%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E4%B8%8D%E4%B8%80%E6%A0%B7/">
                      
 										    sha256sum文件哈希值和直接哈希字符串的哈希值不一样
@@ -7901,6 +7912,29 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/12/02/linux-kernel%E8%AE%A1%E6%97%B6/">
+				<h2 class="index-title">
+					Linux kernel计时
+				</h2>
+				<div class="index-brief">
+					可以用getrawmonotonic来获取当前时间，两个时间点相减就是中间经过的时间了：
+#include &lt;linux/time.h&gt;
+
+static uint64_t get_cur_nsec(void) {
+    struct timespec time;
+    getrawm
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-12-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/11/17/linux%E6%89%93%E5%8D%B0%E5%88%B0%E6%96%87%E4%BB%B6/">
 				<h2 class="index-title">
 					Linux打印到文件
@@ -8096,32 +8130,6 @@ sudo apt install m4
 			</a>
                 <div class="article-meta">
 				    <span>2022-10-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/10/07/sudo-print-multiple-lines-to-file/">
-				<h2 class="index-title">
-					sudo print multiple lines to file
-				</h2>
-				<div class="index-brief">
-					sudo bash -c "cat &gt; main.c" &lt;&lt; EndOfMessage
-int main() {
-	printf("test\n");
-	return 0;
-}
-EndOfMessage
-cat main.c
-int main() {
-        printf(
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-10-07</span>
                     
                             
                     
