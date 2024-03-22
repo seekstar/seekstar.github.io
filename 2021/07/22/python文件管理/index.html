@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">About</a>
+        <a href="/about" class="menu-item-link">关于</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">Tags</a>
+        <a href="/tags" class="menu-item-link">标签</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
 		<div id="tree">
 			
 
@@ -7944,16 +7944,7 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用到了如下模块：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> os, shutil</span></code></pre></div>
-<p>其中<code>shutil</code>是<code>shell util</code>的缩写。</p>
-<ul>
-<li><p>创建目录<br>
-<code>os.makedirs</code>，相当于shell里的<code>mkdir -p</code>，但是如果已经存在则会报错。<br>
-<code>os.makedirs(dirname, exist_ok = True)</code>使得即使目录存在也不报错。</p></li>
-<li><p>复制文件<br>
-<code>shutil.copyfile</code></p></li>
-<li><p>移动<br>
-<code>shutil.move</code></p></li>
-</ul>
+<p>其中<code>shutil</code>是<code>shell util</code>的缩写。官方文档：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/shutil.html" class="uri">https://docs.python.org/3/library/shutil.html</a></p>
 <h2 id="ospath"><a href="#ospath">¶</a> <code>os.path</code></h2>
 <p>文档：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/os.path.html" class="uri">https://docs.python.org/3/library/os.path.html</a></p>
 <ul>
@@ -7961,6 +7952,21 @@ mjx-container[display="true"] + br {
 <li><p>是否为目录 <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/os.path.html#os.path.isdir">os.path.isdir(path)</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/os.path.html#os.path.basename">os.path.basename</a></p></li>
 </ul>
+<h2 id="cd"><a href="#cd">¶</a> cd</h2>
+<p><code>os.chdir(path)</code></p>
+<p>它只是libc的<code>chdir</code>的一个wrapper，行为类似于<code>cd -P</code>，在路径中有symbolic link的时候可能会有问题。</p>
+<pre class="text"><code>      -P        use the physical directory structure without following
+                symbolic links: resolve symbolic links in DIR before
+                processing instances of `..'</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://bugs.python.org/issue29635" class="uri">https://bugs.python.org/issue29635</a></p>
+<h2 id="创建目录"><a href="#创建目录">¶</a> 创建目录</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/os.html#os.mkdir">os.mkdir</a></p>
+<p><code>os.makedirs</code>，相当于shell里的<code>mkdir -p</code>，但是如果已经存在则会报错。<br>
+<code>os.makedirs(dirname, exist_ok=True)</code>使得即使目录存在也不报错。</p>
+<h2 id="复制文件"><a href="#复制文件">¶</a> 复制文件</h2>
+<p><code>shutil.copyfile</code></p>
+<h2 id="移动"><a href="#移动">¶</a> 移动</h2>
+<p><code>shutil.move</code></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_29957455/article/details/82778306">python遍历目录下的所有文件和目录详细介绍</a></p>
 <p>检查文件是不是块设备：<a target="_blank" rel="noopener" href="https://www.systutorials.com/how-to-check-whether-a-file-of-a-given-path-is-a-block-device-in-python/" class="uri">https://www.systutorials.com/how-to-check-whether-a-file-of-a-given-path-is-a-block-device-in-python/</a></p>
