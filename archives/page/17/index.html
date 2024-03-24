@@ -202,13 +202,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -231,7 +231,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -3915,6 +3915,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/zxv10-b860av2-1%E5%88%B7armbian/">
+                     
+										    ZXV10-B860AV2.1刷Armbian
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7912,6 +7923,25 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/04/24/%E4%BF%AE%E5%A4%8Dwindows%E5%BC%95%E5%AF%BC/">
+				<h2 class="index-title">
+					修复Windows引导
+				</h2>
+				<div class="index-brief">
+					本博客是修复以后凭记忆写的，记忆不一定准确。
+情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system reserved分区。在Linux上进行update-grub没有办法识别出这个windows系统，因此这个windows系
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-24</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/23/zsh%E5%92%8Cbash%E5%85%B1%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/">
 				<h2 class="index-title">
 					zsh和bash共用自定义配置
@@ -8091,25 +8121,6 @@ sudo virsh capabilitie
 reredirect -m FILE PID
 然后进程的stdout和stderr都重定向到FILE了。
 如果要把stdout和stderr分别重定向到两个文件：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/17/%E7%BB%88%E7%AB%AF%E5%85%B3%E9%97%AD%E6%97%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%8D%E5%BA%94/">
-				<h2 class="index-title">
-					终端关闭时子进程的反应
-				</h2>
-				<div class="index-brief">
-					终端关闭时，会向上面的进程发送SIGHUP (SIGnal Hang UP)，这个信号的默认行为是终止进程。用nohup运行的命令就忽略了SIGHUP信号，这样父终端退出之后就挂到init进程上。
-但是如果终端是被杀死的，比如kill -9，那么SIGHUP不一定会被发送给子进程，这时子进程就直接变
 					...
 				</div>
 			</a>

@@ -202,13 +202,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">关于</a>
+        <a href="/about" class="menu-item-link">About</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">标签</a>
+        <a href="/tags" class="menu-item-link">Tags</a>
       </li>
     
 
@@ -231,7 +231,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
 		<div id="tree">
 			
 
@@ -3915,6 +3915,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2023/02/23/zxv10-b860av2-1%E5%88%B7armbian/">
+                     
+										    ZXV10-B860AV2.1刷Armbian
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7912,6 +7923,28 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/08/05/linux-%E9%9D%9E%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%AE%89%E8%A3%85rust/">
+				<h2 class="index-title">
+					linux 非交互式安装rust
+				</h2>
+				<div class="index-brief">
+					¶ 使用官方源
+官网提供的安装方式是交互式的，需要手动输入回车来使用默认配置。
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+其实下载下来的脚本里有使用帮助
+rustup-init 1.22.1 (76644d669 2
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-08-05</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/08/03/linux-shell%E6%9A%82%E5%81%9C%E5%89%8D%E5%8F%B0%E4%BD%9C%E4%B8%9A/">
 				<h2 class="index-title">
 					linux shell暂停前台作业
@@ -8102,31 +8135,6 @@ https://github.com/zaphoyd/websocketpp/issues/412
 			</a>
                 <div class="article-meta">
 				    <span>2020-06-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
-				<h2 class="index-title">
-					chroot时硬链接ldd依赖的脚本
-				</h2>
-				<div class="index-brief">
-					chroot_ln_file.sh
-#!/bin/bash
-
-mkdir -p $(dirname $2/$1)
-ln $1 $2/$1 &amp;&gt; /dev/null
-ori=$(readlink $1)
-if [ -n "$ori" ]; then
-	real=$(realpath -s
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-06-06</span>
                     
                             
                     
