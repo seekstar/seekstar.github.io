@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">About</a>
+        <a href="/about" class="menu-item-link">关于</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">Tags</a>
+        <a href="/tags" class="menu-item-link">标签</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
 		<div id="tree">
 			
 
@@ -7970,6 +7970,11 @@ mjx-container[display="true"] + br {
 <li><a href="/2020/01/27/git%E8%A7%A3%E5%86%B3sign-and-send-pubkey-signing-failed-agent-refused-operation/" title="git解决sign_and_send_pubkey: signing failed: agent refused operation">git解决sign_and_send_pubkey: signing failed: agent refused operation</a></li>
 <li><a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/" title="git checkout 远程分支error">git checkout 远程分支error</a></li>
 </ul>
+<h2 id="查看unstaged-changes"><a href="#查看unstaged-changes">¶</a> 查看unstaged changes</h2>
+<pre class="shell"><code>git diff</code></pre>
+<p>包含untracked file：</p>
+<pre class="shell"><code>git add -N . &amp;&amp; git diff</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/857696/13688160" class="uri">https://stackoverflow.com/a/857696/13688160</a></p>
 <h2 id="取消add"><a href="#取消add">¶</a> 取消add</h2>
 <pre class="shell"><code>git reset</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/348170/how-do-i-undo-git-add-before-commit" class="uri">https://stackoverflow.com/questions/348170/how-do-i-undo-git-add-before-commit</a></p>
@@ -8005,6 +8010,18 @@ git clone -b 分支名 --single-branch 仓库地址</code></pre>
 <pre class="shell"><code>git stash pop</code></pre>
 <p>删除指定stash:</p>
 <pre class="shell"><code>git stash drop stash@{0}</code></pre>
+<p>查看指定stash:</p>
+<pre class="shell"><code># 输出类似于git commit
+git stash show stash@{0} </code></pre>
+<p>用patch的格式打印指定stash：</p>
+<pre class="shell"><code># -p: --patch
+git stash show stash@{0} -p</code></pre>
+<p>可以保存为patch:</p>
+<pre class="shell"><code># -p: --patch
+git stash show stash@{0} -p &gt; xxx.patch</code></pre>
+<p>使用patch:</p>
+<pre class="shell"><code>git apply --3way /path/to/xxx.patch</code></pre>
+<p><code>--3way</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/47756467/13688160" class="uri">https://stackoverflow.com/a/47756467/13688160</a></p>
 <h2 id="cherry-pick"><a href="#cherry-pick">¶</a> cherry-pick</h2>
 <h3 id="指定commit"><a href="#指定commit">¶</a> 指定commit</h3>
 <pre class="shell"><code>git cherry-pick CommitHash</code></pre>
