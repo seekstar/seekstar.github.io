@@ -204,13 +204,13 @@ mjx-container[display="true"] + br {
 	<ul id="menu">
     
       <li class="menu-item">
-        <a href="/about" class="menu-item-link">About</a>
+        <a href="/about" class="menu-item-link">关于</a>
       </li>
     
 
     
       <li class="menu-item">
-        <a href="/tags" class="menu-item-link">Tags</a>
+        <a href="/tags" class="menu-item-link">标签</a>
       </li>
     
 
@@ -233,7 +233,7 @@ mjx-container[display="true"] + br {
 	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
 	
 	<div id="site-toc">
-		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
 		<div id="tree">
 			
 
@@ -7979,7 +7979,7 @@ mjx-container[display="true"] + br {
 <h2 id="换镜像源"><a href="#换镜像源">¶</a> 换镜像源</h2>
 <p>这里换成中科大源。<br>
 编辑<code>/etc/apt/sources.list</code>，把内容替换成：</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free
+<pre class="text"><code>deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free
 # deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free
 deb http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
 # deb-src http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
@@ -8011,15 +8011,20 @@ fcitx-config-gtk3</code></pre>
 <a target="_blank" rel="noopener" href="https://www.debian.org/releases/index.zh-cn.html" class="uri">https://www.debian.org/releases/index.zh-cn.html</a><br>
 debian10是buster。</p>
 <p>然后在<code>/etc/apt/sources.list</code>里加上</p>
-<pre><code>deb http://httpredir.debian.org/debian/ debian版本代号 main contrib non-free</code></pre>
+<pre class="text"><code>deb http://httpredir.debian.org/debian/ debian版本代号 main contrib non-free</code></pre>
 <p>比如debian10就是</p>
-<pre><code>deb http://httpredir.debian.org/debian/ buster main contrib non-free</code></pre>
+<pre class="text"><code>deb http://httpredir.debian.org/debian/ buster main contrib non-free</code></pre>
 <pre class="shell"><code>sudo apt update</code></pre>
 <p>然后安装wifi驱动</p>
 <pre class="shell"><code>sudo apt install firmware-iwlwifi</code></pre>
 <p>然后重启。</p>
 <h2 id="没有声音"><a href="#没有声音">¶</a> 没有声音</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chuanjizhen6999/article/details/101013021" class="uri">https://blog.csdn.net/chuanjizhen6999/article/details/101013021</a></p>
+<h2 id="更改locale"><a href="#更改locale">¶</a> 更改locale</h2>
+<p>使用<code>update-locale</code>: <a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/jammy/man8/update-locale.8.html" class="uri">https://manpages.ubuntu.com/manpages/jammy/man8/update-locale.8.html</a></p>
+<p>例如把locale改成<code>en_US.UTF-8</code>:</p>
+<pre class="shell"><code>sudo update-locale LANG=en_US.UTF-8</code></pre>
+<p>然后退出重进就行了。</p>
 <h2 id="存在的一些问题"><a href="#存在的一些问题">¶</a> 存在的一些问题</h2>
 <p>笔记本装好之后，合上盖子再打开，桌面就进不去了。这可能是debian的bug，因为我更新了一下系统就好了：</p>
 <pre class="shell"><code>sudo apt upgrade</code></pre>
