@@ -3514,6 +3514,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/04/01/linux%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
+                     
+										    Linux控制进程CPU使用率
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/11/linux%E6%9B%B4%E6%94%B9machine-id/">
                      
 										    Linux更改machine ID
@@ -5306,17 +5317,6 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
-                     
-										    github gist回滚版本
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -5328,6 +5328,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/">
                      
 										    git checkout 远程分支error
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
+                     
+										    github gist回滚版本
                      
 									</a>
 								</li>
@@ -6575,6 +6586,17 @@ mjx-container[display="true"] + br {
 									<a href="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/">
                      
 										    Linux查看固态盘总写入量等信息
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/04/04/memcached%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Memcached学习笔记
                      
 									</a>
 								</li>
@@ -8022,6 +8044,16 @@ git stash show stash@{0} -p &gt; xxx.patch</code></pre>
 <p>使用patch:</p>
 <pre class="shell"><code>git apply --3way /path/to/xxx.patch</code></pre>
 <p><code>--3way</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/47756467/13688160" class="uri">https://stackoverflow.com/a/47756467/13688160</a></p>
+<h2 id="git-log"><a href="#git-log">¶</a> <code>git log</code></h2>
+<h3 id="查看所有commit的列表"><a href="#查看所有commit的列表">¶</a> 查看所有commit的列表</h3>
+<pre class="shell"><code>git log</code></pre>
+<h3 id="查看某文件的commit历史"><a href="#查看某文件的commit历史">¶</a> 查看某文件的commit历史</h3>
+<pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
+<p>P.S. 可以是已经删除的文件。路径是相对shell的工作目录的相对路径。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history" class="uri">https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history</a></p>
+<h3 id="查看某一个commit的diff"><a href="#查看某一个commit的diff">¶</a> 查看某一个commit的diff</h3>
+<pre class="shell"><code>git show &lt;commit-id&gt;</code></pre>
+<p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did" class="uri">https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did</a></p>
 <h2 id="cherry-pick"><a href="#cherry-pick">¶</a> cherry-pick</h2>
 <h3 id="指定commit"><a href="#指定commit">¶</a> 指定commit</h3>
 <pre class="shell"><code>git cherry-pick CommitHash</code></pre>
@@ -8062,6 +8094,12 @@ git push origin localBranchName:remoteBranchName</code></pre>
 git rebase &lt;base-commit-hash&gt; -i</code></pre>
 <p>然后第一个commit标记为<code>pick</code>，其他的都标记为<code>squash</code>，即<code>s</code>。然后退出编辑器。</p>
 <p>然后会让你编辑新的commit的message。可以全删了然后编辑新的message，然后退出编辑器，从原来的HEAD到base commit（不含）的所有commit就都被squash成了一个commit了。</p>
+<h2 id="恢复某一被删除的文件"><a href="#恢复某一被删除的文件">¶</a> 恢复某一被删除的文件</h2>
+<p>先用前面介绍的方法查看这个文件的commit历史：</p>
+<pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
+<p>找到删除这个文件的commit hash，然后checkout这个文件到它的前一个commit：</p>
+<pre class="shell"><code>git checkout &lt;deletion commit hash&gt;~1 -- &lt;filename&gt;</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files" class="uri">https://www.git-tower.com/learn/git/faq/restoring-deleted-files</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git" class="uri">https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history" class="uri">https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history</a></p>

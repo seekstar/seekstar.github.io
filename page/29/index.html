@@ -3512,6 +3512,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/04/01/linux%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
+                     
+										    Linux控制进程CPU使用率
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/11/linux%E6%9B%B4%E6%94%B9machine-id/">
                      
 										    Linux更改machine ID
@@ -5304,17 +5315,6 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
-                     
-										    github gist回滚版本
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -5326,6 +5326,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/">
                      
 										    git checkout 远程分支error
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
+                     
+										    github gist回滚版本
                      
 									</a>
 								</li>
@@ -6573,6 +6584,17 @@ mjx-container[display="true"] + br {
 									<a href="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/">
                      
 										    Linux查看固态盘总写入量等信息
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/04/04/memcached%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Memcached学习笔记
                      
 									</a>
 								</li>
@@ -7934,6 +7956,51 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/10/30/%E6%B1%821%E5%88%B010-n%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA0/">
+				<h2 class="index-title">
+					求1到10^n的数字中有多少个0
+				</h2>
+				<div class="index-brief">
+					组合数学作业题，我粗心写错了，这里记录一下正确做法。
+i&gt;1时，对所有i位数，最高位非0，后(i-1)位中，每种数字出现的次数之和相同，而后(i-1)位的数字个数总和为，其中9是最高位的取值个数，(i-1)是后(i-1)位的位数，是后(i-1)位的取值个数。所以后(i-1)位的数字个数总和为。
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-10-30</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/10/20/rust%E4%BA%A4%E6%8D%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%85%83%E7%B4%A0/">
+				<h2 class="index-title">
+					rust交换数组中的两个元素
+				</h2>
+				<div class="index-brief">
+					不可以直接用std::mem::swap，因为这个函数需要拿两个可变引用，但是不可以同时拿两个这个数组的可变引用。
+所以要么手写：
+let tmp = a[i];
+a[i] = a[j];
+a[j] = tmp;
+要么用Vec::swap：
+a.swap(i, j);
+其内部实现：
+fn swap(
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-10-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/10/20/bash%E9%9A%90%E8%97%8F%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95/">
 				<h2 class="index-title">
 					bash隐藏当前工作目录
@@ -8100,45 +8167,6 @@ sudo pacman -S pdfarranger
 			</a>
                 <div class="article-meta">
 				    <span>2021-10-10</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/10/08/knuth%E7%9A%84sjt%E5%AE%9E%E7%8E%B0/">
-				<h2 class="index-title">
-					knuth的SJT实现
-				</h2>
-				<div class="index-brief">
-					
-# 思路
-SJT算法就是给每个值一个方向，初始都向左（P1），然后从最大的值开始检查（P3），一直检查到最小的值，直到找到值，使得其方向上的下一个值小于它（P4），然后将其往那边移动一步（P5），然后继续从最大的值开始找（return to P2）。对于每个被检查的值，如果这个值的方向上的下一个值
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-10-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/10/06/rust%E7%BF%BB%E8%BD%AC%E6%95%B0%E7%BB%84/">
-				<h2 class="index-title">
-					rust翻转数组
-				</h2>
-				<div class="index-brief">
-					https://doc.rust-lang.org/stable/std/primitive.slice.html#method.reverse
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-10-06</span>
                     
                             
                     

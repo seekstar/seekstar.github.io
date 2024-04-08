@@ -3514,6 +3514,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/04/01/linux%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
+                     
+										    Linux控制进程CPU使用率
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/05/11/linux%E6%9B%B4%E6%94%B9machine-id/">
                      
 										    Linux更改machine ID
@@ -5306,17 +5317,6 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
-                     
-										    github gist回滚版本
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -5328,6 +5328,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/">
                      
 										    git checkout 远程分支error
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2020/04/28/github-gist%E5%9B%9E%E6%BB%9A%E7%89%88%E6%9C%AC/">
+                     
+										    github gist回滚版本
                      
 									</a>
 								</li>
@@ -6575,6 +6586,17 @@ mjx-container[display="true"] + br {
 									<a href="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/">
                      
 										    Linux查看固态盘总写入量等信息
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/04/04/memcached%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Memcached学习笔记
                      
 									</a>
 								</li>
@@ -7965,14 +7987,34 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="http://www.bubuko.com/infodetail-1259207.html" class="uri">http://www.bubuko.com/infodetail-1259207.html</a></p>
-<p>windows的powershell支持了许多linux命令。<br>
-与linux中使用方法基本相同的有：ls，rm、cat等。仍不支持的有touch、grep等。</p>
-<p>与linux中使用方法不同的有：<br>
-# mv和cp<br>
-mv移动文件，cp复制文件。与linux不同的是，只能接收两个参数，第一个是原文件名或目录名，第二个参数是目的目录名或文件名。</p>
-<h1 id="diff"><a href="#diff">¶</a> diff</h1>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sxzlc/article/details/104880426" class="uri">https://blog.csdn.net/sxzlc/article/details/104880426</a><br>
-要用cat把文件内容提取出来再比较</p>
+<h2 id="脚本后缀名"><a href="#脚本后缀名">¶</a> 脚本后缀名</h2>
+<p>powershell的脚本后缀名是<code>ps1</code>。<code>bat</code>是cmd的后缀名。</p>
+<p>原文：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7.4" class="uri">https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7.4</a></p>
+<h2 id="报错在此系统上禁止运行脚本"><a href="#报错在此系统上禁止运行脚本">¶</a> 报错：<code>在此系统上禁止运行脚本</code></h2>
+<h3 id="查看execution-policy"><a href="#查看execution-policy">¶</a> 查看execution policy</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">Get-ExecutionPolicy</span></span></code></pre></div>
+<h4 id="restricted"><a href="#restricted">¶</a> <code>Restricted</code></h4>
+<p>Windows 客户端计算机的默认执行策略。</p>
+<p>允许单个命令，但不允许脚本。</p>
+<p>阻止运行所有脚本文件，包括格式和配置文件 (.ps1xml)、模块脚本文件 (.psm1) 和 PowerShell 配置文件 (.ps1)。</p>
+<h4 id="remotesigned"><a href="#remotesigned">¶</a> <code>RemoteSigned</code></h4>
+<p>Windows 服务器计算机的默认执行策略。</p>
+<p>在本地计算机上编写且不是从 Internet 下载的脚本不需要数字签名。</p>
+<p>需要受信任的发布者对从 Internet 下载的脚本和配置文件（包括电子邮件和即时消息程序）的数字签名。</p>
+<h3 id="更改execution-policy"><a href="#更改execution-policy">¶</a> 更改execution policy</h3>
+<p>以管理员身份打开PowerShell，执行命令：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">set-executionpolicy</span> remotesigned</span></code></pre></div>
+<h3 id="原文"><a href="#原文">¶</a> 原文</h3>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yummylucky/p/14846557.html">Windows “在此系统上禁止运行脚本”解决办法</a></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4" class="uri">https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4</a></p>
+<h2 id="linux命令"><a href="#linux命令">¶</a> Linux命令</h2>
+<p>windows的powershell支持了许多linux命令。与linux中使用方法基本相同的有：ls，rm、cat等。仍不支持的有touch、grep等。</p>
+<p>与linux中使用方法不同的有：</p>
+<h3 id="mv和cp"><a href="#mv和cp">¶</a> mv和cp</h3>
+<p>mv移动文件，cp复制文件。与linux不同的是，只能接收两个参数，第一个是原文件名或目录名，第二个参数是目的目录名或文件名。</p>
+<h3 id="diff"><a href="#diff">¶</a> diff</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sxzlc/article/details/104880426" class="uri">https://blog.csdn.net/sxzlc/article/details/104880426</a></p>
+<p>要用cat把文件内容提取出来再比较</p>
 <pre class="shell"><code>diff (cat a) (cat b)</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
