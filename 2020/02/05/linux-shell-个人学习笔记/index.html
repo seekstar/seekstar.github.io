@@ -8002,9 +8002,9 @@ else
 	# Do something
 fi</code></pre>
 <h4 id="判断某环境变量是否存在"><a href="#判断某环境变量是否存在">¶</a> 判断某环境变量是否存在</h4>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3" class="uri">https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3</a><br>
-<del>上面的文章好像写反了</del><br>
-例子：判断环境变量DISPLAY是否存在（若不存在说明没有提供显示设备）</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3" class="uri">https://blog.csdn.net/blade2001/article/details/7243143?utm_source=blogxgwz3</a></p>
+<p>上面的文章好像写反了</p>
+<p>例子：判断环境变量DISPLAY是否存在（若不存在说明没有提供显示设备）</p>
 <pre class="shell"><code>if [ $DISPLAY ]; then
 	# DISPLAY存在
 else
@@ -8042,7 +8042,7 @@ fi</code></pre>
 </table>
 <p>所以如果判断目录是否非空，可以这样：<code>if [ "$(ls -A xxx)" ]</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/" class="uri">https://www.cyberciti.biz/faq/linux-unix-shell-check-if-directory-empty/</a></p>
-<h4 id="大小判断"><a href="#大小判断">¶</a> 大小判断</h4>
+<h4 id="整数的大小判断"><a href="#整数的大小判断">¶</a> 整数的大小判断</h4>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/shang_feng_wei/article/details/90378017" class="uri">https://blog.csdn.net/shang_feng_wei/article/details/90378017</a><br>
 <a target="_blank" rel="noopener" href="https://www.jb51.net/article/56553.htm" class="uri">https://www.jb51.net/article/56553.htm</a><br>
@@ -8103,6 +8103,11 @@ fi</code></pre>
 例如下面这两句都表示<code>如果参数的个数等于０或者大于２</code></p>
 <pre class="text"><code>if [[ $# = 0 || $# &gt; 2 ]]; then</code></pre>
 <pre class="text"><code>if [ $# = 0 -o $# -gt 2 ]; then</code></pre>
+<h4 id="浮点数的大小判断"><a href="#浮点数的大小判断">¶</a> 浮点数的大小判断</h4>
+<pre class="shell"><code>if awk "BEGIN {exit !(1.234 &gt;= .233)}"; then
+    echo "yes"
+fi</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/45591665/13688160" class="uri">https://stackoverflow.com/a/45591665/13688160</a></p>
 <h4 id="判断文件类型"><a href="#判断文件类型">¶</a> 判断文件类型</h4>
 <p>来源：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/95c9d20d5ac536ec4e7561ad.html" class="uri">https://jingyan.baidu.com/article/95c9d20d5ac536ec4e7561ad.html</a></p>
 <pre class="shell"><code>#!/bin/bash
