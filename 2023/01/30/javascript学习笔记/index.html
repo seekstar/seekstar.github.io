@@ -4852,17 +4852,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2019/12/05/javascript%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-                     
-										    javascript踩坑笔记
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/02/18/markdown-inline-code/">
                      
 										    markdown inline code
@@ -7992,6 +7981,36 @@ mjx-container[display="true"] + br {
 <h2 id="ejs中和-的区别"><a href="#ejs中和-的区别">¶</a> EJS中<code>&lt;%=</code>和<code>&lt;%-</code>的区别</h2>
 <p><code>&lt;%=</code>转义，<code>&lt;%-</code>不转义。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/11024840/ejs-versus" class="uri">https://stackoverflow.com/questions/11024840/ejs-versus</a></p>
+<h2 id="typeerror-_my_libdefault-is-not-a-function"><a href="#typeerror-_my_libdefault-is-not-a-function">¶</a> TypeError: _my_lib.default is not a function</h2>
+<p>import { gen_index_of } from "./components/lib/my.lib";<br>
+一定要加{}，如果写成<br>
+import gen_index_of from "./components/lib/my.lib";<br>
+会报错：<br>
+TypeError: _my_lib.default is not a function</p>
+<p>my_lib.js</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shuffle</span>(arr) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="kw">let</span> i <span class="op">=</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="cf">while</span> (i) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>        <span class="kw">let</span> j <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> i<span class="op">--</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>        [arr[j]<span class="op">,</span> arr[i]] <span class="op">=</span> [arr[i]<span class="op">,</span> arr[j]]<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">gen_index_of</span>(arr) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="kw">var</span> index_of <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> arr<span class="op">.</span><span class="at">length</span><span class="op">;</span> <span class="op">++</span>i) {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>        index_of[arr[i]] <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    }</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    <span class="cf">return</span> index_of<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">shallow_copy_array</span>(arr) {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    <span class="kw">var</span> ret <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="kw">let</span> v <span class="kw">of</span> arr) {</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>        ret<span class="op">.</span><span class="fu">push</span>(v)<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>    }</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>}</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
