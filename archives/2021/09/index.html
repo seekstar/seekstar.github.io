@@ -6371,17 +6371,6 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2021/09/29/rust%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-                     
-										    rust踩坑笔记
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
@@ -7999,29 +7988,6 @@ fn print_type_of&lt;T&gt;(_: &amp;T) {
 		</div>	
 	
 		<div class="index-li">
-			<a href="/2021/09/29/rust%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					rust踩坑笔记
-				</h2>
-				<div class="index-brief">
-					¶ mpsc
-需求：需要在一个线程里读取数据，发送给另一个线程处理。
-我的方法：用mpsc的channel发送和接收。
-坑：mpsc的channel从不阻塞发送方，它有无限的缓冲。结果读取远远比写入快，导致大量内存被消耗。
-解决方案：用sync_channel：
-pub fn sync_channe
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-09-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
 			<a href="/2021/09/26/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E5%AE%89%E8%A3%85nm%E5%8D%A1%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB/">
 				<h2 class="index-title">
 					华为手机安装NM卡无法识别
@@ -8153,6 +8119,26 @@ pip install pysha3
 			</a>
                 <div class="article-meta">
 				    <span>2021-09-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/">
+				<h2 class="index-title">
+					perf.data生成火焰图
+				</h2>
+				<div class="index-brief">
+					用perf或者别的东西生成perf.data后，可以用如下方法生成火焰图：
+先把https://github.com/brendangregg/FlameGraph.git clone到目录$FlameGraphPath，然后
+perf script -i perf.data &gt; perf.u
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-09-16</span>
                     
                             
                     
