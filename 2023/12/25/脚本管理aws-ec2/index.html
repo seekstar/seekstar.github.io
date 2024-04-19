@@ -8053,12 +8053,23 @@ region=ap-northeast-1</code></pre>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>    SecurityGroupIds<span class="op">=</span>[</span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>        <span class="st">'string'</span>,</span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>    ],</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>    EbsOptimized<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response[<span class="st">'Instances'</span>]) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>instance <span class="op">=</span> response[<span class="st">'Instances'</span>][<span class="dv">0</span>]</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'InstanceId'</span>])</span></code></pre></div>
-<p>但是不能设置hostname。</p>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>    TagSpecifications<span class="op">=</span>[</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>        {</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a>            <span class="st">'ResourceType'</span>: <span class="st">'instance'</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>            <span class="st">'Tags'</span>: [</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a>                {</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a>                    <span class="st">'Key'</span>: <span class="st">'Name'</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true"></a>                    <span class="st">'Value'</span>: <span class="st">'实例名'</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true"></a>                },</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true"></a>            ],</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true"></a>        },</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true"></a>    ],</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true"></a>    EbsOptimized<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true"></a>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true"></a><span class="cf">assert</span> <span class="bu">len</span>(response[<span class="st">'Instances'</span>]) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true"></a>instance <span class="op">=</span> response[<span class="st">'Instances'</span>][<span class="dv">0</span>]</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true"></a><span class="bu">print</span>(instance[<span class="st">'InstanceId'</span>])</span></code></pre></div>
+<p>但是似乎不能设置hostname。</p>
 <p>在使用前先用下面介绍的<code>wait_until_exists</code>等待instance成功创建，不然会报instance不存在的错误。</p>
 <h2 id="instance"><a href="#instance">¶</a> <a target="_blank" rel="noopener" href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/instance/index.html">Instance</a></h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="im">import</span> boto3</span>
