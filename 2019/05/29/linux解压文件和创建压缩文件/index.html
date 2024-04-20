@@ -8180,10 +8180,21 @@ tar如果输出的文件名是“-”，则会输出到stdout<br>
 <pre class="shell"><code>pbzip2 -cdp线程数 b.tar.bz2 | tar -xC DirName</code></pre>
 <h2 id="zstd"><a href="#zstd">¶</a> zstd</h2>
 <h3 id="解压-2"><a href="#解压-2">¶</a> 解压</h3>
-<p>到当前文件夹：</p>
-<pre class="shell"><code>unzstd name.zst</code></pre>
+<p>解压为当前文件夹下的<code>FileName</code>：</p>
+<pre class="shell"><code>unzstd FileName.zst</code></pre>
+<p>也可以解压多个文件：</p>
+<pre class="shell"><code>unzstd FileName1.zst FileName2.zst</code></pre>
+<p>会解压为<code>FileName1</code>和<code>FileName2</code>。</p>
 <p>到指定目录：</p>
-<pre class="shell"><code>unzstd name.zst -o name</code></pre>
+<pre class="shell"><code>unzstd FileName.zst -o path/file</code></pre>
+<h3 id="压缩"><a href="#压缩">¶</a> 压缩</h3>
+<p>压缩为<code>FileName.zst</code>：</p>
+<pre class="shell"><code>zstd FileName
+# 多线程
+zstdmt FileName</code></pre>
+<p>也可以压缩多个文件：</p>
+<pre class="shell"><code>zstdmt FileName1 FileName2</code></pre>
+<p>会压缩为<code>FileName1.zst</code>和<code>FileName2.zst</code>。</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sinsenliu/p/9369729.html" class="uri">https://www.cnblogs.com/sinsenliu/p/9369729.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
