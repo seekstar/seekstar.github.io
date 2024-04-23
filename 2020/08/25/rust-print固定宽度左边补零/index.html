@@ -7965,6 +7965,7 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/fmt/" class="uri">https://doc.rust-lang.org/std/fmt/</a></p>
+<h2 id="任意类型"><a href="#任意类型">¶</a> 任意类型</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="dv">2333</span>)<span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="dv">233</span>)<span class="op">;</span></span>
@@ -7972,14 +7973,46 @@ mjx-container[display="true"] + br {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="op">-</span><span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="st">"test"</span>)<span class="op">;</span>                                                 </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="st">"tes"</span>)<span class="op">;</span>                                                  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="st">"te"</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:0&gt;3}"</span><span class="op">,</span> <span class="st">"t"</span>)<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
 <p>其中<code>&gt;</code>表示向右对齐，<code>0</code>是在左边补的字符。</p>
-<pre><code>2333
+<pre class="text"><code>2333
 233
 023
 002
 000
-0-2</code></pre>
+0-2
+test
+tes
+0te
+00t</code></pre>
+<h2 id="整型"><a href="#整型">¶</a> 整型</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span>                                                                     </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:03}"</span><span class="op">,</span> <span class="dv">2333</span>)<span class="op">;</span>                                                    </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:03}"</span><span class="op">,</span> <span class="dv">233</span>)<span class="op">;</span>                                                     </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:03}"</span><span class="op">,</span> <span class="dv">23</span>)<span class="op">;</span>                                                      </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:03}"</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span>                                                       </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{:03}"</span><span class="op">,</span> <span class="op">-</span><span class="dv">2</span>)<span class="op">;</span>                                                      </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<pre class="text"><code>2333
+233
+023
+002
+-02</code></pre>
+<h2 id="变量指定的宽度"><a href="#变量指定的宽度">¶</a> 变量指定的宽度</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span>                                                                     </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    <span class="kw">for</span> i <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span><span class="dv">5</span> <span class="op">{</span>                                                             </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{:01$}"</span><span class="op">,</span> <span class="dv">23</span><span class="op">,</span> i)<span class="op">;</span>                                              </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="op">}</span>                                                                           </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<pre class="text"><code>23
+23
+023
+0023</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
