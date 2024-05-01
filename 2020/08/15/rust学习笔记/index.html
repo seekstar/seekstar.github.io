@@ -7994,6 +7994,7 @@ mjx-container[display="true"] + br {
 rm ~/.cargo/.package-cache</code></pre>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206" class="uri">https://stackoverflow.com/questions/47565203/cargo-build-hangs-with-blocking-waiting-for-file-lock-on-the-registry-index-a#answer-53066206</a></p>
 <h2 id="标准库"><a href="#标准库">¶</a> 标准库</h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/45384928/is-there-any-way-to-look-up-in-hashset-by-only-the-value-the-type-is-hashed-on" class="uri">https://stackoverflow.com/questions/45384928/is-there-any-way-to-look-up-in-hashset-by-only-the-value-the-type-is-hashed-on</a></p>
 <h3 id="字符串成员函数"><a href="#字符串成员函数">¶</a> 字符串成员函数</h3>
 <ul>
 <li>trim<br>
@@ -8047,9 +8048,12 @@ rm ~/.cargo/.package-cache</code></pre>
 <p>这个bound参数应该指的是个数。</p>
 <p>文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/sync/mpsc/index.html" class="uri">https://doc.rust-lang.org/stable/std/sync/mpsc/index.html</a></p>
 <h2 id="crates"><a href="#crates">¶</a> Crates</h2>
-<p>enum_iterator: <a target="_blank" rel="noopener" href="https://docs.rs/enum-iterator/latest/enum_iterator/" class="uri">https://docs.rs/enum-iterator/latest/enum_iterator/</a></p>
+<h3 id="dyn_struct"><a href="#dyn_struct">¶</a> <a target="_blank" rel="noopener" href="https://docs.rs/dyn_struct/latest/dyn_struct/">dyn_struct</a></h3>
+<p><a target="_blank" rel="noopener" href="https://www.reddit.com/r/rust/comments/qbj84o/dyn_struct_create_types_whose_size_is_determined/" class="uri">https://www.reddit.com/r/rust/comments/qbj84o/dyn_struct_create_types_whose_size_is_determined/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/nolanderc/dyn_struct" class="uri">https://github.com/nolanderc/dyn_struct</a></p>
+<h3 id="enum_iterator"><a href="#enum_iterator">¶</a> <a target="_blank" rel="noopener" href="https://docs.rs/enum-iterator/latest/enum_iterator/">enum_iterator</a></h3>
 <p>可以获取enum的可能取值个数。</p>
-<p>num-derive: <a target="_blank" rel="noopener" href="https://docs.rs/num-derive/latest/num_derive/" class="uri">https://docs.rs/num-derive/latest/num_derive/</a></p>
+<h3 id="num-derive"><a href="#num-derive">¶</a> <a target="_blank" rel="noopener" href="https://docs.rs/num-derive/latest/num_derive/">num-derive</a></h3>
 <p>可以把enum转成基本类型。</p>
 <h3 id="serde"><a href="#serde">¶</a> serde</h3>
 <ul>
@@ -8075,11 +8079,15 @@ rm ~/.cargo/.package-cache</code></pre>
 <h5 id="short"><a href="#short">¶</a> <code>short</code></h5>
 <p>自动取field name的首字母作为参数名。</p>
 <p>也可以<code>short = 'x'</code>指定参数名。</p>
+<h5 id="long"><a href="#long">¶</a> <code>long</code></h5>
+<p>自动把field name的下划线替换为<code>-</code>作为参数名。也可以<code>long = "xxx"</code>指定参数名。</p>
 <h5 id="default_value_t"><a href="#default_value_t">¶</a> <code>default_value_t</code></h5>
 <pre class="text"><code>default_value_t [= &lt;expr&gt;]</code></pre>
 <p><code>_t</code>后缀应该是type的意思。</p>
 <h4 id="positional-arguments"><a href="#positional-arguments">¶</a> Positional arguments</h4>
 <p>不指定<code>short</code>之类的，默认就是positional argument。</p>
+<h4 id="optional-auguments"><a href="#optional-auguments">¶</a> Optional auguments</h4>
+<p>把参数定义成<code>Option&lt;类型&gt;</code>即可。</p>
 <h2 id="api-guidelines"><a href="#api-guidelines">¶</a> API guidelines</h2>
 <h3 id="generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value"><a href="#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value">¶</a> Generic reader/writer functions take R: Read and W: Write by value (C-RW-VALUE)</h3>
 <p><a target="_blank" rel="noopener" href="https://rust-lang.github.io/api-guidelines/interoperability.html#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value" class="uri">https://rust-lang.github.io/api-guidelines/interoperability.html#generic-readerwriter-functions-take-r-read-and-w-write-by-value-c-rw-value</a></p>
@@ -8271,6 +8279,7 @@ rm ~/.cargo/.package-cache</code></pre>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="kw">impl</span> <span class="bu">Default</span> <span class="kw">for</span> Status <span class="op">{</span></span></code></pre></div>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/60253791/why-can-i-not-mutably-borrow-separate-fields-from-a-mutex-guard" class="uri">https://stackoverflow.com/questions/60253791/why-can-i-not-mutably-borrow-separate-fields-from-a-mutex-guard</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28185854/how-do-i-test-crates-with-no-std" class="uri">https://stackoverflow.com/questions/28185854/how-do-i-test-crates-with-no-std</a></p>
 <h2 id="rfc"><a href="#rfc">¶</a> RFC</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/2600">Multiple Attributes in an Attribute Container</a> (postponed)</p>
 <p>支持不允许Drop的类型：[<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/pull/776" class="uri">https://github.com/rust-lang/rfcs/pull/776</a>] (postponed)</p>

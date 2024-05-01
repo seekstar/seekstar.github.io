@@ -8415,15 +8415,13 @@ sudo pacman -S jq</code></pre>
 <pre class="shell"><code>curl -s 'https://api.github.com/users/lambda' | jq -r '.name'</code></pre>
 <pre class="text"><code>Brian Campbell</code></pre>
 <p>如果field不一定存在，可以用这个方式判断：</p>
-<pre class="shell"><code>name=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name')
-if [ $? -eq 0 ]; then
+<pre class="shell"><code>if name=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name'); then
 	echo $name
 else
 	echo name does not exist
 fi
 
-name1=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name1')
-if [ $? -eq 0 ]; then
+if name1=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name1'); then
 	echo $name1
 else
 	echo name1 does not exist
@@ -8434,10 +8432,13 @@ name1 does not exist</code></pre>
 
 	Sets  the  exit status of jq to 0 if the last output values was neither false nor null, 1 if the last output value was either false or null, or 4 if no valid result was ever produced.</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/53135202/13688160" class="uri">https://stackoverflow.com/a/53135202/13688160</a></p>
+<p>如果是读取带有特殊字符的域，加上引号即可：</p>
+<pre class="shell"><code>db_size=$(jq -r ".\"db-size\"" &lt; stats.json)</code></pre>
 <h2 id="按命令"><a href="#按命令">¶</a> 按命令</h2>
 <h3 id="awk"><a href="#awk">¶</a> awk</h3>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-awk.html">Linux awk 命令</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK 条件语句与循环</a></p>
+<p>坑点：如果变量不存在，awk不会报错，而是会把这个变量解析成0：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49447987/testing-a-non-existent-variable-in-awk" class="uri">https://stackoverflow.com/questions/49447987/testing-a-non-existent-variable-in-awk</a></p>
 <h4 id="内置函数"><a href="#内置函数">¶</a> 内置函数</h4>
 <p>完整列表：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-built-in-functions.html" class="uri">https://www.runoob.com/w3cnote/awk-built-in-functions.html</a></p>
 <p>常用的：</p>
@@ -8449,10 +8450,10 @@ name1 does not exist</code></pre>
 <pre class="shell"><code>seq 1 10 | awk '{s+=$1} END {print s}'</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line" class="uri">https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line</a></p>
 <h4 id="打印到stderr"><a href="#打印到stderr">¶</a> 打印到stderr</h4>
-<div class="sourceCode" id="cb75"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true"></a><span class="kw">print</span> <span class="st">"Serious error detected!"</span> <span class="op">&gt;</span> <span class="st">"/dev/stderr"</span></span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true"></a><span class="kw">print</span> <span class="st">"Serious error detected!"</span> <span class="op">&gt;</span> <span class="st">"/dev/stderr"</span></span></code></pre></div>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Special-FD.html" class="uri">https://www.gnu.org/software/gawk/manual/html_node/Special-FD.html</a></p>
 <h4 id="exit"><a href="#exit">¶</a> <a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Exit-Statement.html">exit</a></h4>
-<div class="sourceCode" id="cb76"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true"></a><span class="cf">exit</span> [<span class="cf">return</span> code]</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode awk"><code class="sourceCode awk"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true"></a><span class="cf">exit</span> [<span class="cf">return</span> code]</span></code></pre></div>
 <h4 id="next"><a href="#next">¶</a> <a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Next-Statement.html">next</a></h4>
 <p>立即停止处理当前record，开始处理下一个record。</p>
 <h3 id="column"><a href="#column">¶</a> column</h3>
@@ -8466,6 +8467,19 @@ name1 does not exist</code></pre>
 <li><code>-3</code>: 不输出第三列</li>
 </ul>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set" class="uri">https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set</a></p>
+<h3 id="cut"><a href="#cut">¶</a> cut</h3>
+<pre class="text"><code>       -d, --delimiter=DELIM
+              use DELIM instead of TAB for field delimiter
+
+       -f, --fields=LIST
+              select  only these fields;  also print any line that contains no delimiter character, unless the -s option is speci‐
+              fied
+
+       -s, --only-delimited
+              do not print lines not containing delimiters</code></pre>
+<p>典型用法：</p>
+<pre class="shell"><code># 用空格分隔，打印第二个field
+echo "hello world" | cut -sd" " -f2</code></pre>
 <h3 id="diff"><a href="#diff">¶</a> diff</h3>
 <p>忽略换行符的区别：<code>--strip-trailing-cr</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files" class="uri">https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files</a></p>
