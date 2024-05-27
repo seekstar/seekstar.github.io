@@ -7971,23 +7971,32 @@ mjx-container[display="true"] + br {
 <li><a href="/2021/01/01/matplotlib%E7%94%9F%E6%88%90%E6%B2%A1%E6%9C%89%E7%95%99%E7%99%BD%E7%9A%84%E5%9B%BE%E7%89%87/" title="matplotlib生成没有留白的图片">matplotlib生成没有留白的图片</a></li>
 <li><a href="/2021/05/08/matplotlib%E7%AE%B1%E7%BA%BF%E5%9B%BE%E8%B0%83%E6%95%B4%E7%AE%B1%E5%AD%90%E7%9A%84%E5%AE%BD%E5%BA%A6/" title="matplotlib箱线图调整箱子的宽度">matplotlib箱线图调整箱子的宽度</a></li>
 <li><a href="/2020/12/10/matplotlib%E4%B8%AD%E4%BD%BF%E7%94%A8latex/" title="matplotlib中使用latex">matplotlib中使用latex</a></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gsgbgxp/article/details/125077492">python matplotlib坐标轴刻度设置</a></p></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/math_gao/article/details/109592302">Python -- Matplotlib：画一条水平线或竖直线</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gsgbgxp/article/details/125077492">python
+matplotlib坐标轴刻度设置</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/math_gao/article/details/109592302">Python
+-- Matplotlib：画一条水平线或竖直线</a></p></li>
 </ul>
 <h2 id="pyplot"><a href="#pyplot">¶</a> pyplot</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <p>yscale: <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yscale.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yscale.html</a></p>
 <p>非阻塞显示图片：<code>plt.show(block=False)</code></p>
 <p>开始画下一张：<code>plt.figure()</code></p>
 <h3 id="散点图-pltscatter"><a href="#散点图-pltscatter">¶</a> 散点图 <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html">plt.scatter</a></h3>
 <p>交互式散点图：<a target="_blank" rel="noopener" href="https://mpld3.github.io/examples/scatter_tooltip.html" class="uri">https://mpld3.github.io/examples/scatter_tooltip.html</a></p>
+<h4 id="legend"><a href="#legend">¶</a> legend</h4>
+<p>要用<code>Line2D</code>画: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47391702/how-to-make-a-colored-markers-legend-from-scratch" class="uri">https://stackoverflow.com/questions/47391702/how-to-make-a-colored-markers-legend-from-scratch</a></p>
+<p>调整宽度用<code>legend</code>的参数<code>handlelength</code>:</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/66809947/matplotlib-change-length-of-legend-lines" class="uri">https://stackoverflow.com/questions/66809947/matplotlib-change-length-of-legend-lines</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20048352/how-to-adjust-the-size-of-matplotlib-legend-box" class="uri">https://stackoverflow.com/questions/20048352/how-to-adjust-the-size-of-matplotlib-legend-box</a></p>
 <h3 id="折线图-pltplot"><a href="#折线图-pltplot">¶</a> 折线图 <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">plt.plot</a></h3>
 <p><code>plt.plot(y)</code>的横坐标是从0开始的数组下标。</p>
-<h3 id="legend"><a href="#legend">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">legend</a></h3>
+<h3 id="legend-1"><a href="#legend-1">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">legend</a></h3>
 <ul>
 <li><a href="/2021/01/01/matplotlib%E8%AE%BE%E7%BD%AElegend%E5%9D%90%E6%A0%87/" title="matplotlib设置legend坐标">matplotlib设置legend坐标</a></li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chichoxian/article/details/101058046">Matplotlib 放置legend(bbox_to_anchor)</a></p></li>
-<li><p>frameon: bool, default: rcParams["legend.frameon"] (default: True)</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chichoxian/article/details/101058046">Matplotlib
+放置legend(bbox_to_anchor)</a></p></li>
+<li><p>frameon: bool, default: rcParams["legend.frameon"] (default:
+True)</p></li>
 </ul>
 <p>Whether the legend should be drawn on a patch (frame).</p>
 <h3 id="tight_layout"><a href="#tight_layout">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html">tight_layout</a></h3>
@@ -7995,9 +8004,10 @@ mjx-container[display="true"] + br {
 <li><p><code>pad</code>: float, default: 1.08.</p></li>
 <li><p><code>h_pad, w_padfloat</code>: default: pad</p></li>
 </ul>
-<p>Padding (height/width) between edges of adjacent subplots, as a fraction of the font size.</p>
+<p>Padding (height/width) between edges of adjacent subplots, as a
+fraction of the font size.</p>
 <h2 id="axes"><a href="#axes">¶</a> Axes</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>ax <span class="op">=</span> plt.gca()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/axes_api.html" class="uri">https://matplotlib.org/stable/api/axes_api.html</a></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15067668/how-to-get-a-matplotlib-axes-instance" class="uri">https://stackoverflow.com/questions/15067668/how-to-get-a-matplotlib-axes-instance</a></p>
 <h3 id="tick_params"><a href="#tick_params">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html">tick_params</a></h3>
@@ -8013,30 +8023,39 @@ mjx-container[display="true"] + br {
 <p>Positional, required: <code>xlabel</code></p>
 <p>Optional: <code>labelpad</code>, <code>fontsize</code></p>
 <ul>
-<li><code>loc</code>: {'left', 'center', 'right'}, default: rcParams["xaxis.labellocation"] (default: 'center')</li>
+<li><code>loc</code>: {'left', 'center', 'right'}, default:
+rcParams["xaxis.labellocation"] (default: 'center')</li>
 </ul>
 <p>比方说如果xlabel超过了右边界，可以设置<code>loc='right'</code>来让它与右边界对齐，就不会超过右边界了。</p>
-<h3 id="set_xlim-set_ylim"><a href="#set_xlim-set_ylim">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlim.html">set_xlim</a>, <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylim.html">set_ylim</a></h3>
+<h3 id="set_xlim-set_ylim"><a href="#set_xlim-set_ylim">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlim.html">set_xlim</a>,
+<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylim.html">set_ylim</a></h3>
 <p>设置Y轴最小值：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>ax.set_ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/22642641/13688160" class="uri">https://stackoverflow.com/a/22642641/13688160</a></p>
 <h3 id="set_yscale"><a href="#set_yscale">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_yscale.html">set_yscale</a></h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>ax.set_yscale(<span class="st">'log'</span>)</span></code></pre></div>
-<h3 id="annotate-画箭头"><a href="#annotate-画箭头">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.annotate.html">annotate</a> 画箭头</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">'log'</span>)</span></code></pre></div>
+<h3 id="annotate-画箭头"><a href="#annotate-画箭头">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.annotate.html">annotate</a>
+画箭头</h3>
 <ul>
 <li><p><code>text</code></p></li>
 <li><p><code>xy</code>: (float, float)</p></li>
 </ul>
-<p>The point (x, y) to annotate. The coordinate system is determined by xycoords.</p>
+<p>The point (x, y) to annotate. The coordinate system is determined by
+xycoords.</p>
 <ul>
 <li><code>xytext</code>: (float, float), default: xy</li>
 </ul>
-<p>The position (x, y) to place the text at. The coordinate system is determined by textcoords.</p>
+<p>The position (x, y) to place the text at. The coordinate system is
+determined by textcoords.</p>
 <ul>
 <li><code>xycoords</code>, <code>textcoords</code>: default: 'data'</li>
 </ul>
 <p>完整列表见文档。这里放常用的。</p>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Value</th>
@@ -8046,7 +8065,8 @@ mjx-container[display="true"] + br {
 <tbody>
 <tr class="odd">
 <td><code>data</code></td>
-<td>Use the coordinate system of the object being annotated (default)</td>
+<td>Use the coordinate system of the object being annotated
+(default)</td>
 </tr>
 <tr class="even">
 <td><code>figure fraction</code></td>
@@ -8062,38 +8082,65 @@ mjx-container[display="true"] + br {
 </tr>
 </tbody>
 </table>
-<p>文档里没写的参数：</p>
+<p>其他参数传给了Text。常用的：</p>
 <ul>
-<li><code>fontsize</code></li>
+<li><p><code>fontsize</code></p></li>
+<li><p><code>weight</code></p></li>
 </ul>
+<p>常用值：<code>bold</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/36162414/how-to-add-bold-annotated-text-to-a-plot" class="uri">https://stackoverflow.com/questions/36162414/how-to-add-bold-annotated-text-to-a-plot</a></p>
 <h3 id="ticklabel_format"><a href="#ticklabel_format">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.ticklabel_format.html">ticklabel_format</a></h3>
 <p>比如把tick设置成<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="5.01ex" height="2.022ex" role="img" focusable="false" viewBox="0 -871.8 2214.6 893.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="msup" transform="translate(778,0)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mn" transform="translate(1033,393.1) scale(0.707)"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path></g></g></g></g></svg></mjx-container></span>：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>ax.ticklabel_format(style<span class="op">=</span><span class="st">'sci'</span>, scilimits<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>), useMathText<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<h3 id="tick-formatter"><a href="#tick-formatter">¶</a> tick formatter</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ax.ticklabel_format(style<span class="op">=</span><span class="st">'sci'</span>, scilimits<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>), useMathText<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<h3 id="tick-formatter"><a href="#tick-formatter">¶</a> tick
+formatter</h3>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/ticks/tick-formatters.html" class="uri">https://matplotlib.org/stable/gallery/ticks/tick-formatters.html</a></p>
 <p>例子：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>ax1.xaxis.set_major_formatter(<span class="kw">lambda</span> x, pos: <span class="bu">str</span>(x<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ax1.xaxis.set_major_formatter(<span class="kw">lambda</span> x, pos: <span class="bu">str</span>(x<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
 <h3 id="set_label_coords"><a href="#set_label_coords">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axis.Axis.set_label_coords.html">set_label_coords</a></h3>
 <p>例子：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>ax.xaxis.set_label_coords(<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_label_coords(<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.19</span>)</span></code></pre></div>
 <h3 id="grid"><a href="#grid">¶</a> grid</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html</a></p>
 <p>让参考线在柱状图的柱子后面:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="co"># https://stackoverflow.com/a/68344604</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>ax.set_axisbelow(<span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/68344604</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ax.set_axisbelow(<span class="va">True</span>)</span></code></pre></div>
 <p>给y轴画参考线：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>)</span></code></pre></div>
 <h4 id="指定指数"><a href="#指定指数">¶</a> 指定指数</h4>
 <p>比如指定指数为1e-9:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> ScalarFormatter</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> ScalarFormatter</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits" class="uri">https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits</a></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/77442842/13688160" class="uri">https://stackoverflow.com/a/77442842/13688160</a></p>
 <p>设置fontsize:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/34228384/13688160" class="uri">https://stackoverflow.com/a/34228384/13688160</a></p>
+<h2 id="colorbar"><a href="#colorbar">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/colorbar_api.html#module-matplotlib.colorbar">colorbar</a></h2>
+<p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/users/explain/colors/colormapnorms.html" class="uri">https://matplotlib.org/stable/users/explain/colors/colormapnorms.html</a></p>
+<p>例子：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> cm, colors</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> plt.get_cmap(<span class="st">'coolwarm'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># need to normalize because color maps are defined in [0, 1]</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> colors.TwoSlopeNorm(<span class="dv">1</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>norm_cmap <span class="op">=</span> cm.ScalarMappable(norm<span class="op">=</span>norm, cmap<span class="op">=</span>cmap)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">100</span>):</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    plt.scatter(i, i, color<span class="op">=</span>norm_cmap.to_rgba(i))</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>cb <span class="op">=</span> plt.colorbar(norm_cmap, ax<span class="op">=</span>ax, ticks<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>cb.ax.tick_params(labelsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/73510185/how-to-add-colorbar-in-matplotlib" class="uri">https://stackoverflow.com/questions/73510185/how-to-add-colorbar-in-matplotlib</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29074820/how-do-i-change-the-font-size-of-ticks-of-matplotlib-pyplot-colorbar-colorbarbas" class="uri">https://stackoverflow.com/questions/29074820/how-do-i-change-the-font-size-of-ticks-of-matplotlib-pyplot-colorbar-colorbarbas</a></p>
 <h2 id="翻转坐标轴"><a href="#翻转坐标轴">¶</a> 翻转坐标轴</h2>
 <p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html</a></p>
 <h2 id="子图"><a href="#子图">¶</a> 子图</h2>
@@ -8101,34 +8148,40 @@ mjx-container[display="true"] + br {
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html</a></p>
 <p>官方例子：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/align_labels_demo.html#sphx-glr-gallery-subplots-axes-and-figures-align-labels-demo-py" class="uri">https://matplotlib.org/stable/gallery/subplots_axes_and_figures/align_labels_demo.html#sphx-glr-gallery-subplots-axes-and-figures-align-labels-demo-py</a></p>
 <p>常用：</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>figure <span class="op">=</span> plt.figure(dpi <span class="op">=</span> <span class="dv">300</span>, figsize <span class="op">=</span> (xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">3</span>, figure<span class="op">=</span>figure)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>figure <span class="op">=</span> plt.figure(dpi <span class="op">=</span> <span class="dv">300</span>, figsize <span class="op">=</span> (xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">3</span>, figure<span class="op">=</span>figure)</span></code></pre></div>
 <p>其中<code>constrained_layout</code>比<code>tight_layout</code>更好。</p>
 <p><code>plt.figure</code>参数：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" class="uri">https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure</a></p>
-<h2 id="调整坐标轴label与tick-label之间的空隙"><a href="#调整坐标轴label与tick-label之间的空隙">¶</a> 调整坐标轴label与tick label之间的空隙</h2>
+<h2 id="调整坐标轴label与tick-label之间的空隙"><a href="#调整坐标轴label与tick-label之间的空隙">¶</a>
+调整坐标轴label与tick label之间的空隙</h2>
 <p>用<code>labelpad</code></p>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.xlabel.html" class="uri">https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.xlabel.html</a></p>
-<h2 id="设置tick的个数"><a href="#设置tick的个数">¶</a> 设置tick的个数</h2>
+<h2 id="设置tick的个数"><a href="#设置tick的个数">¶</a>
+设置tick的个数</h2>
 <p>比如让y轴有4个tick:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/13418954/13688160" class="uri">https://stackoverflow.com/a/13418954/13688160</a></p>
 <p>很坑的是，log scale用这种方式无效，需要手动设置ticks:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>plt.yscale(<span class="st">'log'</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="co"># 设置成log scale似乎会清空ticks，所以要把设置ticks放后面</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>plt.yticks([<span class="fl">1e5</span>, <span class="fl">1e6</span>, <span class="fl">1e7</span>], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="co"># plt.yticks似乎会消除minor ticks，所以还得把它们补上</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="co"># 其中numticks比较玄学，似乎大于3就行。这里直接设置成一个大数，就肯定不会有问题了。</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>ax.yaxis.set_minor_locator(LogLocator(base<span class="op">=</span><span class="dv">10</span>, subs<span class="op">=</span>np.arange(<span class="dv">2</span>, <span class="dv">10</span>) <span class="op">*</span> <span class="fl">0.1</span>, numticks<span class="op">=</span><span class="dv">233</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置成log scale似乎会清空ticks，所以要把设置ticks放后面</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.yticks([<span class="fl">1e5</span>, <span class="fl">1e6</span>, <span class="fl">1e7</span>], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.yticks似乎会消除minor ticks，所以还得把它们补上</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中numticks比较玄学，似乎大于3就行。这里直接设置成一个大数，就肯定不会有问题了。</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_minor_locator(LogLocator(base<span class="op">=</span><span class="dv">10</span>, subs<span class="op">=</span>np.arange(<span class="dv">2</span>, <span class="dv">10</span>) <span class="op">*</span> <span class="fl">0.1</span>, numticks<span class="op">=</span><span class="dv">233</span>))</span></code></pre></div>
 <h2 id="疑难杂症"><a href="#疑难杂症">¶</a> 疑难杂症</h2>
-<h3 id="matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure"><a href="#matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure">¶</a> <code>Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.</code></h3>
+<h3 id="matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure"><a href="#matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure">¶</a>
+<code>Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.</code></h3>
 <pre class="shell"><code>sudo apt install python3-tk</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56656777/userwarning-matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so" class="uri">https://stackoverflow.com/questions/56656777/userwarning-matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so</a></p>
-<h3 id="在安装了ttf-mscorefonts-installer的情况下matplotlib找不到times-new-roman"><a href="#在安装了ttf-mscorefonts-installer的情况下matplotlib找不到times-new-roman">¶</a> 在安装了<code>ttf-mscorefonts-installer</code>的情况下<code>matplotlib</code>找不到Times New Roman</h3>
+<h3 id="在安装了ttf-mscorefonts-installer的情况下matplotlib找不到times-new-roman"><a href="#在安装了ttf-mscorefonts-installer的情况下matplotlib找不到times-new-roman">¶</a>
+在安装了<code>ttf-mscorefonts-installer</code>的情况下<code>matplotlib</code>找不到Times
+New Roman</h3>
 <pre class="shell"><code>sudo apt install msttcorefonts -qq
 rm ~/.cache/matplotlib -rf</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42097053/matplotlib-cannot-find-basic-fonts" class="uri">https://stackoverflow.com/questions/42097053/matplotlib-cannot-find-basic-fonts</a></p>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
-<p><code>plt.legend</code>顺序似乎只能是按列的，要改成按行只能手动reorder: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29639973/custom-legend-in-pandas-bar-plot-matplotlib" class="uri">https://stackoverflow.com/questions/29639973/custom-legend-in-pandas-bar-plot-matplotlib</a></p>
+<p><code>plt.legend</code>顺序似乎只能是按列的，要改成按行只能手动reorder:
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29639973/custom-legend-in-pandas-bar-plot-matplotlib" class="uri">https://stackoverflow.com/questions/29639973/custom-legend-in-pandas-bar-plot-matplotlib</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

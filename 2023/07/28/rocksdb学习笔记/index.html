@@ -7980,32 +7980,42 @@ mjx-container[display="true"] + br {
 <li>Mutable options</li>
 </ul>
 <p>ColumnFamilyData和SuperVersion互相保存了对方的引用。在<code>ColumnFamilyData::InstallSuperVersion</code>中，会先调用<code>SuperVersion::Init</code>将SuperVersion的ref变成1，并且让这个SuperVersion引用自己，让自己的引用计数+1。</p>
-<p>Get的时候如果不是在snapshot上get，那么先拿thread local的SuperVersion，再在上面Get。在<code>ColumnFamilyData::InstallSuperVersion</code>中会更新thread local SuperVersion。</p>
-<p>在hold DB mutex的情况下，可以直接调用<code>ColumnFamilyData::GetSuperVersion</code>拿最新的SuperVersion。</p>
-<h2 id="rocksdbstats"><a href="#rocksdbstats">¶</a> <code>rocksdb.stats</code></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="bu">std::</span>string rocksdb_stats;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>db-&gt;GetProperty(<span class="st">"rocksdb.stats"</span>, &amp;rocksdb_stats)</span></code></pre></div>
-<p>其中Compaction Stats里每行是以该level为output level的compaction的stats，<code>Rn</code>是non output level的读取量，<code>Rnp1</code>是output level的读取量，其中<code>p1</code>应该是<code>plus 1</code>的意思。<code>Rn</code>和<code>Rnp1</code>相加就是<code>Read</code>。</p>
+<p>Get的时候如果不是在snapshot上get，那么先拿thread
+local的SuperVersion，再在上面Get。在<code>ColumnFamilyData::InstallSuperVersion</code>中会更新thread
+local SuperVersion。</p>
+<p>在hold DB
+mutex的情况下，可以直接调用<code>ColumnFamilyData::GetSuperVersion</code>拿最新的SuperVersion。</p>
+<h2 id="rocksdbstats"><a href="#rocksdbstats">¶</a>
+<code>rocksdb.stats</code></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>rocksdb_stats<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>db<span class="op">-&gt;</span>GetProperty<span class="op">(</span><span class="st">"rocksdb.stats"</span><span class="op">,</span> <span class="op">&amp;</span>rocksdb_stats<span class="op">)</span></span></code></pre></div>
+<p>其中Compaction Stats里每行是以该level为output
+level的compaction的stats，<code>Rn</code>是non output
+level的读取量，<code>Rnp1</code>是output
+level的读取量，其中<code>p1</code>应该是<code>plus 1</code>的意思。<code>Rn</code>和<code>Rnp1</code>相加就是<code>Read</code>。</p>
 <p>值得注意的是，flush到L0的I/O也被算进了L0的write里。</p>
-<h2 id="secondary-cache"><a href="#secondary-cache">¶</a> Secondary cache</h2>
+<h2 id="secondary-cache"><a href="#secondary-cache">¶</a> Secondary
+cache</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)" class="uri">https://github.com/facebook/rocksdb/wiki/SecondaryCache-(Experimental)</a></p>
 <p>官方讲解：<a target="_blank" rel="noopener" href="https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html" class="uri">https://rocksdb.org/blog/2021/05/27/rocksdb-secondary-cache.html</a></p>
-<h3 id="compressedsecondarycacheoptions-in-memory"><a href="#compressedsecondarycacheoptions-in-memory">¶</a> CompressedSecondaryCacheOptions (in-memory)</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>  rocksdb::CompressedSecondaryCacheOptions secondary_cache_opts;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  secondary_cache_opts.capacity = 字节数;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  secondary_cache_opts.<span class="dt">compression_type</span> = CompressionType的某一项;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  rocksdb::LRUCacheOptions lru_cache_opts;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>  lru_cache_opts.capacity = 字节数;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  lru_cache_opts.secondary_cache =</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>      NewCompressedSecondaryCache(secondary_cache_opts);</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>  rocksdb::BlockBasedTableOptions table_options;</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>  table_options.block_cache = rocksdb::NewLRUCache(lru_cache_opts);</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>  rocksdb::Options options;</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>  options.table_factory.reset(</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>      rocksdb::NewBlockBasedTableFactory(table_options));</span></code></pre></div>
-<h3 id="rockscachelibwrapper"><a href="#rockscachelibwrapper">¶</a> RocksCachelibWrapper</h3>
+<h3 id="compressedsecondarycacheoptions-in-memory"><a href="#compressedsecondarycacheoptions-in-memory">¶</a>
+CompressedSecondaryCacheOptions (in-memory)</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  rocksdb<span class="op">::</span>CompressedSecondaryCacheOptions secondary_cache_opts<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  secondary_cache_opts<span class="op">.</span>capacity <span class="op">=</span> 字节数<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  secondary_cache_opts<span class="op">.</span><span class="dt">compression_type</span> <span class="op">=</span> CompressionType的某一项<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  rocksdb<span class="op">::</span>LRUCacheOptions lru_cache_opts<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  lru_cache_opts<span class="op">.</span>capacity <span class="op">=</span> 字节数<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  lru_cache_opts<span class="op">.</span>secondary_cache <span class="op">=</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      NewCompressedSecondaryCache<span class="op">(</span>secondary_cache_opts<span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  rocksdb<span class="op">::</span>BlockBasedTableOptions table_options<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  table_options<span class="op">.</span>block_cache <span class="op">=</span> rocksdb<span class="op">::</span>NewLRUCache<span class="op">(</span>lru_cache_opts<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  rocksdb<span class="op">::</span>Options options<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  options<span class="op">.</span>table_factory<span class="op">.</span>reset<span class="op">(</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      rocksdb<span class="op">::</span>NewBlockBasedTableFactory<span class="op">(</span>table_options<span class="op">));</span></span></code></pre></div>
+<h3 id="rockscachelibwrapper"><a href="#rockscachelibwrapper">¶</a>
+RocksCachelibWrapper</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/blob/main/cachelib/adaptor/rocks_secondary_cache/CachelibWrapper.h" class="uri">https://github.com/facebook/CacheLib/blob/main/cachelib/adaptor/rocks_secondary_cache/CachelibWrapper.h</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>facebook::rocks_secondary_cache::RocksCachelibWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>facebook<span class="op">::</span>rocks_secondary_cache<span class="op">::</span>RocksCachelibWrapper</span></code></pre></div>
 <p>可惜其中有一部分没有开源，所以无法编译：<a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/issues/278" class="uri">https://github.com/facebook/CacheLib/issues/278</a></p>
 <p>其实只要把<code>CachelibWrapper.h</code>和<code>CachelibWrapper.cpp</code>这两个文件拷贝到自己的project里，然后把里面引用了facebook内部代码的代码删掉即可：<a target="_blank" rel="noopener" href="https://github.com/seekstar/RocksCachelibWrapper" class="uri">https://github.com/seekstar/RocksCachelibWrapper</a></p>
 <p>相关：</p>
@@ -8013,8 +8023,16 @@ mjx-container[display="true"] + br {
 <p><a target="_blank" rel="noopener" href="https://github.com/facebook/CacheLib/pull/184" class="uri">https://github.com/facebook/CacheLib/pull/184</a></p>
 <h2 id="snapshot"><a href="#snapshot">¶</a> Snapshot</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/wiki/Snapshot" class="uri">https://github.com/facebook/rocksdb/wiki/Snapshot</a></p>
-<p>RocksDB的snapshot相当于对当时的DB状态做一个快照。在take snapshot时，将当前sequence number保存下来。在snapshot上读取的时候，忽略sequence number大于snapshot的sequence number的record。</p>
+<p>RocksDB的snapshot相当于对当时的DB状态做一个快照。在take
+snapshot时，将当前sequence
+number保存下来。在snapshot上读取的时候，忽略sequence
+number大于snapshot的sequence number的record。</p>
 <p>在flush和compaction时，如果一个record对某个snapshot是可见的，即使在有新版本的情况下也会保留它。</p>
+<h2 id="rate-limiter"><a href="#rate-limiter">¶</a> Rate limiter</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://github.com/facebook/rocksdb/wiki/Rate-Limiter" class="uri">https://github.com/facebook/rocksdb/wiki/Rate-Limiter</a></p>
+<p>使用方法：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rocksdb<span class="op">::</span>RateLimiter <span class="op">*</span>rate_limiter <span class="op">=</span> rocksdb<span class="op">::</span>NewGenericRateLimiter<span class="op">(</span>load_phase_rate_limit<span class="op">);</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>options<span class="op">.</span>rate_limiter<span class="op">.</span>reset<span class="op">(</span>rate_limiter<span class="op">);</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
