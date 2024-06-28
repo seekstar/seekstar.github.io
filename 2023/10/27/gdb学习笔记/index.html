@@ -4634,6 +4634,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2024/05/31/%E8%A7%A3%E5%86%B3linux%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3%E6%97%B6ssh%E8%BF%9E%E4%B8%8D%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决Linux内存不足时ssh连不上的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -7974,7 +7985,8 @@ mjx-container[display="true"] + br {
 <p>打印当前正在运行的位置附近的代码</p>
 <h2 id="print--p"><a href="#print--p">¶</a> print / p</h2>
 <p>打印变量的值</p>
-<h2 id="backtrace--bt"><a href="#backtrace--bt">¶</a> backtrace / bt</h2>
+<h2 id="backtrace--bt"><a href="#backtrace--bt">¶</a> backtrace /
+bt</h2>
 <p>打印调用栈。</p>
 <p>例子：</p>
 <pre class="text"><code>(gdb) backtrace
@@ -7988,9 +8000,11 @@ mjx-container[display="true"] + br {
 <p>选择backtrace里的某一项。例如要选择上面的例子中的：</p>
 <pre class="text"><code>#2  0x000055d5daf78905 in Tester::Test (this=this@entry=0x7ffe1974a070) at /home/searchstar/kvexe/src/test.hpp:314</code></pre>
 <p>就<code>f 2</code></p>
-<h2 id="info-threads"><a href="#info-threads">¶</a> <code>info threads</code></h2>
+<h2 id="info-threads"><a href="#info-threads">¶</a>
+<code>info threads</code></h2>
 <p>打印每个线程执行到了什么地方</p>
-<h2 id="thread-apply"><a href="#thread-apply">¶</a> <code>thread apply</code></h2>
+<h2 id="thread-apply"><a href="#thread-apply">¶</a>
+<code>thread apply</code></h2>
 <p>在指定线程中执行命令。</p>
 <p>例子：<code>thread apply all bt</code>，在所有线程中执行<code>bt</code>，即打印所有线程的调用栈。</p>
 <h2 id="thread"><a href="#thread">¶</a> <code>thread</code></h2>
@@ -7998,7 +8012,13 @@ mjx-container[display="true"] + br {
 <pre class="text"><code>  10   Thread 0x7f199dffb700 (LWP 1530942) "checker"       __lll_lock_wait (futex=futex@entry=0x55aea2384ea8, 
     private=0) at lowlevellock.c:52</code></pre>
 <p>就输入<code>thread 10</code></p>
-<h2 id="-ex-gdb命令"><a href="#-ex-gdb命令">¶</a> <code>-ex gdb命令</code></h2>
+<h2 id="断点"><a href="#断点">¶</a> 断点</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Set-Breaks.html#Set-Breaks" class="uri">https://sourceware.org/gdb/current/onlinedocs/gdb.html/Set-Breaks.html#Set-Breaks</a></p>
+<p>设置断点：<code>break</code> / <code>b</code></p>
+<p>默认在当前行设置断点。后面也可以加断点的具体位置。</p>
+<p>删除所有断点：<code>clear</code></p>
+<h2 id="-ex-gdb命令"><a href="#-ex-gdb命令">¶</a>
+<code>-ex gdb命令</code></h2>
 <p>执行一条gdb命令。比如让gdb立即执行命令：<code>gdb -ex run --args 命令 参数...</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2119564/how-to-automatically-run-the-executable-in-gdb" class="uri">https://stackoverflow.com/questions/2119564/how-to-automatically-run-the-executable-in-gdb</a></p>
 <p>如果还需要让命令正常退出时gdb也退出，但是命令异常时暂停：</p>
@@ -8007,7 +8027,8 @@ mjx-container[display="true"] + br {
 <h2 id="core-dump"><a href="#core-dump">¶</a> core dump</h2>
 <p>系统可能默认禁用了core dump:</p>
 <pre class="shell"><code>ulimit -c</code></pre>
-<p>返回0说明不允许core dump。要启用core dump，可以在当前shell里把它设置成unlimited:</p>
+<p>返回0说明不允许core dump。要启用core
+dump，可以在当前shell里把它设置成unlimited:</p>
 <pre class="shell"><code>ulimit -c unlimited</code></pre>
 <p>然后在同一个shell里运行程序时再出现segfault就会dump core。</p>
 <p>然后就可以用gdb来解析这个core file:</p>

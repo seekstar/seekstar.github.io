@@ -4632,6 +4632,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2024/05/31/%E8%A7%A3%E5%86%B3linux%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3%E6%97%B6ssh%E8%BF%9E%E4%B8%8D%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决Linux内存不足时ssh连不上的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -7934,6 +7945,26 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/11/%E6%9B%B4%E6%94%B9ssh-host-key/">
+				<h2 class="index-title">
+					更改SSH host key
+				</h2>
+				<div class="index-brief">
+					为了避免中间人攻击，每台SSH服务器都会生成一对公钥和私钥，在第一次连接SSH服务器时，SSH客户端会将公钥保存到~/.ssh/known_hosts里，以后每次登录这台服务器时都会验证服务器是否具有这个公钥对应的私钥，有的话才连上。
+服务器的SSH host key存储在/etc/ssh/下面：
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/09/golang-slice%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">
 				<h2 class="index-title">
 					golang slice实现队列
@@ -8120,30 +8151,6 @@ deb http://
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/28/fatal-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-https-aur-archlinux-org-debtap-git-%EF%BC%9Aopenssl-ssl-connect-ssl-error-syscall-in-connection-to-aur-archlinux-org-443/">
-				<h2 class="index-title">
-					fatal: 无法访问 'https://aur.archlinux.org/debtap.git/'：OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to aur.archlinux.org:443
-				</h2>
-				<div class="index-brief">
-					我把~/.gitconfig里的
-[http]
-        proxy = socks5://127.0.0.1:8235
-改成
-[http]
-        proxy = http://127.0.0.1:8234
-就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-28</span>
                     
                             
                     

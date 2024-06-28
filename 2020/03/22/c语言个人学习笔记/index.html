@@ -4634,6 +4634,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2024/05/31/%E8%A7%A3%E5%86%B3linux%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3%E6%97%B6ssh%E8%BF%9E%E4%B8%8D%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决Linux内存不足时ssh连不上的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -7968,32 +7979,39 @@ mjx-container[display="true"] + br {
 <a href="/2021/11/27/c%E8%AF%AD%E8%A8%80%E5%88%A4%E6%96%AD%E5%AE%8F%E5%8F%82%E6%95%B0%E6%98%AF%E5%90%A6%E4%B8%BA%E5%B7%B2%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%8F/" title="C语言判断宏参数是否为已定义的宏">C语言判断宏参数是否为已定义的宏</a>
 <h3 id="返回值"><a href="#返回值">¶</a> 返回值</h3>
 <p>被<code>({</code>和<code>})</code>包起来的语句中，最后一个语句的值就是整个语句的值。可以用这个特性来构造有返回值的宏。例子：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="pp">#define test23(choice) ({	\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="pp">	int ret;				\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="pp">	if (choice) {			\</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="pp">		ret = 2;			\</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="pp">	} else {				\</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="pp">		ret = 3;			\</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="pp">	}						\</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="pp">	ret;					\</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="pp">})</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>	assert(test23(<span class="dv">0</span>) == <span class="dv">3</span>);</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>	assert(test23(<span class="dv">1</span>) == <span class="dv">2</span>);</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define test23(choice) ({	\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">	int ret;				\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">	if (choice) {			\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">		ret = 2;			\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">	} else {				\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">		ret = 3;			\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">	}						\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">	ret;					\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">})</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>	assert<span class="op">(</span>test23<span class="op">(</span><span class="dv">0</span><span class="op">)</span> <span class="op">==</span> <span class="dv">3</span><span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>	assert<span class="op">(</span>test23<span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">==</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html" class="uri">https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html</a></p>
 <h2 id="builtin系列"><a href="#builtin系列">¶</a> builtin系列</h2>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuzhanshan/p/6861596.html" class="uri">https://www.cnblogs.com/liuzhanshan/p/6861596.html</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40676873/article/details/85239890" class="uri">https://blog.csdn.net/weixin_40676873/article/details/85239890</a></p>
-<p>这一系列不带后缀表示参数是unsigned int，例如<code>__builtin_ctz</code>，带后缀<code>l</code>表示参数是long，例如<code>__builtin_ctzl</code>，带后缀<code>ll</code>表示参数是long long，例如<code>__builtin_ctzll</code>。</p>
+<p>这一系列不带后缀表示参数是unsigned
+int，例如<code>__builtin_ctz</code>，带后缀<code>l</code>表示参数是long，例如<code>__builtin_ctzl</code>，带后缀<code>ll</code>表示参数是long
+long，例如<code>__builtin_ctzll</code>。</p>
 <table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>函数</th>
@@ -8015,7 +8033,8 @@ mjx-container[display="true"] + br {
 <tr class="odd">
 <td>__builtin_popcount</td>
 <td>1的个数</td>
-<td><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Martinium/archive/2013/03/01/popcount.html">population count</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Martinium/archive/2013/03/01/popcount.html">population
+count</a></td>
 </tr>
 </tbody>
 </table>
@@ -8063,6 +8082,22 @@ mjx-container[display="true"] + br {
 </tbody>
 </table>
 <p>十六进制把<code>u</code>换成<code>x</code>，例如<code>%zx</code>用十六进制打印<code>size_t</code>。</p>
+<p>此外，<code>uint64_t</code>之类的类型的格式控制符可以用<code>inttypes.h</code>里的<code>PRIxxx</code>宏：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/c/types/integer" class="uri">https://en.cppreference.com/w/c/types/integer</a></p>
+<p>常用的：</p>
+<table>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>宏</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>uint64_t</code></td>
+<td><code>PRIu64</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="取整"><a href="#取整">¶</a> 取整</h2>
 <table>
 <thead>
@@ -8094,37 +8129,39 @@ mjx-container[display="true"] + br {
 <h2 id="常用库函数"><a href="#常用库函数">¶</a> 常用库函数</h2>
 <h3 id="stringh"><a href="#stringh">¶</a> string.h</h3>
 <h4 id="memccpy"><a href="#memccpy">¶</a> memccpy</h4>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">void</span> * memccpy(<span class="dt">void</span> *dest, <span class="dt">const</span> <span class="dt">void</span> * src, <span class="dt">int</span> c, <span class="dt">size_t</span> n);</span></code></pre></div>
-<p>拷贝src 所指的内存内容前n 个字节到dest 所指的地址上，直到发现某一个字节的值与c相等，然后返回指向相等的字节的后一个字节的指针。如果没有相等的字节，就返回NULL。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span> memccpy<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>dest<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span> src<span class="op">,</span> <span class="dt">int</span> c<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">);</span></span></code></pre></div>
+<p>拷贝src 所指的内存内容前n 个字节到dest
+所指的地址上，直到发现某一个字节的值与c相等，然后返回指向相等的字节的后一个字节的指针。如果没有相等的字节，就返回NULL。</p>
 <h2 id="创建临时目录"><a href="#创建临时目录">¶</a> 创建临时目录</h2>
 <p>用<code>mkdtemp</code>，文档：<a target="_blank" rel="noopener" href="https://linux.die.net/man/3/mkdtemp" class="uri">https://linux.die.net/man/3/mkdtemp</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	<span class="dt">char</span> template[] = <span class="st">"/tmp/test-XXXXXX"</span>;</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	<span class="dt">char</span> *fname = mkdtemp(template);</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>	<span class="cf">if</span> (fname == NULL) {</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>		perror(<span class="st">"mkdtemp"</span>);</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">1</span>;</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>	}</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>	puts(fname);</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>}</span></code></pre></div>
-<h2 id="执行命令并获取输出"><a href="#执行命令并获取输出">¶</a> 执行命令并获取输出</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>	<span class="dt">char</span> template<span class="op">[]</span> <span class="op">=</span> <span class="st">"/tmp/test-XXXXXX"</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>	<span class="dt">char</span> <span class="op">*</span>fname <span class="op">=</span> mkdtemp<span class="op">(</span>template<span class="op">);</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>	<span class="cf">if</span> <span class="op">(</span>fname <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>		perror<span class="op">(</span><span class="st">"mkdtemp"</span><span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>	puts<span class="op">(</span>fname<span class="op">);</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="执行命令并获取输出"><a href="#执行命令并获取输出">¶</a>
+执行命令并获取输出</h2>
 <p>用<code>popen</code>: <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/popen.3.html" class="uri">https://man7.org/linux/man-pages/man3/popen.3.html</a></p>
 <p>用完记得用<code>pclose</code>关掉。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="dt">FILE</span> *pipe = popen(command, <span class="st">"r"</span>);</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="cf">if</span> (pipe == NULL) {</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	perror(<span class="st">"popen"</span>);</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>	abort();</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>}</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">// Read pipe</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="cf">if</span> (-<span class="dv">1</span> == pclose(pipe)) {</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>	perror(<span class="st">"pclose"</span>);</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>	abort();</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">FILE</span> <span class="op">*</span>pipe <span class="op">=</span> popen<span class="op">(</span>command<span class="op">,</span> <span class="st">"r"</span><span class="op">);</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>pipe <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"popen"</span><span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>	abort<span class="op">();</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Read pipe</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(-</span><span class="dv">1</span> <span class="op">==</span> pclose<span class="op">(</span>pipe<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"pclose"</span><span class="op">);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>	abort<span class="op">();</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po" class="uri">https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
