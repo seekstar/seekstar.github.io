@@ -7990,13 +7990,27 @@ mjx-container[display="true"] + br {
 <p><code>DBImpl::BackgroundFlush</code>中先调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>（唯一的取出者），从中再取出<code>ColumnFamilyData</code>。再把这些<code>ColumnFamilyData</code>放进<code>bg_flush_args</code>，作为<code>DBImpl::FlushMemTablesToOutputFiles</code>的参数。<code>DBImpl::flush_queue_</code>里的<code>FlushRequest</code>的来源见：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>。最后再将这些<code>ColumnFamilyData</code>给<code>UnrefAndTryDelete</code>。</p>
 <p><code>DBImpl::FlushMemTablesToOutputFiles</code>中，如果不是atomic_flush（默认），那么一定只有一个要flush的MemTable。把<code>ColumnFamilyData</code>拿出来，作为参数传给<code>DBImpl::FlushMemTableToOutputFile</code>。</p>
 <blockquote>
-<p>构造<code>FlushJob flush_job</code>，然后执行<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code><br>
-&gt;调用<code>FlushJob::WriteLevel0Table</code>，把MemTable写入到L0层。在里面会先把DB锁解开，写入完成之后再锁上。<br>
+<p>构造<code>FlushJob flush_job</code><br>
+<code>flush_job.PickMemTable()</code>，把MemTable的<code>VersionEdit</code>存在<code>FlushJob::edit_</code>里。<br>
+<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code><br>
+&gt;调用<code>FlushJob::WriteLevel0Table</code><br>
+&gt;&gt;<code>db_mutex_-&gt;Unlock();</code><br>
+&gt;&gt;<code>BuildTable</code><br>
+&gt;&gt;<code>db_mutex_-&gt;Lock();</code><br>
+&gt;&gt;<code>edit_-&gt;AddFile</code>。这个<code>edit_</code>实际上是MemTable的VersionEdit<br>
+&gt;<br>
 &gt;调用<code>MemTableList::TryInstallMemtableFlushResults</code><br>
-&gt;&gt;将被flush的memory table的<code>flush_completed_</code>标记为<code>true</code>。<br>
-&gt;&gt;从老到新把所有<code>flush_completed_</code>的immutable memory table都通过<code>VersionSet::LogAndApply</code> commit。</p>
-<p>然后把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。<br>
-&gt;因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层，所以接下来准备schedule compaction。<br>
+&gt;&gt;将被flush的memory
+table的<code>flush_completed_</code>标记为<code>true</code>。<br>
+&gt;&gt;从老到新把所有<code>flush_completed_</code>的immutable memory
+table的<code>VersionEdit</code>存进<code>edit_list</code>，然后通过<code>VersionSet::LogAndApply</code>
+commit这些edit，里面调用<code>VersionSet::ProcessManifestWrites</code>。<br>
+&gt;&gt;&gt;调用<code>VersionBuilder::Apply</code>，里面调用<code>VersionBuilder::Rep::Apply</code>，里面调用<code>VersionBuilder::Rep::ApplyFileAddition</code>，最终将file_number存到<code>VersionBuilder::Rep::levels_[level].added_files</code>里。<br>
+&gt;&gt;&gt;调用<code>VersionBuilder::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveSSTFilesTo</code>，先对<code>VersionBuilder::Rep::levels_[level].added_files</code>排序，L0的SSTable用<code>NewestFirstBySeqNo</code>排序，其他的用<code>BySmallestKey</code>排序，然后跟老version里已有的SSTable
+merge到一个新的version。</p>
+<p>把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。<br>
+&gt;因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层，所以接下来准备schedule
+compaction。<br>
 &gt;把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code><br>
 &gt;&gt;将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。<br>
 &gt;<br>
