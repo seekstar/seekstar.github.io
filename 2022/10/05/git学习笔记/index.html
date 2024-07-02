@@ -7981,7 +7981,8 @@ mjx-container[display="true"] + br {
 <li><a href="/2020/01/27/git%E8%A7%A3%E5%86%B3sign-and-send-pubkey-signing-failed-agent-refused-operation/" title="git解决sign_and_send_pubkey: signing failed: agent refused operation">git解决sign_and_send_pubkey: signing failed: agent refused operation</a></li>
 <li><a href="/2021/08/07/git-checkout-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AFerror/" title="git checkout 远程分支error">git checkout 远程分支error</a></li>
 </ul>
-<h2 id="查看unstaged-changes"><a href="#查看unstaged-changes">¶</a> 查看unstaged changes</h2>
+<h2 id="查看unstaged-changes"><a href="#查看unstaged-changes">¶</a>
+查看unstaged changes</h2>
 <pre class="shell"><code>git diff</code></pre>
 <p>包含untracked file：</p>
 <pre class="shell"><code>git add -N . &amp;&amp; git diff</code></pre>
@@ -7998,7 +7999,8 @@ git remote get-url origin</code></pre>
 <pre class="shell"><code>git clone -b 分支名 仓库地址
 # 如果只需要这个分支的话
 git clone -b 分支名 --single-branch 仓库地址</code></pre>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Steve_XiaoHai/article/details/130533676">git clone 指定分支</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Steve_XiaoHai/article/details/130533676">git
+clone 指定分支</a></p>
 <h2 id="tag"><a href="#tag">¶</a> tag</h2>
 <p>显示全部：<code>git tags</code></p>
 <p>创建：<code>git tag 名字</code></p>
@@ -8006,7 +8008,8 @@ git clone -b 分支名 --single-branch 仓库地址</code></pre>
 <p>删除：<code>git tag -d 名字</code></p>
 <p>如果remote删除那么本地也删除：<code>git fetch origin --prune</code></p>
 <p>删除所有本地tag: <code>git tag | xargs git tag -d</code> 来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/19542426" class="uri">https://stackoverflow.com/a/19542426</a></p>
-<h2 id="删除未跟踪的文件"><a href="#删除未跟踪的文件">¶</a> 删除未跟踪的文件</h2>
+<h2 id="删除未跟踪的文件"><a href="#删除未跟踪的文件">¶</a>
+删除未跟踪的文件</h2>
 <p>预览有哪些未跟踪的文件</p>
 <pre class="shell"><code>git clean -dn</code></pre>
 <p>删除未跟踪的文件</p>
@@ -8034,13 +8037,16 @@ git stash show stash@{0} -p &gt; xxx.patch</code></pre>
 <pre class="shell"><code>git apply --3way /path/to/xxx.patch</code></pre>
 <p><code>--3way</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/47756467/13688160" class="uri">https://stackoverflow.com/a/47756467/13688160</a></p>
 <h2 id="git-log"><a href="#git-log">¶</a> <code>git log</code></h2>
-<h3 id="查看所有commit的列表"><a href="#查看所有commit的列表">¶</a> 查看所有commit的列表</h3>
+<h3 id="查看所有commit的列表"><a href="#查看所有commit的列表">¶</a>
+查看所有commit的列表</h3>
 <pre class="shell"><code>git log</code></pre>
-<h3 id="查看某文件的commit历史"><a href="#查看某文件的commit历史">¶</a> 查看某文件的commit历史</h3>
+<h3 id="查看某文件的commit历史"><a href="#查看某文件的commit历史">¶</a>
+查看某文件的commit历史</h3>
 <pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
 <p>P.S. 可以是已经删除的文件。路径是相对shell的工作目录的相对路径。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history" class="uri">https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history</a></p>
-<h3 id="查看某一个commit的diff"><a href="#查看某一个commit的diff">¶</a> 查看某一个commit的diff</h3>
+<h3 id="查看某一个commit的diff"><a href="#查看某一个commit的diff">¶</a>
+查看某一个commit的diff</h3>
 <pre class="shell"><code>git show &lt;commit-id&gt;</code></pre>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did" class="uri">https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did</a></p>
 <h2 id="cherry-pick"><a href="#cherry-pick">¶</a> cherry-pick</h2>
@@ -8048,7 +8054,8 @@ git stash show stash@{0} -p &gt; xxx.patch</code></pre>
 <pre class="shell"><code>git cherry-pick CommitHash</code></pre>
 <p>指定冲突解决方案：<code>--strategy-option</code>。如果在冲突时全部采用cherry-pick过来的commit的更改，则<code>--strategy-option theirs</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21051850/force-git-to-accept-cherry-picks-changes" class="uri">https://stackoverflow.com/questions/21051850/force-git-to-accept-cherry-picks-changes</a></p>
-<h3 id="一段连续的commit"><a href="#一段连续的commit">¶</a> 一段连续的commit</h3>
+<h3 id="一段连续的commit"><a href="#一段连续的commit">¶</a>
+一段连续的commit</h3>
 <pre class="shell"><code>git cherry-pick 开始..结束</code></pre>
 <p>注意，<code>开始</code>是不包含在内的，而<code>结束</code>是包含在内的，也就是说这是个左开右闭区间。如果要让<code>开始</code>也被包含在内，即指定一个闭区间，则：</p>
 <pre class="shell"><code>git cherry-pick 开始^..结束</code></pre>
@@ -8065,6 +8072,9 @@ git submodule update --remote
 # 令其reset到repo中指定的commit
 # https://stackoverflow.com/questions/7882603/how-to-revert-a-git-submodule-pointer-to-the-commit-stored-in-the-containing-rep
 git submodule update --init</code></pre>
+<p>更改submodule的URL：直接编辑<code>.gitmodules</code>，然后</p>
+<pre class="shell"><code>git submodule sync --recursive
+git submodule update --init</code></pre>
 <p>删除submodule比较麻烦：</p>
 <pre class="shell"><code># Remove the submodule entry from .git/config
 git submodule deinit -f path/to/submodule
@@ -8075,18 +8085,23 @@ rm -rf .git/modules/path/to/submodule
 # Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
 git rm -f path/to/submodule</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://gist.github.com/myusuf3/7f645819ded92bda6677" class="uri">https://gist.github.com/myusuf3/7f645819ded92bda6677</a></p>
-<h2 id="push到不同名的远程分支"><a href="#push到不同名的远程分支">¶</a> push到不同名的远程分支</h2>
+<h2 id="push到不同名的远程分支"><a href="#push到不同名的远程分支">¶</a>
+push到不同名的远程分支</h2>
 <pre class="shell"><code># https://stackoverflow.com/questions/19154302/git-push-to-specific-branch
 git push origin localBranchName:remoteBranchName</code></pre>
-<h2 id="squash-commits"><a href="#squash-commits">¶</a> Squash commits</h2>
+<h2 id="squash-commits"><a href="#squash-commits">¶</a> Squash
+commits</h2>
 <pre class="shell"><code># -i: --interactive
 git rebase &lt;base-commit-hash&gt; -i</code></pre>
 <p>然后第一个commit标记为<code>pick</code>，其他的都标记为<code>squash</code>，即<code>s</code>。然后退出编辑器。</p>
-<p>然后会让你编辑新的commit的message。可以全删了然后编辑新的message，然后退出编辑器，从原来的HEAD到base commit（不含）的所有commit就都被squash成了一个commit了。</p>
-<h2 id="恢复某一被删除的文件"><a href="#恢复某一被删除的文件">¶</a> 恢复某一被删除的文件</h2>
+<p>然后会让你编辑新的commit的message。可以全删了然后编辑新的message，然后退出编辑器，从原来的HEAD到base
+commit（不含）的所有commit就都被squash成了一个commit了。</p>
+<h2 id="恢复某一被删除的文件"><a href="#恢复某一被删除的文件">¶</a>
+恢复某一被删除的文件</h2>
 <p>先用前面介绍的方法查看这个文件的commit历史：</p>
 <pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
-<p>找到删除这个文件的commit hash，然后checkout这个文件到它的前一个commit：</p>
+<p>找到删除这个文件的commit
+hash，然后checkout这个文件到它的前一个commit：</p>
 <pre class="shell"><code>git checkout &lt;deletion commit hash&gt;~1 -- &lt;filename&gt;</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files" class="uri">https://www.git-tower.com/learn/git/faq/restoring-deleted-files</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
