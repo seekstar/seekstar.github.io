@@ -7980,7 +7980,8 @@ mjx-container[display="true"] + br {
 <pre class="shell"><code># https://mirrors.tuna.tsinghua.edu.cn/help/nix/
 sh &lt;(curl https://mirrors.tuna.tsinghua.edu.cn/nix/latest/install) --daemon --no-channel-add --yes
 source /etc/profile</code></pre>
-<p><code>--no-channel-add</code>: 不添加<code>nixpkgs-unstable</code>作为channel。</p>
+<p><code>--no-channel-add</code>:
+不添加<code>nixpkgs-unstable</code>作为channel。</p>
 <p>否则这一步会很慢：</p>
 <pre class="text"><code>---- sudo execution ------------------------------------------------------------
 I am executing:                                                                      
@@ -8003,9 +8004,9 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <h2 id="代理"><a href="#代理">¶</a> 代理</h2>
 <p>设置代理可以提高未命中cache时从官方源下载的速度。</p>
 <pre class="shell"><code>sudo systemctl edit nix-daemon.service</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">[Service]</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"http_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"https_proxy=http://</span><span class="kw">localhost</span><span class="st">:端口号"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"http_proxy=http://localhost:端口号"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">"https_proxy=http://localhost:端口号"</span></span></code></pre></div>
 <p>然后重启<code>nix-daemon</code>：</p>
 <pre class="shell"><code>sudo systemctl restart nix-daemon.service</code></pre>
 <p>或者直接把内容写进<code>override.conf</code>：</p>
@@ -8027,13 +8028,16 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <p>一些<code>nix-env</code>的选项：</p>
 <ul>
 <li><p><code>-i</code>: <code>--install</code></p></li>
-<li><p><code>-A</code>: <code>--attr</code>。表示从根开始解析，更快。</p></li>
+<li><p><code>-A</code>:
+<code>--attr</code>。表示从根开始解析，更快。</p></li>
 <li><p><code>-e</code>: <code>--uninstall</code></p></li>
-<li><p><code>-q</code>: <code>--query</code>。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
+<li><p><code>-q</code>:
+<code>--query</code>。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
 </ul>
 <p>垃圾回收：<code>nix-collect-garbage -d</code>。</p>
 <pre class="text"><code>-d (--delete-old) deletes  all  old  generations of all profiles in /nix/var/nix/profiles by invoking nix-env --delete-generations old on all profiles (of course, this makes rollbacks to previous configurations impossible)</code></pre>
-<h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a> 运行OpenGL程序</h2>
+<h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a>
+运行OpenGL程序</h2>
 <p>在非NixOS中运行需要OpenGL的程序需要wrapper：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS" class="uri">https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS</a></p>
 <p>可以用nixGL来运行这些程序：<a target="_blank" rel="noopener" href="https://github.com/guibou/nixGL" class="uri">https://github.com/guibou/nixGL</a>。安装：</p>
 <pre class="shell"><code>nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl &amp;&amp; nix-channel --update
@@ -8054,7 +8058,16 @@ Icon=seafile
 Type=Application
 Categories=Network;FileTransfer;</code></pre>
 <p>然后就可以在启动器里找到<code>Seafile</code>了，点击之即可运行。</p>
-<h2 id="卸载nix包管理器"><a href="#卸载nix包管理器">¶</a> 卸载Nix包管理器</h2>
+<p>2024.07.03 Update: 现在好像可以直接运行seafile-applet了：</p>
+<pre class="text"><code>[Desktop Entry]
+Name=Seafile
+Comment=Seafile desktop sync client
+Exec=seafile-applet
+Icon=seafile
+Type=Application
+Categories=Network;FileTransfer;</code></pre>
+<h2 id="卸载nix包管理器"><a href="#卸载nix包管理器">¶</a>
+卸载Nix包管理器</h2>
 <p>安装完之后安装程序给出的提示，没有试过：</p>
 <pre class="text"><code>Uninstalling nix:
 1. Delete the systemd service and socket units                                       
@@ -8067,21 +8080,27 @@ Categories=Network;FileTransfer;</code></pre>
 2. Delete the files Nix added to your system:
 
   sudo rm -rf /etc/nix /nix /root/.nix-profile /root/.nix-defexpr /root/.nix-channels $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels</code></pre>
-<h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a> 允许安装闭源软件</h2>
+<h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a>
+允许安装闭源软件</h2>
 <p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
 <pre class="text"><code>{ allowUnfree = true; }</code></pre>
 <h2 id="安装和使用库"><a href="#安装和使用库">¶</a> 安装和使用库</h2>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
-<p>因此如果用Nix包管理器安装了库，比如gtest: <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>}</span></code></pre></div>
+<p>因此如果用Nix包管理器安装了库，比如gtest:
+<code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
-<p>如果是用cmake + make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick Cao说是cmake的setup hook去找依赖。之后需要把原来的<code>build</code>删掉，再重新<code>cmake ..</code>才行。</p>
-<h2 id="搜索哪个包提供了文件"><a href="#搜索哪个包提供了文件">¶</a> 搜索哪个包提供了文件</h2>
+<p>如果是用cmake +
+make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick
+Cao说是cmake的setup
+hook去找依赖。之后需要把原来的<code>build</code>删掉，再重新<code>cmake ..</code>才行。</p>
+<h2 id="搜索哪个包提供了文件"><a href="#搜索哪个包提供了文件">¶</a>
+搜索哪个包提供了文件</h2>
 <p>先安装<code>nix-index</code>：</p>
 <pre class="shell"><code>nix-env -iA nixpkgs.nix-index</code></pre>
 <p>生成数据库（可能需要很长一段时间）：</p>
@@ -8094,24 +8113,29 @@ Categories=Network;FileTransfer;</code></pre>
 <pre class="text"><code>sysstat.out                                      67,720 x /nix/store/39wxpjmmd6m082d492rg6wiwqcv5npvr-sysstat-12.6.2/bin/iostat</code></pre>
 <p>所以我们就知道了提供<code>iostat</code>命令的包是<code>sysstat</code>。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/252224/how-to-find-out-which-not-installed-package-a-file-belongs-to-on-nixos" class="uri">https://unix.stackexchange.com/questions/252224/how-to-find-out-which-not-installed-package-a-file-belongs-to-on-nixos</a></p>
-<h2 id="nix-shell"><a href="#nix-shell">¶</a> <code>nix-shell</code></h2>
-<h3 id="只用nix提供的环境"><a href="#只用nix提供的环境">¶</a> 只用nix提供的环境</h3>
+<h2 id="nix-shell"><a href="#nix-shell">¶</a>
+<code>nix-shell</code></h2>
+<h3 id="只用nix提供的环境"><a href="#只用nix提供的环境">¶</a>
+只用nix提供的环境</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/NixOS/nix/issues/3820" class="uri">https://github.com/NixOS/nix/issues/3820</a></p>
 <pre class="shell"><code>nix-shell --pure</code></pre>
 <h3 id="配置文件"><a href="#配置文件">¶</a> 配置文件</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Development_environment_with_nix-shell" class="uri">https://nixos.wiki/wiki/Development_environment_with_nix-shell</a></p>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
 <p>如果不自己创建<code>.desktop</code>文件，Deepin启动器里好像没法找到安装的GUI软件：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av335652600/" class="uri">https://www.bilibili.com/video/av335652600/</a>。不知道其他系统是不是这样。</p>
-<h3 id="error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory"><a href="#error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory">¶</a> <code>error: opening lock file '/nix/var/nix/profiles/per-user/searchstar/profile.lock': No such file or directory</code></h3>
+<h3 id="error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory"><a href="#error-opening-lock-file-nixvarnixprofilesper-usersearchstarprofilelock-no-such-file-or-directory">¶</a>
+<code>error: opening lock file '/nix/var/nix/profiles/per-user/searchstar/profile.lock': No such file or directory</code></h3>
 <p>在ArchLinux上出现。原因未知。可以手动创建该目录解决：</p>
 <pre class="shell"><code>sudo mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
 sudo chown $USER:$USER /nix/var/nix/{profiles,gcroots}/per-user/$USER</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4" class="uri">https://discourse.nixos.org/t/per-user-profiles-not-created-when-home-mounted-on-nfs/5864/4</a></p>
-<h3 id="error-this-derivation-has-bad-metaoutputstoinstall"><a href="#error-this-derivation-has-bad-metaoutputstoinstall">¶</a> <code>error: this derivation has bad 'meta.outputsToInstall'</code></h3>
+<h3 id="error-this-derivation-has-bad-metaoutputstoinstall"><a href="#error-this-derivation-has-bad-metaoutputstoinstall">¶</a>
+<code>error: this derivation has bad 'meta.outputsToInstall'</code></h3>
 <p>可能是在<code>nix-env -iA</code>的时候<code>ctrl+c</code>导致的？反正回滚一下就行了：<code>nix-env --rollback</code></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://github.com/NixOS/nixpkgs/issues/189555" class="uri">https://github.com/NixOS/nixpkgs/issues/189555</a></p>
 <h3 id="切换stdenv"><a href="#切换stdenv">¶</a> 切换stdenv</h3>
-<p>仓库里的binary是用某个stdenv编译的，所以即使切换了stdenv，仓库里的库仍然依赖另一个stdenv，导致link error。</p>
+<p>仓库里的binary是用某个stdenv编译的，所以即使切换了stdenv，仓库里的库仍然依赖另一个stdenv，导致link
+error。</p>
 <p>好像不太好解决：</p>
 <p><a target="_blank" rel="noopener" href="https://discourse.nixos.org/t/how-to-override-stdenv-for-all-packages-in-mkshell/10368/16" class="uri">https://discourse.nixos.org/t/how-to-override-stdenv-for-all-packages-in-mkshell/10368/16</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/50277775/how-do-i-select-gcc-version-in-nix-shell" class="uri">https://stackoverflow.com/questions/50277775/how-do-i-select-gcc-version-in-nix-shell</a></p>

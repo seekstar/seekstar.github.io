@@ -8007,10 +8007,12 @@ flatpak remotes
 # 或者flatpak remote-list
 # 似乎不能看某个remote的URL之类的: https://github.com/flatpak/flatpak/issues/1983</code></pre>
 <p>不同于apt，flatpak可以并行安装。安装的软件存放在<code>~/.var/app/</code>和<code>/var/lib/flatpak/app</code>里。一般来讲，软件的启动入口一般在<code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin</code>。</p>
-<h2 id="为应用设置代理"><a href="#为应用设置代理">¶</a> 为应用设置代理</h2>
+<h2 id="为应用设置代理"><a href="#为应用设置代理">¶</a>
+为应用设置代理</h2>
 <p>由于flatpak的应用是运行在沙箱里的，看不到系统代理，所以如果应用需要使用代理的话，需要手动在沙箱环境里配置系统代理：</p>
 <p><a href="https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" class="uri">https://seekstar.github.io/2022/01/06/flatpak%E5%BA%94%E7%94%A8%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/</a></p>
-<h2 id="一些可以用flatpak安装的软件"><a href="#一些可以用flatpak安装的软件">¶</a> 一些可以用flatpak安装的软件</h2>
+<h2 id="一些可以用flatpak安装的软件"><a href="#一些可以用flatpak安装的软件">¶</a>
+一些可以用flatpak安装的软件</h2>
 <h3 id="keepassxc"><a href="#keepassxc">¶</a> KeePassXC</h3>
 <p>密码管理器。要把apt安装的旧版卸载之后，Deepin启动器上的才会变成flatpak的版本。</p>
 <h3 id="thunderbird"><a href="#thunderbird">¶</a> Thunderbird</h3>
@@ -8027,11 +8029,14 @@ flatpak remotes
 <p>音乐软件</p>
 <h3 id="motrix"><a href="#motrix">¶</a> Motrix</h3>
 <p>p2p下载客户端。支持多种p2p链接。</p>
-<h3 id="shadowsocks-qt5"><a href="#shadowsocks-qt5">¶</a> Shadowsocks-Qt5</h3>
+<h3 id="shadowsocks-qt5"><a href="#shadowsocks-qt5">¶</a>
+Shadowsocks-Qt5</h3>
 <pre class="shell"><code>flatpak install shadowsocks</code></pre>
-<h3 id="国际版minecraft"><a href="#国际版minecraft">¶</a> 国际版Minecraft</h3>
+<h3 id="国际版minecraft"><a href="#国际版minecraft">¶</a>
+国际版Minecraft</h3>
 <p><code>com.mojang.Minecraft</code></p>
-<h3 id="clash-for-windows"><a href="#clash-for-windows">¶</a> Clash for Windows</h3>
+<h3 id="clash-for-windows"><a href="#clash-for-windows">¶</a> Clash for
+Windows</h3>
 <p><code>io.github.Fndroid.clash_for_windows</code></p>
 <p>别被名字骗了，现在支持Linux了。</p>
 <h3 id="libreoffice"><a href="#libreoffice">¶</a> LibreOffice</h3>
@@ -8043,7 +8048,7 @@ flatpak remotes
 <p><a target="_blank" rel="noopener" href="https://www.zotero.org/support/creating_bibliographies#quick_copy" class="uri">https://www.zotero.org/support/creating_bibliographies#quick_copy</a></p>
 <p><a target="_blank" rel="noopener" href="https://forums.zotero.org/discussion/87285/export-bibtex-to-clipboard" class="uri">https://forums.zotero.org/discussion/87285/export-bibtex-to-clipboard</a></p>
 <h3 id="seafile"><a href="#seafile">¶</a> Seafile</h3>
-<p>云盘客户端。但是flatpak版本没有单点登录。</p>
+<p>云盘客户端。但是截至<code>9.0.6</code>，flatpak版本没有单点登录。而且高分屏下窗口很小。</p>
 <h3 id="drawio"><a href="#drawio">¶</a> drawio</h3>
 <p>画图软件。装完之后Deepin系统的启动器里并找不到drawio，只能这样启动：</p>
 <pre class="shell"><code>flatpak run com.jgraph.drawio.desktop</code></pre>
@@ -8064,9 +8069,11 @@ flatpak override --user --filesystem=home:ro im.riot.Riot</code></pre>
 <p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。</p>
 <h3 id="腾讯会议"><a href="#腾讯会议">¶</a> 腾讯会议</h3>
 <p>包名是<code>com.tencent.wemeet</code>。启动器里打不开，但是可以通过<code>flatpak run com.tencent.wemeet</code>打开。</p>
-<h3 id="torbrowser-launcher"><a href="#torbrowser-launcher">¶</a> torbrowser-launcher</h3>
+<h3 id="torbrowser-launcher"><a href="#torbrowser-launcher">¶</a>
+torbrowser-launcher</h3>
 <p>launcher能打开，但是在系统启动器死活打不开tor browser。。。</p>
-<p>通过launcher下载好tor browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
+<p>通过launcher下载好tor
+browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
 <pre class="shell"><code>~/.var/app/com.github.micahflee.torbrowser-launcher/data/torbrowser/tbb/x86_64/tor-browser_zh-CN/Browser/start-tor-browser</code></pre>
 <p>注意如果选择下载的是英文版，那其中的<code>tor-browser_zh-CN</code>要换掉。</p>
 <p>关于tor browser本身能不能进flatpak可以看这个issue:</p>

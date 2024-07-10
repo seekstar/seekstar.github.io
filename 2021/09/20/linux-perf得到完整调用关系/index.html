@@ -7983,11 +7983,19 @@ mjx-container[display="true"] + br {
 <pre class="shell"><code>nix-env -iA nixpkgs.bison</code></pre>
 <p>Nix包管理器安装和使用教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <h3 id="获取源码"><a href="#获取源码">¶</a> 获取源码</h3>
-<p>glibc每六个月发布类似于2.31这样的minor version，然后在这里fork出这个minor version的branch，比如<code>release/2.31/master</code>，以后的bug fix都commit到这个branch上，不再单独发布bug fix version。因此我们可以先clone glibc的repo，然后checkout到目标minor version的branch即可。</p>
-<p>我的系统上glibc版本是<code>2.31-13+deb11u7</code>，所以这里获取<code>2.31</code>的源码：</p>
+<p>glibc每六个月发布类似于2.31这样的minor
+version，然后在这里fork出这个minor
+version的branch，比如<code>release/2.31/master</code>，以后的bug
+fix都commit到这个branch上，不再单独发布bug fix
+version。因此我们可以先clone glibc的repo，然后checkout到目标minor
+version的branch即可。</p>
+<p>debian
+12上glibc版本是<code>2.36-9+deb12u7</code>，所以应该获取<code>2.36</code>的源码。<br>
+debian
+11上glibc版本是<code>2.31-13+deb11u7</code>，应该获取<code>2.31</code>的源码。</p>
 <pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/glibc.git
 cd glibc
-git checkout release/2.31/master</code></pre>
+git checkout release/2.36/master</code></pre>
 <h3 id="编译"><a href="#编译">¶</a> 编译</h3>
 <pre class="shell"><code>mkdir -p build
 cd build
@@ -8005,18 +8013,27 @@ libpthread.so.0</code></pre>
 <h2 id="gcc"><a href="#gcc">¶</a> <code>gcc</code></h2>
 <p>如果要编译C++程序的话，还需要编译<code>gcc</code>，因为<code>libstdc++</code>是<code>gcc</code>提供的。</p>
 <h3 id="获取源码-1"><a href="#获取源码-1">¶</a> 获取源码</h3>
-<p>gcc的功能更新会更新major version，后面的minor version都是bug fix version，官方文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/develop.html" class="uri">https://gcc.gnu.org/develop.html</a></p>
-<p>我的系统上的gcc版本是<code>10.2.1</code>，所以这里编译安装它的最新bug fix版本<code>10.5.0</code>:</p>
-<pre class="shell"><code>wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-10.5.0/gcc-10.5.0.tar.gz
-tar xzf gcc-10.5.0.tar.gz
-cd gcc-10.5.0</code></pre>
+<p>gcc的功能更新会更新major version，后面的minor version都是bug fix
+version，官方文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/develop.html" class="uri">https://gcc.gnu.org/develop.html</a></p>
+<p>debian 12
+上的gcc版本是<code>12.2.0-14</code>，这里应该编译安装它的最新bug
+fix版本<code>12.4.0</code>。<br>
+debian 11 上的gcc版本是<code>10.2.1</code>，这里应该编译安装它的最新bug
+fix版本<code>10.5.0</code>。</p>
+<pre class="shell"><code>version=12.4.0
+wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-$version/gcc-$version.tar.gz
+tar xzf gcc-$version.tar.gz
+cd gcc-$version</code></pre>
 <p>或者也可以用git获取最新的bug fix版本：</p>
 <pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/gcc.git
 cd gcc
 git checkout releases/gcc-10</code></pre>
-<h3 id="下载依赖"><a href="#下载依赖">¶</a> 下载依赖</h3>
+<h3 id="安装依赖-1"><a href="#安装依赖-1">¶</a> 安装依赖</h3>
+<pre class="shell"><code>sudo apt install libgmp-dev libmpfr-dev libmpc-dev </code></pre>
+<p>或者自动下载安装依赖：</p>
 <pre class="shell"><code>./contrib/download_prerequisites</code></pre>
-<h3 id="用系统自带的glibc编译"><a href="#用系统自带的glibc编译">¶</a> 用系统自带的glibc编译</h3>
+<h3 id="用系统自带的glibc编译"><a href="#用系统自带的glibc编译">¶</a>
+用系统自带的glibc编译</h3>
 <p>理论上这里使用刚刚编译的glibc编译gcc最好，但是这需要使用交叉编译的方法，太复杂了，我试了很久都没有成功。由于我们之前编译安装的glibc跟系统里自带的glibc是兼容的（只是修了一些BUG），所以这里可以直接用系统自带的glibc编译。</p>
 <pre class="shell"><code>mkdir -p build
 cd build
@@ -8026,7 +8043,8 @@ export CXXFLAGS=$CFLAGS
 make -j$(nproc)
 make install
 cd ../..</code></pre>
-<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/51946224/13688160">How to edit and re-build the GCC libstdc++ C++ standard library source?</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/51946224/13688160">How to
+edit and re-build the GCC libstdc++ C++ standard library source?</a></p>
 <h2 id="编译选项"><a href="#编译选项">¶</a> 编译选项</h2>
 <p>以后我们用这套编译选项来编译其他软件：</p>
 <pre class="shell"><code>INSTALL_ROOT=$HOME/no-omit-frame-pointer
@@ -8034,12 +8052,16 @@ export CC=$INSTALL_ROOT/bin/gcc
 export CXX=$INSTALL_ROOT/bin/g++
 export CFLAGS="-O2 -fno-omit-frame-pointer"
 export CXXFLAGS=$CFLAGS
-export LDFLAGS="-Wl,-rpath=$INSTALL_ROOT/lib -Wl,-rpath=$INSTALL_ROOT/lib64 -Wl,--dynamic-linker=$INSTALL_ROOT/lib/ld-linux-x86-64.so.2"</code></pre>
+export LDFLAGS="-Wl,-rpath=$INSTALL_ROOT/lib -Wl,-rpath=$INSTALL_ROOT/lib64 -Wl,--dynamic-linker=$INSTALL_ROOT/lib/ld-linux-x86-64.so.2"
+unset LD_LIBRARY_PATH</code></pre>
 <p><code>-Wl,-rpath</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/6562437/13688160" class="uri">https://stackoverflow.com/a/6562437/13688160</a></p>
-<p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the dynamic linker / loader to be used when launching an executable on Linux</a></p>
+<p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the
+dynamic linker / loader to be used when launching an executable on
+Linux</a></p>
 <h2 id="常见库的编译"><a href="#常见库的编译">¶</a> 常见库的编译</h2>
 <p>先export上面说的编译选项，然后就可以用正常的方法编译了。</p>
-<h3 id="libgflags"><a href="#libgflags">¶</a> <code>libgflags</code></h3>
+<h3 id="libgflags"><a href="#libgflags">¶</a>
+<code>libgflags</code></h3>
 <pre class="shell"><code>git clone https://github.com/gflags/gflags.git
 cd gflags
 mkdir -p build
@@ -8050,10 +8072,13 @@ make install
 cd ../..</code></pre>
 <h3 id="liburcu"><a href="#liburcu">¶</a> <code>liburcu</code></h3>
 <p>官网：<a target="_blank" rel="noopener" href="https://liburcu.org/" class="uri">https://liburcu.org/</a></p>
-<p>我的Debian 11上版本是0.12.2-1，所以这里下载安装0.12.5</p>
-<pre class="shell"><code>wget https://lttng.org/files/urcu/userspace-rcu-0.12.5.tar.bz2
-tar xjf userspace-rcu-0.12.5.tar.bz2
-cd userspace-rcu-0.12.5
+<p>Debian
+12上版本是<code>0.13.2-1</code>，所以这里应该下载安装0.13.3<br>
+Debian 11上版本是<code>0.12.2-1</code>，所以这里应该下载安装0.12.5</p>
+<pre class="shell"><code>version=0.13.3
+wget https://lttng.org/files/urcu/userspace-rcu-$version.tar.bz2
+tar xjf userspace-rcu-$version.tar.bz2
+cd userspace-rcu-$version
 mkdir build
 cd build
 ../configure --prefix=$INSTALL_ROOT
@@ -8062,9 +8087,11 @@ make install
 cd ../..</code></pre>
 <h3 id="boost"><a href="#boost">¶</a> <code>boost</code></h3>
 <p>官网：<a target="_blank" rel="noopener" href="https://www.boost.org/" class="uri">https://www.boost.org/</a></p>
+<p>Debian 11和Debian
+12的版本都是<code>1.74.0.3</code>，所以这里应该安装<code>1.74.0</code>。</p>
 <p>编译安装教程：<a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html" class="uri">https://www.boost.org/doc/libs/1_74_0/more/getting_started/unix-variants.html</a></p>
-<pre class="shell"><code>wget https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.gz
-tar xzf boost_1_74_0.tar.gz
+<pre class="shell"><code>wget https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.bz2
+tar xjf boost_1_74_0.tar.bz2
 cd boost_1_74_0
 ./bootstrap.sh --prefix=$INSTALL_ROOT
 # 让b2用我们编译的gcc
@@ -8077,16 +8104,49 @@ export PATH=$INSTALL_ROOT/bin:$PATH</code></pre>
 <pre class="shell"><code>./b2 --with-program_options --prefix=$INSTALL_ROOT install link=shared cflags="$CFLAGS" cxxflags="$CXXFLAGS" linkflags="$LDFLAGS"</code></pre>
 <p>文档写的<code>--with-libraries=library-name-list</code>应该是<code>bootstrap.sh</code>的参数，没试过。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6945012/passing-compiler-flags-to-boost-libraries-such-as-thread-which-require-compila" class="uri">https://stackoverflow.com/questions/6945012/passing-compiler-flags-to-boost-libraries-such-as-thread-which-require-compila</a></p>
+<h3 id="xxhash"><a href="#xxhash">¶</a> <code>xxhash</code></h3>
+<pre class="shell"><code>wget https://github.com/Cyan4973/xxHash/archive/refs/tags/v0.8.2.tar.gz
+tar xzf v0.8.2.tar.gz
+cd xxHash-0.8.2/
+make -j$(nproc)
+make install PREFIX=$INSTALL_ROOT
+cd ..</code></pre>
+<h3 id="liburing"><a href="#liburing">¶</a> <code>liburing</code></h3>
+<p>Debian
+12上的版本是<code>2.3-3</code>，所以应该安装<code>2.3</code>。</p>
+<pre class="shell"><code>wget https://git.kernel.dk/cgit/liburing/snapshot/liburing-2.3.tar.bz2
+tar xjf liburing-2.3.tar.bz2
+cd liburing-2.3/
+./configure --prefix=$INSTALL_ROOT
+make -j$(nproc)
+make install
+cd ..</code></pre>
+<h3 id="tbb"><a href="#tbb">¶</a> <code>tbb</code></h3>
+<pre class="shell"><code>wget https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2021.13.0.tar.gz
+tar xzf v2021.13.0.tar.gz
+cd oneTBB-2021.13.0/
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_ROOT -DTBB_TEST=OFF
+make -j$(nproc)
+make install
+cd ..</code></pre>
+<h2 id="可选打包no-omit-frame-pointer编译环境"><a href="#可选打包no-omit-frame-pointer编译环境">¶</a>
+（可选）打包<code>no-omit-frame-pointer</code>编译环境</h2>
+<p>可以在一台机器上把<code>no-omit-frame-pointer</code>的编译器和常见库都编译好，然后打包到别的机器上使用。但是要注意在目标机器解压后需要修改一下rpath：</p>
+<pre class="shell"><code>cd no-omit-frame-pointer
+find . -name "lib*.so*" -exec patchelf {} --set-rpath "$(pwd)/lib:$(pwd)/lib64" \;</code></pre>
+<p>参考：<a href="/2023/12/25/%E8%A7%A3%E5%86%B3%E6%89%BE%E4%B8%8D%E5%88%B0runpath%E4%B8%8B%E7%9A%84%E5%BA%93%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决找不到RUNPATH下的库的问题">解决找不到RUNPATH下的库的问题</a></p>
 <h2 id="编译目标应用"><a href="#编译目标应用">¶</a> 编译目标应用</h2>
 <h3 id="cmake项目"><a href="#cmake项目">¶</a> CMake项目</h3>
 <p>export上面说的编译选项后就可以照常编译了。</p>
 <h3 id="直接使用gcc"><a href="#直接使用gcc">¶</a> 直接使用gcc</h3>
 <p><code>hello.c</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="dt">int</span> main() {                                                                       </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>        printf(<span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span>);                                                      </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;                                                                      </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span>                                                                       </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span>                                                      </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>                                                                      </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CC hello.c -o hello $CFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
@@ -8096,14 +8156,15 @@ ldd hello
 Hello world!</code></pre>
 <p>可以看到这里用的是我们自己编译的glibc</p>
 <p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58657036/where-is-linux-vdso-so-1-present-on-the-file-system">Where is linux-vdso.so.1 present on the file system</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58657036/where-is-linux-vdso-so-1-present-on-the-file-system">Where
+is linux-vdso.so.1 present on the file system</a></p>
 <h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
 <p><code>hello.cpp</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>        <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Hello world!"</span> &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello world!"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CXX hello.cpp -o hello $CXXFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
@@ -8117,13 +8178,17 @@ Hello world!</code></pre>
 <h2 id="采样"><a href="#采样">¶</a> 采样</h2>
 <pre class="shell"><code>perf record --call-graph=fp 命令 参数...</code></pre>
 <p>然后生成火焰图：<a href="/2021/09/16/perf-data%E7%94%9F%E6%88%90%E7%81%AB%E7%84%B0%E5%9B%BE/" title="perf.data生成火焰图">perf.data生成火焰图</a></p>
-<h2 id="不推荐--call-graphdwarf"><a href="#不推荐--call-graphdwarf">¶</a> 不推荐：<code>--call-graph=dwarf</code></h2>
-<p>如果不想重新编译系统库的话，可以使用linux perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到调用栈。但是这种方法仍然存在调用关系错乱的问题，而且采样的时间开销和空间开销很大，采样频率需要稍微调低一点。</p>
+<h2 id="不推荐--call-graphdwarf"><a href="#不推荐--call-graphdwarf">¶</a>
+不推荐：<code>--call-graph=dwarf</code></h2>
+<p>如果不想重新编译系统库的话，可以使用linux
+perf的<code>--call-graph=dwarf</code>，这样perf会把一部分栈内存保存下来，然后通过后处理来unwind，从而得到调用栈。但是这种方法仍然存在调用关系错乱的问题，而且采样的时间开销和空间开销很大，采样频率需要稍微调低一点。</p>
 <p>参考文献：</p>
 <p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7" class="uri">https://users.rust-lang.org/t/opt-level-2-removes-debug-symbols-needed-in-perf-profiling/16835/7</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do" class="uri">https://stackoverflow.com/questions/57430338/what-do-the-perf-record-choices-of-lbr-vs-dwarf-vs-fp-do</a></p>
 <h2 id="相关"><a href="#相关">¶</a> 相关</h2>
-<p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/bugzilla//show_bug.cgi?id=100811">Consider not omitting frame pointers by default on targets with many registers</a></p>
+<p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/bugzilla//show_bug.cgi?id=100811">Consider not
+omitting frame pointers by default on targets with many
+registers</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
