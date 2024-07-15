@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7983,73 +7983,82 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> Options : <span class="kw">public</span> DBOptions, <span class="kw">public</span> ColumnFamilyOptions {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">struct</span> ImmutableOptions : <span class="kw">public</span> ImmutableDBOptions, <span class="kw">public</span> ImmutableCFOptions {</span></code></pre></div>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Options <span class="op">:</span> <span class="kw">public</span> DBOptions<span class="op">,</span> <span class="kw">public</span> ColumnFamilyOptions <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> ImmutableOptions <span class="op">:</span> <span class="kw">public</span> ImmutableDBOptions<span class="op">,</span> <span class="kw">public</span> ImmutableCFOptions <span class="op">{</span></span></code></pre></div>
 <h2 id="options-of-column-families"><a href="#options-of-column-families">¶</a> Options of column families</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>Status DB::Open(<span class="at">const</span> Options&amp; options, <span class="at">const</span> <span class="bu">std::</span>string&amp; dbname, DB** dbptr) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>  DBOptions db_options(options);</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  ColumnFamilyOptions cf_options(options);</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>  <span class="bu">std::</span>vector&lt;ColumnFamilyDescriptor&gt; column_families;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>  column_families.push_back(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>      ColumnFamilyDescriptor(kDefaultColumnFamilyName, cf_options));</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>...</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    Status s = DB::Open(db_options, dbname, column_families, &amp;handles, dbptr);</span></code></pre></div>
-<p>即从<code>Options</code>中取出<code>ColumnFamilyOptions</code>并且放到<code>default</code> column family里。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>Status DB::Open(<span class="at">const</span> DBOptions&amp; db_options, <span class="at">const</span> <span class="bu">std::</span>string&amp; dbname,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>                <span class="at">const</span> <span class="bu">std::</span>vector&lt;ColumnFamilyDescriptor&gt;&amp; column_families,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>                <span class="bu">std::</span>vector&lt;ColumnFamilyHandle*&gt;* handles, DB** dbptr) {</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>  <span class="at">const</span> <span class="dt">bool</span> kSeqPerBatch = <span class="kw">true</span>;</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  <span class="at">const</span> <span class="dt">bool</span> kBatchPerTxn = <span class="kw">true</span>;</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  <span class="cf">return</span> DBImpl::Open(db_options, dbname, column_families, handles, dbptr,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>                      !kSeqPerBatch, kBatchPerTxn);</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>Status DBImpl::Open(<span class="at">const</span> DBOptions&amp; db_options, <span class="at">const</span> <span class="bu">std::</span>string&amp; dbname,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>                    <span class="at">const</span> <span class="bu">std::</span>vector&lt;ColumnFamilyDescriptor&gt;&amp; column_families,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>                    <span class="bu">std::</span>vector&lt;ColumnFamilyHandle*&gt;* handles, DB** dbptr,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>                    <span class="at">const</span> <span class="dt">bool</span> seq_per_batch, <span class="at">const</span> <span class="dt">bool</span> batch_per_txn) {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>...</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>      <span class="cf">for</span> (<span class="kw">auto</span> cf : column_families) {</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>        ...</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>            s = impl-&gt;CreateColumnFamily(cf.options, cf.name, &amp;handle);</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>        ...</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Status DB<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> Options<span class="op">&amp;</span> options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  DBOptions db_options<span class="op">(</span>options<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  ColumnFamilyOptions cf_options<span class="op">(</span>options<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyDescriptor<span class="op">&gt;</span> column_families<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  column_families<span class="op">.</span>push_back<span class="op">(</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      ColumnFamilyDescriptor<span class="op">(</span>kDefaultColumnFamilyName<span class="op">,</span> cf_options<span class="op">));</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    Status s <span class="op">=</span> DB<span class="op">::</span>Open<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> column_families<span class="op">,</span> <span class="op">&amp;</span>handles<span class="op">,</span> dbptr<span class="op">);</span></span></code></pre></div>
+<p>即从<code>Options</code>中取出<code>ColumnFamilyOptions</code>并且放到<code>default</code>
+column family里。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Status DB<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> DBOptions<span class="op">&amp;</span> db_options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyDescriptor<span class="op">&gt;&amp;</span> column_families<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyHandle<span class="op">*&gt;*</span> handles<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="dt">bool</span> kSeqPerBatch <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="dt">bool</span> kBatchPerTxn <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> DBImpl<span class="op">::</span>Open<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> column_families<span class="op">,</span> handles<span class="op">,</span> dbptr<span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                      <span class="op">!</span>kSeqPerBatch<span class="op">,</span> kBatchPerTxn<span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Status DBImpl<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> DBOptions<span class="op">&amp;</span> db_options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyDescriptor<span class="op">&gt;&amp;</span> column_families<span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyHandle<span class="op">*&gt;*</span> handles<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">const</span> <span class="dt">bool</span> seq_per_batch<span class="op">,</span> <span class="at">const</span> <span class="dt">bool</span> batch_per_txn<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> <span class="op">(</span><span class="kw">auto</span> cf <span class="op">:</span> column_families<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            s <span class="op">=</span> impl<span class="op">-&gt;</span>CreateColumnFamily<span class="op">(</span>cf<span class="op">.</span>options<span class="op">,</span> cf<span class="op">.</span>name<span class="op">,</span> <span class="op">&amp;</span>handle<span class="op">);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span></code></pre></div>
 <p><code>DBImpl::CreateColumnFamily</code>调用了<code>DBImpl::CreateColumnFamilyImpl</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p><code>DBImpl::CreateColumnFamilyImpl</code>执行了<code>versions_-&gt;LogAndApply</code>，即调用了<code>VersionSet::LogAndApply</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p><code>VersionSet::LogAndApply</code>调用了另一个版本的<code>VersionSet::LogAndApply</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p>另一个版本的<code>VersionSet::LogAndApply</code>调用了<code>VersionSet::ProcessManifestWrites</code>，<code>ColumnFamilyOptions</code>是参数。</p>
 <p><code>VersionSet::ProcessManifestWrites</code>调用了<code>VersionSet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。</p>
-<p><code>VersionSet::CreateColumnFamily</code>执行了<code>column_family_set_-&gt;CreateColumnFamily</code>，即调用了<code>ColumnFamilySet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。然后把返回的<code>ColumnFamilyData</code>返回回去。（这里的version list没搞懂）</p>
-<p><code>ColumnFamilySet::CreateColumnFamily</code>构造了<code>ColumnFamilyData</code>，把<code>db_options_</code>和自己的参数<code>const ColumnFamilyOptions&amp; options</code>传进去。然后把构造好的<code>ColumnFamilyData</code>加入到自己的linked list里，最后返回回去。</p>
+<p><code>VersionSet::CreateColumnFamily</code>执行了<code>column_family_set_-&gt;CreateColumnFamily</code>，即调用了<code>ColumnFamilySet::CreateColumnFamily</code>，<code>ColumnFamilyOptions</code>是参数。然后把返回的<code>ColumnFamilyData</code>返回回去。（这里的version
+list没搞懂）</p>
+<p><code>ColumnFamilySet::CreateColumnFamily</code>构造了<code>ColumnFamilyData</code>，把<code>db_options_</code>和自己的参数<code>const ColumnFamilyOptions&amp; options</code>传进去。然后把构造好的<code>ColumnFamilyData</code>加入到自己的linked
+list里，最后返回回去。</p>
 <p><code>ColumnFamilyData</code>的构造函数中，经过一系列操作，把传进来的<code>ColumnFamilyOptions</code>和<code>ImmutableDBOptions</code>里的immutable部分放到<code>ImmutableOptions</code>类型的<code>ioptions_</code>里，mutable部分放到<code>MutableCFOptions</code>类型的<code>mutable_cf_options_</code>里。此外，<code>ColumnFamilyData</code>的构造函数中还初始化了<code>compaction_picker_</code>，并将自己的<code>ImmutableOptions</code>类型的<code>ioptions_</code>存一份到<code>LevelCompactionPicker::ioptions_</code>中。</p>
-<p>所以这时，Column family的option就保存在<code>VersionSet</code>类型的<code>DBImpl::versions_</code>里的</p>
+<p>所以这时，Column
+family的option就保存在<code>VersionSet</code>类型的<code>DBImpl::versions_</code>里的</p>
 <p><code>VersionSet::column_family_set_</code>里的linked list里的</p>
 <p><code>ColumnFamilyData</code>里的</p>
 <p><code>ImmutableOptions</code>类型的<code>ioptions_</code>和<code>MutableCFOptions</code>类型的<code>mutable_cf_options_</code>里。</p>
 <h2 id="options-of-db"><a href="#options-of-db">¶</a> Options of DB</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>Status DB::Open(<span class="at">const</span> Options&amp; options, <span class="at">const</span> <span class="bu">std::</span>string&amp; dbname, DB** dbptr) {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>  DBOptions db_options(options);</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>...</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>  Status s = DB::Open(db_options, dbname, column_families, &amp;handles, dbptr);</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>Status DB::Open(<span class="at">const</span> DBOptions&amp; db_options, <span class="at">const</span> <span class="bu">std::</span>string&amp; dbname,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>                <span class="at">const</span> <span class="bu">std::</span>vector&lt;ColumnFamilyDescriptor&gt;&amp; column_families,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>                <span class="bu">std::</span>vector&lt;ColumnFamilyHandle*&gt;* handles, DB** dbptr) {</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  <span class="at">const</span> <span class="dt">bool</span> kSeqPerBatch = <span class="kw">true</span>;</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>  <span class="at">const</span> <span class="dt">bool</span> kBatchPerTxn = <span class="kw">true</span>;</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  <span class="cf">return</span> DBImpl::Open(db_options, dbname, column_families, handles, dbptr,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>                      !kSeqPerBatch, kBatchPerTxn);</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>  DBImpl* impl = <span class="kw">new</span> DBImpl(db_options, dbname, seq_per_batch, batch_per_txn);</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Status DB<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> Options<span class="op">&amp;</span> options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  DBOptions db_options<span class="op">(</span>options<span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  Status s <span class="op">=</span> DB<span class="op">::</span>Open<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> column_families<span class="op">,</span> <span class="op">&amp;</span>handles<span class="op">,</span> dbptr<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Status DB<span class="op">::</span>Open<span class="op">(</span><span class="at">const</span> DBOptions<span class="op">&amp;</span> db_options<span class="op">,</span> <span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> dbname<span class="op">,</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyDescriptor<span class="op">&gt;&amp;</span> column_families<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                <span class="bu">std::</span>vector<span class="op">&lt;</span>ColumnFamilyHandle<span class="op">*&gt;*</span> handles<span class="op">,</span> DB<span class="op">**</span> dbptr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="dt">bool</span> kSeqPerBatch <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">const</span> <span class="dt">bool</span> kBatchPerTxn <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> DBImpl<span class="op">::</span>Open<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> column_families<span class="op">,</span> handles<span class="op">,</span> dbptr<span class="op">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                      <span class="op">!</span>kSeqPerBatch<span class="op">,</span> kBatchPerTxn<span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  DBImpl<span class="op">*</span> impl <span class="op">=</span> <span class="kw">new</span> DBImpl<span class="op">(</span>db_options<span class="op">,</span> dbname<span class="op">,</span> seq_per_batch<span class="op">,</span> batch_per_txn<span class="op">);</span></span></code></pre></div>
 <p>在<code>DBImpl</code>的构造函数中，把<code>DBOptions</code>拆成了<code>mutable_db_options_</code>和<code>immutable_db_options_</code>。此外，还初始化了<code>versions_</code>，把<code>ImmutableDBOptions</code>存入了<code>DBImpl::versions_.column_family_set_.db_options_</code>，并且把<code>column_family_memtables_.column_family_set_</code>指针设置为<code>versions_.column_family_set_</code>。</p>
-<h2 id="写入路径上的option传递"><a href="#写入路径上的option传递">¶</a> 写入路径上的option传递</h2>
+<h2 id="写入路径上的option传递"><a href="#写入路径上的option传递">¶</a>
+写入路径上的option传递</h2>
 <p><code>DBImpl::WriteImpl</code>中，通过<code>ColumnFamilyMemTablesImpl</code>类型的<code>column_family_memtables</code>能访问到<code>ImmutableDBOptions</code>和所有<code>ColumnFamilyOptions</code>。<code>column_family_memtables</code>作为参数传给<code>WriteBatchInternal::InsertInto</code>的<code>memtables</code>形参，类型转换为<code>ColumnFamilyMemTables</code>。</p>
 <p><code>WriteBatchInternal::InsertInto</code>中，把<code>memtables</code>保存到<code>inserter.cf_mems_</code>，此时<code>ColumnFamilyMemTablesImpl</code>是<code>inserter.cf_mems_</code>。<code>inserter</code>传给了<code>WriteBatch::Iterate</code>的<code>handler</code>形参。</p>
 <p><code>WriteBatch::Iterate</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>handler.cf_mems_</code>。调用<code>WriteBatchInternal::Iterate</code>，<code>handler</code>作为参数，名字不变。</p>
 <p><code>WriteBatchInternal::Iterate</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>handler.cf_mems_</code>。执行<code>handler-&gt;PutCF</code>，即调用<code>MemTableInserter::PutCF</code>。</p>
 <p><code>MemTableInserter::PutCF</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>cf_mems_</code>。调用<code>MemTableInserter::PutCFImpl</code>。</p>
 <p><code>MemTableInserter::PutCFImpl</code>中，<code>ColumnFamilyMemTablesImpl</code>是<code>cf_mems_</code>。先调用<code>MemTableInserter::SeekToColumnFamily</code>，在里面执行<code>cf_mems_-&gt;Seek(column_family_id)</code>，即调用<code>ColumnFamilyMemTablesImpl::Seek</code>，在里面设置<code>current_</code>。</p>
-<p><code>MemTableInserter::CheckMemtableFull</code>中，执行<code>cfd = cf_mems_-&gt;current()</code>，取出当前的column family的<code>ColumnFamilyData</code>，然后可能执行<code>flush_scheduler_-&gt;ScheduleWork(cfd)</code>。注意，通过<code>ColumnFamilyData</code>可以访问到<code>ImmutableOptions</code>和<code>MutableCFOptions</code>。</p>
-<p>然后根据 <a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>，一波操作之后<code>ColumnFamilyData</code>作为flush任务的载体被放到了<code>FlushRequest</code>里，进而被放进了<code>DBImpl::flush_queue_</code>里。</p>
-<p>然后根据 <a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a>，<code>DBImpl::BackgroundFlush</code>调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>，从中再取出<code>ColumnFamilyData</code>。一波操作之后<code>ColumnFamilyData</code>可能作为compaction任务的载体被放进<code>DBImpl::compaction_queue_</code>。</p>
-<p>然后根据 <a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>，<code>DBImpl::BackgroundCompaction</code>可能调用<code>DBImpl::PickCompactionFromQueue</code>从<code>compaction_queue_</code>里取出一个<code>ColumnFamilyData *cfd</code>，然后调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>。</p>
+<p><code>MemTableInserter::CheckMemtableFull</code>中，执行<code>cfd = cf_mems_-&gt;current()</code>，取出当前的column
+family的<code>ColumnFamilyData</code>，然后可能执行<code>flush_scheduler_-&gt;ScheduleWork(cfd)</code>。注意，通过<code>ColumnFamilyData</code>可以访问到<code>ImmutableOptions</code>和<code>MutableCFOptions</code>。</p>
+<p>然后根据
+<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——写入流程">RocksDB代码分析——写入流程</a>，一波操作之后<code>ColumnFamilyData</code>作为flush任务的载体被放到了<code>FlushRequest</code>里，进而被放进了<code>DBImpl::flush_queue_</code>里。</p>
+<p>然后根据
+<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a>，<code>DBImpl::BackgroundFlush</code>调用<code>DBImpl::PopFirstFromFlushQueue</code>从<code>DBImpl::flush_queue_</code>中取出<code>FlushRequest flush_req</code>，从中再取出<code>ColumnFamilyData</code>。一波操作之后<code>ColumnFamilyData</code>可能作为compaction任务的载体被放进<code>DBImpl::compaction_queue_</code>。</p>
+<p>然后根据
+<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>，<code>DBImpl::BackgroundCompaction</code>可能调用<code>DBImpl::PickCompactionFromQueue</code>从<code>compaction_queue_</code>里取出一个<code>ColumnFamilyData *cfd</code>，然后调用<code>cfd-&gt;PickCompaction</code>，得到<code>Compaction *</code>。</p>
 <p><code>ColumnFamilyData::PickCompaction</code>执行了<code>compaction_picker_-&gt;PickCompaction</code>，即调用了<code>LevelCompactionPicker::PickCompaction</code>。</p>
 <p><code>LevelCompactionPicker::PickCompaction</code>中构造了<code>LevelCompactionBuilder builder</code>，将<code>ImmutableOptions</code>类型的<code>LevelCompactionPicker::ioptions_</code>存入<code>LevelCompactionBuilder::ioptions_</code>。</p>
 <p>由上文可知，<code>LevelCompactionPicker::ioptions_</code>是在构造<code>ColumnFamilyData</code>时初始化的，其<code>ioptions_</code>来自<code>ColumnFamilyData::ioptions_</code>。</p>

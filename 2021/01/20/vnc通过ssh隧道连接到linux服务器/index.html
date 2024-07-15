@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -8000,12 +8000,15 @@ sudo apt autoremove</code></pre>
 <h4 id="关闭"><a href="#关闭">¶</a> 关闭</h4>
 <pre class="shell"><code>tigervncserver -kill :1</code></pre>
 <h3 id="tightvnc"><a href="#tightvnc">¶</a> TightVNC</h3>
-<h4 id="安装vnc-server"><a href="#安装vnc-server">¶</a> 安装VNC server</h4>
+<h4 id="安装vnc-server"><a href="#安装vnc-server">¶</a> 安装VNC
+server</h4>
 <p>debian系:</p>
 <pre class="shell"><code>sudo apt install tightvncserver</code></pre>
-<h4 id="设置--重置-密码"><a href="#设置--重置-密码">¶</a> 设置 / 重置 密码</h4>
+<h4 id="设置--重置-密码"><a href="#设置--重置-密码">¶</a> 设置 / 重置
+密码</h4>
 <pre class="shell"><code>vncpasswd</code></pre>
-<h4 id="启动vnc-server"><a href="#启动vnc-server">¶</a> 启动VNC server</h4>
+<h4 id="启动vnc-server"><a href="#启动vnc-server">¶</a> 启动VNC
+server</h4>
 <pre class="shell"><code>vncserver -localhost</code></pre>
 <p><code>-localhost</code>表示只接受localhost的连接。</p>
 <p><code>Would you like to enter a view-only password (y/n)?</code>选<code>n</code>。</p>
@@ -8025,7 +8028,8 @@ New 'X' desktop is L1707:1
 Creating default startup script /home/searchstar/.vnc/xstartup
 Starting applications specified in /home/searchstar/.vnc/xstartup
 Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
-<h4 id="关闭vnc-server"><a href="#关闭vnc-server">¶</a> 关闭VNC server</h4>
+<h4 id="关闭vnc-server"><a href="#关闭vnc-server">¶</a> 关闭VNC
+server</h4>
 <p>使用完毕后可以关掉VNC server的session：</p>
 <pre class="shell"><code>vncserver -kill :1</code></pre>
 <h3 id="x11vnc"><a href="#x11vnc">¶</a> X11VNC</h3>
@@ -8055,7 +8059,8 @@ Log file is /home/searchstar/.vnc/L1707:1.log</code></pre>
 <p>对于我们的情况，命令这样写：</p>
 <pre class="shell"><code>ssh -fNL 5901:localhost:5901 sshname</code></pre>
 <p>这样就把本地的5901端口的流量通过<code>sshname</code>转发给<code>localhost:5901</code>，也就是转发给服务器自己的5901端口了。这就实现了将服务器的5901端口映射到本地的5901端口了。</p>
-<h3 id="安装vnc-viewer并查看"><a href="#安装vnc-viewer并查看">¶</a> 安装VNC viewer并查看</h3>
+<h3 id="安装vnc-viewer并查看"><a href="#安装vnc-viewer并查看">¶</a>
+安装VNC viewer并查看</h3>
 <p>在vncviewer中查看<code>localhost:1</code>即可。</p>
 <p>Debian系：</p>
 <pre class="shell"><code>sudo apt install xtightvncviewer
@@ -8063,13 +8068,15 @@ vncviewer :1</code></pre>
 <p>ArchLinux:</p>
 <pre class="shell"><code>sudo pacman -S tigervnc
 vncviewer :1</code></pre>
-<p>MacOS: <code>brew install tigervnc-viewer</code>，然后打开tigervnc，在弹出的窗口里输入<code>localhost:1</code>即可。</p>
+<p>MacOS:
+<code>brew install tigervnc-viewer</code>，然后打开tigervnc，在弹出的窗口里输入<code>localhost:1</code>即可。</p>
 <p><img src="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/20210120205541777.png" alt="在这里插入图片描述"><br>
 就是任务栏没了。。。</p>
 <p>当然显示出来是一片灰色也是正常的。</p>
 <p>指定分辨率：</p>
 <pre class="shell"><code>vncviewer :1 -geometry=1280x720</code></pre>
-<h3 id="在终端中执行gui程序"><a href="#在终端中执行gui程序">¶</a> 在终端中执行GUI程序</h3>
+<h3 id="在终端中执行gui程序"><a href="#在终端中执行gui程序">¶</a>
+在终端中执行GUI程序</h3>
 <p>先查看<code>DISPLAY</code>环境变量是否已经设置了：</p>
 <pre class="shell"><code>echo $DISPLAY</code></pre>
 <p>如果输出不为空，就可以直接在终端中执行GUI命令了：<br>

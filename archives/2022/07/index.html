@@ -7252,9 +7252,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7263,9 +7263,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,7 +7975,8 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					¶ 命令行选项
-¶ -S, --sync：源里的包
+¶
+-S, --sync：源里的包
 # 安装或升级某包
 pacman -S 包名
 # 当未安装或者版本较旧时才安装
@@ -8069,11 +8070,15 @@ timeou
 					Linux禁用swap
 				</h2>
 				<div class="index-brief">
-					¶ sudo swapoff -a
+					¶
+sudo swapoff -a
 这一步会立即禁用swap，但是下次重启还会启用。
-¶ 从/etc/fstab中删除swap条目
-¶ mask相关systemd unit
-systemd可能会从/etc/fstab中的swap条目生成对应的systemd unit：https://www.free
+¶
+从/etc/fstab中删除swap条目
+¶
+mask相关systemd unit
+systemd可能会从/etc/fstab中的swap条目生成对应的systemd
+unit：https://www.free
 					...
 				</div>
 			</a>
@@ -8095,7 +8100,8 @@ systemd可能会从/etc/fstab中的swap条目生成对应的systemd unit：https
 pacman升级时断电可能会导致一些文件甚至是内核变成0长度。可以让pacman重装所有包来解决问题：
 pacman -Qqn | sudo pacman -S - --overwrite=*
 参考：
-[SOLVED]crash during upgrade, pacman brok
+[SOLVED]crash
+during upgrade, pacman brok
 					...
 				</div>
 			</a>

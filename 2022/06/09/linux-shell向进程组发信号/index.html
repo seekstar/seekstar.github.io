@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,12 +7975,15 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>PID为负表示这其实是PGID (Process Group ID)，向这个PGID中的所有进程发信号。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>PID为负表示这其实是PGID (Process Group
+ID)，向这个PGID中的所有进程发信号。</p>
 <p>例：向<code>34325</code>进程组的所有进程发送<code>SIGTERM</code>：</p>
 <pre class="shell"><code>kill -TERM -34325</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group" class="uri">https://stackoverflow.com/questions/392022/whats-the-best-way-to-send-a-signal-to-all-members-of-a-process-group</a></p>
-<h2 id="查看进程组的方法"><a href="#查看进程组的方法">¶</a> 查看进程组的方法</h2>
-<p><code>ps -efj</code>。来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Justdoit123_/article/details/101347971">PID, PPID, PGID与SID</a></p>
+<h2 id="查看进程组的方法"><a href="#查看进程组的方法">¶</a>
+查看进程组的方法</h2>
+<p><code>ps -efj</code>。来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Justdoit123_/article/details/101347971">PID,
+PPID, PGID与SID</a></p>
 <h2 id="在一个新的进程组中运行命令"><a href="#在一个新的进程组中运行命令">¶</a> 在一个新的进程组中运行命令</h2>
 <p>脚本里运行命令时，默认会继承当前进程组。如果要让命令在新的进程组中运行，可以在脚本中先开启<code>"monitor mode" (job control)</code>：</p>
 <pre class="shell"><code>set -m</code></pre>
@@ -7999,7 +8002,8 @@ bash: syntax error near unexpected token `;'</code></pre>
 <p>将生成的后台进程的进程号保存到变量：</p>
 <pre class="shell"><code>pid=$(set -m; sleep 10 &gt; /dev/null &amp; echo $! )
 echo $pid</code></pre>
-<p>command substitution会等待所有stdout的writer关闭管道，因此要将<code>sleep 10</code>的stdout重定向到<code>/dev/null</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish" class="uri">https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish</a></p>
+<p>command
+substitution会等待所有stdout的writer关闭管道，因此要将<code>sleep 10</code>的stdout重定向到<code>/dev/null</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish" class="uri">https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

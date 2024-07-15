@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,20 +7978,22 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考：<br>
 <a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/v4.17/process/magic-number.html" class="uri">https://www.kernel.org/doc/html/v4.17/process/magic-number.html</a><br>
 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Magic_number_(programming)" class="uri">https://en.wikipedia.org/wiki/Magic_number_(programming)</a></p>
-<p>结构体中的magic域可以在运行时判断结构体是否被“偷梁换柱”。如果在运行过程中发现某一结构体的magic域的值不等于这个结构体对应的magic number，说明发生了错误。</p>
+<p>结构体中的magic域可以在运行时判断结构体是否被“偷梁换柱”。如果在运行过程中发现某一结构体的magic域的值不等于这个结构体对应的magic
+number，说明发生了错误。</p>
 <p>linux内核中的例子：<br>
 &lt;linux/fs.h&gt;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">struct</span> fasync_struct {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	spinlock_t		fa_lock;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	<span class="dt">int</span>			magic;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	<span class="dt">int</span>			fa_fd;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>	<span class="kw">struct</span> fasync_struct	*fa_next; <span class="co">/* singly linked list */</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>	<span class="kw">struct</span> file		*fa_file;</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	<span class="kw">struct</span> rcu_head		fa_rcu;</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>};</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="pp">#define FASYNC_MAGIC 0x4601</span></span></code></pre></div>
-<p>其中某个struct fasync_struct的magic域不等于0x4601，说明发生了错误。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> fasync_struct <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	spinlock_t		fa_lock<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	<span class="dt">int</span>			magic<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	<span class="dt">int</span>			fa_fd<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> fasync_struct	<span class="op">*</span>fa_next<span class="op">;</span> <span class="co">/* singly linked list */</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> file		<span class="op">*</span>fa_file<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> rcu_head		fa_rcu<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FASYNC_MAGIC 0x4601</span></span></code></pre></div>
+<p>其中某个struct
+fasync_struct的magic域不等于0x4601，说明发生了错误。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

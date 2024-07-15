@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,35 +7978,35 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>在网上找了好久都没有合适的解决方案TT。<br>
 结合报错信息，发现其实/usr/local/texlive/2019中已经有inconsolata，但是编译时xelatex找的是/usr/share/texlive，里面有一些字体没有（我也不懂为什么官方要这样搞）。于是我们只需要把/usr/share下的相关文件夹替换成/usr/local/texlive/2019中的相关文件夹即可。<br>
 代码如下：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">sudo</span> trash-put /usr/share/texlive/texmf-dist/tex/latex</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">ln</span> -s /usr/local/texlive/2019/texmf-dist/tex/latex/ /usr/share/texlive/texmf-dist/tex/latex</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">sudo</span> trash-put /usr/share/texlive/texmf-dist/fonts</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="fu">ln</span> -s /usr/local/texlive/2019/texmf-dist/fonts/ /usr/share/texlive/texmf-dist/fonts</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="fu">sudo</span> mktexlsr	<span class="co">#refresh sty</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">#or sudo texhash</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> trash-put /usr/share/texlive/texmf-dist/tex/latex</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/local/texlive/2019/texmf-dist/tex/latex/ /usr/share/texlive/texmf-dist/tex/latex</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> trash-put /usr/share/texlive/texmf-dist/fonts</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /usr/local/texlive/2019/texmf-dist/fonts/ /usr/share/texlive/texmf-dist/fonts</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mktexlsr	<span class="co">#refresh sty</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#or sudo texhash</span></span></code></pre></div>
 <p>其中trash-put 是trash-cli中的一个命令。通过<br>
 sudo apt-get install trash-cli<br>
 安装</p>
 <p>示例代码：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">% !TEX program = xelatex</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="bu">\documentclass</span>[UTF8]{<span class="ex">ctexart</span>}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="fu">\title</span>{test}</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="fu">\author</span>{searchstar}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">CJK</span>}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="fu">\fontspec</span>{inconsolata}</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%这里StylisticSet=1时"l"是卷的。（有时候等于3的时候是卷的。玄学）</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>	<span class="fu">\maketitle</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>	<span class="fu">\ttfamily</span>{00000 Hello consolas!}</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">% !TEX program = xelatex</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>[UTF8]{<span class="ex">ctexart</span>}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{test}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{searchstar}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">CJK</span>}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">\fontspec</span>{inconsolata}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%这里StylisticSet=1时"l"是卷的。（有时候等于3的时候是卷的。玄学）</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>	<span class="fu">\maketitle</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>	<span class="fu">\ttfamily</span>{00000 Hello consolas!}</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
 <p>效果：<br>
 <img src="/2019/09/25/%E8%A7%A3%E5%86%B3linux%E4%B8%8Blatex%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8consolas%E7%9A%84%E9%97%AE%E9%A2%98/20190925022903920.png"></p>
 <p>这样就可以愉快地使用consolas了。</p>

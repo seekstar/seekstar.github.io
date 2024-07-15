@@ -7253,10 +7253,10 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file active">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+								<li class="file">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7264,10 +7264,10 @@ mjx-container[display="true"] + br {
 							</ul>
 			
 							<ul>
-								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+								<li class="file active">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7986,8 +7986,10 @@ mjx-container[display="true"] + br {
 <ul>
 <li>CONFIG_LOCALVERSION</li>
 </ul>
-<p>附加在在内核的version string后面。自动生成的通常默认是<code>-amd64-desktop+</code>，生成的内核版本类似于<code>5.1.0-amd64-desktop+</code>。设置<code>CONFIG_LOCALVERSION="-default-config"</code>后，编译生成的内核版本号就是类似于<code>5.1.0-default-config</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel" class="uri">https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel</a></p>
-<h3 id="make-menuconfig"><a href="#make-menuconfig">¶</a> make menuconfig</h3>
+<p>附加在在内核的version
+string后面。自动生成的通常默认是<code>-amd64-desktop+</code>，生成的内核版本类似于<code>5.1.0-amd64-desktop+</code>。设置<code>CONFIG_LOCALVERSION="-default-config"</code>后，编译生成的内核版本号就是类似于<code>5.1.0-default-config</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel" class="uri">https://stackoverflow.com/questions/28684811/how-to-change-version-string-of-the-kernel</a></p>
+<h3 id="make-menuconfig"><a href="#make-menuconfig">¶</a> make
+menuconfig</h3>
 <p>如果手动编辑了<code>.config</code>的话，这一步可能会根据手动编辑的内容调整一些其他选项，比如如果设置了<code>CONFIG_KASAN=y</code>，执行<code>make menuconfig</code>后会自动加上<code>CONFIG_KASAN_GENERIC=y</code>和<code>CONFIG_KASAN_OUTLINE=y</code>。</p>
 <pre class="shell"><code>sudo apt install -y flex bison libelf-dev
 make menuconfig</code></pre>
@@ -8002,7 +8004,8 @@ make menuconfig</code></pre>
 CONFIG_KASAN=y</code></pre>
 <p><code>CONFIG_KASAN_OUTLINE=y</code>生成的二进制文件更小，而<code>CONFIG_KASAN_INLINE=y</code>更快。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/v5.1/dev-tools/kasan.html" class="uri">https://www.kernel.org/doc/html/v5.1/dev-tools/kasan.html</a></p>
-<h4 id="kobject-debugging"><a href="#kobject-debugging">¶</a> kobject debugging</h4>
+<h4 id="kobject-debugging"><a href="#kobject-debugging">¶</a> kobject
+debugging</h4>
 <p>kobject debugging</p>
 <p>kobject release debugging</p>
 <p>这俩开了之后dmesg里有意义不明的输出。</p>
@@ -8010,7 +8013,8 @@ CONFIG_KASAN=y</code></pre>
 <p>多线程编译</p>
 <pre class="shell"><code>make -j$(nproc) &gt; /dev/null</code></pre>
 <p><code>&gt; /dev/null</code>是为了防止warning和error被刷掉，比如让我们装<code>libelf-dev</code>的警告。</p>
-<h2 id="安装到系统目录"><a href="#安装到系统目录">¶</a> 安装到系统目录</h2>
+<h2 id="安装到系统目录"><a href="#安装到系统目录">¶</a>
+安装到系统目录</h2>
 <h3 id="内核模块"><a href="#内核模块">¶</a> 内核模块</h3>
 <p>如果没有特殊需求，一般可以把内核模块的debug信息给去掉，节约安装空间。</p>
 <pre class="shell"><code>make INSTALL_MOD_STRIP=1 modules_install &gt; /dev/null</code></pre>
@@ -8024,8 +8028,12 @@ CONFIG_KASAN=y</code></pre>
 <pre class="text"><code>没有规则可制作目标“certs/rhel.pem”，由“certs/x509_certificate_list” 需求。</code></pre>
 <p>那可能要把<code>.config</code>里的<code>CONFIG_SYSTEM_TRUSTED_KEYS</code>后面引号里的东西删掉。</p>
 <p>另外要注意看看有没有要我们安装<code>console-setup</code>和<code>plymouth-themes</code>的提示。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Chenciyuan_nj/article/details/115099040">make[1]: *** 没有规则可制作目标“debian/canonical-certs.pem”，由“certs/x509_certificate_list” 需求。 停止。</a></p>
-<h3 id="可选用于编译内核模块的文件"><a href="#可选用于编译内核模块的文件">¶</a> （可选）用于编译内核模块的文件</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Chenciyuan_nj/article/details/115099040">make[1]:
+***
+没有规则可制作目标“debian/canonical-certs.pem”，由“certs/x509_certificate_list”
+需求。 停止。</a></p>
+<h3 id="可选用于编译内核模块的文件"><a href="#可选用于编译内核模块的文件">¶</a>
+（可选）用于编译内核模块的文件</h3>
 <p>这个安装的头文件只能给用户态程序用，不能用于编译内核模块：</p>
 <pre class="shell"><code># make INSTALL_HDR_PATH=$target_dir headers_install
 make headers_install</code></pre>
@@ -8033,7 +8041,8 @@ make headers_install</code></pre>
 <pre class="text"><code>arch/x86/include/ arch/x86/Makefile* include/ Makefile Module.symvers scripts/ tools/</code></pre>
 <p>所以如果要安装用于编译内核模块的文件到系统目录，只需要把这些文件或文件夹放进<code>/usr/src/linux-headers-我们编译的内核版本</code>即可。</p>
 <p>之前安装的内核模块的目录<code>/usr/lib/modules/我们编译的内核版本</code>里的<code>build</code>和<code>source</code>符号链接原先是指向编译时使用的源码的路径，现在改到<code>/usr/src/linux-headers-我们编译的内核版本/</code>即可。</p>
-<h2 id="安装到指定目录"><a href="#安装到指定目录">¶</a> 安装到指定目录</h2>
+<h2 id="安装到指定目录"><a href="#安装到指定目录">¶</a>
+安装到指定目录</h2>
 <p>这样可以在服务器上编译内核，安装到<code>$target_dir</code>，然后<code>$target_dir</code>打包传到目标机器，再安装到目标机器上的系统目录即可。</p>
 <h3 id="内核模块-1"><a href="#内核模块-1">¶</a> 内核模块</h3>
 <p>把内核模块安装到<code>$target_dir/lib/modules/$kernel_version_to_install</code>：</p>
@@ -8047,11 +8056,13 @@ INSTALL_MOD_PATH=$target_dir make INSTALL_MOD_STRIP=1 modules_install</code></pr
 ln: 无法创建符号链接'/boot/vmlinuz': 权限不够
 ln: 无法创建符号链接'/boot/System.map': 权限不够</code></pre>
 <p>不用管这个报错，因为我们不安装到系统目录。</p>
-<h3 id="可选内核配置"><a href="#可选内核配置">¶</a> （可选）内核配置</h3>
+<h3 id="可选内核配置"><a href="#可选内核配置">¶</a>
+（可选）内核配置</h3>
 <p>把<code>config-$kernel_version_to_install</code>安装到<code>$target_dir</code>下：</p>
 <pre class="shell"><code>kernel_version_to_install=$(make kernelrelease)
 cp .config $target_dir/config-$kernel_version_to_install</code></pre>
-<h3 id="可选用于编译内核模块的文件-1"><a href="#可选用于编译内核模块的文件-1">¶</a> （可选）用于编译内核模块的文件</h3>
+<h3 id="可选用于编译内核模块的文件-1"><a href="#可选用于编译内核模块的文件-1">¶</a>
+（可选）用于编译内核模块的文件</h3>
 <p>把这些文件安装到<code>$target_dir/linux-headers-$kernel_version_to_install</code>：</p>
 <pre class="shell"><code>kernel_version_to_install=$(make kernelrelease)
 header_dir=$target_dir/linux-headers-$kernel_version_to_install
@@ -8108,10 +8119,13 @@ sudo grubby --default-index
 # 将指定内核从grubby列表中移出
 sudo grubby --remove-kernel=kernel-path</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.golinuxcloud.com/grubby-command-examples/" class="uri">https://www.golinuxcloud.com/grubby-command-examples/</a></p>
-<h3 id="设置grub默认项"><a href="#设置grub默认项">¶</a> 设置GRUB默认项</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cf_wu95/article/details/85984956">Ubuntu 切换系统默认启动内核</a></p>
+<h3 id="设置grub默认项"><a href="#设置grub默认项">¶</a>
+设置GRUB默认项</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cf_wu95/article/details/85984956">Ubuntu
+切换系统默认启动内核</a></p>
 <p>如果可以与GRUB菜单交互，那么也可以这样：<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/" title="GRUB菜单记住上次的选择的内核">GRUB菜单记住上次的选择的内核</a></p>
-<h2 id="删除旧内核可选"><a href="#删除旧内核可选">¶</a> 删除旧内核（可选）</h2>
+<h2 id="删除旧内核可选"><a href="#删除旧内核可选">¶</a>
+删除旧内核（可选）</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/amanlikethis/p/3599170.html" class="uri">https://www.cnblogs.com/amanlikethis/p/3599170.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

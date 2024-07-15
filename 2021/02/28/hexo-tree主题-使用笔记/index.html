@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7983,7 +7983,8 @@ mjx-container[display="true"] + br {
 <ul>
 <li>gitee.io每次部署后都需要手动update才能生效。</li>
 </ul>
-<h2 id="使用hexo代码托管平台搭建博客的优劣"><a href="#使用hexo代码托管平台搭建博客的优劣">¶</a> 使用hexo+代码托管平台搭建博客的优劣</h2>
+<h2 id="使用hexo代码托管平台搭建博客的优劣"><a href="#使用hexo代码托管平台搭建博客的优劣">¶</a>
+使用hexo+代码托管平台搭建博客的优劣</h2>
 <p>优势：</p>
 <ul>
 <li>可以灵活选择主题</li>
@@ -8017,18 +8018,20 @@ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</code></p
 <p>在浏览器地址栏输入<code>http://localhost:4000</code>或者在终端<code>ctrl+左键</code>这个链接（如果终端支持的话）就可以预览博客了。当本地的文件改变之后，预览的博客会自动更新。</p>
 <h2 id="修改配置"><a href="#修改配置">¶</a> 修改配置</h2>
 <p>在blog根目录下的<code>_config.yml</code>里可以修改title、author等配置，然后在文档的最后更改<code>Deployment</code>设置，把之前创建的gitee和github的代码仓库放上去，我的设置如下：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">deploy</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">'git'</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="at">  </span><span class="fu">repository</span><span class="kw">:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="at">    </span><span class="fu">gitee</span><span class="kw">:</span><span class="at"> git@gitee.com:searchstar/searchstar.git,master</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="at">    </span><span class="fu">github</span><span class="kw">:</span><span class="at"> git@github.com:seekstar/seekstar.github.io.git,master</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">'git'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">repository</span><span class="kw">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gitee</span><span class="kw">:</span><span class="at"> git@gitee.com:searchstar/searchstar.git,master</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">github</span><span class="kw">:</span><span class="at"> git@github.com:seekstar/seekstar.github.io.git,master</span></span></code></pre></div>
 <p>新版本github中master可能要改成main。</p>
 <h2 id="部署"><a href="#部署">¶</a> 部署</h2>
 <p>先生成博客网站并部署到代码托管平台：</p>
 <pre class="shell"><code>hexo d -g</code></pre>
 <p>会自动推送到gitee和github。</p>
-<p>然后到github的网站仓库<code>用户名.github.io</code>里开启github pages：进入仓库设置，<code>Options</code>里往下划，可以看到<code>GitHub Pages</code>，选择branch为master（或main），然后<code>Save</code>就好了。进入<code>https://用户名.github.io</code>即可查看。</p>
-<p>然后到gitee的网站仓库<code>用户名</code>里开启gitee pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>Gitee Pages</code>，同样选择branch为master，并勾选<code>Enforce HTTPS</code>，然后点击<code>Update</code>，等一段时间即可。进入<code>https://用户名.gitee.io</code>即可查看。</p>
+<p>然后到github的网站仓库<code>用户名.github.io</code>里开启github
+pages：进入仓库设置，<code>Options</code>里往下划，可以看到<code>GitHub Pages</code>，选择branch为master（或main），然后<code>Save</code>就好了。进入<code>https://用户名.github.io</code>即可查看。</p>
+<p>然后到gitee的网站仓库<code>用户名</code>里开启gitee
+pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>Gitee Pages</code>，同样选择branch为master，并勾选<code>Enforce HTTPS</code>，然后点击<code>Update</code>，等一段时间即可。进入<code>https://用户名.gitee.io</code>即可查看。</p>
 <p><code>github.io</code>部署后等一段时间会自动更新，但是<code>gitee.io</code>每次部署都必须手动<code>Update</code>才能生效，有点恶心。</p>
 <h2 id="选择主题"><a href="#选择主题">¶</a> 选择主题</h2>
 <p>默认主题不好用。<a target="_blank" rel="noopener" href="https://hexo.io/themes/" class="uri">https://hexo.io/themes/</a>可以浏览各种主题，点击图片可以预览，点击名字可以进入主题的代码仓库。</p>
@@ -8049,71 +8052,77 @@ INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</code></p
 <pre class="shell"><code>git clone https://github.com/wujun234/hexo-theme-tree tree
 cd tree</code></pre>
 <p>然后再在<code>_config.yml</code>里把默认的</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> landscape</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> landscape</span></span></code></pre></div>
 <p>改成</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> tree</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> tree</span></span></code></pre></div>
 <p>然后预览一下就可以看到主题换了。</p>
-<p>在blog根目录新建<code>_config.tree.yml</code>，放tree theme的配置文件。主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
+<p>在blog根目录新建<code>_config.tree.yml</code>，放tree
+theme的配置文件。主题的配置说明详见<code>themes/tree/README.md</code>。下面介绍一些常用的。</p>
 <h2 id="修改header"><a href="#修改header">¶</a> 修改header</h2>
 <p>通过<code>_config.tree.yml</code>里的<code>links</code>配置：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="fu">links</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co">  # 改成自己的github链接</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="at">  </span><span class="fu">github</span><span class="kw">:</span><span class="at"> https://github.com/wujun234</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="co">  # 自定义链接</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a><span class="at">  </span><span class="fu">custom</span><span class="kw">:</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> UidGenerator</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="at">      </span><span class="fu">URL</span><span class="kw">:</span><span class="at"> https://github.com/wujun234/uid-generator-spring-boot-starter</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">links</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">  # 改成自己的github链接</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">github</span><span class="kw">:</span><span class="at"> https://github.com/wujun234</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">  # 自定义链接</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> UidGenerator</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">URL</span><span class="kw">:</span><span class="at"> https://github.com/wujun234/uid-generator-spring-boot-starter</span></span></code></pre></div>
 <p>默认有一个作者自己的项目<code>UidGenerator</code>，删掉它或者换成自己的项目。项目链接可以多放几个，但是由于手机上header长度有限，不宜过多。实际上我觉得一个都不放比较好，可以全部塞进后面提到的about页。</p>
 <h2 id="开启标签"><a href="#开启标签">¶</a> 开启标签</h2>
 <p>在<code>_config.tree.yml</code>开启标签：</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>在<code>source</code>目录下执行</p>
 <pre class="shell"><code>hexo new page "tags"</code></pre>
 <p>然后编辑<code>source/tags/index.md</code>，在<code>date</code>后面加上</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> </span><span class="st">"tags"</span></span></code></pre></div>
 <p>如</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="co">---</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="an">title:</span><span class="co"> tags</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="an">date:</span><span class="co"> 2021-02-26 16:36:55</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="an">type:</span><span class="co"> "tags"</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="an">layout:</span><span class="co"> "tags"</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a><span class="co">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> tags</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2021-02-26 16:36:55</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="an">type:</span><span class="co"> "tags"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="an">layout:</span><span class="co"> "tags"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div>
 <p>然后预览一下，就能看到右上角多了<code>标签</code>或者<code>Tags</code>。</p>
 <p>分类就不开了，因为tree主题的文件夹自带了分类功能。不开分类有助于节约header的空间。</p>
-<h2 id="开启评论统计访问量"><a href="#开启评论统计访问量">¶</a> 开启评论，统计访问量</h2>
-<p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
+<h2 id="开启评论统计访问量"><a href="#开启评论统计访问量">¶</a>
+开启评论，统计访问量</h2>
+<p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique
+Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
 <p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/" class="uri">https://www.leancloud.cn/</a><br>
 点击免费试用，然后注册就好了。有一定的免费额度。</p>
 <p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>_config.tree.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co"># valine </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="fu">valine</span><span class="kw">:</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co">    # 评论</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableComment</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="co">    # 阅读量</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="at">    </span><span class="fu">enableCounter</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="co">    # valine appID</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a><span class="at">    </span><span class="fu">appID</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a><span class="co">    # valine appKey</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="at">    </span><span class="fu">appKey</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a><span class="at">    </span><span class="fu">placeholder</span><span class="kw">:</span><span class="at"> 请输入评论</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># valine </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">valine</span><span class="kw">:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # 评论</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enableComment</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">    # 阅读量</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enableCounter</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">    # valine appID</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">appID</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">    # valine appKey</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">appKey</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">placeholder</span><span class="kw">:</span><span class="at"> 请输入评论</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
 <p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
 <p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
-<h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a> 修改底部版权开始年份</h2>
+<h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a>
+修改底部版权开始年份</h2>
 <p><code>_config.tree.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
 <h2 id="更改网站图标"><a href="#更改网站图标">¶</a> 更改网站图标</h2>
 <p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>_config.tree.yml</code>：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
 <p>即可让网站使用新的网站图标。</p>
 <h2 id="将渲染器更换为hexo-renderer-pandoc"><a href="#将渲染器更换为hexo-renderer-pandoc">¶</a> 将渲染器更换为<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a></h2>
 <p>默认的渲染器是<code>hexo-renderer-marked</code>，没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。所以需要更换渲染器。<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-markdown-it">hexo-renderer-markdown-it</a>比较流行，但是不支持Latex风格的数学公式。所以这里把渲染器换成<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>：</p>
-<pre class="shell"><code>npm uninstall hexo-renderer-marked
+<pre class="shell"><code>sudo apt install -y pandoc
+
+npm uninstall hexo-renderer-marked
 npm install hexo-renderer-pandoc --save</code></pre>
 <p>更换渲染器之后要在<code>_config.yml</code>中把默认的highlight关掉，才能使用新的渲染器提供的highlight：</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="fu">highlight</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
 <p>然后就可以开启对Latex风格的公式的支持了：<a href="/2021/11/16/hexo%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BC%96%E8%BE%91/" title="Hexo支持Latex风格的公式编辑">Hexo支持Latex风格的公式编辑</a></p>
 <h2 id="写博客"><a href="#写博客">¶</a> 写博客</h2>
@@ -8122,8 +8131,13 @@ npm install hexo-renderer-pandoc --save</code></pre>
 <p>会在<code>source/_posts</code>下生成<code>博客标题.md</code>。<br>
 用你喜欢的工具编辑之（例如vscode），然后预览一下，如果没什么问题的话就<code>hexo d -g</code>把它部署到gitee和github上。</p>
 <p>最后记得还要<code>git push</code>博客源码到代码仓库里，不然换了一台机器博客源码就丢失了。</p>
-<h2 id="换一台机器写博客"><a href="#换一台机器写博客">¶</a> 换一台机器写博客</h2>
-<p>把gitee上的博客源码仓库clone下来，再把网站的仓库clone到源码仓库的<code>.deploy_git</code>下。然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。比如我的：</p>
+<h2 id="换一台机器写博客"><a href="#换一台机器写博客">¶</a>
+换一台机器写博客</h2>
+<p>先安装依赖：</p>
+<pre class="shell"><code>sudo apt install -y pandoc
+npm install hexo-cli -g
+pip3 install panflute</code></pre>
+<p>然后把gitee上的博客源码仓库clone下来，再把网站的仓库clone到源码仓库的<code>.deploy_git</code>下。然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。比如我的：</p>
 <pre class="shell"><code># 源码
 git clone --recursive git@gitee.com:searchstar/blog.git
 cd blog
@@ -8132,10 +8146,12 @@ git clone git@github.com:seekstar/seekstar.github.io.git .deploy_git
 npm install</code></pre>
 <h2 id="上传图片"><a href="#上传图片">¶</a> 上传图片</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="uri">https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</a></p>
-<h2 id="让文章的url中不含目录"><a href="#让文章的url中不含目录">¶</a> 让文章的URL中不含目录</h2>
+<h2 id="让文章的url中不含目录"><a href="#让文章的url中不含目录">¶</a>
+让文章的URL中不含目录</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/" class="uri">https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/</a></p>
 <h2 id="升级"><a href="#升级">¶</a> 升级</h2>
-<h3 id="升级某个包的版本"><a href="#升级某个包的版本">¶</a> 升级某个包的版本</h3>
+<h3 id="升级某个包的版本"><a href="#升级某个包的版本">¶</a>
+升级某个包的版本</h3>
 <p>以hexo为例：</p>
 <pre class="shell"><code>npm i hexo@latest
 hexo --version</code></pre>
@@ -8153,17 +8169,19 @@ npm i</code></pre>
 <h3 id="折叠部分文字"><a href="#折叠部分文字">¶</a> 折叠部分文字</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36408085/article/details/104323711">Hexo+Github博客：如何折叠(显示/隐藏)部分文字</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
-<h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a> 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
+<h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a>
+保留代码块中的tab</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a>pre{</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
-<p>如果发现即使清了cache tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>
+<p>如果发现即使清了cache
+tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>
 <pre class="shell"><code>rm -r public
 hexo d -g</code></pre>
 <h3 id="标题锚点"><a href="#标题锚点">¶</a> 标题锚点</h3>

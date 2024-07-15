@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7987,192 +7987,210 @@ y = x + 1
 by = y
 bx = x</code></pre>
 <p>线程A中，<code>y=x+1</code>一定可以看到<code>x=1</code>的执行结果，所以<code>y</code>最终一定等于<code>2</code>。但是线程B中，却可能先观察到<code>y</code>被赋值为2，再观察到<code>x</code>被赋值为1，因此<code>by</code>和<code>bx</code>的值可能会被分别赋值为<code>2</code>和<code>0</code>。</p>
-<p>C++中可以通过指定memory order解决这类问题。标准库中提供的memory order：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="bu">std::</span>memory_order_relaxed</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>std<span class="bu">::</span>memory_order_consume</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>std<span class="bu">::</span>memory_order_acquire</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>std<span class="bu">::</span>memory_order_release</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>std<span class="bu">::</span>memory_order_acq_rel</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>std<span class="bu">::</span>memory_order_seq_cst</span></code></pre></div>
+<p>C++中可以通过指定memory order解决这类问题。标准库中提供的memory
+order：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>memory_order_relaxed</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>std<span class="bu">::</span>memory_order_consume</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>std<span class="bu">::</span>memory_order_acquire</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>std<span class="bu">::</span>memory_order_release</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>std<span class="bu">::</span>memory_order_acq_rel</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>std<span class="bu">::</span>memory_order_seq_cst</span></code></pre></div>
 <p>文档：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/atomic/memory_order" class="uri">https://en.cppreference.com/w/cpp/atomic/memory_order</a></p>
-<h3 id="stdmemory_order_relaxed"><a href="#stdmemory_order_relaxed">¶</a> <code>std::memory_order_relaxed</code></h3>
+<h3 id="stdmemory_order_relaxed"><a href="#stdmemory_order_relaxed">¶</a>
+<code>std::memory_order_relaxed</code></h3>
 <p>相当于没有屏障。</p>
-<h3 id="stdmemory_order_release"><a href="#stdmemory_order_release">¶</a> <code>std::memory_order_release</code></h3>
+<h3 id="stdmemory_order_release"><a href="#stdmemory_order_release">¶</a>
+<code>std::memory_order_release</code></h3>
 <p>如果一个store被标记为<code>std::memory_order_release</code>，那么当前线程中的任何read和write都不会被reorder到这个store后面。</p>
 <p>这样，别的线程看到这个store时，也能看到它前面的所有read和write。</p>
 <p>上面的例子中，只需要让y的赋值采用<code>std::memory_order_release</code>，即可保证其他线程一定是先看到<code>x=1</code>，再看到<code>y=2</code>。</p>
-<h3 id="stdmemory_order_consume"><a href="#stdmemory_order_consume">¶</a> <code>std::memory_order_consume</code></h3>
+<h3 id="stdmemory_order_consume"><a href="#stdmemory_order_consume">¶</a>
+<code>std::memory_order_consume</code></h3>
 <p>如果一个load被标记为<code>std::memory_order_consume</code>，那么当前线程中对同一块内存的read和write不会被reorder到这个load前面。</p>
 <p><code>std::memory_order_consume</code>和<code>std::memory_order_release</code>配合使用。通常用法：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">// Thread A</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>A中的准备工作</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>x.store(值, <span class="bu">std::</span>memory_order_release)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co">// Thread B</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>y = x.load(<span class="bu">std::</span>memory_order_consume)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>B中的后续工作</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Thread A</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A中的准备工作</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x<span class="op">.</span>store<span class="op">(</span>值<span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Thread B</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_consume<span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>B中的后续工作</span></code></pre></div>
 <p>这样，假使<code>B中的后续工作</code>中有修改<code>x</code>的操作，他们也不会被reorder到<code>x.load</code>前面，因此不会影响到<code>A中的准备工作</code>。</p>
-<h3 id="stdmemory_order_acquire"><a href="#stdmemory_order_acquire">¶</a> <code>std::memory_order_acquire</code></h3>
+<h3 id="stdmemory_order_acquire"><a href="#stdmemory_order_acquire">¶</a>
+<code>std::memory_order_acquire</code></h3>
 <p>如果一个load被标记为<code>std::memory_order_acquire</code>，那么当前线程中的任何read和write都不会被reorder到这个load前面。</p>
 <p><code>std::memory_order_acquire</code>和<code>std::memory_order_release</code>配合使用。通常用法：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">// Thread A</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>A中的准备工作</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>x.store(值, <span class="bu">std::</span>memory_order_release)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="co">// Thread B</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>y = x.load(<span class="bu">std::</span>memory_order_acquire)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>B中的后续工作</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Thread A</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A中的准备工作</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x<span class="op">.</span>store<span class="op">(</span>值<span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Thread B</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_acquire<span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>B中的后续工作</span></code></pre></div>
 <p>这样，<code>B中的后续工作</code>不会被reorder到<code>x.load</code>前面，因此不会影响到<code>A中的准备工作</code>。</p>
-<h3 id="stdmemory_order_acq_rel"><a href="#stdmemory_order_acq_rel">¶</a> <code>std::memory_order_acq_rel</code></h3>
+<h3 id="stdmemory_order_acq_rel"><a href="#stdmemory_order_acq_rel">¶</a>
+<code>std::memory_order_acq_rel</code></h3>
 <p>用于read-modify-write操作，表示它既是acquire也是release，即当前线程的任何read和write都既不会被reorder到它的前面也不会reorder到它的后面。相当于一个<code>mfence</code>？</p>
-<h3 id="stdmemory_order_seq_cst"><a href="#stdmemory_order_seq_cst">¶</a> <code>std::memory_order_seq_cst</code></h3>
-<p><code>seq_cst</code>表示SEQuentially ConSisTent ordering。<code>std::atomic</code>的<code>load</code>、<code>store</code>、<code>compare_exchange_weak</code>、<code>compare_exchange_strong</code>的memory order默认是<code>std::memory_order_seq_cst</code>。</p>
+<h3 id="stdmemory_order_seq_cst"><a href="#stdmemory_order_seq_cst">¶</a>
+<code>std::memory_order_seq_cst</code></h3>
+<p><code>seq_cst</code>表示SEQuentially ConSisTent
+ordering。<code>std::atomic</code>的<code>load</code>、<code>store</code>、<code>compare_exchange_weak</code>、<code>compare_exchange_strong</code>的memory
+order默认是<code>std::memory_order_seq_cst</code>。</p>
 <p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/atomic/memory_order">文档</a>里是这么说的：</p>
 <p>如果load被标记为<code>std::memory_order_seq_cst</code>，表示它是一个acquire操作。</p>
 <p>如果store被标记为<code>std::memory_order_seq_cst</code>，表示它是一个release操作。</p>
 <p>如果read-modify-write被标记为<code>std::memory_order_seq_cst</code>，表示它既是acquire操作又是release操作。</p>
-<p>此外，<code>seq_cst</code>还额外保证了所有thread看到的修改的顺序都是一样的。根据这里：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/58043923/13688160">How do memory_order_seq_cst and memory_order_acq_rel differ?</a>，<code>seq_cst</code>会清空store buffer，从而使得后续的read和write在当前的store在全局可见之后才会执行。而<code>acq_rel</code>并不要求清空store buffer，只需要前面的操作在当前操作完成前完成，后面的操作在当前操作完成后完成即可。</p>
+<p>此外，<code>seq_cst</code>还额外保证了所有thread看到的修改的顺序都是一样的。根据这里：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/58043923/13688160">How do
+memory_order_seq_cst and memory_order_acq_rel
+differ?</a>，<code>seq_cst</code>会清空store
+buffer，从而使得后续的read和write在当前的store在全局可见之后才会执行。而<code>acq_rel</code>并不要求清空store
+buffer，只需要前面的操作在当前操作完成前完成，后面的操作在当前操作完成后完成即可。</p>
 <p>文档（没看懂）：<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/atomic/memory_order#Sequentially-consistent_ordering" class="uri">https://en.cppreference.com/w/cpp/atomic/memory_order#Sequentially-consistent_ordering</a></p>
 <h3 id="一些实验"><a href="#一些实验">¶</a> 一些实验</h3>
-<h4 id="relaxed无法阻止reorder"><a href="#relaxed无法阻止reorder">¶</a> relaxed无法阻止reorder</h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; a(<span class="dv">0</span>), b(<span class="dv">0</span>);</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="dt">int</span> val_a, val_b;</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="dt">void</span> A() {</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	a.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>	val_b = b.load(<span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>}</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="dt">void</span> B() {</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>	b.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	val_a = a.load(<span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>}</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>		a.store(<span class="dv">0</span>);</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>		b.store(<span class="dv">0</span>);</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>		<span class="bu">std::</span>thread tA(A);</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>		<span class="bu">std::</span>thread tB(B);</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a>		tA.join();</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>		tB.join();</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>	} <span class="cf">while</span> (val_a != <span class="dv">0</span> || val_b != <span class="dv">0</span>);</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h4 id="relaxed无法阻止reorder"><a href="#relaxed无法阻止reorder">¶</a>
+relaxed无法阻止reorder</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>atomic<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> a<span class="op">(</span><span class="dv">0</span><span class="op">),</span> b<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> val_a<span class="op">,</span> val_b<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> A<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>	a<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>	val_b <span class="op">=</span> b<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> B<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>	b<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>	val_a <span class="op">=</span> a<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>	<span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>		a<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>		b<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tA<span class="op">(</span>A<span class="op">);</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tB<span class="op">(</span>B<span class="op">);</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>		tA<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>		tB<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>val_a <span class="op">!=</span> <span class="dv">0</span> <span class="op">||</span> val_b <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>可以产生<code>a == 0 &amp;&amp; b == 0!</code>的结果，说明<code>A</code>和<code>B</code>中至少有一个的<code>load</code>被reorder到<code>store</code>前面去了。</p>
-<h4 id="acquire-load可以reorder到release-store前面"><a href="#acquire-load可以reorder到release-store前面">¶</a> acquire load可以reorder到release store前面</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; a(<span class="dv">0</span>), b(<span class="dv">0</span>);</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="dt">int</span> val_a, val_b;</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="dt">void</span> A() {</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	a.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_release);</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>	val_b = b.load(<span class="bu">std::</span>memory_order_acquire);</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>}</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a><span class="dt">void</span> B() {</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>	b.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_release);</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>	val_a = a.load(<span class="bu">std::</span>memory_order_acquire);</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>}</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>		a.store(<span class="dv">0</span>);</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>		b.store(<span class="dv">0</span>);</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>		<span class="bu">std::</span>thread tA(A);</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>		<span class="bu">std::</span>thread tB(B);</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>		tA.join();</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>		tB.join();</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>	} <span class="cf">while</span> (val_a != <span class="dv">0</span> || val_b != <span class="dv">0</span>);</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h4 id="acquire-load可以reorder到release-store前面"><a href="#acquire-load可以reorder到release-store前面">¶</a> acquire
+load可以reorder到release store前面</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>atomic<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> a<span class="op">(</span><span class="dv">0</span><span class="op">),</span> b<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> val_a<span class="op">,</span> val_b<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> A<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>	a<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>	val_b <span class="op">=</span> b<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_acquire<span class="op">);</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> B<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>	b<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">);</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>	val_a <span class="op">=</span> a<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_acquire<span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>	<span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>		a<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>		b<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tA<span class="op">(</span>A<span class="op">);</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tB<span class="op">(</span>B<span class="op">);</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>		tA<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>		tB<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>val_a <span class="op">!=</span> <span class="dv">0</span> <span class="op">||</span> val_b <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>可以产生<code>a == 0 &amp;&amp; b == 0!</code>的结果，说明<code>A</code>和<code>B</code>中至少有一个的<code>load</code>被reorder到<code>store</code>前面去了。</p>
-<h4 id="load不能被reorder到release-store后面"><a href="#load不能被reorder到release-store后面">¶</a> load不能被reorder到release store后面</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; a(<span class="dv">0</span>), b(<span class="dv">0</span>);</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="dt">int</span> val_a, val_b;</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="dt">void</span> A() {</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>	val_b = b.load(<span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>	a.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_release);</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>}</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="dt">void</span> B() {</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>	val_a = a.load(<span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>	b.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_release);</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>}</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>		a.store(<span class="dv">0</span>);</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>		b.store(<span class="dv">0</span>);</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>		<span class="bu">std::</span>thread tA(A);</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>		<span class="bu">std::</span>thread tB(B);</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a>		tA.join();</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a>		tB.join();</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a>	} <span class="cf">while</span> (val_a != <span class="dv">1</span> || val_b != <span class="dv">1</span>);</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"a == 1 &amp;&amp; b == 1!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h4 id="load不能被reorder到release-store后面"><a href="#load不能被reorder到release-store后面">¶</a>
+load不能被reorder到release store后面</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>atomic<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> a<span class="op">(</span><span class="dv">0</span><span class="op">),</span> b<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> val_a<span class="op">,</span> val_b<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> A<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>	val_b <span class="op">=</span> b<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>	a<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">);</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> B<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>	val_a <span class="op">=</span> a<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>	b<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_release<span class="op">);</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>	<span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>		a<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>		b<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tA<span class="op">(</span>A<span class="op">);</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tB<span class="op">(</span>B<span class="op">);</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>		tA<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>		tB<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>val_a <span class="op">!=</span> <span class="dv">1</span> <span class="op">||</span> val_b <span class="op">!=</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"a == 1 &amp;&amp; b == 1!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>无法产生<code>a == 1 &amp;&amp; b == 1!</code>的结果。</p>
-<h4 id="store不能被reorder到acquire-load前面"><a href="#store不能被reorder到acquire-load前面">¶</a> store不能被reorder到acquire load前面</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; a(<span class="dv">0</span>), b(<span class="dv">0</span>);</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="dt">int</span> val_a, val_b;</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="dt">void</span> A() {</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>	val_b = b.load(<span class="bu">std::</span>memory_order_acquire);</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>	a.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>}</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="dt">void</span> B() {</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>	val_a = a.load(<span class="bu">std::</span>memory_order_acquire);</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>	b.store(<span class="dv">1</span>, <span class="bu">std::</span>memory_order_relaxed);</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>}</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>		a.store(<span class="dv">0</span>);</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>		b.store(<span class="dv">0</span>);</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>		<span class="bu">std::</span>thread tA(A);</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>		<span class="bu">std::</span>thread tB(B);</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>		tA.join();</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>		tB.join();</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>	} <span class="cf">while</span> (val_a != <span class="dv">1</span> || val_b != <span class="dv">1</span>);</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"a == 1 &amp;&amp; b == 1!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h4 id="store不能被reorder到acquire-load前面"><a href="#store不能被reorder到acquire-load前面">¶</a>
+store不能被reorder到acquire load前面</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>atomic<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> a<span class="op">(</span><span class="dv">0</span><span class="op">),</span> b<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> val_a<span class="op">,</span> val_b<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> A<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>	val_b <span class="op">=</span> b<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_acquire<span class="op">);</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>	a<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> B<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>	val_a <span class="op">=</span> a<span class="op">.</span>load<span class="op">(</span><span class="bu">std::</span>memory_order_acquire<span class="op">);</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>	b<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>memory_order_relaxed<span class="op">);</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>	<span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>		a<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>		b<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tA<span class="op">(</span>A<span class="op">);</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tB<span class="op">(</span>B<span class="op">);</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>		tA<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>		tB<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>val_a <span class="op">!=</span> <span class="dv">1</span> <span class="op">||</span> val_b <span class="op">!=</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"a == 1 &amp;&amp; b == 1!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>无法产生<code>a == 1 &amp;&amp; b == 1!</code>的结果。</p>
-<h4 id="默认使用的seq_cst可以防止reorder"><a href="#默认使用的seq_cst可以防止reorder">¶</a> 默认使用的<code>seq_cst</code>可以防止reorder</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="bu">std::</span>atomic&lt;<span class="dt">int</span>&gt; a(<span class="dv">0</span>), b(<span class="dv">0</span>);</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="dt">int</span> val_a, val_b;</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="dt">void</span> A() {</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>	a.store(<span class="dv">1</span>);</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>	val_b = b.load();</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>}</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a><span class="dt">void</span> B() {</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>	b.store(<span class="dv">1</span>);</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>	val_a = a.load();</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>}</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>	<span class="cf">do</span> {</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>		a.store(<span class="dv">0</span>);</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>		b.store(<span class="dv">0</span>);</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a>		<span class="bu">std::</span>thread tA(A);</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>		<span class="bu">std::</span>thread tB(B);</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a>		tA.join();</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a>		tB.join();</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a>	} <span class="cf">while</span> (val_a != <span class="dv">0</span> || val_b != <span class="dv">0</span>);</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true"></a>}</span></code></pre></div>
+<h4 id="默认使用的seq_cst可以防止reorder"><a href="#默认使用的seq_cst可以防止reorder">¶</a>
+默认使用的<code>seq_cst</code>可以防止reorder</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;thread&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;atomic&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>atomic<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> a<span class="op">(</span><span class="dv">0</span><span class="op">),</span> b<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> val_a<span class="op">,</span> val_b<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> A<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>	a<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>	val_b <span class="op">=</span> b<span class="op">.</span>load<span class="op">();</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> B<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>	b<span class="op">.</span>store<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>	val_a <span class="op">=</span> a<span class="op">.</span>load<span class="op">();</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>	<span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>		a<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>		b<span class="op">.</span>store<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tA<span class="op">(</span>A<span class="op">);</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>thread<span class="op"> </span>tB<span class="op">(</span>B<span class="op">);</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>		tA<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>		tB<span class="op">.</span>join<span class="op">();</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>val_a <span class="op">!=</span> <span class="dv">0</span> <span class="op">||</span> val_b <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"a == 0 &amp;&amp; b == 0!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>使用默认的<code>std::memory_order_seq_cst</code>无法产生<code>a == 0 &amp;&amp; b == 0!</code>的结果。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

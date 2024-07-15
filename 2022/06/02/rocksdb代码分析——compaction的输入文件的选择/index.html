@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7985,23 +7985,32 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>这里主要分析<code>LevelCompactionBuilder::PickCompaction</code>是如何选择输入文件的。</p>
 <blockquote>
-<p><code>SetupInitialFiles();</code>找一个需要compact到下层的SST file。只会在score &gt;= 1的level里找。score的计算见<code>VersionStorageInfo::ComputeCompactionScore</code>（<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>）。<br>
+<p><code>SetupInitialFiles();</code>找一个需要compact到下层的SST
+file。只会在score &gt;=
+1的level里找。score的计算见<code>VersionStorageInfo::ComputeCompactionScore</code>（<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a>）。<br>
 <code>LevelCompactionBuilder::SetupOtherL0FilesIfNeeded</code></p>
 <blockquote>
 <p><code>CompactionPicker::GetOverlappingL0Files</code></p>
 <blockquote>
 <p><code>CompactionPicker::GetRange</code>，拿到这个file的smallest和largest<br>
-<code>VersionStorageInfo::GetOverlappingInputs</code>，拿到L0中所有跟[smallest, largest] overlap的file。<br>
-然后再<code>CompactionPicker::GetRange</code>更新一下range，检查一下冲突。然后不再继续get overlapping L0 files了。</p>
+<code>VersionStorageInfo::GetOverlappingInputs</code>，拿到L0中所有跟[smallest,
+largest] overlap的file。<br>
+然后再<code>CompactionPicker::GetRange</code>更新一下range，检查一下冲突。然后不再继续get
+overlapping L0 files了。</p>
 </blockquote>
 </blockquote>
 <p><code>LevelCompactionBuilder::SetupOtherInputsIfNeeded</code></p>
 <blockquote>
 <p><code>CompactionPicker::SetupOtherInputs</code></p>
 <blockquote>
-<p><code>VersionStorageInfo::GetOverlappingInputs</code>，把所有跟<code>start_level_inputs</code>相交的下一层的sst file都加入到<code>output_level_inputs_</code>里。<br>
-<code>CompactionPicker::ExpandInputsToCleanCut</code>，expand <code>output_level_inputs_</code> 直到clean cut。<br>
-扩大<code>start_level_inputs</code>，只要不会扩大<code>output_level_inputs_</code>。细节：首先尝试把所有跟<code>output_level_inputs</code>相交的start level的sst file都放入input，然后看会不会导致<code>output_level_inputs_</code>变大，如果会的话，就再尝试所有在<code>output_level_inputs_</code>范围内的所有start level的sst file都放入input。</p>
+<p><code>VersionStorageInfo::GetOverlappingInputs</code>，把所有跟<code>start_level_inputs</code>相交的下一层的sst
+file都加入到<code>output_level_inputs_</code>里。<br>
+<code>CompactionPicker::ExpandInputsToCleanCut</code>，expand
+<code>output_level_inputs_</code> 直到clean cut。<br>
+扩大<code>start_level_inputs</code>，只要不会扩大<code>output_level_inputs_</code>。细节：首先尝试把所有跟<code>output_level_inputs</code>相交的start
+level的sst
+file都放入input，然后看会不会导致<code>output_level_inputs_</code>变大，如果会的话，就再尝试所有在<code>output_level_inputs_</code>范围内的所有start
+level的sst file都放入input。</p>
 </blockquote>
 </blockquote>
 </blockquote>

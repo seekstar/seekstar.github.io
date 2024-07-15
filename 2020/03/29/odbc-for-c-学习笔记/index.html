@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,17 +7977,19 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="连接服务器"><a href="#连接服务器">¶</a> 连接服务器</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jadeshu/article/details/79474938" class="uri">https://blog.csdn.net/jadeshu/article/details/79474938</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>SQLRETURN  SQL_API SQLConnect(SQLHDBC ConnectionHandle,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	SQLCHAR *ServerName, SQLSMALLINT NameLength1,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	SQLCHAR *UserName, SQLSMALLINT NameLength2,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	SQLCHAR *Authentication, SQLSMALLINT NameLength3);</span></code></pre></div>
-<p>其中ServerName一般为数据源名称，NameLength1、2、3一般写SQL_NTS即可(Null Terminated String)。如果数据源配置了用户名和密码则UserName和Authentication直接填NULL，NameLength2和NameLength3直接写0即可（仍然填SQL_NTS也可以）。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SQLRETURN  SQL_API SQLConnect<span class="op">(</span>SQLHDBC ConnectionHandle<span class="op">,</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	SQLCHAR <span class="op">*</span>ServerName<span class="op">,</span> SQLSMALLINT NameLength1<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	SQLCHAR <span class="op">*</span>UserName<span class="op">,</span> SQLSMALLINT NameLength2<span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	SQLCHAR <span class="op">*</span>Authentication<span class="op">,</span> SQLSMALLINT NameLength3<span class="op">);</span></span></code></pre></div>
+<p>其中ServerName一般为数据源名称，NameLength1、2、3一般写SQL_NTS即可(Null
+Terminated
+String)。如果数据源配置了用户名和密码则UserName和Authentication直接填NULL，NameLength2和NameLength3直接写0即可（仍然填SQL_NTS也可以）。</p>
 <h1 id="读取数据"><a href="#读取数据">¶</a> 读取数据</h1>
 <h2 id="sqlbindcol"><a href="#sqlbindcol">¶</a> SQLBindCol</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>SQLRETURN  SQL_API SQLBindCol(SQLHSTMT StatementHandle,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	SQLPOINTER TargetValue, SQLLEN BufferLength,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	SQLLEN *StrLen_or_Ind);</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SQLRETURN  SQL_API SQLBindCol<span class="op">(</span>SQLHSTMT StatementHandle<span class="op">,</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>	SQLUSMALLINT ColumnNumber<span class="op">,</span> SQLSMALLINT TargetType<span class="op">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>	SQLPOINTER TargetValue<span class="op">,</span> SQLLEN BufferLength<span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>	SQLLEN <span class="op">*</span>StrLen_or_Ind<span class="op">);</span></span></code></pre></div>
 <h2 id="columnnumber"><a href="#columnnumber">¶</a> ColumnNumber</h2>
 <p>从1开始。<br>
 ## TargetType<br>
@@ -8036,35 +8038,38 @@ mjx-container[display="true"] + br {
 </table>
 <h2 id="bufferlength"><a href="#bufferlength">¶</a> BufferLength</h2>
 <p>用来存数据的缓冲区的长度。odbc将只使用缓冲区的前BufferLength个字节的空间。如果要存入的数据达到或超过了BufferLength，则只把BufferLength字节的数据存入缓冲区。</p>
-<h2 id="读取字符串示例"><a href="#读取字符串示例">¶</a> 读取字符串示例</h2>
+<h2 id="读取字符串示例"><a href="#读取字符串示例">¶</a>
+读取字符串示例</h2>
 <p>由于C语言中字符串以<code>'\0'</code>结尾，所以缓冲区的长度要比数据库中的多1。例如某表第6列为</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>dno <span class="dt">char</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dno <span class="dt">char</span>(<span class="dv">10</span>)</span></code></pre></div>
 <p>则读取它的代码如下：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>SQLCHAR dno[<span class="dv">11</span>];</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>SQLLEN dnoLen;</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>SQLBindCol(serverhstmt, <span class="dv">6</span>, SQL_C_CHAR, (<span class="dt">void</span>*)dno, <span class="kw">sizeof</span>(dno) - <span class="dv">1</span>, &amp;dnoLen);</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="cf">while</span> (SQL_NO_DATA != SQLFetch(serverhstmt) {</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>	<span class="cf">if</span> (dnoLen != SQL_NULL_DATA) {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>		dno[dnoLen] = <span class="dv">0</span>;</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>		do_some_thing_with_dno</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>	} <span class="cf">else</span> {</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>		handle_null_data</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>	}</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>}</span></code></pre></div>
-<h1 id="sqlbindparameter"><a href="#sqlbindparameter">¶</a> SQLBindParameter</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SQLCHAR dno<span class="op">[</span><span class="dv">11</span><span class="op">];</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>SQLLEN dnoLen<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>SQLBindCol<span class="op">(</span>serverhstmt<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> SQL_C_CHAR<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>dno<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>dno<span class="op">)</span> <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>dnoLen<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>SQL_NO_DATA <span class="op">!=</span> SQLFetch<span class="op">(</span>serverhstmt<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">if</span> <span class="op">(</span>dnoLen <span class="op">!=</span> SQL_NULL_DATA<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>		dno<span class="op">[</span>dnoLen<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>		do_some_thing_with_dno</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>		handle_null_data</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h1 id="sqlbindparameter"><a href="#sqlbindparameter">¶</a>
+SQLBindParameter</h1>
 <p>microsoft官方文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqlbindparameter-function?view=sql-server-ver15" class="uri">https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqlbindparameter-function?view=sql-server-ver15</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>SQLRETURN SQLBindParameter(  </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>      SQLHSTMT        StatementHandle,  </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>      SQLUSMALLINT    ParameterNumber,  </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>      SQLSMALLINT     InputOutputType,  </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>      SQLSMALLINT     ValueType,  </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>      SQLSMALLINT     ParameterType,  </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>      SQLULEN         ColumnSize,  </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>      SQLSMALLINT     DecimalDigits,  </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>      SQLPOINTER      ParameterValuePtr,  </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>      SQLLEN          BufferLength,  </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>      SQLLEN *        StrLen_or_IndPtr);  </span></code></pre></div>
-<h2 id="parameternumber"><a href="#parameternumber">¶</a> ParameterNumber</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SQLRETURN SQLBindParameter<span class="op">(</span>  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      SQLHSTMT        StatementHandle<span class="op">,</span>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      SQLUSMALLINT    ParameterNumber<span class="op">,</span>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      SQLSMALLINT     InputOutputType<span class="op">,</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      SQLSMALLINT     ValueType<span class="op">,</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      SQLSMALLINT     ParameterType<span class="op">,</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      SQLULEN         ColumnSize<span class="op">,</span>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      SQLSMALLINT     DecimalDigits<span class="op">,</span>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      SQLPOINTER      ParameterValuePtr<span class="op">,</span>  </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      SQLLEN          BufferLength<span class="op">,</span>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      SQLLEN <span class="op">*</span>        StrLen_or_IndPtr<span class="op">);</span>  </span></code></pre></div>
+<h2 id="parameternumber"><a href="#parameternumber">¶</a>
+ParameterNumber</h2>
 <p>从１开始<br>
 ## InputOutputType<br>
 一般是<code>SQL_PARAM_INPUT</code>和<code>SQL_PARAM_OUTPUT</code><br>
@@ -8075,24 +8080,25 @@ mjx-container[display="true"] + br {
 与ValueType的关系：<br>
 <img src="/2020/03/29/odbc-for-c-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2020050214311733.png" alt="在这里插入图片描述"><br>
 图片来源：&lt;<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/appendixes/converting-data-from-c-to-sql-data-types?view=sql-server-ver15" class="uri">https://docs.microsoft.com/en-us/sql/odbc/reference/appendixes/converting-data-from-c-to-sql-data-types?view=sql-server-ver15</a>&gt;</p>
-<h2 id="strlen_or_indptr"><a href="#strlen_or_indptr">¶</a> StrLen_or_IndPtr</h2>
+<h2 id="strlen_or_indptr"><a href="#strlen_or_indptr">¶</a>
+StrLen_or_IndPtr</h2>
 <p>如果为NULL则相当于写入的数据是null-terminated。</p>
 <h1 id="获取错误信息"><a href="#获取错误信息">¶</a> 获取错误信息</h1>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/cztjing/article/details/6631031" class="uri">https://blog.csdn.net/cztjing/article/details/6631031</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/liangxiaofeng/p/5866354.html" class="uri">https://www.cnblogs.com/liangxiaofeng/p/5866354.html</a><br>
 用SQLGetDiagRec</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>SQLINTEGER errnative;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>UCHAR errmsg[<span class="dv">255</span>];</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>SQLSMALLINT errmsglen;</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>UCHAR errstate[<span class="dv">5</span>];</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>SQLGetDiagRec(SQL_HANDLE_STMT, serverhstmt,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>       <span class="dv">1</span>, errstate,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>       &amp;errnative, errmsg, <span class="kw">sizeof</span>(errmsg), &amp;errmsglen);</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>ostringstream err;</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>err &lt;&lt; <span class="st">"errstate: "</span> &lt;&lt; errstate &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">errnative: "</span> &lt;&lt; errnative &lt;&lt; <span class="st">"</span><span class="sc">\n</span><span class="st">errmsg: "</span> &lt;&lt; errmsg;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SQLINTEGER errnative<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>UCHAR errmsg<span class="op">[</span><span class="dv">255</span><span class="op">];</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>SQLSMALLINT errmsglen<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>UCHAR errstate<span class="op">[</span><span class="dv">5</span><span class="op">];</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>SQLGetDiagRec<span class="op">(</span>SQL_HANDLE_STMT<span class="op">,</span> serverhstmt<span class="op">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="dv">1</span><span class="op">,</span> errstate<span class="op">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="op">&amp;</span>errnative<span class="op">,</span> errmsg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>errmsg<span class="op">),</span> <span class="op">&amp;</span>errmsglen<span class="op">);</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ostringstream err<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>err <span class="op">&lt;&lt;</span> <span class="st">"errstate: "</span> <span class="op">&lt;&lt;</span> errstate <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">errnative: "</span> <span class="op">&lt;&lt;</span> errnative <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">errmsg: "</span> <span class="op">&lt;&lt;</span> errmsg<span class="op">;</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

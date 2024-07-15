@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,7 +7976,8 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
-<p>不要安装debian自带的docker：<code>sudo apt install docker-compose</code>。debian 11和debian 12安装的都是v1，没有docker compose命令。</p>
+<p>不要安装debian自带的docker：<code>sudo apt install docker-compose</code>。debian
+11和debian 12安装的都是v1，没有docker compose命令。</p>
 <p>用官网的安装方式：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debian/#install-using-the-repository" class="uri">https://docs.docker.com/engine/install/debian/#install-using-the-repository</a></p>
 <h2 id="创建image"><a href="#创建image">¶</a> 创建image</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/image/build/" class="uri">https://docs.docker.com/reference/cli/docker/image/build/</a></p>
@@ -7992,7 +7993,8 @@ mjx-container[display="true"] + br {
 <pre class="shell"><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code></pre>
 <p>常用选项：</p>
 <p><code>--name</code>: Assign a name to the container<br>
-<code>-i, --interactive</code>: Keep STDIN open even if not attached<br>
+<code>-i, --interactive</code>: Keep STDIN open even if not
+attached<br>
 <code>-t, --tty</code>: Allocate a pseudo-TTY</p>
 <p>如果需要一个shell：</p>
 <pre class="shell"><code>docker run -it &lt;image&gt; /bin/bash</code></pre>
@@ -8004,11 +8006,13 @@ mjx-container[display="true"] + br {
 <pre class="shell"><code>docker container ls</code></pre>
 <p>列出所有container:</p>
 <pre class="shell"><code>docker container ls -a</code></pre>
-<h2 id="复制文件到container"><a href="#复制文件到container">¶</a> 复制文件到container</h2>
+<h2 id="复制文件到container"><a href="#复制文件到container">¶</a>
+复制文件到container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/cp/" class="uri">https://docs.docker.com/reference/cli/docker/container/cp/</a></p>
 <pre class="shell"><code>docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH
 docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</code></pre>
-<h2 id="在running-container中运行命令"><a href="#在running-container中运行命令">¶</a> 在running container中运行命令</h2>
+<h2 id="在running-container中运行命令"><a href="#在running-container中运行命令">¶</a> 在running
+container中运行命令</h2>
 <pre class="shell"><code>docker exec -it &lt;container-ID&gt; /bin/bash</code></pre>
 <h2 id="删除container"><a href="#删除container">¶</a> 删除container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/rm/" class="uri">https://docs.docker.com/reference/cli/docker/container/rm/</a></p>
@@ -8018,9 +8022,11 @@ docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</code></pre>
 <h2 id="volume"><a href="#volume">¶</a> volume</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/" class="uri">https://docs.docker.com/storage/volumes/</a></p>
 <p>一个volume是host上的一个文件夹。容器将volume挂载到它自己的文件系统上时，相当于把volume对应的文件夹挂载到它自己的文件系统上。</p>
-<h2 id="列出所有volume"><a href="#列出所有volume">¶</a> 列出所有volume</h2>
+<h2 id="列出所有volume"><a href="#列出所有volume">¶</a>
+列出所有volume</h2>
 <pre class="shell"><code>docker volume ls</code></pre>
-<h2 id="查看volume详细信息"><a href="#查看volume详细信息">¶</a> 查看volume详细信息</h2>
+<h2 id="查看volume详细信息"><a href="#查看volume详细信息">¶</a>
+查看volume详细信息</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/volume/inspect/" class="uri">https://docs.docker.com/reference/cli/docker/volume/inspect/</a></p>
 <pre class="shell"><code>docker volume inspect [OPTIONS] VOLUME [VOLUME...]</code></pre>
 <p>好像看不到什么有用的信息。</p>
@@ -8030,7 +8036,8 @@ docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</code></pre>
 <h2 id="清理cache"><a href="#清理cache">¶</a> 清理cache</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/builder/prune/" class="uri">https://docs.docker.com/reference/cli/docker/builder/prune/</a></p>
 <pre class="shell"><code>docker builder prune</code></pre>
-<h2 id="docker-system-prune--a"><a href="#docker-system-prune--a">¶</a> <code>docker system prune -a</code></h2>
+<h2 id="docker-system-prune--a"><a href="#docker-system-prune--a">¶</a>
+<code>docker system prune -a</code></h2>
 <p>不删volume和手动创建的image。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

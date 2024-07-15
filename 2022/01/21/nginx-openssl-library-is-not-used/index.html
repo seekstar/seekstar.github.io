@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,14 +7975,16 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>即使装上了<code>openssl-devel</code>，如果<code>./configure</code>时没有带上<code>--with-http_ssl_module</code>，还是会显示<code>OpenSSL library is not used</code>，这样的话就不能listen ssl了，否则会报错：</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>即使装上了<code>openssl-devel</code>，如果<code>./configure</code>时没有带上<code>--with-http_ssl_module</code>，还是会显示<code>OpenSSL library is not used</code>，这样的话就不能listen
+ssl了，否则会报错：</p>
 <pre><code>the "ssl" parameter requires ngx_http_ssl_module</code></pre>
 <p>所以解决方法是<code>./configure</code>的时候加上<code>--with-http_ssl_module</code>：</p>
 <pre class="shell"><code>./configure --with-http_ssl_module</code></pre>
 <p>然后这一行就变成了：</p>
 <pre><code>+ using system OpenSSL library</code></pre>
 <h2 id="其他常用模块"><a href="#其他常用模块">¶</a> 其他常用模块</h2>
-<h3 id="ngx_http_v2_module"><a href="#ngx_http_v2_module">¶</a> ngx_http_v2_module</h3>
+<h3 id="ngx_http_v2_module"><a href="#ngx_http_v2_module">¶</a>
+ngx_http_v2_module</h3>
 <pre><code>the "http2" parameter requires ngx_http_v2_module</code></pre>
 <h3 id="stream"><a href="#stream">¶</a> stream</h3>
 <p><code>./configure</code>时如果不带上<code>-with-stream</code>的话，用stream的时候会报错：</p>

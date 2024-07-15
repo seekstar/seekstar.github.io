@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7999,7 +7999,8 @@ sudo HUGEMEM=4096 scripts/setup.sh</code></pre>
 This is the maximum amount of memory you will be
 able to use with DPDK and VFIO if run as current user.
 To change this, please adjust limits.conf memlock limit for current user.</code></pre>
-<p>但是查看<code>/proc/meminfo</code>的话，又能看到huge page已经分配好了：</p>
+<p>但是查看<code>/proc/meminfo</code>的话，又能看到huge
+page已经分配好了：</p>
 <pre><code>HugePages_Total:   2048
 HugePages_Free:    2048
 HugePages_Rsvd:        0
@@ -8027,7 +8028,8 @@ make -j$(nproc)
 <p>我这里make的时候会报错：</p>
 <pre><code>db_stress.cc:(.text.startup+0x1): undefined reference to `rocksdb::db_stress_tool(int, char**)'</code></pre>
 <p>但是build文件夹下面<code>librocksdb</code>的静态库和动态库都编译好了，所以这条编译报错也许可以不用管？</p>
-<h2 id="编译spandb目录下面的ycsb测试程序"><a href="#编译spandb目录下面的ycsb测试程序">¶</a> 编译SpanDB目录下面的YCSB测试程序</h2>
+<h2 id="编译spandb目录下面的ycsb测试程序"><a href="#编译spandb目录下面的ycsb测试程序">¶</a>
+编译SpanDB目录下面的YCSB测试程序</h2>
 <pre class="shell"><code>cd SpanDB/ycsb</code></pre>
 <p>这下面的<code>CMakeLists.txt</code>是错的，要把</p>
 <pre><code>INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build/include)</code></pre>
@@ -8056,7 +8058,8 @@ make</code></pre>
 ulimit -n 100000
 ./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 0 rocksdb &lt;db_bak&gt;</code></pre>
 <p>这一步会先把<code>data_path</code>给清空，然后把<code>db_bak</code>里的内容复制到<code>data_path</code>里，然后再跑workload。</p>
-<p>官方文档里这一步没有<code>ulimit -n 100000</code>，但是<code>workloada.spec</code>生成的DB里有1608个文件，而默认最多能同时打开1024个file descriptor：</p>
+<p>官方文档里这一步没有<code>ulimit -n 100000</code>，但是<code>workloada.spec</code>生成的DB里有1608个文件，而默认最多能同时打开1024个file
+descriptor：</p>
 <pre><code>$ ulimit -n
 1024</code></pre>
 <h3 id="测试spandb"><a href="#测试spandb">¶</a> 测试SpanDB</h3>
@@ -8067,13 +8070,15 @@ ulimit -n 100000
 <p>其中PCIe地址可以通过<code>sudo lspci</code>查找，我的是：</p>
 <pre><code>01:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller PM9A1/980PRO</code></pre>
 <p>其中的<code>01:00.0</code>就是这个SSD的PCIe地址。</p>
-<p>SpanDB默认分配了90GB的SPDK缓存，如果前面huge page没有申请够，会分配失败：</p>
+<p>SpanDB默认分配了90GB的SPDK缓存，如果前面huge
+page没有申请够，会分配失败：</p>
 <pre><code>SPDK memory allocation starts (90.00 GB)
 ...0.0%
 already allocated 3.38 GB
 /home/searchstar/git/others/SpanDB/env/io_spdk.h:111: SPDK allocate memory failed</code></pre>
-<p>这时要么多申请一些huge page，要么减少TopFS使用的cache，即将<code>ycsb/src/test.cc</code>中的<code>main</code>函数里的</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>options.topfs_cache_size = <span class="dv">90</span>;</span></code></pre></div>
+<p>这时要么多申请一些huge
+page，要么减少TopFS使用的cache，即将<code>ycsb/src/test.cc</code>中的<code>main</code>函数里的</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>options<span class="op">.</span>topfs_cache_size <span class="op">=</span> <span class="dv">90</span><span class="op">;</span></span></code></pre></div>
 <p>改成更小的值，然后重新<code>make</code>，再跑就好了。</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/SpanDB/SpanDB" class="uri">https://github.com/SpanDB/SpanDB</a></p>

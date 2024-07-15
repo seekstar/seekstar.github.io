@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -8019,26 +8019,28 @@ user = 你的用户名</code></pre>
 <pre><code>frpc                             RUNNING   pid 6214, uptime 5:17:13</code></pre>
 <p>更改了<code>/etc/supervisor/conf.d/frpc.conf</code>之后，这样重启：</p>
 <pre class="shell"><code>sudo supervisorctl restart frpc</code></pre>
-<p>注意，如果当前的连接是通过frpc提供的内网穿透通道提供的，那么重启的过程中当前连接会断掉，然后这个shell就会被杀掉，然后这个重启过程会中断，然后连接就永远丢失了。为了使得重启的过程不会因为连接中断而终止，要用<code>nohup</code>使其与当前shell detach：</p>
+<p>注意，如果当前的连接是通过frpc提供的内网穿透通道提供的，那么重启的过程中当前连接会断掉，然后这个shell就会被杀掉，然后这个重启过程会中断，然后连接就永远丢失了。为了使得重启的过程不会因为连接中断而终止，要用<code>nohup</code>使其与当前shell
+detach：</p>
 <pre class="shell"><code>sudo -s
 nohup supervisorctl restart frpc &amp;</code></pre>
 <p>参考文献：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0b9054b33db3">Supervisor使用详解</a></p>
 <h2 id="多用户"><a href="#多用户">¶</a> 多用户</h2>
 <p>fp-multiuser: <a target="_blank" rel="noopener" href="https://github.com/gofrp/fp-multiuser" class="uri">https://github.com/gofrp/fp-multiuser</a></p>
 <p>frpc.toml:</p>
-<pre class="toml"><code>serverAddr = ""
-serverPort = 7000
-user = ""
-metadatas.token = ""
-
-[[proxies]]
-name = "ssh"
-type = "tcp"
-localIP = "127.0.0.1"
-localPort =
-remotePort =</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">serverAddr</span> <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">serverPort</span> <span class="op">=</span> <span class="dv">7000</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">user</span> <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dt">metadatas</span><span class="er">.token</span> <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">[[</span><span class="dt">proxies</span><span class="kw">]]</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"ssh"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dt">type</span> <span class="op">=</span> <span class="st">"tcp"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dt">localIP</span> <span class="op">=</span> <span class="st">"127.0.0.1"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dt">localPort</span> <span class="op">=</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="dt">remotePort</span> <span class="op">=</span></span></code></pre></div>
 <p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/issues/3672">配置文件切换到 toml 后，不支持meta_token参数</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/issues/3672">配置文件切换到
+toml 后，不支持meta_token参数</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/dev/doc/server_plugin.md#metadata" class="uri">https://github.com/fatedier/frp/blob/dev/doc/server_plugin.md#metadata</a></p>
 <p>还可以用frp_plugin_allowed_ports限制每个user能映射到的端口：<a target="_blank" rel="noopener" href="https://github.com/Parmicciano/frp_plugin_allowed_ports" class="uri">https://github.com/Parmicciano/frp_plugin_allowed_ports</a></p>
 <p>还有其他插件：<a target="_blank" rel="noopener" href="https://github.com/gofrp/plugin" class="uri">https://github.com/gofrp/plugin</a></p>

@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,15 +7975,19 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>CMake默认会将imported targets当作system target，这些target提供的头文件路径在编译的时候会用<code>isystem</code>来提供，编译器在这些头文件中不会报warning。</p>
-<p>但是如果导入的包是我们自己写的，那我们可能会想要打印这些包里的warning。这可以通过<code>set(CMAKE_NO_SYSTEM_FROM_IMPORTED TRUE)</code>实现，它会在全局禁止将imported targets当作system target。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>CMake默认会将imported targets当作system
+target，这些target提供的头文件路径在编译的时候会用<code>isystem</code>来提供，编译器在这些头文件中不会报warning。</p>
+<p>但是如果导入的包是我们自己写的，那我们可能会想要打印这些包里的warning。这可以通过<code>set(CMAKE_NO_SYSTEM_FROM_IMPORTED TRUE)</code>实现，它会在全局禁止将imported
+targets当作system target。</p>
 <p><code>CMAKE_NO_SYSTEM_FROM_IMPORTED</code>的文档：<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/prop_tgt/NO_SYSTEM_FROM_IMPORTED.html" class="uri">https://cmake.org/cmake/help/latest/prop_tgt/NO_SYSTEM_FROM_IMPORTED.html</a></p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/5801839/13688160" class="uri">https://stackoverflow.com/a/5801839/13688160</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/conan-io/conan/issues/269" class="uri">https://github.com/conan-io/conan/issues/269</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/conan-io/conan/issues/1318#issuecomment-303525802" class="uri">https://github.com/conan-io/conan/issues/1318#issuecomment-303525802</a></p>
-<p>不过这里面提到的<code>NO_SYSTEM_FROM_IMPORTED</code>是consuming target（比如main）的property：<a target="_blank" rel="noopener" href="https://gitlab.kitware.com/cmake/cmake/-/issues/17348" class="uri">https://gitlab.kitware.com/cmake/cmake/-/issues/17348</a></p>
-<p>本来<code>IMPORTED_NO_SYSTEM</code>应该可以用来避免特定imported target被视为system target，但是我试了这些：</p>
+<p>不过这里面提到的<code>NO_SYSTEM_FROM_IMPORTED</code>是consuming
+target（比如main）的property：<a target="_blank" rel="noopener" href="https://gitlab.kitware.com/cmake/cmake/-/issues/17348" class="uri">https://gitlab.kitware.com/cmake/cmake/-/issues/17348</a></p>
+<p>本来<code>IMPORTED_NO_SYSTEM</code>应该可以用来避免特定imported
+target被视为system target，但是我试了这些：</p>
 <p><code>set_target_properties(依赖1 PROPERTIES IMPORTED_NO_SYSTEM 1)</code></p>
 <p><code>set_property(TARGET 依赖1 PROPERTY IMPORTED_NO_SYSTEM 1)</code></p>
 <p>不知道为什么都不起作用。。</p>

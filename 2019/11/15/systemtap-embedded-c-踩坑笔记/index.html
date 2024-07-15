@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,24 +7978,25 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>官方文档：<br>
 <a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000" class="uri">https://sourceware.org/systemtap/langref/3_Components_SystemTap_scri.html#SECTION00045000000000000000</a></p>
 <h1 id="打印"><a href="#打印">¶</a> 打印</h1>
-<p>systemtap的embedded C中，不能#include &lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
+<p>systemtap的embedded C中，不能#include
+&lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
 <p>还可以访问cript中的全局变量。<br>
 官方文档中的示例：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>global var</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>global var2[<span class="dv">100</span>]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>function increment() %{</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="co">/* pragma:read:var */</span> <span class="co">/* pragma:write:var */</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="co">/* pragma:read:var2 */</span> <span class="co">/* pragma:write:var2 */</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    STAP_GLOBAL_SET_var(STAP_GLOBAL_GET_var()+<span class="dv">1</span>); <span class="co">//var++</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    STAP_GLOBAL_SET_var2(<span class="dv">1</span>, <span class="dv">1</span>, STAP_GLOBAL_GET_var2(<span class="dv">1</span>, <span class="dv">1</span>)+<span class="dv">1</span>); <span class="co">//var2[1,1]++</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>%}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>global var</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>global var2<span class="op">[</span><span class="dv">100</span><span class="op">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>function increment<span class="op">()</span> <span class="op">%{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* pragma:read:var */</span> <span class="co">/* pragma:write:var */</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* pragma:read:var2 */</span> <span class="co">/* pragma:write:var2 */</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    STAP_GLOBAL_SET_var<span class="op">(</span>STAP_GLOBAL_GET_var<span class="op">()+</span><span class="dv">1</span><span class="op">);</span> <span class="co">//var++</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    STAP_GLOBAL_SET_var2<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> STAP_GLOBAL_GET_var2<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">)+</span><span class="dv">1</span><span class="op">);</span> <span class="co">//var2[1,1]++</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
 <p>注意function中头两行的注释不能删。具体意义看文档。</p>
 <h1 id="返回"><a href="#返回">¶</a> 返回</h1>
 <p>获取一个task_struct的sibling的函数这样写：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>function GetSibling(task:<span class="dt">long</span>) %{</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *task = (<span class="kw">struct</span> task_struct*)STAP_ARG_task;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	<span class="cf">return</span> list_entry(task-&gt;sibling.next, <span class="kw">struct</span> task_struct, sibling);</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>%}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>function GetSibling<span class="op">(</span>task<span class="op">:</span><span class="dt">long</span><span class="op">)</span> <span class="op">%{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> task_struct <span class="op">*</span>task <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> task_struct<span class="op">*)</span>STAP_ARG_task<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> list_entry<span class="op">(</span>task<span class="op">-&gt;</span>sibling<span class="op">.</span>next<span class="op">,</span> <span class="kw">struct</span> task_struct<span class="op">,</span> sibling<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
 <p>报错：</p>
 <pre><code>include/linux/kernel.h:908:41: 错误：expected ‘;’ before ‘(’ token
  #define container_of(ptr, type, member) ({   \
@@ -8011,23 +8012,24 @@ cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-We
 <p>看起来好像是编译器出错了。<br>
 但是原因其实是embedded C不能写return，要写STAP_RETURN。<br>
 所以要改成这样：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>function GetSibling(task:<span class="dt">long</span>) %{</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *task = (<span class="kw">struct</span> task_struct*)STAP_ARG_task;</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>	STAP_RETURN(list_entry(task-&gt;sibling.next, <span class="kw">struct</span> task_struct, sibling));</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>%}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>function GetSibling<span class="op">(</span>task<span class="op">:</span><span class="dt">long</span><span class="op">)</span> <span class="op">%{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> task_struct <span class="op">*</span>task <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> task_struct<span class="op">*)</span>STAP_ARG_task<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>	STAP_RETURN<span class="op">(</span>list_entry<span class="op">(</span>task<span class="op">-&gt;</span>sibling<span class="op">.</span>next<span class="op">,</span> <span class="kw">struct</span> task_struct<span class="op">,</span> sibling<span class="op">));</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
 <h1 id="打印路径"><a href="#打印路径">¶</a> 打印路径</h1>
-<p>可以用d_path把struct path解析为绝对路径。centos 7中d_path的声明如下：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// include/linux/dcache.h</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">extern</span> <span class="dt">char</span> *d_path(<span class="dt">const</span> <span class="kw">struct</span> path *, <span class="dt">char</span> *, <span class="dt">int</span>);</span></code></pre></div>
+<p>可以用d_path把struct path解析为绝对路径。centos
+7中d_path的声明如下：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// include/linux/dcache.h</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="dt">char</span> <span class="op">*</span>d_path<span class="op">(</span><span class="dt">const</span> <span class="kw">struct</span> path <span class="op">*,</span> <span class="dt">char</span> <span class="op">*,</span> <span class="dt">int</span><span class="op">);</span></span></code></pre></div>
 <p>其中char*是buffer的首地址，int是buffer的大小。<br>
 注意，d_path的返回值并不是传进去的buffer。直接输出buffer会输出空串。。。</p>
 <p>正确用法示例：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">char</span> full_path[BUFFER_SIZE];</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>STAP_PRINTF(<span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span>, d_path(&amp;(f-&gt;f_path), full_path, BUFFER_SIZE));</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">char</span> full_path<span class="op">[</span>BUFFER_SIZE<span class="op">];</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>STAP_PRINTF<span class="op">(</span><span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> d_path<span class="op">(&amp;(</span>f<span class="op">-&gt;</span>f_path<span class="op">),</span> full_path<span class="op">,</span> BUFFER_SIZE<span class="op">));</span></span></code></pre></div>
 <p>错误用法示例：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">char</span> full_path[BUFFER_SIZE];</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>d_path(&amp;(f-&gt;f_path), full_path, BUFFER_SIZE);</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>STAP_PRINTF(<span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span>, full_path);</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">char</span> full_path<span class="op">[</span>BUFFER_SIZE<span class="op">];</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>d_path<span class="op">(&amp;(</span>f<span class="op">-&gt;</span>f_path<span class="op">),</span> full_path<span class="op">,</span> BUFFER_SIZE<span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>STAP_PRINTF<span class="op">(</span><span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> full_path<span class="op">);</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

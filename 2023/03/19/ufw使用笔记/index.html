@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,7 +7978,8 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <pre class="shell"><code>sudo apt install ufw</code></pre>
 <p>安装之后默认是inactive的状态。</p>
-<h2 id="查看防火墙状态"><a href="#查看防火墙状态">¶</a> 查看防火墙状态</h2>
+<h2 id="查看防火墙状态"><a href="#查看防火墙状态">¶</a>
+查看防火墙状态</h2>
 <pre class="shell"><code>sudo ufw status</code></pre>
 <p>里面会给出防火墙是不是active的。如果是active的话，还会打印出已经设置了哪些规则。</p>
 <p>如果是inactive的话，如果想要看已经添加的规则，可以<code>sudo ufw show added</code>。来源：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/533664" class="uri">https://askubuntu.com/a/533664</a></p>
@@ -7990,17 +7991,20 @@ mjx-container[display="true"] + br {
 sudo ufw allow ssh</code></pre>
 <p>如果不是，需要显式allow这个端口：</p>
 <pre class="shell"><code>sudo ufw allow &lt;端口&gt;</code></pre>
-<h2 id="激活与关闭防火墙"><a href="#激活与关闭防火墙">¶</a> 激活与关闭防火墙</h2>
+<h2 id="激活与关闭防火墙"><a href="#激活与关闭防火墙">¶</a>
+激活与关闭防火墙</h2>
 <pre class="shell"><code>sudo ufw enable
 sudo ufw disable</code></pre>
 <p>开机自启：</p>
 <pre class="shell"><code>sudo systemctl enable ufw</code></pre>
 <p>取消开机自启：</p>
 <pre class="shell"><code>sudo systemctl disable ufw</code></pre>
-<h2 id="打开和关闭端口"><a href="#打开和关闭端口">¶</a> 打开和关闭端口</h2>
+<h2 id="打开和关闭端口"><a href="#打开和关闭端口">¶</a>
+打开和关闭端口</h2>
 <pre class="shell"><code>sudo ufw allow &lt;端口&gt;
 sudo ufw delete allow &lt;端口&gt;</code></pre>
-<h2 id="允许从某ip连接到某端口"><a href="#允许从某ip连接到某端口">¶</a> 允许从某IP连接到某端口</h2>
+<h2 id="允许从某ip连接到某端口"><a href="#允许从某ip连接到某端口">¶</a>
+允许从某IP连接到某端口</h2>
 <pre class="shell"><code>sudo ufw allow from &lt;IP/CIDR&gt; to any port &lt;端口&gt;
 # 撤回
 sudo ufw delete allow from &lt;IP/CIDR&gt; to any port &lt;端口&gt;</code></pre>

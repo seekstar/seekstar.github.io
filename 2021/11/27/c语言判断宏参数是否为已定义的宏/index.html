@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7985,66 +7985,66 @@ mjx-container[display="true"] + br {
     // Many operations
 } while (0)</code></pre>
 <p>这要用到C语言对宏参数的处理方式。如果宏参数是另一个宏的名字，那么就将这个宏参数展开成那个宏。特别地，如果要对这个宏参数用<code>#</code>变成字符串，那就直接把这个宏的名字转成字符串。考虑下面的代码：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">#define CHECK2(name) do { \</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="pp">	puts(#name); \</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="pp">} while (0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CHECK2(name) do { \</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">	puts(#name); \</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">} while (0)</span></span></code></pre></div>
 <p><code>puts(#name)</code>是直接将<code>name</code>变成其代表的字符串。但是假如<code>name</code>是一个已定义宏，那在将<code>name</code>传入到<code>STRINGIFY</code>里面前，会先将<code>name</code>展开，然后<code>STRINGIFY</code>里就是将展开后的<code>name</code>转成字符串。</p>
 <p>举个例子：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>CHECK2(TEST1_DISABLED);</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CHECK2<span class="op">(</span>TEST1_DISABLED<span class="op">);</span></span></code></pre></div>
 <p>输出为</p>
 <pre><code>TEST1_DISABLED
 1</code></pre>
 <p>利用这个差别就可以判断宏参数是否为已定义宏。假如宏名字的长度大于1，且宏如果被定义的话，一定被定义为1，那么可以这样判断这个宏是否被定义：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#define CHECK(name) (sizeof STRINGIFY(name) == 2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CHECK(name) (sizeof STRINGIFY(name) == 2)</span></span></code></pre></div>
 <p>其实还可以这样判断：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="pp">#define CHECK(name) (#name [0] != STRINGIFY(name) [0])</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CHECK(name) (#name [0] != STRINGIFY(name) [0])</span></span></code></pre></div>
 <p>但是这样的话，这个<code>CHECK</code>就不能在<code>_Static_assert</code>里用。</p>
 <p>这个宏可以在其他宏里用：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="pp">#define IS_DISABLED(name) CHECK(name ## _DISABLED)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST1));</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST3));</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IS_DISABLED(name) CHECK(name ## _DISABLED)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> IS_DISABLED<span class="op">(</span>TEST1<span class="op">));</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> IS_DISABLED<span class="op">(</span>TEST3<span class="op">));</span></span></code></pre></div>
 <p>输出：</p>
 <pre><code>1
 0</code></pre>
 <p>思路来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47491147/check-at-runtime-if-macro-was-defined?rq=1" class="uri">https://stackoverflow.com/questions/47491147/check-at-runtime-if-macro-was-defined?rq=1</a></p>
 <p>完整代码：</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="pp">#define CHECK2(name) do { \</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="pp">	puts(#name); \</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a><span class="pp">} while (0)</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a><span class="co">//#define CHECK(name) (#name [0] != STRINGIFY(name) [0])</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a><span class="pp">#define CHECK(name) (sizeof STRINGIFY(name) == 2)</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a><span class="pp">#define IS_DISABLED(name) CHECK(name ## _DISABLED)</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a><span class="pp">#define TEST2_DISABLED 1</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>	CHECK2(TEST1_DISABLED);</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true"></a>	CHECK2(TEST2_DISABLED);</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true"></a>	CHECK2(TEST3_DISABLED);</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true"></a>	putchar(<span class="ch">'\n'</span>);</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST1));</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST2));</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true"></a>	printf(<span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span>, IS_DISABLED(TEST3));</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST1_DISABLED 1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define STRINGIFY(x) #x</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CHECK2(name) do { \</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="pp">	puts(#name); \</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="pp">	puts(STRINGIFY(name)); \</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="pp">} while (0)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">//#define CHECK(name) (#name [0] != STRINGIFY(name) [0])</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#define CHECK(name) (sizeof STRINGIFY(name) == 2)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#define IS_DISABLED(name) CHECK(name ## _DISABLED)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TEST2_DISABLED 1</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>	CHECK2<span class="op">(</span>TEST1_DISABLED<span class="op">);</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>	putchar<span class="op">(</span><span class="ch">'\n'</span><span class="op">);</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>	CHECK2<span class="op">(</span>TEST2_DISABLED<span class="op">);</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>	putchar<span class="op">(</span><span class="ch">'\n'</span><span class="op">);</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>	CHECK2<span class="op">(</span>TEST3_DISABLED<span class="op">);</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>	putchar<span class="op">(</span><span class="ch">'\n'</span><span class="op">);</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> IS_DISABLED<span class="op">(</span>TEST1<span class="op">));</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> IS_DISABLED<span class="op">(</span>TEST2<span class="op">));</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> IS_DISABLED<span class="op">(</span>TEST3<span class="op">));</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

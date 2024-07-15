@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,21 +7975,23 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="整型转字节数组"><a href="#整型转字节数组">¶</a> 整型转字节数组</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="整型转字节数组"><a href="#整型转字节数组">¶</a>
+整型转字节数组</h2>
 <p>小端序：<code>i16::to_le_bytes</code></p>
 <p>大端序：<code>i16::to_be_bytes</code></p>
-<h2 id="字节数组转整型"><a href="#字节数组转整型">¶</a> 字节数组转整型</h2>
+<h2 id="字节数组转整型"><a href="#字节数组转整型">¶</a>
+字节数组转整型</h2>
 <p>小端序：<code>i16::from_le_bytes</code></p>
 <p>大端序：<code>i16::from_be_bytes</code></p>
 <h2 id="例子"><a href="#例子">¶</a> 例子</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">let</span> bytes<span class="op">:</span> [<span class="dt">u8</span><span class="op">;</span> <span class="dv">2</span>] <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="pp">assert_eq!</span>(<span class="dt">i16</span><span class="pp">::</span>from_le_bytes(bytes)<span class="op">,</span> (<span class="dv">2</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="pp">assert_eq!</span>(<span class="dt">i16</span><span class="pp">::</span>from_be_bytes(bytes)<span class="op">,</span> (<span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">i16</span> <span class="op">=</span> (<span class="dv">2</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="pp">assert_eq!</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> x<span class="op">.</span>to_le_bytes())<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="pp">assert_eq!</span>([<span class="dv">2</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> x<span class="op">.</span>to_be_bytes())<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> bytes<span class="op">:</span> [<span class="dt">u8</span><span class="op">;</span> <span class="dv">2</span>] <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(<span class="dt">i16</span><span class="pp">::</span>from_le_bytes(bytes)<span class="op">,</span> (<span class="dv">2</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(<span class="dt">i16</span><span class="pp">::</span>from_be_bytes(bytes)<span class="op">,</span> (<span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">i16</span> <span class="op">=</span> (<span class="dv">2</span> <span class="op">&lt;&lt;</span> <span class="dv">8</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> x<span class="op">.</span>to_le_bytes())<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>([<span class="dv">2</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> x<span class="op">.</span>to_be_bytes())<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://crates.io/crates/byteorder" class="uri">https://crates.io/crates/byteorder</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

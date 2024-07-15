@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,11 +7977,11 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>Rust的String里其实是UTF-8编码的，而UTF-8是变长编码，因此会导致Rust索引String时，可能是索引第k个UTF-8字符（需要遍历字符串），也可能是索引第k个字节。因此，Rust不支持直接用下标来索引String。</p>
 <p>如果要找到第k个UTF-8字符：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>s<span class="op">.</span>chars()<span class="op">.</span>nth(k)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s<span class="op">.</span>chars()<span class="op">.</span>nth(k)</span></code></pre></div>
 <p>如果要找到第k个字节：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">let</span> x<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> s<span class="op">.</span>as_bytes()[k]<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x<span class="op">:</span> <span class="dt">u8</span> <span class="op">=</span> s<span class="op">.</span>as_bytes()[k]<span class="op">;</span></span></code></pre></div>
 <p>如果要修改第k个字节，则需要<code>unsafe</code>，因此这一步可能会导致出现无效的UTF-8字符：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">unsafe</span> <span class="op">{</span> s<span class="op">.</span>as_bytes_mut()[len <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> <span class="ch">b'-'</span><span class="op">;</span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">unsafe</span> <span class="op">{</span> s<span class="op">.</span>as_bytes_mut()[len <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> <span class="ch">b'-'</span><span class="op">;</span> <span class="op">}</span></span></code></pre></div>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24542115/how-to-index-a-string-in-rust" class="uri">https://stackoverflow.com/questions/24542115/how-to-index-a-string-in-rust</a></p>
 <p><a target="_blank" rel="noopener" href="https://users.rust-lang.org/t/solved-rust-u8-literal-notation/25306" class="uri">https://users.rust-lang.org/t/solved-rust-u8-literal-notation/25306</a></p>

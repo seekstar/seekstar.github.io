@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,15 +7978,15 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用户态probe文档：<a target="_blank" rel="noopener" href="https://sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html" class="uri">https://sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html</a></p>
 <p>这是<code>process("PATH").function("function")</code>报的错，意思是没有在ELF文件中找到这个函数对应的符号。大概率是因为ELF文件是用C++编译来的，符号名跟函数名不对应。</p>
 <p>例如对于以下程序：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="dt">void</span> fun() {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	printf(<span class="st">"Hello</span><span class="sc">\n</span><span class="st">"</span>);</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	fun();</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> fun<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"Hello</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>	fun<span class="op">();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>保存为<code>test.c</code></p>
 <h2 id="c"><a href="#c">¶</a> C</h2>
 <pre class="shell"><code>gcc test.c -o test
@@ -8005,12 +8005,12 @@ objdump -D test | grep fun</code></pre>
 就很恶心</p>
 <h2 id="rust"><a href="#rust">¶</a> rust</h2>
 <p>rust也有这种问题（但是可以解决）。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">fn</span> fun() <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    fun()<span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> fun() <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    fun()<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>rustc test.rs
 objdump -D test | grep rs_fun</code></pre>
 <pre class="text"><code>0000000000004700 &lt;_ZN4test6rs_fun17he2386bae0dbca493E&gt;:
@@ -8019,13 +8019,13 @@ objdump -D test | grep rs_fun</code></pre>
     46a0:       73 5f                   jae    4701 &lt;_ZN4test6rs_fun17he2386bae0dbca493E+0x1&gt;</code></pre>
 <p>可以看到符号也与函数名不对应。<br>
 但是rust可以通过使用<code>no_mangle</code>选项来强制让符号和函数名一致。（参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/70095462" class="uri">https://zhuanlan.zhihu.com/p/70095462</a>）</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">fn</span> rs_fun() <span class="op">{</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    rs_fun()<span class="op">;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> rs_fun() <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">print!</span>(<span class="st">"Hello rust</span><span class="sc">\n</span><span class="st">"</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    rs_fun()<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>rustc good.rs
 objdump -D good | grep rs_fun</code></pre>
 <pre class="text"><code>00000000000046c0 &lt;rs_fun&gt;:

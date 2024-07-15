@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,7 +7976,9 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p><code>echo $?</code>可以获取上一条命令的exit code。</p>
-<p>但是如果bash脚本中设置了<code>set -e</code>，那么如果命令的exit code不为0，当前bash脚本会直接退出。这种情况下如果要获取命令的exit code而不退出，需要让该命令在一个新的shell中执行：</p>
+<p>但是如果bash脚本中设置了<code>set -e</code>，那么如果命令的exit
+code不为0，当前bash脚本会直接退出。这种情况下如果要获取命令的exit
+code而不退出，需要让该命令在一个新的shell中执行：</p>
 <pre class="shell"><code>set -e
 ret=$(bash -c 'bash test2.sh; echo $?')
 echo $ret</code></pre>

@@ -7252,9 +7252,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7263,9 +7263,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -8009,7 +8009,8 @@ find 目录 -type f -name "*.png" -print0 | xargs -0r du -ch
 输出的最后一行就是占用的总空间。
 以下来自man find：
 -type f: 只查找普通文件。
--print0: 返回true；在标准输出打印
+-print0:
+返回true；在标准输出打印
 					...
 				</div>
 			</a>
@@ -8095,7 +8096,9 @@ yay -Qu
 					SPDK回收hugemem
 				</h2>
 				<div class="index-brief">
-					SPDK分配了HUGEMEM之后，如果程序申请了huge page然后崩溃了，这些huge page就相当于内存泄漏了，仍然保持被分配的状态。要回收这些huge page，在spdk的目录下执行
+					SPDK分配了HUGEMEM之后，如果程序申请了huge page然后崩溃了，这些huge
+page就相当于内存泄漏了，仍然保持被分配的状态。要回收这些huge
+page，在spdk的目录下执行
 sudo ./scripts/setup.sh reset
 即可。reset的帮助信息：
 reset  

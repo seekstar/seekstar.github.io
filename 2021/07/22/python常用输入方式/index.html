@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,34 +7979,35 @@ mjx-container[display="true"] + br {
 <a href="/2020/02/06/python%E9%80%90%E5%AD%97%E7%AC%A6%E8%AF%BB%E5%85%A5/" title="python逐字符读入">python逐字符读入</a>
 <h2 id="逐行读入"><a href="#逐行读入">¶</a> 逐行读入</h2>
 <h3 id="stdin"><a href="#stdin">¶</a> stdin</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="im">import</span> sys</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> sys.stdin:</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>	<span class="co"># 去掉末尾换行符</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	line <span class="op">=</span> line.strip()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> sys.stdin:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	<span class="co"># 去掉末尾换行符</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	line <span class="op">=</span> line.strip()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(line)</span></code></pre></div>
 <p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/104201928" class="uri">https://blog.csdn.net/qq_41961459/article/details/104201928</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin" class="uri">https://stackoverflow.com/questions/1450393/how-do-you-read-from-stdin</a></p>
 <h3 id="文件"><a href="#文件">¶</a> 文件</h3>
 <p>把上面的<code>sys.stdin</code>换成<code>open('path/to/file')</code>：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'/path/to/file'</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>	<span class="co"># 去掉末尾换行符</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>	line <span class="op">=</span> line.strip()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>	<span class="bu">print</span>(line)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'/path/to/file'</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>	<span class="co"># 去掉末尾换行符</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>	line <span class="op">=</span> line.strip()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">print</span>(line)</span></code></pre></div>
 <p>也可以<code>f.readline()</code>读取单行。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html" class="uri">https://www.cnblogs.com/sysuoyj/archive/2012/03/14/2395789.html</a></p>
 <h2 id="一次性读取并按行保存为list"><a href="#一次性读取并按行保存为list">¶</a> 一次性读取并按行保存为list</h2>
 <p>不保留每行末尾的换行符：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>f.read().splitlines()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f.read().splitlines()</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3925614/how-do-you-read-a-file-into-a-list-in-python" class="uri">https://stackoverflow.com/questions/3925614/how-do-you-read-a-file-into-a-list-in-python</a></p>
 <p>保留每行末尾的换行符：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>f.readlines()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f.readlines()</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/inputoutput.html" class="uri">https://docs.python.org/3/tutorial/inputoutput.html</a></p>
 <p>读取为整型：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>[<span class="bu">int</span>(line) <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'hits_cdf'</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>[<span class="bu">int</span>(line) <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">open</span>(<span class="st">'hits_cdf'</span>)]</span></code></pre></div>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6583573/how-to-read-numbers-from-file-in-python" class="uri">https://stackoverflow.com/questions/6583573/how-to-read-numbers-from-file-in-python</a></p>
 <h2 id="读取参数"><a href="#读取参数">¶</a> 读取参数</h2>
-<p><code>sys.argv</code>: 参数列表。<code>sys.argv[0]</code>一般是当前命令。</p>
+<p><code>sys.argv</code>:
+参数列表。<code>sys.argv[0]</code>一般是当前命令。</p>
 <p><code>len(sys.argv)</code>是参数个数。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

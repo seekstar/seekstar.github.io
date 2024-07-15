@@ -7252,9 +7252,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7263,9 +7263,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7950,13 +7950,15 @@ mjx-container[display="true"] + br {
 					解决Latex soul ul参数中有宏时报错的问题
 				</h2>
 				<div class="index-brief">
-					没有宏时直接用就好了：用soul宏包解决Latex 
+					没有宏时直接用就好了：用soul宏包解决Latex
+
 但是如果里面有宏则会报错：
 \def\testc#{test}
 \ul{\testc{}}
 Use of \testc doesn't match its definition.
 有两种解决方案：
-¶ soulregister
+¶
+soulregister
 这种方案是非侵入式
 					...
 				</div>
@@ -7975,7 +7977,8 @@ Use of \testc doesn't match its definition.
 					apt学习笔记
 				</h2>
 				<div class="index-brief">
-					¶ 查看已安装的包
+					¶
+查看已安装的包
 apt list --installed
 ¶ 清理apt cache
 # https://itsfoss.com/clear-apt-cache/
@@ -8043,7 +8046,9 @@ echo "unsetopt share_history"
 				</h2>
 				<div class="index-brief">
 					这里我们主要分析VersionSet::LogAndApply是怎么管理writer队列的。
-参数里的edit_lists是需要被apply的改动。每个传入的column family data对应edit_lists里的一个edit list，即autovector&lt;VersionEdit*
+参数里的edit_lists是需要被apply的改动。每个传入的column
+family data对应edit_lists里的一个edit
+list，即autovector&lt;VersionEdit*
 					...
 				</div>
 			</a>
@@ -8062,7 +8067,8 @@ echo "unsetopt share_history"
 				</h2>
 				<div class="index-brief">
 					¶ 背景
-程序A 动态链接 库B，库B中有一个内部使用的Timers类，程序A中也有一个内部使用的Timers，两者都没有被置于namespace中。
+程序A 动态链接
+库B，库B中有一个内部使用的Timers类，程序A中也有一个内部使用的Timers，两者都没有被置于namespace中。
 ¶ 现象
 Release编译时一切正常，Debug编译时库B中的Timers类的构造函数没有被执行。
 ¶ 调试
@@ -8109,7 +8115,8 @@ ColumnFamilyData和SuperVersion互相保存了对方
 					CentOS使用笔记
 				</h2>
 				<div class="index-brief">
-					¶ glibc升级失败进不去系统的解决方法
+					¶
+glibc升级失败进不去系统的解决方法
 以CentOS 8 stream为例。
 因为CentOS的dvd1做的启动盘貌似没有live模式，所以得做一个Debian的live启动盘。进入Debian的live环境之后，先挂载根目录到/mnt：
 sudo mount /dev/mapper/cl-r
@@ -8130,7 +8137,8 @@ sudo mount /dev/mapper/cl-r
 					C++ backports
 				</h2>
 				<div class="index-brief">
-					¶ std::optional (since C++17)
+					¶
+std::optional (since C++17)
 #include &lt;iostream&gt;
 
 struct in_place_t {};

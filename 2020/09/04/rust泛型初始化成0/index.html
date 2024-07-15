@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,93 +7979,93 @@ mjx-container[display="true"] + br {
 <p>github上有一个不错的：<br>
 <a target="_blank" rel="noopener" href="https://github.com/rust-num/num-traits" class="uri">https://github.com/rust-num/num-traits</a><br>
 有关Zero的部分：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">trait</span> Zero <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="dt">Self</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="pp">macro_rules!</span> zero_impl <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    (<span class="op">$</span>t<span class="op">:</span>ty<span class="op">,</span> <span class="op">$</span>v<span class="op">:</span>expr) <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="kw">impl</span> Zero <span class="kw">for</span> <span class="op">$</span>t <span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>            <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="op">$</span>t <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>                <span class="op">$</span>v</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>            <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>                <span class="op">*</span><span class="kw">self</span> <span class="op">==</span> <span class="op">$</span>v</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="op">};</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">usize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">isize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">f32</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">f64</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">trait</span> Zero <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="dt">Self</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">macro_rules!</span> zero_impl <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    (<span class="op">$</span>t<span class="op">:</span>ty<span class="op">,</span> <span class="op">$</span>v<span class="op">:</span>expr) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">impl</span> Zero <span class="cf">for</span> <span class="op">$</span>t <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="op">$</span>t <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="op">$</span>v</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                <span class="op">*</span><span class="kw">self</span> <span class="op">==</span> <span class="op">$</span>v</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">usize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">isize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">f32</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">f64</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span></code></pre></div>
 <p>把这段复制一下就可以用<code>Zero</code> trait了。<br>
 示例：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">pub</span> <span class="kw">trait</span> Zero <span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="dt">Self</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="pp">macro_rules!</span> zero_impl <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    (<span class="op">$</span>t<span class="op">:</span>ty<span class="op">,</span> <span class="op">$</span>v<span class="op">:</span>expr) <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>        <span class="kw">impl</span> Zero <span class="kw">for</span> <span class="op">$</span>t <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>            <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="op">$</span>t <span class="op">{</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>                <span class="op">$</span>v</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>            <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>                <span class="op">*</span><span class="kw">self</span> <span class="op">==</span> <span class="op">$</span>v</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>    <span class="op">};</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">usize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">u128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">isize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">i128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">f32</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a><span class="pp">zero_impl!</span>(<span class="dt">f64</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a><span class="kw">fn</span> print<span class="op">&lt;</span>T<span class="op">:</span> Zero <span class="op">+</span> <span class="pp">std::fmt::</span><span class="bu">Display</span> <span class="op">+</span> <span class="pp">std::clone::</span><span class="bu">Clone</span><span class="op">&gt;</span>(x<span class="op">:</span> T) <span class="op">{</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> x)<span class="op">;</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>    <span class="kw">let</span> test <span class="op">=</span> <span class="pp">vec!</span>[<span class="pp">T::</span>zero()<span class="op">;</span> <span class="dv">10</span>]<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>    <span class="kw">for</span> x <span class="kw">in</span> test<span class="op">.</span>iter() <span class="op">{</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> x)<span class="op">;</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>    print(<span class="dv">233</span>)<span class="op">;</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>    print(<span class="dv">233.0</span>)<span class="op">;</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">trait</span> Zero <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="dt">Self</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">macro_rules!</span> zero_impl <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (<span class="op">$</span>t<span class="op">:</span>ty<span class="op">,</span> <span class="op">$</span>v<span class="op">:</span>expr) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">impl</span> Zero <span class="cf">for</span> <span class="op">$</span>t <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">fn</span> zero() <span class="op">-&gt;</span> <span class="op">$</span>t <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                <span class="op">$</span>v</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">#[</span>inline<span class="at">]</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">fn</span> is_zero(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="op">*</span><span class="kw">self</span> <span class="op">==</span> <span class="op">$</span>v</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">usize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">u128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">isize</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i8</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i16</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i32</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i64</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>cfg<span class="at">(</span>has_i128<span class="at">)]</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">i128</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">f32</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="pp">zero_impl!</span>(<span class="dt">f64</span><span class="op">,</span> <span class="dv">0.0</span>)<span class="op">;</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> print<span class="op">&lt;</span>T<span class="op">:</span> Zero <span class="op">+</span> <span class="pp">std::fmt::</span><span class="bu">Display</span> <span class="op">+</span> <span class="pp">std::clone::</span><span class="bu">Clone</span><span class="op">&gt;</span>(x<span class="op">:</span> T) <span class="op">{</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test <span class="op">=</span> <span class="pp">vec!</span>[<span class="pp">T::</span>zero()<span class="op">;</span> <span class="dv">10</span>]<span class="op">;</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> test<span class="op">.</span>iter() <span class="op">{</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    print(<span class="dv">233</span>)<span class="op">;</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    print(<span class="dv">233.0</span>)<span class="op">;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>输出：</p>
 <pre><code>233
 0

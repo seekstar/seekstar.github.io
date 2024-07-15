@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,12 +7975,17 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="sudo-swapoff--a"><a href="#sudo-swapoff--a">¶</a> <code>sudo swapoff -a</code></h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="sudo-swapoff--a"><a href="#sudo-swapoff--a">¶</a>
+<code>sudo swapoff -a</code></h2>
 <p>这一步会立即禁用swap，但是下次重启还会启用。</p>
-<h2 id="从etcfstab中删除swap条目"><a href="#从etcfstab中删除swap条目">¶</a> 从<code>/etc/fstab</code>中删除swap条目</h2>
-<h2 id="mask相关systemd-unit"><a href="#mask相关systemd-unit">¶</a> mask相关systemd unit</h2>
-<p>systemd可能会从<code>/etc/fstab</code>中的swap条目生成对应的systemd unit：<a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd.swap.html" class="uri">https://www.freedesktop.org/software/systemd/man/systemd.swap.html</a></p>
-<p>但是从<code>/etc/fstab</code>里把swap条目删除貌似并不会把这些swap systemd unit给禁用。所以得手动mask。先查询这些swap条目：</p>
+<h2 id="从etcfstab中删除swap条目"><a href="#从etcfstab中删除swap条目">¶</a>
+从<code>/etc/fstab</code>中删除swap条目</h2>
+<h2 id="mask相关systemd-unit"><a href="#mask相关systemd-unit">¶</a>
+mask相关systemd unit</h2>
+<p>systemd可能会从<code>/etc/fstab</code>中的swap条目生成对应的systemd
+unit：<a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd.swap.html" class="uri">https://www.freedesktop.org/software/systemd/man/systemd.swap.html</a></p>
+<p>但是从<code>/etc/fstab</code>里把swap条目删除貌似并不会把这些swap
+systemd unit给禁用。所以得手动mask。先查询这些swap条目：</p>
 <pre class="shell"><code>systemctl --type swap</code></pre>
 <p>输出：</p>
 <pre class="text"><code>  UNIT          LOAD   ACTIVE SUB    DESCRIPTION

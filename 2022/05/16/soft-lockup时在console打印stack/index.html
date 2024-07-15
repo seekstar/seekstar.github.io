@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,9 +7975,11 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时soft lockup之后整台机器就没有响应了，在console不断有这些消息被打印出来：</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时soft
+lockup之后整台机器就没有响应了，在console不断有这些消息被打印出来：</p>
 <pre class="text"><code>[  492.400124] watchdog: BUG: soft lockup - CPU#5 stuck for 22s!</code></pre>
-<p>但是并没有打印出stack，导致不知道在哪里stuck住了。注意到如果是panic的话stack就会在console被打印出来。所以如果要让soft lockup时在console打印stack，可以设置为在soft lockup时panic：</p>
+<p>但是并没有打印出stack，导致不知道在哪里stuck住了。注意到如果是panic的话stack就会在console被打印出来。所以如果要让soft
+lockup时在console打印stack，可以设置为在soft lockup时panic：</p>
 <pre class="shell"><code>echo 1 &gt; /proc/sys/kernel/softlockup_panic</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/725403/capturing-a-kernel-dump-from-a-cpu-soft-lockup-at-boot" class="uri">https://askubuntu.com/questions/725403/capturing-a-kernel-dump-from-a-cpu-soft-lockup-at-boot</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

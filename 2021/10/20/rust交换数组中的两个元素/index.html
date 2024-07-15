@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,21 +7977,21 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>不可以直接用<code>std::mem::swap</code>，因为这个函数需要拿两个可变引用，但是不可以同时拿两个这个数组的可变引用。</p>
 <p>所以要么手写：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">let</span> tmp <span class="op">=</span> a[i]<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>a[i] <span class="op">=</span> a[j]<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>a[j] <span class="op">=</span> tmp<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> tmp <span class="op">=</span> a[i]<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a[i] <span class="op">=</span> a[j]<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a[j] <span class="op">=</span> tmp<span class="op">;</span></span></code></pre></div>
 <p>要么用<code>Vec::swap</code>：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>a<span class="op">.</span>swap(i<span class="op">,</span> j)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">.</span>swap(i<span class="op">,</span> j)<span class="op">;</span></span></code></pre></div>
 <p>其内部实现：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">fn</span> swap(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> a<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">usize</span>) <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">unsafe</span> <span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="co">// Can't take two mutable loans from one vector, so instead just cast</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="co">// them to their raw pointers to do the swap</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="kw">let</span> pa<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> T <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>[a]<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">let</span> pb<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> T <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>[b]<span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="pp">ptr::</span>swap(pa<span class="op">,</span> pb)<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> swap(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> a<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">usize</span>) <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">unsafe</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Can't take two mutable loans from one vector, so instead just cast</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// them to their raw pointers to do the swap</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> pa<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> T <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>[a]<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> pb<span class="op">:</span> <span class="op">*</span><span class="kw">mut</span> T <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>[b]<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="pp">ptr::</span>swap(pa<span class="op">,</span> pb)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/25531963/how-can-i-swap-items-in-a-vector-slice-or-array-in-rust/25532111" class="uri">https://stackoverflow.com/questions/25531963/how-can-i-swap-items-in-a-vector-slice-or-array-in-rust/25532111</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

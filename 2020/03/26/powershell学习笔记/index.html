@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,22 +7979,30 @@ mjx-container[display="true"] + br {
 <h2 id="脚本后缀名"><a href="#脚本后缀名">¶</a> 脚本后缀名</h2>
 <p>powershell的脚本后缀名是<code>ps1</code>。<code>bat</code>是cmd的后缀名。</p>
 <p>原文：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7.4" class="uri">https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scripts?view=powershell-7.4</a></p>
-<h2 id="报错在此系统上禁止运行脚本"><a href="#报错在此系统上禁止运行脚本">¶</a> 报错：<code>在此系统上禁止运行脚本</code></h2>
-<h3 id="查看execution-policy"><a href="#查看execution-policy">¶</a> 查看execution policy</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">Get-ExecutionPolicy</span></span></code></pre></div>
-<h4 id="restricted"><a href="#restricted">¶</a> <code>Restricted</code></h4>
+<h2 id="报错在此系统上禁止运行脚本"><a href="#报错在此系统上禁止运行脚本">¶</a>
+报错：<code>在此系统上禁止运行脚本</code></h2>
+<h3 id="查看execution-policy"><a href="#查看execution-policy">¶</a>
+查看execution policy</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ExecutionPolicy</span></span></code></pre></div>
+<h4 id="restricted"><a href="#restricted">¶</a>
+<code>Restricted</code></h4>
 <p>Windows 客户端计算机的默认执行策略。</p>
 <p>允许单个命令，但不允许脚本。</p>
-<p>阻止运行所有脚本文件，包括格式和配置文件 (.ps1xml)、模块脚本文件 (.psm1) 和 PowerShell 配置文件 (.ps1)。</p>
-<h4 id="remotesigned"><a href="#remotesigned">¶</a> <code>RemoteSigned</code></h4>
+<p>阻止运行所有脚本文件，包括格式和配置文件 (.ps1xml)、模块脚本文件
+(.psm1) 和 PowerShell 配置文件 (.ps1)。</p>
+<h4 id="remotesigned"><a href="#remotesigned">¶</a>
+<code>RemoteSigned</code></h4>
 <p>Windows 服务器计算机的默认执行策略。</p>
 <p>在本地计算机上编写且不是从 Internet 下载的脚本不需要数字签名。</p>
-<p>需要受信任的发布者对从 Internet 下载的脚本和配置文件（包括电子邮件和即时消息程序）的数字签名。</p>
-<h3 id="更改execution-policy"><a href="#更改execution-policy">¶</a> 更改execution policy</h3>
+<p>需要受信任的发布者对从 Internet
+下载的脚本和配置文件（包括电子邮件和即时消息程序）的数字签名。</p>
+<h3 id="更改execution-policy"><a href="#更改execution-policy">¶</a>
+更改execution policy</h3>
 <p>以管理员身份打开PowerShell，执行命令：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">set-executionpolicy</span> remotesigned</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set-executionpolicy</span> remotesigned</span></code></pre></div>
 <h3 id="原文"><a href="#原文">¶</a> 原文</h3>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yummylucky/p/14846557.html">Windows “在此系统上禁止运行脚本”解决办法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yummylucky/p/14846557.html">Windows
+“在此系统上禁止运行脚本”解决办法</a></p>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4" class="uri">https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4</a></p>
 <h2 id="linux命令"><a href="#linux命令">¶</a> Linux命令</h2>
 <p>windows的powershell支持了许多linux命令。与linux中使用方法基本相同的有：ls，rm、cat等。仍不支持的有touch、grep等。</p>

@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,15 +7976,15 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>不能直接转，只能将其移动到另一个用<code>std::unique_ptr</code>管理的对象里。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;memory&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>	<span class="bu">std::</span>shared_ptr&lt;<span class="bu">std::</span>string&gt; a = <span class="bu">std::</span>make_shared&lt;<span class="bu">std::</span>string&gt;(<span class="bu">std::</span>string(<span class="st">"test"</span>));</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *a &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>	<span class="bu">std::</span>unique_ptr&lt;<span class="bu">std::</span>string&gt; b = <span class="bu">std::</span>make_unique&lt;<span class="bu">std::</span>string&gt;(<span class="bu">std::</span>move(*a.get()));</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>	<span class="bu">std::</span>cout &lt;&lt; *b &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;memory&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>shared_ptr<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> a <span class="op">=</span> <span class="bu">std::</span>make_shared<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span><span class="bu">std::</span>string<span class="op">(</span><span class="st">"test"</span><span class="op">));</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="op">*</span>a <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>unique_ptr<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> b <span class="op">=</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span><span class="bu">std::</span>move<span class="op">(*</span>a<span class="op">.</span>get<span class="op">()));</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="op">*</span>b <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>感谢<code>#cpplang:matrix.org</code>群聊里的<code>@deepbluev7:neko.dev</code>和<code>@nenomius:matrix.org</code>的指导。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

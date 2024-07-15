@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,17 +7976,17 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="设置字体"><a href="#设置字体">¶</a> 设置字体</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="ex">QFont</span> nullFont;</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>nullFont.setItalic(<span class="kw">true</span>);</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>nullFont.setBold(<span class="kw">true</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">QFont</span> nullFont<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nullFont<span class="op">.</span>setItalic<span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>nullFont<span class="op">.</span>setBold<span class="op">(</span><span class="kw">true</span><span class="op">);</span></span></code></pre></div>
 <p>这里设置了斜体(italic)和粗体(bold)，字体型号为默认。</p>
 <h1 id="设置颜色"><a href="#设置颜色">¶</a> 设置颜色</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="ex">QBrush</span> nullColor(<span class="ex">Qt::</span>gray)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">QBrush</span> nullColor<span class="op">(</span><span class="ex">Qt::</span>gray<span class="op">)</span></span></code></pre></div>
 <p>这里设置成灰色。如果想要其他颜色可以查一下<code>QBrush</code>的帮助。</p>
 <h1 id="应用到qtablewidgetitem上"><a href="#应用到qtablewidgetitem上">¶</a> 应用到QTableWidgetItem上</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="ex">QTableWidgetItem</span> *item = <span class="kw">new</span> <span class="ex">QTableWidgetItem</span>(<span class="st">"NULL"</span>);</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>item-&gt;setFont(nullFont);</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>item-&gt;setBackground(nullColor);</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">QTableWidgetItem</span> <span class="op">*</span>item <span class="op">=</span> <span class="kw">new</span> <span class="ex">QTableWidgetItem</span><span class="op">(</span><span class="st">"NULL"</span><span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>item<span class="op">-&gt;</span>setFont<span class="op">(</span>nullFont<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>item<span class="op">-&gt;</span>setBackground<span class="op">(</span>nullColor<span class="op">);</span></span></code></pre></div>
 <p>这里使用了<code>setBackground</code>，也就是把<code>nullColor</code>设置为QTableWidgetItem的背景色。如果要设置文字颜色（也就是前景色），使用<code>setForeground</code></p>
 <p>效果：<br>
 <img src="/2020/04/03/qt-qtablewidgetitem%E8%AE%BE%E7%BD%AE%E6%96%87%E5%AD%97%E6%A0%B7%E5%BC%8F/20200403231755549.png" alt="在这里插入图片描述"></p>

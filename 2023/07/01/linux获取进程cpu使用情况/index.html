@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7999,16 +7999,17 @@ mjx-container[display="true"] + br {
                              divided by the time the process has been running (cputime/realtime ratio), expressed
                              as a percentage.  It will not add up to 100% unless you are lucky.  (alias pcpu).</code></pre>
 <h2 id="累积cpu-time"><a href="#累积cpu-time">¶</a> 累积CPU time</h2>
-<h3 id="cc-clock_gettime"><a href="#cc-clock_gettime">¶</a> C/C++: <code>clock_gettime</code></h3>
+<h3 id="cc-clock_gettime"><a href="#cc-clock_gettime">¶</a> C/C++:
+<code>clock_gettime</code></h3>
 <p>获取当前进程的CPU时间戳：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">time_t</span> process_cpu_timestamp_ns() {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="kw">struct</span> timespec t;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>  <span class="cf">if</span> (-<span class="dv">1</span> == clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;t)) {</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    perror(<span class="st">"clock_gettime"</span>);</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  }</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>  <span class="cf">return</span> t.tv_sec * <span class="dv">1000000000</span> + t.tv_nsec;</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">time_t</span> process_cpu_timestamp_ns<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> timespec t<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(-</span><span class="dv">1</span> <span class="op">==</span> clock_gettime<span class="op">(</span>CLOCK_PROCESS_CPUTIME_ID<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    perror<span class="op">(</span><span class="st">"clock_gettime"</span><span class="op">);</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> t<span class="op">.</span>tv_sec <span class="op">*</span> <span class="dv">1000000000</span> <span class="op">+</span> t<span class="op">.</span>tv_nsec<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>两个CPU时间戳相减就是中间进程消耗的CPU time。</p>
 <h3 id="ps"><a href="#ps">¶</a> ps</h3>
 <p>累积CPU time的秒数：</p>

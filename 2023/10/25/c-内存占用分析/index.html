@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7978,8 +7978,8 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="max-resident-set-size-rss"><a href="#max-resident-set-size-rss">¶</a> Max resident set size (RSS)</h2>
 <p>用<code>getrusage</code></p>
 <p>文档：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/getrusage.2.html" class="uri">https://man7.org/linux/man-pages/man2/getrusage.2.html</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;sys/resource.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="dt">int</span> getrusage(<span class="dt">int</span> who, <span class="kw">struct</span> rusage *usage);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/resource.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> getrusage<span class="op">(</span><span class="dt">int</span> who<span class="op">,</span> <span class="kw">struct</span> rusage <span class="op">*</span>usage<span class="op">);</span></span></code></pre></div>
 <h3 id="who"><a href="#who">¶</a> <code>who</code></h3>
 <pre class="text"><code>RUSAGE_SELF
       Return resource usage statistics for the calling process,
@@ -7999,39 +7999,42 @@ RUSAGE_THREAD (since Linux 2.6.26)
       The _GNU_SOURCE feature test macro must be defined (before
       including any header file) in order to obtain the
       definition of this constant from &lt;sys/resource.h&gt;.</code></pre>
-<h3 id="struct-rusage"><a href="#struct-rusage">¶</a> <code>struct rusage</code></h3>
+<h3 id="struct-rusage"><a href="#struct-rusage">¶</a>
+<code>struct rusage</code></h3>
 <p>Max RSS是这个域：</p>
 <pre class="shell"><code>long   ru_maxrss;        /* maximum resident set size */</code></pre>
 <p>单位是KiB，见<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/12050966/13688160" class="uri">https://stackoverflow.com/a/12050966/13688160</a>的第一条评论。</p>
 <p>其他常用的域：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> timeval ru_utime; <span class="co">/* user CPU time used */</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">struct</span> timeval ru_stime; <span class="co">/* system CPU time used */</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timeval ru_utime<span class="op">;</span> <span class="co">/* user CPU time used */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timeval ru_stime<span class="op">;</span> <span class="co">/* system CPU time used */</span></span></code></pre></div>
 <p>这几个域在Linux上是unmaintained状态，始终是0：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="dt">long</span>   ru_ixrss;         <span class="co">/* integral shared memory size */</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="dt">long</span>   ru_idrss;         <span class="co">/* integral unshared data size */</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="dt">long</span>   ru_isrss;         <span class="co">/* integral unshared stack size */</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_ixrss<span class="op">;</span>         <span class="co">/* integral shared memory size */</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_idrss<span class="op">;</span>         <span class="co">/* integral unshared data size */</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_isrss<span class="op">;</span>         <span class="co">/* integral unshared stack size */</span></span></code></pre></div>
 <p>所以目前通过<code>getrusage</code>不能获得current RSS</p>
 <h3 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h3>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/68284459/13688160" class="uri">https://stackoverflow.com/a/68284459/13688160</a></p>
-<h2 id="current-resident-set-size-rss"><a href="#current-resident-set-size-rss">¶</a> Current resident set size (RSS)</h2>
+<h2 id="current-resident-set-size-rss"><a href="#current-resident-set-size-rss">¶</a> Current resident set size
+(RSS)</h2>
 <h3 id="ps"><a href="#ps">¶</a> <code>ps</code></h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="bu">std::</span>string pid = <span class="bu">std::</span>to_string(getpid());</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="bu">std::</span>string mem_command = <span class="st">"ps -q "</span> + pid + <span class="st">" -o rss | tail -n 1"</span>;</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="dt">FILE</span>* pipe = popen(mem_command.c_str(), <span class="st">"r"</span>);</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="cf">if</span> (pipe == NULL) {</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>	perror(<span class="st">"popen"</span>);</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>	rusty_panic();</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>}</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>rusty_assert(fgets(buf, <span class="kw">sizeof</span>(buf), pipe) != NULL, <span class="st">"buf too short"</span>);</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a><span class="dt">size_t</span> buflen = strlen(buf);</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>rusty_assert(buflen &gt; <span class="dv">0</span>);</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>rusty_assert(buf[--buflen] == <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span>);</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>buf[buflen] = <span class="dv">0</span>;</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a><span class="cf">if</span> (-<span class="dv">1</span> == pclose(pipe)) {</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>	perror(<span class="st">"pclose"</span>);</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>	rusty_panic();</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>}</span></code></pre></div>
-<p><code>buf</code>里面就是字符串形式的current resident set size，单位是KiB：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/683319" class="uri">https://unix.stackexchange.com/a/683319</a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>pid <span class="op">=</span> <span class="bu">std::</span>to_string<span class="op">(</span>getpid<span class="op">());</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>mem_command <span class="op">=</span> <span class="st">"ps -q "</span> <span class="op">+</span> pid <span class="op">+</span> <span class="st">" -o rss | tail -n 1"</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">FILE</span><span class="op">*</span> pipe <span class="op">=</span> popen<span class="op">(</span>mem_command<span class="op">.</span>c_str<span class="op">(),</span> <span class="st">"r"</span><span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>pipe <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"popen"</span><span class="op">);</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>	rusty_panic<span class="op">();</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>fgets<span class="op">(</span>buf<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>buf<span class="op">),</span> pipe<span class="op">)</span> <span class="op">!=</span> NULL<span class="op">,</span> <span class="st">"buf too short"</span><span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dt">size_t</span> buflen <span class="op">=</span> strlen<span class="op">(</span>buf<span class="op">);</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>buflen <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>buf<span class="op">[--</span>buflen<span class="op">]</span> <span class="op">==</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">);</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>buf<span class="op">[</span>buflen<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(-</span><span class="dv">1</span> <span class="op">==</span> pclose<span class="op">(</span>pipe<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"pclose"</span><span class="op">);</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>	rusty_panic<span class="op">();</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>buf</code>里面就是字符串形式的current resident set
+size，单位是KiB：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/683319" class="uri">https://unix.stackexchange.com/a/683319</a></p>
 <p><code>rusty_panic</code>和<code>rusty_assert</code>: <a target="_blank" rel="noopener" href="https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h" class="uri">https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h</a></p>
 <h2 id="mallinfo"><a href="#mallinfo">¶</a> <code>mallinfo</code></h2>
 <p>文档：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/mallinfo.3.html" class="uri">https://man7.org/linux/man-pages/man3/mallinfo.3.html</a></p>
@@ -8057,8 +8060,10 @@ fordblks
 <pre class="shell"><code>heaptrack 可执行文件 参数...</code></pre>
 <pre class="shell"><code>heaptrack_print xxx.gz &gt; report</code></pre>
 <p>有几个section:</p>
-<h3 id="most-calls-to-allocation-functions"><a href="#most-calls-to-allocation-functions">¶</a> <code>MOST CALLS TO ALLOCATION FUNCTIONS</code></h3>
-<h3 id="peak-memory-consumers"><a href="#peak-memory-consumers">¶</a> <code>PEAK MEMORY CONSUMERS</code></h3>
+<h3 id="most-calls-to-allocation-functions"><a href="#most-calls-to-allocation-functions">¶</a>
+<code>MOST CALLS TO ALLOCATION FUNCTIONS</code></h3>
+<h3 id="peak-memory-consumers"><a href="#peak-memory-consumers">¶</a>
+<code>PEAK MEMORY CONSUMERS</code></h3>
 <p>会从大到小列出分配内存最多的位置：</p>
 <p>&lt;内存大小&gt; peak memory consumed over &lt;数量&gt; calls from<br>
 分配内存的位置</p>
@@ -8070,12 +8075,19 @@ fordblks
 &lt;内存大小&gt; consumed over &lt;数量&gt; calls from:<br>
 调用栈3...<br>
 ...</p>
-<h3 id="most-temporary-allocations"><a href="#most-temporary-allocations">¶</a> <code>MOST TEMPORARY ALLOCATIONS</code></h3>
+<h3 id="most-temporary-allocations"><a href="#most-temporary-allocations">¶</a>
+<code>MOST TEMPORARY ALLOCATIONS</code></h3>
 <h3 id="最后的summary"><a href="#最后的summary">¶</a> 最后的summary</h3>
-<h4 id="peak-heap-memory-consumption"><a href="#peak-heap-memory-consumption">¶</a> peak heap memory consumption</h4>
-<p>注意，这里是程序实际使用的heap memory，而不是整个heap占用的memory。如果使用的是glibc的内存分配器，可能会出现peak RSS显著大于peak heap memory consumption的情况，这可能是因为内存分配器出现了碎片化，导致程序实际使用的heap memory显著小于heap实际占用的memory：<a target="_blank" rel="noopener" href="https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/" class="uri">https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/</a></p>
+<h4 id="peak-heap-memory-consumption"><a href="#peak-heap-memory-consumption">¶</a> peak heap memory
+consumption</h4>
+<p>注意，这里是程序实际使用的heap
+memory，而不是整个heap占用的memory。如果使用的是glibc的内存分配器，可能会出现peak
+RSS显著大于peak heap memory
+consumption的情况，这可能是因为内存分配器出现了碎片化，导致程序实际使用的heap
+memory显著小于heap实际占用的memory：<a target="_blank" rel="noopener" href="https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/" class="uri">https://blog.cloudflare.com/the-effect-of-switching-to-tcmalloc-on-rocksdb-memory-use/</a></p>
 <p>可以通过把glibc的内存分配器换成tcmalloc或者jemalloc解决。jemalloc的速度好像比tcmalloc快一点：<a target="_blank" rel="noopener" href="https://github.com/cms-sw/cmssw/issues/42387" class="uri">https://github.com/cms-sw/cmssw/issues/42387</a></p>
-<p>rocksdb的cmake自带了使用jemalloc的选项：<code>WITH_JEMALLOC</code>，但是使用这个选项好像只会让rocksdb自己使用jemalloc，主程序似乎仍然使用glibc malloc：<a target="_blank" rel="noopener" href="https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/" class="uri">https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/</a></p>
+<p>rocksdb的cmake自带了使用jemalloc的选项：<code>WITH_JEMALLOC</code>，但是使用这个选项好像只会让rocksdb自己使用jemalloc，主程序似乎仍然使用glibc
+malloc：<a target="_blank" rel="noopener" href="https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/" class="uri">https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/</a></p>
 <p>让整个程序使用tcmalloc或者jemalloc，最保险的方法是用<code>LD_PRELOAD</code>。</p>
 <p>tcmalloc:</p>
 <pre class="shell"><code>sudo apt install libtcmalloc-minimal4
@@ -8092,7 +8104,8 @@ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...</
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40915820/override-libc-functions-without-ld-preload" class="uri">https://stackoverflow.com/questions/40915820/override-libc-functions-without-ld-preload</a></p>
 <h4 id="peak-rss"><a href="#peak-rss">¶</a> peak RSS</h4>
 <p>RSS包含了shared library占用的空间。</p>
-<h4 id="total-memory-leaked"><a href="#total-memory-leaked">¶</a> total memory leaked</h4>
+<h4 id="total-memory-leaked"><a href="#total-memory-leaked">¶</a> total
+memory leaked</h4>
 <h3 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h3>
 <p>似乎跟tcmalloc不兼容。</p>
 <pre class="shell"><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 heaptrack 命令 参数...
@@ -8107,9 +8120,11 @@ Trace recursion detected - corrupt data file?</code></pre>
 <p>能够知道哪些地方分配的内存最多。</p>
 <p>文档：<a target="_blank" rel="noopener" href="https://valgrind.org/docs/manual/ms-manual.html" class="uri">https://valgrind.org/docs/manual/ms-manual.html</a></p>
 <p>但是valgrind会模拟出一个CPU来运行，所以运行速度会慢很多。</p>
-<h3 id="illegal-instruction"><a href="#illegal-instruction">¶</a> <code>Illegal instruction</code></h3>
+<h3 id="illegal-instruction"><a href="#illegal-instruction">¶</a>
+<code>Illegal instruction</code></h3>
 <p>可能是因为用到了本地CPU支持但是valgrind不支持的指令。调整编译选项使其编译出来的指令portable就行。</p>
-<p>例如，rocksdb <code>cmake</code>的时候加上<code>-DPORTABLE=ON</code>即可。</p>
+<p>例如，rocksdb
+<code>cmake</code>的时候加上<code>-DPORTABLE=ON</code>即可。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html" class="uri">https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html</a></p>
 <h2 id="libtcmalloc"><a href="#libtcmalloc">¶</a> libtcmalloc</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://goog-perftools.sourceforge.net/doc/heap_profiler.html" class="uri">https://goog-perftools.sourceforge.net/doc/heap_profiler.html</a></p>
@@ -8141,9 +8156,14 @@ LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/prof
    ...</code></pre>
 <ul>
 <li><p>The first column contains the direct memory use in MB.</p></li>
-<li><p>The fourth column contains memory use by the procedure and all of its callees.</p></li>
-<li><p>The second and fifth columns are just percentage representations of the numbers in the first and fourth（原文是fifth，应该是写错了） columns.</p></li>
-<li><p>The third column is a cumulative sum of the second column (i.e., the kth entry in the third column is the sum of the first k entries in the second column.)</p></li>
+<li><p>The fourth column contains memory use by the procedure and all of
+its callees.</p></li>
+<li><p>The second and fifth columns are just percentage representations
+of the numbers in the first and fourth（原文是fifth，应该是写错了）
+columns.</p></li>
+<li><p>The third column is a cumulative sum of the second column (i.e.,
+the kth entry in the third column is the sum of the first k entries in
+the second column.)</p></li>
 </ul>
 <p>但是只打印内存消耗最多的地方，没有调用栈。如果加上<code>--stacks</code>，好像不会打印inline函数的调用栈，而且调用栈的打印顺序是随机的，不是按内存大小从大到小打印，看起来很难受。</p>
 <h3 id="生成图片"><a href="#生成图片">¶</a> 生成图片</h3>
@@ -8151,7 +8171,8 @@ LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/prof
 <p>以svg为例：</p>
 <pre class="shell"><code>google-pprof --svg --lines 可执行文件的路径 profile/profile.xxxx.heap &gt; xxxx.svg</code></pre>
 <h3 id="存在的问题-1"><a href="#存在的问题-1">¶</a> 存在的问题</h3>
-<p>跑得很慢。这里说libtcmalloc开了heap profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
+<p>跑得很慢。这里说libtcmalloc开了heap
+profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
 <h2 id="没试过"><a href="#没试过">¶</a> 没试过</h2>
 <h3 id="mtuner"><a href="#mtuner">¶</a> MTuner</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/RudjiGames/MTuner" class="uri">https://github.com/RudjiGames/MTuner</a></p>

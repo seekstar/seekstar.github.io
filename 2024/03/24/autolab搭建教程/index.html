@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,13 +7979,15 @@ mjx-container[display="true"] + br {
 <p>这里主要讲一些坑点。</p>
 <h2 id="ssl"><a href="#ssl">¶</a> SSL</h2>
 <p>官方教程：<a target="_blank" rel="noopener" href="https://docs.autolabproject.com/installation/docker-compose/#configuring-tlsssl" class="uri">https://docs.autolabproject.com/installation/docker-compose/#configuring-tlsssl</a></p>
-<h3 id="not-working-autolab自带的证书申请机制"><a href="#not-working-autolab自带的证书申请机制">¶</a> (not working) autolab自带的证书申请机制</h3>
+<h3 id="not-working-autolab自带的证书申请机制"><a href="#not-working-autolab自带的证书申请机制">¶</a> (not working)
+autolab自带的证书申请机制</h3>
 <pre class="shell"><code>sudo ./ssl/init-letsencrypt.sh</code></pre>
 <p>报错：</p>
 <pre class="text"><code>  Detail: 47.74.9.105: Fetching http://autolab.db.iiis.io/.well-known/acme-challenge/fCaVWPv4jdINFSnaBILQ4RToTJRZc1aiTrUed2ZOlyQ: Connection refused</code></pre>
 <p>但是宿主机80和443都开着。</p>
 <p>结论：自带的SSL证书申请不work。</p>
-<h3 id="在宿主机申请ssl证书"><a href="#在宿主机申请ssl证书">¶</a> 在宿主机申请SSL证书</h3>
+<h3 id="在宿主机申请ssl证书"><a href="#在宿主机申请ssl证书">¶</a>
+在宿主机申请SSL证书</h3>
 <p>用acme申请，网上有很多教程，这里不再赘述。</p>
 <p>acme需要在宿主机运行nginx并监听80端口。一种比较简单的方法是直接让autolab的container的443端口映射到宿主机的443，宿主机的nginx不监听443。</p>
 <p>另一种方法是在宿主机上的nginx监听443，把autolab的container的443映射到一个随机端口，然后让宿主机的nginx把访问autolab域名的https流量转发给autolab监听的端口：</p>
@@ -8007,27 +8009,36 @@ mjx-container[display="true"] + br {
 <h3 id="gmail"><a href="#gmail">¶</a> gmail</h3>
 <p>绑定手机号开启两步验证，然后就可以创建app password了。</p>
 <h3 id="amazon-ses"><a href="#amazon-ses">¶</a> Amazon SES</h3>
-<p>一定要申请production mode。sandbox模式下只能发信给指定地址。只有production mode才能发信给任意地址：<a target="_blank" rel="noopener" href="https://repost.aws/knowledge-center/ses-554-400-message-rejected-error" class="uri">https://repost.aws/knowledge-center/ses-554-400-message-rejected-error</a></p>
-<h3 id="不推荐-sendgrid"><a href="#不推荐-sendgrid">¶</a> (不推荐) sendgrid</h3>
+<p>一定要申请production
+mode。sandbox模式下只能发信给指定地址。只有production
+mode才能发信给任意地址：<a target="_blank" rel="noopener" href="https://repost.aws/knowledge-center/ses-554-400-message-rejected-error" class="uri">https://repost.aws/knowledge-center/ses-554-400-message-rejected-error</a></p>
+<h3 id="不推荐-sendgrid"><a href="#不推荐-sendgrid">¶</a> (不推荐)
+sendgrid</h3>
 <p>不知道为什么注册不了。而且帐号过一段时间不用就不能再用了：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status" class="uri">https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status</a></p>
-<h2 id="autograder要安装pkill"><a href="#autograder要安装pkill">¶</a> autograder要安装pkill</h2>
+<h2 id="autograder要安装pkill"><a href="#autograder要安装pkill">¶</a>
+autograder要安装pkill</h2>
 <p>需要在Dockerfile里<code>apt install -y procps</code></p>
 <p>不然会报这个错：</p>
 <pre class="shell"><code>Autodriver: Unable to exec at line 277: No such file or directory
 Autodriver: Error killing user processes at line 365</code></pre>
-<h2 id="tangoconfigpy"><a href="#tangoconfigpy">¶</a> <code>Tango/config.py</code></h2>
+<h2 id="tangoconfigpy"><a href="#tangoconfigpy">¶</a>
+<code>Tango/config.py</code></h2>
 <p>更改了之后重启docker即可生效：</p>
 <pre class="shell"><code>sudo docker compose stop
 sudo docker compose up -d</code></pre>
-<h3 id="改大vm_ulimit_user_proc"><a href="#改大vm_ulimit_user_proc">¶</a> 改大<code>VM_ULIMIT_USER_PROC</code></h3>
+<h3 id="改大vm_ulimit_user_proc"><a href="#改大vm_ulimit_user_proc">¶</a>
+改大<code>VM_ULIMIT_USER_PROC</code></h3>
 <p><code>VM_ULIMIT_USER_PROC</code>默认100，太小了。改大一些：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>VM_ULIMIT_USER_PROC <span class="op">=</span> <span class="dv">10000</span></span></code></pre></div>
-<p>太小的话分配太多<code>std::async</code>会失败，然后似乎会fall back到单线程模式。</p>
-<h3 id="vm_ulimit_file_size"><a href="#vm_ulimit_file_size">¶</a> <code>VM_ULIMIT_FILE_SIZE</code></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>VM_ULIMIT_USER_PROC <span class="op">=</span> <span class="dv">10000</span></span></code></pre></div>
+<p>太小的话分配太多<code>std::async</code>会失败，然后似乎会fall
+back到单线程模式。</p>
+<h3 id="vm_ulimit_file_size"><a href="#vm_ulimit_file_size">¶</a>
+<code>VM_ULIMIT_FILE_SIZE</code></h3>
 <p>如果autograde的时候报了这个错：</p>
 <pre class="shell"><code>Error running link command: SIGXFSZ</code></pre>
 <p>说明编译产生的文件大小超限了。在<code>Tango/config.py</code>里把<code>VM_ULIMIT_FILE_SIZE</code>设置大一些（默认100MiB）</p>
-<p>注意，<code>VM_ULIMIT_FILE_SIZE</code>似乎是用32 bit integer存的，所以值一定要小于4G，不然会溢出。</p>
+<p>注意，<code>VM_ULIMIT_FILE_SIZE</code>似乎是用32 bit
+integer存的，所以值一定要小于4G，不然会溢出。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

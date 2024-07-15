@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7983,7 +7983,8 @@ mjx-container[display="true"] + br {
 <p>但是<code>/boot/grub/grub.cfg</code>里这行是这个：</p>
 <pre><code>initrd	/boot/intel-ucode.img /boot/initramfs-linux-lts.img</code></pre>
 <p>在grub编辑器里手动加上<code>/boot/initramfs-linux-lts.img</code>之后，就能进系统了。</p>
-<p>所以问题的原因是GRUB GUI的界面是debian 11提供的，但是debian 11的GRUB有BUG，在读取arch的<code>/boot/grub/grub.cfg</code>时在<code>initrd</code>这行少读了一项，生成了错误的GRUB菜单。</p>
+<p>所以问题的原因是GRUB GUI的界面是debian 11提供的，但是debian
+11的GRUB有BUG，在读取arch的<code>/boot/grub/grub.cfg</code>时在<code>initrd</code>这行少读了一项，生成了错误的GRUB菜单。</p>
 <p>解决方法有如下几个：</p>
 <ul>
 <li>卸载intel-ucode</li>

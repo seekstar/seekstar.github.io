@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7984,60 +7984,60 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>可以通过设置<code>DBOptions::db_paths</code>实现，代码里的相关注释：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>  <span class="co">// A list of paths where SST files can be put into, with its target size.</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  <span class="co">// Newer data is placed into paths specified earlier in the vector while</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  <span class="co">// older data gradually moves to paths specified later in the vector.</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span class="co">//</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  <span class="co">// For example, you have a flash device with 10GB allocated for the DB,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  <span class="co">// as well as a hard drive of 2TB, you should config it to be:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>  <span class="co">//   [{"/flash_path", 10GB}, {"/hard_drive", 2TB}]</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  <span class="co">//</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>  <span class="co">// The system will try to guarantee data under each path is close to but</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>  <span class="co">// not larger than the target size. But current and future file sizes used</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>  <span class="co">// by determining where to place a file are based on best-effort estimation,</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>  <span class="co">// which means there is a chance that the actual size under the directory</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>  <span class="co">// is slightly more than target size under some workloads. User should give</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>  <span class="co">// some buffer room for those cases.</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>  <span class="co">//</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>  <span class="co">// If none of the paths has sufficient room to place a file, the file will</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>  <span class="co">// be placed to the last path anyway, despite to the target size.</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>  <span class="co">//</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>  <span class="co">// Placing newer data to earlier paths is also best-efforts. User should</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>  <span class="co">// expect user files to be placed in higher levels in some extreme cases.</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>  <span class="co">//</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>  <span class="co">// If left empty, only one path will be used, which is db_name passed when</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a>  <span class="co">// opening the DB.</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>  <span class="co">// Default: empty</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a>  <span class="bu">std::</span>vector&lt;DbPath&gt; db_paths;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// A list of paths where SST files can be put into, with its target size.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Newer data is placed into paths specified earlier in the vector while</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// older data gradually moves to paths specified later in the vector.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">//</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// For example, you have a flash device with 10GB allocated for the DB,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// as well as a hard drive of 2TB, you should config it to be:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">//   [{"/flash_path", 10GB}, {"/hard_drive", 2TB}]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">//</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// The system will try to guarantee data under each path is close to but</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// not larger than the target size. But current and future file sizes used</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// by determining where to place a file are based on best-effort estimation,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// which means there is a chance that the actual size under the directory</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// is slightly more than target size under some workloads. User should give</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// some buffer room for those cases.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">//</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// If none of the paths has sufficient room to place a file, the file will</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// be placed to the last path anyway, despite to the target size.</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">//</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Placing newer data to earlier paths is also best-efforts. User should</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">// expect user files to be placed in higher levels in some extreme cases.</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">//</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// If left empty, only one path will be used, which is db_name passed when</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">// opening the DB.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Default: empty</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>vector<span class="op">&lt;</span>DbPath<span class="op">&gt;</span> db_paths<span class="op">;</span></span></code></pre></div>
 <p>例子：假设快速存储设备挂载到了<code>/tmp/sd</code>上，慢速存储设备挂载到了<code>/tmp/cd</code>上，数据库的主目录放到<code>/tmp/rocksdb</code>里。把如下内容保存为<code>test.cpp</code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;filesystem&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;fstream&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstdint&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">"rocksdb/db.h"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv) {</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    rocksdb::Options options;</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>    options.db_paths = &lt;!--swig￼<span class="dv">0</span>--&gt;; <span class="co">// 100MB, 1GB</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    rocksdb::DB *db;</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    options.create_if_missing = <span class="kw">true</span>;</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>    <span class="kw">auto</span> s = rocksdb::DB::Open(options, <span class="st">"/tmp/rocksdb"</span>, &amp;db);</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">uint64_t</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10000000</span>; ++i) {</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>        rocksdb::Slice key_slice((<span class="at">const</span> <span class="dt">char</span> *)&amp;i, <span class="dv">8</span>);</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>        rocksdb::Slice value_slice((<span class="at">const</span> <span class="dt">char</span> *)&amp;i, <span class="dv">8</span>);</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>        <span class="kw">auto</span> s = db-&gt;Put(rocksdb::WriteOptions(), key_slice, value_slice);</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>        <span class="cf">if</span> (!s.ok()) {</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>            <span class="bu">std::</span>cout &lt;&lt; <span class="st">"Put failed with error: "</span> &lt;&lt; s.ToString() &lt;&lt; <span class="bu">std::</span>endl;</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>            <span class="kw">delete</span> db;</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>            <span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>        }</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>    }</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>    <span class="kw">delete</span> db;</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;filesystem&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fstream&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdint&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"rocksdb/db.h"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    rocksdb<span class="op">::</span>Options options<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    options<span class="op">.</span>db_paths <span class="op">=</span> <span class="op">&lt;!--</span>swig￼<span class="dv">0</span><span class="op">--&gt;;</span> <span class="co">// 100MB, 1GB</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    rocksdb<span class="op">::</span>DB <span class="op">*</span>db<span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    options<span class="op">.</span>create_if_missing <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> s <span class="op">=</span> rocksdb<span class="op">::</span>DB<span class="op">::</span>Open<span class="op">(</span>options<span class="op">,</span> <span class="st">"/tmp/rocksdb"</span><span class="op">,</span> <span class="op">&amp;</span>db<span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">uint64_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10000000</span><span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        rocksdb<span class="op">::</span>Slice key_slice<span class="op">((</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*)&amp;</span>i<span class="op">,</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        rocksdb<span class="op">::</span>Slice value_slice<span class="op">((</span><span class="at">const</span> <span class="dt">char</span> <span class="op">*)&amp;</span>i<span class="op">,</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> s <span class="op">=</span> db<span class="op">-&gt;</span>Put<span class="op">(</span>rocksdb<span class="op">::</span>WriteOptions<span class="op">(),</span> key_slice<span class="op">,</span> value_slice<span class="op">);</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>s<span class="op">.</span>ok<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Put failed with error: "</span> <span class="op">&lt;&lt;</span> s<span class="op">.</span>ToString<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">delete</span> db<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span> db<span class="op">;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>编译运行，记得把RocksDB的路径换成自己机器上的：</p>
 <pre class="shell"><code>rm -rf /tmp/rocksdb/ &amp;&amp; rm -rf /tmp/sd/* &amp;&amp; rm -rf /tmp/cd/*
 g++ test.cpp -o test -lrocksdb -I/home/searchstar/git/master/rocksdb/include/ -L/home/searchstar/git/master/rocksdb/build/

@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,7 +7979,8 @@ mjx-container[display="true"] + br {
 <h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <h3 id="archlinux"><a href="#archlinux">¶</a> ArchLinux</h3>
 <pre class="shell"><code>sudo pacman -S xfce4</code></pre>
-<h3 id="centos-9-stream"><a href="#centos-9-stream">¶</a> CentOS 9 stream</h3>
+<h3 id="centos-9-stream"><a href="#centos-9-stream">¶</a> CentOS 9
+stream</h3>
 <pre class="shell"><code>sudo yum groupinstall Xfce
 sudo yum install sddm
 sudo systemctl enable sddm --now</code></pre>
@@ -7987,8 +7988,10 @@ sudo systemctl enable sddm --now</code></pre>
 <pre class="shell"><code>sudo systemctl set-default graphical.target</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/mo5k1m8Ezw/">Centos7更改默认启动桌面（或命令行）模式</a></p>
 <h2 id="设置快捷键"><a href="#设置快捷键">¶</a> 设置快捷键</h2>
-<p>设置窗口相关的快捷键：Settings Manager -&gt; Window Manager -&gt; Keyboard</p>
-<p>设置执行自定义命令的快捷键：Settings Manager -&gt; Keyboard -&gt; Application Shortcuts</p>
+<p>设置窗口相关的快捷键：Settings Manager -&gt; Window Manager -&gt;
+Keyboard</p>
+<p>设置执行自定义命令的快捷键：Settings Manager -&gt; Keyboard -&gt;
+Application Shortcuts</p>
 <p>也可以用命令行来设置快捷键：<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="xfce命令行设置快捷键">xfce命令行设置快捷键</a></p>
 <h2 id="托盘项"><a href="#托盘项">¶</a> 托盘项</h2>
 <h3 id="音量调节"><a href="#音量调节">¶</a> 音量调节</h3>
@@ -8000,7 +8003,8 @@ sudo systemctl enable sddm --now</code></pre>
 <h3 id="网络管理"><a href="#网络管理">¶</a> 网络管理</h3>
 <pre class="shell"><code>sudo pacman -S --needed network-manager-applet</code></pre>
 <p>然后启动<code>nm-applet</code>：<code>nohup nm-applet &amp;</code>，托盘中就会出现网络管理的托盘项了。logout再login之后它会被自动启动。</p>
-<p>在Settings Manager里没有网络管理的入口。如果需要管理网络连接，需要右键网络管理的托盘项，选择<code>Edit Connections</code>，里面就可以设置自动连接之类的了。</p>
+<p>在Settings
+Manager里没有网络管理的入口。如果需要管理网络连接，需要右键网络管理的托盘项，选择<code>Edit Connections</code>，里面就可以设置自动连接之类的了。</p>
 <h3 id="蓝牙管理"><a href="#蓝牙管理">¶</a> 蓝牙管理</h3>
 <pre class="shell"><code>sudo pacman -S --needed blueman</code></pre>
 <p>然后<code>nohup blueman-applet &amp;</code>，托盘中就出现蓝牙管理的托盘项了。重启之后会被自动启动。</p>
@@ -8013,8 +8017,10 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Proxy_server" class="uri">https://wiki.archlinux.org/title/Proxy_server</a></p>
 <h2 id="翻转滚动方向"><a href="#翻转滚动方向">¶</a> 翻转滚动方向</h2>
 <p>默认不是自然滚动。可以通过翻转滚动方向来实现自然滚动。</p>
-<h3 id="用synclient设置"><a href="#用synclient设置">¶</a> 用<code>synclient</code>设置</h3>
-<h4 id="手动交互式配置"><a href="#手动交互式配置">¶</a> 手动交互式配置</h4>
+<h3 id="用synclient设置"><a href="#用synclient设置">¶</a>
+用<code>synclient</code>设置</h3>
+<h4 id="手动交互式配置"><a href="#手动交互式配置">¶</a>
+手动交互式配置</h4>
 <p>首先要把系统设置里的<code>Reverse scroll direction</code>取消勾选。</p>
 <pre class="shell"><code>sudo pacman -S xf86-input-synaptics</code></pre>
 <p>然后重启。运行<code>synclient</code>，查看<code>VertScrollDelta</code>和<code>HorizScrollDelta</code>的当前值，我的：</p>
@@ -8032,10 +8038,12 @@ synclient VertScrollDelta=$((-$old_value))
 old_value=$(synclient | awk '{if ($1 == "HorizScrollDelta") { print $3 }}')
 synclient HorizScrollDelta=$((-$old_value))</code></pre>
 <p>然后<code>source /etc/profile</code>或者重启即可生效。</p>
-<h3 id="系统设置不推荐"><a href="#系统设置不推荐">¶</a> 系统设置（不推荐）</h3>
+<h3 id="系统设置不推荐"><a href="#系统设置不推荐">¶</a>
+系统设置（不推荐）</h3>
 <p><code>Settings Manager -&gt; Mouse and Touchpad</code>，先在<code>Device:</code>选择设备，然后勾选<code>Reverse scroll direction</code>即可。注意这里鼠标和触摸板的设置是分开的，需要在<code>Device:</code>分别选择鼠标和触摸板来设置。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/690513" class="uri">https://askubuntu.com/a/690513</a></p>
-<p>但是vscode和konsole好像不认这个设置，滚动方向跟设置前一样。这是XFCE的一个历史悠久的BUG: <a target="_blank" rel="noopener" href="https://gitlab.xfce.org/xfce/xfce4-settings/-/issues/47" class="uri">https://gitlab.xfce.org/xfce/xfce4-settings/-/issues/47</a></p>
+<p>但是vscode和konsole好像不认这个设置，滚动方向跟设置前一样。这是XFCE的一个历史悠久的BUG:
+<a target="_blank" rel="noopener" href="https://gitlab.xfce.org/xfce/xfce4-settings/-/issues/47" class="uri">https://gitlab.xfce.org/xfce/xfce4-settings/-/issues/47</a></p>
 <h2 id="tap-to-click"><a href="#tap-to-click">¶</a> Tap to click</h2>
 <p><code>Settings Manager -&gt; Mouse and Touchpad</code>，<code>Device:</code>选择触摸板，然后选择<code>Touchpad</code>选项卡，勾选<code>Tap touchpad to click</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://forums.linuxmint.com/viewtopic.php?t=272698" class="uri">https://forums.linuxmint.com/viewtopic.php?t=272698</a></p>
@@ -8048,7 +8056,8 @@ sudo apt install xfce4-screensaver</code></pre>
 <p>然后左键右上角，点击<code>Lock Screen</code>就可以锁屏了。</p>
 <p>快捷键设置在<code>Settings Manager -&gt; Keyboard -&gt; Application shortcuts -&gt; xflock4</code>。默认是<code>ctrl+alt+L</code>。可以改成<code>Super+L</code>。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Xfce#Lock_the_screen" class="uri">https://wiki.archlinux.org/title/Xfce#Lock_the_screen</a></p>
-<h2 id="剪切板管理工具"><a href="#剪切板管理工具">¶</a> 剪切板管理工具</h2>
+<h2 id="剪切板管理工具"><a href="#剪切板管理工具">¶</a>
+剪切板管理工具</h2>
 <h3 id="快捷键"><a href="#快捷键">¶</a> 快捷键</h3>
 <pre class="shell"><code># ArchLinux
 sudo pacman -S xfce4-clipman-plugin</code></pre>

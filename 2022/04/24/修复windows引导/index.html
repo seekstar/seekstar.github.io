@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,8 +7976,10 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>本博客是修复以后凭记忆写的，记忆不一定准确。</p>
-<p>情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system reserved分区。在Linux上进行<code>update-grub</code>没有办法识别出这个windows系统，因此这个windows系统无法出现在grub界面，也无法以其他方式进入。</p>
-<p>首先我尝试了rescatux里的重新安装windows EFI，为此甚至修复了rescatux无法处理NVMe分区的BUG。然后<code>/boot/efi/EFI/</code>目录里多了个<code>Microsoft</code>的文件夹，里面有几个文件。但是<code>update-grub</code>之后仍然无法识别出windows系统。</p>
+<p>情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system
+reserved分区。在Linux上进行<code>update-grub</code>没有办法识别出这个windows系统，因此这个windows系统无法出现在grub界面，也无法以其他方式进入。</p>
+<p>首先我尝试了rescatux里的重新安装windows
+EFI，为此甚至修复了rescatux无法处理NVMe分区的BUG。然后<code>/boot/efi/EFI/</code>目录里多了个<code>Microsoft</code>的文件夹，里面有几个文件。但是<code>update-grub</code>之后仍然无法识别出windows系统。</p>
 <p>受rescatux启发，我把另一台电脑上的<code>/boot/efi/EFI/Microsoft</code>拷贝到这台出问题的电脑上的<code>/boot/efi/EFI/Microsoft</code>里，然后<code>update-grub</code>，这时识别出了<code>windows boot manager</code>。但是在grub界面选择<code>windows boot manager</code>进去之后，又报错<code>你的电脑/设备需要修复</code>。</p>
 <p>然后我烧了个windows启动盘，进去之后不安装，而是选择<code>修复这台计算机</code>，选择<code>疑难解答</code>，选择<code>引导修复</code>。但是显示无法修复。然后我进入命令提示符，按照这篇文章的方式修复：<a target="_blank" rel="noopener" href="http://www.xiaoyuxitong.com/windows10/49943.html" class="uri">http://www.xiaoyuxitong.com/windows10/49943.html</a>。但是执行到<code>BOOTREC /FIXBOOT</code>的时候报错<code>拒绝访问</code>。</p>
 <p>然后尝试用这篇文章的方式来修复这个<code>拒绝访问</code>的问题：<a target="_blank" rel="noopener" href="https://vrshendeng.com/1557.html" class="uri">https://vrshendeng.com/1557.html</a>。发现还是<code>拒绝访问</code>。</p>

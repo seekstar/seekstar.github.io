@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7986,42 +7986,46 @@ mjx-container[display="true"] + br {
 <p><a target="_blank" rel="noopener" href="https://crates.io/crates/tempfile" class="uri">https://crates.io/crates/tempfile</a></p>
 <p>临时目录：<a target="_blank" rel="noopener" href="https://docs.rs/tempfile/latest/tempfile/fn.tempdir.html" class="uri">https://docs.rs/tempfile/latest/tempfile/fn.tempdir.html</a></p>
 <h2 id="获取文件长度"><a href="#获取文件长度">¶</a> 获取文件长度</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(path)<span class="op">?;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">let</span> len <span class="op">=</span> file<span class="op">.</span>metadata()<span class="op">?.</span>len()<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(path)<span class="op">?;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> len <span class="op">=</span> file<span class="op">.</span>metadata()<span class="op">?.</span>len()<span class="op">;</span></span></code></pre></div>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/fs/struct.File.html#method.metadata" class="uri">https://doc.rust-lang.org/stable/std/fs/struct.File.html#method.metadata</a></p>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/fs/struct.Metadata.html" class="uri">https://doc.rust-lang.org/stable/std/fs/struct.Metadata.html</a></p>
 <h2 id="path"><a href="#path">¶</a> Path</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/path/struct.Path.html" class="uri">https://doc.rust-lang.org/std/path/struct.Path.html</a></p>
 <p>常用：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="pp">assert_eq!</span>(<span class="dt">Path</span><span class="pp">::</span>new(<span class="st">"/etc"</span>)<span class="op">.</span>join(<span class="st">"passwd"</span>)<span class="op">,</span> <span class="dt">PathBuf</span><span class="pp">::</span>from(<span class="st">"/etc/passwd"</span>))<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">assert_eq!</span>(<span class="dt">Path</span><span class="pp">::</span>new(<span class="st">"/etc"</span>)<span class="op">.</span>join(<span class="st">"passwd"</span>)<span class="op">,</span> <span class="dt">PathBuf</span><span class="pp">::</span>from(<span class="st">"/etc/passwd"</span>))<span class="op">;</span></span></code></pre></div>
 <h2 id="错误处理"><a href="#错误处理">¶</a> 错误处理</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/std/io/struct.Error.html" class="uri">https://doc.rust-lang.org/std/io/struct.Error.html</a></p>
 <p>常用：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">// On Linux</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">let</span> error <span class="op">=</span> <span class="pp">io::</span><span class="bu">Error</span><span class="pp">::</span>from_raw_os_error(<span class="dv">22</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="pp">assert_eq!</span>(error<span class="op">.</span>kind()<span class="op">,</span> <span class="pp">io::ErrorKind::</span>InvalidInput)<span class="op">;</span></span></code></pre></div>
-<h2 id="从文件中读取整型"><a href="#从文件中读取整型">¶</a> 从文件中读取整型</h2>
-<p>如果只用标准库里的safe rust的话，只能先读进一个buffer里，然后再转成integer：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/70466567/read-binary-file-in-units-of-f64-in-rust" class="uri">https://stackoverflow.com/questions/70466567/read-binary-file-in-units-of-f64-in-rust</a>。定义buffer的时候一般得初始化为0，而且后面将buffer转换成integer也需要一次复制（虽然可能会被编译器优化掉）。例子：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">mut</span> reader <span class="op">=</span> <span class="pp">io::Cursor::</span>new([<span class="dv">1u8</span><span class="op">,</span> <span class="dv">2u8</span><span class="op">,</span> <span class="dv">3u8</span><span class="op">,</span> <span class="dv">4u8</span>])<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> [<span class="dv">0u8</span><span class="op">;</span> <span class="dv">4</span>]<span class="op">;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>reader<span class="op">.</span>read_exact(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="kw">let</span> v <span class="op">=</span> <span class="dt">u32</span><span class="pp">::</span>from_le_bytes(buf)<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="pp">assert_eq!</span>(v<span class="op">,</span> <span class="dv">0x04030201</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// On Linux</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> error <span class="op">=</span> <span class="pp">io::</span><span class="bu">Error</span><span class="pp">::</span>from_raw_os_error(<span class="dv">22</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">assert_eq!</span>(error<span class="op">.</span>kind()<span class="op">,</span> <span class="pp">io::ErrorKind::</span>InvalidInput)<span class="op">;</span></span></code></pre></div>
+<h2 id="从文件中读取整型"><a href="#从文件中读取整型">¶</a>
+从文件中读取整型</h2>
+<p>如果只用标准库里的safe
+rust的话，只能先读进一个buffer里，然后再转成integer：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/70466567/read-binary-file-in-units-of-f64-in-rust" class="uri">https://stackoverflow.com/questions/70466567/read-binary-file-in-units-of-f64-in-rust</a>。定义buffer的时候一般得初始化为0，而且后面将buffer转换成integer也需要一次复制（虽然可能会被编译器优化掉）。例子：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> reader <span class="op">=</span> <span class="pp">io::Cursor::</span>new([<span class="dv">1u8</span><span class="op">,</span> <span class="dv">2u8</span><span class="op">,</span> <span class="dv">3u8</span><span class="op">,</span> <span class="dv">4u8</span>])<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> [<span class="dv">0u8</span><span class="op">;</span> <span class="dv">4</span>]<span class="op">;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>reader<span class="op">.</span>read_exact(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> v <span class="op">=</span> <span class="dt">u32</span><span class="pp">::</span>from_le_bytes(buf)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">assert_eq!</span>(v<span class="op">,</span> <span class="dv">0x04030201</span>)<span class="op">;</span></span></code></pre></div>
 <p>相关：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs/blob/master/text/2930-read-buf.md" class="uri">https://github.com/rust-lang/rfcs/blob/master/text/2930-read-buf.md</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.rs/binread/latest/binread/" class="uri">https://docs.rs/binread/latest/binread/</a></p>
-<h2 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a> 从文件中逐行读取</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">for</span> line <span class="kw">in</span> reader<span class="op">.</span>lines() <span class="op">{</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="从文件中逐行读取"><a href="#从文件中逐行读取">¶</a>
+从文件中逐行读取</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> file <span class="op">=</span> <span class="pp">File::</span>open(<span class="st">"path"</span>)<span class="op">?;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> reader <span class="op">=</span> <span class="pp">BufReader::</span>new(file)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> reader<span class="op">.</span>lines() <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>值得注意的是，<code>io::stdin()</code>也可以这样：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">for</span> line <span class="kw">in</span> <span class="pp">io::</span>stdin()<span class="op">.</span>lines() <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在 Rust 中读取文件的 4 种方法</a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> <span class="pp">io::</span>stdin()<span class="op">.</span>lines() <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> line<span class="op">?</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29607687/article/details/125438652">在
+Rust 中读取文件的 4 种方法</a></p>
 <h2 id="在文件中从后往前逐行读取"><a href="#在文件中从后往前逐行读取">¶</a> 在文件中从后往前逐行读取</h2>
 <p>用crate <code>rev_lines</code>: <a target="_blank" rel="noopener" href="https://github.com/mjc-gh/rev_lines" class="uri">https://github.com/mjc-gh/rev_lines</a></p>
 <p>或者crate <code>rev_buf_reader</code>: <a target="_blank" rel="noopener" href="https://github.com/andre-vm/rev_buf_reader" class="uri">https://github.com/andre-vm/rev_buf_reader</a></p>

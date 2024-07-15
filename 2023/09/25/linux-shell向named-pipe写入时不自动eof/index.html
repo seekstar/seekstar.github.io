@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7987,7 +7987,9 @@ echo 111 &gt; p
 echo 222 &gt; p</code></pre>
 <p><code>cat p</code>会打印出<code>111</code>，但是紧接着就因为读到了EOF而退出了，因此<code>echo 222 &gt; p</code>会卡住。</p>
 <p>这是因为当pipe文件的最后一个writer关闭之后，就会自动发送一个EOF。而<code>echo 111 &gt; p</code>完成之后，<code>p</code>就没有writer了，因此会自动发送一个EOF。</p>
-<p>因此如果要让<code>echo 111 &gt; p</code>之后不要发送EOF，只需要保持pipe文件至少有一个writer。我们可以在一开始就<code>exec 3&gt;p</code>，把shell的3号file descriptor重定向到pipe文件，这样它就一直有一个writer，最后写入完毕需要EOF时，<code>exec 3&gt;&amp;-</code>将3号file descriptor关闭即可：</p>
+<p>因此如果要让<code>echo 111 &gt; p</code>之后不要发送EOF，只需要保持pipe文件至少有一个writer。我们可以在一开始就<code>exec 3&gt;p</code>，把shell的3号file
+descriptor重定向到pipe文件，这样它就一直有一个writer，最后写入完毕需要EOF时，<code>exec 3&gt;&amp;-</code>将3号file
+descriptor关闭即可：</p>
 <pre class="shell"><code>mkfifo p
 cat p &amp;
 exec 3&gt;p
@@ -8003,7 +8005,8 @@ cat p &amp;
 echo 111 &gt; p
 echo 222 &gt; p
 exec 3&gt;&amp;-</code></pre>
-<p>但是很奇怪的是<code>exec 3&gt;&amp;-</code>似乎并没有成功关闭file descriptor，<code>cat p &amp;</code>并没有停止运行。</p>
+<p>但是很奇怪的是<code>exec 3&gt;&amp;-</code>似乎并没有成功关闭file
+descriptor，<code>cat p &amp;</code>并没有停止运行。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

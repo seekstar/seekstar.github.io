@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,7 +7975,8 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>本文展示了如何使用另一个已安装的Linux系统安装ArchLinux。本文以Deepin V23为例。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>本文展示了如何使用另一个已安装的Linux系统安装ArchLinux。本文以Deepin
+V23为例。</p>
 <h2 id="必要工具"><a href="#必要工具">¶</a> 必要工具</h2>
 <p>这些工具ArchLinux的启动盘已经提供了。我们不用启动盘的话就得自己编译安装。</p>
 <h3 id="pacstrap-和-arch-chroot"><a href="#pacstrap-和-arch-chroot">¶</a> pacstrap 和 arch-chroot</h3>
@@ -8042,7 +8043,8 @@ sudo mkfs.ext4 $rootdev
 sudo mount $rootdev /mnt
 sudo mkdir /mnt/efi
 sudo mount $efidev /mnt/efi</code></pre>
-<h2 id="安装必要的包以及进行必要的配置"><a href="#安装必要的包以及进行必要的配置">¶</a> 安装必要的包，以及进行必要的配置</h2>
+<h2 id="安装必要的包以及进行必要的配置"><a href="#安装必要的包以及进行必要的配置">¶</a>
+安装必要的包，以及进行必要的配置</h2>
 <pre class="shell"><code>sudo pacstrap /mnt base base-devel linux linux-headers linux-firmware dhcpcd vim bash-completion
 sudo bash -c "genfstab -U /mnt &gt;&gt; /mnt/etc/fstab"
 #hostname=hasee-arch
@@ -8077,7 +8079,8 @@ systemctl enable sddm
 pacman -S --needed packagekit-qt5 packagekit appstream-qt appstream</code></pre>
 <p>好像默认只有X11 session。如果要wayland session的话：</p>
 <pre class="shell"><code>sudo pacman -S plasma-wayland-session</code></pre>
-<h2 id="安装一些额外包"><a href="#安装一些额外包">¶</a> 安装一些额外包</h2>
+<h2 id="安装一些额外包"><a href="#安装一些额外包">¶</a>
+安装一些额外包</h2>
 <pre class="shell"><code># Sound
 pacman -S --needed sof-firmware alsa-firmware alsa-ucm-conf
 pacman -S --needed ntfs-3g
@@ -8098,7 +8101,8 @@ sudo localectl set-locale LANG=en_US.UTF-8
 <pre class="shell"><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></pre>
 <h2 id="引导"><a href="#引导">¶</a> 引导</h2>
 <p>可以直接使用原有的引导，也可以安装并使用ArchLinux的引导。</p>
-<h3 id="使用原有的引导"><a href="#使用原有的引导">¶</a> 使用原有的引导</h3>
+<h3 id="使用原有的引导"><a href="#使用原有的引导">¶</a>
+使用原有的引导</h3>
 <pre class="shell"><code>update-grub</code></pre>
 <h3 id="安装并使用archlinux的引导"><a href="#安装并使用archlinux的引导">¶</a> 安装并使用ArchLinux的引导</h3>
 <pre class="shell"><code>pacman -S --needed grub efibootmgr

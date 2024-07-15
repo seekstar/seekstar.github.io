@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,17 +7977,25 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="gpu结构概览"><a href="#gpu结构概览">¶</a> GPU结构概览</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/fengtian12345/article/details/80546799" class="uri">https://blog.csdn.net/fengtian12345/article/details/80546799</a><br>
-硬件上，GPU由多个SM(Steaming Multiprocessor)构成，SM有多个warp，warp有多个SP(streaming processor)，一个SP对应一个线程。<br>
+硬件上，GPU由多个SM(Steaming
+Multiprocessor)构成，SM有多个warp，warp有多个SP(streaming
+processor)，一个SP对应一个线程。<br>
 一个warp中的SP执行相同的指令。</p>
 <p>软件上，一个kernel(就是核函数的kernel)对应一个grid，一个grid有多个block，一个block有多个thread。<br>
 block是加载到SM上运行的。<br>
 <img src="/2020/12/31/gpu%E7%BC%96%E7%A8%8B%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/20201231165326629.png" alt="在这里插入图片描述"><br>
 图片来源：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" class="uri">https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html</a></p>
-<p>block内部可以使用SM提供的shared memory和__syncthreads()功能实现线程同步和通信。但是block之间除了结束kernel之外是无法同步的。</p>
-<h1 id="一个warp中的线程执行同一分支"><a href="#一个warp中的线程执行同一分支">¶</a> 一个warp中的线程执行同一分支</h1>
+<p>block内部可以使用SM提供的shared
+memory和__syncthreads()功能实现线程同步和通信。但是block之间除了结束kernel之外是无法同步的。</p>
+<h1 id="一个warp中的线程执行同一分支"><a href="#一个warp中的线程执行同一分支">¶</a>
+一个warp中的线程执行同一分支</h1>
 <p>由于一个warp中的SP执行相同的指令，所以如果代码中有分支，而一个warp中一部分线程执行一个分支，一部分线程执行另一个分支，则会造成一些线程停滞。所以要尽量保证一个warp内的线程都执行同一个分支。</p>
-<h1 id="一个block中的线程操作的内存地址应当临近"><a href="#一个block中的线程操作的内存地址应当临近">¶</a> 一个block中的线程操作的内存地址应当临近</h1>
-<p>由于block是放到一个SM中执行的，而一个SM中的所有SP都共享一个L1 cache，所以如果一个block中的线程操作的内存地址相距很远，那么一些cache line被load到L1 cache后没有怎么被用到就被其他线程load进来的cache line挤出去了，那就会造成严重的读写放大，严重影响效率。</p>
+<h1 id="一个block中的线程操作的内存地址应当临近"><a href="#一个block中的线程操作的内存地址应当临近">¶</a>
+一个block中的线程操作的内存地址应当临近</h1>
+<p>由于block是放到一个SM中执行的，而一个SM中的所有SP都共享一个L1
+cache，所以如果一个block中的线程操作的内存地址相距很远，那么一些cache
+line被load到L1 cache后没有怎么被用到就被其他线程load进来的cache
+line挤出去了，那就会造成严重的读写放大，严重影响效率。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

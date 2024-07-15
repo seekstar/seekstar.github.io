@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7992,36 +7992,36 @@ mjx-container[display="true"] + br {
 <p>这里面没有加这个也能跑：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f233528c8303">RocksDB简单使用</a>。可能是因为新版本才需要加这个？</p>
 <p>我咋知道要加这个的？观察<code>make shared_lib</code>之后生成的<code>make_config.mk</code>，发现里面跟malloc有关的有<code>-ltcmalloc</code>，所以尝试在编译的时候加<code>-ltcmalloc</code>，就解决这个问题了。我也不是很清楚是什么原理。</p>
 <p>其实写个Makefile也可以：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">ROCKSDB_DIR </span><span class="ch">:=</span><span class="st"> /home/searchstar/git/shared_lib/rocksdb/</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">include</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/make_config.mk</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="cf">ifndef</span> DISABLE_JEMALLOC</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	<span class="cf">ifdef</span> JEMALLOC</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>		<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> -DROCKSDB_JEMALLOC -DJEMALLOC_NO_DEMANGLE</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	<span class="cf">endif</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>	<span class="dt">EXEC_LDFLAGS </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_LIB</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span><span class="st"> -lpthread</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>	<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_INCLUDE</span><span class="ch">)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="cf">endif</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="cf">ifneq</span> (<span class="ch">$(</span><span class="dt">USE_RTTI</span><span class="ch">)</span>, 1)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>	<span class="dt">CXXFLAGS </span><span class="ch">+=</span><span class="st"> -fno-rtti</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="cf">endif</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a><span class="dt">CFLAGS </span><span class="ch">+=</span><span class="st"> -Wstrict-prototypes</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a><span class="ot">.PHONY:</span><span class="dt"> clean librocksdb</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a><span class="dv">all:</span><span class="dt"> simple_example</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a><span class="dv">simple_example:</span><span class="dt"> librocksdb simple_example.cc</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>	<span class="ch">$(</span><span class="dt">CXX</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CXXFLAGS</span><span class="ch">)</span> <span class="ch">$@</span>.cc -o<span class="ch">$@</span> -L<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/ -I<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/include -O2 -std=c++11 <span class="ch">$(</span><span class="dt">PLATFORM_LDFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">PLATFORM_CXXFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span> -lrocksdb</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a><span class="dv">clean:</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>	rm -rf ./simple_example</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a><span class="dv">librocksdb:</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>	cd <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span> &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> shared_lib</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">ROCKSDB_DIR </span><span class="ch">:=</span><span class="st"> /home/searchstar/git/shared_lib/rocksdb/</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">include</span> <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/make_config.mk</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">ifndef</span> DISABLE_JEMALLOC</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>	<span class="cf">ifdef</span> JEMALLOC</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>		<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> -DROCKSDB_JEMALLOC -DJEMALLOC_NO_DEMANGLE</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>	<span class="cf">endif</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>	<span class="dt">EXEC_LDFLAGS </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_LIB</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span><span class="st"> -lpthread</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>	<span class="dt">PLATFORM_CXXFLAGS </span><span class="ch">+=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">JEMALLOC_INCLUDE</span><span class="ch">)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cf">ifneq</span> (<span class="ch">$(</span><span class="dt">USE_RTTI</span><span class="ch">)</span>, 1)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>	<span class="dt">CXXFLAGS </span><span class="ch">+=</span><span class="st"> -fno-rtti</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="dt">CFLAGS </span><span class="ch">+=</span><span class="st"> -Wstrict-prototypes</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> clean librocksdb</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> simple_example</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="dv">simple_example:</span><span class="dt"> librocksdb simple_example.cc</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>	<span class="ch">$(</span><span class="dt">CXX</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CXXFLAGS</span><span class="ch">)</span> <span class="ch">$@</span>.cc -o<span class="ch">$@</span> -L<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/ -I<span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span>/include -O2 -std=c++11 <span class="ch">$(</span><span class="dt">PLATFORM_LDFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">PLATFORM_CXXFLAGS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">EXEC_LDFLAGS</span><span class="ch">)</span> -lrocksdb</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>	rm -rf ./simple_example</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dv">librocksdb:</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>	cd <span class="ch">$(</span><span class="dt">ROCKSDB_DIR</span><span class="ch">)</span> &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> shared_lib</span></code></pre></div>
 <pre class="shell"><code>make
 LD_LIBRARY_PATH=~/git/shared_lib/rocksdb/ ./simple_example</code></pre>
 <p>输出：</p>

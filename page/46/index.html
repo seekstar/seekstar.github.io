@@ -7252,9 +7252,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7263,9 +7263,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7950,7 +7950,9 @@ mjx-container[display="true"] + br {
 					systemtap原理
 				</h2>
 				<div class="index-brief">
-					systemtap的核心是probe（探针），可以在任何一条语句上加上探针，当执行到这条语句时将控制流转移到探针的handler上。其实现原理是在module_init时将相应指令的第一个字节替换成0xcc，也就是INT 3。这样执行到这条指令时就会跳转到INT 3的中断处理函数，由其判断出应该跳转
+					systemtap的核心是probe（探针），可以在任何一条语句上加上探针，当执行到这条语句时将控制流转移到探针的handler上。其实现原理是在module_init时将相应指令的第一个字节替换成0xcc，也就是INT
+3。这样执行到这条指令时就会跳转到INT
+3的中断处理函数，由其判断出应该跳转
 					...
 				</div>
 			</a>
@@ -7988,11 +7990,14 @@ https://github.com/microsoft/vscode-cpptools/issues/3288
 					matplotlib中使用latex
 				</h2>
 				<div class="index-brief">
-					¶ 简单的Latex符号
-使用简单的Latex符号不需要安装latex，可以直接用。比如叉乘\times: 
+					¶
+简单的Latex符号
+使用简单的Latex符号不需要安装latex，可以直接用。比如叉乘\times:
+
 直接这样即可：
 r'Get $\times$ 16KiB'
-¶ 使用完整版Latex
+¶
+使用完整版Latex
 比方说要插入一个千分之符号。
 参考：https://stackoverflow.com/question
 					...

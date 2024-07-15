@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,83 +7977,83 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>以PAT 甲级1004为例：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805342720868352/exam/problems/994805521431773184?type=7&amp;page=0" class="uri">https://pintia.cn/problem-sets/994805342720868352/exam/problems/994805521431773184?type=7&amp;page=0</a></p>
 <p>关键部位</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">while</span> <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap() <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>        <span class="kw">let</span> line <span class="op">=</span> buf<span class="op">.</span>trim()<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="kw">if</span> line<span class="op">.</span>len() <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>            <span class="kw">continue</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> line<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        <span class="kw">let</span> n<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        <span class="kw">if</span> <span class="dv">0</span> <span class="op">==</span> n <span class="op">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>            <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>        <span class="kw">let</span> m<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>        work(n<span class="op">,</span> m)<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>        buf<span class="op">.</span>clear()<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap() <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> line <span class="op">=</span> buf<span class="op">.</span>trim()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> line<span class="op">.</span>len() <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> line<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> n<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="dv">0</span> <span class="op">==</span> n <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> m<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        work(n<span class="op">,</span> m)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        buf<span class="op">.</span>clear()<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>这样遇到空行也不会panic。</p>
 <p><img src="/2020/08/25/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%ADrust%E7%9A%84%E4%B8%80%E7%A7%8D%E6%AF%94%E8%BE%83%E5%81%A5%E5%A3%AE%E7%9A%84%E8%AF%BB%E5%85%A5/20200825235216969.png" alt="在这里插入图片描述"><br>
 注意有一组测试数据是用非空格或者多个空格隔开的，所以要用<code>split_whitespace</code>。</p>
 <p>ps: 还可以用BufReader加速stdin读取：<a href="https://seekstar.github.io/2021/11/17/rust%E7%94%A8bufreader%E5%8A%A0%E9%80%9Fstdin%E8%AF%BB%E5%8F%96/" class="uri">https://seekstar.github.io/2021/11/17/rust%E7%94%A8bufreader%E5%8A%A0%E9%80%9Fstdin%E8%AF%BB%E5%8F%96/</a></p>
 <p>完整代码：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>io<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::</span>cmp<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">fn</span> dfs(<span class="kw">mut</span> cnt<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">usize</span><span class="op">&gt;,</span> cur<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> depth<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> childs<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">usize</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="kw">if</span> childs[cur]<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>        cnt[depth] <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>        <span class="kw">return</span> depth <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> mx <span class="op">=</span> <span class="dv">0usize</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="kw">for</span> v <span class="kw">in</span> <span class="op">&amp;</span>childs[cur] <span class="op">{</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>        <span class="kw">let</span> v <span class="op">=</span> <span class="op">*</span>v<span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a>        mx <span class="op">=</span> <span class="pp">cmp::</span>max(mx<span class="op">,</span> dfs(<span class="op">&amp;</span><span class="kw">mut</span> cnt<span class="op">,</span> v<span class="op">,</span> depth <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>childs))<span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>    <span class="kw">return</span> mx<span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="kw">fn</span> work(n<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> m<span class="op">:</span> <span class="dt">usize</span>) <span class="op">{</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> childs <span class="op">=</span> <span class="pp">vec!</span>[<span class="dt">Vec</span><span class="pp">::</span>new()<span class="op">;</span> n <span class="op">+</span> <span class="dv">1</span>]<span class="op">;</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a>    <span class="kw">for</span> _i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span>m <span class="op">{</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">mut</span> input <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>        <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> input)<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> input<span class="op">.</span>trim()<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>        <span class="kw">let</span> fa<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>        <span class="kw">let</span> num<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a>        <span class="kw">for</span> _i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span>num <span class="op">{</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>            <span class="kw">let</span> c<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>            childs[fa]<span class="op">.</span>push(c)<span class="op">;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cnt <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0usize</span><span class="op">;</span> n <span class="op">+</span> <span class="dv">10</span>]<span class="op">;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true"></a>    <span class="kw">let</span> depth <span class="op">=</span> dfs(<span class="op">&amp;</span><span class="kw">mut</span> cnt<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>childs)<span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true"></a>    <span class="pp">print!</span>(<span class="st">"{}"</span><span class="op">,</span> cnt[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true"></a>    <span class="kw">for</span> i <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span>depth <span class="op">{</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true"></a>        <span class="pp">print!</span>(<span class="st">" {}"</span><span class="op">,</span> cnt[i])<span class="op">;</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true"></a>    <span class="pp">println!</span>()<span class="op">;</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true"></a>    <span class="kw">while</span> <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap() <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true"></a>        <span class="kw">let</span> line <span class="op">=</span> buf<span class="op">.</span>trim()<span class="op">;</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true"></a>        <span class="kw">if</span> line<span class="op">.</span>len() <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true"></a>            <span class="kw">continue</span><span class="op">;</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> line<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true"></a>        <span class="kw">let</span> n<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true"></a>        <span class="kw">if</span> <span class="dv">0</span> <span class="op">==</span> n <span class="op">{</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true"></a>            <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true"></a>        <span class="kw">let</span> m<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true"></a>        work(n<span class="op">,</span> m)<span class="op">;</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true"></a>        buf<span class="op">.</span>clear()<span class="op">;</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::</span>io<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::</span>cmp<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> dfs(<span class="kw">mut</span> cnt<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">usize</span><span class="op">&gt;,</span> cur<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> depth<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> childs<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">usize</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> childs[cur]<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        cnt[depth] <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> depth <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> mx <span class="op">=</span> <span class="dv">0usize</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> v <span class="kw">in</span> <span class="op">&amp;</span>childs[cur] <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> v <span class="op">=</span> <span class="op">*</span>v<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        mx <span class="op">=</span> <span class="pp">cmp::</span>max(mx<span class="op">,</span> dfs(<span class="op">&amp;</span><span class="kw">mut</span> cnt<span class="op">,</span> v<span class="op">,</span> depth <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>childs))<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mx<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> work(n<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> m<span class="op">:</span> <span class="dt">usize</span>) <span class="op">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> childs <span class="op">=</span> <span class="pp">vec!</span>[<span class="dt">Vec</span><span class="pp">::</span>new()<span class="op">;</span> n <span class="op">+</span> <span class="dv">1</span>]<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span>m <span class="op">{</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> input <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> input)<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> input<span class="op">.</span>trim()<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> fa<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> num<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _i <span class="kw">in</span> <span class="dv">0</span><span class="op">..</span>num <span class="op">{</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            childs[fa]<span class="op">.</span>push(c)<span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> cnt <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0usize</span><span class="op">;</span> n <span class="op">+</span> <span class="dv">10</span>]<span class="op">;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> depth <span class="op">=</span> dfs(<span class="op">&amp;</span><span class="kw">mut</span> cnt<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>childs)<span class="op">;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="pp">print!</span>(<span class="st">"{}"</span><span class="op">,</span> cnt[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="dv">1</span><span class="op">..</span>depth <span class="op">{</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="pp">print!</span>(<span class="st">" {}"</span><span class="op">,</span> cnt[i])<span class="op">;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>()<span class="op">;</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> buf <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>new()<span class="op">;</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="pp">io::</span>stdin()<span class="op">.</span>read_line(<span class="op">&amp;</span><span class="kw">mut</span> buf)<span class="op">.</span>unwrap() <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> line <span class="op">=</span> buf<span class="op">.</span>trim()<span class="op">;</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> line<span class="op">.</span>len() <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> line<span class="op">.</span>split_whitespace()<span class="op">;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> n<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="dv">0</span> <span class="op">==</span> n <span class="op">{</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> m<span class="op">:</span> <span class="dt">usize</span> <span class="op">=</span> s<span class="op">.</span>next()<span class="op">.</span>unwrap()<span class="op">.</span>parse()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        work(n<span class="op">,</span> m)<span class="op">;</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        buf<span class="op">.</span>clear()<span class="op">;</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

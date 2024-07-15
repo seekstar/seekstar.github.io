@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7987,12 +7987,14 @@ make -j$(nproc)
 make install
 echo "export HDF5_HOME=$(pwd)/install" &gt;&gt; ~/.bashrc
 source ~/.bashrc</code></pre>
-<h2 id="编译安装-argobots"><a href="#编译安装-argobots">¶</a> 编译安装 argobots</h2>
+<h2 id="编译安装-argobots"><a href="#编译安装-argobots">¶</a> 编译安装
+argobots</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/pmodels/argobots" class="uri">https://github.com/pmodels/argobots</a></p>
 <pre class="shell"><code>./configure --prefix=$(pwd)/install
 make -j$(nproc)
 make install</code></pre>
-<h2 id="编译安装-vol-virtual-object-layer"><a href="#编译安装-vol-virtual-object-layer">¶</a> 编译安装 VOL (Virtual Object Layer)</h2>
+<h2 id="编译安装-vol-virtual-object-layer"><a href="#编译安装-vol-virtual-object-layer">¶</a> 编译安装 VOL (Virtual
+Object Layer)</h2>
 <p>所有可用的VOL: <a target="_blank" rel="noopener" href="https://portal.hdfgroup.org/display/support/Registered+VOL+Connectors" class="uri">https://portal.hdfgroup.org/display/support/Registered+VOL+Connectors</a></p>
 <p>这里用vol-async: <a target="_blank" rel="noopener" href="https://github.com/hpc-io/vol-async" class="uri">https://github.com/hpc-io/vol-async</a></p>
 <pre class="shell"><code>cd src
@@ -8024,47 +8026,47 @@ source ~/.bashrc</code></pre>
 <p><code>benchmarks</code>下面的每个<code>benchmark</code>里的<code>configuration</code>都要加上<code>"MODE": "SYNC"</code>或者<code>"MODE": "ASYNC"</code>，并且把<code>"ASYNC_MODE": "NON",</code>去掉。不然会报这个错：<code>h5bench - ERROR - Unable to run the benchmark: 'MODE'</code>。</p>
 <p><code>mpi</code>的<code>configuration</code>要去掉<code>--oversubscribe</code>。</p>
 <p>我的配置文件：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    <span class="dt">"mpi"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>        <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"mpirun"</span><span class="fu">,</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>        <span class="dt">"ranks"</span><span class="fu">:</span> <span class="st">"4"</span><span class="fu">,</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>        <span class="dt">"configuration"</span><span class="fu">:</span> <span class="st">"-np 8"</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>    <span class="fu">},</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    <span class="dt">"vol"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>        <span class="dt">"library"</span><span class="fu">:</span> <span class="st">"/home/searchstar/git/others/vol-async/src:/home/searchstar/Downloads/argobots-1.1/install/lib:/home/searchstar/Downloads/hdf5-1.13.1/install/lib:"</span><span class="fu">,</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>        <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"/home/searchstar/git/others/vol-async/src"</span><span class="fu">,</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>        <span class="dt">"connector"</span><span class="fu">:</span> <span class="st">"async under_vol=0;under_info={}"</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="fu">},</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    <span class="dt">"file-system"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>        <span class="dt">"lustre"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>            <span class="dt">"stripe-size"</span><span class="fu">:</span> <span class="st">"1M"</span><span class="fu">,</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>            <span class="dt">"stripe-count"</span><span class="fu">:</span> <span class="st">"4"</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>        <span class="fu">}</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>    <span class="fu">},</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>    <span class="dt">"directory"</span><span class="fu">:</span> <span class="st">"test-dir"</span><span class="fu">,</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>    <span class="dt">"benchmarks"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>        <span class="fu">{</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>            <span class="dt">"benchmark"</span><span class="fu">:</span> <span class="st">"write"</span><span class="fu">,</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>            <span class="dt">"file"</span><span class="fu">:</span> <span class="st">"test.h5"</span><span class="fu">,</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>            <span class="dt">"configuration"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a>                <span class="dt">"MEM_PATTERN"</span><span class="fu">:</span> <span class="st">"CONTIG"</span><span class="fu">,</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a>                <span class="dt">"FILE_PATTERN"</span><span class="fu">:</span> <span class="st">"CONTIG"</span><span class="fu">,</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a>                <span class="dt">"NUM_PARTICLES"</span><span class="fu">:</span> <span class="st">"16 M"</span><span class="fu">,</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a>                <span class="dt">"TIMESTEPS"</span><span class="fu">:</span> <span class="st">"5"</span><span class="fu">,</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a>                <span class="dt">"DELAYED_CLOSE_TIMESTEPS"</span><span class="fu">:</span> <span class="st">"2"</span><span class="fu">,</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true"></a>                <span class="dt">"COLLECTIVE_DATA"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true"></a>                <span class="dt">"COLLECTIVE_METADATA"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true"></a>                <span class="dt">"EMULATED_COMPUTE_TIME_PER_TIMESTEP"</span><span class="fu">:</span> <span class="st">"1 s"</span><span class="fu">,</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true"></a>                <span class="dt">"NUM_DIMS"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true"></a>                <span class="dt">"DIM_1"</span><span class="fu">:</span> <span class="st">"10000"</span><span class="fu">,</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true"></a>                <span class="dt">"DIM_2"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true"></a>                <span class="dt">"DIM_3"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true"></a>                <span class="dt">"CSV_FILE"</span><span class="fu">:</span> <span class="st">"output.csv"</span><span class="fu">,</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true"></a>                <span class="dt">"MODE"</span><span class="fu">:</span> <span class="st">"SYNC"</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true"></a>            <span class="fu">}</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true"></a>        <span class="fu">}</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true"></a>    <span class="ot">]</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"mpi"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"mpirun"</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"ranks"</span><span class="fu">:</span> <span class="st">"4"</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"configuration"</span><span class="fu">:</span> <span class="st">"-np 8"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"vol"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"library"</span><span class="fu">:</span> <span class="st">"/home/searchstar/git/others/vol-async/src:/home/searchstar/Downloads/argobots-1.1/install/lib:/home/searchstar/Downloads/hdf5-1.13.1/install/lib:"</span><span class="fu">,</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"/home/searchstar/git/others/vol-async/src"</span><span class="fu">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"connector"</span><span class="fu">:</span> <span class="st">"async under_vol=0;under_info={}"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"file-system"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"lustre"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"stripe-size"</span><span class="fu">:</span> <span class="st">"1M"</span><span class="fu">,</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"stripe-count"</span><span class="fu">:</span> <span class="st">"4"</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"directory"</span><span class="fu">:</span> <span class="st">"test-dir"</span><span class="fu">,</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"benchmarks"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"benchmark"</span><span class="fu">:</span> <span class="st">"write"</span><span class="fu">,</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"file"</span><span class="fu">:</span> <span class="st">"test.h5"</span><span class="fu">,</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"configuration"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"MEM_PATTERN"</span><span class="fu">:</span> <span class="st">"CONTIG"</span><span class="fu">,</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"FILE_PATTERN"</span><span class="fu">:</span> <span class="st">"CONTIG"</span><span class="fu">,</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"NUM_PARTICLES"</span><span class="fu">:</span> <span class="st">"16 M"</span><span class="fu">,</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"TIMESTEPS"</span><span class="fu">:</span> <span class="st">"5"</span><span class="fu">,</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"DELAYED_CLOSE_TIMESTEPS"</span><span class="fu">:</span> <span class="st">"2"</span><span class="fu">,</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"COLLECTIVE_DATA"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"COLLECTIVE_METADATA"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"EMULATED_COMPUTE_TIME_PER_TIMESTEP"</span><span class="fu">:</span> <span class="st">"1 s"</span><span class="fu">,</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"NUM_DIMS"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"DIM_1"</span><span class="fu">:</span> <span class="st">"10000"</span><span class="fu">,</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"DIM_2"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"DIM_3"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">,</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"CSV_FILE"</span><span class="fu">:</span> <span class="st">"output.csv"</span><span class="fu">,</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                <span class="dt">"MODE"</span><span class="fu">:</span> <span class="st">"SYNC"</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>            <span class="fu">}</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>其中<code>DIM_1</code>乘上<code>1300</code>差不多就是生成的文件的字节数了。</p>
 <p>我保存为了<code>write.json</code>。然后运行测试：</p>
 <pre class="shell"><code>./h5bench write.json</code></pre>

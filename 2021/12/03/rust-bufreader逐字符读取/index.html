@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,29 +7976,29 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>BufReader有一个<code>fill_buf</code>的方法：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">fn</span> fill_buf(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;&amp;</span>[<span class="dt">u8</span>]<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> fill_buf(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;&amp;</span>[<span class="dt">u8</span>]<span class="op">&gt;</span></span></code></pre></div>
 <p>它可以返回它的内部buffer，如果buffer是空的，就填入更多数据再返回。这样我们就可以逐个读取其内部buffer的字符，且不需要额外申请空间了。</p>
 <p>通过<code>fill_buf</code>返回的buffer处理完了一些数据之后，可以通过<code>consume</code>来告诉BufReader这些数据已经处理完了：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">fn</span> consume(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> amt<span class="op">:</span> <span class="dt">usize</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> consume(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> amt<span class="op">:</span> <span class="dt">usize</span>)</span></code></pre></div>
 <p>它将前<code>amt</code>个字节从BufReader的buffer里删掉。</p>
 <p>把<code>fill_buf</code>和<code>consume</code>结合起来，就可以逐字节读取了：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin())<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="kw">while</span> <span class="kw">let</span> <span class="cn">Ok</span>(buf) <span class="op">=</span> cin<span class="op">.</span>fill_buf() <span class="op">{</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>        <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>        <span class="kw">for</span> c <span class="kw">in</span> buf <span class="op">{</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>            <span class="co">// Your code here</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>            <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>        <span class="kw">let</span> len <span class="op">=</span> buf<span class="op">.</span>len()<span class="op">;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        drop(buf)<span class="op">;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>        cin<span class="op">.</span>consume(len)<span class="op">;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin())<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">let</span> <span class="cn">Ok</span>(buf) <span class="op">=</span> cin<span class="op">.</span>fill_buf() <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> c <span class="kw">in</span> buf <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Your code here</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> len <span class="op">=</span> buf<span class="op">.</span>len()<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        drop(buf)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        cin<span class="op">.</span>consume(len)<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>输入：</p>
 <pre class="text"><code>abc</code></pre>
 <p>输出：</p>
@@ -8008,73 +8008,73 @@ mjx-container[display="true"] + br {
 10</code></pre>
 <p>最后的<code>10</code>是换行符<code>LF</code>。</p>
 <p>可以用闭包做一个wrapper：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin())<span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="kw">let</span> peek <span class="op">=</span> <span class="op">|</span>r<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> BufReader<span class="op">&lt;</span>_<span class="op">&gt;|</span> <span class="op">-&gt;</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">Option</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>        <span class="kw">let</span> buf <span class="op">=</span> r<span class="op">.</span>fill_buf()<span class="op">?;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>        <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>            <span class="cn">Ok</span>(<span class="cn">None</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>            <span class="cn">Ok</span>(<span class="cn">Some</span>(buf[<span class="dv">0</span>]))</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>    <span class="op">};</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>    <span class="kw">while</span> <span class="kw">let</span> <span class="cn">Ok</span>(<span class="cn">Some</span>(c)) <span class="op">=</span> peek(<span class="op">&amp;</span><span class="kw">mut</span> cin) <span class="op">{</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>        cin<span class="op">.</span>consume(<span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin())<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> peek <span class="op">=</span> <span class="op">|</span>r<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> BufReader<span class="op">&lt;</span>_<span class="op">&gt;|</span> <span class="op">-&gt;</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">Option</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> buf <span class="op">=</span> r<span class="op">.</span>fill_buf()<span class="op">?;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Ok</span>(<span class="cn">None</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Ok</span>(<span class="cn">Some</span>(buf[<span class="dv">0</span>]))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">let</span> <span class="cn">Ok</span>(<span class="cn">Some</span>(c)) <span class="op">=</span> peek(<span class="op">&amp;</span><span class="kw">mut</span> cin) <span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        cin<span class="op">.</span>consume(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>也可以写一个迭代器来实现类似于<code>getchar</code>和<code>peek</code>的效果：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">Read</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">struct</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;,</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">From</span><span class="op">&lt;</span>BufReader<span class="op">&lt;</span>T<span class="op">&gt;&gt;</span> <span class="kw">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>    <span class="kw">fn</span> from(r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;</span>) <span class="op">-&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>        MyReader<span class="op">{</span>r<span class="op">}</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    <span class="kw">fn</span> peek(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">Option</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>        <span class="kw">let</span> buf <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">?;</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>        <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a>            <span class="cn">Ok</span>(<span class="cn">None</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>            <span class="cn">Ok</span>(<span class="cn">Some</span>(buf[<span class="dv">0</span>]))</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> <span class="bu">Iterator</span> <span class="kw">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true"></a>    <span class="kw">type</span> Item <span class="op">=</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;;</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true"></a>    <span class="kw">fn</span> next(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">Self</span><span class="pp">::</span>Item<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true"></a>        <span class="kw">let</span> res <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">;</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true"></a>        <span class="kw">match</span> res <span class="op">{</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true"></a>            <span class="cn">Ok</span>(buf) <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true"></a>                <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true"></a>                    <span class="cn">None</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true"></a>                <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true"></a>                    <span class="kw">let</span> ret <span class="op">=</span> buf[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true"></a>                    <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>consume(<span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true"></a>                    <span class="cn">Some</span>(<span class="cn">Ok</span>(ret))</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true"></a>                <span class="op">}</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true"></a>            <span class="op">},</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true"></a>            <span class="cn">Err</span>(e) <span class="op">=&gt;</span> <span class="cn">Some</span>(<span class="cn">Err</span>(e))</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">MyReader::</span>from(<span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin()))<span class="op">;</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> cin<span class="op">.</span>peek()<span class="op">.</span>unwrap()<span class="op">.</span>unwrap())<span class="op">;</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true"></a>    <span class="kw">while</span> <span class="kw">let</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(c)) <span class="op">=</span> cin<span class="op">.</span>next() <span class="op">{</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">Read</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">From</span><span class="op">&lt;</span>BufReader<span class="op">&lt;</span>T<span class="op">&gt;&gt;</span> <span class="cf">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> from(r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;</span>) <span class="op">-&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        MyReader<span class="op">{</span>r<span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> peek(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">Option</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;&gt;</span> <span class="op">{</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> buf <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">?;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Ok</span>(<span class="cn">None</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Ok</span>(<span class="cn">Some</span>(buf[<span class="dv">0</span>]))</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> <span class="bu">Iterator</span> <span class="cf">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">type</span> Item <span class="op">=</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;;</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> next(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">Self</span><span class="pp">::</span>Item<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> res <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">;</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">match</span> res <span class="op">{</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Ok</span>(buf) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>                    <span class="cn">None</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">let</span> ret <span class="op">=</span> buf[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>consume(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                    <span class="cn">Some</span>(<span class="cn">Ok</span>(ret))</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Err</span>(e) <span class="op">=&gt;</span> <span class="cn">Some</span>(<span class="cn">Err</span>(e))</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">MyReader::</span>from(<span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin()))<span class="op">;</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> cin<span class="op">.</span>peek()<span class="op">.</span>unwrap()<span class="op">.</span>unwrap())<span class="op">;</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">let</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(c)) <span class="op">=</span> cin<span class="op">.</span>next() <span class="op">{</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>输入：</p>
 <pre><code>abc</code></pre>
 <p>输出：</p>
@@ -8084,47 +8084,47 @@ mjx-container[display="true"] + br {
 99
 10</code></pre>
 <p>或者复杂一点的，减少调用<code>consume</code>的次数（不知道会不会变快）：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">Read</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="kw">struct</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;,</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    head<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">From</span><span class="op">&lt;</span>BufReader<span class="op">&lt;</span>T<span class="op">&gt;&gt;</span> <span class="kw">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>    <span class="kw">fn</span> from(r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;</span>) <span class="op">-&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>        MyReader<span class="op">{</span>r<span class="op">,</span> head<span class="op">:</span> <span class="dv">0</span><span class="op">}</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> <span class="bu">Iterator</span> <span class="kw">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>    <span class="kw">type</span> Item <span class="op">=</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;;</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a>    <span class="kw">fn</span> next(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">Self</span><span class="pp">::</span>Item<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>        <span class="kw">if</span> <span class="kw">self</span><span class="op">.</span>head <span class="op">==</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>buffer()<span class="op">.</span>len() <span class="op">{</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>            <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>consume(<span class="kw">self</span><span class="op">.</span>head)<span class="op">;</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>            <span class="kw">let</span> res <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">;</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a>            <span class="kw">match</span> res <span class="op">{</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a>                <span class="cn">Ok</span>(buf) <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>                    <span class="kw">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>                        <span class="kw">return</span> <span class="cn">None</span><span class="op">;</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>                    <span class="op">}</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a>                    <span class="kw">self</span><span class="op">.</span>head <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>                <span class="op">},</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>                <span class="cn">Err</span>(e) <span class="op">=&gt;</span> <span class="kw">return</span> <span class="cn">Some</span>(<span class="cn">Err</span>(e))<span class="op">,</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>            <span class="op">}</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>        <span class="op">}</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a>        <span class="kw">let</span> ret <span class="op">=</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(<span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>buffer()[<span class="kw">self</span><span class="op">.</span>head]))<span class="op">;</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>        <span class="kw">self</span><span class="op">.</span>head <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>        <span class="kw">return</span> ret<span class="op">;</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a><span class="op">}</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">MyReader::</span>from(<span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin()))<span class="op">;</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>    <span class="kw">while</span> <span class="kw">let</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(c)) <span class="op">=</span> cin<span class="op">.</span>next() <span class="op">{</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>    <span class="op">}</span></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode rs"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::io::</span><span class="op">{</span><span class="kw">self</span><span class="op">,</span> <span class="bu">Read</span><span class="op">,</span> <span class="bu">BufRead</span><span class="op">,</span> BufReader<span class="op">};</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    head<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="bu">From</span><span class="op">&lt;</span>BufReader<span class="op">&lt;</span>T<span class="op">&gt;&gt;</span> <span class="cf">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> from(r<span class="op">:</span> BufReader<span class="op">&lt;</span>T<span class="op">&gt;</span>) <span class="op">-&gt;</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        MyReader<span class="op">{</span>r<span class="op">,</span> head<span class="op">:</span> <span class="dv">0</span><span class="op">}</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span><span class="op">&lt;</span>T<span class="op">:</span> <span class="bu">Read</span><span class="op">&gt;</span> <span class="bu">Iterator</span> <span class="cf">for</span> MyReader<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">type</span> Item <span class="op">=</span> <span class="pp">io::</span><span class="dt">Result</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> next(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">Self</span><span class="pp">::</span>Item<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">self</span><span class="op">.</span>head <span class="op">==</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>buffer()<span class="op">.</span>len() <span class="op">{</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>consume(<span class="kw">self</span><span class="op">.</span>head)<span class="op">;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> res <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>fill_buf()<span class="op">;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">match</span> res <span class="op">{</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                <span class="cn">Ok</span>(buf) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> buf<span class="op">.</span>is_empty() <span class="op">{</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">return</span> <span class="cn">None</span><span class="op">;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">self</span><span class="op">.</span>head <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                <span class="op">},</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                <span class="cn">Err</span>(e) <span class="op">=&gt;</span> <span class="cf">return</span> <span class="cn">Some</span>(<span class="cn">Err</span>(e))<span class="op">,</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> ret <span class="op">=</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(<span class="kw">self</span><span class="op">.</span>r<span class="op">.</span>buffer()[<span class="kw">self</span><span class="op">.</span>head]))<span class="op">;</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>head <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> cin <span class="op">=</span> <span class="pp">MyReader::</span>from(<span class="pp">BufReader::</span>new(<span class="pp">io::</span>stdin()))<span class="op">;</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">let</span> <span class="cn">Some</span>(<span class="cn">Ok</span>(c)) <span class="op">=</span> cin<span class="op">.</span>next() <span class="op">{</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{}"</span><span class="op">,</span> c)<span class="op">;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>参考文献：rust BufReader官方文档：<a target="_blank" rel="noopener" href="https://doc.rust-lang.org/stable/std/io/struct.BufReader.html" class="uri">https://doc.rust-lang.org/stable/std/io/struct.BufReader.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

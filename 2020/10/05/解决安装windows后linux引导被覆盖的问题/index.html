@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,13 +7977,16 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>强烈谴责windows的霸道行径！！！</p>
 <p>首先安装windows时提示<code>检测到EFI分区为NTFS格式，请格式化为FAT32后重试</code>。但是所有的EFI分区都是FAT32的。然后我尝试着把之前安装Linux时设置的EFI分区删了，使用windows安装程序自己生成的EFI分区，然后就安装成功了，但是Linux就进不去了。</p>
-<h2 id="方法一再安装一个linux"><a href="#方法一再安装一个linux">¶</a> 方法一：再安装一个Linux</h2>
+<h2 id="方法一再安装一个linux"><a href="#方法一再安装一个linux">¶</a>
+方法一：再安装一个Linux</h2>
 <p>再弄出一片空闲空间，安装一个Linux发行版，比如ubuntu，安装的时候新建一个EFI分区。装完之后所有系统都可以进去了。</p>
-<h2 id="方法二重新安装grub"><a href="#方法二重新安装grub">¶</a> 方法二：重新安装grub</h2>
+<h2 id="方法二重新安装grub"><a href="#方法二重新安装grub">¶</a>
+方法二：重新安装grub</h2>
 <p>先利用启动盘等方式进入live操作系统，然后利用<code>lsblk</code>等方式找到你想用来提供grub界面的linux发行版的分区，假设是<code>/dev/A</code>。然后把这个分区挂载到<code>/mnt</code>：</p>
 <pre class="shell"><code>mount /dev/A /mnt
 cd /mnt</code></pre>
-<p>然后把<code>/mnt/dev</code>, <code>/mnt/proc</code>, <code>/mnt/sys</code>, <code>/mnt/run</code>都挂上：<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/" title="在chroot环境中挂载dev, proc, sys">在chroot环境中挂载dev, proc, sys</a></p>
+<p>然后把<code>/mnt/dev</code>, <code>/mnt/proc</code>,
+<code>/mnt/sys</code>, <code>/mnt/run</code>都挂上：<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/" title="在chroot环境中挂载dev, proc, sys">在chroot环境中挂载dev, proc, sys</a></p>
 <p>然后把EFI分区挂到<code>mnt/boot/efi</code>（其实在chroot里mount也可以）：</p>
 <pre class="shell"><code>mount /dev/EFI分区 /mnt/boot/efi</code></pre>
 <p>然后chroot到原有Linux:</p>
@@ -7994,7 +7997,8 @@ cd /mnt</code></pre>
 <pre class="shell"><code>grub-install /dev/EFI分区所在的磁盘</code></pre>
 <p>然后检查<code>/etc/fstab</code>里的<code>/boot/efi</code>所在的行，如果使用的是UUID，那么可能需要改成<code>/dev/EFI分区</code>，因为UUID可能会改变，导致之后进不去系统。</p>
 <p>然后退出chroot，重启之后应该就可以看到正常的GRUB界面，Linux和Windows系统也应该都能进去了。</p>
-<p>P.S. 不知道为什么，chroot到deepin的分区之后重启看不到GRUB界面，但是chroot到debian的分区之后重启就能看到GRUB界面。</p>
+<p>P.S.
+不知道为什么，chroot到deepin的分区之后重启看不到GRUB界面，但是chroot到debian的分区之后重启就能看到GRUB界面。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/96977/grub-probe-error-failed-to-get-canonical-path-of-cow#96981" class="uri">https://unix.stackexchange.com/questions/96977/grub-probe-error-failed-to-get-canonical-path-of-cow#96981</a></p>
 <h2 id="失败的尝试"><a href="#失败的尝试">¶</a> 失败的尝试</h2>
 <p>首先尝试了EasyBCD，选择免费版安装即可。但是添加新条目中Linux/BSD没法选驱动器（灰色的）。<br>

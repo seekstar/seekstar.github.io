@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,16 +7979,27 @@ mjx-container[display="true"] + br {
 <p>首先，我们通过调用<code>DB::Open</code>来创建数据库，它返回了一个<code>DB*</code>。<code>DB::Open</code>内部调用了<code>DBImpl::Open</code>，在里面构造了一个<code>DBImpl*</code>并转换成<code>DB*</code>返回。所以我们拿到的<code>DB*</code>其实是<code>DBImpl*</code>。</p>
 <p>然后我们调用<code>DB::Get</code>来读取数据。<code>DB::Get</code>是个virtual函数，它被<code>DBImpl::Get</code>给override了。</p>
 <p><code>DBImpl::Get</code>里调用了<code>DBImpl::GetImpl</code>。</p>
-<p><code>DBImpl::GetImpl</code>中，先调用<code>DBImpl::GetAndRefSuperVersion</code>拿到thread local的super version，然后调用<code>MemTable::Get</code>读取memory table和immutable memory table，如果找到了就返回，否则调用<code>Version::Get</code>继续在<code>sv-&gt;current</code>里查找。</p>
-<p><code>Version::Get</code>中，首先将key装进<code>GetContext</code>，然后遍历每个key range包含这个key的SSTable，把<code>GetContext</code>作为参数调用<code>TableCache::Get</code>来查找这个SSTable。如果都没找到就返回not found。</p>
+<p><code>DBImpl::GetImpl</code>中，先调用<code>DBImpl::GetAndRefSuperVersion</code>拿到thread
+local的super version，然后调用<code>MemTable::Get</code>读取memory
+table和immutable memory
+table，如果找到了就返回，否则调用<code>Version::Get</code>继续在<code>sv-&gt;current</code>里查找。</p>
+<p><code>Version::Get</code>中，首先将key装进<code>GetContext</code>，然后遍历每个key
+range包含这个key的SSTable，把<code>GetContext</code>作为参数调用<code>TableCache::Get</code>来查找这个SSTable。如果都没找到就返回not
+found。</p>
 <p><code>TableCache::Get</code>中，调用<code>TableReader::Get</code></p>
 <p>Table默认是<code>BlockBasedTable</code>，所以这里的<code>TableReader</code>应该是<code>BlockBasedTable</code>的reader：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> BlockBasedTable : <span class="kw">public</span> TableReader {</span></code></pre></div>
-<p><code>BlockBasedTable::Get</code>中，调用<code>BlockBasedTable::NewIndexIterator</code>获得block index的iterator，然后遍历key range包含目标key的data block。对每个遍历到的data block，调用<code>BlockBasedTable::NewDataBlockIterator</code>构造<code>DataBlockIter biter</code>，然后seek next在里面查找key。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BlockBasedTable <span class="op">:</span> <span class="kw">public</span> TableReader <span class="op">{</span></span></code></pre></div>
+<p><code>BlockBasedTable::Get</code>中，调用<code>BlockBasedTable::NewIndexIterator</code>获得block
+index的iterator，然后遍历key range包含目标key的data
+block。对每个遍历到的data
+block，调用<code>BlockBasedTable::NewDataBlockIterator</code>构造<code>DataBlockIter biter</code>，然后seek
+next在里面查找key。</p>
 <p><code>BlockBasedTable::NewDataBlockIterator</code>中，调用<code>BlockBasedTable::RetrieveBlock</code>，将块存入<code>CachableEntry&lt;Block&gt; block</code>。</p>
 <p><code>BlockBasedTable::RetrieveBlock</code>中，参数<code>use_cache=true</code>，所以调用<code>BlockBasedTable::MaybeReadBlockAndLoadToCache</code>。</p>
 <p><code>BlockBasedTable::MaybeReadBlockAndLoadToCache</code>中，参数<code>contents=nullptr</code>，所以调用<code>BlockBasedTable::GetDataBlockFromCache</code>，如果miss的话就调用<code>BlockFetcher::ReadBlockContents</code>。</p>
-<p><code>BlockFetcher::ReadBlockContents</code>中，先尝试从persistent cache和prefetch buffer中读取。如果不成功的话，就调用<code>RandomAccessFileReader::Read</code>从文件中读取。</p>
+<p><code>BlockFetcher::ReadBlockContents</code>中，先尝试从persistent
+cache和prefetch
+buffer中读取。如果不成功的话，就调用<code>RandomAccessFileReader::Read</code>从文件中读取。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

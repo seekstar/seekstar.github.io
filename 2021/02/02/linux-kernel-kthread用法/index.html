@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,109 +7979,109 @@ mjx-container[display="true"] + br {
 参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65987208/kthread-stopped-without-running" class="uri">https://stackoverflow.com/questions/65987208/kthread-stopped-without-running</a></p>
 <h2 id="创建线程"><a href="#创建线程">¶</a> 创建线程</h2>
 <p>可以用<code>kthread_create</code>和<code>kthread_run</code>。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">/**</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co"> * kthread_create - create a kthread on the current node</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co"> * </span><span class="an">@threadfn:</span><span class="co"> the function to run in the thread</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co"> * </span><span class="an">@data:</span><span class="co"> data pointer for </span><span class="an">@threadfn()</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="co"> * </span><span class="an">@namefmt:</span><span class="co"> printf-style format string for the thread name</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co"> * </span><span class="an">@arg</span><span class="co">...: arguments for </span><span class="an">@namefmt.</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="co"> *</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co"> * This macro will create a kthread on the current node, leaving it in</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co"> * the stopped state.  This is just a helper for kthread_create_on_node();</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="co"> * see the documentation there for more details.</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="co"> */</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="pp">#define kthread_create(threadfn, data, namefmt, arg...) \</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="pp">	kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co">/**</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co"> * kthread_run - create and wake a thread.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="co"> * </span><span class="an">@threadfn:</span><span class="co"> the function to run until signal_pending(current).</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co"> * </span><span class="an">@data:</span><span class="co"> data ptr for </span><span class="an">@threadfn.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="co"> * </span><span class="an">@namefmt:</span><span class="co"> printf-style name for the thread.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="co"> *</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="co"> * Description: Convenient wrapper for kthread_create() followed by</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co"> * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="co"> */</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="pp">#define kthread_run(threadfn, data, namefmt, ...)			   \</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="pp">({									   \</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="pp">	struct task_struct *__k						   \</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="pp">		= kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="pp">	if (!IS_ERR(__k))						   \</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a><span class="pp">		wake_up_process(__k);					   \</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a><span class="pp">	__k;								   \</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a><span class="pp">})</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * kthread_create - create a kthread on the current node</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@threadfn:</span><span class="co"> the function to run in the thread</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@data:</span><span class="co"> data pointer for </span><span class="an">@threadfn()</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@namefmt:</span><span class="co"> printf-style format string for the thread name</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@arg</span><span class="co">...: arguments for </span><span class="an">@namefmt.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * This macro will create a kthread on the current node, leaving it in</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * the stopped state.  This is just a helper for kthread_create_on_node();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"> * see the documentation there for more details.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#define kthread_create(threadfn, data, namefmt, arg...) \</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">	kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * kthread_run - create and wake a thread.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@threadfn:</span><span class="co"> the function to run until signal_pending(current).</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@data:</span><span class="co"> data ptr for </span><span class="an">@threadfn.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@namefmt:</span><span class="co"> printf-style name for the thread.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * Description: Convenient wrapper for kthread_create() followed by</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#define kthread_run(threadfn, data, namefmt, ...)			   \</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="pp">({									   \</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="pp">	struct task_struct *__k						   \</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="pp">		= kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="pp">	if (!IS_ERR(__k))						   \</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="pp">		wake_up_process(__k);					   \</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="pp">	__k;								   \</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="pp">})</span></span></code></pre></div>
 <p>例子：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">struct</span> task_struct *t1 = kthread_create(threadfn, data, <span class="st">"name%d"</span>, i);</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="cf">if</span> (!IS_ERR(t1))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	wake_up_process(t1);</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">struct</span> task_struct *t2 = kthread_run(threadfn, data, <span class="st">"name%d"</span>, i);</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> task_struct <span class="op">*</span>t1 <span class="op">=</span> kthread_create<span class="op">(</span>threadfn<span class="op">,</span> data<span class="op">,</span> <span class="st">"name%d"</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!</span>IS_ERR<span class="op">(</span>t1<span class="op">))</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>	wake_up_process<span class="op">(</span>t1<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> task_struct <span class="op">*</span>t2 <span class="op">=</span> kthread_run<span class="op">(</span>threadfn<span class="op">,</span> data<span class="op">,</span> <span class="st">"name%d"</span><span class="op">,</span> i<span class="op">);</span></span></code></pre></div>
 <h2 id="终止线程"><a href="#终止线程">¶</a> 终止线程</h2>
 <p>其实可以不终止线程，就让它跑完自己return，但是return之后它会自己<code>do_exit</code>，貌似会把<code>task_struct</code>释放掉，导致无法获取返回值。所以如果要获取返回值，必须要手动终止。</p>
 <p>开头提到，如果<code>kthread_run</code>后直接<code>kthread_stop</code>，很容易导致在开始执行<code>threadfn</code>前被stop。所以可以传一个<code>struct completion</code>进去，然后在<code>threadfn</code>开头<code>complete</code>，而调用者<code>wait_for_completion</code>，然后再<code>kthread_stop</code>就好了。</p>
 <p>例子</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// test1.c</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/module.h&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/kernel.h&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/delay.h&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/kthread.h&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/sched.h&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/semaphore.h&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;linux/spinlock.h&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>MODULE_LICENSE(<span class="st">"GPL"</span>);</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="kw">struct</span> para {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="dt">const</span> <span class="dt">char</span> *msg;</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>	<span class="kw">struct</span> completion entered;</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>};</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">int</span> func(<span class="dt">void</span> *__para)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>{</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a>	<span class="kw">struct</span> para *para = (<span class="kw">struct</span> para *)__para;</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>	complete(&amp;para-&gt;entered);</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>	<span class="co">// Do something here</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>	<span class="co">/* Wait for kthread_stop */</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>	set_current_state(TASK_INTERRUPTIBLE);</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a>	<span class="cf">while</span> (!kthread_should_stop()) {</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>		schedule();</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>		set_current_state(TASK_INTERRUPTIBLE);</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a>	}</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a>	set_current_state(TASK_RUNNING);</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true"></a>	printk(<span class="st">"%s %s return</span><span class="sc">\n</span><span class="st">"</span>, __func__, para-&gt;msg);</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true"></a>}</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">int</span> __init start_init(<span class="dt">void</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true"></a>{</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true"></a>	<span class="kw">struct</span> task_struct *t1;</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true"></a>	<span class="kw">struct</span> para para;</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true"></a>	<span class="dt">int</span> ret;</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true"></a>	printk(KERN_INFO <span class="st">"Thread Creating...</span><span class="sc">\n</span><span class="st">"</span>);</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true"></a>	para.msg = <span class="st">"t1"</span>;</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true"></a>	init_completion(&amp;para.entered);</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true"></a>	t1 = kthread_run(func, &amp;para, <span class="st">"t1"</span>);</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true"></a>	<span class="cf">if</span> (IS_ERR(t1)) {</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true"></a>		WARN_ON(<span class="dv">1</span>);</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true"></a>	}</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true"></a>	wait_for_completion(&amp;para.entered);</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true"></a>	ret = kthread_stop(t1);</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true"></a>	printk(<span class="st">"t1 stopped, exit code %d</span><span class="sc">\n</span><span class="st">"</span>, ret);</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true"></a>	<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true"></a>}</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true"></a><span class="dt">static</span> <span class="dt">void</span> __exit end_exit(<span class="dt">void</span>)</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true"></a>{</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true"></a>}</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true"></a></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true"></a>module_init(start_init)</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true"></a>module_exit(end_exit)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// test1.c</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/module.h&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/kernel.h&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/delay.h&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/kthread.h&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/sched.h&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/semaphore.h&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;linux/spinlock.h&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>MODULE_LICENSE<span class="op">(</span><span class="st">"GPL"</span><span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> para <span class="op">{</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>	<span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>msg<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> completion entered<span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">int</span> func<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>__para<span class="op">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> para <span class="op">*</span>para <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> para <span class="op">*)</span>__para<span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>	complete<span class="op">(&amp;</span>para<span class="op">-&gt;</span>entered<span class="op">);</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>	<span class="co">// Do something here</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>	<span class="co">/* Wait for kthread_stop */</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>	set_current_state<span class="op">(</span>TASK_INTERRUPTIBLE<span class="op">);</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>	<span class="cf">while</span> <span class="op">(!</span>kthread_should_stop<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>		schedule<span class="op">();</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>		set_current_state<span class="op">(</span>TASK_INTERRUPTIBLE<span class="op">);</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>	set_current_state<span class="op">(</span>TASK_RUNNING<span class="op">);</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>	printk<span class="op">(</span><span class="st">"%s %s return</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> __func__<span class="op">,</span> para<span class="op">-&gt;</span>msg<span class="op">);</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">int</span> __init start_init<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> task_struct <span class="op">*</span>t1<span class="op">;</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> para para<span class="op">;</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>	<span class="dt">int</span> ret<span class="op">;</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>	printk<span class="op">(</span>KERN_INFO <span class="st">"Thread Creating...</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>	para<span class="op">.</span>msg <span class="op">=</span> <span class="st">"t1"</span><span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>	init_completion<span class="op">(&amp;</span>para<span class="op">.</span>entered<span class="op">);</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>	t1 <span class="op">=</span> kthread_run<span class="op">(</span>func<span class="op">,</span> <span class="op">&amp;</span>para<span class="op">,</span> <span class="st">"t1"</span><span class="op">);</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>	<span class="cf">if</span> <span class="op">(</span>IS_ERR<span class="op">(</span>t1<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>		WARN_ON<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>	wait_for_completion<span class="op">(&amp;</span>para<span class="op">.</span>entered<span class="op">);</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>	ret <span class="op">=</span> kthread_stop<span class="op">(</span>t1<span class="op">);</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>	printk<span class="op">(</span><span class="st">"t1 stopped, exit code %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> ret<span class="op">);</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> __exit end_exit<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>module_init<span class="op">(</span>start_init<span class="op">)</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>module_exit<span class="op">(</span>end_exit<span class="op">)</span></span></code></pre></div>
 <p>Makefile:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="dt">obj-m </span><span class="ch">+=</span><span class="st"> test1.o</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="dv">all:</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>        <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C /lib/modules/<span class="ch">$(</span><span class="kw">shell</span><span class="st"> uname -r</span><span class="ch">)</span>/build M=`pwd`</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="dv">clean:</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>        <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C /lib/modules/<span class="ch">$(</span><span class="kw">shell</span><span class="st"> uname -r</span><span class="ch">)</span>/build M=`pwd` clean</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">obj-m </span><span class="ch">+=</span><span class="st"> test1.o</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C /lib/modules/<span class="ch">$(</span><span class="kw">shell</span><span class="st"> uname -r</span><span class="ch">)</span>/build M=`pwd`</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C /lib/modules/<span class="ch">$(</span><span class="kw">shell</span><span class="st"> uname -r</span><span class="ch">)</span>/build M=`pwd` clean</span></code></pre></div>
 <p>跑一下</p>
 <pre class="shell"><code>make
 sudo insmod test1.ko</code></pre>
@@ -8089,7 +8089,8 @@ sudo insmod test1.ko</code></pre>
 <pre class="text"><code>[379459.914962] Thread Creating...
 [379459.915181] func t1 return
 [379459.915187] t1 stopped, exit code 0</code></pre>
-<h2 id="清理kthread_create的线程"><a href="#清理kthread_create的线程">¶</a> 清理<code>kthread_create</code>的线程</h2>
+<h2 id="清理kthread_create的线程"><a href="#清理kthread_create的线程">¶</a>
+清理<code>kthread_create</code>的线程</h2>
 <p>为什么要在执行<code>threadfn</code>前检查一下<code>kthread_should_stop</code>呢？就是为了在<code>kthread_create</code>之后，在<code>wake_up_process</code>之前，可以取消运行这个线程。</p>
 <p>一个典型的应用就是需要申请很多个线程时，先申请，再<code>wake_up_process</code>。如果申请失败，就直接<code>kthread_stop</code>其他申请成功的线程，它们就在运行<code>threadfn</code>前就停掉，防止了资源的浪费。</p>
 <p>例子</p>

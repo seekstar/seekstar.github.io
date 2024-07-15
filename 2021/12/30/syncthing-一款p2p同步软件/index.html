@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7981,19 +7981,24 @@ mjx-container[display="true"] + br {
 <p>一些命令行选项：</p>
 <p><code>--gui-address=localhost:端口</code>: 指定网页GUI的端口。</p>
 <p>这里主要说一些坑点。</p>
-<h2 id="不要用deepin商店里的syncthing"><a href="#不要用deepin商店里的syncthing">¶</a> 不要用Deepin商店里的syncthing</h2>
+<h2 id="不要用deepin商店里的syncthing"><a href="#不要用deepin商店里的syncthing">¶</a>
+不要用Deepin商店里的syncthing</h2>
 <p>那个版本太低了，是v1.0.0-ds1，而我们手机端在F-Droid上下载的是最新版，不兼容这个v1.0.0-ds1，两者不能同步。电脑端建议直接到github上下载。</p>
-<h2 id="手机的同步目录的目录种类是只发送"><a href="#手机的同步目录的目录种类是只发送">¶</a> 手机的同步目录的目录种类是<code>只发送</code></h2>
+<h2 id="手机的同步目录的目录种类是只发送"><a href="#手机的同步目录的目录种类是只发送">¶</a>
+手机的同步目录的目录种类是<code>只发送</code></h2>
 <p>如果尝试修改，会提示当前系统只支持<code>只发送</code>。我用的是鸿蒙系统，在系统里把默认存储改到存储卡，然后就可以把目录种类改成<code>发送和接收</code>了。</p>
 <p>此外，千万别覆盖，不然远端的文件会全部被删掉。。。</p>
-<h2 id="home-is-undefined"><a href="#home-is-undefined">¶</a> <code>$HOME is undefined</code></h2>
+<h2 id="home-is-undefined"><a href="#home-is-undefined">¶</a>
+<code>$HOME is undefined</code></h2>
 <p>在使用<code>supervisor</code>实现开启自动启动syncthing时，可能会失败，然后在日志里可能会发现这个错误信息。这是因为<code>supervisor</code>不会自动设置<code>HOME</code>等环境变量，但是syncthing又需要。这时只需要在conf里加上一行这个：</p>
 <pre><code>environment=HOME="/home/your_name"</code></pre>
 <p>就手动设置了<code>HOME</code>环境变量了。</p>
 <p>来源：<a target="_blank" rel="noopener" href="http://supervisord.org/subprocess.html#subprocess-environment" class="uri">http://supervisord.org/subprocess.html#subprocess-environment</a></p>
-<h2 id="鸿蒙杀后台太快"><a href="#鸿蒙杀后台太快">¶</a> 鸿蒙杀后台太快</h2>
+<h2 id="鸿蒙杀后台太快"><a href="#鸿蒙杀后台太快">¶</a>
+鸿蒙杀后台太快</h2>
 <p>从syncthing界面离开几秒钟之后，鸿蒙就会自动终止其网络传输。可以试试关掉syncthing的自动管理，换成手动管理，然后设置成允许后台活动。然后为了其耗电太快，将其设置成只在交流电下使用。</p>
-<h2 id="远程机器上设置gui密码之后浏览器连不上了"><a href="#远程机器上设置gui密码之后浏览器连不上了">¶</a> 远程机器上设置GUI密码之后浏览器连不上了</h2>
+<h2 id="远程机器上设置gui密码之后浏览器连不上了"><a href="#远程机器上设置gui密码之后浏览器连不上了">¶</a>
+远程机器上设置GUI密码之后浏览器连不上了</h2>
 <p>不知道为啥。重启syncthing即可。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

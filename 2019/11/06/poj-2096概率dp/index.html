@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,41 +7977,47 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>大意：每个bug有两种属性N和S。N有n种可能取值，S有s种可能取值。bug的属性的分布是等概率的。一个人一天找一个bug，问他找到的bug中有所有属性的期望天数（不需要取遍所有组合，有就行了）。</p>
 <p>由于每种属性是等价的，因此状态可以定义为两个属性各自取到的数量。<br>
-设dp[i][j]为遇到了i种N属性，j种S属性的情况下，遇到所有的属性的期望天数。显然dp[n][s] = 0，而dp[0][0]为所求。</p>
+设dp[i][j]为遇到了i种N属性，j种S属性的情况下，遇到所有的属性的期望天数。显然dp[n][s]
+= 0，而dp[0][0]为所求。</p>
 <p>接下来，</p>
-<p>遇到一个新的N属性，但是属性S是旧的的概率为(n - i) * j / (n * s)，转移到dp[i+1][j]</p>
-<p>遇到旧的N属性，新的S属性的概率为i * (s-j) / (n * s)，转移到dp[i][j+1]</p>
-<p>两种属性都是新的的概率为(n-i)<em>(s-j) / (n </em> s)，转移到dp[i+1][j+1]</p>
+<p>遇到一个新的N属性，但是属性S是旧的的概率为(n - i) * j / (n *
+s)，转移到dp[i+1][j]</p>
+<p>遇到旧的N属性，新的S属性的概率为i * (s-j) / (n *
+s)，转移到dp[i][j+1]</p>
+<p>两种属性都是新的的概率为(n-i)<em>(s-j) / (n </em>
+s)，转移到dp[i+1][j+1]</p>
 <p>两种属性都是旧的的概率为i<em>s/(n</em>s)，还是留在dp[i][j]</p>
 <p>形式化：</p>
-<p>dp[i][j] = i<em>j/(n</em>s) dp[i][j] + (n-i)<em>(s-j) / (n </em> s) dp[i+1][j+1] + i * (s-j) / (n * s) dp[i][j+1] + (n - i) * j /<br>
+<p>dp[i][j] = i<em>j/(n</em>s) dp[i][j] + (n-i)<em>(s-j) / (n </em> s)
+dp[i+1][j+1] + i * (s-j) / (n * s) dp[i][j+1] + (n - i) * j /<br>
 (n * s) dp[i+1][j] + 1</p>
 <p>即</p>
-<p>dp[i][j] = ((n-i)<em>(s-j) </em> dp[i+1][j+1] + i * (s-j) * dp[i][j+1] + (n-i) * j * dp[i+1][j] + n * s) / (n<em>s - i</em>j)</p>
+<p>dp[i][j] = ((n-i)<em>(s-j) </em> dp[i+1][j+1] + i * (s-j) *
+dp[i][j+1] + (n-i) * j * dp[i+1][j] + n * s) / (n<em>s - i</em>j)</p>
 <p>注意i == n且j == s时要continue</p>
 <p>代码：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="pp">#define MAXN </span><span class="dv">1011</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="at">static</span> <span class="dt">double</span> dp[MAXN][MAXN];</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="dt">int</span> n, s;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    scanf(<span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span>, &amp;n, &amp;s);</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>    dp[n][s] = <span class="dv">0</span>;</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = n; i &gt;= <span class="dv">0</span>; --i) {</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="dt">int</span> j = s; j &gt;= <span class="dv">0</span>; --j) {</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>            <span class="cf">if</span> (i == n &amp;&amp; j == s) <span class="cf">continue</span>;</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>            dp[i][j] = ((n-i)*(s-j) * dp[i+<span class="dv">1</span>][j+<span class="dv">1</span>] + i * (s-j) * dp[i][j+<span class="dv">1</span>]  + (n-i) * j * dp[i+<span class="dv">1</span>][j] + n * s) / (n*s - i*j);</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>        }</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    }</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    printf(<span class="st">"</span><span class="sc">%.4f\n</span><span class="st">"</span>, dp[<span class="dv">0</span>][<span class="dv">0</span>]);</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MAXN </span><span class="dv">1011</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">static</span> <span class="dt">double</span> dp<span class="op">[</span>MAXN<span class="op">][</span>MAXN<span class="op">];</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">,</span> s<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    scanf<span class="op">(</span><span class="st">"</span><span class="sc">%d%d</span><span class="st">"</span><span class="op">,</span> <span class="op">&amp;</span>n<span class="op">,</span> <span class="op">&amp;</span>s<span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    dp<span class="op">[</span>n<span class="op">][</span>s<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> n<span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> <span class="op">--</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> s<span class="op">;</span> j <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> <span class="op">--</span>j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>i <span class="op">==</span> n <span class="op">&amp;&amp;</span> j <span class="op">==</span> s<span class="op">)</span> <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            dp<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span> <span class="op">=</span> <span class="op">((</span>n<span class="op">-</span>i<span class="op">)*(</span>s<span class="op">-</span>j<span class="op">)</span> <span class="op">*</span> dp<span class="op">[</span>i<span class="op">+</span><span class="dv">1</span><span class="op">][</span>j<span class="op">+</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> i <span class="op">*</span> <span class="op">(</span>s<span class="op">-</span>j<span class="op">)</span> <span class="op">*</span> dp<span class="op">[</span>i<span class="op">][</span>j<span class="op">+</span><span class="dv">1</span><span class="op">]</span>  <span class="op">+</span> <span class="op">(</span>n<span class="op">-</span>i<span class="op">)</span> <span class="op">*</span> j <span class="op">*</span> dp<span class="op">[</span>i<span class="op">+</span><span class="dv">1</span><span class="op">][</span>j<span class="op">]</span> <span class="op">+</span> n <span class="op">*</span> s<span class="op">)</span> <span class="op">/</span> <span class="op">(</span>n<span class="op">*</span>s <span class="op">-</span> i<span class="op">*</span>j<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%.4f\n</span><span class="st">"</span><span class="op">,</span> dp<span class="op">[</span><span class="dv">0</span><span class="op">][</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

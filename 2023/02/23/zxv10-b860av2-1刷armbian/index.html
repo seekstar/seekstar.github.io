@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7980,20 +7980,28 @@ mjx-container[display="true"] + br {
 CPU: S905L 4核<br>
 RAM: 1G<br>
 eMMC: 8G</p>
-<p>主要思路：先刷一个带root而且可以安装sd卡应用的Android系统，然后从SD卡安装reboot to libreELEC，通过它启动到U盘里的Armbian，然后在Armbian的shell里把Armbian刷到eMMC里。</p>
+<p>主要思路：先刷一个带root而且可以安装sd卡应用的Android系统，然后从SD卡安装reboot
+to
+libreELEC，通过它启动到U盘里的Armbian，然后在Armbian的shell里把Armbian刷到eMMC里。</p>
 <p>网上教程很多，这里主要提一些坑点。一些文件从哪来的不记得了，这里只给文件名。</p>
-<h2 id="挑选android镜像"><a href="#挑选android镜像">¶</a> 挑选Android镜像</h2>
-<p>对镜像的要求：带root，可以安装sd卡应用。但是有些系统不能通过reboot to libreELEC 启动到U盘，只能一个一个去试。</p>
+<h2 id="挑选android镜像"><a href="#挑选android镜像">¶</a>
+挑选Android镜像</h2>
+<p>对镜像的要求：带root，可以安装sd卡应用。但是有些系统不能通过reboot to
+libreELEC 启动到U盘，只能一个一个去试。</p>
 <p>这个是我最终成功的镜像名称：<code>20191218-R3300L-Q7-6.0-root-twrp-Milton</code></p>
 <p>其他尝试失败的镜像：</p>
 <ul>
 <li><p><code>201908-ZTE-b860aV2.1_1.1T-android4.42-root-qlzy</code><br>
-要刷flash和boot loader，不然开机界面卡死。带root，可以安装sd卡应用。但是无法通过reboot to libreELEC启动到U盘。可能是因为系统和reboot to libreELEC不兼容，reboot to libreELEC无法请求root权限。</p></li>
+要刷flash和boot
+loader，不然开机界面卡死。带root，可以安装sd卡应用。但是无法通过reboot
+to libreELEC启动到U盘。可能是因为系统和reboot to libreELEC不兼容，reboot
+to libreELEC无法请求root权限。</p></li>
 <li><p><code>b860av2.1-20201215</code><br>
 没有root。而且没法安装U盘里的应用。</p></li>
 <li><p><code>android_tv_mgv2000-s905l2-android4.4.2-root</code></p></li>
 </ul>
-<p>来自这篇博客：<a target="_blank" rel="noopener" href="https://blog.huggy.moe/posts/2022/15-b860av2.1-armbian/">ZTE B860AV2.1 折腾 Armbian</a></p>
+<p>来自这篇博客：<a target="_blank" rel="noopener" href="https://blog.huggy.moe/posts/2022/15-b860av2.1-armbian/">ZTE
+B860AV2.1 折腾 Armbian</a></p>
 <p>卡7%</p>
 <ul>
 <li><code>newExt3-2020-12.img</code></li>
@@ -8002,11 +8010,13 @@ eMMC: 8G</p>
 <ul>
 <li><code>ZTE-B860AV1.1T-2020-12-15.img</code></li>
 </ul>
-<p>可以启动，有root，可以从U盘安装应用。但是无法通过reboot to libreELEC启动到U盘。</p>
+<p>可以启动，有root，可以从U盘安装应用。但是无法通过reboot to
+libreELEC启动到U盘。</p>
 <h2 id="刷系统各个步骤的先后顺序"><a href="#刷系统各个步骤的先后顺序">¶</a> 刷系统各个步骤的先后顺序</h2>
 <p>先点击开始，再短接C125，再上电。</p>
 <h2 id="armbian镜像"><a href="#armbian镜像">¶</a> Armbian镜像</h2>
-<p>主要参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.huggy.moe/posts/2022/15-b860av2.1-armbian/">ZTE B860AV2.1 折腾 Armbian</a></p>
+<p>主要参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.huggy.moe/posts/2022/15-b860av2.1-armbian/">ZTE
+B860AV2.1 折腾 Armbian</a></p>
 <p>我用的镜像：<code>Armbian_20.10-buster-b860-5.9.0.img</code></p>
 <p>先刷到U盘里，然后进行一些配置：</p>
 <pre class="shell"><code>cp u-boot-s905x-s912 u-boot.ext

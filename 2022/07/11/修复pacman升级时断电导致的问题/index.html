@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,17 +7979,21 @@ mjx-container[display="true"] + br {
 <p>pacman升级时断电可能会导致一些文件甚至是内核变成0长度。可以让pacman重装所有包来解决问题：</p>
 <pre class="shell"><code>pacman -Qqn | sudo pacman -S - --overwrite=*</code></pre>
 <p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=250008">[SOLVED]crash during upgrade, pacman broken</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=250008">[SOLVED]crash
+during upgrade, pacman broken</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/pacman/Tips_and_tricks#Reinstalling_all_packages" class="uri">https://wiki.archlinux.org/title/pacman/Tips_and_tricks#Reinstalling_all_packages</a></p>
-<h2 id="重装内核后initramfs没有自动生成"><a href="#重装内核后initramfs没有自动生成">¶</a> 重装内核后initramfs没有自动生成</h2>
-<p>如果进不去系统的话用Live OS启动，挂载对应的操作系统的根文件系统，然后chroot进去重装所有包即可。然后可以先重启一下系统，如果能成功启动就可以了，否则可能是重新安装内核后initramfs没有自动生成：</p>
+<h2 id="重装内核后initramfs没有自动生成"><a href="#重装内核后initramfs没有自动生成">¶</a>
+重装内核后initramfs没有自动生成</h2>
+<p>如果进不去系统的话用Live
+OS启动，挂载对应的操作系统的根文件系统，然后chroot进去重装所有包即可。然后可以先重启一下系统，如果能成功启动就可以了，否则可能是重新安装内核后initramfs没有自动生成：</p>
 <pre class="shell"><code>sudo pacman -S linux</code></pre>
 <p>报错：</p>
 <pre class="text"><code>==&gt; WARNING: Preset file `/etc/mkinitcpio.d/linux.preset' is empty or does not contain any presets.</code></pre>
 <p>解决方案是删掉这个空的文件，然后重新安装内核：</p>
 <pre class="shell"><code>sudo rm /etc/mkinitcpio.d/linux.preset
 sudo pacman -S linux</code></pre>
-<p>然后<code>/etc/mkinitcpio.d/linux.preset</code>和两个initramfs <code>/boot/initramfs-linux.img</code>以及<code>/boot/initramfs-linux-fallback.img</code>就都有了。</p>
+<p>然后<code>/etc/mkinitcpio.d/linux.preset</code>和两个initramfs
+<code>/boot/initramfs-linux.img</code>以及<code>/boot/initramfs-linux-fallback.img</code>就都有了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/571124/no-mkinitcpio-preset-present" class="uri">https://unix.stackexchange.com/questions/571124/no-mkinitcpio-preset-present</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

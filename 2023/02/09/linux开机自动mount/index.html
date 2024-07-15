@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7988,19 +7988,20 @@ mjx-container[display="true"] + br {
 <p>来源：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fstab" class="uri">https://wiki.archlinux.org/title/Fstab</a></p>
 <h4 id="user"><a href="#user">¶</a> user</h4>
 <p>FAT文件系统不保存用户的信息，因此挂载FAT文件系统时必须指定一个用户。默认的用户是root。将其更改成指定用户：<code>uid=xxx,gid=xxx,user</code>，其中<code>uid</code>和<code>gid</code>可以通过<code>id</code>命令查看。</p>
-<h2 id="systemd-mount-unit"><a href="#systemd-mount-unit">¶</a> Systemd mount unit</h2>
+<h2 id="systemd-mount-unit"><a href="#systemd-mount-unit">¶</a> Systemd
+mount unit</h2>
 <p>例如要在开机时<code>mount /dev/mmcblk0 /mnt/sdcard</code>，其为<code>FAT32</code>类型，则添加文件<code>/etc/systemd/system/mnt-sdcard.mount</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">[Unit]</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="dt">Description </span><span class="ot">=</span><span class="st"> Mount sdcard at boot</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">[Mount]</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="dt">What </span><span class="ot">=</span><span class="st"> /dev/mmcblk0</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="dt">Where </span><span class="ot">=</span><span class="st"> /mnt/sdcard</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="dt">Type </span><span class="ot">=</span><span class="st"> vfat</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="dt">Options </span><span class="ot">=</span><span class="st"> </span><span class="kw">defaults</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="kw">[Install]</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="dt">WantedBy </span><span class="ot">=</span><span class="st"> multi-user.target</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description </span><span class="ot">=</span><span class="st"> Mount sdcard at boot</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[Mount]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">What </span><span class="ot">=</span><span class="st"> /dev/mmcblk0</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Where </span><span class="ot">=</span><span class="st"> /mnt/sdcard</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">Type </span><span class="ot">=</span><span class="st"> vfat</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Options </span><span class="ot">=</span><span class="st"> </span><span class="kw">defaults</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy </span><span class="ot">=</span><span class="st"> multi-user.target</span></span></code></pre></div>
 <p>注意其中的<code>vfat</code>不能写成<code>fat32</code>，不然会报错。</p>
 <p>然后启动服务：</p>
 <pre class="shell"><code>sudo systemctl daemon-reload

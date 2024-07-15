@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,49 +7975,53 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="大段随机二进制"><a href="#大段随机二进制">¶</a> 大段随机二进制</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="大段随机二进制"><a href="#大段随机二进制">¶</a>
+大段随机二进制</h2>
 <p>思路：先用<code>std::random_device</code>生成真随机数，用来初始化长周期随机数发生器<code>std::mt19937</code>，然后再用<code>std::mt19937</code>来不断生成随机数。</p>
 <p>生成大段随机二进制的部分C++17之后可以用这些：</p>
 <p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/generate" class="uri">https://en.cppreference.com/w/cpp/algorithm/generate</a></p>
 <p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/generate_n" class="uri">https://en.cppreference.com/w/cpp/algorithm/generate_n</a></p>
 <p>否则只能手写了。代码：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;random&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="bu">std::</span>random_device rd;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="kw">typedef</span> <span class="bu">std::</span>mt19937 RandEngine;</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="co">//RandEngine e(std::random_device()());</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>RandEngine e(rd());</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="co">//Generate long random binary result</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="dt">void</span> genrand(<span class="dt">void</span> *dest, <span class="dt">size_t</span> n) {</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="kw">typedef</span> <span class="dt">uint32_t</span> <span class="dt">res_t</span>;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="ot">assert</span>(n &gt;= <span class="kw">sizeof</span>(<span class="dt">res_t</span>) &amp;&amp;</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        <span class="st">"This function is designed for generating long random binary result, please use other function"</span>);</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>    <span class="ot">assert</span>(n % <span class="kw">sizeof</span>(<span class="dt">res_t</span>) == <span class="dv">0</span>);</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="dt">res_t</span> *i = <span class="kw">reinterpret_cast</span>&lt;<span class="dt">res_t</span> *&gt;(dest);</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    <span class="dt">res_t</span> *j = <span class="kw">reinterpret_cast</span>&lt;<span class="dt">res_t</span> *&gt;((<span class="dt">uint8_t</span>*)dest + n);</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    <span class="cf">for</span> (; i &lt; j; ++i) {</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>        *i = e();</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    }</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;random&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>random_device<span class="op"> </span>rd<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="bu">std::</span>mt19937<span class="op"> </span>RandEngine<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">//RandEngine e(std::random_device()());</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>RandEngine e<span class="op">(</span>rd<span class="op">());</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">//Generate long random binary result</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> genrand<span class="op">(</span><span class="dt">void</span> <span class="op">*</span>dest<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">typedef</span> <span class="dt">uint32_t</span> <span class="dt">res_t</span><span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>n <span class="op">&gt;=</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">res_t</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"This function is designed for generating long random binary result, please use other function"</span><span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>n <span class="op">%</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">res_t</span><span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">res_t</span> <span class="op">*</span>i <span class="op">=</span> <span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">res_t</span> <span class="op">*&gt;(</span>dest<span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">res_t</span> <span class="op">*</span>j <span class="op">=</span> <span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">res_t</span> <span class="op">*&gt;((</span><span class="dt">uint8_t</span><span class="op">*)</span>dest <span class="op">+</span> n<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(;</span> i <span class="op">&lt;</span> j<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>i <span class="op">=</span> e<span class="op">();</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>（坑点）不能这样：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">typedef</span> RandEngine::<span class="dt">result_type</span> <span class="dt">res_t</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> RandEngine<span class="op">::</span><span class="dt">result_type</span> <span class="dt">res_t</span><span class="op">;</span></span></code></pre></div>
 <p>因为标准库里的mt19937是用来生成32bit的伪随机数的，而<code>RandEngine::result_type</code>有可能是64bit的。</p>
-<h2 id="随机十进制字符串"><a href="#随机十进制字符串">¶</a> 随机十进制字符串</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">template</span> &lt;<span class="kw">typename</span> Engine&gt;</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="bu">std::</span>string rand_digits(Engine e, <span class="dt">size_t</span> n) {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>	<span class="bu">std::</span>uniform_int_distribution&lt;<span class="dt">char</span>&gt; dist(<span class="dv">0</span>, <span class="dv">9</span>);</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>	<span class="bu">std::</span>string ret;</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	ret.reserve(n);</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>	<span class="cf">while</span> (n--) {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>		ret.push_back(dist(e) + <span class="ch">'0'</span>);</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="cf">return</span> ret;</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>}</span></code></pre></div>
+<h2 id="随机十进制字符串"><a href="#随机十进制字符串">¶</a>
+随机十进制字符串</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> Engine<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>rand_digits<span class="op">(</span>Engine e<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>uniform_int_distribution<span class="op">&lt;</span><span class="dt">char</span><span class="op">&gt;</span> dist<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">9</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>string<span class="op"> </span>ret<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>	ret<span class="op">.</span>reserve<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>	<span class="cf">while</span> <span class="op">(</span>n<span class="op">--)</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>		ret<span class="op">.</span>push_back<span class="op">(</span>dist<span class="op">(</span>e<span class="op">)</span> <span class="op">+</span> <span class="ch">'0'</span><span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="参考"><a href="#参考">¶</a> 参考</h2>
 <p><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/random/mt19937/" class="uri">http://www.cplusplus.com/reference/random/mt19937/</a><br>
-<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8500677/what-is-uint-fast32-t-and-why-should-it-be-used-instead-of-the-regular-int-and-u">What is uint_fast32_t and why should it be used instead of the regular int and uint32_t?</a></p>
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8500677/what-is-uint-fast32-t-and-why-should-it-be-used-instead-of-the-regular-int-and-u">What
+is uint_fast32_t and why should it be used instead of the regular int
+and uint32_t?</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,7 +7975,10 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>这里假设name node的host name为<code>hdfs-name</code>，需要配置三个data node，host name分别为: <code>hdfs-data-0</code>, <code>hdfs-data-1</code>, <code>hdfs-data-2</code>。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>这里假设name node的host
+name为<code>hdfs-name</code>，需要配置三个data node，host name分别为:
+<code>hdfs-data-0</code>, <code>hdfs-data-1</code>,
+<code>hdfs-data-2</code>。</p>
 <h2 id="下载"><a href="#下载">¶</a> 下载</h2>
 <p><a target="_blank" rel="noopener" href="https://dlcdn.apache.org/hadoop/common/" class="uri">https://dlcdn.apache.org/hadoop/common/</a></p>
 <p>这里假设解压到了<code>~/software/hadoop</code>。所以</p>
@@ -7984,49 +7987,56 @@ mjx-container[display="true"] + br {
 <p>hadoop的运行需要JRE：</p>
 <pre class="shell"><code># Debian 11
 sudo apt install default-jre</code></pre>
-<h2 id="hadoop-配置文件"><a href="#hadoop-配置文件">¶</a> hadoop 配置文件</h2>
-<p>这些配置文件要放到所有name node和data node的<code>$HADOOP_HOME/etc/hadoop</code>：</p>
+<h2 id="hadoop-配置文件"><a href="#hadoop-配置文件">¶</a> hadoop
+配置文件</h2>
+<p>这些配置文件要放到所有name node和data
+node的<code>$HADOOP_HOME/etc/hadoop</code>：</p>
 <h3 id="hadoop-envsh"><a href="#hadoop-envsh">¶</a> hadoop-env.sh</h3>
 <p>设置一些环境变量，比如<code>export JAVA_HOME=/usr/lib/jvm/default-java</code></p>
 <h3 id="core-sitexml"><a href="#core-sitexml">¶</a> core-site.xml</h3>
 <p>设置HDFS的交互端口（通常为9000）。我的：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">&lt;?xml</span> version="1.0" encoding="UTF-8"<span class="kw">?&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="kw">?&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">&lt;configuration&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>fs.defaultFS<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>hdfs://hdfs-name:9000<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">&lt;/configuration&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="fu">?&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>	&lt;<span class="kw">property</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">name</span>&gt;fs.defaultFS&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">value</span>&gt;hdfs://hdfs-name:9000&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>	&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">configuration</span>&gt;</span></code></pre></div>
 <h3 id="workers"><a href="#workers">¶</a> workers</h3>
-<p>放data node的名字。后续访问data node都是通过这些名字访问的。本例：</p>
+<p>放data node的名字。后续访问data
+node都是通过这些名字访问的。本例：</p>
 <pre class="text"><code>hdfs-data-0
 hdfs-data-1
 hdfs-data-2</code></pre>
 <h3 id="hdfs-sitexml"><a href="#hdfs-sitexml">¶</a> hdfs-site.xml</h3>
-<p>可以设置默认replica个数，以及name node和data node的数据库文件存放的目录。我的：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">&lt;?xml</span> version="1.0" encoding="UTF-8"<span class="kw">?&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="kw">?&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="kw">&lt;configuration&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.replication<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>3<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.namenode.name.dir<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-name<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>	<span class="kw">&lt;property&gt;</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>		<span class="kw">&lt;name&gt;</span>dfs.datanode.data.dir<span class="kw">&lt;/name&gt;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a>		<span class="kw">&lt;value&gt;</span>/home/searchstar/hdfs-data<span class="kw">&lt;/value&gt;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>	<span class="kw">&lt;/property&gt;</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a><span class="kw">&lt;/configuration&gt;</span></span></code></pre></div>
+<p>可以设置默认replica个数，以及name node和data
+node的数据库文件存放的目录。我的：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml-stylesheet</span> type="text/xsl" href="configuration.xsl"<span class="fu">?&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>	&lt;<span class="kw">property</span>&gt;</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">name</span>&gt;dfs.replication&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">value</span>&gt;3&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>	&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>	&lt;<span class="kw">property</span>&gt;</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">name</span>&gt;dfs.namenode.name.dir&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">value</span>&gt;/home/searchstar/hdfs-name&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>	&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>	&lt;<span class="kw">property</span>&gt;</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">name</span>&gt;dfs.datanode.data.dir&lt;/<span class="kw">name</span>&gt;</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>		&lt;<span class="kw">value</span>&gt;/home/searchstar/hdfs-data&lt;/<span class="kw">value</span>&gt;</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>	&lt;/<span class="kw">property</span>&gt;</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">configuration</span>&gt;</span></code></pre></div>
 <h2 id="etchosts"><a href="#etchosts">¶</a> /etc/hosts</h2>
-<p>因为name node和data node依赖host name来通信，所以需要在<code>/etc/hosts</code>里添加对host name的解析。</p>
+<p>因为name node和data node依赖host
+name来通信，所以需要在<code>/etc/hosts</code>里添加对host
+name的解析。</p>
 <h3 id="name-node"><a href="#name-node">¶</a> Name node</h3>
-<p>Name node需要能够解析它自己（不知道为什么），而且需要把<code>/etc/hosts</code>里对自己的解析：</p>
+<p>Name
+node需要能够解析它自己（不知道为什么），而且需要把<code>/etc/hosts</code>里对自己的解析：</p>
 <pre class="text"><code>127.0.1.1      hdfs-name</code></pre>
 <p>改成</p>
 <pre class="text"><code>192.168.122.102 hdfs-name</code></pre>
@@ -8048,13 +8058,15 @@ Escape character is '^]'.</code></pre>
 192.168.122.105 hdfs-data-1
 192.168.122.106 hdfs-data-2</code></pre>
 <h3 id="data-node"><a href="#data-node">¶</a> Data node</h3>
-<p>一定要解析name node的host name。但是保险起见，我把所有node的主机名都解析了：</p>
+<p>一定要解析name node的host
+name。但是保险起见，我把所有node的主机名都解析了：</p>
 <pre class="text"><code>192.168.122.102 hdfs-name
 192.168.122.103 hdfs-data-0
 192.168.122.105 hdfs-data-1
 192.168.122.106 hdfs-data-2</code></pre>
 <h2 id="ssh"><a href="#ssh">¶</a> SSH</h2>
-<p>需要配置公钥登录，使得name node能够免密码ssh到每个data node。（不知道是否需要能够免密码登录到自己）</p>
+<p>需要配置公钥登录，使得name node能够免密码ssh到每个data
+node。（不知道是否需要能够免密码登录到自己）</p>
 <h2 id="启动集群"><a href="#启动集群">¶</a> 启动集群</h2>
 <p>在name node上：</p>
 <pre class="shell"><code>$HADOOP_HOME/sbin/start-dfs.sh</code></pre>
@@ -8075,7 +8087,8 @@ $HADOOP_HOME/bin/hdfs dfs -setrep -w 3 /myfile
 $HADOOP_HOME/bin/hdfs dfs -setrep -w 3 /mydir</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://community.cloudera.com/t5/Support-Questions/Replication-factor-not-changed-in-HDFS-from-hdfs-site-xml/td-p/217100" class="uri">https://community.cloudera.com/t5/Support-Questions/Replication-factor-not-changed-in-HDFS-from-hdfs-site-xml/td-p/217100</a></p>
 <h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
-<p>不能通过复制已有data node的磁盘来新增data node，否则会出现ID冲突：</p>
+<p>不能通过复制已有data node的磁盘来新增data
+node，否则会出现ID冲突：</p>
 <pre class="text"><code>Data node DatanodeRegistration(192.168.122.105:9866, datanodeUuid=d41eb640-253f-486c-94aa-bff5680fb18f, infoP
 ort=9864, infoSecurePort=0, ipcPort=9867, storageInfo=lv=-57;cid=CID-0762fc1d-0181-42d5-b385-c3fdc56910
 72;nsid=286492513;c=1652290033280) is attempting to report storage ID d41eb640-253f-486c-94aa-bff5680fb

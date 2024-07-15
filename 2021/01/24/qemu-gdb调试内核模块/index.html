@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7975,7 +7975,8 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="制作qemu虚拟机"><a href="#制作qemu虚拟机">¶</a> 制作qemu虚拟机</h2>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="制作qemu虚拟机"><a href="#制作qemu虚拟机">¶</a>
+制作qemu虚拟机</h2>
 <p>看这里：<a href="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="在服务器上用qemu制作虚拟机">在服务器上用qemu制作虚拟机</a></p>
 <p>如果是PC的话，就不用配置vnc了。</p>
 <p>虚拟机配置完毕后要把<code>-enable-kvm</code>去掉再重启，不然软件断点不起作用。此外，加上<code>-s</code>以启动gdbserver。</p>
@@ -7993,7 +7994,8 @@ mjx-container[display="true"] + br {
 <p>例如</p>
 <pre class="text"><code>add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</code></pre>
 <p>这样gdb里就可以用<code>lx-symbols</code>了。</p>
-<h2 id="gdb连上qemu并设置自动加载模块符号"><a href="#gdb连上qemu并设置自动加载模块符号">¶</a> gdb连上qemu并设置自动加载模块符号</h2>
+<h2 id="gdb连上qemu并设置自动加载模块符号"><a href="#gdb连上qemu并设置自动加载模块符号">¶</a>
+gdb连上qemu并设置自动加载模块符号</h2>
 <pre class="shell"><code>cd /path/to/kernel/build/dir
 gdb vmlinux</code></pre>
 <p>然后在gdb里执行</p>
@@ -8017,7 +8019,8 @@ loading @0xffffffffc0000000: /mnt/hdd/kernel/gdb/linux-nova/fs/autofs/autofs4.ko
 <pre class="text"><code>(gdb) c
 Continuing.</code></pre>
 <p>这样虚拟机就会继续运行。在虚拟机中用insmod加载模块。这时gdb会自动加载内核模块的符号。</p>
-<h2 id="在gdb中设置断点"><a href="#在gdb中设置断点">¶</a> 在gdb中设置断点</h2>
+<h2 id="在gdb中设置断点"><a href="#在gdb中设置断点">¶</a>
+在gdb中设置断点</h2>
 <p>由于已经关闭了<code>kvm</code>，所以可以直接设置软断点。</p>
 <pre class="text"><code>(gdb) b nova_init_blockmap
 Breakpoint 1 at 0xffffffffc10992ab: file /home/searchstar/git/projects/nova/balloc.c, line 212.</code></pre>

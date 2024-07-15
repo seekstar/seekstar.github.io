@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7979,110 +7979,111 @@ mjx-container[display="true"] + br {
 <a target="_blank" rel="noopener" href="https://www.xuebuyuan.com/857766.html">odbc使用SQLDriverConnect连接数据库</a><br>
 <a target="_blank" rel="noopener" href="http://www.ch-werner.de/sqliteodbc/html/index.html">sqliteodbc文档</a><br>
 <a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_591f0e6e010135ov.html">Linux下通过unixODBC访问SQLite数据库</a><br>
-<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqldriverconnect-function?view=sql-server-ver15">SQLDriverConnect microsoft官方文档</a></p>
+<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/odbc/reference/syntax/sqldriverconnect-function?view=sql-server-ver15">SQLDriverConnect
+microsoft官方文档</a></p>
 <h1 id="安装软件"><a href="#安装软件">¶</a> 安装软件</h1>
 <pre class="shell"><code>sudo apt install -y sqlite3 sqlitebrowser unixodbc unixodbc-dev libsqliteodbc</code></pre>
 <p>其中sqlitebrowser可以打开sqlite的数据库文件。<br>
 # 连接</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="at">const</span> <span class="dt">char</span> connStr[] = <span class="st">"Driver=SQLite3;Database=test.db"</span>;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>retcode = SQLDriverConnect(hdbc, NULL, (SQLCHAR*)connStr, <span class="kw">sizeof</span>(connStr), outConnStr, <span class="kw">sizeof</span>(outConnStr), &amp;outConnStrLen, SQL_DRIVER_COMPLETE);</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span> connStr<span class="op">[]</span> <span class="op">=</span> <span class="st">"Driver=SQLite3;Database=test.db"</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>retcode <span class="op">=</span> SQLDriverConnect<span class="op">(</span>hdbc<span class="op">,</span> NULL<span class="op">,</span> <span class="op">(</span>SQLCHAR<span class="op">*)</span>connStr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>connStr<span class="op">),</span> outConnStr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>outConnStr<span class="op">),</span> <span class="op">&amp;</span>outConnStrLen<span class="op">,</span> SQL_DRIVER_COMPLETE<span class="op">);</span></span></code></pre></div>
 <h1 id="坑"><a href="#坑">¶</a> 坑</h1>
 <ul>
 <li>注意如果第二个参数为NULL的话，最后一个参数不能为SQL_DRIVER_PROMPT，否则会连接失败。</li>
 <li>连接串的Driver不能写成<code>SQLite3 ODBC Driver</code>。猜测是因为<code>/etc/odbcinst.ini</code>里只有<code>SQLite3</code>。</li>
 </ul>
 <h1 id="完整代码"><a href="#完整代码">¶</a> 完整代码</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="pp">#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;windows.h&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="pp">#endif</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>SQLHENV henv = SQL_NULL_HENV;  </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>SQLHDBC hdbc = SQL_NULL_HDBC;       </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>SQLHSTMT hstmt = SQL_NULL_HSTMT;  </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="dt">void</span> Cleanup() {  </span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="co">//释放语句句柄</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>    <span class="cf">if</span> (hstmt != SQL_NULL_HSTMT)  </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>        SQLFreeHandle(SQL_HANDLE_STMT, hstmt);  </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>  </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    <span class="cf">if</span> (hdbc != SQL_NULL_HDBC) {  </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>        <span class="co">//断开数据库连接</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>        SQLDisconnect(hdbc);  </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>        <span class="co">//释放连接句柄</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>        SQLFreeHandle(SQL_HANDLE_DBC, hdbc);  </span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    }  </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>  </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>    <span class="co">//释放环境句柄句柄</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    <span class="cf">if</span> (henv != SQL_NULL_HENV)  </span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>        SQLFreeHandle(SQL_HANDLE_ENV, henv);  </span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>}  </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>    SQLRETURN retcode;</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>    SQLLEN length;</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>    <span class="co">// Allocate the ODBC environment and save handle.  </span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>    retcode = SQLAllocHandle (SQL_HANDLE_ENV, NULL, &amp;henv);  </span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS_WITH_INFO) &amp;&amp; (retcode != SQL_SUCCESS)) {  </span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>        printf(<span class="st">"SQLAllocHandle(Env) Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>        Cleanup();  </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>    }  </span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>    <span class="co">// Notify ODBC that this is an ODBC 3.0 app.  </span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>    retcode = SQLSetEnvAttr(henv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER) SQL_OV_ODBC3, SQL_IS_INTEGER);  </span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS_WITH_INFO) &amp;&amp; (retcode != SQL_SUCCESS)) {  </span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a>        printf(<span class="st">"SQLSetEnvAttr(ODBC version) Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>        Cleanup();  </span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);      </span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a>    }  </span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>    <span class="co">// Allocate ODBC connection handle and connect.  </span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>    retcode = SQLAllocHandle(SQL_HANDLE_DBC, henv, &amp;hdbc);  </span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS_WITH_INFO) &amp;&amp; (retcode != SQL_SUCCESS)) {  </span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>        printf(<span class="st">"SQLAllocHandle(hdbc1) Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>        Cleanup();  </span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a>    }  </span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a>	<span class="co">//HWND desktopHandle = GetDesktopWindow();   // desktop's window handle</span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>	<span class="co">//const char connStr[] = "Driver=SQLite3 ODBC Driver;Database=/home/searchstar/test.db;Timeout=100";</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a>	<span class="co">//const char connStr[] = "Driver=SQLite3 ODBC Driver;Database=test.db";</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a>	<span class="at">const</span> <span class="dt">char</span> connStr[] = <span class="st">"Driver=SQLite3;Database=test.db"</span>;</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>	SQLCHAR outConnStr[<span class="dv">255</span>];</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>	SQLSMALLINT outConnStrLen;</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a>	retcode = SQLDriverConnect(hdbc, NULL, (SQLCHAR*)connStr, <span class="kw">sizeof</span>(connStr), outConnStr, <span class="kw">sizeof</span>(outConnStr), &amp;outConnStrLen, SQL_DRIVER_COMPLETE);</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>	cout &lt;&lt; outConnStrLen;</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a>	<span class="cf">if</span> (outConnStrLen) {</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true"></a>		cout &lt;&lt; <span class="ch">','</span> &lt;&lt; outConnStr;</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true"></a>	}</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true"></a>	cout &lt;&lt; endl;</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true"></a>        printf(<span class="st">"SQLConnect() Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true"></a>        Cleanup();  </span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true"></a>	}</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true"></a>    <span class="co">//分配执行语句句柄</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true"></a>    retcode = SQLAllocHandle(SQL_HANDLE_STMT, hdbc, &amp;hstmt);  </span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true"></a>    <span class="cf">if</span> ((retcode != SQL_SUCCESS) &amp;&amp; (retcode != SQL_SUCCESS_WITH_INFO)) {  </span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true"></a>        printf(<span class="st">"SQLAllocHandle(hstmt1) Failed</span><span class="sc">\n\n</span><span class="st">"</span>);  </span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true"></a>        Cleanup();  </span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true"></a>        <span class="cf">return</span>(<span class="dv">9</span>);  </span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true"></a>    }  </span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true"></a></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true"></a>    Cleanup();</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true"></a></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cstring&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;windows.h&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>SQLHENV henv <span class="op">=</span> SQL_NULL_HENV<span class="op">;</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>SQLHDBC hdbc <span class="op">=</span> SQL_NULL_HDBC<span class="op">;</span>       </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>SQLHSTMT hstmt <span class="op">=</span> SQL_NULL_HSTMT<span class="op">;</span>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Cleanup<span class="op">()</span> <span class="op">{</span>  </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放语句句柄</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>hstmt <span class="op">!=</span> SQL_NULL_HSTMT<span class="op">)</span>  </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        SQLFreeHandle<span class="op">(</span>SQL_HANDLE_STMT<span class="op">,</span> hstmt<span class="op">);</span>  </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>hdbc <span class="op">!=</span> SQL_NULL_HDBC<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="co">//断开数据库连接</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        SQLDisconnect<span class="op">(</span>hdbc<span class="op">);</span>  </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">//释放连接句柄</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        SQLFreeHandle<span class="op">(</span>SQL_HANDLE_DBC<span class="op">,</span> hdbc<span class="op">);</span>  </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放环境句柄句柄</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>henv <span class="op">!=</span> SQL_NULL_HENV<span class="op">)</span>  </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        SQLFreeHandle<span class="op">(</span>SQL_HANDLE_ENV<span class="op">,</span> henv<span class="op">);</span>  </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>  </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    SQLRETURN retcode<span class="op">;</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    SQLLEN length<span class="op">;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Allocate the ODBC environment and save handle.  </span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    retcode <span class="op">=</span> SQLAllocHandle <span class="op">(</span>SQL_HANDLE_ENV<span class="op">,</span> NULL<span class="op">,</span> <span class="op">&amp;</span>henv<span class="op">);</span>  </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>retcode <span class="op">!=</span> SQL_SUCCESS_WITH_INFO<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>retcode <span class="op">!=</span> SQL_SUCCESS<span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"SQLAllocHandle(Env) Failed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span>  </span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        Cleanup<span class="op">();</span>  </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">(</span><span class="dv">9</span><span class="op">);</span>  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Notify ODBC that this is an ODBC 3.0 app.  </span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    retcode <span class="op">=</span> SQLSetEnvAttr<span class="op">(</span>henv<span class="op">,</span> SQL_ATTR_ODBC_VERSION<span class="op">,</span> <span class="op">(</span>SQLPOINTER<span class="op">)</span> SQL_OV_ODBC3<span class="op">,</span> SQL_IS_INTEGER<span class="op">);</span>  </span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>retcode <span class="op">!=</span> SQL_SUCCESS_WITH_INFO<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>retcode <span class="op">!=</span> SQL_SUCCESS<span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"SQLSetEnvAttr(ODBC version) Failed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span>  </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        Cleanup<span class="op">();</span>  </span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">(</span><span class="dv">9</span><span class="op">);</span>      </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Allocate ODBC connection handle and connect.  </span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    retcode <span class="op">=</span> SQLAllocHandle<span class="op">(</span>SQL_HANDLE_DBC<span class="op">,</span> henv<span class="op">,</span> <span class="op">&amp;</span>hdbc<span class="op">);</span>  </span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>retcode <span class="op">!=</span> SQL_SUCCESS_WITH_INFO<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>retcode <span class="op">!=</span> SQL_SUCCESS<span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"SQLAllocHandle(hdbc1) Failed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span>  </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        Cleanup<span class="op">();</span>  </span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">(</span><span class="dv">9</span><span class="op">);</span>  </span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">//数据库连接</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>	<span class="co">//HWND desktopHandle = GetDesktopWindow();   // desktop's window handle</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>	<span class="co">//const char connStr[] = "Driver=SQLite3 ODBC Driver;Database=/home/searchstar/test.db;Timeout=100";</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>	<span class="co">//const char connStr[] = "Driver=SQLite3 ODBC Driver;Database=test.db";</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>	<span class="at">const</span> <span class="dt">char</span> connStr<span class="op">[]</span> <span class="op">=</span> <span class="st">"Driver=SQLite3;Database=test.db"</span><span class="op">;</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>	SQLCHAR outConnStr<span class="op">[</span><span class="dv">255</span><span class="op">];</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>	SQLSMALLINT outConnStrLen<span class="op">;</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>	retcode <span class="op">=</span> SQLDriverConnect<span class="op">(</span>hdbc<span class="op">,</span> NULL<span class="op">,</span> <span class="op">(</span>SQLCHAR<span class="op">*)</span>connStr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>connStr<span class="op">),</span> outConnStr<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>outConnStr<span class="op">),</span> <span class="op">&amp;</span>outConnStrLen<span class="op">,</span> SQL_DRIVER_COMPLETE<span class="op">);</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>	cout <span class="op">&lt;&lt;</span> outConnStrLen<span class="op">;</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>	<span class="cf">if</span> <span class="op">(</span>outConnStrLen<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="ch">','</span> <span class="op">&lt;&lt;</span> outConnStr<span class="op">;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>	cout <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>retcode <span class="op">!=</span> SQL_SUCCESS<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>retcode <span class="op">!=</span> SQL_SUCCESS_WITH_INFO<span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"SQLConnect() Failed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span>  </span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>        Cleanup<span class="op">();</span>  </span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">(</span><span class="dv">9</span><span class="op">);</span>  </span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配执行语句句柄</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    retcode <span class="op">=</span> SQLAllocHandle<span class="op">(</span>SQL_HANDLE_STMT<span class="op">,</span> hdbc<span class="op">,</span> <span class="op">&amp;</span>hstmt<span class="op">);</span>  </span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>retcode <span class="op">!=</span> SQL_SUCCESS<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>retcode <span class="op">!=</span> SQL_SUCCESS_WITH_INFO<span class="op">))</span> <span class="op">{</span>  </span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"SQLAllocHandle(hstmt1) Failed</span><span class="sc">\n\n</span><span class="st">"</span><span class="op">);</span>  </span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>        Cleanup<span class="op">();</span>  </span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">(</span><span class="dv">9</span><span class="op">);</span>  </span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    Cleanup<span class="op">();</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>输出：</p>
 <pre><code>164,DSN=;Database=test.db;StepAPI=;Timeout=;SyncPragma=;NoTXN=;ShortNames=;LongNames=;NoCreat=;NoWCHAR=;FKSupport=;Tracefile=;JournalMode=;LoadExt=;BigInt=;JDConv=;PWD=</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

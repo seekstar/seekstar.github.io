@@ -7252,9 +7252,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7263,9 +7263,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -8022,11 +8022,15 @@ timeou
 					Linux禁用swap
 				</h2>
 				<div class="index-brief">
-					¶ sudo swapoff -a
+					¶
+sudo swapoff -a
 这一步会立即禁用swap，但是下次重启还会启用。
-¶ 从/etc/fstab中删除swap条目
-¶ mask相关systemd unit
-systemd可能会从/etc/fstab中的swap条目生成对应的systemd unit：https://www.free
+¶
+从/etc/fstab中删除swap条目
+¶
+mask相关systemd unit
+systemd可能会从/etc/fstab中的swap条目生成对应的systemd
+unit：https://www.free
 					...
 				</div>
 			</a>
@@ -8048,7 +8052,8 @@ systemd可能会从/etc/fstab中的swap条目生成对应的systemd unit：https
 pacman升级时断电可能会导致一些文件甚至是内核变成0长度。可以让pacman重装所有包来解决问题：
 pacman -Qqn | sudo pacman -S - --overwrite=*
 参考：
-[SOLVED]crash during upgrade, pacman brok
+[SOLVED]crash
+during upgrade, pacman brok
 					...
 				</div>
 			</a>
@@ -8112,7 +8117,9 @@ dracut init
 					Linux kernel读取和写入用户态内存
 				</h2>
 				<div class="index-brief">
-					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page fault，这时硬件会自动跳转到内核提供的page fault handler do_page_fault，将page准备好之后再跳回
+					copy_from_user和copy_to_user底层都是copy_user_generic。其主体部分是正常复制数据，但是访问用户态数据时，可能会出现page
+fault，这时硬件会自动跳转到内核提供的page fault handler
+do_page_fault，将page准备好之后再跳回
 					...
 				</div>
 			</a>
@@ -8149,7 +8156,8 @@ dracut init
 					Linux markdown转pdf
 				</h2>
 				<div class="index-brief">
-					¶ vscode插件：Markdown Preview Enhanced
+					¶ vscode插件：Markdown
+Preview Enhanced
 在预览窗口右键，选择Open in Browser，然后HTML就会在浏览器中打开，接着在浏览器中将其打印为PDF即可。
 ¶ pandoc
 看这里：Pandoc+TeXLive实现Markdown转PDF

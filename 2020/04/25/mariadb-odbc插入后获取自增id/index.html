@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7977,184 +7977,187 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>官方回复：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/last_insert_id/" class="uri">https://mariadb.com/kb/en/last_insert_id/</a></p>
 <h1 id="定义表"><a href="#定义表">¶</a> 定义表</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> incid (</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTO_INCREMENT,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    salary <span class="dt">INT</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>);</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">VALUES</span> (<span class="ot">"4"</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>(<span class="ot">"6"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>(<span class="ot">"35432"</span>);</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> incid;</span></code></pre></div>
-<h1 id="方法１使用自定义函数"><a href="#方法１使用自定义函数">¶</a> 方法１：使用自定义函数</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>DELIMITER <span class="op">//</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>RETURNS bigint</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val);</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="kw">RETURN</span> LAST_INSERT_ID();</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="cf">END</span> <span class="op">//</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>DELIMITER ;</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> incid (</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">id</span> BIGINT UNSIGNED <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTO_INCREMENT,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    salary <span class="dt">INT</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="ot">"4"</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"6"</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"35432"</span>);</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> incid;</span></code></pre></div>
+<h1 id="方法１使用自定义函数"><a href="#方法１使用自定义函数">¶</a>
+方法１：使用自定义函数</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DELIMITER <span class="op">//</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RETURNS bigint</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">VALUES</span>(val);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> LAST_INSERT_ID();</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span> <span class="op">//</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>DELIMITER ;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> insert_sth(<span class="dv">233</span>);</span></code></pre></div>
 <p>如果<code>SELECT insert_sth(233);</code>的输出是自增的说明数据库的配置完成了。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="pp">#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;windows.h&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="pp">#endif</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="dt">int</span> main() {</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    SQLHENV serverhenv;</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>    SQLHDBC serverhdbc;</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    SQLHSTMT serverhstmt;</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>    SQLRETURN ret;</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    SQLCHAR dname[<span class="dv">45</span>], dno[<span class="dv">10</span>];</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>    SQLLEN length;</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    <span class="co">//分配环境句柄</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>    ret = SQLAllocHandle(SQL_HANDLE_ENV,SQL_NULL_HANDLE,&amp;serverhenv);</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>    <span class="co">//设置环境属性</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    ret = SQLSetEnvAttr(serverhenv,SQL_ATTR_ODBC_VERSION,(<span class="dt">void</span>*)SQL_OV_ODBC3,<span class="dv">0</span>);</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>    {</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"AllocEnvHandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    }</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>    <span class="co">//分配连接句柄</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>    ret = SQLAllocHandle(SQL_HANDLE_DBC,serverhenv,&amp;serverhdbc);</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>    {</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"AllocDbcHandle error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>    }</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>    ret = SQLConnect(serverhdbc,(SQLCHAR*)<span class="st">"company"</span>,SQL_NTS, NULL, SQL_NTS, NULL, SQL_NTS);</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>    <span class="cf">if</span>(!SQL_SUCCEEDED(ret))</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true"></a>    {</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"SQL_Connect error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true"></a>		<span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true"></a>    }</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true"></a></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true"></a>    <span class="co">//分配执行语句句柄</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true"></a>    ret = SQLAllocHandle(SQL_HANDLE_STMT,serverhdbc,&amp;serverhstmt);</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true"></a>	SQLUBIGINT id;</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true"></a>	SQLINTEGER salary;</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"use test;"</span>, SQL_NTS);</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt, (SQLCHAR*)<span class="st">"select * from incid;"</span>, SQL_NTS);</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true"></a>        <span class="co">//绑定数据</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true"></a>        SQLBindCol(serverhstmt,<span class="dv">1</span>, SQL_C_UBIGINT, (<span class="dt">void</span>*)&amp;id,<span class="kw">sizeof</span>(id), &amp;length);</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true"></a>        SQLBindCol(serverhstmt,<span class="dv">2</span>, SQL_C_SLONG, (<span class="dt">void</span>*)&amp;salary,<span class="kw">sizeof</span>(salary), &amp;length);</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true"></a>        cout &lt;&lt; <span class="st">"id</span><span class="sc">\t\t</span><span class="st">salary</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true"></a>        <span class="cf">while</span>(SQL_NO_DATA != SQLFetch(serverhstmt))</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true"></a>        {</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true"></a>            cout &lt;&lt; id &lt;&lt; <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> &lt;&lt; salary &lt;&lt; endl;</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true"></a>        }</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"ERROR!</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true"></a>	}</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt,(SQLCHAR*)<span class="st">"select insert_sth(23333333);"</span>, SQL_NTS);</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true"></a>        <span class="co">//绑定数据</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true"></a>        SQLBindCol(serverhstmt,<span class="dv">1</span>, SQL_C_UBIGINT, (<span class="dt">void</span>*)&amp;id, <span class="kw">sizeof</span>(id), &amp;length);</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true"></a>		SQLFetch(serverhstmt);</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"Error</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true"></a>	}</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true"></a>    <span class="co">//释放语句句柄</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true"></a>    ret=SQLFreeHandle(SQL_HANDLE_STMT,serverhstmt);</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true"></a>    <span class="cf">if</span>(SQL_SUCCESS!=ret &amp;&amp; SQL_SUCCESS_WITH_INFO != ret)</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free hstmt error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true"></a>    <span class="co">//断开数据库连接</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true"></a>    ret=SQLDisconnect(serverhdbc);</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true"></a>    <span class="cf">if</span>(SQL_SUCCESS!=ret&amp;&amp;SQL_SUCCESS_WITH_INFO!=ret)</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"disconnected error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true"></a>    <span class="co">//释放连接句柄</span></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true"></a>    ret=SQLFreeHandle(SQL_HANDLE_DBC,serverhdbc);</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true"></a>    <span class="cf">if</span>(SQL_SUCCESS!=ret&amp;&amp;SQL_SUCCESS_WITH_INFO!=ret)</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free hdbc error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true"></a>    <span class="co">//释放环境句柄句柄</span></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true"></a>    ret=SQLFreeHandle(SQL_HANDLE_ENV,serverhenv);</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true"></a>    <span class="cf">if</span>(SQL_SUCCESS!=ret&amp;&amp;SQL_SUCCESS_WITH_INFO!=ret)</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true"></a>        cout&lt;&lt;<span class="st">"free henv error!"</span>&lt;&lt;endl;</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true"></a></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true"></a>    cout &lt;&lt; <span class="st">"done"</span> &lt;&lt; endl;</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true"></a></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;windows.h&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    SQLHENV serverhenv<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    SQLHDBC serverhdbc<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    SQLHSTMT serverhstmt<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    SQLRETURN ret<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    SQLCHAR dname<span class="op">[</span><span class="dv">45</span><span class="op">],</span> dno<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    SQLLEN length<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配环境句柄</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> SQLAllocHandle<span class="op">(</span>SQL_HANDLE_ENV<span class="op">,</span>SQL_NULL_HANDLE<span class="op">,&amp;</span>serverhenv<span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">//设置环境属性</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> SQLSetEnvAttr<span class="op">(</span>serverhenv<span class="op">,</span>SQL_ATTR_ODBC_VERSION<span class="op">,(</span><span class="dt">void</span><span class="op">*)</span>SQL_OV_ODBC3<span class="op">,</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>SQL_SUCCEEDED<span class="op">(</span>ret<span class="op">))</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"AllocEnvHandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配连接句柄</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> SQLAllocHandle<span class="op">(</span>SQL_HANDLE_DBC<span class="op">,</span>serverhenv<span class="op">,&amp;</span>serverhdbc<span class="op">);</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>SQL_SUCCEEDED<span class="op">(</span>ret<span class="op">))</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"AllocDbcHandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">//数据库连接</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>	<span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码，如果数据源中已经指定了就直接写NULL即可。</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> SQLConnect<span class="op">(</span>serverhdbc<span class="op">,(</span>SQLCHAR<span class="op">*)</span><span class="st">"company"</span><span class="op">,</span>SQL_NTS<span class="op">,</span> NULL<span class="op">,</span> SQL_NTS<span class="op">,</span> NULL<span class="op">,</span> SQL_NTS<span class="op">);</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>SQL_SUCCEEDED<span class="op">(</span>ret<span class="op">))</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"SQL_Connect error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配执行语句句柄</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> SQLAllocHandle<span class="op">(</span>SQL_HANDLE_STMT<span class="op">,</span>serverhdbc<span class="op">,&amp;</span>serverhstmt<span class="op">);</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>	SQLUBIGINT id<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>	SQLINTEGER salary<span class="op">;</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>	ret <span class="op">=</span> SQLExecDirect<span class="op">(</span>serverhstmt<span class="op">,(</span>SQLCHAR<span class="op">*)</span><span class="st">"use test;"</span><span class="op">,</span> SQL_NTS<span class="op">);</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>	ret <span class="op">=</span> SQLExecDirect<span class="op">(</span>serverhstmt<span class="op">,</span> <span class="op">(</span>SQLCHAR<span class="op">*)</span><span class="st">"select * from incid;"</span><span class="op">,</span> SQL_NTS<span class="op">);</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>ret <span class="op">==</span> SQL_SUCCESS <span class="op">||</span> ret <span class="op">==</span> SQL_SUCCESS_WITH_INFO<span class="op">){</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        <span class="co">//绑定数据</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>        SQLBindCol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">1</span><span class="op">,</span> SQL_C_UBIGINT<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)&amp;</span>id<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>id<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        SQLBindCol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">2</span><span class="op">,</span> SQL_C_SLONG<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)&amp;</span>salary<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>salary<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"id</span><span class="sc">\t\t</span><span class="st">salary</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>SQL_NO_DATA <span class="op">!=</span> SQLFetch<span class="op">(</span>serverhstmt<span class="op">))</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>            cout <span class="op">&lt;&lt;</span> id <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> <span class="op">&lt;&lt;</span> salary <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="st">"ERROR!</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>	ret <span class="op">=</span> SQLExecDirect<span class="op">(</span>serverhstmt<span class="op">,(</span>SQLCHAR<span class="op">*)</span><span class="st">"select insert_sth(23333333);"</span><span class="op">,</span> SQL_NTS<span class="op">);</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>ret <span class="op">==</span> SQL_SUCCESS <span class="op">||</span> ret <span class="op">==</span> SQL_SUCCESS_WITH_INFO<span class="op">){</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        <span class="co">//绑定数据</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>        SQLBindCol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">1</span><span class="op">,</span> SQL_C_UBIGINT<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)&amp;</span>id<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>id<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>		SQLFetch<span class="op">(</span>serverhstmt<span class="op">);</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="st">"The new id: "</span> <span class="op">&lt;&lt;</span> id <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="st">"Error</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放语句句柄</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>SQLFreeHandle<span class="op">(</span>SQL_HANDLE_STMT<span class="op">,</span>serverhstmt<span class="op">);</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>SQL_SUCCESS<span class="op">!=</span>ret <span class="op">&amp;&amp;</span> SQL_SUCCESS_WITH_INFO <span class="op">!=</span> ret<span class="op">)</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hstmt error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="co">//断开数据库连接</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>SQLDisconnect<span class="op">(</span>serverhdbc<span class="op">);</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>SQL_SUCCESS<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>SQL_SUCCESS_WITH_INFO<span class="op">!=</span>ret<span class="op">)</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"disconnected error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放连接句柄</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>SQLFreeHandle<span class="op">(</span>SQL_HANDLE_DBC<span class="op">,</span>serverhdbc<span class="op">);</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>SQL_SUCCESS<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>SQL_SUCCESS_WITH_INFO<span class="op">!=</span>ret<span class="op">)</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hdbc error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放环境句柄句柄</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>SQLFreeHandle<span class="op">(</span>SQL_HANDLE_ENV<span class="op">,</span>serverhenv<span class="op">);</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>SQL_SUCCESS<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>SQL_SUCCESS_WITH_INFO<span class="op">!=</span>ret<span class="op">)</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free henv error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> <span class="st">"done"</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>里面的数据源名<code>company</code>要改成你自己配置的数据源。</p>
 <pre class="shell"><code>g++ incid.cpp -lodbc -o incid
 ./incid</code></pre>
-<h1 id="方法２使用存储过程"><a href="#方法２使用存储过程">¶</a> 方法２：使用存储过程</h1>
+<h1 id="方法２使用存储过程"><a href="#方法２使用存储过程">¶</a>
+方法２：使用存储过程</h1>
 <p>参考：<br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013187074/article/details/52895801">SQLBindParameter 函数的参数解析及使用方法</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013187074/article/details/52895801">SQLBindParameter
+函数的参数解析及使用方法</a><br>
 <a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/390092241" class="uri">https://bbs.csdn.net/topics/390092241</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zjoe-life/p/10650378.html">MySQL存储过程（PROCEDURE）</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/lizzyshao/article/details/83585328">MYSQL中如何调用带输出参数的存储过程</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>DELIMITER $$</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> insert_return_id(<span class="kw">IN</span> val <span class="dt">int</span>, <span class="kw">OUT</span> <span class="kw">id</span> bigint unsigned)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val);</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    <span class="kw">SET</span> <span class="kw">id</span> <span class="op">=</span> LAST_INSERT_ID();</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="cf">END</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>$$ DELIMITER ;</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="kw">call</span> insert_return_id(<span class="dv">233333</span>, @id);</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="kw">select</span> @id;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DELIMITER $$</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">PROCEDURE</span> insert_return_id(<span class="kw">IN</span> val <span class="dt">int</span>, <span class="kw">OUT</span> <span class="kw">id</span> bigint unsigned)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(salary)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">VALUES</span>(val);</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SET</span> <span class="kw">id</span> <span class="op">=</span> LAST_INSERT_ID();</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>$$ DELIMITER ;</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">call</span> insert_return_id(<span class="dv">233333</span>, @id);</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> @id;</span></code></pre></div>
 <p>输出是自增的，说明存储过程写对了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.easysoft.com/developer/languages/c/examples/CallSPFindID.html" class="uri">https://www.easysoft.com/developer/languages/c/examples/CallSPFindID.html</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>	id = <span class="dv">2333</span>;</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>	SQLBindParameter(serverhstmt, <span class="dv">1</span>, SQL_PARAM_OUTPUT, SQL_C_UBIGINT, SQL_BIGINT, <span class="dv">0</span>, <span class="dv">0</span>, &amp;id, <span class="dv">0</span>, &amp;length);</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>	ret = SQLExecDirect(serverhstmt, (SQLCHAR*)(<span class="st">"{CALL insert_return_id(23333, ?)}"</span>), SQL_NTS);</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="cf">if</span>(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO){</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"The new id: "</span> &lt;&lt; id &lt;&lt; endl;</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>		cout &lt;&lt; <span class="st">"SQLExecute error</span><span class="sc">\n</span><span class="st">"</span>;</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>	}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>	id <span class="op">=</span> <span class="dv">2333</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>	SQLBindParameter<span class="op">(</span>serverhstmt<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> SQL_PARAM_OUTPUT<span class="op">,</span> SQL_C_UBIGINT<span class="op">,</span> SQL_BIGINT<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>id<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>	ret <span class="op">=</span> SQLExecDirect<span class="op">(</span>serverhstmt<span class="op">,</span> <span class="op">(</span>SQLCHAR<span class="op">*)(</span><span class="st">"{CALL insert_return_id(23333, ?)}"</span><span class="op">),</span> SQL_NTS<span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>ret <span class="op">==</span> SQL_SUCCESS <span class="op">||</span> ret <span class="op">==</span> SQL_SUCCESS_WITH_INFO<span class="op">){</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="st">"The new id: "</span> <span class="op">&lt;&lt;</span> id <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>		cout <span class="op">&lt;&lt;</span> <span class="st">"SQLExecute error</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span></code></pre></div>
 <p>这个比方法１效率应该要高一点。</p>
 <h2 id="失败的方法"><a href="#失败的方法">¶</a> 失败的方法</h2>
 <p>mariadb目前并不支持returning，所以下面的方法没用。下一个版本10.5就有这个功能了。</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5104830/retrieve-autoincrement-id-through-odbc" class="uri">https://stackoverflow.com/questions/5104830/retrieve-autoincrement-id-through-odbc</a></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">VALUES</span> (<span class="ot">"4"</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>(<span class="ot">"6"</span>),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>(<span class="ot">"35432"</span>);</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> incid;</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>DELIMITER <span class="op">//</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>RETURNS bigint</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="cf">BEGIN</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>	<span class="kw">DECLARE</span> newid bigint;</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>    <span class="kw">VALUES</span>(val)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    <span class="kw">RETURNING</span> <span class="kw">id</span> <span class="kw">into</span> newid;</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    <span class="kw">RETURN</span> newid;</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a><span class="cf">END</span> <span class="op">//</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>DELIMITER ;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="ot">"4"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"6"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(<span class="ot">"35432"</span>);</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> incid;</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>DELIMITER <span class="op">//</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> insert_sth(val <span class="dt">int</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>RETURNS bigint</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>	<span class="kw">DECLARE</span> newid bigint;</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>	<span class="kw">INSERT</span> <span class="kw">INTO</span> incid(x)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">VALUES</span>(val)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURNING</span> <span class="kw">id</span> <span class="kw">into</span> newid;</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> newid;</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span> <span class="op">//</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>DELIMITER ;</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

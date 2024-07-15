@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7984,52 +7984,59 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>这里我们主要分析<code>VersionSet::LogAndApply</code>是怎么管理writer队列的。</p>
-<p>参数里的<code>edit_lists</code>是需要被apply的改动。每个传入的column family data对应<code>edit_lists</code>里的一个edit list，即<code>autovector&lt;VersionEdit*&gt;</code>。</p>
-<p>接下来把每个edit list打包成一个<code>ManifestWriter</code>，放进<code>std::deque&lt;ManifestWriter&gt; writers</code>里。此外，由于对manifest的修改必须逐个进行，因此<code>VersionSet</code>里还维护了一个<code>MenifestWriter</code>的队列：<code>manifest_writers_</code>。因此还需要把打包好的<code>ManifestWriter</code>的指针放进<code>manifest_writers_</code>里。</p>
+<p>参数里的<code>edit_lists</code>是需要被apply的改动。每个传入的column
+family data对应<code>edit_lists</code>里的一个edit
+list，即<code>autovector&lt;VersionEdit*&gt;</code>。</p>
+<p>接下来把每个edit
+list打包成一个<code>ManifestWriter</code>，放进<code>std::deque&lt;ManifestWriter&gt; writers</code>里。此外，由于对manifest的修改必须逐个进行，因此<code>VersionSet</code>里还维护了一个<code>MenifestWriter</code>的队列：<code>manifest_writers_</code>。因此还需要把打包好的<code>ManifestWriter</code>的指针放进<code>manifest_writers_</code>里。</p>
 <p>然后把要执行的第一个writer拿出来：<code>ManifestWriter&amp; first_writer = writers.front();</code></p>
 <p>等待它成为队首或者完成：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>  <span class="cf">while</span> (!first_writer.done &amp;&amp; &amp;first_writer != <span class="va">manifest_writers_</span>.front()) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    first_writer.cv.Wait();</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(!</span>first_writer<span class="op">.</span>done <span class="op">&amp;&amp;</span> <span class="op">&amp;</span>first_writer <span class="op">!=</span> <span class="va">manifest_writers_</span><span class="op">.</span>front<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    first_writer<span class="op">.</span>cv<span class="op">.</span>Wait<span class="op">();</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
 <p>如果它完成了，由于我们是一次性把所有writer都推入队列的，说明其他的也完成了，所以可以直接返回：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>  <span class="cf">if</span> (first_writer.done) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="cf">return</span> first_writer.status;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>first_writer<span class="op">.</span>done<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> first_writer<span class="op">.</span>status<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
 <p>否则它就是队首。</p>
-<p>由于我们是持有了DB mutex的，因此<code>writers</code>中的<code>ManifestWriter</code>在队列<code>manifest_writers_</code>中也是贴在一起的。这样，如果writers中的第一个writer变成了队列的队首，那么<code>writers</code>中其他的writer就紧贴其后，这样我们就可以正式开始逐个执行这些writer了。</p>
+<p>由于我们是持有了DB
+mutex的，因此<code>writers</code>中的<code>ManifestWriter</code>在队列<code>manifest_writers_</code>中也是贴在一起的。这样，如果writers中的第一个writer变成了队列的队首，那么<code>writers</code>中其他的writer就紧贴其后，这样我们就可以正式开始逐个执行这些writer了。</p>
 <p>进入<code>VersionSet::ProcessManifestWrites</code>。</p>
 <p>然后逐个去执行队列<code>manifest_writers_</code>里的writer，<code>last_writer</code>是最后一个被执行了的writer。</p>
-<p>然后后面又有一大堆操作，具体没看，但是其中会释放并重新申请DB mutex。因此到这个函数的末尾时，<code>writers</code>里的所有writer肯定都已经执行完毕了，但是<code>last_writer</code>不一定是队列<code>manifest_writers_</code>里的最后一个writer。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="co">// 遍历已经执行完成的writer</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    ManifestWriter* ready = <span class="va">manifest_writers_</span>.front();</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="va">manifest_writers_</span>.pop_front();</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="dt">bool</span> need_signal = <span class="kw">true</span>;</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="co">// 如果它在writers里，就不用发信号了，因为它们都归我们管</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    <span class="co">// 如果它不在writers里，说明可能有另一个线程在等待它变成队首，这时就要发信号</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="at">const</span> <span class="kw">auto</span>&amp; w : writers) {</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>      <span class="cf">if</span> (&amp;w == ready) {</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        need_signal = <span class="kw">false</span>;</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>        <span class="cf">break</span>;</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>      }</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    }</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>    ready-&gt;status = s;</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>    ready-&gt;done = <span class="kw">true</span>;</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="cf">if</span> (ready-&gt;manifest_write_callback) {</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>      (ready-&gt;manifest_write_callback)(s);</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>    }</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>    <span class="cf">if</span> (need_signal) {</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>      ready-&gt;cv.Signal();</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>    }</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>    <span class="cf">if</span> (ready == last_writer) {</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>      <span class="cf">break</span>;</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    }</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>  }</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>  <span class="co">// 因为last_writer不一定是manifest_writers_里的最后一个，所以给新的队首发送信号。</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>  <span class="cf">if</span> (!<span class="va">manifest_writers_</span>.empty()) {</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>    <span class="va">manifest_writers_</span>.front()-&gt;cv.Signal();</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>  }</span></code></pre></div>
-<p>但我有一个问题，在等待<code>first_writer</code>变成队首的时候，并没有unlock DB mutex，而后面给新队首发信号的时候也是hold DB mutex的，那这两者应该不能同时发生才对。</p>
+<p>然后后面又有一大堆操作，具体没看，但是其中会释放并重新申请DB
+mutex。因此到这个函数的末尾时，<code>writers</code>里的所有writer肯定都已经执行完毕了，但是<code>last_writer</code>不一定是队列<code>manifest_writers_</code>里的最后一个writer。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 遍历已经执行完成的writer</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    ManifestWriter<span class="op">*</span> ready <span class="op">=</span> <span class="va">manifest_writers_</span><span class="op">.</span>front<span class="op">();</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">manifest_writers_</span><span class="op">.</span>pop_front<span class="op">();</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> need_signal <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 如果它在writers里，就不用发信号了，因为它们都归我们管</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 如果它不在writers里，说明可能有另一个线程在等待它变成队首，这时就要发信号</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w <span class="op">:</span> writers<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(&amp;</span>w <span class="op">==</span> ready<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        need_signal <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ready<span class="op">-&gt;</span>status <span class="op">=</span> s<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    ready<span class="op">-&gt;</span>done <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ready<span class="op">-&gt;</span>manifest_write_callback<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="op">(</span>ready<span class="op">-&gt;</span>manifest_write_callback<span class="op">)(</span>s<span class="op">);</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>need_signal<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      ready<span class="op">-&gt;</span>cv<span class="op">.</span>Signal<span class="op">();</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ready <span class="op">==</span> last_writer<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 因为last_writer不一定是manifest_writers_里的最后一个，所以给新的队首发送信号。</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span><span class="va">manifest_writers_</span><span class="op">.</span>empty<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="va">manifest_writers_</span><span class="op">.</span>front<span class="op">()-&gt;</span>cv<span class="op">.</span>Signal<span class="op">();</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+<p>但我有一个问题，在等待<code>first_writer</code>变成队首的时候，并没有unlock
+DB mutex，而后面给新队首发信号的时候也是hold DB
+mutex的，那这两者应该不能同时发生才对。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

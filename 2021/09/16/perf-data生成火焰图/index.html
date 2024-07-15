@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,14 +7976,16 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用perf或者别的东西生成perf.data后，可以用如下方法生成火焰图：</p>
-<p>先把<a target="_blank" rel="noopener" href="https://github.com/brendangregg/FlameGraph.git" class="uri">https://github.com/brendangregg/FlameGraph.git</a> clone到目录<code>$FlameGraphPath</code>，然后</p>
+<p>先把<a target="_blank" rel="noopener" href="https://github.com/brendangregg/FlameGraph.git" class="uri">https://github.com/brendangregg/FlameGraph.git</a>
+clone到目录<code>$FlameGraphPath</code>，然后</p>
 <pre class="shell"><code>perf script -i perf.data &gt; perf.unfold
 $FlameGraphPath/stackcollapse-perf.pl perf.unfold &gt; perf.folded</code></pre>
 <p><code>perf.unfold</code>可能会比<code>perf.data</code>大将近十倍。所以一般是直接pipe进<code>stackcollapse-perf.pl</code>:</p>
 <pre class="shell"><code>perf script -i perf.data | $FlameGraphPath/stackcollapse-perf.pl &gt; perf.folded
 $FlameGraphPath/flamegraph.pl perf.folded &gt; perf.svg</code></pre>
 <p>注意，解析<code>perf.data</code>的时候好像要读取binary里的符号，所以在解析的时候不要重新编译之类的。</p>
-<p>如果嫌perl写的<code>stackcollapse-perf.pl</code>太慢的话，可以尝试rust写的<code>inferno</code>: <a target="_blank" rel="noopener" href="https://docs.rs/inferno/latest/inferno/" class="uri">https://docs.rs/inferno/latest/inferno/</a></p>
+<p>如果嫌perl写的<code>stackcollapse-perf.pl</code>太慢的话，可以尝试rust写的<code>inferno</code>:
+<a target="_blank" rel="noopener" href="https://docs.rs/inferno/latest/inferno/" class="uri">https://docs.rs/inferno/latest/inferno/</a></p>
 <pre class="shell"><code>cargo install inferno
 perf script -i perf.data | inferno-collapse-perf &gt; perf.folded
 # 默认太宽了。perl版本的宽度是1200，所以这里也设置成1200
@@ -7993,7 +7995,8 @@ inferno-flamegraph --width=1200 &lt; perf.folded &gt; perf.svg</code></pre>
 perf script -i perf.data | inferno-collapse-perf &gt; perf.folded
 $FlameGraphPath/flamegraph.pl perf.folded &gt; perf.svg</code></pre>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lausaa/p/12098716.html">linux 性能分析工具 perf + FlameGraph</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lausaa/p/12098716.html">linux
+性能分析工具 perf + FlameGraph</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7981,26 +7981,30 @@ mjx-container[display="true"] + br {
 <li><a href="/2022/03/02/cmake%E4%BD%BF%E7%94%A8c-17/" title="cmake使用C++17">cmake使用C++17</a></li>
 </ul>
 <h2 id="传入宏定义"><a href="#传入宏定义">¶</a> 传入宏定义</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">option</span>(MACRO_NAME</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    “Descriptions of the macro”</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    OFF)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">if</span> (MACRO_NAME)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  <span class="kw">add_compile_definitions</span>(MACRO_NAME)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="kw">endif</span> ()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">option</span>(MACRO_NAME</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    “Descriptions of the macro”</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">OFF</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> (MACRO_NAME)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">add_compile_definitions</span>(MACRO_NAME)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">endif</span> ()</span></code></pre></div>
 <p>然后<code>cmake .. -DMACRO_NAME=ON</code>，再<code>make</code>就好了。</p>
-<h2 id="find_library"><a href="#find_library">¶</a> <code>find_library</code></h2>
+<h2 id="find_library"><a href="#find_library">¶</a>
+<code>find_library</code></h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29657195/how-to-test-if-cmake-found-a-library-with-find-library" class="uri">https://stackoverflow.com/questions/29657195/how-to-test-if-cmake-found-a-library-with-find-library</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">find_library</span>(LUA_LIB lua)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="kw">if</span>(<span class="ot">NOT</span> LUA_LIB)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>  <span class="kw">message</span>(<span class="ot">FATAL_ERROR</span> <span class="st">"lua library not found"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">endif</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">find_library</span>(LUA_LIB lua)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(<span class="ot">NOT</span> LUA_LIB)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">message</span>(<span class="ot">FATAL_ERROR</span> <span class="st">"lua library not found"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">endif</span>()</span></code></pre></div>
 <h2 id="message"><a href="#message">¶</a> message</h2>
 <p><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/command/message.html" class="uri">https://cmake.org/cmake/help/latest/command/message.html</a></p>
 <h2 id="public-private-interface"><a href="#public-private-interface">¶</a> PUBLIC, PRIVATE, INTERFACE</h2>
-<p><a target="_blank" rel="noopener" href="https://cmake.org/pipermail/cmake/2016-May/063400.html">Difference between PRIVATE and PUBLIC with target_link_libraries</a></p>
-<p>假设A PRIVATE依赖B，A是静态库，B是动态库。如果executable C依赖A的话，cmake会自动把B链接到C上。</p>
+<p><a target="_blank" rel="noopener" href="https://cmake.org/pipermail/cmake/2016-May/063400.html">Difference
+between PRIVATE and PUBLIC with target_link_libraries</a></p>
+<p>假设A PRIVATE依赖B，A是静态库，B是动态库。如果executable
+C依赖A的话，cmake会自动把B链接到C上。</p>
 <h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
-<h3 id="忽略ld_library_path"><a href="#忽略ld_library_path">¶</a> 忽略<code>LD_LIBRARY_PATH</code></h3>
+<h3 id="忽略ld_library_path"><a href="#忽略ld_library_path">¶</a>
+忽略<code>LD_LIBRARY_PATH</code></h3>
 <p>CMake会忽略<code>LD_LIBRARY_PATH</code>。因此把库放进<code>LD_LIBRARY_PATH</code>里CMake还是找不到。</p>
 <p>不过可以在cmake里读取环境变量<code>LD_LIBRARY_PATH</code>：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/49738486/13688160" class="uri">https://stackoverflow.com/a/49738486/13688160</a></p>
 <p>然后就可以把它作为<code>find_package</code>的参数或者加入到<code>target_link_directories</code>里。</p>

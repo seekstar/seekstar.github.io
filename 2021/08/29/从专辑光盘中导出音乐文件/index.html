@@ -7254,9 +7254,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -7265,9 +7265,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7976,7 +7976,8 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="windows"><a href="#windows">¶</a> Windows</h1>
-<p>在Windows上插入专辑光盘后，打开之后会出现一堆cda文件。右键cda文件，选择用Windows Media Player打开。</p>
+<p>在Windows上插入专辑光盘后，打开之后会出现一堆cda文件。右键cda文件，选择用Windows
+Media Player打开。</p>
 <p><img src="/2021/08/29/%E4%BB%8E%E4%B8%93%E8%BE%91%E5%85%89%E7%9B%98%E4%B8%AD%E5%AF%BC%E5%87%BA%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6/6359ce71ceab4c19b12b650e5ce6bbea.png" alt="在这里插入图片描述"></p>
 <p>或者在开始菜单中选择<code>windows附件-&gt;windows media player</code>打开，然后就可以看到歌曲列表了。</p>
 <p><img src="/2021/08/29/%E4%BB%8E%E4%B8%93%E8%BE%91%E5%85%89%E7%9B%98%E4%B8%AD%E5%AF%BC%E5%87%BA%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6/69606b37aba84f5c8d2e5954f86e29cf.png" alt="在这里插入图片描述"><br>
@@ -7985,7 +7986,9 @@ mjx-container[display="true"] + br {
 <p>Linux下貌似识别不出来cda文件。不过可以这样直接把光盘里的音乐翻录出来：</p>
 <pre class="shell"><code>sudo apt install abcde flac
 abcde -o flac</code></pre>
-<p>如果不编辑CDDB data的话，导出之后的音乐文件即使是重命名了，导入到音乐软件比如网易云音乐之后，标题和歌手也可能是错误的。所以最好是编辑一下CDDB data，各个域的含义在这里可以看到：</p>
+<p>如果不编辑CDDB
+data的话，导出之后的音乐文件即使是重命名了，导入到音乐软件比如网易云音乐之后，标题和歌手也可能是错误的。所以最好是编辑一下CDDB
+data，各个域的含义在这里可以看到：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/qyot27/libcddb/blob/master/doc/freedb.howto.txt" class="uri">https://github.com/qyot27/libcddb/blob/master/doc/freedb.howto.txt</a></p>
 <p>一般只需要输入DTITLE和TTITLExx。</p>
 <h2 id="单作者专辑"><a href="#单作者专辑">¶</a> 单作者专辑</h2>
@@ -7996,7 +7999,8 @@ TTITLExx: 第xx首歌曲的标题</p>
 <h1 id="多作者专辑"><a href="#多作者专辑">¶</a> 多作者专辑</h1>
 <p>每首歌曲的作者都不一样。</p>
 <p>DTITLE: 专辑名字<br>
-TTITLExx: <code>作者 / 歌曲名字</code>，有多个作者的话，就<code>作者1,作者2 / 歌曲名字</code></p>
+TTITLExx:
+<code>作者 / 歌曲名字</code>，有多个作者的话，就<code>作者1,作者2 / 歌曲名字</code></p>
 <p>一个例子：</p>
 <pre><code># xmcd CD database file
 #
@@ -8049,7 +8053,8 @@ PLAYORDER=</code></pre>
 <p>导出要很久。如果导出后发现填错了，可以用MusicBrainz来编辑歌曲信息（可以给歌曲添加多个作者），不需要重新导出，修改完每首歌之后点击<code>Save</code>即可保存修改。</p>
 <h1 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h1>
 <p><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/363872ec0619ef6e4ba16ffd.html">怎么将cda转成mp3格式</a><br>
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30967451/article/details/117016176">linux 翻录cd,Linux下一个CD翻录 创CUE 压缩flac攻略</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30967451/article/details/117016176">linux
+翻录cd,Linux下一个CD翻录 创CUE 压缩flac攻略</a><br>
 <a target="_blank" rel="noopener" href="https://linux.die.net/man/1/abcde" class="uri">https://linux.die.net/man/1/abcde</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
