@@ -2335,42 +2335,20 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/23/archlinux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    ArchLinux使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
                      
 										    ArchLinux修复系统目录和文件的权限
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/12/10/archlinux%E5%AE%89%E8%A3%85nvidia%E9%A9%B1%E5%8A%A8/">
-                     
-										    ArchLinux安装NVIDIA驱动
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/12/22/archlinux%E5%BE%AE%E4%BF%A1/">
-                     
-										    ArchLinux微信
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
-                     
-										    ArchLinux根目录权限变成777的原因
                      
 									</a>
 								</li>
@@ -2635,17 +2613,6 @@ mjx-container[display="true"] + br {
 									<a href="/2021/01/31/ubuntu%E6%B8%85%E7%90%86-var-log/">
                      
 										    ubuntu清理/var/log
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
-                     
-										    yay孤立包的含义
                      
 									</a>
 								</li>
@@ -7945,73 +7912,6 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
-			<a href="/2021/07/28/total-vm-anon-rss-file-rss-shmem-rss%E5%90%AB%E4%B9%89/">
-				<h2 class="index-title">
-					total-vm anon-rss file-rss shmem-rss含义
-				</h2>
-				<div class="index-brief">
-					进程被杀了。查一下日志：
-dmesg | egrep -i -B100 'killed process'
-[2352218.368085] Out of memory: Kill process 1462 (transaction-exp) score 834 or sacrifice child
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/28/rust%E5%AD%98%E5%8F%96%E4%B8%80%E4%B8%AA%E5%90%AB%E6%9C%89borrowed%E5%9F%9F%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93/">
-				<h2 class="index-title">
-					rust存取一个含有borrowed域的结构体
-				</h2>
-				<div class="index-brief">
-					直接存取不可以：
-use std::io;
-
-use serde::{Serialize, Deserialize};
-
-extern crate bincode;
-
-#[derive(Debug, Serialize, Deserialize)]
-struct A&lt;'a&gt; {
-    
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/27/rust-serde-deserialize-borrowed-member/">
-				<h2 class="index-title">
-					rust serde deserialize borrowed member
-				</h2>
-				<div class="index-brief">
-					对于borrowed成员，deserializer可以借用输入里的对应部分。serde_json序列化时会将所有部分转换成字符串，这样除非这个成员是字符串，否则deserializer就不能借用到了，会报错：
-invalid type: sequence, expected a borrowed b
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
 			<a href="/2021/07/27/vscode-rust%E6%8F%92%E4%BB%B6find-all-references%E6%97%A0%E7%BB%93%E6%9E%9C/">
 				<h2 class="index-title">
 					vscode rust插件find all references无结果
@@ -8172,6 +8072,77 @@ cd
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/20/tmux%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/">
+				<h2 class="index-title">
+					tmux基础用法
+				</h2>
+				<div class="index-brief">
+					详细教程：https://www.ruanyifeng.com/blog/2019/10/tmux.html
+¶ 新建会话
+tmux
+底下的状态栏里最左边方括号里的就是自动分配的会话名称。
+也可以手动指定会话名称：
+tmux new -s &lt;session-name&gt;
+¶ 关闭当前会话
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/19/unknown-symbol-crc32c/">
+				<h2 class="index-title">
+					Unknown symbol crc32c
+				</h2>
+				<div class="index-brief">
+					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
+cd /lib/modules/$(uname -r)
+find . -iname "*crc32c*"
+./kernel/lib/libcrc32c.ko
+这就是我们要load的模块了。
+sudo modprobe 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-19</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/19/rust-note-warn-dead-code-on-by-default/">
+				<h2 class="index-title">
+					rust note: `#[warn(dead_code)]` on by default
+				</h2>
+				<div class="index-brief">
+					如果要允许未使用的代码，在前面加上
+#[allow(dead_code)]
+即可。
+参考文献：
+https://doc.rust-lang.org/rust-by-example/attribute/unused.html
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-19</span>
                     
                             
                     

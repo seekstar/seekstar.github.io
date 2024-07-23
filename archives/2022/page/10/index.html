@@ -2335,42 +2335,20 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/23/archlinux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    ArchLinux使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
                      
 										    ArchLinux修复系统目录和文件的权限
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/12/10/archlinux%E5%AE%89%E8%A3%85nvidia%E9%A9%B1%E5%8A%A8/">
-                     
-										    ArchLinux安装NVIDIA驱动
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/12/22/archlinux%E5%BE%AE%E4%BF%A1/">
-                     
-										    ArchLinux微信
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
-                     
-										    ArchLinux根目录权限变成777的原因
                      
 									</a>
 								</li>
@@ -2635,17 +2613,6 @@ mjx-container[display="true"] + br {
 									<a href="/2021/01/31/ubuntu%E6%B8%85%E7%90%86-var-log/">
                      
 										    ubuntu清理/var/log
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
-                     
-										    yay孤立包的含义
                      
 									</a>
 								</li>
@@ -7945,53 +7912,6 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
-			<a href="/2022/04/28/fatal-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-https-aur-archlinux-org-debtap-git-%EF%BC%9Aopenssl-ssl-connect-ssl-error-syscall-in-connection-to-aur-archlinux-org-443/">
-				<h2 class="index-title">
-					fatal: 无法访问 'https://aur.archlinux.org/debtap.git/'：OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to aur.archlinux.org:443
-				</h2>
-				<div class="index-brief">
-					我把~/.gitconfig里的
-[http]
-        proxy = socks5://127.0.0.1:8235
-改成
-[http]
-        proxy = http://127.0.0.1:8234
-就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-28</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
-				<h2 class="index-title">
-					在chroot环境中挂载dev, proc, sys
-				</h2>
-				<div class="index-brief">
-					¶ mount
-cd /location/of/new/root
-mount -t proc /proc proc/
-mount -t sysfs /sys sys/
-mount --rbind /dev dev/
-按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
 			<a href="/2022/04/27/linux-sysrq/">
 				<h2 class="index-title">
 					Linux SysRq
@@ -8149,6 +8069,51 @@ kerne
 			</a>
                 <div class="article-meta">
 				    <span>2022-04-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
+				<h2 class="index-title">
+					Linux配置网桥
+				</h2>
+				<div class="index-brief">
+					¶
+virsh default network
+可以利用virsh自带的default network，它是利用NAT实现的。
+sudo virsh net-start default
+# 关闭
+# sudo virsh net-destroy default
+然后ip a就可以看到一个名为virb
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/04/17/nmcli-device-status-unmanaged/">
+				<h2 class="index-title">
+					nmcli device status unmanaged
+				</h2>
+				<div class="index-brief">
+					症状：
+nmcli device status
+DEVICE        TYPE      STATE                                  CONNECTION
+enp89s0       ethernet  unmanaged                   
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-04-17</span>
                     
                             
                     

@@ -2335,42 +2335,20 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/23/archlinux%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    ArchLinux使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
                      
 										    ArchLinux修复系统目录和文件的权限
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/12/10/archlinux%E5%AE%89%E8%A3%85nvidia%E9%A9%B1%E5%8A%A8/">
-                     
-										    ArchLinux安装NVIDIA驱动
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/12/22/archlinux%E5%BE%AE%E4%BF%A1/">
-                     
-										    ArchLinux微信
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2023/03/01/archlinux%E6%A0%B9%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90%E5%8F%98%E6%88%90777%E7%9A%84%E5%8E%9F%E5%9B%A0/">
-                     
-										    ArchLinux根目录权限变成777的原因
                      
 									</a>
 								</li>
@@ -2635,17 +2613,6 @@ mjx-container[display="true"] + br {
 									<a href="/2021/01/31/ubuntu%E6%B8%85%E7%90%86-var-log/">
                      
 										    ubuntu清理/var/log
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/06/03/yay%E5%AD%A4%E7%AB%8B%E5%8C%85%E7%9A%84%E5%90%AB%E4%B9%89/">
-                     
-										    yay孤立包的含义
                      
 									</a>
 								</li>
@@ -7945,68 +7912,6 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
-			<a href="/2021/06/02/no-arrays-found-in-config-file-or-automatically/">
-				<h2 class="index-title">
-					no arrays found in config file or automatically
-				</h2>
-				<div class="index-brief">
-					原因是安装其他操作系统时共用了swap分区，导致uuid变化了。
-先修改/etc/fstab，把swap分区那行给注释掉，这样错误的uuid就被删掉了：
-# /dev/nvme0n1p3
-#UUID=2589c54c-1093-43b4-820e-5fa3f7e2d600      none    
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/06/02/matplotlib-the-pdf-backend-does-not-currently-support-the-selected-font/">
-				<h2 class="index-title">
-					matplotlib: The PDF backend does not currently support the selected font.
-				</h2>
-				<div class="index-brief">
-					3.3.4版本的matplotlib不支持这个字体。升级到3.4.2（目前的最新版本）就好了。
-pip3 install --upgrade matplotlib
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/06/01/debian%E8%B8%A9%E5%9D%91%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					debian踩坑笔记
-				</h2>
-				<div class="index-brief">
-					¶ 安装
-下载镜像：http://mirrors.ustc.edu.cn/debian-cd/
-选择对应的版本和CPU类型，然后我选的iso-dvd，只下载DVD-1.iso就好了，其他的都是额外的软件包。
-安装前一定要把网线拔了，因为安装过程中，即使选了镜像，http://security.deb
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-06-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
 			<a href="/2021/05/26/texdoctk/">
 				<h2 class="index-title">
 					texdoctk
@@ -8150,6 +8055,67 @@ cargo run
 			</a>
                 <div class="article-meta">
 				    <span>2021-05-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/05/14/brew-install-404/">
+				<h2 class="index-title">
+					brew install 404
+				</h2>
+				<div class="index-brief">
+					可能是因为镜像更新了。试一下
+brew update
+然后重试。
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-05-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/05/14/vscode-couldn%E2%80%98t-start-client-rust-language-server/">
+				<h2 class="index-title">
+					vscode Couldn‘t start client Rust Language Server
+				</h2>
+				<div class="index-brief">
+					首先要安装rustup: https://rustup.rs/
+Mac上可能会出现已经安装了rustup，但是vscode仍然报这个错的现象，这好像是vscode
+rust插件的问题。相关issue仍然是open的状态：
+https://github.com/rust-lang/vscode-rus
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-05-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/05/08/matplotlib%E7%AE%B1%E7%BA%BF%E5%9B%BE%E8%B0%83%E6%95%B4%E7%AE%B1%E5%AD%90%E7%9A%84%E5%AE%BD%E5%BA%A6/">
+				<h2 class="index-title">
+					matplotlib箱线图调整箱子的宽度
+				</h2>
+				<div class="index-brief">
+					widths : array-like, default = 0.5
+Either a scalar or a vector and sets the width of each box. The default is 0.5, or 0.15*(distance between extreme p
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-05-08</span>
                     
                             
                     
