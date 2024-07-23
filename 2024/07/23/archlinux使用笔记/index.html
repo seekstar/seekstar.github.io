@@ -7972,11 +7972,38 @@ mjx-container[display="true"] + br {
 +-----------------------------------------------------------------------------+</code></pre>
 <p>有些应用依赖<code>opencl</code>，一款编程框架，类似于CUDA，因此也建议安装<code>opencl-nvidia</code>，这样使用opencl的程序就可以调用NVIDIA
 GPU的算力了。</p>
-<h2 id="yay孤立包的含义"><a href="#yay孤立包的含义">¶</a>
-yay孤立包的含义</h2>
-<p>其实就是orphan，也就是没有Maintainer。</p>
+<h2 id="aur"><a href="#aur">¶</a> aur</h2>
+<p>孤立包其实就是orphan，也就是没有Maintainer。</p>
 <p>P.S.
 收到了<code>#archlinux-cn:nichi.co</code>群的<code>undefined</code>用户的确认。</p>
+<p>尽量不要安装aur上的软件包，因为包的维护者往往不是官方，而且安装脚本有root权限，不安全。</p>
+<h3 id="有问题的包"><a href="#有问题的包">¶</a> 有问题的包</h3>
+<h4 id="seafile"><a href="#seafile">¶</a> seafile</h4>
+<p>aur安装的seafile更新失败了。</p>
+<p>试试nix的seafile？</p>
+<h4 id="vscodium-bin"><a href="#vscodium-bin">¶</a> vscodium-bin</h4>
+<p>aur的vscodium-bin似乎跟visual-studio-code-bin不兼容：</p>
+<p>错误：无法提交处理 (有冲突的文件)<br>
+/usr/lib/debug/.build-id/09/ff65463755b887e71c59f7b68228e92a84bd46
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/09/ff65463755b887e71c59f7b68228e92a84bd46.debug
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/15/1f079fb274bc8b986bddea21c82a6b2ce21690
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/15/1f079fb274bc8b986bddea21c82a6b2ce21690.debug
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/c1/1c9bc818110b2370d9992f885037b7a1f74378
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/c1/1c9bc818110b2370d9992f885037b7a1f74378.debug
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/c7/dd943c9a2f9568fcd82fa7baddb1f22f38fb22
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/c7/dd943c9a2f9568fcd82fa7baddb1f22f38fb22.debug
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/f3/a26db3f1c4644e02d50fa102282631595594df
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
+/usr/lib/debug/.build-id/f3/a26db3f1c4644e02d50fa102282631595594df.debug
+同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'</p>
 <h2 id="微信"><a href="#微信">¶</a> 微信</h2>
 <h3 id="flatpak"><a href="#flatpak">¶</a> flatpak</h3>
 <p>原生微信。</p>
@@ -8100,6 +8127,7 @@ com.qq.weixin.spark</h3>
 		});
 	
 </script>
+
 	</div>
 	<div id="footer">
 	<p>
