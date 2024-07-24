@@ -1455,6 +1455,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/24/zed%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    zed使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
@@ -7912,6 +7923,25 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">
+				<h2 class="index-title">
+					Hexo插入图片
+				</h2>
+				<div class="index-brief">
+					有两种方案，一种是把图片弄到图床上，一种是把图片直接放到博客所在的网站上，然后做一个站内引用。这里主要介绍后者。
+先在_config.yml里把post_asset_folder设置成true，这样在建立文件时，Hexo会自动建立一个与文章同名的文件夹；以前的文章也可以自己手动创建同名文件夹。其实也
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-11-16</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/">
 				<h2 class="index-title">
 					Hexo tree主题让文章的URL中不含目录
@@ -8111,32 +8141,6 @@ i&gt;1时，对所有i位数，最高位非0，后(i-1)位中，每种数字出�
 			</a>
                 <div class="article-meta">
 				    <span>2021-10-30</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/10/20/rust%E4%BA%A4%E6%8D%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%85%83%E7%B4%A0/">
-				<h2 class="index-title">
-					rust交换数组中的两个元素
-				</h2>
-				<div class="index-brief">
-					不可以直接用std::mem::swap，因为这个函数需要拿两个可变引用，但是不可以同时拿两个这个数组的可变引用。
-所以要么手写：
-let tmp = a[i];
-a[i] = a[j];
-a[j] = tmp;
-要么用Vec::swap：
-a.swap(i, j);
-其内部实现：
-fn swap(
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-10-20</span>
                     
                             
                     

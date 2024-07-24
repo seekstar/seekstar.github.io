@@ -1455,6 +1455,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/24/zed%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    zed使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/10/15/%E4%B8%80%E4%BA%9Bmatrix%E7%BE%A4/">
                      
 										    一些Matrix群
@@ -7912,6 +7923,32 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/03/10/pacman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%94%B1%E5%93%AA%E4%B8%AA%E5%8C%85%E6%8F%90%E4%BE%9B/">
+				<h2 class="index-title">
+					pacman查看命令由哪个包提供
+				</h2>
+				<div class="index-brief">
+					比如查看dig命令由哪个包提供。有两种方法：
+¶ pacman -F
+pacman -F dig
+输出：
+extra/bind 9.16.25-1
+    usr/bin/dig
+community/epic4 2.10.10-2
+    usr/share/epic/script/dig
+¶ pa
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-10</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/03/10/a-collection-of-matrix-groups/">
 				<h2 class="index-title">
 					A collection of matrix groups
@@ -8083,26 +8120,6 @@ baseurl=http://mirrors.ustc.edu.cn/centos/$releasev
 				<div class="index-brief">
 					这里从DBImpl::MaybeScheduleFlushOrCompaction开始讲起。
 DBImpl::MaybeScheduleFlushOrCompaction可能会scheduleDBImpl::BGWorkFlush和DBImpl::BGWorkCompaction。这里主要看Flus
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-03-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
-				<h2 class="index-title">
-					RocksDB代码分析——写入流程
-				</h2>
-				<div class="index-brief">
-					分析均基于v6.27.3。以下流程为了方便理解均经过了简化。
-首先，我们通过调用DB::Open来创建数据库，它返回了一个DB*。DB::Open内部调用了DBImpl::Open，在里面构造了一个DBImpl*并转换成DB*返回。所以我们拿到的DB*其实是DBImpl*。
-然后我们调用DB::Pu
 					...
 				</div>
 			</a>
