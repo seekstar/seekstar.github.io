@@ -8095,13 +8095,22 @@ Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
 <p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
 <p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
+<h2 id="邮件提醒"><a href="#邮件提醒">¶</a> 邮件提醒</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://valine.js.org/notify.html" class="uri">https://valine.js.org/notify.html</a></p>
+<p>但是官方文档里推荐的<a target="_blank" rel="noopener" href="https://github.com/zhaojun1998/Valine-Admin" class="uri">https://github.com/zhaojun1998/Valine-Admin</a>看起来已经无人维护了，部署会出错：</p>
+<pre class="text"><code>build failed: npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142 npm WARN deprecated superagent@3.8.3: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net npm WARN deprecated formidable@1</code></pre>
+<p>而且这个repo连issue都没有。</p>
+<p>修复方法：<a target="_blank" rel="noopener" href="https://github.com/DesertsP/Valine-Admin/issues/151" class="uri">https://github.com/DesertsP/Valine-Admin/issues/151</a></p>
+<p>也可以直接用这个：<a target="_blank" rel="noopener" href="https://github.com/Druadach/Valine-Admin" class="uri">https://github.com/Druadach/Valine-Admin</a></p>
+<p>按照readme里的步骤部署即可。</p>
+<p>环境变量里可以指定<code>TO_EMAIL</code>，提醒邮件就会发送给这个邮箱。如果不指定<code>TO_EMAIL</code>，提醒邮件是发送给<code>SMTP_USER</code>。</p>
 <h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a>
 修改底部版权开始年份</h2>
 <p><code>_config.tree.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
 <h2 id="更改网站图标"><a href="#更改网站图标">¶</a> 更改网站图标</h2>
 <p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>_config.tree.yml</code>：</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
 <p>即可让网站使用新的网站图标。</p>
 <h2 id="将渲染器更换为hexo-renderer-pandoc"><a href="#将渲染器更换为hexo-renderer-pandoc">¶</a> 将渲染器更换为<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a></h2>
 <p>默认的渲染器是<code>hexo-renderer-marked</code>，没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。所以需要更换渲染器。<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-markdown-it">hexo-renderer-markdown-it</a>比较流行，但是不支持Latex风格的数学公式。所以这里把渲染器换成<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>：</p>
@@ -8110,8 +8119,8 @@ Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适
 npm uninstall hexo-renderer-marked
 npm install hexo-renderer-pandoc --save</code></pre>
 <p>更换渲染器之后要在<code>_config.yml</code>中把默认的highlight关掉，才能使用新的渲染器提供的highlight：</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
 <p>然后就可以开启对Latex风格的公式的支持了：<a href="/2021/11/16/hexo%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BC%96%E8%BE%91/" title="Hexo支持Latex风格的公式编辑">Hexo支持Latex风格的公式编辑</a></p>
 <h2 id="写博客"><a href="#写博客">¶</a> 写博客</h2>
@@ -8160,14 +8169,14 @@ npm i</code></pre>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a>
 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
 <p>如果发现即使清了cache
 tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>
