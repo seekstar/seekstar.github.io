@@ -8098,6 +8098,8 @@ sudo ip netns exec $spacename ip link delete br0
 sudo ip netns delete $spacename</code></pre>
 <h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>一个tap似乎只能用于一台机器，共用tap的话连接会非常不稳定。因此如果有多台机器都需要让远程服务器代理IPv6流量，只能在远程服务器创建多个tap，然后让这些机器分别连接到一个tap上。</p>
+<h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h2>
+<p>延时比较高。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

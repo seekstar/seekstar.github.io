@@ -7987,9 +7987,16 @@ Host C
         User C上的用户名
         IdentityFile 本地的ssh私钥路径</code></pre>
 <p>然后在A机器上直接<code>ssh C</code>即可免密码登录C。</p>
+<p>如果是IPv6，要这样：</p>
+<pre class="text"><code>Host D
+        HostName 在B视角下的IPv6地址
+        ProxyCommand ssh -W "[%h]":在B视角下的端口 B
+        User D上的用户名
+        IdentityFile 本地的ssh私钥路径</code></pre>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://hotarugali.github.io/2022/02/19/Technique/Net/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/#2-2-SSH-%E8%B7%B3%E6%9D%BF">内网穿透</a></p>
 <p><a target="_blank" rel="noopener" href="https://serverfault.com/questions/906298/ssh-proxycommand-with-same-password" class="uri">https://serverfault.com/questions/906298/ssh-proxycommand-with-same-password</a></p>
+<p><a target="_blank" rel="noopener" href="https://superuser.com/questions/1674913/how-to-configure-proxycommand-in-ssh-config-in-macos-to-support-ipv6" class="uri">https://superuser.com/questions/1674913/how-to-configure-proxycommand-in-ssh-config-in-macos-to-support-ipv6</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
