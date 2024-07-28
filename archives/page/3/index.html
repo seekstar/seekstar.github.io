@@ -3596,6 +3596,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/27/linux%E8%AE%A9%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86ipv6%E6%B5%81%E9%87%8F/">
+                     
+										    Linux让远程服务器代理IPv6流量
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
                      
 										    Linux配置网桥
@@ -7934,6 +7945,29 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/11/14/linux%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/">
+				<h2 class="index-title">
+					Linux获取线程CPU使用情况
+				</h2>
+				<div class="index-brief">
+					相关：Linux获取进程cpu使用情况
+¶ CPU使用率
+用pidstat:
+pidstat -p 线程tid -H -u 间隔秒数 -t | awk '{if ($4 == 线程tid) print $9}'
+¶ 累积CPU time
+可以用clock_gettime得到CPU时间戳，两个CPU时
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-11-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/10/27/gdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					gdb学习笔记
@@ -8127,30 +8161,6 @@ target，这些target提供的头文件路径在编译的时候会用isystem来�
 			</a>
                 <div class="article-meta">
 				    <span>2023-09-24</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/09/18/linux%E7%A7%BB%E5%8A%A8%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%9B%AE%E5%BD%95/">
-				<h2 class="index-title">
-					Linux移动目录下所有文件或文件夹到另一个目录
-				</h2>
-				<div class="index-brief">
-					¶ find +
-xargs
-find a/ -mindepth 1 -maxdepth 1 -print0 | xargs -0 -r mv -t b/
--mindepth 1 -maxdepth 1:
-只打印a的直接子文件和子目录。
--print0:
-每项用0也就是null隔开，而不是以空格或者
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-09-18</span>
                     
                             
                     

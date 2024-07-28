@@ -3596,6 +3596,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/27/linux%E8%AE%A9%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86ipv6%E6%B5%81%E9%87%8F/">
+                     
+										    Linux让远程服务器代理IPv6流量
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
                      
 										    Linux配置网桥
@@ -7934,6 +7945,29 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/01/27/linux%E5%BD%95%E5%88%B6%E5%8D%95%E4%B8%AA%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%A3%B0%E9%9F%B3/">
+				<h2 class="index-title">
+					Linux录制单个程序的声音
+				</h2>
+				<div class="index-brief">
+					列出正在发出声音的程序：
+pacmd list-sink-inputs
+主要看media.name，找到要录制的是哪个，比如这里就是index为2358的那个。然后：
+INDEX=2358
+pactl load-module module-null-sink sink_name=steam
+pact
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-27</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/01/23/spandb%E8%BF%90%E8%A1%8Cycsb%E6%B5%8B%E8%AF%95/">
 				<h2 class="index-title">
 					SpanDB运行YCSB测试
@@ -8129,28 +8163,6 @@ mkd
 			</a>
                 <div class="article-meta">
 				    <span>2022-01-12</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/">
-				<h2 class="index-title">
-					GRUB菜单记住上次的选择的内核
-				</h2>
-				<div class="index-brief">
-					在/etc/default/grub里加上：
-# 原先要到advanced submenu选内核，把submenu禁用之后，选内核的menu entry就暴露在顶层menu了。
-GRUB_DISABLE_SUBMENU=y
-# 记住上次选的哪个menu entry
-GRUB_DEFAULT=save
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-11</span>
                     
                             
                     

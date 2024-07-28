@@ -3598,6 +3598,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/27/linux%E8%AE%A9%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86ipv6%E6%B5%81%E9%87%8F/">
+                     
+										    Linux让远程服务器代理IPv6流量
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
                      
 										    Linux配置网桥
@@ -8006,7 +8017,8 @@ sudo sysctl net.ipv4.ip_forward
 sudo sysctl -w net.ipv4.ip_forward=1</code></pre>
 <h3 id="创建netns"><a href="#创建netns">¶</a> 创建netns</h3>
 <p>将它的名字存入<code>$spacename</code>，以后需要绕过wireguard的进程就在这个netns里运行：</p>
-<pre class="shell"><code>spacename=全局唯一的名字
+<pre class="shell"><code># spacename不要含有数字，因为veth的两个端口的名字似乎只有末尾可以有数字。
+spacename=全局唯一的名字
 sudo ip netns add $spacename</code></pre>
 <p>查看所有netns: <code>ip netns</code></p>
 <p>删除netns: <code>ip netns del $spacename</code></p>
@@ -8071,7 +8083,7 @@ sysctl net.ipv6.conf.all.forwarding
 sysctl -w net.ipv6.conf.all.forwarding=1</code></pre>
 <h3 id="为veth的两端设置私有ipv6地址"><a href="#为veth的两端设置私有ipv6地址">¶</a>
 为veth的两端设置私有IPv6地址</h3>
-<p><code>fd00::/8</code>是私有的IPv6地址块：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Private_network" class="uri">https://en.wikipedia.org/wiki/Private_network</a>。所以我们可以将<code>${spacename}veth1</code>的IP设置为<code>fd00::1/64 dev</code>，将<code>${spacename}veth2</code>的IP设置为<code>fd00::2/64 dev</code>：</p>
+<p><code>fd00::/8</code>是私有的IPv6地址块：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Private_network" class="uri">https://en.wikipedia.org/wiki/Private_network</a>。所以我们可以将<code>${spacename}veth1</code>的IP设置为<code>fd00::1/64</code>，将<code>${spacename}veth2</code>的IP设置为<code>fd00::2/64</code>：</p>
 <pre class="shell"><code>ip -6 addr add fd00::1/64 dev ${spacename}veth1
 ip link set dev ${spacename}veth1 up
 ip netns exec $spacename ip -6 addr add fd00::2/64 dev ${spacename}veth2

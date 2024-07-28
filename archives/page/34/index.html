@@ -3596,6 +3596,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/27/linux%E8%AE%A9%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86ipv6%E6%B5%81%E9%87%8F/">
+                     
+										    Linux让远程服务器代理IPv6流量
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/18/linux%E9%85%8D%E7%BD%AE%E7%BD%91%E6%A1%A5/">
                      
 										    Linux配置网桥
@@ -7934,6 +7945,26 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/08/qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted/">
+				<h2 class="index-title">
+					qemu-bridge-helper: failed to create tun device: Operation not permitted
+				</h2>
+				<div class="index-brief">
+					virsh start deepin
+error: Failed to start domain deepin
+error: internal error: /usr/lib/qemu/qemu-bridge-helper --use-vnet --br=br0 --fd=30: failed to
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/08/qemu-br0-access-denied-by-acl-file/">
 				<h2 class="index-title">
 					qemu br0 access denied by acl file
@@ -7959,14 +7990,16 @@ sudo chown root:${U
 					virsh终端访问虚拟机并联网
 				</h2>
 				<div class="index-brief">
-					如果要使用KVM的话，首先要让普通用户使用libvirt时能使用KVM：
+					¶ 安装
+# Debian 12
+sudo apt install -y libvirt-daemon libvirt-clients
+¶ 配置权限
+如果要使用KVM的话，首先要让普通用户使用libvirt时能使用KVM：
 libvirt让普通用户能用kvm
 ¶ 配置网桥
 Linux配置网桥
 ¶
-将虚拟机导入virsh
-这里假设domain的名字设置成centos8。先写一个centos8.xml，定义虚拟机的基本属性：
-&lt;domain t
+将
 					...
 				</div>
 			</a>
@@ -8137,27 +8170,6 @@ Host *
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/28/total-vm-anon-rss-file-rss-shmem-rss%E5%90%AB%E4%B9%89/">
-				<h2 class="index-title">
-					total-vm anon-rss file-rss shmem-rss含义
-				</h2>
-				<div class="index-brief">
-					进程被杀了。查一下日志：
-dmesg | egrep -i -B100 'killed process'
-[2352218.368085] Out of memory: Kill process 1462 (transaction-exp) score 834 or sacrifice child
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-28</span>
                     
                             
                     
