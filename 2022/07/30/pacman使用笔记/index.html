@@ -7397,6 +7397,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/07/29/posix-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    POSIX shell学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
                      
 										    Shell查看某目录下某拓展名的文件所占总空间
@@ -7987,9 +7998,12 @@ pacman -S --needed 包名
 pacman -Si 包名</code></pre>
 <h3 id="-r-移除某包"><a href="#-r-移除某包">¶</a> <code>-R</code>:
 移除某包</h3>
-<p><code>-s</code>:
-recursive，同时移除该包的依赖。例如A依赖B依赖C，那么<code>pacman -Rs A</code>会同时移除A
-B C。</p>
+<p>一般用<code>sudo pacman -Rs 包名</code>:</p>
+<pre class="text"><code>-s, --recursive
+	Remove each target specified including all of their dependencies, provided that (A) they are not required by other
+	packages; and (B) they were not explicitly installed by the user. This operation is recursive and analogous to a
+	backwards --sync operation, and it helps keep a clean system without orphans. If you want to omit condition (B), pass
+	this option twice.</code></pre>
 <p><code>-c</code>:
 cascade，同时移除依赖该包的其他包。例如A依赖B依赖C，那么<code>pacman -Rc C</code>会同时移除A
 B C。</p>
