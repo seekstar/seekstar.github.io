@@ -7996,7 +7996,14 @@ ID)，向这个PGID中的所有进程发信号。</p>
 <p><code>ps -efj</code>。来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Justdoit123_/article/details/101347971">PID,
 PPID, PGID与SID</a></p>
 <h2 id="在一个新的进程组中运行命令"><a href="#在一个新的进程组中运行命令">¶</a> 在一个新的进程组中运行命令</h2>
-<p>脚本里运行命令时，默认会继承当前进程组。如果要让命令在新的进程组中运行，可以在脚本中先开启<code>"monitor mode" (job control)</code>：</p>
+<p>脚本里运行命令时，默认会继承当前进程组。但我们也可以让命令在一个新的进程组中执行。</p>
+<h3 id="setsid"><a href="#setsid">¶</a> <code>setsid</code></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> command args...</span></code></pre></div>
+<p>如果是pipeline命令：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"command1 | command2 | command3"</span></span></code></pre></div>
+<h3 id="bash-set--m"><a href="#bash-set--m">¶</a> bash:
+<code>set -m</code></h3>
+<p>对于<code>bash</code>，如果要让命令在新的进程组中运行，可以在脚本中先开启<code>"monitor mode" (job control)</code>：</p>
 <pre class="shell"><code>set -m</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/529764/how-can-i-start-a-bash-script-in-its-own-process-group" class="uri">https://unix.stackexchange.com/questions/529764/how-can-i-start-a-bash-script-in-its-own-process-group</a></p>
 <p>局部生效：</p>
@@ -8015,6 +8022,23 @@ bash: syntax error near unexpected token `;'</code></pre>
 echo $pid</code></pre>
 <p>command
 substitution会等待所有stdout的writer关闭管道，因此要将<code>sleep 10</code>的stdout重定向到<code>/dev/null</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish" class="uri">https://stackoverflow.com/questions/51507719/why-is-this-command-substitution-waiting-for-the-background-job-to-finish</a></p>
+<p>需要注意的是，如果命令需要读取管道，那么在管道被写之前，即使命令是后台命令，这个后台进程也不会被创建。例如：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkfifo</span> /tmp/pipe</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">set</span> <span class="at">-m</span><span class="kw">;</span> <span class="fu">sleep</span> 10 <span class="op">&lt;</span> /tmp/pipe <span class="op">&gt;</span> /dev/null <span class="kw">&amp;</span> <span class="bu">echo</span> <span class="va">$!)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$pid</span></span></code></pre></div>
+<p>会卡死主shell。只有在另一个shell里往管道里写数据：<code>echo test &gt; /tmp/pipe</code>，<code>sleep 10</code>的后台进程才会被创建，<code>echo $pid</code>才会被执行。</p>
+<p>同样，如果命令需要写管道，那么在管道被读之前，后台进程也不会被创建：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkfifo</span> /tmp/pipe</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">set</span> <span class="at">-m</span><span class="kw">;</span> <span class="fu">sleep</span> 10 <span class="op">&gt;</span> /tmp/pipe <span class="kw">&amp;</span> <span class="bu">echo</span> <span class="va">$!)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$pid</span></span></code></pre></div>
+<p>只有在另一个shell读取管道：<code>cat /tmp/pipe</code>，<code>sleep 10</code>的后台进程才会被创建。</p>
+<p>这可能跟管道的实现有关，只有当读写进程都就位之后进程才会被创建。</p>
+<p>在同一个shell里创建读写进程，我们可以将创建进程的部分放入一个单独的进程里：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkfifo</span> /tmp/pipe</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">set</span> <span class="at">-m</span><span class="kw">;</span> <span class="kw">(</span><span class="fu">sleep</span> 10 <span class="op">&gt;</span> /tmp/pipe<span class="kw">)</span> <span class="op">&gt;</span> /dev/null <span class="kw">&amp;</span> <span class="bu">echo</span> <span class="va">$!)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$pid</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">set</span> <span class="at">-m</span><span class="kw">;</span> <span class="kw">(</span><span class="fu">sleep</span> 10 <span class="op">&lt;</span> /tmp/pipe<span class="kw">)</span> <span class="op">&gt;</span> /dev/null <span class="kw">&amp;</span> <span class="bu">echo</span> <span class="va">$!)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$pid</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
