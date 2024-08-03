@@ -7978,11 +7978,30 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>根据这个博客：<a target="_blank" rel="noopener" href="https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e" class="uri">https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e</a>，正规的做法应该是将共用的自定义配置写到<code>~/.profile</code>里，然后在<code>~/.profile</code>里根据终端的不同调用<code>~/.bashrc</code>和<code>~/.zshrc</code>。</p>
 <p><code>~/.zshrc</code>和<code>~/.bashrc</code>都是特化的配置文件，而<code>~/.profile</code>是通用的配置文件。我认为应该是由特化的配置文件调用通用的配置文件，而不是现在这样反过来。因此我采用了这里的方案：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/26020688" class="uri">https://stackoverflow.com/a/26020688</a>，将通用配置文件写入<code>~/.profile</code>，然后在<code>~/.bashrc</code>和<code>~/.zshrc</code>里source它。有些发行版里<code>~/.profile</code>调用了<code>~/.bashrc</code>，要把这个调用删掉，不然会导致互相调用造成死递归。</p>
 <p>不过要注意每次启动<code>bash</code>都会读取<code>~/.bashrc</code>。为了避免重复<code>export</code>环境变量，我们可以让它只在login的时候<code>source ~/.profile</code>：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">shopt</span> <span class="at">-q</span> login_shell<span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	<span class="bu">source</span> ~/.profile</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://unix.stackexchange.com/a/26782</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">shopt</span> <span class="at">-q</span> login_shell<span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	<span class="bu">source</span> ~/.profile</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
 <p>有些发行版在用ssh登录时如果<code>~/.bash_profile</code>存在则会调用它而不是<code>~/.profile</code>。所以我们也可以在<code>~/.bash_profile</code>里：</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.profile</span></code></pre></div>
+<h2 id="vscode"><a href="#vscode">¶</a> vscode</h2>
+<p>vscode的integrated
+terminal在启动的时候不会<code>source ~/.profile</code>。如果参照这里的方法：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/67843008" class="uri">https://stackoverflow.com/a/67843008</a>，把它变成一个login
+shell，那连接到remote上的时候<code>code</code>命令就没用了。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="er">"terminal.integrated.profiles.linux":</span> <span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"bash"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"bash"</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="er">//</span> <span class="er">login</span> <span class="er">shell.</span> <span class="er">Make</span> <span class="er">it</span> <span class="er">source</span> <span class="er">~/.profile</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"icon"</span><span class="fu">:</span> <span class="st">"terminal-bash"</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-l"</span><span class="ot">]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<p>但是vscode的integrated
+shell会设置一个环境变量<code>VSCODE_SHELL_INTEGRATION=1</code>，这个环境变量是不会继承到子进程的，所以我们可以在<code>~/.bashrc</code>里加上以下内容，使<code>bash</code>只在vscode
+integrated shell里<code>source ~/.profile</code>：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="va">$VSCODE_SHELL_INTEGRATION</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>	<span class="bu">.</span> ~/.profile</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
