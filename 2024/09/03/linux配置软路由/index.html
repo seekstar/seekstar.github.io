@@ -7991,11 +7991,12 @@ mjx-container[display="true"] + br {
 indev=end1
 # 子网不要与其他interface的IP重合
 prefix=10.233.233</code></pre>
-<h2 id="配置出口网口ip"><a href="#配置出口网口ip">¶</a>
-配置出口网口IP</h2>
+<h2 id="配置入口网口ip"><a href="#配置入口网口ip">¶</a>
+配置入口网口IP</h2>
 <pre class="shell"><code>#nmcli dev set $indev managed no
 ip link set up dev $indev
 ip addr add $prefix.1/24 dev $indev</code></pre>
+<p>但网线拔下来之后这个IP就会消失。可以参考这个设置永久静态IP：<a href="/2021/08/14/deepin%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/" title="deepin设置静态IP">deepin设置静态IP</a>，不过不需要设置<code>gateway</code>和<code>dns-nameserver</code>。</p>
 <h2 id="配置dhcp"><a href="#配置dhcp">¶</a> 配置DHCP</h2>
 <pre class="shell"><code>apt install isc-dhcp-server
 cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)
