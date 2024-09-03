@@ -7996,7 +7996,7 @@ prefix=10.233.233</code></pre>
 <pre class="shell"><code>#nmcli dev set $indev managed no
 ip link set up dev $indev
 ip addr add $prefix.1/24 dev $indev</code></pre>
-<p>但网线拔下来之后这个IP就会消失。可以参考这个设置永久静态IP：<a href="/2021/08/14/deepin%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/" title="deepin设置静态IP">deepin设置静态IP</a>，不过不需要设置<code>gateway</code>和<code>dns-nameserver</code>。</p>
+<p>但网线拔下来之后这个IP就会消失。可以参考下面的<code>开机自启</code>设置永久静态IP。</p>
 <h2 id="配置dhcp"><a href="#配置dhcp">¶</a> 配置DHCP</h2>
 <pre class="shell"><code>apt install isc-dhcp-server
 cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)
@@ -8043,6 +8043,66 @@ sysctl -w net.ipv6.conf.$indev.accept_ra=2
 
 ip6tables -t nat -A POSTROUTING -o $outdev -j MASQUERADE
 ip6tables -t filter -A FORWARD -i $indev -o $outdev -j ACCEPT</code></pre>
+<h2 id="开机自启"><a href="#开机自启">¶</a> 开机自启</h2>
+<pre class="shell"><code>cat &gt;&gt; /etc/network/interfaces &lt;&lt;EOF
+allow-hotplug $indev
+iface $indev inet static
+	address $prefix.1
+	netmask 255.255.255.0
+iface end1 inet6 static
+	address $prefix6::1
+	netmask 64
+EOF
+
+sudo systemctl restart networking
+
+systemctl enable isc-dhcp-server
+
+cat &gt;&gt; /etc/sysctl.conf &lt;&lt;EOF
+net.ipv4.ip_forward=1
+net.ipv6.conf.$indev.addr_gen_mode=0
+net.ipv6.conf.all.forwarding=1
+net.ipv6.conf.$indev.accept_ra=2
+EOF
+sysctl -p
+
+sudo apt install -y iptables-persistent
+# https://serverfault.com/a/714348
+# :&lt;NAME&gt; &lt;DEFAULT_POLICY&gt; [&lt;PACKET_COUNT&gt;:&lt;BYTE_COUNT&gt;]
+# PACKET_COUNT和BYTE_COUNT不重要，这里全部设置为0
+cat &gt; /etc/iptables/rules.v4 &lt;&lt;EOF
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s 10.233.233.0/24 -o end0 -j MASQUERADE
+COMMIT
+
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A FORWARD -i end1 -o end0 -j ACCEPT
+COMMIT
+EOF
+
+cat &gt; /etc/iptables/rules.v6 &lt;&lt;EOF
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A FORWARD -i end1 -o end0 -j ACCEPT
+COMMIT
+
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -o end0 -j MASQUERADE
+COMMIT
+EOF</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
