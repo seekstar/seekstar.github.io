@@ -3620,6 +3620,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/09/03/linux%E9%85%8D%E7%BD%AE%E8%BD%AF%E8%B7%AF%E7%94%B1/">
+                     
+										    Linux配置软路由
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/02/17/ssh%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
                      
 										    SSH内网穿透
@@ -7983,7 +7994,8 @@ mjx-container[display="true"] + br {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	<span class="bu">source</span> ~/.profile</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
 <p>有些发行版在用ssh登录时如果<code>~/.bash_profile</code>存在则会调用它而不是<code>~/.profile</code>。所以我们也可以在<code>~/.bash_profile</code>里：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.profile</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[[</span> <span class="ot">-f</span> ~/.bashrc <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="bu">.</span> ~/.bashrc</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.profile</span></code></pre></div>
 <h2 id="vscode"><a href="#vscode">¶</a> vscode</h2>
 <p>vscode的integrated
 terminal在启动的时候不会<code>source ~/.profile</code>。如果参照这里的方法：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/67843008" class="uri">https://stackoverflow.com/a/67843008</a>，把它变成一个login

@@ -3618,6 +3618,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/09/03/linux%E9%85%8D%E7%BD%AE%E8%BD%AF%E8%B7%AF%E7%94%B1/">
+                     
+										    Linux配置软路由
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/02/17/ssh%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
                      
 										    SSH内网穿透
@@ -7995,11 +8006,11 @@ gsettings set
 					RocksDB静态库用法
 				</h2>
 				<div class="index-brief">
-					照抄官方给的实例里的Makefile：https://github.com/facebook/rocksdb/blob/main/examples/Makefile
-稍微改一点：
-ROCKSDB_DIR := /home/searchstar/git/rocksdb/
-
-include $(ROCK
+					¶ CMake
+target_link_directories(${PROJECT_NAME} PUBLIC ${ROCKSDB_LIB})
+target_link_libraries(${PROJECT_NAME}
+        PUBLIC
+                librocksdb
 					...
 				</div>
 			</a>
