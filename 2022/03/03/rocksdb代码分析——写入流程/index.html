@@ -8013,16 +8013,20 @@ override了。<code>DBImpl::Write</code>调用了<code>DBImpl::WriteImpl</code>�
 <li>假如我们是leader（每个时刻只有一个leader）</li>
 </ul>
 <blockquote>
-<p>调用<code>DBImpl::PreprocessWrite</code><br>
-&gt;如果<code>flush_scheduler_</code>中有任务，就调用<code>DBImpl::ScheduleFlushes</code>（唯一调用者）。<br>
-&gt;&gt;先调用<code>FlushScheduler::TakeNextColumnFamily</code>（正常状态下唯一调用者），它是唯一从<code>FlushScheduler</code>中取出flush任务（以<code>ColumnFamilyData</code>的形式）的方法。<br>
-&gt;&gt;逐个将这些取出的<code>ColumnFamilyData cfd</code>作为参数调用<code>DBImpl::SwitchMemtable</code>，将这些column
+<p>调用<code>DBImpl::PreprocessWrite</code></p>
+<blockquote>
+<p>如果<code>flush_scheduler_</code>中有任务，就调用<code>DBImpl::ScheduleFlushes</code>（唯一调用者）。</p>
+<blockquote>
+<p>先调用<code>FlushScheduler::TakeNextColumnFamily</code>（正常状态下唯一调用者），它是唯一从<code>FlushScheduler</code>中取出flush任务（以<code>ColumnFamilyData</code>的形式）的方法。<br>
+逐个将这些取出的<code>ColumnFamilyData cfd</code>作为参数调用<code>DBImpl::SwitchMemtable</code>，将这些column
 family data的memory table变成immutable memory table，然后新建一个memory
 table。这里没有用原子操作，但是其他非leader的writer应该是没有拿DB
 mutex的。可能这是因为其他非leader的writer都在等leader给出指示。具体没细看。<br>
-&gt;&gt;将之前取出的<code>ColumnFamilyData cfd</code>作为<code>DBImpl::GenerateFlushRequest</code>的参数，得到<code>FlushRequest flush_req</code>，再将其作为<code>DBImpl::SchedulePendingFlush</code>的参数。<br>
-&gt;&gt;<code>DBImpl::SchedulePendingFlush</code>中，将给传进来的<code>flush_req</code>里的<code>cfd</code>做<code>cfd-&gt;Ref()</code>，然后加入到<code>DBImpl::flush_queue_</code>里。<br>
-&gt;&gt;接下来的flush流程看这里：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p>
+将之前取出的<code>ColumnFamilyData cfd</code>作为<code>DBImpl::GenerateFlushRequest</code>的参数，得到<code>FlushRequest flush_req</code>，再将其作为<code>DBImpl::SchedulePendingFlush</code>的参数。<br>
+<code>DBImpl::SchedulePendingFlush</code>中，将给传进来的<code>flush_req</code>里的<code>cfd</code>做<code>cfd-&gt;Ref()</code>，然后加入到<code>DBImpl::flush_queue_</code>里。<br>
+接下来的flush流程看这里：<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94flush%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Flush流程">RocksDB代码分析——Flush流程</a></p>
+</blockquote>
+</blockquote>
 <p>写入WAL<br>
 调用<code>WriteBatchInternal::InsertInto</code>把数据插入到MemTable。</p>
 </blockquote>

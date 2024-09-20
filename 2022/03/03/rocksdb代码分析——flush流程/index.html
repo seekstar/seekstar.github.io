@@ -8003,30 +8003,40 @@ mjx-container[display="true"] + br {
 <blockquote>
 <p>构造<code>FlushJob flush_job</code><br>
 <code>flush_job.PickMemTable()</code>，把MemTable的<code>VersionEdit</code>存在<code>FlushJob::edit_</code>里。<br>
-<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code><br>
-&gt;调用<code>FlushJob::WriteLevel0Table</code><br>
-&gt;&gt;<code>db_mutex_-&gt;Unlock();</code><br>
-&gt;&gt;<code>BuildTable</code><br>
-&gt;&gt;<code>db_mutex_-&gt;Lock();</code><br>
-&gt;&gt;<code>edit_-&gt;AddFile</code>。这个<code>edit_</code>实际上是MemTable的VersionEdit<br>
-&gt;<br>
-&gt;调用<code>MemTableList::TryInstallMemtableFlushResults</code><br>
-&gt;&gt;将被flush的memory
+<code>flush_job.Run</code>，也就是调用<code>FlushJob::Run</code></p>
+<blockquote>
+<p>调用<code>FlushJob::WriteLevel0Table</code></p>
+<blockquote>
+<p><code>db_mutex_-&gt;Unlock();</code><br>
+<code>BuildTable</code><br>
+<code>db_mutex_-&gt;Lock();</code><br>
+<code>edit_-&gt;AddFile</code>。这个<code>edit_</code>实际上是MemTable的VersionEdit</p>
+</blockquote>
+<p>调用<code>MemTableList::TryInstallMemtableFlushResults</code></p>
+<blockquote>
+<p>将被flush的memory
 table的<code>flush_completed_</code>标记为<code>true</code>。<br>
-&gt;&gt;从老到新把所有<code>flush_completed_</code>的immutable memory
+从老到新把所有<code>flush_completed_</code>的immutable memory
 table的<code>VersionEdit</code>存进<code>edit_list</code>，然后通过<code>VersionSet::LogAndApply</code>
-commit这些edit，里面调用<code>VersionSet::ProcessManifestWrites</code>。<br>
-&gt;&gt;&gt;调用<code>VersionBuilder::Apply</code>，里面调用<code>VersionBuilder::Rep::Apply</code>，里面调用<code>VersionBuilder::Rep::ApplyFileAddition</code>，最终将file_number存到<code>VersionBuilder::Rep::levels_[level].added_files</code>里。<br>
-&gt;&gt;&gt;调用<code>VersionBuilder::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveSSTFilesTo</code>，先对<code>VersionBuilder::Rep::levels_[level].added_files</code>排序，L0的SSTable用<code>NewestFirstBySeqNo</code>排序，其他的用<code>BySmallestKey</code>排序，然后跟老version里已有的SSTable
+commit这些edit，里面调用<code>VersionSet::ProcessManifestWrites</code>。</p>
+<blockquote>
+<p>调用<code>VersionBuilder::Apply</code>，里面调用<code>VersionBuilder::Rep::Apply</code>，里面调用<code>VersionBuilder::Rep::ApplyFileAddition</code>，最终将file_number存到<code>VersionBuilder::Rep::levels_[level].added_files</code>里。<br>
+调用<code>VersionBuilder::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveTo</code>，里面调用<code>VersionBuilder::Rep::SaveSSTFilesTo</code>，先对<code>VersionBuilder::Rep::levels_[level].added_files</code>排序，L0的SSTable用<code>NewestFirstBySeqNo</code>排序，其他的用<code>BySmallestKey</code>排序，然后跟老version里已有的SSTable
 merge到一个新的version。</p>
-<p>把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。<br>
-&gt;因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层，所以接下来准备schedule
+</blockquote>
+</blockquote>
+</blockquote>
+<p>把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::InstallSuperVersionAndScheduleWork</code>。</p>
+<blockquote>
+<p>因为把MemTable写入到L0层之后总是会想要把这些SSTable给compact到L1层，所以接下来准备schedule
 compaction。<br>
-&gt;把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code><br>
-&gt;&gt;将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。<br>
-&gt;<br>
-&gt;调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code><br>
-&gt;接下来的compaction流程看这里：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
+把<code>ColumnFamilyData</code>作为参数调用<code>DBImpl::SchedulePendingCompaction</code></p>
+<blockquote>
+<p>将<code>ColumnFamilyData</code>传给<code>DBImpl::AddToCompactionQueue</code>，从而将其加入到<code>DBImpl::compaction_queue_</code>中。</p>
+</blockquote>
+<p>调用<code>DBImpl::MaybeScheduleFlushOrCompaction</code><br>
+接下来的compaction流程看这里：<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/" title="RocksDB代码分析——Compaction流程">RocksDB代码分析——Compaction流程</a></p>
+</blockquote>
 </blockquote>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

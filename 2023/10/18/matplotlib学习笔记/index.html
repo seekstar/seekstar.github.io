@@ -8012,15 +8012,33 @@ matplotlib坐标轴刻度设置</a></p></li>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20048352/how-to-adjust-the-size-of-matplotlib-legend-box" class="uri">https://stackoverflow.com/questions/20048352/how-to-adjust-the-size-of-matplotlib-legend-box</a></p>
 <h3 id="折线图-pltplot"><a href="#折线图-pltplot">¶</a> 折线图 <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html">plt.plot</a></h3>
 <p><code>plt.plot(y)</code>的横坐标是从0开始的数组下标。</p>
-<h3 id="legend-1"><a href="#legend-1">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html">legend</a></h3>
+<h3 id="pltlegend"><a href="#pltlegend">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html"><code>plt.legend</code></a></h3>
 <ul>
 <li><a href="/2021/01/01/matplotlib%E8%AE%BE%E7%BD%AElegend%E5%9D%90%E6%A0%87/" title="matplotlib设置legend坐标">matplotlib设置legend坐标</a></li>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chichoxian/article/details/101058046">Matplotlib
 放置legend(bbox_to_anchor)</a></p></li>
-<li><p>frameon: bool, default: rcParams["legend.frameon"] (default:
-True)</p></li>
+<li><p><code>frameon</code>: bool, default: rcParams["legend.frameon"]
+(default: True)</p></li>
 </ul>
 <p>Whether the legend should be drawn on a patch (frame).</p>
+<ul>
+<li><code>handletextpad</code>: float, default: <code>0.8</code></li>
+</ul>
+<p>The pad between the legend handle and text, in font-size units.</p>
+<ul>
+<li><code>columnspacing</code>: float, default: <code>2.0</code></li>
+</ul>
+<p>The spacing between columns, in font-size units.</p>
+<h3 id="pltylabel"><a href="#pltylabel">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html">'plt.ylabel'</a></h3>
+<ul>
+<li><code>loc</code>: {'bottom', 'center', 'top'}, default:
+<code>center</code></li>
+</ul>
+<p>其他参数传给了Text。常用的：</p>
+<ul>
+<li><code>y</code></li>
+</ul>
+<p>可以微调高度</p>
 <h3 id="text"><a href="#text">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.text.html">text</a></h3>
 <p>Positional, required:</p>
 <ul>
@@ -8133,27 +8151,27 @@ formatter</h3>
 <p>文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/gallery/ticks/tick-formatters.html" class="uri">https://matplotlib.org/stable/gallery/ticks/tick-formatters.html</a></p>
 <p>例子：</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ax1.xaxis.set_major_formatter(<span class="kw">lambda</span> x, pos: <span class="bu">str</span>(x<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div>
-<h3 id="set_label_coords"><a href="#set_label_coords">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axis.Axis.set_label_coords.html">set_label_coords</a></h3>
-<p>例子：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_label_coords(<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.19</span>)</span></code></pre></div>
-<h3 id="grid"><a href="#grid">¶</a> grid</h3>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html</a></p>
-<p>让参考线在柱状图的柱子后面:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/68344604</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ax.set_axisbelow(<span class="va">True</span>)</span></code></pre></div>
-<p>给y轴画参考线：</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>)</span></code></pre></div>
 <h4 id="指定指数"><a href="#指定指数">¶</a> 指定指数</h4>
 <p>比如指定指数为1e-9:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> ScalarFormatter</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> ScalarFormatter</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y_formatter <span class="op">=</span> ScalarFormatter()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y_formatter.set_powerlimits((<span class="op">-</span><span class="dv">9</span>, <span class="op">-</span><span class="dv">9</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(y_formatter)</span></code></pre></div>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits" class="uri">https://matplotlib.org/stable/api/ticker_api.html#matplotlib.ticker.ScalarFormatter.set_powerlimits</a></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/77442842/13688160" class="uri">https://stackoverflow.com/a/77442842/13688160</a></p>
 <p>设置fontsize:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ax.yaxis.get_offset_text().set_fontsize(<span class="dv">8</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/34228384/13688160" class="uri">https://stackoverflow.com/a/34228384/13688160</a></p>
+<h3 id="set_label_coords"><a href="#set_label_coords">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axis.Axis.set_label_coords.html">set_label_coords</a></h3>
+<p>例子：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_label_coords(<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.19</span>)</span></code></pre></div>
+<h3 id="grid"><a href="#grid">¶</a> grid</h3>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html</a></p>
+<p>让参考线在柱状图的柱子后面:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/68344604</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ax.set_axisbelow(<span class="va">True</span>)</span></code></pre></div>
+<p>给y轴画参考线：</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>)</span></code></pre></div>
 <h2 id="colorbar"><a href="#colorbar">¶</a> <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/colorbar_api.html#module-matplotlib.colorbar">colorbar</a></h2>
 <p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/users/explain/colors/colormapnorms.html" class="uri">https://matplotlib.org/stable/users/explain/colors/colormapnorms.html</a></p>
 <p>例子：</p>

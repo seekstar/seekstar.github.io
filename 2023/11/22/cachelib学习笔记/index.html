@@ -8012,40 +8012,60 @@ error的话，可以用<code>nix</code>安装新版本的<code>gcc10</code>：</
 <p>把编译安装的目录的绝对路径存入<code>CACHELIB_HOME</code>里，然后在<code>~/.profile</code>里加入如下内容来将其头文件和库暴露出去：</p>
 <pre class="shell"><code>export CPLUS_INCLUDE_PATH=$CACHELIB_HOME/include:$CPLUS_INCLUDE_PATH
 export LIBRARY_PATH=$CACHELIB_HOME/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$CACHELIB_HOME/lib:$LD_LIBRARY_PATH</code></pre>
+export LD_LIBRARY_PATH=$CACHELIB_HOME/lib:$LD_LIBRARY_PATH
+export CMAKE_PREFIX_PATH=$CACHELIB_HOME/lib/cmake:$CMAKE_PREFIX_PATH</code></pre>
 <p>然后<code>source ~/.profile</code></p>
 <h2 id="使用"><a href="#使用">¶</a> 使用</h2>
-<p>在目标项目的cmake里这么写：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>	<span class="fu">PRIVATE</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">		# 这些是静态链接库，所以是PRIVATE</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">		cachelib_allocator</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">		cachelib_navy</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">		cachelib_common</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">		cachelib_shm</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">	PUBLIC</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">		# 这些是动态链接库，所以是PUBLIC</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">		# Deps of cachelib_allocator</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">		numa</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">		folly</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">		thriftprotocol</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">		# Deps of cachelib_navy</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">		boost_context</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">		# Deps of cachelib_shm</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">		rt</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">		# Deps of folly</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">		fmt</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">		double-conversion</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">		glog</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">		# Deps of thriftprotocol</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="fu">		rpcmetadata</span></span></code></pre></div>
-<p>或者直接link这个library: <a target="_blank" rel="noopener" href="https://github.com/seekstar/RocksCachelibWrapper" class="uri">https://github.com/seekstar/RocksCachelibWrapper</a></p>
-<p>然后正常编译即可。</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://cachelib.org/docs/" class="uri">https://cachelib.org/docs/</a></p>
+<h3 id="cmake"><a href="#cmake">¶</a> CMake</h3>
+<p>官方文档里似乎没写。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(cachelib <span class="ot">REQUIRED</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="dv">${PROJECT_NAME}</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>	<span class="bn">PRIVATE</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>		cachelib</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="shell"><code># Additional "FindXXX.cmake" files are here (e.g. FindSodium.cmake)
+CLCMAKE="$workspace/CacheLib/cachelib/cmake"
+CMAKE_PARAMS="-DCMAKE_MODULE_PATH='$CLCMAKE'"
+
+mkdir -p build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo $CMAKE_PARAMS
+make
+cd ..</code></pre>
+<h3 id="头文件"><a href="#头文件">¶</a> 头文件</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cachelib/allocator/CacheAllocator.h&gt;</span></span></code></pre></div>
+<h3 id="hybrid-cache"><a href="#hybrid-cache">¶</a>
+<code>Hybrid Cache</code></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator<span class="op">::</span>Config lruConfig<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator<span class="op">::</span>NvmCacheConfig nvmConfig<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>setBlockSize<span class="op">(</span><span class="dv">4096</span><span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>setSimpleFile<span class="op">(</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      options<span class="op">.</span>db_paths<span class="op">[</span><span class="dv">0</span><span class="op">].</span>path <span class="op">+</span> <span class="st">"/cachelib"</span><span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      cachelib_size<span class="op">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">true</span> <span class="co">/*truncateFile*/</span><span class="op">);</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>blockCache<span class="op">().</span>setRegionSize<span class="op">(</span><span class="dv">16</span> <span class="op">*</span> <span class="dv">1024</span> <span class="op">*</span> <span class="dv">1024</span><span class="op">);</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  lruConfig<span class="op">.</span>enableNvmCache<span class="op">(</span>nvmConfig<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  lruConfig<span class="op">.</span>setAccessConfig<span class="op">({</span><span class="co">/*bucketsPower*/</span> <span class="dv">25</span><span class="op">,</span> <span class="co">/*locksPower*/</span> <span class="dv">10</span><span class="op">})</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span>validate<span class="op">();</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator cache<span class="op">(</span>lruConfig<span class="op">);</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">auto</span> poolId <span class="op">=</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">.</span>addPool<span class="op">(</span><span class="st">"default_pool"</span><span class="op">,</span> cache<span class="op">.</span>getCacheMemoryStats<span class="op">().</span>ramCacheSize<span class="op">);</span></span></code></pre></div>
+<p><code>bucketsPower</code>默认是10，也就是默认1024个bucket，<code>locksPower</code>默认是5，也就是32个lock，都太小了，一定要手动调成更大的值。<code>bucketsPower</code>取值教程：<a target="_blank" rel="noopener" href="https://cachelib.org/docs/Cache_Library_User_Guides/Configure_HashTable#choosing-a-good-value" class="uri">https://cachelib.org/docs/Cache_Library_User_Guides/Configure_HashTable#choosing-a-good-value</a></p>
+<h3 id="常用方法"><a href="#常用方法">¶</a> 常用方法</h3>
+<p><code>allocate(poolId, key, value_size)</code>:
+返回<code>WriteHandle</code></p>
+<p><code>WriteHandle::getMemory</code>,
+<code>WriteHandle::getSize</code>:
+value的内存起始地址和大小。可以用<code>memcpy</code>之类的往这块内存里面写东西。但好像不能更改大小。</p>
+<p><code>insertOrReplace(WriteHandle)</code></p>
+<p><code>find(key)</code>: 返回<code>ReadHandle</code></p>
+<p><code>findToWrite</code>: 返回<code>WriteHandle</code></p>
+<p>检查<code>ReadHandle</code>或者<code>WriteHandle</code>是否有效：<code>if (handle) {</code></p>
+<p><code>ReadHandle::getMemory</code>, <code>ReadHandle::getSize</code>:
+value的内存起始地址和大小。只读。</p>
+<p><code>remove(key)</code></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
