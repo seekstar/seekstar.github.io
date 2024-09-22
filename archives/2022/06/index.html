@@ -2566,28 +2566,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/02/17/pacman%E6%9F%A5%E7%9C%8B%E5%8F%AF%E6%9B%B4%E6%96%B0%E5%8C%85/">
-                     
-										    pacman查看可更新包
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/03/10/pacman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%94%B1%E5%93%AA%E4%B8%AA%E5%8C%85%E6%8F%90%E4%BE%9B/">
-                     
-										    pacman查看命令由哪个包提供
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2023/02/25/pacman%E6%9F%A5%E7%9C%8B%E6%9C%AA%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/">
                      
 										    pacman查看未安装的包内的文件
@@ -3933,17 +3911,6 @@ mjx-container[display="true"] + br {
 									<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
                      
 										    chroot时硬链接ldd依赖的脚本
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/06/13/cngplp-command-not-found/">
-                     
-										    cngplp command not found
                      
 									</a>
 								</li>
@@ -8042,25 +8009,6 @@ pandoc --t
 		</div>	
 	
 		<div class="index-li">
-			<a href="/2022/06/13/cngplp-command-not-found/">
-				<h2 class="index-title">
-					cngplp command not found
-				</h2>
-				<div class="index-brief">
-					试试cngplp2。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
 			<a href="/2022/06/13/linux-shell%E5%AF%B9%E6%AF%94%E4%B8%A4%E6%9D%A1%E5%91%BD%E4%BB%A4%E7%9A%84%E8%BE%93%E5%87%BA/">
 				<h2 class="index-title">
 					linux shell对比两条命令的输出
@@ -8154,6 +8102,25 @@ pkill -P $$
 如果要在脚本退出前杀死所有子进程，只需要：
 trap "pkill -P $$" EXIT
 但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-06-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/06/08/awk-fflush/">
+				<h2 class="index-title">
+					awk fflush
+				</h2>
+				<div class="index-brief">
+					awk如果检测到stdout不是直接输出到终端的话，会对输出做buffering，因此如果是周期性连续数据，而且需要把stdout重定向给另一个命令的stdin，那么需要fflush(stdout)：
+iostat 1 | awk '{print $1; fflush(stdout)}' | gre
 					...
 				</div>
 			</a>

@@ -2568,28 +2568,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/02/17/pacman%E6%9F%A5%E7%9C%8B%E5%8F%AF%E6%9B%B4%E6%96%B0%E5%8C%85/">
-                     
-										    pacman查看可更新包
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/03/10/pacman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%94%B1%E5%93%AA%E4%B8%AA%E5%8C%85%E6%8F%90%E4%BE%9B/">
-                     
-										    pacman查看命令由哪个包提供
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2023/02/25/pacman%E6%9F%A5%E7%9C%8B%E6%9C%AA%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/">
                      
 										    pacman查看未安装的包内的文件
@@ -3935,17 +3913,6 @@ mjx-container[display="true"] + br {
 									<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
                      
 										    chroot时硬链接ldd依赖的脚本
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2022/06/13/cngplp-command-not-found/">
-                     
-										    cngplp command not found
                      
 									</a>
 								</li>
@@ -7986,9 +7953,8 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="命令行选项"><a href="#命令行选项">¶</a> 命令行选项</h2>
-<h3 id="-s---sync源里的包"><a href="#-s---sync源里的包">¶</a>
-<code>-S, --sync</code>：源里的包</h3>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="-s---sync源里的包"><a href="#-s---sync源里的包">¶</a>
+<code>-S, --sync</code>：源里的包</h2>
 <pre class="shell"><code># 安装或升级某包
 pacman -S 包名
 # 当未安装或者版本较旧时才安装
@@ -7996,8 +7962,8 @@ pacman -S 包名
 pacman -S --needed 包名
 # 源中某包的详细信息
 pacman -Si 包名</code></pre>
-<h3 id="-r-移除某包"><a href="#-r-移除某包">¶</a> <code>-R</code>:
-移除某包</h3>
+<h2 id="-r-移除某包"><a href="#-r-移除某包">¶</a> <code>-R</code>:
+移除某包</h2>
 <p>一般用<code>sudo pacman -Rs 包名</code>:</p>
 <pre class="text"><code>-s, --recursive
 	Remove each target specified including all of their dependencies, provided that (A) they are not required by other
@@ -8009,8 +7975,33 @@ cascade，同时移除依赖该包的其他包。例如A依赖B依赖C，那么<
 B C。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=21470">pacman: cascade
 vs. recursive</a></p>
-<h3 id="-q-查看已安装的包"><a href="#-q-查看已安装的包">¶</a>
-<code>-Q</code>: 查看已安装的包</h3>
+<h2 id="-f---files-query-the-files-database"><a href="#-f---files-query-the-files-database">¶</a>
+<code>-F, --files</code>: Query the files database</h2>
+<p>首先需要更新一下file database:</p>
+<pre class="shell"><code>pacman -Fy</code></pre>
+<p>一般用来查看命令由哪个包提供。比如查看<code>dig</code>命令由哪个包提供。有两种方法：</p>
+<pre class="shell"><code>pacman -F dig</code></pre>
+<p>输出：</p>
+<pre class="text"><code>extra/bind 9.16.25-1
+    usr/bin/dig
+community/epic4 2.10.10-2
+    usr/share/epic/script/dig</code></pre>
+<p>这个方法可以自己写正则表达式匹配，可能比较灵活一点：</p>
+<pre class="shell"><code>pacman -Fl | grep -e "/dig$"</code></pre>
+<p><code>-e</code>: 使用正则表达式。</p>
+<p><code>$</code>: 匹配行末。</p>
+<p>输出：</p>
+<pre class="text"><code>bind usr/bin/dig
+epic4 usr/share/epic/script/dig</code></pre>
+<h2 id="所以安装bind"><a href="#所以安装bind">¶</a>
+所以安装<code>bind</code></h2>
+<pre class="shell"><code>sudo pacman -S bind
+dig -v</code></pre>
+<pre class="text"><code>DiG 9.18.0</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/LoveZoeAyo/article/details/107096964">manjaro
+pacman查看已安装命令隶属于哪个包(arch应该也行)</a></p>
+<h2 id="-q-查看已安装的包"><a href="#-q-查看已安装的包">¶</a>
+<code>-Q</code>: 查看已安装的包</h2>
 <pre class="shell"><code># 所有包
 pacman -Q
 # 某包
@@ -8027,6 +8018,15 @@ pacman -Qo 相对路径或绝对路径</code></pre>
 <p><a target="_blank" rel="noopener" href="https://hustlei.github.io/2018/11/msys2-pacman.html">pacman常用命令</a></p>
 <p><a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=90635">How to
 find which package holds a file?</a></p>
+<h3 id="-qu-查看可更新包"><a href="#-qu-查看可更新包">¶</a>
+<code>-Qu</code>: 查看可更新包</h3>
+<p>先更新源，获取最新应用的列表：</p>
+<pre class="shell"><code>sudo pacman -Sy</code></pre>
+<p>查询可更新包：</p>
+<pre class="shell"><code>pacman -Qu</code></pre>
+<p>yay同理：</p>
+<pre class="shell"><code>yay -Sy
+yay -Qu</code></pre>
 <h2 id="查看某包被哪些包依赖"><a href="#查看某包被哪些包依赖">¶</a>
 查看某包被哪些包依赖</h2>
 <pre class="shell"><code>pacman -Qi 包名</code></pre>
@@ -8049,8 +8049,6 @@ whoneeds 包名</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=57431" class="uri">https://bbs.archlinux.org/viewtopic.php?id=57431</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <ul>
-<li><a href="/2022/02/17/pacman%E6%9F%A5%E7%9C%8B%E5%8F%AF%E6%9B%B4%E6%96%B0%E5%8C%85/" title="pacman查看可更新包">pacman查看可更新包</a></li>
-<li><a href="/2022/03/10/pacman%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%94%B1%E5%93%AA%E4%B8%AA%E5%8C%85%E6%8F%90%E4%BE%9B/" title="pacman查看命令由哪个包提供">pacman查看命令由哪个包提供</a></li>
 <li><a href="/2023/02/25/pacman%E6%9F%A5%E7%9C%8B%E6%9C%AA%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6/" title="pacman查看未安装的包内的文件">pacman查看未安装的包内的文件</a></li>
 <li><a href="/2022/04/27/pacman%E6%B8%85%E7%90%86%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%BC%93%E5%AD%98/" title="pacman清理软件包缓存">pacman清理软件包缓存</a></li>
 <li><a href="/2022/02/17/pacman%E5%8D%87%E7%BA%A7%E6%8C%87%E5%AE%9A%E5%8C%85/" title="pacman升级指定包">pacman升级指定包</a></li>
