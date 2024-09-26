@@ -8254,13 +8254,13 @@ sleep 3</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 100000 <span class="kw">&amp;</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">'kill -TERM $pid; echo exit 1; exit 1'</span> TERM</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM </span><span class="va">$pid</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>再执行上面的命令，这个脚本就可以被顺利杀死了。</p>
 <p>如果是pipeline命令，直接将其放入后台的话，<code>$!</code>只是pipeline里的最后进程，将其杀掉只会导致pipeline前面的进程变成孤儿进程。为了一次性将整个pipeline杀死，可以用<code>setsid</code>将其放入一个单独的进程组里，然后向整个进程组发信号：</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">'kill -TERM -$!; echo exit 1; exit 1'</span> TERM</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>详情请参考：<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/" title="Linux shell向进程组发信号">Linux shell向进程组发信号</a></p>
 <h2 id="wait"><a href="#wait">¶</a> <code>wait</code></h2>
@@ -8278,15 +8278,34 @@ shell中如果要等待多个任务中的任意一个完成，然后把其他的
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>其中<code>$$</code>是当前shell的PID，<code>pkill -P $$</code>表示把父进程是当前shell的所有进程杀掉。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/231678" class="uri">https://unix.stackexchange.com/a/231678</a></p>
-<p>也可以把它们都放进一个process group里，最后一起杀掉：</p>
+<p>如果是带pipeline的复杂命令，需要这样：</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">	sleep 10 &amp;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">	sleep 3 &amp;</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">	trap </span><span class="dt">\"</span><span class="st">kill -TERM -</span><span class="dt">\$\$\"</span><span class="st"> CHLD</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">	wait</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code></pre></div>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">wait</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="kw">&amp;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        （不推荐）把它们都放进一个process group里，最后一起杀掉
+    </div>
+    <div class="spoiler-content">
+        <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">	sleep 10 &amp;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">	sleep 3 &amp;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">	trap </span><span class="dt">\"</span><span class="st">kill -TERM -</span><span class="dt">\$\$\"</span><span class="st"> CHLD</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">	wait</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code></pre></div>
 <p>但是这个方法因为会把自己杀掉，所以会打印一行<code>Terminated</code>。</p>
+
+    </div>
+</div>
 <h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h2>
 <ul>
 <li><p>不支持数组</p></li>
