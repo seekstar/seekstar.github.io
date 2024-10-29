@@ -3107,17 +3107,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/05/28/latex-url%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
-                     
-										    latex url自动换行
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2020/04/20/latex-wrapfigure%E6%8C%87%E5%AE%9A%E8%A1%8C%E6%95%B0/">
                      
 										    latex wrapfigure指定行数
@@ -7957,7 +7946,10 @@ mjx-container[display="true"] + br {
 <p><img src="/2020/04/15/vscode-latex-%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1/20200415232342987.png" alt="在这里插入图片描述"></p>
 <p>然后打开.tex文件，状态栏中就有总字数</p>
 <p><img src="/2020/04/15/vscode-latex-%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1/20200415232440388.png" alt="在这里插入图片描述"></p>
-<p>但是貌似表格里的字符数不会被统计进去。。。</p>
+<p>如果项目有多个tex文件，比如有<code>introduction.tex</code>,
+<code>background.tex</code>，然后在<code>main.tex</code>里<code>\input{introduction.tex}</code>和<code>\input{background.tex}</code>，那么在<code>introduction.tex</code>里显示的字数是introduction的字数，在<code>background.tex</code>里显示的字数是background的字数，在<code>main.tex</code>里显示的字数是所有文件的总字数。</p>
+<h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h2>
+<p>貌似表格里的字符数不会被统计进去。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

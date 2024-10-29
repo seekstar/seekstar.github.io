@@ -3107,17 +3107,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/05/28/latex-url%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
-                     
-										    latex url自动换行
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2020/04/20/latex-wrapfigure%E6%8C%87%E5%AE%9A%E8%A1%8C%E6%95%B0/">
                      
 										    latex wrapfigure指定行数
@@ -7966,8 +7955,7 @@ mjx-container[display="true"] + br {
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/seaskying/article/details/51316607">各种空格</a></p>
 <h2 id="技巧"><a href="#技巧">¶</a> 技巧</h2>
 <ol type="1">
-<li>在enumerate中的item后换行用
-，这样与正文之间会有一条缝隙。<br>
+<li>在enumerate中的item后换行用<code>\par</code>，这样与正文之间会有一条缝隙。<br>
 <img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200402205824533.png" alt="在这里插入图片描述"><br>
 如果使用<code>\\</code>换行则标题与正文之间没有缝隙，很难看<br>
 <img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200402205909906.png" alt="在这里插入图片描述"></li>
@@ -8485,6 +8473,7 @@ LINE</a><br>
 <h3 id="去掉页码"><a href="#去掉页码">¶</a> 去掉页码</h3>
 <p>在导言区加入：</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\pagestyle</span>{empty}</span></code></pre></div>
+<p>如果只需要去掉前几页的页码：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42141390/article/details/110250250">目录页和摘要页不设置页码</a></p>
 <h3 id="调整页边距"><a href="#调整页边距">¶</a> 调整页边距</h3>
 <div class="sourceCode" id="cb37"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">geometry</span>}</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\geometry</span>{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}</span></code></pre></div>
@@ -8535,62 +8524,64 @@ LINE</a><br>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>代入(<span class="kw">\ref</span>{<span class="ex">t1</span>})中，得</span></code></pre></div>
-<p>也可以用<code>\cref</code>引用标签，会带上描述。比如假如label是个图片，那么<code>\cref{label}</code>就会显示为<code>Figure 1</code>。</p>
+<p>也可以用<code>\cref</code>引用标签，会带上描述：</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[noabbrev, capitalize, nameinlink]{<span class="ex">cleveref</span>}</span></code></pre></div>
+<p><code>\cref{fig:label}</code>就会显示为<code>Figure 1</code>。</p>
 <h2 id="插入超链接"><a href="#插入超链接">¶</a> 插入超链接</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34809033/article/details/80734433" class="uri">https://blog.csdn.net/qq_34809033/article/details/80734433</a></p>
 <h2 id="插入代码"><a href="#插入代码">¶</a> 插入代码</h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">listings</span>}</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">xcolor</span>}</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\fontspec</span>{inconsolata}</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%1 or 3??? 让0中间有一个斜线，让l不像1。</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">listings</span>}</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">xcolor</span>}</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">fontspec</span>}</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">inconsolata</span>}</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\fontspec</span>{inconsolata}</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\setmonofont</span>[StylisticSet=1]{inconsolata}	<span class="co">%1 or 3??? 让0中间有一个斜线，让l不像1。</span></span></code></pre></div>
 <p>在<code>\maketitle</code>后面设定默认的代码样式。下面是适合黑白打印的设定：</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>	<span class="fu">\lstset</span>{ <span class="co">%  </span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>		backgroundcolor=<span class="fu">\color</span>{white},   <span class="co">% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}  </span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>		basicstyle=<span class="fu">\ttfamily</span>,			 <span class="co">%ttfamily is consolas</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>		breakatwhitespace=false,         <span class="co">% sets if automatic breaks should only happen at whitespace  </span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>		breaklines=true,                 <span class="co">% sets automatic line breaking  </span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>		deletekeywords={...},            <span class="co">% if you want to delete keywords from the given language  </span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>		escapeinside={<span class="fu">\%</span>*}{*)},          <span class="co">% if you want to add LaTeX within your code  </span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>		extendedchars=true,              <span class="co">% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8  </span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>		keepspaces=true,                 <span class="co">% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  </span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>		morekeywords={*,...},            <span class="co">% if you want to add more keywords to the set  </span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>		numbers=left,                    <span class="co">% where to put the line-numbers; possible values are (none, left, right)  </span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>		numbersep=5pt,                   <span class="co">% how far the line-numbers are from the code  </span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>		numberstyle=<span class="fu">\ttfamily</span>,</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>		rulecolor=<span class="fu">\color</span>{black},         <span class="co">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))  </span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>		showspaces=false,                <span class="co">% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'  </span></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>		showstringspaces=false,          <span class="co">% underline spaces within strings only  </span></span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>		showtabs=false,                  <span class="co">% show tabs within strings adding particular underscores  </span></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>		stepnumber=1,                    <span class="co">% the step between two line-numbers. If it's 1, each line will be numbered  </span></span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>		tabsize=4,                       <span class="co">% sets default tabsize to 2 spaces  </span></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>		columns=fullflexible,</span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>	<span class="fu">\lstset</span>{ <span class="co">%  </span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>		backgroundcolor=<span class="fu">\color</span>{white},   <span class="co">% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}  </span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>		basicstyle=<span class="fu">\ttfamily</span>,			 <span class="co">%ttfamily is consolas</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>		breakatwhitespace=false,         <span class="co">% sets if automatic breaks should only happen at whitespace  </span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>		breaklines=true,                 <span class="co">% sets automatic line breaking  </span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>		deletekeywords={...},            <span class="co">% if you want to delete keywords from the given language  </span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>		escapeinside={<span class="fu">\%</span>*}{*)},          <span class="co">% if you want to add LaTeX within your code  </span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>		extendedchars=true,              <span class="co">% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8  </span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>		keepspaces=true,                 <span class="co">% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  </span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>		morekeywords={*,...},            <span class="co">% if you want to add more keywords to the set  </span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>		numbers=left,                    <span class="co">% where to put the line-numbers; possible values are (none, left, right)  </span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>		numbersep=5pt,                   <span class="co">% how far the line-numbers are from the code  </span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>		numberstyle=<span class="fu">\ttfamily</span>,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>		rulecolor=<span class="fu">\color</span>{black},         <span class="co">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))  </span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>		showspaces=false,                <span class="co">% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'  </span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>		showstringspaces=false,          <span class="co">% underline spaces within strings only  </span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>		showtabs=false,                  <span class="co">% show tabs within strings adding particular underscores  </span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>		stepnumber=1,                    <span class="co">% the step between two line-numbers. If it's 1, each line will be numbered  </span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>		tabsize=4,                       <span class="co">% sets default tabsize to 2 spaces  </span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>		columns=fullflexible,</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
 <h3 id="直接插入代码"><a href="#直接插入代码">¶</a> 直接插入代码</h3>
-<div class="sourceCode" id="cb42"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">lstlisting</span>}[numbers=none]</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="vs">mpirun -n 20 ./xhpl</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">lstlisting</span>}[numbers=none]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="vs">mpirun -n 20 ./xhpl</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">lstlisting</span>}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101140501277.png" alt="在这里插入图片描述"></p>
 <p>注意代码块里的空格和tab都会如实显示出来。</p>
 <h3 id="从文本中读取代码"><a href="#从文本中读取代码">¶</a>
 从文本中读取代码</h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\lstinputlisting</span>{hello.c}</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\lstinputlisting</span>{hello.c}</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20210101140526555.png" alt="在这里插入图片描述"></p>
 <h2 id="左引号"><a href="#左引号">¶</a> 左引号</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dyzok88/article/details/44222765" class="uri">https://blog.csdn.net/dyzok88/article/details/44222765</a></p>
 <p>左单引号（键盘上1左边那个）<code>`</code></p>
 <p>左双引号（按两下键盘上1左边的按键）<code>``</code></p>
 <h2 id="不加粗"><a href="#不加粗">¶</a> 不加粗</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\textnormal</span>{xxx}</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\textnormal</span>{xxx}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/225273" class="uri">https://tex.stackexchange.com/a/225273</a></p>
 <h2 id="从多处引用footnote"><a href="#从多处引用footnote">¶</a>
 从多处引用footnote</h2>
-<div class="sourceCode" id="cb45"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Text with first footnote<span class="fu">\footnote</span>{<span class="kw">\label</span>{<span class="ex">note1</span>}This is the labeled footnote}</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>and more text with a second footnote<span class="fu">\footnote</span>{here}.</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>In this new paragraph we have a reference to the first</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>footnote<span class="fu">\footnotemark</span>[<span class="kw">\ref</span>{<span class="ex">note1</span>}].</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>Text with first footnote<span class="fu">\footnote</span>{<span class="kw">\label</span>{<span class="ex">note1</span>}This is the labeled footnote}</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>and more text with a second footnote<span class="fu">\footnote</span>{here}.</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>In this new paragraph we have a reference to the first</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>footnote<span class="fu">\footnotemark</span>[<span class="kw">\ref</span>{<span class="ex">note1</span>}].</span></code></pre></div>
 <p>这个不行，<code>\footnotemark[\ref{note1}]</code>会报错。来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/35044" class="uri">https://tex.stackexchange.com/a/35044</a></p>
 <p>但是这个可以：</p>
 <pre class="text"><code>\usepackage{footmisc}
@@ -8607,26 +8598,26 @@ footnote\footref{note1}.</code></pre>
 <h3 id="textcircled"><a href="#textcircled">¶</a>
 <code>\textcircled</code></h3>
 <p>原文：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/8553/256676" class="uri">https://tex.stackexchange.com/a/8553/256676</a></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{1}}</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{2}}</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{3}}</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{4}}</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{5}}</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{6}}</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{7}}</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{8}}</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{9}}</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{10}}</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{11}}</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{22}}</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{33}}</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{44}}</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{55}}</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{66}}</span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{77}}</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{88}}</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{99}}</span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>fg</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{1}}</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{2}}</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{3}}</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{4}}</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{5}}</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{6}}</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{7}}</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{8}}</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{9}}</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{10}}</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{11}}</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{22}}</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{33}}</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{44}}</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{55}}</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{66}}</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{77}}</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{88}}</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="fu">\textcircled</span>{<span class="fu">\small</span>{99}}</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>fg</span></code></pre></div>
 <p><img src="/2020/03/12/latex%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/202401022349.png"></p>
 <h3 id="tikz"><a href="#tikz">¶</a> tikz</h3>
 <p>基于<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/218842">Ch'en

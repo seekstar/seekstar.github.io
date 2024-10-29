@@ -3107,17 +3107,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/05/28/latex-url%E8%87%AA%E5%8A%A8%E6%8D%A2%E8%A1%8C/">
-                     
-										    latex url自动换行
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2020/04/20/latex-wrapfigure%E6%8C%87%E5%AE%9A%E8%A1%8C%E6%95%B0/">
                      
 										    latex wrapfigure指定行数
@@ -7966,7 +7955,13 @@ ip addr add $prefix.1/24 dev $indev</code></pre>
 <p>但网线拔下来之后这个IP就会消失。可以参考下面的<code>开机自启</code>设置永久静态IP。</p>
 <h2 id="配置dhcp"><a href="#配置dhcp">¶</a> 配置DHCP</h2>
 <pre class="shell"><code>apt install isc-dhcp-server
-cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)
+
+# 我们不需要IPv6的DHCP，因为IPv6有Router Advertisements
+# https://tomsalmon.eu/2020/02/isc-dhcp-server-disable-dhcpv6-debian-9/
+mv /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.$(date +%s%N)
+echo INTERFACESv4=\"$indev\" &gt; /etc/default/isc-dhcp-server
+
+mv /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)
 
 cat &gt; /etc/dhcp/dhcpd.conf &lt;&lt;EOF
 option domain-name-servers 223.6.6.6;
