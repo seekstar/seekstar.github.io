@@ -3382,6 +3382,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/10/31/%E7%94%A8linux%E5%8D%B8%E8%BD%BD%E6%89%8B%E6%9C%BA%E4%B8%8A%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6/">
+                     
+										    用Linux卸载手机上的系统软件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/10/%E7%94%B5%E4%BF%A1%E7%BD%91%E4%B8%8A%E8%90%A5%E4%B8%9A%E5%8E%85%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E5%BD%95/">
                      
 										    电信网上营业厅验证码登录
@@ -7991,7 +8002,11 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://nixos.org/manual/nix/stable/command-ref/nix-env.html" class="uri">https://nixos.org/manual/nix/stable/command-ref/nix-env.html</a></p>
 <p>搜索可用包：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p>
 <p>安装：<code>nix-env -iA 源.包名</code></p>
+<p>查看已经安装的包：<code>nix-env -q</code></p>
 <p>卸载：<code>nix-env -e 包名</code></p>
+<p>升级包：</p>
+<pre class="shell"><code>nix-channel --update
+nix-env -u 包名</code></pre>
 <p>一些<code>nix-env</code>的选项：</p>
 <ul>
 <li><p><code>-i</code>: <code>--install</code></p></li>
@@ -8000,6 +8015,7 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <li><p><code>-e</code>: <code>--uninstall</code></p></li>
 <li><p><code>-q</code>:
 <code>--query</code>。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
+<li><p><code>-u</code>: <code>--upgrade</code></p></li>
 </ul>
 <p>垃圾回收：<code>nix-collect-garbage -d</code>。</p>
 <pre class="text"><code>-d (--delete-old) deletes  all  old  generations of all profiles in /nix/var/nix/profiles by invoking nix-env --delete-generations old on all profiles (of course, this makes rollbacks to previous configurations impossible)</code></pre>
@@ -8055,12 +8071,12 @@ Categories=Network;FileTransfer;</code></pre>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
 <p>因此如果用Nix包管理器安装了库，比如gtest:
 <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake +
 make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick

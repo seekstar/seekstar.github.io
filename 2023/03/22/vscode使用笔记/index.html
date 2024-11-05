@@ -3382,6 +3382,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/10/31/%E7%94%A8linux%E5%8D%B8%E8%BD%BD%E6%89%8B%E6%9C%BA%E4%B8%8A%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6/">
+                     
+										    用Linux卸载手机上的系统软件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/10/%E7%94%B5%E4%BF%A1%E7%BD%91%E4%B8%8A%E8%90%A5%E4%B8%9A%E5%8E%85%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E5%BD%95/">
                      
 										    电信网上营业厅验证码登录
@@ -7942,12 +7953,29 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="只对特定语言开启保存时自动格式化"><a href="#只对特定语言开启保存时自动格式化">¶</a>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="debug-attach到某个进程"><a href="#debug-attach到某个进程">¶</a>
+Debug: attach到某个进程</h2>
+<p>安装插件：<code>WebFreak</code>的<code>Native Debug</code></p>
+<p>在<code>.vscode/launch.json</code>里：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"version"</span><span class="fu">:</span> <span class="st">"0.2.0"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"configurations"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Attach to PID"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"gdb"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"request"</span><span class="fu">:</span> <span class="st">"attach"</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"target"</span><span class="fu">:</span> <span class="st">"要attach到的PID"</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"cwd"</span><span class="fu">:</span> <span class="st">"${workspaceRoot}"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"valuesFormatting"</span><span class="fu">:</span> <span class="st">"parseText"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="只对特定语言开启保存时自动格式化"><a href="#只对特定语言开启保存时自动格式化">¶</a>
 只对特定语言开启保存时自动格式化</h2>
 <p>例如只对js开启保存时自动格式化：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">javascript</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">javascript</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Language Identifiers: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/languages/identifiers" class="uri">https://code.visualstudio.com/docs/languages/identifiers</a></p>
 <p>补充：</p>
 <table>

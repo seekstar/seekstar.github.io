@@ -3380,6 +3380,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/10/31/%E7%94%A8linux%E5%8D%B8%E8%BD%BD%E6%89%8B%E6%9C%BA%E4%B8%8A%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6/">
+                     
+										    用Linux卸载手机上的系统软件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/10/%E7%94%B5%E4%BF%A1%E7%BD%91%E4%B8%8A%E8%90%A5%E4%B8%9A%E5%8E%85%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E5%BD%95/">
                      
 										    电信网上营业厅验证码登录
@@ -7912,6 +7923,27 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
+				<h2 class="index-title">
+					Debian 10升级为Debian 11
+				</h2>
+				<div class="index-brief">
+					可以通过ustc升级：官方教程：https://mirrors.ustc.edu.cn/help/debian.html
+参考：https://linux.cn/article-13647-1.html
+先把/etc/apt/sources.list里的所有行注释掉，然后加上
+deb http://
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/04/29/slab%E5%88%86%E9%85%8D%E5%99%A8/">
 				<h2 class="index-title">
 					slab分配器
@@ -8089,27 +8121,6 @@ make -j$(nproc) static_lib
 动态库：
 make -j$(nproc) shared_lib
 但是这俩好像只能用一个，在编译另一个之前好像要先make clean一下。相关：rocksdb: /usr/bin/ld: ./memory/concurre
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-21</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/21/rocksdb%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-				<h2 class="index-title">
-					RocksDB单元测试
-				</h2>
-				<div class="index-brief">
-					make all check
-可以加上-j 线程数来做并行单元测试。
-如果出错了，看下出错的是哪个测试，比如假如是DBBasicTest.OpenWhenOpen，那这个测试就在db_basic_test，单独运行这个测试：
-./db_basic_test --gtest_filter="*DBBa
 					...
 				</div>
 			</a>

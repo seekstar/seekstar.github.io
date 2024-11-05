@@ -3382,6 +3382,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/10/31/%E7%94%A8linux%E5%8D%B8%E8%BD%BD%E6%89%8B%E6%9C%BA%E4%B8%8A%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6/">
+                     
+										    用Linux卸载手机上的系统软件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/10/%E7%94%B5%E4%BF%A1%E7%BD%91%E4%B8%8A%E8%90%A5%E4%B8%9A%E5%8E%85%E9%AA%8C%E8%AF%81%E7%A0%81%E7%99%BB%E5%BD%95/">
                      
 										    电信网上营业厅验证码登录
@@ -7943,29 +7954,87 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
-<pre class="shell"><code>curl -f https://zed.dev/install.sh | sh</code></pre>
-<p>也可以用包管理器安装：</p>
-<pre class="shell"><code># ArchLinux
+<pre class="shell"><code># stable版本。升级也是这个命令
+curl -f https://zed.dev/install.sh | sh
+# preview版本。升级也是这个命令
+curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh</code></pre>
+<p>官方脚本安装的zed的命令名字就叫<code>zed</code>。</p>
+<p>也可以用包管理器安装，不过好像只能安装stable版本：</p>
+<pre class="shell"><code># ArchLinux。命令名字叫zeditor
 sudo pacman -S zed
-# Nix
-nix-env -iA nixos.zed-editor</code></pre>
-<p>然后输入命令<code>zed</code>就可以打开zed编辑器。如果报错<code>VulkanError(ERROR_INCOMPATIBLE_DRIVER)</code>，则需要根据自己的硬件配置安装相应的<code>vulkan</code>包。</p>
+# Nix。目前只有unstable channel有
+nix-env -iA nixpkgs.zed-editor</code></pre>
+<p>然后输入命令<code>zed</code>或者<code>zeditor</code>就可以打开zed编辑器。如果报错<code>VulkanError(ERROR_INCOMPATIBLE_DRIVER)</code>，则需要根据自己的硬件配置安装相应的<code>vulkan</code>包。</p>
 <p>例如我用的是Intel集显，那么就安装<code>vulkan-intel</code>:</p>
 <pre class="shell"><code>sudo pacman -S vulkan-intel</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/zed-industries/zed/issues/14436#issuecomment-2227309862" class="uri">https://github.com/zed-industries/zed/issues/14436#issuecomment-2227309862</a></p>
 <h2 id="连接到服务器"><a href="#连接到服务器">¶</a> 连接到服务器</h2>
 <p>官方教程：<a target="_blank" rel="noopener" href="https://zed.dev/docs/remote-development" class="uri">https://zed.dev/docs/remote-development</a></p>
-<p>目前只有preview版本可以。先安装preview版本：</p>
-<pre class="shell"><code>curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh</code></pre>
-<p>然后<code>ctrl+shift+p</code> -&gt;
-<code>projects: open remote</code> -&gt; <code>New Server</code></p>
+<p><code>ctrl+shift+p</code> -&gt; <code>projects: open remote</code>
+-&gt; <code>Connect New Server</code></p>
 <p>如果服务器端的<code>zed</code>下载卡住的话，可以新开一个终端ssh到服务器，然后在上面手动把服务端下载下来：</p>
-<pre class="shell"><code>curl https://zed.dev/install.sh | bash</code></pre>
+<ol type="1">
+<li><code>ps -ef | grep zed</code>，把所有之前<code>zed</code>自动创建的下载进程杀掉。</li>
+<li>删除以前没下载完的文件：<code>rm ~/.zed_server/*</code></li>
+<li>手动下载server。首先在github上找到要下载的版本：<a target="_blank" rel="noopener" href="https://github.com/zed-industries/zed/releases" class="uri">https://github.com/zed-industries/zed/releases</a>，然后在服务器上手动下载：</li>
+</ol>
+<pre class="shell"><code>version=v0.159.7
+channel=stable
+cd ~/.zed_server/
+wget https://github.com/zed-industries/zed/releases/download/$version/zed-remote-server-linux-x86_64.gz
+gzip -d zed-remote-server-linux-x86_64.gz
+mv zed-remote-server-linux-x86_64 zed-remote-server-$channel-linux-x86_64
+chmod +x zed-remote-server-stable-linux-x86_64</code></pre>
+<p>然后再在zed里尝试连接到服务器就好了。</p>
+<h2 id="常用快捷键"><a href="#常用快捷键">¶</a> 常用快捷键</h2>
+<p>完整的快捷键列表：<a target="_blank" rel="noopener" href="https://zed.dev/docs/key-bindings" class="uri">https://zed.dev/docs/key-bindings</a>。注意，这里面<code>⌘</code>对应<code>ctrl</code>而不是Super/Win键。</p>
+<p>完整的默认快捷键配置：<a target="_blank" rel="noopener" href="https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-macos.json" class="uri">https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-macos.json</a></p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Target</th>
+<th>Default shortcut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Toggle focus</code></td>
+<td><code>Terminal Panel</code></td>
+<td><code>ctrl+`</code></td>
+</tr>
+<tr class="even">
+<td><code>Toggle filters</code></td>
+<td><code>Project Search</code>，在项目中全局搜索</td>
+<td><code>ctrl+shift+f</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>Newline below</code>默认的快捷键是<code>⌘ + Enter</code>，在Linux上本来对应<code>ctrl+Enter</code>。但这个快捷键被<code>assistant::InlineAssist</code>占用了。所以需要在<code>~/.config/zed/keymap.json</code>里手动指定一下：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"context"</span><span class="fu">:</span> <span class="st">"Editor"</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"bindings"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"ctrl-enter"</span><span class="fu">:</span> <span class="st">"editor::NewlineBelow"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
 <h2 id="目前的问题"><a href="#目前的问题">¶</a> 目前的问题</h2>
 <ul>
+<li><p>remote上只能通过<code>Open Folder</code>来打开工程，不能像vscode一样在terminal里<code>zed folder</code>来打开。</p></li>
 <li><p>只有git blame，没有vscode那样的git功能。</p></li>
-<li><p>不能preview markdown</p></li>
 <li><p>formatter似乎不能在remote用: <a target="_blank" rel="noopener" href="https://github.com/zed-industries/zed/issues/13527" class="uri">https://github.com/zed-industries/zed/issues/13527</a></p></li>
+<li><p>不能隐藏terminal panel</p></li>
+</ul>
+<h2 id="已经解决的问题"><a href="#已经解决的问题">¶</a>
+已经解决的问题</h2>
+<ul>
+<li>不能preview markdown</li>
 </ul>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
