@@ -1785,6 +1785,17 @@ mjx-container[display="true"] + br {
 									
 							<ul>
 								<li class="file">
+									<a href="/2024/11/13/addresssanitizer%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    AddressSanitizer使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/c-boost-ssl%E4%BD%BF%E7%94%A8/">
                      
 										    C++ boost SSL使用
@@ -7992,15 +8003,20 @@ mkfs -t ext4 /dev/pmem0
 					Linux查看固态盘总写入量等信息
 				</h2>
 				<div class="index-brief">
-					sudo apt install gsmartcontrol
-然后smartctl命令就有了。
-先尝试直接打开gmartcontrol（通过终端或者启动器）
+					¶
+安装smartctl
+sudo apt install smartmontools
+¶
+找到固态盘的设备名
+在终端中输入ls /dev/nvm*
 
-结果发现看不了。
-这时可以使用smartctl命令查看。
-首先找到固态盘的设备名。在终端中输入ls /dev/nvm*
+第一个就是固态盘的设备名。
+¶
+查看读写量等信息
+sudo smartctl -a /dev/nvme0
 
-第一个就是固态盘的
+
+这个就是写入量（为什么写入量比读出量高
 					...
 				</div>
 			</a>

@@ -1785,6 +1785,17 @@ mjx-container[display="true"] + br {
 									
 							<ul>
 								<li class="file">
+									<a href="/2024/11/13/addresssanitizer%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    AddressSanitizer使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/c-boost-ssl%E4%BD%BF%E7%94%A8/">
                      
 										    C++ boost SSL使用
@@ -7923,6 +7934,28 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2024/04/01/linux%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
+				<h2 class="index-title">
+					Linux控制进程CPU使用率
+				</h2>
+				<div class="index-brief">
+					使用cpulimit不用root权限也能控制CPU使用率：https://github.com/opsengine/cpulimit
+例如要控制最多使用200%的CPU，也就是两个核：
+cpulimit -l 200 -f -- 可执行文件 参数...
+       -l, --limit=N
+  
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2024-04-01</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
 				<h2 class="index-title">
 					autolab搭建教程
@@ -8154,26 +8187,6 @@ sudo apt install linux-perf
 			</a>
                 <div class="article-meta">
 				    <span>2023-12-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/12/07/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E8%AF%BB%E5%8F%96%E6%B5%81%E7%A8%8B/">
-				<h2 class="index-title">
-					RocksDB代码分析——读取流程
-				</h2>
-				<div class="index-brief">
-					分析均基于v6.27.3。以下流程为了方便理解均经过了简化。
-首先，我们通过调用DB::Open来创建数据库，它返回了一个DB*。DB::Open内部调用了DBImpl::Open，在里面构造了一个DBImpl*并转换成DB*返回。所以我们拿到的DB*其实是DBImpl*。
-然后我们调用DB::Ge
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-12-07</span>
                     
                             
                     

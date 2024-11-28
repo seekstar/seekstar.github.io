@@ -1787,6 +1787,17 @@ mjx-container[display="true"] + br {
 									
 							<ul>
 								<li class="file">
+									<a href="/2024/11/13/addresssanitizer%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    AddressSanitizer使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/c-boost-ssl%E4%BD%BF%E7%94%A8/">
                      
 										    C++ boost SSL使用
@@ -8104,6 +8115,15 @@ Trace recursion detected - corrupt data file?</code></pre>
 <p>例如，rocksdb
 <code>cmake</code>的时候加上<code>-DPORTABLE=ON</code>即可。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html" class="uri">https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html</a></p>
+<h3 id="内存泄漏分析"><a href="#内存泄漏分析">¶</a> 内存泄漏分析</h3>
+<pre class="shell"><code>valgrind --leak-check=full --log-file=valgrind.txt executable args...</code></pre>
+<ul>
+<li><p><code>--leak-check=full</code>: each individual leak will be
+shown in detail.</p></li>
+<li><p>（可选）<code>--log-file=文件路径</code>:
+将valgrind的输出写到指定文件。</p></li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks" class="uri">https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks</a></p>
 <h2 id="libtcmalloc"><a href="#libtcmalloc">¶</a> libtcmalloc</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://goog-perftools.sourceforge.net/doc/heap_profiler.html" class="uri">https://goog-perftools.sourceforge.net/doc/heap_profiler.html</a></p>
 <pre class="shell"><code># Debian 11

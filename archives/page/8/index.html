@@ -1785,6 +1785,17 @@ mjx-container[display="true"] + br {
 									
 							<ul>
 								<li class="file">
+									<a href="/2024/11/13/addresssanitizer%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    AddressSanitizer使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/c-boost-ssl%E4%BD%BF%E7%94%A8/">
                      
 										    C++ boost SSL使用
@@ -7923,6 +7934,29 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/02/09/linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8mount/">
+				<h2 class="index-title">
+					Linux开机自动mount
+				</h2>
+				<div class="index-brief">
+					¶ /etc/fstab
+以挂载fat32文件系统为例，在/etc/fstab中添加：
+UUID=xxxx	/mnt/sdcard	vfat	defaults	0 0
+其中UUID可以通过sudo blkid /dev/xxxx查看。
+¶ 选项
+defaults这栏可以改成其他选项，或者在defau
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-02-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/">
 				<h2 class="index-title">
 					使用国内源安装和使用Nix包管理器
@@ -8109,29 +8143,6 @@ ArchLinux是xf86-input-synaptics，Ubuntu貌似是xserver-xorg-input-synaptics�
 			</a>
                 <div class="article-meta">
 				    <span>2022-12-10</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/12/02/linux-kernel%E8%AE%A1%E6%97%B6/">
-				<h2 class="index-title">
-					Linux kernel计时
-				</h2>
-				<div class="index-brief">
-					可以用getrawmonotonic来获取当前时间，两个时间点相减就是中间经过的时间了：
-#include &lt;linux/time.h&gt;
-
-static uint64_t get_cur_nsec(void) {
-    struct timespec time;
-    getrawm
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-12-02</span>
                     
                             
                     

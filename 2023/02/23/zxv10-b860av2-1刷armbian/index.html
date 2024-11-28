@@ -1787,6 +1787,17 @@ mjx-container[display="true"] + br {
 									
 							<ul>
 								<li class="file">
+									<a href="/2024/11/13/addresssanitizer%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    AddressSanitizer使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/04/25/c-boost-ssl%E4%BD%BF%E7%94%A8/">
                      
 										    C++ boost SSL使用
@@ -8020,7 +8031,7 @@ deb http://mirrors.tuna.tsinghua.edu.cn/debian bullseye-updates main contrib non
 deb http://mirrors.tuna.tsinghua.edu.cn/debian bullseye-backports main contrib non-free
 deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free</code></pre>
 <p><code>/etc/apt/sources.list.d/armbian.list</code>:</p>
-<pre class="text"><code>deb http://apt.armbian.com bullseye main bullseye-utils bullseye-desktop</code></pre>
+<pre class="text"><code>deb https://mirrors.tuna.tsinghua.edu.cn/armbian bullseye main bullseye-utils bullseye-desktop</code></pre>
 <pre class="shell"><code># https://linuxize.com/post/how-to-upgrade-debian-10-to-debian-11/
 apt update
 apt full-upgrade</code></pre>
@@ -8028,6 +8039,19 @@ apt full-upgrade</code></pre>
 <pre class="shell"><code>chmod +s /usr/bin/sudo
 chown root:root -R /etc/sudoers.d/
 chmod 700 -R /var/lib/sudo/lectured/</code></pre>
+<h2 id="升级debian-11到debian-12"><a href="#升级debian-11到debian-12">¶</a> 升级Debian 11到Debian 12</h2>
+<p><code>/etc/apt/sources.list</code>:</p>
+<pre class="text"><code>deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib non-free
+deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib non-free
+deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-backports main contrib non-free
+deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free</code></pre>
+<p><code>/etc/apt/sources.list.d/armbian.list</code>:</p>
+<pre class="text"><code>deb https://mirrors.tuna.tsinghua.edu.cn/armbian bookworm main bookworm-utils bookworm-desktop</code></pre>
+<p>可能需要把<code>armbian-config.list</code>删掉，不然<code>apt update</code>可能会报未签名的错。反正里面的<code>armbian-config</code>大概用不上：</p>
+<pre class="shell"><code>sudo mv armbian-config.list /root/armbian-config.list-$(date +%s%N)</code></pre>
+<p>然后就可以更新了（可能会断网，最好在tmux里跑）：</p>
+<pre class="shell"><code>sudo apt update
+sudo apt dist-upgrade</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
