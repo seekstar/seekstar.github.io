@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,72 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
+				<h2 class="index-title">
+					bash获取exit code
+				</h2>
+				<div class="index-brief">
+					echo $?可以获取上一条命令的exit code。
+但是如果bash脚本中设置了set -e，那么如果命令的exit
+code不为0，当前bash脚本会直接退出。这种情况下如果要获取命令的exit
+code而不退出，需要让该命令在一个新的shell中执行：
+set -e
+ret=$(bash -
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-06-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/05/17/%E5%9C%A8chroot%E9%87%8C%E8%BF%90%E8%A1%8Csshd/">
+				<h2 class="index-title">
+					在chroot里运行sshd
+				</h2>
+				<div class="index-brief">
+					/usr/sbin/sshd -p 端口
+但是登录进去之后会进入non-interactive模式。这是因为chroot环境默认没有/dev/*和/proc/*等文件。可以考虑用arch-chroot，会自动挂载相关目录，或者也可以手动挂载：在chroot环境中挂载dev, proc, sys
+¶
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-05-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/05/16/conan%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					conan学习笔记
+				</h2>
+				<div class="index-brief">
+					官方教程：
+https://docs.conan.io/2/tutorial.html
+https://docs.conan.io/2/tutorial/developing_packages/local_package_development_flow.html
+¶ 安装
+官方教程：https:/
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-05-16</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/05/12/display-include-hierachy-for-a-c-c-file/">
 				<h2 class="index-title">
 					Display include hierachy for a C/C++ file
@@ -8087,82 +8186,10 @@ warp之后延迟上来了，带宽也被限制在了50Mbps左右。因此想要�
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2023/03/22/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					vscode使用笔记
-				</h2>
-				<div class="index-brief">
-					¶
-Debug: attach到某个进程
-安装插件：WebFreak的Native Debug
-在.vscode/launch.json里：
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name":
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-03-22</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/03/19/i-couldn-t-open-file-name-xxxx-aux/">
-				<h2 class="index-title">
-					I couldn\'t open file name xxxx.aux
-				</h2>
-				<div class="index-brief">
-					手动用pdflatex+bibtex编译没有问题。但是如果用vscode的latex配套插件编译的话，如果存在bib文件但是文章里没有cite，就可能会出现这个问题，原因未知。
-解决方法是加上一个\cite，再编译就可以了。
-玄学
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-03-19</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/03/19/ufw%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					UFW使用笔记
-				</h2>
-				<div class="index-brief">
-					¶ 安装
-sudo apt install ufw
-安装之后默认是inactive的状态。
-¶
-查看防火墙状态
-sudo ufw status
-里面会给出防火墙是不是active的。如果是active的话，还会打印出已经设置了哪些规则。
-如果是inactive的话，如果想要看已经添加的规则，可以su
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-03-19</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/5/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><a class="extend next" rel="next" href="/page/7/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/5/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/7/">&gt;</a>
 		
 	</div>
 </div>

@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,72 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/08/10/pip3-search/">
+				<h2 class="index-title">
+					pip3 search
+				</h2>
+				<div class="index-brief">
+					这个命令官方停用了，可以先
+pip3 install pip-search
+然后 pip_search 搜。
+原文：https://segmentfault.com/q/1010000039360670
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-10</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/09/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8C%E7%BD%91%E5%8F%A3%E8%B7%AF%E7%94%B1%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					服务器双网口路由问题
+				</h2>
+				<div class="index-brief">
+					如果两个网口都是默认路由，那就会导致一个网口的IP
+ssh不进去。这时把一个网口设置成非默认路由就好了。方法是修改/etc/sysconfig/network-scripts/ifcfg-要修改的设备名，把里面的DEFROUTE=yes改成DEFROUTE=no，然后重启网络/etc/init.d/
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/08/09/rust-scoped-thread-pool/">
+				<h2 class="index-title">
+					rust scoped thread pool
+				</h2>
+				<div class="index-brief">
+					用rayon即可。
+mod a {
+    fn fun(a: &amp;mut i32) -&gt; i32 {
+        *a += 1;
+        return *a + 233;
+    }
+    pub fn main() {
+        let mut a = 233;
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-08-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/08/08/qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted/">
 				<h2 class="index-title">
 					qemu-bridge-helper: failed to create tun device: Operation not permitted
@@ -8091,84 +8190,10 @@ pub trait Foo&lt;Arg
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/08/02/linux-c%E8%AF%AD%E8%A8%80%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C/">
-				<h2 class="index-title">
-					Linux C语言目录操作
-				</h2>
-				<div class="index-brief">
-					¶ 系统调用(man
-2)
-
-打开或创建文件
-
-#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-
-int open(const char *pathname, int flags);
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/08/01/%E4%BD%BF%E5%BE%97%E4%B8%A4%E6%AC%A1%E7%BC%96%E8%AF%91linux%E5%86%85%E6%A0%B8%E4%BA%A7%E7%94%9F%E4%B8%80%E6%A0%B7%E7%9A%84%E7%BB%93%E6%9E%9C/">
-				<h2 class="index-title">
-					使得两次编译linux内核产生一样的结果
-				</h2>
-				<div class="index-brief">
-					export INSTALL_MOD_STRIP=-s
-export KBUILD_BUILD_TIMESTAMP=0
-export KBUILD_BUILD_USER=root
-export KBUILD_BUILD_HOST=localhost
-make mrproper
-make allnoc
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-08-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/29/macos%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%A1%8C%E9%9D%A2%E6%89%93%E5%BC%80%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8gui%E5%BA%94%E7%94%A8/">
-				<h2 class="index-title">
-					MacOS在本地桌面打开远程服务器GUI应用
-				</h2>
-				<div class="index-brief">
-					首先安装XQuartz：
-brew install xquartz
-安装程序会自动在/etc/ssh/ssh_config里加上
-# XAuthLocation added by XQuartz (https://www.xquartz.org)
-Host *
-    XAuthLocation /
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-29</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/33/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/32/">32</a><a class="page-number" href="/archives/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/archives/page/35/">35</a><a class="page-number" href="/archives/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/66/">66</a><a class="extend next" rel="next" href="/archives/page/35/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/33/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/32/">32</a><a class="page-number" href="/archives/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/archives/page/35/">35</a><a class="page-number" href="/archives/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/67/">67</a><a class="extend next" rel="next" href="/archives/page/35/">&gt;</a>
 		
 	</div>
 </div>

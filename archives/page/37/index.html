@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,90 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/15/rust%E5%BF%BD%E7%95%A5result/">
+				<h2 class="index-title">
+					rust忽略Result
+				</h2>
+				<div class="index-brief">
+					fn main() {
+    let _ = std::fs::remove_dir_all("tmp");
+}
+原文：https://stackoverflow.com/questions/51141672/how-do-i-ignore-an-error-returned-from-a-rus
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-15</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/14/rust-fragment-specifier/">
+				<h2 class="index-title">
+					rust fragment specifier
+				</h2>
+				<div class="index-brief">
+					
+
+
+Specifier
+Description
+Examples
+
+
+
+
+ident
+Identifier
+x, foo
+
+
+path
+Qualified name
+std::collection::HashSet, Vec::new
+
+
+ty
+Type
+i32, &amp;T, Vec&lt;(
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/14/rust-const-generic/">
+				<h2 class="index-title">
+					rust const generic
+				</h2>
+				<div class="index-brief">
+					struct ModVal&lt;const P: usize&gt; {
+    v: usize
+}
+impl&lt;const P: usize&gt; ModVal&lt;P&gt; {
+    // std::assert!(P + P &lt;= usize::Max());
+    f
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-14</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
 				<h2 class="index-title">
 					Mac cargo flamegraph dtrace
@@ -8090,73 +8207,10 @@ automake --add-missing
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/07/01/linux%E5%88%9B%E5%BB%BA%E5%8F%AA%E8%AF%BB%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5/">
-				<h2 class="index-title">
-					Linux创建只读目录链接
-				</h2>
-				<div class="index-brief">
-					相当于让一个可写的目录软链接到另一个地方变成只读的目录，但是原目录仍然保持可写。解决方法是用mount --bind，将目录挂载到目标点，变成只读文件系统。
-mount --bind -r /path/to/source/ /path/to/dest/
-umount /path/to/dest/
-原
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/cargo-build%E6%89%BE%E4%B8%8D%E5%88%B0openssl%E5%BA%93/">
-				<h2 class="index-title">
-					cargo build找不到openssl库
-				</h2>
-				<div class="index-brief">
-					ubuntu的话安装libssl-dev
-sudo apt install libssl-dev
-如果还是找不到，其实报错信息里有提示安装pkg-config可能可以解决问题：
-sudo apt install pkg-config
-然后再跑cargo build就可以了。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/cargo-build%E6%8C%87%E5%AE%9A%E7%9B%AE%E6%A0%87/">
-				<h2 class="index-title">
-					cargo build指定目标
-				</h2>
-				<div class="index-brief">
-					cargo build --bin &lt;name&gt;
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/36/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/35/">35</a><a class="page-number" href="/archives/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/archives/page/38/">38</a><a class="page-number" href="/archives/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/66/">66</a><a class="extend next" rel="next" href="/archives/page/38/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/36/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/35/">35</a><a class="page-number" href="/archives/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/archives/page/38/">38</a><a class="page-number" href="/archives/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/67/">67</a><a class="extend next" rel="next" href="/archives/page/38/">&gt;</a>
 		
 	</div>
 </div>

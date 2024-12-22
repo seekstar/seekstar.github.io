@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,74 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/10/22/netstat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					netstat学习笔记
+				</h2>
+				<div class="index-brief">
+					¶ 持续输出
+   -c, --continuous
+       This will cause netstat to print the selected information every second continuously.
+¶
+用数字表示端口和host
+   --numeric, -n
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-10-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/10/18/linux%E6%88%AA%E5%9B%BE%E8%BD%AF%E4%BB%B6/">
+				<h2 class="index-title">
+					Linux截图软件
+				</h2>
+				<div class="index-brief">
+					¶
+deepin-screenshot
+我觉得最好用。但是没人维护了。
+¶ spectacle
+KDE应用。可以截取当前活动窗口，也可以截取矩形区域。
+在KDE的快捷键设置的列表里如果没有spectacle的话，可以选择Add New
+-&gt;
+Applications，然后在里面选中specta
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-10-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/10/18/matplotlib%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					matplotlib学习笔记
+				</h2>
+				<div class="index-brief">
+					
+matplotlib: **kwargs: `.Text` properties can be used to control the appearance of the labels.
+matplotlib: The PDF backend does not currently support 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-10-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/10/18/thunderbird-linux%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/">
 				<h2 class="index-title">
 					Thunderbird Linux托盘图标
@@ -8100,73 +8201,10 @@ apt-cache showpkg pac
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2023/08/25/cmake-find-package%E5%85%BC%E5%AE%B9add-subdirectory/">
-				<h2 class="index-title">
-					CMake find_package兼容add_subdirectory
-				</h2>
-				<div class="index-brief">
-					如果依赖是通过add_subdirectory添加的，那么find_package的时候会报错找不到xxx-config.cmake。
-实际上通过add_subdirectory添加的话，对应的target已经存在了。所以我们可以直接判断如果target已经存在就跳过find_package:
-if
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-08-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/08/13/zsh%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					zsh使用笔记
-				</h2>
-				<div class="index-brief">
-					{post_link shell/'zsh和bash共用自定义配置' }
-¶ 不共享历史
-zsh默认会在不同的会话之间共享历史，禁用这个特性：
-# https://github.com/ohmyzsh/ohmyzsh/issues/2537
-echo "unsetopt share_history"
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-08-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/08/09/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94logandapply/">
-				<h2 class="index-title">
-					RocksDB代码分析——LogAndApply
-				</h2>
-				<div class="index-brief">
-					这里我们主要分析VersionSet::LogAndApply是怎么管理writer队列的。
-参数里的edit_lists是需要被apply的改动。每个传入的column
-family data对应edit_lists里的一个edit
-list，即autovector&lt;VersionEdit*
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-08-09</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/3/">&lt;</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/66/">66</a><a class="extend next" rel="next" href="/archives/page/5/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/3/">&lt;</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/67/">67</a><a class="extend next" rel="next" href="/archives/page/5/">&gt;</a>
 		
 	</div>
 </div>

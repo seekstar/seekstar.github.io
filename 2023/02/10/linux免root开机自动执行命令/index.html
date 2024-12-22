@@ -1094,6 +1094,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2406,6 +2417,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6869,6 +6891,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7984,6 +8017,36 @@ systemctl --user enable rc.service</code></pre>
 <p>脚本的输出可以通过<code>journalctl -xe</code>查看。</p>
 <p>注意<code>ExecStart=</code>后面第一个是可执行文件，后面都是参数，所以在这里重定向指令是没有用的，例如<code>ExecStart=echo test &gt;&gt; /tmp/test</code>，会被解析成<code>echo "test" "&gt;&gt;" "/tmp/test"</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/systemd/User" class="uri">https://wiki.archlinux.org/title/systemd/User</a></p>
+<h2 id="supervisor"><a href="#supervisor">¶</a> supervisor</h2>
+<p>supervisor也可以免root运行。</p>
+<pre class="shell"><code>pip3 install supervisor
+mkdir -p ~/.local/supervisor
+mkdir -p ~/.config/supervisor.d</code></pre>
+<p><code>~/.config/supervisord.conf</code>（把其中的<code>__home__</code>换成你自己的home目录）:</p>
+<pre class="text"><code>[unix_http_server]
+file=__home__/.local/supervisor/supervisor.sock
+
+[supervisord]
+logfile=__home__/.local/supervisor/supervisord.log
+pidfile=__home__/.local/supervisor/supervisord.pid
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix://__home__/.local/supervisor/supervisor.sock
+
+[include]
+files = __home__/.config/supervisor.d/*.ini</code></pre>
+<p>启动<code>supervisord</code>:</p>
+<pre class="shell"><code>supervisord -c $HOME/.config/supervisord.conf</code></pre>
+<p>开机自动启动supervisord:</p>
+<pre class="shell"><code>echo "supervisord -c $HOME/.config/supervisord.conf" &gt; ~/.rc.d/supervisor.sh</code></pre>
+<p>弄一个alias方便使用：</p>
+<pre class="shell"><code>alias mysupervisor="supervisorctl -c ~/.config/supervisord.conf"</code></pre>
+<p>把任务的配置文件放进<code>~/.config/supervisor.d</code>，然后：</p>
+<pre class="shell"><code>mysupervisor update
+mysupervisor status</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

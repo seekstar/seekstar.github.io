@@ -1094,6 +1094,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2406,6 +2417,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6869,6 +6891,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -8259,7 +8292,7 @@ sleep 3</code></pre>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1000000</span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./test.sh</span> <span class="kw">&amp;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1 </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-TERM</span> <span class="va">$pid</span></span></code></pre></div>
 <p>这时候这个进程是杀不死的，因为<code>sleep 1000000</code>阻塞了脚本，所以<code>trap</code>没有执行。但我们可以把<code>sleep</code>放到子进程里：</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
@@ -8281,26 +8314,42 @@ sleep 3</code></pre>
 <p>在POSIX
 shell中如果要等待多个任务中的任意一个完成，然后把其他的杀掉，可以这样：</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 10 <span class="kw">&amp;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 10 <span class="kw">&amp;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>其中<code>$$</code>是当前shell的PID，<code>pkill -P $$</code>表示把父进程是当前shell的所有进程杀掉。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/231678" class="uri">https://unix.stackexchange.com/a/231678</a></p>
 <p>如果是带pipeline的复杂命令，需要这样：</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">wait</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="kw">&amp;</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">wait</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="kw">&amp;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<p>但是需要注意的是，<code>$$</code>在subshell中会被展开为shell的PID，而不是subshell的PID。因此如果在subshell中，需要这样：</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>	<span class="co"># https://unix.stackexchange.com/a/484464</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">exec</span> sh <span class="at">-c</span> <span class="st">'echo "$PPID"'</span><span class="va">)</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>	<span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$pid</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>	<span class="kw">(</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>		<span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>		<span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>		<span class="bu">wait</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>	<span class="kw">)</span> <span class="kw">&amp;</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>	<span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>	<span class="bu">wait</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code></pre></div>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         （不推荐）把它们都放进一个process group里，最后一起杀掉
@@ -8317,6 +8366,37 @@ shell中如果要等待多个任务中的任意一个完成，然后把其他的
 
     </div>
 </div>
+<h2 id="case"><a href="#case">¶</a> <code>case</code></h2>
+<pre class="shell"><code>case 表达式 in
+	正则1)
+		命令...
+		;;
+	正则2)
+		命令...
+		;;
+	正则3|正则4)
+		命令...
+		;;
+	*)
+		默认命令...
+		;;
+esac</code></pre>
+<h2 id="conditional-substitution"><a href="#conditional-substitution">¶</a> Conditional substitution</h2>
+<pre class="shell"><code>${VAR:+内容}</code></pre>
+<p>如果VAR存在，它就会展开成<code>内容</code>，如果VAR不存在，就展开成空的。</p>
+<p>跟case配合可以实现往<code>PATH</code>里添加路径：</p>
+<pre class="shell"><code>append_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
+    esac
+}</code></pre>
+<p>如果<code>PATH</code>不存在，<code>${PATH:+$PATH:}$1</code>就展开为<code>$1</code>，如果<code>PATH</code>存在，就展开为<code>$PATH:$1</code>。</p>
+<h2 id="unset"><a href="#unset">¶</a> unset</h2>
+<p>文档：<a target="_blank" rel="noopener" href="https://pubs.opengroup.org/onlinepubs/009696699/utilities/unset.html" class="uri">https://pubs.opengroup.org/onlinepubs/009696699/utilities/unset.html</a></p>
+<p>默认是<code>unset</code>环境变量。但如果是要unset函数，要用<code>unset -f</code>。</p>
 <h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h2>
 <ul>
 <li><p>不支持数组</p></li>

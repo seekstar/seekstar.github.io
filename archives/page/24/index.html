@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,78 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/01/21/java-home-is-not-set/">
+				<h2 class="index-title">
+					JAVA_HOME is not set
+				</h2>
+				<div class="index-brief">
+					安装jdk，然后
+ls /usr/lib/jvm/
+我的：
+default-java  java-1.11.0-openjdk-amd64  java-11-openjdk-amd64
+挑一个合适的版本设置成JAVA_HOME即可。
+其中default-java和java-1.11.0-openjd
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/01/21/apt%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%94%B1%E5%93%AA%E4%B8%AA%E5%8C%85%E6%8F%90%E4%BE%9B/">
+				<h2 class="index-title">
+					apt查看命令由哪个包提供
+				</h2>
+				<div class="index-brief">
+					用apt-file查看。
+sudo apt install apt-file
+sudo apt-file update
+搜索javac是由哪个包提供的：
+apt-file search -x "javac$"
+其中-x表示使用正则表达式。输出：
+bash-completion: /usr/share
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-21</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/01/12/archlinux-wemeet-bwrap-can-t-find-source-path-home-searchstar-config-fontconfig-no-such-file-or-directory/">
+				<h2 class="index-title">
+					archlinux wemeet bwrap: Can't find source path /home/searchstar/.config/fontconfig: No such file or directory
+				</h2>
+				<div class="index-brief">
+					安装腾讯会议：
+yay -S wemeet
+可以从终端运行：
+wemeet
+但是报错：
+bwrap: Can't find source path /home/searchstar/.config/fontconfig: No such file or directory
+尝试新建这个目录：
+mkd
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-01-12</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/01/11/grub%E8%8F%9C%E5%8D%95%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E7%9A%84%E9%80%89%E6%8B%A9%E7%9A%84%E5%86%85%E6%A0%B8/">
 				<h2 class="index-title">
 					GRUB菜单记住上次的选择的内核
@@ -8079,73 +8184,10 @@ virt-install --name=archlinux --memory=1024 --vcpus=4 --cdrom='/home/searchstar/
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/01/08/deepin-osinfo-query-os-command-not-found/">
-				<h2 class="index-title">
-					Deepin osinfo-query os command not found
-				</h2>
-				<div class="index-brief">
-					sudo apt install libosinfo-bin
-来源：https://command-not-found.com/osinfo-query
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/07/deepin%E5%AE%89%E8%A3%85seadrive/">
-				<h2 class="index-title">
-					Deepin安装SeaDrive
-				</h2>
-				<div class="index-brief">
-					官方教程：https://help.seafile.com/drive_client/drive_client_for_linux/
-因为目前Deepin 20.3是基于Debian 10的，所以按照Debian
-10的方式安装即可。
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/07/vlc%E6%98%BE%E7%A4%BA%E5%86%85%E5%B5%8C%E6%AD%8C%E8%AF%8D/">
-				<h2 class="index-title">
-					VLC显示内嵌歌词
-				</h2>
-				<div class="index-brief">
-					工具 -&gt; 媒体信息 -&gt; 元数据。
-
-可惜不能滚动。
-来源：https://www.reddit.com/r/VLC/comments/gcweh4/is_there_an_extension_to_show_embedded_song_lyrics/
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/23/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/22/">22</a><a class="page-number" href="/archives/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/archives/page/25/">25</a><a class="page-number" href="/archives/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/66/">66</a><a class="extend next" rel="next" href="/archives/page/25/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/23/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/22/">22</a><a class="page-number" href="/archives/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/archives/page/25/">25</a><a class="page-number" href="/archives/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/67/">67</a><a class="extend next" rel="next" href="/archives/page/25/">&gt;</a>
 		
 	</div>
 </div>

@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,74 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/07/20/ctrl-c%E6%9D%80%E6%AD%BB%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84timeout%E5%91%BD%E4%BB%A4/">
+				<h2 class="index-title">
+					ctrl+c杀死脚本中的timeout命令
+				</h2>
+				<div class="index-brief">
+					timeout命令默认运行在单独的进程组中，而终端的ctrl+c的SIGINT信号只发送给脚本，timeout命令接收不到。而脚本被timeout进程给阻塞了，要在timeout命令结束之后才会接收SIGINT信号。
+想让timeout命令接收到终端的ctrl+c发送的SIGINT的信号，需要加上参
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-20</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/07/13/linux%E7%A6%81%E7%94%A8swap/">
+				<h2 class="index-title">
+					Linux禁用swap
+				</h2>
+				<div class="index-brief">
+					¶
+sudo swapoff -a
+这一步会立即禁用swap，但是下次重启还会启用。
+¶
+从/etc/fstab中删除swap条目
+¶
+mask相关systemd unit
+systemd可能会从/etc/fstab中的swap条目生成对应的systemd
+unit：https://www.free
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-13</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/07/11/%E4%BF%AE%E5%A4%8Dpacman%E5%8D%87%E7%BA%A7%E6%97%B6%E6%96%AD%E7%94%B5%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					修复pacman升级时断电导致的问题
+				</h2>
+				<div class="index-brief">
+					¶ 重装所有包
+pacman升级时断电可能会导致一些文件甚至是内核变成0长度。可以让pacman重装所有包来解决问题：
+pacman -Qqn | sudo pacman -S - --overwrite=*
+参考：
+[SOLVED]crash
+during upgrade, pacman brok
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-07-11</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/">
 				<h2 class="index-title">
 					ArchLinux修复系统目录和文件的权限
@@ -8080,76 +8181,10 @@ pandoc --t
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/06/10/linux%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">
-				<h2 class="index-title">
-					Linux删除用户密码
-				</h2>
-				<div class="index-brief">
-					sudo passwd --delete username
-来源：https://www.cyberciti.biz/faq/linux-delete-user-password/
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-10</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/">
-				<h2 class="index-title">
-					Linux shell向进程组发信号
-				</h2>
-				<div class="index-brief">
-					PID为负表示这其实是PGID (Process Group
-ID)，向这个PGID中的所有进程发信号。
-例：向34325进程组的所有进程发送SIGTERM：
-kill -TERM -34325
-来源：https://stackoverflow.com/questions/392022/whats-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-09</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/06/08/linux%E6%9D%80%E6%AD%BB%E6%89%80%E6%9C%89%E5%AD%90%E8%BF%9B%E7%A8%8B/">
-				<h2 class="index-title">
-					Linux杀死所有子进程
-				</h2>
-				<div class="index-brief">
-					杀死某一进程的所有子进程：
-pkill -P &lt;PID&gt;
-杀死当前进程的所有子进程：
-pkill -P $$
-如果要在脚本退出前杀死所有子进程，只需要：
-trap "pkill -P $$" EXIT
-但是有时候子进程又会fork出自己的子进程，如果要把这种后代进程也全部杀死，可以这样：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-06-08</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/12/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><a class="extend next" rel="next" href="/page/14/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/12/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/14/">&gt;</a>
 		
 	</div>
 </div>

@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,67 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/02/28/ssh-config%E6%B3%A8%E9%87%8A/">
+				<h2 class="index-title">
+					.ssh/config注释
+				</h2>
+				<div class="index-brief">
+					在前面加上#就是注释了。
+参考：https://www.ssh.com/academy/ssh/config
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-28</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/02/22/deepin%E5%AE%89%E8%A3%85stable%E5%86%85%E6%A0%B8/">
+				<h2 class="index-title">
+					deepin安装stable内核
+				</h2>
+				<div class="index-brief">
+					sudo apt install linux-image-deepin-stable-amd64 linux-headers-deepin-stable-amd64
+来源：https://blog.csdn.net/weixin_42721619/article/details/116811495
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/02/18/hexo%E6%9F%A5%E6%89%BE%E5%A4%B1%E6%95%88%E7%9A%84post-link/">
+				<h2 class="index-title">
+					hexo查找失效的post_link
+				</h2>
+				<div class="index-brief">
+					先hexo d -g，然后新的网站就会生成在.deploy_git下面，进去这个目录，在这里面用grep之类的查找Post Not Fount，就能发现失效的post_link了。
+例如我的：
+grep -rn "Post not found"
+page/2/index.html:5657:Post
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-02-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/02/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					正则表达式学习笔记
@@ -8118,73 +8212,10 @@ reset
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/02/13/linux%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%97%B6%E9%97%B4/">
-				<h2 class="index-title">
-					linux查看系统安装时间
-				</h2>
-				<div class="index-brief">
-					方法一：查看root账户上次更改密码的时间
-sudo passwd -S root
-方法二：查看根目录所在的文件系统的创建时间：
-fs=$(df / | tail -1 | cut -f1 -d' ') &amp;&amp; tune2fs -l $fs | grep 'Filesystem cre
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/02/12/archlinux-kde-%E5%A4%9C%E9%97%B4%E9%A2%9C%E8%89%B2%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
-				<h2 class="index-title">
-					archlinux kde 夜间颜色不起作用
-				</h2>
-				<div class="index-brief">
-					注销然后重新登录。
-参考：https://www.reddit.com/r/ManjaroLinux/comments/drcimv/kde_night_color_not_working/
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-12</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/01/31/debian-man%E5%91%BD%E4%BB%A4/">
-				<h2 class="index-title">
-					debian man命令
-				</h2>
-				<div class="index-brief">
-					apt-file search -x "/usr/bin/man$"
-man-db: /usr/bin/man
-所以
-sudo apt install man-db
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-01-31</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/21/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><a class="extend next" rel="next" href="/page/23/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/21/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/23/">&gt;</a>
 		
 	</div>
 </div>

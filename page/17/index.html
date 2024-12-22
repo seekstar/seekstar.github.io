@@ -1092,6 +1092,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/14/linux%E8%BD%AF%E4%BB%B6%E8%83%8C%E5%85%89/">
+                     
+										    Linux软件背光
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/08/24/linux%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6/">
                      
 										    Linux音视频录制
@@ -2404,6 +2415,17 @@ mjx-container[display="true"] + br {
 									<a href="/2022/05/01/debian-10%E5%8D%87%E7%BA%A7%E4%B8%BAdebian-11/">
                      
 										    Debian 10升级为Debian 11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/11/29/deepin%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    Deepin使用笔记
                      
 									</a>
 								</li>
@@ -6867,6 +6889,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2024/12/13/%E6%90%AD%E5%BB%BAnfs/">
+                     
+										    搭建NFS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/22/%E7%94%A8ycsb%E6%B5%8B%E8%AF%95rocksdb%E6%80%A7%E8%83%BD/">
                      
 										    用YCSB测试RocksDB性能
@@ -7934,6 +7967,71 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/08/archlinux-tlp/">
+				<h2 class="index-title">
+					ArchLinux TLP
+				</h2>
+				<div class="index-brief">
+					TLP是一款Linux的电源管理软件，装上可以省电。
+sudo pacman -S tlp
+sudo systemctl mask systemd-rfkill.service
+sudo systemctl mask systemd-rfkill.socket
+# sudo tlp start
+# 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/05/linux%E6%9F%A5%E7%9C%8B%E5%90%84%E4%B8%AA%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%B8%A6%E5%AE%BD%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5/">
+				<h2 class="index-title">
+					linux查看各个存储设备的带宽占用情况
+				</h2>
+				<div class="index-brief">
+					用iostat可以查看各个存储设备的读写带宽占用情况。
+注意单独的一个iostat命令的输出是不准的，因为采样窗口太短了。正确的使用方法如下：
+# 每隔一秒钟打印一次过去的一秒钟里的I/O情况
+iostat 1
+# 收集一秒钟内的I/O情况，然后打印出来。第二个参数的含义是打印两次，只有第二次的才是
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-05</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/04/linux%E6%B8%85%E7%A9%BA%E7%9B%AE%E5%BD%95%E4%BD%86%E6%98%AF%E4%BF%9D%E7%95%99%E7%9B%AE%E5%BD%95%E6%9C%AC%E8%BA%AB/">
+				<h2 class="index-title">
+					Linux清空目录但是保留目录本身
+				</h2>
+				<div class="index-brief">
+					find . -maxdepth 1 ! -path . -exec rm -r {} +
+-exec command {} +
+        This  variant of the -exec action runs the specified command on the selected 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/03/cmake%E5%BC%80%E5%90%AF%E4%BC%98%E5%8C%96%E7%9A%84%E5%90%8C%E6%97%B6%E5%90%AF%E7%94%A8assert/">
 				<h2 class="index-title">
 					cmake开启优化的同时启用assert
@@ -8080,69 +8178,10 @@ echo 1 &gt; /proc/sys/kernel/sysrq
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/24/%E4%BF%AE%E5%A4%8Dwindows%E5%BC%95%E5%AF%BC/">
-				<h2 class="index-title">
-					修复Windows引导
-				</h2>
-				<div class="index-brief">
-					本博客是修复以后凭记忆写的，记忆不一定准确。
-情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system
-reserved分区。在Linux上进行update-grub没有办法识别出这个windows系统，因此这个windows系
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-24</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/23/zsh%E5%92%8Cbash%E5%85%B1%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/">
-				<h2 class="index-title">
-					zsh和bash共用自定义配置
-				</h2>
-				<div class="index-brief">
-					根据这个博客：https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e，正规的做法应该是将共用的自定义配置写到~/.profile里，然后在~/.profile里根据终端
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-23</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/22/%E6%B4%97%E9%9E%8B%E6%94%BB%E7%95%A5/">
-				<h2 class="index-title">
-					洗鞋攻略
-				</h2>
-				<div class="index-brief">
-					用热水洗效果更好。
-首先不用洗涤剂将鞋子的鞋底、外表面、鞋带简单刷一两遍，防止在后续的清洗过程中这些地方的污垢扩散到鞋子内部。然后换水。
-然后用洗涤剂再次刷外表面以及鞋带，刷到满意为止。然后换水。
-然后把鞋带解开，用洗涤剂刷一遍鞋子的内表面。如果有鞋垫的话要把鞋垫拿出来单独刷，因为鞋垫跟鞋底之间也容
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-22</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/16/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><a class="extend next" rel="next" href="/page/18/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/16/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/18/">&gt;</a>
 		
 	</div>
 </div>
