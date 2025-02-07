@@ -2447,6 +2447,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -7998,13 +8009,50 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="录屏"><a href="#录屏">¶</a> 录屏</h2>
-<p>Kazam。可以录speaker的，也可以录麦克风的。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://democreator.wondershare.com/screen-recorder/linux-screen-recorder.html" class="uri">https://democreator.wondershare.com/screen-recorder/linux-screen-recorder.html</a></p>
+<h3 id="obs-studio"><a href="#obs-studio">¶</a> OBS Studio</h3>
+<pre class="shell"><code>sudo pacman -S obs-studio</code></pre>
+<p>可以把不同来源的音频录制到不同的audio track：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/obs/comments/11pnn29/how_to_separate_audio_tracks_when_recording/" class="uri">https://www.reddit.com/r/obs/comments/11pnn29/how_to_separate_audio_tracks_when_recording/</a></p>
+<h3 id="vokoscreenng"><a href="#vokoscreenng">¶</a> vokoscreenNG</h3>
+<p>可以保存为很多种格式。但是不能把多个来源的音频保存到独立的track。而且录长视频录到后面声音和画面都会变得特别卡。</p>
+<h3 id="kazam"><a href="#kazam">¶</a> Kazam</h3>
+<p>不知道为什么speaker的声音录不进去。</p>
 <h2 id="录音"><a href="#录音">¶</a> 录音</h2>
 <p>Audacity：不错，而且可以剪辑。</p>
 <p>Ardour：太复杂了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://linuxhint.com/best-linux-audio-recorder/" class="uri">https://linuxhint.com/best-linux-audio-recorder/</a></p>
 <p>相关：<a href="/2022/01/27/linux%E5%BD%95%E5%88%B6%E5%8D%95%E4%B8%AA%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%A3%B0%E9%9F%B3/" title="Linux录制单个程序的声音">Linux录制单个程序的声音</a></p>
+<h2 id="剪辑"><a href="#剪辑">¶</a> 剪辑</h2>
+<p>kdenlive<br>
+不知道为什么不能把大的mkv文件导入到素材库。提示要转码，但点击转码之后又没反应。</p>
+<h3 id="openshot"><a href="#openshot">¶</a> OpenShot</h3>
+<p>好像只有stereo（立体声）模式，没有mono模式。可以编辑好之后用Audacity转成mono模式</p>
+<h4 id="精确剪切"><a href="#精确剪切">¶</a> 精确剪切</h4>
+<p>右键playhead -&gt; slice all</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/OpenShot/comments/dd8epj/cut_at_exact_point/" class="uri">https://www.reddit.com/r/OpenShot/comments/dd8epj/cut_at_exact_point/</a></p>
+<h3 id="kdenlive"><a href="#kdenlive">¶</a> Kdenlive</h3>
+<h4 id="精确剪切-1"><a href="#精确剪切-1">¶</a> 精确剪切</h4>
+<p>shift+r 在playhead处切割。当前帧会分配到后一个clip。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/kdenlive/comments/xzdh4n/how_to_cut_this_clip_exactly_at_this_point_in/" class="uri">https://www.reddit.com/r/kdenlive/comments/xzdh4n/how_to_cut_this_clip_exactly_at_this_point_in/</a></p>
+<h4 id="剪辑特定轨道"><a href="#剪辑特定轨道">¶</a> 剪辑特定轨道</h4>
+<p>默认是组合剪辑，也就是所有轨道一起剪辑。如果需要剪辑特定轨道，可以先左键选择轨道之后<code>ctrl+shift+g</code>取消组合剪辑，然后就可以左键选择特定轨道了。</p>
+<h4 id="创建只有文字的片段"><a href="#创建只有文字的片段">¶</a>
+创建只有文字的片段</h4>
+<p>在项目素材箱右键，选择<code>添加字幕剪辑</code>，然后就可以编辑文字了。在右边可以设置持续时间。完成之后点击<code>创建字幕</code>，回到主界面之后就可以在项目素材箱看到这个片段了。然后把这个片段拖动到下面的视频轨道即可。</p>
+<h4 id="自动字幕"><a href="#自动字幕">¶</a> 自动字幕</h4>
+<p>项目-&gt;字幕-&gt;添加字幕</p>
+<p>项目-&gt;字幕-&gt;语音识别</p>
+<p>如果没有安装语音模型的话，点击<code>请安装语音识别模型</code>下面的<code>配置</code>-&gt;<code>添加模型</code>，在输入框里粘贴<code>https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip</code>，也可以在这里挑选适合你的模型：<a target="_blank" rel="noopener" href="https://alphacephei.com/vosk/models" class="uri">https://alphacephei.com/vosk/models</a>。把模型URL粘贴进去之后点击确定，Kdenlive就会自动把模型下载下来了。如果缺少python依赖的话也可以直接点击安装依赖的按钮，Kdenlive会自动安装。然后点击<code>应用</code>。之后可以在
+设置-&gt;配置Kdenlive-&gt;语音转文字
+里添加更多模型。更大的那个中文模型不知道为什么我这里会让kdenlive崩溃。</p>
+<p>回到主界面之后，把时间轴下面，字幕轨道上面的灰色的选择条（可能有点短，要ctrl+滚轮放大来找）拖动到覆盖整个项目，然后选中语音所在的音轨里随便哪个clip，项目-&gt;字幕-&gt;语音识别，选择要使用的模型，选择<code>时间轴区段（所选轨道）</code>，点击<code>处理</code>，就开始语音识别了。弹出<code>字幕已导入</code>的提示之后，点击<code>关闭</code>，回到主界面就能看到生成的字幕了。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_PVsZc5vdtc" class="uri">https://www.youtube.com/watch?v=_PVsZc5vdtc</a></p>
+<h4 id="导出"><a href="#导出">¶</a> 导出</h4>
+<p>项目-&gt;导出，或者ctrl+回车</p>
+<h4 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h4>
+<p>轨道太多的话不知道怎么滚动到下面的轨道。这里说按shift再滚动：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/kdenlive/comments/s87975/cannot_scroll_down_kdenlive_tracks/" class="uri">https://www.reddit.com/r/kdenlive/comments/s87975/cannot_scroll_down_kdenlive_tracks/</a>。但我试了还是不行。只能把多余的轨道删掉，并且最小化轨道。</p>
+<h3 id="shotcut"><a href="#shotcut">¶</a> Shotcut</h3>
+<p>长视频导入进去会OOM</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -2447,6 +2447,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -8009,6 +8020,11 @@ sudo systemctl start tlp.service
 sudo pacman -S tlp-rdw
 sudo systemctl enable NetworkManager-dispatcher.service
 sudo systemctl start NetworkManager-dispatcher.service</code></pre>
+<p>临时把电池充满电：</p>
+<pre class="shell"><code># BAT0是内置电池
+sudo tlp setcharge 65 100 BAT0</code></pre>
+<p><code>man tlp</code>里写<code>sudo tlp fullcharge BAT0</code>也可以临时把电池充满，但是在我的Matebook
+X pro上好像不太管用。。。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv10529669/">如何在Linux中使用TLP快速增加和优化笔记本电脑的电池寿命？</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/TLP_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" class="uri">https://wiki.archlinux.org/title/TLP_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)</a></p>

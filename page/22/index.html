@@ -2445,6 +2445,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -7967,6 +7978,27 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/03/02/cmake%E4%BD%BF%E7%94%A8c-17/">
+				<h2 class="index-title">
+					cmake使用C++17
+				</h2>
+				<div class="index-brief">
+					target_compile_features(${TARGET_NAME} PRIVATE cxx_std_17)
+下面这种方法好像已经没有用了：
+set(CMAKE_CXX_STANDARD 17)
+来源：https://stackoverflow.com/questions/45688522/
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/02/28/ssh-config%E6%B3%A8%E9%87%8A/">
 				<h2 class="index-title">
 					.ssh/config注释
@@ -8183,29 +8215,6 @@ pacman -S xxx
 			</a>
                 <div class="article-meta">
 				    <span>2022-02-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/02/13/spdk%E5%9B%9E%E6%94%B6hugemem/">
-				<h2 class="index-title">
-					SPDK回收hugemem
-				</h2>
-				<div class="index-brief">
-					SPDK分配了HUGEMEM之后，如果程序申请了huge page然后崩溃了，这些huge
-page就相当于内存泄漏了，仍然保持被分配的状态。要回收这些huge
-page，在spdk的目录下执行
-sudo ./scripts/setup.sh reset
-即可。reset的帮助信息：
-reset  
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-13</span>
                     
                             
                     

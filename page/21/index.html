@@ -2445,6 +2445,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -7967,6 +7978,26 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%90%84%E7%A7%8Doption%E7%9A%84%E4%BC%A0%E9%80%92/">
+				<h2 class="index-title">
+					RocksDB代码分析——各种option的传递
+				</h2>
+				<div class="index-brief">
+					struct Options : public DBOptions, public ColumnFamilyOptions {
+struct ImmutableOptions : public ImmutableDBOptions, public ImmutableCFOptions {
+¶ Opt
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94compaction%E6%B5%81%E7%A8%8B/">
 				<h2 class="index-title">
 					RocksDB代码分析——Compaction流程
@@ -8138,27 +8169,6 @@ DBImpl::MaybeScheduleFlushOrCompaction可能会scheduleDBImpl::BGWorkFlush和DBI
 					可以通过设置DBOptions::db_paths实现，代码里的相关注释：
   // A list of paths where SST files can be put into, with its target size.
   // Newer data is placed into paths
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-03-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/03/02/cmake%E4%BD%BF%E7%94%A8c-17/">
-				<h2 class="index-title">
-					cmake使用C++17
-				</h2>
-				<div class="index-brief">
-					target_compile_features(${TARGET_NAME} PRIVATE cxx_std_17)
-下面这种方法好像已经没有用了：
-set(CMAKE_CXX_STANDARD 17)
-来源：https://stackoverflow.com/questions/45688522/
 					...
 				</div>
 			</a>

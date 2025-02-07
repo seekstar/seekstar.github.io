@@ -2447,6 +2447,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -8009,6 +8020,13 @@ sudo pacman -S linux-wifi-hotspot
 # 或者AUR
 yay -S linux-wifi-hotspot</code></pre>
 <h2 id="kde-connect"><a href="#kde-connect">¶</a> KDE Connect</h2>
+<h3 id="向局域网开放端口"><a href="#向局域网开放端口">¶</a>
+向局域网开放端口</h3>
+<p>确保手机和电脑处于同一个局域网下。这里假设局域网的网段是<code>192.168.0.0/24</code></p>
+<p>如果电脑在使用防火墙，比如UFW，需要向局域网开放KDE
+connect使用的端口：</p>
+<pre class="shell"><code>sudo ufw allow from 192.168.0.0/24 to any port 1714:1764 proto udp
+sudo ufw allow from 192.168.0.0/24 to any port 1714:1764 proto tcp</code></pre>
 <h3 id="控制媒体播放"><a href="#控制媒体播放">¶</a> 控制媒体播放</h3>
 <p>可以用手机控制电脑上的媒体播放，比如前进和后退等。把电脑连在电视上的时候比较有用。</p>
 <h3 id="发送文本"><a href="#发送文本">¶</a> 发送文本</h3>

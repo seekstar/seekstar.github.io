@@ -2447,6 +2447,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -8059,6 +8070,12 @@ git stash show stash@{0} -p &gt; xxx.patch</code></pre>
 <p>使用patch:</p>
 <pre class="shell"><code>git apply --3way /path/to/xxx.patch</code></pre>
 <p><code>--3way</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/47756467/13688160" class="uri">https://stackoverflow.com/a/47756467/13688160</a></p>
+<h2 id="恢复某个被删除的stash"><a href="#恢复某个被删除的stash">¶</a>
+恢复某个被删除的stash</h2>
+<pre class="shell"><code>git log --graph --oneline --decorate $(git fsck --no-reflog | awk '/dangling commit/ {print $3}')</code></pre>
+<p>找到了之后：</p>
+<pre class="shell"><code>git stash apply stash的哈希</code></pre>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git" class="uri">https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git</a></p>
 <h2 id="git-log"><a href="#git-log">¶</a> <code>git log</code></h2>
 <h3 id="查看所有commit的列表"><a href="#查看所有commit的列表">¶</a>
 查看所有commit的列表</h3>
@@ -8128,7 +8145,6 @@ hash，然后checkout这个文件到它的前一个commit：</p>
 <pre class="shell"><code>git checkout &lt;deletion commit hash&gt;~1 -- &lt;filename&gt;</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files" class="uri">https://www.git-tower.com/learn/git/faq/restoring-deleted-files</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git" class="uri">https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history" class="uri">https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

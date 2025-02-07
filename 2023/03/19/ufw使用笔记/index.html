@@ -2447,6 +2447,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/01/18/nixos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    NixOS使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/03/06/ustc-mirror%E5%B0%86centos-8%E5%8D%87%E7%BA%A7%E4%B8%BAstream/">
                      
 										    USTC mirror将CentOS 8升级为stream
@@ -8024,7 +8035,10 @@ sudo ufw disable</code></pre>
 <h2 id="打开和关闭端口"><a href="#打开和关闭端口">¶</a>
 打开和关闭端口</h2>
 <pre class="shell"><code>sudo ufw allow &lt;端口&gt;
-sudo ufw delete allow &lt;端口&gt;</code></pre>
+sudo ufw delete allow &lt;端口&gt;
+# https://askubuntu.com/a/712917
+sudo ufw allow from AAA.BBB.CCC.DDD/EE to any port 11200:11299 proto tcp
+sudo ufw allow from AAA.BBB.CCC.DDD/EE to any port 11200:11299 proto udp</code></pre>
 <h2 id="允许从某ip连接到某端口"><a href="#允许从某ip连接到某端口">¶</a>
 允许从某IP连接到某端口</h2>
 <pre class="shell"><code>sudo ufw allow from &lt;IP/CIDR&gt; to any port &lt;端口&gt;
