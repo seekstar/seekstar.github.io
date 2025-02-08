@@ -8013,107 +8013,117 @@ mjx-container[display="true"] + br {
 <p>本文使用清华源。</p>
 <h2 id="升级系统"><a href="#升级系统">¶</a> 升级系统</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://nixos.org/manual/nixos/stable/#sec-upgrading" class="uri">https://nixos.org/manual/nixos/stable/#sec-upgrading</a></p>
-<p>比如升级到24.11</p>
+<p>一般情况下升级软件版本：</p>
+<pre class="shell"><code>sudo nixos-rebuild switch --upgrade</code></pre>
+<p>如果要升级系统版本号，比如升级到24.11：</p>
 <pre class="shell"><code># sudo nix-channel --add https://channels.nixos.org/nixos-24.11 nixos
 sudo nix-channel --add https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-24.11 nixos
 sudo nixos-rebuild switch --upgrade</code></pre>
+<p>每次<code>nixos-rebuild</code>会产生一个generation，便于以后回滚。这些generation引用了老版本软件，所以会阻止它们被GC掉。所以如果不需要回滚的话可以把老的generation删掉。</p>
+<p>列出所有generation：</p>
+<pre class="shell"><code>nixos-rebuild list-generations</code></pre>
+<p>只保留最新的generation，并且删除旧版本软件：</p>
+<pre class="shell"><code>sudo nix-collect-garbage -d</code></pre>
 <h2 id="configurationnix"><a href="#configurationnix">¶</a>
 <code>configuration.nix</code></h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span> <span class="va">config</span><span class="op">,</span> <span class="va">pkgs</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">imports</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>		<span class="co"># Include the results of the hardware scan.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>		<span class="ss">./hardware-configuration.nix</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>	<span class="op">];</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">efi</span>.<span class="va">efiSysMountPoint</span> <span class="op">=</span> <span class="st">"/boot/efi"</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>	<span class="va">nix</span>.<span class="va">settings</span>.<span class="va">substituters</span> <span class="op">=</span> <span class="op">[</span> <span class="st">"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"</span> <span class="op">];</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Define a user account. Don't forget to set a password with ‘passwd’.</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>	<span class="va">users</span>.<span class="va">users</span>.<span class="va">searchstar</span> <span class="op">=</span> <span class="op">{</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>		<span class="va">isNormalUser</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>		<span class="va">extraGroups</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>			<span class="st">"wheel"</span> <span class="co"># Enable ‘sudo’ for the user.</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>			<span class="st">"networkmanager"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>		<span class="op">];</span> </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>	<span class="op">};</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Use the systemd-boot EFI boot loader.</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">efi</span>.<span class="va">canTouchEfiVariables</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">grub</span> <span class="op">=</span> <span class="op">{</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>		<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>		<span class="va">device</span> <span class="op">=</span> <span class="st">"nodev"</span><span class="op">;</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>		<span class="va">efiSupport</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>		<span class="va">useOSProber</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>	<span class="op">};</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Set your time zone.</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>	<span class="va">time</span>.<span class="va">timeZone</span> <span class="op">=</span> <span class="st">"Asia/Shanghai"</span><span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>	<span class="va">networking</span>.<span class="va">networkmanager</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>	<span class="va">nixpkgs</span>.<span class="va">config</span>.<span class="va">allowUnfree</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>	<span class="va">environment</span>.<span class="va">systemPackages</span> <span class="op">=</span> <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>		python3</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>		vim <span class="co"># The Nano editor is also installed by default.</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>		git</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>		openssl</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>		trash-cli</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>	<span class="op">]</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the X11 windowing system.</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>	services.xserver.enable = <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable touchpad support (enabled default in most desktopManager).</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>	<span class="va">services</span>.<span class="va">libinput</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable CUPS to print documents.</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>	<span class="va">services</span>.<span class="va">printing</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span> <span class="va">config</span><span class="op">,</span> <span class="va">pkgs</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">imports</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>		<span class="co"># Include the results of the hardware scan.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>		<span class="ss">./hardware-configuration.nix</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>	<span class="op">];</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">efi</span>.<span class="va">efiSysMountPoint</span> <span class="op">=</span> <span class="st">"/boot/efi"</span><span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>	<span class="va">nix</span>.<span class="va">settings</span>.<span class="va">substituters</span> <span class="op">=</span> <span class="op">[</span> <span class="st">"https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"</span> <span class="op">];</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Define a user account. Don't forget to set a password with ‘passwd’.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>	<span class="va">users</span>.<span class="va">users</span>.<span class="va">searchstar</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>		<span class="va">isNormalUser</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>		<span class="va">extraGroups</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>			<span class="st">"wheel"</span> <span class="co"># Enable ‘sudo’ for the user.</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>			<span class="st">"networkmanager"</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>		<span class="op">];</span> </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>	<span class="op">};</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Use the systemd-boot EFI boot loader.</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">efi</span>.<span class="va">canTouchEfiVariables</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>	<span class="va">boot</span>.<span class="va">loader</span>.<span class="va">grub</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>		<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>		<span class="va">device</span> <span class="op">=</span> <span class="st">"nodev"</span><span class="op">;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>		<span class="va">efiSupport</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>		<span class="va">useOSProber</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>	<span class="op">};</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Set your time zone.</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>	<span class="va">time</span>.<span class="va">timeZone</span> <span class="op">=</span> <span class="st">"Asia/Shanghai"</span><span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>	<span class="va">networking</span>.<span class="va">networkmanager</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>	<span class="va">environment</span>.<span class="va">systemPackages</span> <span class="op">=</span> <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>		python3</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>		vim <span class="co"># The Nano editor is also installed by default.</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>		git</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>		openssl</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>		trash-cli</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>	<span class="op">]</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the X11 windowing system.</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>	services.xserver.enable = <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable touchpad support (enabled default in most desktopManager).</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>	<span class="va">services</span>.<span class="va">libinput</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable CUPS to print documents.</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>	<span class="va">services</span>.<span class="va">printing</span>.<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>修改之后要rebuild才能生效：</p>
-<pre class="shell"><code># 一般建议rebuild的时候把整个系统的组件版本升级到最新，防止出现兼容性问题
-sudo nixos-rebuild switch --upgrade</code></pre>
+<pre class="shell"><code>sudo nixos-rebuild switch</code></pre>
 <h3 id="kde"><a href="#kde">¶</a> KDE</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the X11 windowing system.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>	services.xserver.enable = <span class="cn">true</span>;</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>	services.displayManager.sddm.enable = <span class="cn">true</span>;</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>	services.desktopManager.plasma6.enable = <span class="cn">true</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the X11 windowing system.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>	services.xserver.enable = <span class="cn">true</span>;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>	services.displayManager.sddm.enable = <span class="cn">true</span>;</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>	services.desktopManager.plasma6.enable = <span class="cn">true</span>;</span></code></pre></div>
 <h3 id="gnome"><a href="#gnome">¶</a> GNOME</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>	environment.systemPackages = <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>		<span class="co"># Need enable in "Extensions" of GNOME</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>		gnomeExtensions.tray-icons-reloaded</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>	<span class="op">]</span>;</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the GNOME Desktop Environment.</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>	services.xserver.displayManager.gdm.enable = <span class="cn">true</span>;</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>	services.xserver.desktopManager.gnome.enable = <span class="cn">true</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>	<span class="co">#environment.systemPackages = with pkgs; [</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>		<span class="co"># Need enable in "Extensions" of GNOME</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>		gnomeExtensions.tray<span class="op">-</span>icons<span class="op">-</span>reloaded</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>	<span class="co">#];</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Enable the GNOME Desktop Environment.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>	services.xserver.displayManager.gdm.enable = <span class="cn">true</span>;</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>	services.xserver.desktopManager.gnome.enable = <span class="cn">true</span>;</span></code></pre></div>
 <h3 id="中文输入法"><a href="#中文输入法">¶</a> 中文输入法</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Fcitx5" class="uri">https://nixos.wiki/wiki/Fcitx5</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>	i18n.inputMethod = <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>		<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>		<span class="va">type</span> <span class="op">=</span> <span class="st">"fcitx5"</span><span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>		<span class="va">fcitx5</span>.<span class="va">addons</span> <span class="op">=</span> <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>			rime-data</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>			fcitx5-rime</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>		<span class="op">];</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>	i18n.inputMethod = <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>		<span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>		<span class="va">type</span> <span class="op">=</span> <span class="st">"fcitx5"</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>		<span class="va">fcitx5</span>.<span class="va">addons</span> <span class="op">=</span> <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>			rime-data</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>			fcitx5-rime</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>		<span class="op">];</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span>;</span></code></pre></div>
 <h3 id="flatpak"><a href="#flatpak">¶</a> flatpak</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>	xdg.portal.extraPortals = <span class="op">[</span> pkgs.xdg-desktop-portal-kde <span class="op">]</span>;</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>	xdg.portal.enable = <span class="cn">true</span>;</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>	services.flatpak.enable = <span class="cn">true</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>	xdg.portal.extraPortals = <span class="op">[</span> pkgs.xdg-desktop-portal-kde <span class="op">]</span>;</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>	xdg.portal.enable = <span class="cn">true</span>;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>	services.flatpak.enable = <span class="cn">true</span>;</span></code></pre></div>
 <h3 id="代理"><a href="#代理">¶</a> 代理</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Configure network proxy if necessary</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>	networking.proxy.default = <span class="st">"http://127.0.0.1:端口/"</span>;</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>	networking.proxy.noProxy = <span class="st">"127.0.0.1,localhost,internal.domain"</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Configure network proxy if necessary</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>	networking.proxy.default = <span class="st">"http://127.0.0.1:端口/"</span>;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>	networking.proxy.noProxy = <span class="st">"127.0.0.1,localhost,internal.domain"</span>;</span></code></pre></div>
 <h3 id="中文字体"><a href="#中文字体">¶</a> 中文字体</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>	environment.systemPackages = <span class="kw">with</span> pkgs<span class="op">;</span> <span class="op">[</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>		<span class="co"># sans表示sans serif，即无衬线字体。粗体使用的就是无衬线字体</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>		noto-fonts-cjk-sans</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>	<span class="op">]</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>	<span class="co">#environment.systemPackages = with pkgs; [</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>		<span class="co"># sans表示sans serif，即无衬线字体。粗体使用的就是无衬线字体</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>		noto<span class="op">-</span>fonts<span class="op">-</span>cjk<span class="op">-</span>sans</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>	<span class="co">#];</span></span></code></pre></div>
 <p>注销再重新登录之后才生效。</p>
+<h2 id="允许安装非自由软件"><a href="#允许安装非自由软件">¶</a>
+允许安装非自由软件</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>	nixpkgs.config.allowUnfree = <span class="cn">true</span>;</span></code></pre></div>
+<p>然后把要安装的包名写在<code>environment.systemPackages = with pkgs; [</code>里面。常用的包：</p>
+<h3 id="wechat-uos"><a href="#wechat-uos">¶</a> wechat-uos</h3>
+<p>要用命令行<code>wechat-uos</code>启动。。。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
