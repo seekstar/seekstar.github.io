@@ -872,6 +872,28 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/25/autolab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/07/deepin%E5%AE%89%E8%A3%85seadrive/">
                      
 										    Deepin安装SeaDrive
@@ -2588,6 +2610,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/17/linglong%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    linglong学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/30/pacman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
                      
 										    pacman使用笔记
@@ -3323,6 +3356,17 @@ mjx-container[display="true"] + br {
 										Life
 									</a>
 									
+							<ul>
+								<li class="file">
+									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
+                     
+										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 							<ul>
 								<li class="file">
 									<a href="/2021/05/24/%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E6%9C%BA%E5%9C%BA%E7%9A%84wifi%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">
@@ -5301,17 +5345,6 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-                     
-										    autolab搭建教程
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7978,6 +8011,67 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/03/03/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B/">
+				<h2 class="index-title">
+					RocksDB代码分析——写入流程
+				</h2>
+				<div class="index-brief">
+					分析均基于v6.27.3。以下流程为了方便理解均经过了简化。
+首先，我们通过调用DB::Open来创建数据库，它返回了一个DB*。DB::Open内部调用了DBImpl::Open，在里面构造了一个DBImpl*并转换成DB*返回。所以我们拿到的DB*其实是DBImpl*。
+然后我们调用DB::Pu
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-03</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/03/03/%E9%97%AA%E5%AD%98%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84/">
+				<h2 class="index-title">
+					闪存的层级结构
+				</h2>
+				<div class="index-brief">
+					闪存从大到小可以分成这几个层级。
+首先是Channel、Bank、Chip的关系：
+
+图片来源：https://www.cactus-tech.com/resources/blog/details/solid-state-drive-primer-8-controller-architecture-
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-03</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/03/02/rocksdb%E5%B0%86%E4%B8%8A%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E5%BF%AB%E9%80%9F%E8%AE%BE%E5%A4%87-%E4%B8%8B%E9%9D%A2%E5%87%A0%E5%B1%82%E6%94%BE%E5%88%B0%E6%85%A2%E9%80%9F%E8%AE%BE%E5%A4%87/">
+				<h2 class="index-title">
+					RocksDB将上面几层放到快速设备,下面几层放到慢速设备
+				</h2>
+				<div class="index-brief">
+					可以通过设置DBOptions::db_paths实现，代码里的相关注释：
+  // A list of paths where SST files can be put into, with its target size.
+  // Newer data is placed into paths
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-03-02</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/03/02/cmake%E4%BD%BF%E7%94%A8c-17/">
 				<h2 class="index-title">
 					cmake使用C++17
@@ -8143,73 +8237,6 @@ man -Len_US man
 # 直接写en好像也可以
 man -Len man
 如果是未知语言，会自动fallback到英文：
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/02/17/shell%E6%9F%A5%E7%9C%8B%E6%9F%90%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9F%90%E6%8B%93%E5%B1%95%E5%90%8D%E7%9A%84%E6%96%87%E4%BB%B6%E6%89%80%E5%8D%A0%E6%80%BB%E7%A9%BA%E9%97%B4/">
-				<h2 class="index-title">
-					Shell查看某目录下某拓展名的文件所占总空间
-				</h2>
-				<div class="index-brief">
-					比如要查看目录下png文件占用的总空间：
-find 目录 -type f -name "*.png" -print0 | xargs -0r du -ch
-输出的最后一行就是占用的总空间。
-以下来自man find：
--type f: 只查找普通文件。
--print0:
-返回true；在标准输出打印
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/02/17/ssh%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
-				<h2 class="index-title">
-					SSH内网穿透
-				</h2>
-				<div class="index-brief">
-					比方说要把当前机器的8789端口映射到服务器的6100端口：
-ssh -R 6100:localhost:8789 服务器IP
-然后登录上服务器，就能通过6100端口连上这台机器了：
-ssh localhost 6100
-要允许所有IP都能通过服务器的6100端口连接上这台机器，需要在服务器上的/e
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-02-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/02/17/pacman%E5%8D%87%E7%BA%A7%E6%8C%87%E5%AE%9A%E5%8C%85/">
-				<h2 class="index-title">
-					pacman升级指定包
-				</h2>
-				<div class="index-brief">
-					-S的意思是--sync的意思，所以升级包和安装包的命令是一样的：
-pacman -S xxx
-来源：https://unix.stackexchange.com/questions/13073/update-only-one-package-with-pacman
-
 					...
 				</div>
 			</a>

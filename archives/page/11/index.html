@@ -872,6 +872,28 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/25/autolab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/07/deepin%E5%AE%89%E8%A3%85seadrive/">
                      
 										    Deepin安装SeaDrive
@@ -2588,6 +2610,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/17/linglong%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    linglong学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/30/pacman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
                      
 										    pacman使用笔记
@@ -3323,6 +3356,17 @@ mjx-container[display="true"] + br {
 										Life
 									</a>
 									
+							<ul>
+								<li class="file">
+									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
+                     
+										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 							<ul>
 								<li class="file">
 									<a href="/2021/05/24/%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E6%9C%BA%E5%9C%BA%E7%9A%84wifi%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">
@@ -5301,17 +5345,6 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-                     
-										    autolab搭建教程
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7978,6 +8011,75 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/10/04/c-std-set%E9%80%9A%E8%BF%87%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%9E%8B%E6%9F%A5%E8%AF%A2/">
+				<h2 class="index-title">
+					C++ std::set通过另一个类型查询
+				</h2>
+				<div class="index-brief">
+					在Comparator里加上typedef std::true_type is_transparent;。原因主要是为了保持前向兼容。
+#include &lt;cassert&gt;
+#include &lt;set&gt;
+
+class Point {
+    public:
+        P
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-10-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/10/03/std-shared-ptr%E8%BD%ACstd-unique-ptr/">
+				<h2 class="index-title">
+					std::shared_ptr转std::unique_ptr
+				</h2>
+				<div class="index-brief">
+					不能直接转，只能将其移动到另一个用std::unique_ptr管理的对象里。
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+int main() {
+	std::shared_ptr&lt;std::string&gt; a = std::ma
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-10-03</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/09/30/c-panic/">
+				<h2 class="index-title">
+					C++ panic
+				</h2>
+				<div class="index-brief">
+					#define panic(...) do { \
+	fprintf(stderr, "panic: %s:%u: %s:", \
+		__FILE__, __LINE__, __func__); \
+	fprintf(stderr, " " __VA_ARGS__);	\
+	abort(); \
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-30</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/09/30/make%E4%BC%A0%E5%85%A5%E5%8F%98%E9%87%8F/">
 				<h2 class="index-title">
 					make传入变量
@@ -8122,84 +8224,6 @@ wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda-latest-Li
 			</a>
                 <div class="article-meta">
 				    <span>2022-09-03</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5/">
-				<h2 class="index-title">
-					C语言静态链接
-				</h2>
-				<div class="index-brief">
-					相关：C语言动态链接库
-¶ 场景
-add.c:
-int add(int a, int b) {
-    return a + b;
-}
-sub.c:
-int sub(int a, int b) {
-    return a - b;
-}
-main.c:
-#include &lt;stdio.h&gt
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-09-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/09/02/c-%E8%B0%83%E7%94%A8rust/">
-				<h2 class="index-title">
-					C++调用Rust
-				</h2>
-				<div class="index-brief">
-					相关：C语言调用Rust
-¶ 场景
-在C++中有一个类想用Rust的std::collections::BinaryHeap维护：
-class A {
-public:
-	A(const char* data, size_t size) : data_(data), size_(size) {}
-	c
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-09-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/">
-				<h2 class="index-title">
-					C语言调用Rust
-				</h2>
-				<div class="index-brief">
-					比方说要把这个函数暴露给C语言使用：
-fn add(a: i32, b: i32) -&gt; i32 {
-    return a + b;
-}
-cargo new add --lib
-在add/src/lib.rs里写入：
-#[no_mangle]
-pub extern "C" fn add(a
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-09-02</span>
                     
                             
                     

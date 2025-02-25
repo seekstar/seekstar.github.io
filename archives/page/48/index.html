@@ -872,6 +872,28 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/25/autolab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/07/deepin%E5%AE%89%E8%A3%85seadrive/">
                      
 										    Deepin安装SeaDrive
@@ -2588,6 +2610,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/17/linglong%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    linglong学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/30/pacman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
                      
 										    pacman使用笔记
@@ -3323,6 +3356,17 @@ mjx-container[display="true"] + br {
 										Life
 									</a>
 									
+							<ul>
+								<li class="file">
+									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
+                     
+										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 							<ul>
 								<li class="file">
 									<a href="/2021/05/24/%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E6%9C%BA%E5%9C%BA%E7%9A%84wifi%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">
@@ -5301,17 +5345,6 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-                     
-										    autolab搭建教程
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7978,6 +8011,76 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/11/09/r%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					R语言学习笔记
+				</h2>
+				<div class="index-brief">
+					¶
+提取出某列满足条件的行
+比方提取出mtcars中gear为3的行：
+mtcars[mtcars$gear == 3,]
+¶
+判断某值是否在某集合中
+用%in%
+&gt; 4 %in% 3:5
+[1] TRUE
+¶ 将数字list转化为字符串list
+https://bbs.pinggu.org/
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-11-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/10/31/%E9%9D%9E%E4%BA%A4%E4%BA%92%E4%BB%8Egithub%E4%B8%AD%E4%B8%8B%E8%BD%BD%E6%9C%80%E6%96%B0%E7%89%88%E5%AE%89%E8%A3%85%E5%8C%85/">
+				<h2 class="index-title">
+					非交互从github中下载最新版安装包
+				</h2>
+				<div class="index-brief">
+					这里以drawio-desktop为例。github链接：https://github.com/jgraph/drawio-desktop
+¶ 使用github
+api来获取这个项目最新的release
+curl -s https://api.github.com/repos/jgraph/draw
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-10-31</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/10/29/%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E6%97%B6-lib-modules%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					解决编译安装内核时/lib/modules过大的问题
+				</h2>
+				<div class="index-brief">
+					原因是编译出来的ko文件里有一些debug信息。安装module的时候加一个strip选项，把这些额外信息去掉就好了。
+sudo make INSTALL_MOD_STRIP=1 modules_install
+
+如果已经安装了，想减少/lib/modules占用的体积，可以直接用strip命令进行
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-10-29</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/10/17/linux%E5%86%85%E6%A0%B8panic%E5%90%8E%E6%9F%A5%E7%9C%8Bdmesg/">
 				<h2 class="index-title">
 					Linux内核panic后查看dmesg
@@ -8125,69 +8228,6 @@ startx
 			</a>
                 <div class="article-meta">
 				    <span>2020-09-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/09/14/powershell-%E8%AE%A9mkdir%E4%B8%8D%E8%BE%93%E5%87%BAalready-exists/">
-				<h2 class="index-title">
-					powershell 让mkdir不输出already exists
-				</h2>
-				<div class="index-brief">
-					参考：https://stackoverflow.com/questions/19853340/powershell-how-can-i-suppress-the-error-if-file-alreadys-exists-for-mkdir-com
-mkdir -Force folder
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-09-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/09/14/windows-cmake-%E6%8A%A5%E9%94%99-make-no-targets-specified-and-no-makefile-found-stop/">
-				<h2 class="index-title">
-					windows cmake 报错 make: *** No targets specified and no makefile found. Stop.
-				</h2>
-				<div class="index-brief">
-					据nzh大佬说是没有指定编译器啥的
-cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -G "Unix Makefiles"
-我的CMakeLists.txt
-cmake_minimum_required(VERSION 3.2)
-pr
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-09-14</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/09/13/grep%E5%8F%AA%E5%9C%A8%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E6%90%9C%E7%B4%A2/">
-				<h2 class="index-title">
-					grep只在文本文件中搜索
-				</h2>
-				<div class="index-brief">
-					参考：https://stackoverflow.com/questions/9806944/grep-only-text-files
-I选项表示不搜索binary文件。
-grep -Irn string_to_search
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-09-13</span>
                     
                             
                     

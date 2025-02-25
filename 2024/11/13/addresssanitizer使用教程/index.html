@@ -874,6 +874,28 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/25/autolab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab使用教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    Autolab搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/01/07/deepin%E5%AE%89%E8%A3%85seadrive/">
                      
 										    Deepin安装SeaDrive
@@ -2590,6 +2612,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/02/17/linglong%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    linglong学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/07/30/pacman%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
                      
 										    pacman使用笔记
@@ -3325,6 +3358,17 @@ mjx-container[display="true"] + br {
 										Life
 									</a>
 									
+							<ul>
+								<li class="file">
+									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
+                     
+										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 							<ul>
 								<li class="file">
 									<a href="/2021/05/24/%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E6%9C%BA%E5%9C%BA%E7%9A%84wifi%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5/">
@@ -5303,17 +5347,6 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
-							</ul>
-			
-							<ul>
-								<li class="file">
-									<a href="/2024/03/24/autolab%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-                     
-										    autolab搭建教程
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -8011,10 +8044,18 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>如果遇到了segmentation fault，可以试试AddressSanitizer (aka
 ASan)。官方文档：<a target="_blank" rel="noopener" href="https://github.com/google/sanitizers/wiki/AddressSanitizer" class="uri">https://github.com/google/sanitizers/wiki/AddressSanitizer</a></p>
 <p>一般只需要在编译选项中加入<code>-fsanitize=address</code>即可。注意，仅在Debug模式下有效。</p>
-<p>如果报这个错：</p>
+<p>如果项目使用cmake的话，可以在<code>CMakeLists.txt</code>里加上：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">option</span>(WITH_ASAN <span class="st">"build with ASAN"</span> <span class="ot">OFF</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span>(WITH_ASAN)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>	<span class="kw">add_compile_options</span>(-fsanitize=address)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	<span class="co"># Should come first in initial library list</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>	<span class="kw">target_link_libraries</span>(<span class="dv">${PROJECT_NAME}</span> <span class="bn">PRIVATE</span> asan)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">endif</span>()</span></code></pre></div>
+<p>然后编译的时候在cmake的参数里加上<code>-DCMAKE_BUILD_TYPE=Debug -DWITH_ASAN=ON</code>即可。</p>
+<p>注意，<code>target_link_libraries(${PROJECT_NAME} PRIVATE asan)</code>要出现在其他<code>target_link_libraries</code>之前，否则运行的时候会报这个错：</p>
 <pre class="text"><code>==1803867==ASan runtime does not come first in initial library list; you should either link runtime to your application or manually preload it with LD_PRELOAD.</code></pre>
-<p>需要在运行的命令前加上（具体的路径可能不一样）：</p>
-<pre class="shell"><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.8</code></pre>
+<p>也可以不写<code>target_link_libraries(${PROJECT_NAME} PRIVATE asan)</code>，而是在运行的命令前LD_PRELOAD（具体的路径可能不一样）：</p>
+<pre class="shell"><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.8 命令 参数...</code></pre>
 <p>如果想要在ASan error的时候dump core，需要在运行命令前：</p>
 <pre class="shell"><code># https://stackoverflow.com/questions/42851670/how-to-generate-core-dump-on-addresssanitizer-error
 export ASAN_OPTIONS=abort_on_error=1</code></pre>
