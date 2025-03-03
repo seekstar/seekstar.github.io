@@ -8105,7 +8105,10 @@ sudo systemctl restart nix-daemon.service</code></pre>
 <p>卸载：<code>nix-env -e 包名</code></p>
 <p>升级包：</p>
 <pre class="shell"><code>nix-channel --update
-nix-env -u 包名</code></pre>
+nix-env -uA 包名</code></pre>
+<p>升级所有包：</p>
+<pre class="shell"><code>nix-channel --update
+nix-env -u</code></pre>
 <p>一些<code>nix-env</code>的选项：</p>
 <ul>
 <li><p><code>-i</code>: <code>--install</code></p></li>
@@ -8118,6 +8121,17 @@ nix-env -u 包名</code></pre>
 </ul>
 <p>垃圾回收：<code>nix-collect-garbage -d</code>。</p>
 <pre class="text"><code>-d (--delete-old) deletes  all  old  generations of all profiles in /nix/var/nix/profiles by invoking nix-env --delete-generations old on all profiles (of course, this makes rollbacks to previous configurations impossible)</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.rectcircle.cn/posts/nix-1-package-manager/">Nix
+详解（一） 像传统包管理器一样使用 Nix</a></p>
+<h2 id="常用开源软件"><a href="#常用开源软件">¶</a> 常用开源软件</h2>
+<h3 id="tor-browser"><a href="#tor-browser">¶</a> Tor Browser</h3>
+<pre class="shell"><code>nix-env -uA nixpkgs.tor-browser</code></pre>
+<h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a>
+允许安装闭源软件</h2>
+<p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
+<pre class="text"><code>{ allowUnfree = true; }</code></pre>
+<h3 id="wps中文版"><a href="#wps中文版">¶</a> WPS中文版</h3>
+<pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
 <h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a>
 运行OpenGL程序</h2>
 <p>在非NixOS中运行需要OpenGL的程序需要wrapper：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS" class="uri">https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS</a></p>
@@ -8148,34 +8162,16 @@ Exec=seafile-applet
 Icon=seafile
 Type=Application
 Categories=Network;FileTransfer;</code></pre>
-<h2 id="卸载nix包管理器"><a href="#卸载nix包管理器">¶</a>
-卸载Nix包管理器</h2>
-<p>安装完之后安装程序给出的提示，没有试过：</p>
-<pre class="text"><code>Uninstalling nix:
-1. Delete the systemd service and socket units                                       
-
-  sudo systemctl stop nix-daemon.socket
-  sudo systemctl stop nix-daemon.service
-  sudo systemctl disable nix-daemon.socket
-  sudo systemctl disable nix-daemon.service
-  sudo systemctl daemon-reload
-2. Delete the files Nix added to your system:
-
-  sudo rm -rf /etc/nix /nix /root/.nix-profile /root/.nix-defexpr /root/.nix-channels $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels</code></pre>
-<h2 id="允许安装闭源软件"><a href="#允许安装闭源软件">¶</a>
-允许安装闭源软件</h2>
-<p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
-<pre class="text"><code>{ allowUnfree = true; }</code></pre>
 <h2 id="安装和使用库"><a href="#安装和使用库">¶</a> 安装和使用库</h2>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
 <p>因此如果用Nix包管理器安装了库，比如gtest:
 <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake +
 make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick
@@ -8222,6 +8218,20 @@ error。</p>
 <p><a target="_blank" rel="noopener" href="https://discourse.nixos.org/t/how-to-override-stdenv-for-all-packages-in-mkshell/10368/16" class="uri">https://discourse.nixos.org/t/how-to-override-stdenv-for-all-packages-in-mkshell/10368/16</a></p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/50277775/how-do-i-select-gcc-version-in-nix-shell" class="uri">https://stackoverflow.com/questions/50277775/how-do-i-select-gcc-version-in-nix-shell</a></p>
 <p><a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/C#Use_a_different_compiler_version" class="uri">https://nixos.wiki/wiki/C#Use_a_different_compiler_version</a></p>
+<h2 id="卸载nix包管理器"><a href="#卸载nix包管理器">¶</a>
+卸载Nix包管理器</h2>
+<p>安装完之后安装程序给出的提示，没有试过：</p>
+<pre class="text"><code>Uninstalling nix:
+1. Delete the systemd service and socket units                                       
+
+  sudo systemctl stop nix-daemon.socket
+  sudo systemctl stop nix-daemon.service
+  sudo systemctl disable nix-daemon.socket
+  sudo systemctl disable nix-daemon.service
+  sudo systemctl daemon-reload
+2. Delete the files Nix added to your system:
+
+  sudo rm -rf /etc/nix /nix /root/.nix-profile /root/.nix-defexpr /root/.nix-channels $HOME/.nix-profile $HOME/.nix-defexpr $HOME/.nix-channels</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

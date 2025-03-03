@@ -8086,46 +8086,18 @@ mjx-container[display="true"] + br {
 GPU的算力了。</p>
 <h2 id="aur"><a href="#aur">¶</a> aur</h2>
 <p>孤立包其实就是orphan，也就是没有Maintainer。</p>
-<p>P.S.
-收到了<code>#archlinux-cn:nichi.co</code>群的<code>undefined</code>用户的确认。</p>
 <p>尽量不要安装aur上的软件包，因为包的维护者往往不是官方，而且安装脚本有root权限，不安全。</p>
-<h3 id="有问题的包"><a href="#有问题的包">¶</a> 有问题的包</h3>
-<h4 id="seafile"><a href="#seafile">¶</a> seafile</h4>
-<p>aur安装的seafile更新失败了。</p>
-<p>flatpak的seafile没有单点登录。</p>
-<p>可以用nix的seafile，在x11下需要用<code>nixGL seafile-applet</code>才能启动。</p>
-<h4 id="vscodium-bin"><a href="#vscodium-bin">¶</a> vscodium-bin</h4>
-<p>aur的vscodium-bin似乎跟visual-studio-code-bin不兼容：</p>
-<p>错误：无法提交处理 (有冲突的文件)<br>
-/usr/lib/debug/.build-id/09/ff65463755b887e71c59f7b68228e92a84bd46
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/09/ff65463755b887e71c59f7b68228e92a84bd46.debug
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/15/1f079fb274bc8b986bddea21c82a6b2ce21690
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/15/1f079fb274bc8b986bddea21c82a6b2ce21690.debug
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/c1/1c9bc818110b2370d9992f885037b7a1f74378
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/c1/1c9bc818110b2370d9992f885037b7a1f74378.debug
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/c7/dd943c9a2f9568fcd82fa7baddb1f22f38fb22
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/c7/dd943c9a2f9568fcd82fa7baddb1f22f38fb22.debug
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/f3/a26db3f1c4644e02d50fa102282631595594df
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'<br>
-/usr/lib/debug/.build-id/f3/a26db3f1c4644e02d50fa102282631595594df.debug
-同时存在于 'visual-studio-code-bin-debug' 和 'vscodium-bin-debug'</p>
-<h2 id="微信"><a href="#微信">¶</a> 微信</h2>
-<h3 id="flatpak"><a href="#flatpak">¶</a> flatpak</h3>
+<h2 id="常用软件的安装"><a href="#常用软件的安装">¶</a>
+常用软件的安装</h2>
+<h3 id="微信"><a href="#微信">¶</a> 微信</h3>
+<h4 id="flatpak"><a href="#flatpak">¶</a> flatpak</h4>
 <p>原生微信。</p>
 <pre class="shell"><code>flatpak install com.tencent.WeChat
 flatpak run com.tencent.WeChat</code></pre>
 <p>也可以从系统的启动器里启动。</p>
 <a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a>
-<h3 id="deepin-wine-wechat"><a href="#deepin-wine-wechat">¶</a>
-deepin-wine-wechat</h3>
+<h4 id="deepin-wine-wechat"><a href="#deepin-wine-wechat">¶</a>
+deepin-wine-wechat</h4>
 <pre class="shell"><code>yay -S deepin-wine-wechat</code></pre>
 <p>我尝试的版本：3.9.0.28-3</p>
 <p>如果是KDE的话，大概会报这个错：</p>
@@ -8148,17 +8120,10 @@ Type=Application
 EOF</code></pre>
 <p>注销再重新登录就好了。</p>
 <p>第一次启动可能会报一个serious bug的错，不用管，再启动一次就好了。</p>
-<h3 id="wechat-uos"><a href="#wechat-uos">¶</a> wechat-uos</h3>
-<pre class="shell"><code>yay -S wechat-uos</code></pre>
-<p>不能直接发送剪切板里的图片，要保存到文件，再用发送文件的方式发送。</p>
-<p>但是奇怪的是发送svg文件会失败，显示红色感叹号，但是发送其他文件就正常。</p>
-<h3 id="comqqweixinspark"><a href="#comqqweixinspark">¶</a>
-com.qq.weixin.spark</h3>
-<p><code>3.9.10deepin1-1</code></p>
-<p>源好像无了，安装不了：</p>
-<pre class="text"><code>==&gt; 错误： 无法下载 https://cdn.d.store.deepinos.org.cn/store/chat/com.qq.weixin.spark/com.qq.weixin.spark_3.9.10deepin1_all.deb</code></pre>
-<h3 id="electronic-wechat-uos-bin"><a href="#electronic-wechat-uos-bin">¶</a> electronic-wechat-uos-bin</h3>
-<p>非官方客户端，可能会被封号：<a target="_blank" rel="noopener" href="https://bbs.deepin.org/en/post/247302" class="uri">https://bbs.deepin.org/en/post/247302</a></p>
+<h3 id="wps"><a href="#wps">¶</a> WPS</h3>
+<p>flatpak里只有英文版，建议用nix安装中文版：</p>
+<pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
+<p>教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <h2 id="修复系统目录和文件的权限"><a href="#修复系统目录和文件的权限">¶</a> 修复系统目录和文件的权限</h2>
 <p>根目录权限有时会变成777。可能是AUR里的<code>wps-office-cn</code>导致的：<a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049" class="uri">https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049</a>。可以用flatpak安装国际版的WPS。教程：<a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a></p>
 <p>权限修复教程：<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/" title="ArchLinux修复系统目录和文件的权限">ArchLinux修复系统目录和文件的权限</a></p>
