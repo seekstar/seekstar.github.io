@@ -8052,9 +8052,25 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时会出现本地目录权限与包里的目录权限不一致的情况。这时可以使用<code>pacman-fix-permissions</code>来修复系统目录权限：</p>
-<pre class="shell"><code>yay -S pacman-fix-permissions
-sudo pacman-fix-permissions</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时会出现本地目录权限与包里的目录权限不一致的情况。这时可以使用<code>pacman-fix-permissions</code>来修复系统目录权限。</p>
+<p>现在好像用yay安装会失败：</p>
+<pre class="shell"><code>yay -S pacman-fix-permissions</code></pre>
+<pre class="text"><code>Traceback (most recent call last):
+  File "/home/searchstar/.cache/yay/pacman-fix-permissions/src/pacman-fix-permissions-1.1.2/setup.py", line 2, in &lt;module&gt;
+    from setuptools import setup
+ModuleNotFoundError: No module named 'setuptools'
+==&gt; ERROR: A failure occurred in package().
+    Aborting...
+ -&gt; error making: pacman-fix-permissions-exit status 4
+ -&gt; Failed to install the following packages. Manual intervention is required:
+pacman-fix-permissions - exit status 4</code></pre>
+<p>所以我们直接从源码安装：</p>
+<pre class="shell"><code>sudo pacman -S python-poetry
+
+git clone -b update-lock-file https://github.com/seekstar/pacman-fix-permissions.git
+cd pacman-fix-permissions
+make install
+sudo pacman-fix-permissions/</code></pre>
 <pre class="text"><code>...
 ==&gt; Scan completed. Broken permissions in your filesystem:
 /var/lib/AccountsService: 0o775 =&gt; 0o755

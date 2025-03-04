@@ -8130,6 +8130,8 @@ nix-env -u</code></pre>
 允许安装闭源软件</h2>
 <p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
 <pre class="text"><code>{ allowUnfree = true; }</code></pre>
+<h3 id="vscode"><a href="#vscode">¶</a> vscode</h3>
+<pre class="shell"><code>nix-env -iA nixpkgs.vscode</code></pre>
 <h3 id="wps中文版"><a href="#wps中文版">¶</a> WPS中文版</h3>
 <pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
 <h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a>
@@ -8166,12 +8168,12 @@ Categories=Network;FileTransfer;</code></pre>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
 <p>因此如果用Nix包管理器安装了库，比如gtest:
 <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake +
 make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick
