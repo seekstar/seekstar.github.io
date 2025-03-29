@@ -8340,6 +8340,7 @@ check</code></pre>
 <p>可以用<code>set</code>来设置一些模式。</p>
 <h3 id="子命令返回值不为0时退出"><a href="#子命令返回值不为0时退出">¶</a> 子命令返回值不为0时退出</h3>
 <p><code>set -e</code></p>
+<p>相当于在每条命令后面加上了<code>|| exit $?</code></p>
 <p>但是要注意的是，对于用管道连接起来的几个命令，最终的exit
 code似乎是管道里的最后一个命令。例如对于<code>command A | command B</code>，如果<code>command A</code>出错返回非0，但是<code>command B</code>正常退出，那么这个组合命令的exit
 code会被设置成0，这样<code>set -e</code>就不会生效。</p>

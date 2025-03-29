@@ -8269,6 +8269,33 @@ code。如果正常退出，exit code就是0。</p>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shlex</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>shlex.split(<span class="st">'-o 1 --long "Some long string"'</span>)</span></code></pre></div>
 <pre class="text"><code>['-o', '1', '--long', 'Some long string']</code></pre>
+<h3 id="argparse"><a href="#argparse">¶</a> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/argparse.html">argparse</a></h3>
+<p>基础用法：</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> argparse</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>parser <span class="op">=</span> argparse.ArgumentParser()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-a'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-s'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-k'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">float</span>, required<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-R'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">int</span>, required<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--print-a'</span>, action<span class="op">=</span><span class="st">'store_true'</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Long argument with optional value</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--export-policy'</span>, nargs<span class="op">=</span><span class="st">'?'</span>, default<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> parser.parse_args()</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># str or None</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> args.a</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># int or None</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> args.s</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co"># float</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> args.k</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># int</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> args.R</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co"># bool</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>print_a <span class="op">=</span> args.print_a</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># False if not in command line</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="co"># None if --export-policy</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># str if --export-policy=str</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>export_policy <span class="op">=</span> args.export_policy</span></code></pre></div>
 <h3 id="getopt"><a href="#getopt">¶</a> <code>getopt</code></h3>
 <p>用法跟C语言的<code>getopt</code>差不多。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/python30/python-30-command-line-arguments.html">Python
@@ -8307,69 +8334,69 @@ statement in Python</a></p></li>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36899414/article/details/77817195">python字典和JSON格式的转换</a></li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用tab进行缩进。</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>json.dumps(obj, indent<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span></code></pre></div>
-<h4 id="从文件读取"><a href="#从文件读取">¶</a> 从文件读取</h4>
 <div class="sourceCode" id="cb32"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>json.load(<span class="bu">open</span>(路径))</span></code></pre></div>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用tab进行缩进。</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>json.dumps(obj, indent<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span></code></pre></div>
+<h4 id="从文件读取"><a href="#从文件读取">¶</a> 从文件读取</h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>json.load(<span class="bu">open</span>(路径))</span></code></pre></div>
 <p>但是遇到trailing comma会报错。可以用json5: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas" class="uri">https://stackoverflow.com/questions/23705304/can-json-loads-ignore-trailing-commas</a></p>
 <pre class="shell"><code>pip3 install json5</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json5</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>json5.load(<span class="bu">open</span>(路径))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json5</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>json5.load(<span class="bu">open</span>(路径))</span></code></pre></div>
 <h3 id="func_timeout"><a href="#func_timeout">¶</a> func_timeout</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/kata198/func_timeout" class="uri">https://github.com/kata198/func_timeout</a></p>
 <p><code>func_timeout</code>的原理是开一个新的线程执行函数，timeout之后会raise
 exception，然后开一个新线程来join，所以timeout之后子线程可能会继续输出：</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout <span class="im">import</span> func_timeout, FunctionTimedOut</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test():</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        os.system(<span class="st">'for i in $(seq 1 2); do sleep 1; echo test; done'</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    func_timeout(<span class="fl">1.5</span>, test)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> FunctionTimedOut:</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Timeout'</span>)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code to handle any other exception</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"An error occurred: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="bu">str</span>(e)))</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout <span class="im">import</span> func_timeout, FunctionTimedOut</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test():</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        os.system(<span class="st">'for i in $(seq 1 2); do sleep 1; echo test; done'</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    func_timeout(<span class="fl">1.5</span>, test)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> FunctionTimedOut:</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Timeout'</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code to handle any other exception</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"An error occurred: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="bu">str</span>(e)))</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>test
 Timeout
 test</code></pre>
 <p>如果需要等待join完成，需要使用<code>StoppableThread</code>：<a target="_blank" rel="noopener" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/kata198/func_timeout/master/doc/func_timeout.StoppableThread.html" class="uri">https://htmlpreview.github.io/?https://raw.githubusercontent.com/kata198/func_timeout/master/doc/func_timeout.StoppableThread.html</a></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout <span class="im">import</span> FunctionTimedOut</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout.StoppableThread <span class="im">import</span> StoppableThread</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test():</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            process <span class="op">=</span> subprocess.Popen([<span class="st">'bash'</span>, <span class="st">'-c'</span>, <span class="st">'for i in $(seq 1 2); do sleep 1; echo test; done'</span>])</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We must wait with timeout, otherwise it won't respond to external exceptions.</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># https://stackoverflow.com/a/631605/13688160</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>            process.wait(timeout<span class="op">=</span><span class="dv">23333333</span>)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> FunctionTimedOut:</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># It seems to be okay even if process.wait is completed</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>            process.kill()</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">NameError</span>:</span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_timeout(seconds):</span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>    worker <span class="op">=</span> StoppableThread(target<span class="op">=</span>test)</span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>    worker.start()</span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>    worker.join(timeout<span class="op">=</span>seconds)</span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> worker.is_alive():</span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Timeout'</span>)</span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>        worker.stop(exception<span class="op">=</span>FunctionTimedOut)</span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>        worker.join()</span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Joined'</span>)</span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>test_timeout(<span class="fl">1.5</span>)</span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>test_timeout(<span class="fl">4.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout <span class="im">import</span> FunctionTimedOut</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout.StoppableThread <span class="im">import</span> StoppableThread</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test():</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>            process <span class="op">=</span> subprocess.Popen([<span class="st">'bash'</span>, <span class="st">'-c'</span>, <span class="st">'for i in $(seq 1 2); do sleep 1; echo test; done'</span>])</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We must wait with timeout, otherwise it won't respond to external exceptions.</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># https://stackoverflow.com/a/631605/13688160</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>            process.wait(timeout<span class="op">=</span><span class="dv">23333333</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> FunctionTimedOut:</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># It seems to be okay even if process.wait is completed</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>            process.kill()</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">NameError</span>:</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_timeout(seconds):</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>    worker <span class="op">=</span> StoppableThread(target<span class="op">=</span>test)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>    worker.start()</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    worker.join(timeout<span class="op">=</span>seconds)</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> worker.is_alive():</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Timeout'</span>)</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>        worker.stop(exception<span class="op">=</span>FunctionTimedOut)</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>        worker.join()</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Joined'</span>)</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>test_timeout(<span class="fl">1.5</span>)</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>test_timeout(<span class="fl">4.5</span>)</span></code></pre></div>
 <p>输出：</p>
 <pre class="text"><code>test
 Timeout
