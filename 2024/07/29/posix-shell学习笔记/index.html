@@ -8222,43 +8222,54 @@ Berkeley extensions, are being incorporated into this shell.</p>
 <h2 id="函数"><a href="#函数">¶</a> 函数</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-func.html" class="uri">https://www.runoob.com/linux/linux-shell-func.html</a></p>
 <h3 id="定义"><a href="#定义">¶</a> 定义</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FunctionName()</span> <span class="kw">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>	<span class="ex">do_some_thing_here</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="ex">Interger</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
-<p>也可以不return。<br>
-参数用法与脚本类似。<code>$#</code>表个数，<code>$1, $9, ${10}</code>表具体参数。</p>
+<p>如果想要修改全局变量的话：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>1</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">FunctionName()</span> <span class="kw">{</span> <span class="co"># 这里是花括号</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>	<span class="va">a</span><span class="op">=</span>233 <span class="co"># 修改了全局变量</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>	<span class="ex">do_some_thing_here</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="ex">Interger</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<p>如果不想修改全局变量的话，就让整个函数在一个subshell里：</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/18600920/13688160</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>1</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">FunctionName()</span> <span class="kw">(</span> <span class="co"># 这里是圆括号</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">a</span><span class="op">=</span>233 <span class="co"># 修改的是全局变量在本地的拷贝，全局变量的值保持不变</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>	<span class="ex">do_some_thing_here</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="ex">Interger</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code></pre></div>
+<p>也可以不return。</p>
+<p>参数用法与脚本类似。<code>$#</code>表个数，<code>$1, $9, ${10}</code>表具体参数。</p>
 <h3 id="使用"><a href="#使用">¶</a> 使用</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FunctionName</span> par1 par2 par3</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FunctionName</span> par1 par2 par3</span></code></pre></div>
 <h2 id="循环"><a href="#循环">¶</a> 循环</h2>
 <h3 id="while"><a href="#while">¶</a> while</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.jikexueyuan.com/project/shell-tutorial/shell-while-loop.html" class="uri">https://wiki.jikexueyuan.com/project/shell-tutorial/shell-while-loop.html</a></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="ex">Command</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Command is true</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="ex">Command</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Command is true</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
 <p>或者</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">[</span> Condition <span class="bu">]</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>	<span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Condition is true</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
-<p>也可以对命令返回值取反，比如</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="ot">! </span><span class="ex">Command</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>	<span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Command is false</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">[</span> Condition <span class="bu">]</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>	<span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Condition is true</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>也可以对命令返回值取反，比如</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="ot">! </span><span class="ex">Command</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>	<span class="ex">Statement</span><span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">to</span> be executed if Command is false</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
 <h2 id="重定向"><a href="#重定向">¶</a> 重定向</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stdout`重定向到`stdout.txt`</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&gt;</span> stdout.txt</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stderr`重定向到`stderr.txt`</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="dv">2</span><span class="op">&gt;</span> stderr.txt</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 将stderr重定向到stdout</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 将stderr和stdout都重定向到一个文件</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 参考：&lt;https://blog.csdn.net/u011630575/article/details/52151995&gt;</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&gt;</span> shell.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stdin`重定向到`stdin.txt`</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&lt;</span> stdin.txt</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 将Command1的stdout输入到Command2的stdin</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Command1</span> <span class="kw">|</span> <span class="ex">Command2</span> <span class="co"># 例如 echo 'whoami' | sh，可以让sh执行whoami。</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stdout`重定向到`stdout.txt`</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&gt;</span> stdout.txt</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stderr`重定向到`stderr.txt`</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="dv">2</span><span class="op">&gt;</span> stderr.txt</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 将stderr重定向到stdout</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 将stderr和stdout都重定向到一个文件</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 参考：&lt;https://blog.csdn.net/u011630575/article/details/52151995&gt;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&gt;</span> shell.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 将`stdin`重定向到`stdin.txt`</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Command</span> <span class="op">&lt;</span> stdin.txt</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 将Command1的stdout输入到Command2的stdin</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Command1</span> <span class="kw">|</span> <span class="ex">Command2</span> <span class="co"># 例如 echo 'whoami' | sh，可以让sh执行whoami。</span></span></code></pre></div>
 <h2 id="将多行字面量作为stdin"><a href="#将多行字面量作为stdin">¶</a>
 将多行字面量作为stdin</h2>
 <pre class="text"><code>Command &lt;&lt;标记
@@ -8267,10 +8278,10 @@ Berkeley extensions, are being incorporated into this shell.</p>
 ...
 标记</code></pre>
 <p>例如：</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sh</span> <span class="op">&lt;&lt;EOF</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">whoami</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">echo 2333</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sh</span> <span class="op">&lt;&lt;EOF</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">whoami</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">echo 2333</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div>
 <h2 id="命令行参数"><a href="#命令行参数">¶</a> 命令行参数</h2>
 <pre class="shell"><code>arg_num() {
 	# 参数个数（不含$0）
@@ -8315,7 +8326,7 @@ arg_num "$@"</code></pre>
 <h2 id="command-substitution"><a href="#command-substitution">¶</a>
 Command substitution</h2>
 <p>把命令的输出会保存到变量：</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span><span class="va">$(</span><span class="bu">command</span> args...<span class="va">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span><span class="va">$(</span><span class="bu">command</span> args...<span class="va">)</span></span></code></pre></div>
 <p>但如果是要把输出当字符串用，需要在周围加上双引号。但是要注意，<code>$(</code>和<code>)</code>之间的内容不需要再加一层转义。举个例子，判断当前目录是不是<code>a b</code>：</p>
 <pre class="shell"><code>check() {
 	# 而不是 "$(basename \"$(pwd)\")"
@@ -8368,25 +8379,25 @@ sleep 3</code></pre>
 <p><code>sh a.sh</code>，然后<code>ctrl+c</code>，<code>INT</code>事件被触发，从而调用<code>exit 1</code>，进而触发<code>EXIT</code>事件，从而调用<code>echo cleanup</code>，然后屏幕上会打印一行<code>cleanup</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://newbe.dev/exit-trap-in-dash-vs-ksh-and-bash" class="uri">https://newbe.dev/exit-trap-in-dash-vs-ksh-and-bash</a></p>
 <p>但是要注意的是，如果脚本正在执行一个外部命令，比如<code>sleep</code>，这时脚本里的<code>trap</code>是不会被调用的。因此在需要进行信号处理的脚本中如果需要执行时间很长的命令，那么要把这个命令放到子进程里跑，然后在主进程里wait。例如<code>test.sh</code>：</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">'echo exit 1; exit 1'</span> TERM</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1000000</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./test.sh</span> <span class="kw">&amp;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-TERM</span> <span class="va">$pid</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">'echo exit 1; exit 1'</span> TERM</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1000000</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./test.sh</span> <span class="kw">&amp;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 1</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-TERM</span> <span class="va">$pid</span></span></code></pre></div>
 <p>这时候这个进程是杀不死的，因为<code>sleep 1000000</code>阻塞了脚本，所以<code>trap</code>没有执行。但我们可以把<code>sleep</code>放到子进程里：</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 100000 <span class="kw">&amp;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM </span><span class="va">$pid</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 100000 <span class="kw">&amp;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="va">pid</span><span class="op">=</span><span class="va">$!</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM </span><span class="va">$pid</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>再执行上面的命令，这个脚本就可以被顺利杀死了。</p>
 <p>如果是pipeline命令，直接将其放入后台的话，<code>$!</code>只是pipeline里的最后进程，将其杀掉只会导致pipeline前面的进程变成孤儿进程。为了一次性将整个pipeline杀死，可以用<code>setsid</code>将其放入一个单独的进程组里，然后向整个进程组发信号：</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">; echo exit 1; exit 1"</span> TERM</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
 <p>详情请参考：<a href="/2022/06/09/linux-shell%E5%90%91%E8%BF%9B%E7%A8%8B%E7%BB%84%E5%8F%91%E4%BF%A1%E5%8F%B7/" title="Linux shell向进程组发信号">Linux shell向进程组发信号</a></p>
 <h2 id="wait"><a href="#wait">¶</a> <code>wait</code></h2>
 <p>如果不带参数，就是等待所有后台任务完成。</p>
@@ -8394,43 +8405,43 @@ sleep 3</code></pre>
 <p>bash中可以<code>wait -n</code>来等待任意一个后台任务完成，但POSIX标准中没有这个。</p>
 <p>在POSIX
 shell中如果要等待多个任务中的任意一个完成，然后把其他的杀掉，可以这样：</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 10 <span class="kw">&amp;</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
-<p>其中<code>$$</code>是当前shell的PID，<code>pkill -P $$</code>表示把父进程是当前shell的所有进程杀掉。</p>
-<p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/231678" class="uri">https://unix.stackexchange.com/a/231678</a></p>
-<p>如果是带pipeline的复杂命令，需要这样：</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">wait</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="kw">&amp;</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
-<p>但是需要注意的是，<code>$$</code>在subshell中会被展开为shell的PID，而不是subshell的PID。因此如果在subshell中，需要这样：</p>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 10 <span class="kw">&amp;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<p>其中<code>$$</code>是当前shell的PID，<code>pkill -P $$</code>表示把父进程是当前shell的所有进程杀掉。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/231678" class="uri">https://unix.stackexchange.com/a/231678</a></p>
+<p>如果是带pipeline的复杂命令，需要这样：</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>	<span class="co"># https://unix.stackexchange.com/a/484464</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">exec</span> sh <span class="at">-c</span> <span class="st">'echo "$PPID"'</span><span class="va">)</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>	<span class="co"># "wait -n" is not available in POSIX</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$pid</span><span class="st">; exit 1"</span> EXIT</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>	<span class="kw">(</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>		<span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>		<span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>		<span class="bu">wait</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>	<span class="kw">)</span> <span class="kw">&amp;</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>	<span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>	<span class="bu">wait</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code></pre></div>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$$</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">wait</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span> <span class="kw">&amp;</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="bu">wait</span></span></code></pre></div>
+<p>但是需要注意的是，<code>$$</code>在subshell中会被展开为shell的PID，而不是subshell的PID。因此如果在subshell中，需要这样：</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>	<span class="co"># https://unix.stackexchange.com/a/484464</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>	<span class="va">pid</span><span class="op">=</span><span class="va">$(</span><span class="bu">exec</span> sh <span class="at">-c</span> <span class="st">'echo "$PPID"'</span><span class="va">)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>	<span class="co"># "wait -n" is not available in POSIX</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"exit 1"</span> CHLD</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>	<span class="bu">trap</span> <span class="st">"pkill -P </span><span class="va">$pid</span><span class="st">; exit 1"</span> EXIT</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>	<span class="kw">(</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>		<span class="ex">setsid</span> sh <span class="at">-c</span> <span class="st">"sleep 10 | sleep 10"</span> <span class="kw">&amp;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>		<span class="bu">trap</span> <span class="st">"kill -TERM -</span><span class="va">$!</span><span class="st">"</span> TERM</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>		<span class="bu">wait</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>	<span class="kw">)</span> <span class="kw">&amp;</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>	<span class="fu">sleep</span> 3 <span class="kw">&amp;</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>	<span class="bu">wait</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code></pre></div>
 <div class="spoiler collapsed">
     <div class="spoiler-title">
         （不推荐）把它们都放进一个process group里，最后一起杀掉

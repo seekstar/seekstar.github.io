@@ -8061,7 +8061,7 @@ source /etc/profile</code></pre>
 不添加<code>nixpkgs-unstable</code>作为channel。</p>
 <p>否则这一步会很慢：</p>
 <pre class="text"><code>---- sudo execution ------------------------------------------------------------
-I am executing:                                                                      
+I am executing:
 
     $ sudo HOME=/root NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt /nix/store/lsr79q5xqd9dv97wn87x12kzax8s8i1s-nix-2.13.2/bin/nix-channel --update nixpkgs
 
@@ -8119,7 +8119,7 @@ nix-env -u</code></pre>
 <code>--query</code>。默认<code>--installed</code>，即只查询已安装的包。也可以加上<code>-a</code>，即<code>--availble</code>，<code>nix-env -qa</code>表示打印源的所有包的列表，<code>nix-env -qa xxx</code>表示搜索。但是这个好慢，而且还不能模糊搜索，不如在这里搜索：<a target="_blank" rel="noopener" href="https://search.nixos.org/packages" class="uri">https://search.nixos.org/packages</a></p></li>
 <li><p><code>-u</code>: <code>--upgrade</code></p></li>
 </ul>
-<p>垃圾回收：<code>nix-collect-garbage -d</code>。</p>
+<p>垃圾回收：<code>nix-collect-garbage -d</code></p>
 <pre class="text"><code>-d (--delete-old) deletes  all  old  generations of all profiles in /nix/var/nix/profiles by invoking nix-env --delete-generations old on all profiles (of course, this makes rollbacks to previous configurations impossible)</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.rectcircle.cn/posts/nix-1-package-manager/">Nix
 详解（一） 像传统包管理器一样使用 Nix</a></p>
@@ -8134,11 +8134,12 @@ nix-env -u</code></pre>
 <pre class="shell"><code>nix-env -iA nixpkgs.vscode</code></pre>
 <h3 id="wps中文版"><a href="#wps中文版">¶</a> WPS中文版</h3>
 <pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
+<p>可以登录帐号，有云同步。但是界面和文档内容显示都有问题。</p>
 <h2 id="运行opengl程序"><a href="#运行opengl程序">¶</a>
 运行OpenGL程序</h2>
 <p>在非NixOS中运行需要OpenGL的程序需要wrapper：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS" class="uri">https://nixos.wiki/wiki/Nixpkgs_with_OpenGL_on_non-NixOS</a></p>
-<p>可以用nixGL来运行这些程序：<a target="_blank" rel="noopener" href="https://github.com/guibou/nixGL" class="uri">https://github.com/guibou/nixGL</a>。安装：</p>
-<pre class="shell"><code>nix-channel --add https://github.com/guibou/nixGL/archive/main.tar.gz nixgl &amp;&amp; nix-channel --update
+<p>可以用nixGL来运行这些程序：<a target="_blank" rel="noopener" href="https://github.com/nix-community/nixGL" class="uri">https://github.com/nix-community/nixGL</a>。安装：</p>
+<pre class="shell"><code>nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl &amp;&amp; nix-channel --update
 nix-env -iA nixgl.auto.nixGLDefault   # or replace `nixGLDefault` with your desired wrapper</code></pre>
 <p>然后<code>nixGL 命令</code>即可。比如<code>seafile-client</code>:</p>
 <pre class="shell"><code>nix-env -iA nixpkgs.seafile-client</code></pre>
@@ -8147,9 +8148,9 @@ nix-env -iA nixgl.auto.nixGLDefault   # or replace `nixGLDefault` with your desi
 qt.glx: qglx_findConfig: Failed to finding matching FBConfig for QSurfaceFormat(version 2.0, options QFlags&lt;QSurfaceFormat::FormatOption&gt;(), depthBufferSize -1, redBufferSize 1, greenBufferSize 1, blueBufferSize 1, alphaBufferSize -1, stencilBufferSize -1, samples -1, swapBehavior QSurfaceFormat::SingleBuffer, swapInterval 1, colorSpace QSurfaceFormat::DefaultColorSpace, profile  QSurfaceFormat::NoProfile)
 Could not initialize GLX
 Aborted</code></pre>
-<p>用<code>nixGL seafile-applet</code>运行就正常。可以创建一个desktop文件<code>~/.local/share/applications/seafile-client.desktop</code>:</p>
+<p>用<code>nixGL seafile-applet</code>运行就正常。可以创建一个desktop文件<code>~/.local/share/applications/seafile-nixGL.desktop</code>:</p>
 <pre class="text"><code>[Desktop Entry]
-Name=Seafile
+Name=Seafile-nixGL
 Comment=Seafile desktop sync client
 Exec=/home/用户名/.nix-profile/bin/nixGL seafile-applet
 Icon=seafile
@@ -8164,16 +8165,28 @@ Exec=seafile-applet
 Icon=seafile
 Type=Application
 Categories=Network;FileTransfer;</code></pre>
+<p>2025.04.25 Update:
+使用NVIDIA显卡的时候，<code>nixGL seafile-applet</code>可能仍然会报错。可以强制让它使用Intel集显：</p>
+<pre class="shell"><code>nix-env -iA nixgl.auto.nixGLNvidia
+nixGLIntel seafile-applet</code></pre>
+<p>也可以创建一个desktop文件<code>~/.local/share/applications/seafile-nixGLIntel.desktop</code>:</p>
+<pre class="text"><code>[Desktop Entry]
+Name=Seafile-nixGLIntel
+Comment=Seafile desktop sync client
+Exec=/home/searchstar/.nix-profile/bin/nixGLIntel seafile-applet
+Icon=seafile
+Type=Application
+Categories=Network;FileTransfer;</code></pre>
 <h2 id="安装和使用库"><a href="#安装和使用库">¶</a> 安装和使用库</h2>
 <p>Nix的设计理念是只将应用暴露给用户，而不将库暴露给用户：<a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F" class="uri">https://nixos.wiki/wiki/FAQ#I_installed_a_library_but_my_compiler_is_not_finding_it._Why.3F</a>。我认为这是为了支持在一个系统中同时安装多个版本的库。</p>
 <p>因此如果用Nix包管理器安装了库，比如gtest:
 <code>nix-env -iA nixpkgs.gtest</code>，编译器是找不到<code>gtest.h</code>的。只能在<code>nix-shell</code>里使用gtest库：<code>nix-shell -p gtest</code>，然后在这里面编译：</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;gtest/gtest.h&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>g++ test.cpp -o test -lgtest</code></pre>
 <p>如果是用cmake +
 make编译的话，进入<code>nix-shell</code>的命令是<code>nix-shell -p gtest cmake</code>，据Nick
@@ -8224,7 +8237,7 @@ error。</p>
 卸载Nix包管理器</h2>
 <p>安装完之后安装程序给出的提示，没有试过：</p>
 <pre class="text"><code>Uninstalling nix:
-1. Delete the systemd service and socket units                                       
+1. Delete the systemd service and socket units
 
   sudo systemctl stop nix-daemon.socket
   sudo systemctl stop nix-daemon.service
