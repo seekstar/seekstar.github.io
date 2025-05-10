@@ -8131,7 +8131,9 @@ nix-env -u</code></pre>
 <p>根据输出提示，在<code>~/.config/nixpkgs/config.nix</code>（如果没有就创建）里设置：</p>
 <pre class="text"><code>{ allowUnfree = true; }</code></pre>
 <h3 id="vscode"><a href="#vscode">¶</a> vscode</h3>
-<pre class="shell"><code>nix-env -iA nixpkgs.vscode</code></pre>
+<pre class="shell"><code>nix-env -iA nixpkgs.vscode
+# ArchLinux上的启动器好像不会显示nix安装的应用，只能手动链接一下
+ln -s ~/.nix-profile/share/applications/code.desktop ~/.local/share/applications/</code></pre>
 <h3 id="wps中文版"><a href="#wps中文版">¶</a> WPS中文版</h3>
 <pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
 <p>可以登录帐号，有云同步。但是界面和文档内容显示都有问题。</p>
