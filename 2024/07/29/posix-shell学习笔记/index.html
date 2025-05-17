@@ -2227,6 +2227,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/05/15/conda%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    conda使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/10/27/gdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    gdb学习笔记
@@ -8486,6 +8497,15 @@ esac</code></pre>
     esac
 }</code></pre>
 <p>如果<code>PATH</code>不存在，<code>${PATH:+$PATH:}$1</code>就展开为<code>$1</code>，如果<code>PATH</code>存在，就展开为<code>$PATH:$1</code>。</p>
+<p>同理，也可以往<code>PATH</code>的前面添加路径：</p>
+<pre class="shell"><code>prepend_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="$1${PATH:+:$PATH}"
+    esac
+}</code></pre>
 <h2 id="unset"><a href="#unset">¶</a> unset</h2>
 <p>文档：<a target="_blank" rel="noopener" href="https://pubs.opengroup.org/onlinepubs/009696699/utilities/unset.html" class="uri">https://pubs.opengroup.org/onlinepubs/009696699/utilities/unset.html</a></p>
 <p>默认是<code>unset</code>环境变量。但如果是要unset函数，要用<code>unset -f</code>。</p>

@@ -2227,6 +2227,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/05/15/conda%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    conda使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/10/27/gdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    gdb学习笔记
@@ -8106,7 +8117,7 @@ cd gcc-$version</code></pre>
 cd gcc
 git checkout releases/gcc-10</code></pre>
 <h3 id="安装依赖-1"><a href="#安装依赖-1">¶</a> 安装依赖</h3>
-<pre class="shell"><code>sudo apt install libgmp-dev libmpfr-dev libmpc-dev </code></pre>
+<pre class="shell"><code>sudo apt install libgmp-dev libmpfr-dev libmpc-dev</code></pre>
 <p>或者自动下载安装依赖：</p>
 <pre class="shell"><code>./contrib/download_prerequisites</code></pre>
 <h3 id="用系统自带的glibc编译"><a href="#用系统自带的glibc编译">¶</a>
@@ -8208,6 +8219,17 @@ cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_ROOT -DTBB_TEST=OFF
 make -j$(nproc)
 make install
 cd ..</code></pre>
+<h3 id="libfmt"><a href="#libfmt">¶</a> <code>libfmt</code></h3>
+<p>Debian12上的版本是<code>9.1.0</code></p>
+<pre class="shell"><code>wget https://github.com/fmtlib/fmt/archive/refs/tags/9.1.0.tar.gz
+tar xzf 9.1.0.tar.gz
+cd fmt-9.1.0/
+mkdir build
+cd build
+cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$INSTALL_ROOT
+make -j$(nproc)
+make install
+cd ..</code></pre>
 <h2 id="可选打包no-omit-frame-pointer编译环境"><a href="#可选打包no-omit-frame-pointer编译环境">¶</a>
 （可选）打包<code>no-omit-frame-pointer</code>编译环境</h2>
 <p>可以在一台机器上把<code>no-omit-frame-pointer</code>的编译器和常见库都编译好，然后打包到别的机器上使用。但是要注意在目标机器解压后需要修改一下rpath：</p>
@@ -8219,11 +8241,11 @@ find . -name "lib*.so*" -exec patchelf {} --set-rpath "$(pwd)/lib:$(pwd)/lib64" 
 <p>export上面说的编译选项后就可以照常编译了。</p>
 <h3 id="直接使用gcc"><a href="#直接使用gcc">¶</a> 直接使用gcc</h3>
 <p><code>hello.c</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">                                                                 </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span>                                                                       </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span>                                                      </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>                                                                      </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CC hello.c -o hello $CFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
@@ -8237,11 +8259,11 @@ Hello world!</code></pre>
 is linux-vdso.so.1 present on the file system</a></p>
 <h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
 <p><code>hello.cpp</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello world!"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello world!"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CXX hello.cpp -o hello $CXXFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>

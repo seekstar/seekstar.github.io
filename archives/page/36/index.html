@@ -2225,6 +2225,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/05/15/conda%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    conda使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/10/27/gdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    gdb学习笔记
@@ -8022,6 +8033,33 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/28/rust%E5%AD%98%E5%8F%96%E4%B8%80%E4%B8%AA%E5%90%AB%E6%9C%89borrowed%E5%9F%9F%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93/">
+				<h2 class="index-title">
+					rust存取一个含有borrowed域的结构体
+				</h2>
+				<div class="index-brief">
+					直接存取不可以：
+use std::io;
+
+use serde::{Serialize, Deserialize};
+
+extern crate bincode;
+
+#[derive(Debug, Serialize, Deserialize)]
+struct A&lt;'a&gt; {
+    
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-28</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/27/rust-serde-deserialize-borrowed-member/">
 				<h2 class="index-title">
 					rust serde deserialize borrowed member
@@ -8226,29 +8264,6 @@ tmux new -s &lt;session-name&gt;
 			</a>
                 <div class="article-meta">
 				    <span>2021-07-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/19/unknown-symbol-crc32c/">
-				<h2 class="index-title">
-					Unknown symbol crc32c
-				</h2>
-				<div class="index-brief">
-					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
-cd /lib/modules/$(uname -r)
-find . -iname "*crc32c*"
-./kernel/lib/libcrc32c.ko
-这就是我们要load的模块了。
-sudo modprobe 
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-19</span>
                     
                             
                     

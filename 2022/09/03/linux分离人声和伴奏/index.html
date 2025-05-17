@@ -2227,6 +2227,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/05/15/conda%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    conda使用笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/10/27/gdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                      
 										    gdb学习笔记
@@ -8053,34 +8064,10 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>可以使用<code>Spleeter</code>。github: <a target="_blank" rel="noopener" href="https://github.com/deezer/spleeter" class="uri">https://github.com/deezer/spleeter</a></p>
-<h2 id="安装miniconda"><a href="#安装miniconda">¶</a> 安装Miniconda</h2>
-<pre class="shell"><code>wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh</code></pre>
-<p>安装过程会自动将以下内容加到.bashrc里：</p>
-<pre class="shell"><code># added by Miniconda2 4.0.5 installer
-export PATH="/home/searchstar/miniconda2/bin:$PATH"</code></pre>
-<p>然后在<code>~/.condarc</code>里加入以下内容来使用清华镜像：</p>
-<pre class="text"><code>channels:
-  - defaults
-show_channel_urls: true
-default_channels:
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
-custom_channels:
-  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</code></pre>
-<pre class="shell"><code>conda clean -i</code></pre>
+<h2 id="安装conda"><a href="#安装conda">¶</a> 安装conda</h2>
+<p>教程：<a href="/2025/05/15/conda%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="conda使用笔记">conda使用笔记</a></p>
 <p>试一下有没有用：</p>
 <pre class="shell"><code>conda create -n myenv numpy</code></pre>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/" class="uri">https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangcassy/article/details/123578709">用Ubuntu子系统下载安装Miniconda3（小白版）</a></p>
 <h2 id="安装spleeter"><a href="#安装spleeter">¶</a> 安装Spleeter</h2>
 <pre class="shell"><code>conda install -c conda-forge ffmpeg libsndfile
 pip3 install spleeter</code></pre>
