@@ -1059,6 +1059,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/06/10/linux-ppt%E8%BD%ACpdf-%E5%8A%A8%E7%94%BB%E5%88%86%E9%A1%B5%E6%98%BE%E7%A4%BA/">
+                     
+										    Linux PPT转PDF 动画分页显示
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/14/linux-markdown%E8%BD%ACpdf/">
                      
 										    Linux markdown转pdf
@@ -3372,6 +3383,17 @@ mjx-container[display="true"] + br {
 									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
                      
 										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/06/12/%E4%B8%80%E4%BA%9B%E7%94%B5%E5%AD%90%E4%BA%A7%E5%93%81%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">
+                     
+										    一些电子产品的使用体验
                      
 									</a>
 								</li>
@@ -8044,6 +8066,55 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/09/17/ssh%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/">
+				<h2 class="index-title">
+					ssh断点续传
+				</h2>
+				<div class="index-brief">
+					可以用rsync。例子：
+# 相当于scp sshname:/path/to/file .
+rsync -zP -e ssh sshname:/path/to/file .
+# 类似于scp -r sshname:/path/to/dir .
+# 但是当/path/to/dir已经存在时不会在下面新
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/09/17/linux%E6%9F%A5%E7%9C%8B%E6%B1%87%E7%BC%96%E7%A0%81%E5%AF%B9%E5%BA%94%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81/">
+				<h2 class="index-title">
+					Linux查看汇编码对应的源代码
+				</h2>
+				<div class="index-brief">
+					例如这个objdump.c：
+#include &lt;stdio.h&gt;
+
+int main() {
+	printf("Hello world!\n");
+
+	return 0;
+}
+编译选项中加入-g编译：gcc objdump.c -g -o objdump。
+然后查看编译结果的汇编码：o
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-17</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/09/16/linux-ocr/">
 				<h2 class="index-title">
 					Linux OCR
@@ -8227,48 +8298,6 @@ impl&lt;'a&gt; A&lt;'a&gt; {
 			</a>
                 <div class="article-meta">
 				    <span>2022-08-31</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/08/26/rust-vector-reduce-size/">
-				<h2 class="index-title">
-					Rust vector reduce size
-				</h2>
-				<div class="index-brief">
-					resize requires a default value:
-fn resize(&amp;mut self, new_len: usize, value: T)
-While truncate does not:
-fn truncate(&amp;mut self, len: usize)
-If
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-08-26</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/08/24/rust%E7%B4%A2%E5%BC%95string/">
-				<h2 class="index-title">
-					Rust索引String
-				</h2>
-				<div class="index-brief">
-					Rust的String里其实是UTF-8编码的，而UTF-8是变长编码，因此会导致Rust索引String时，可能是索引第k个UTF-8字符（需要遍历字符串），也可能是索引第k个字节。因此，Rust不支持直接用下标来索引String。
-如果要找到第k个UTF-8字符：
-s.chars().nth(k
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-08-24</span>
                     
                             
                     

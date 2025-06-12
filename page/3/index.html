@@ -1059,6 +1059,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/06/10/linux-ppt%E8%BD%ACpdf-%E5%8A%A8%E7%94%BB%E5%88%86%E9%A1%B5%E6%98%BE%E7%A4%BA/">
+                     
+										    Linux PPT转PDF 动画分页显示
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/14/linux-markdown%E8%BD%ACpdf/">
                      
 										    Linux markdown转pdf
@@ -3372,6 +3383,17 @@ mjx-container[display="true"] + br {
 									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
                      
 										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/06/12/%E4%B8%80%E4%BA%9B%E7%94%B5%E5%AD%90%E4%BA%A7%E5%93%81%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">
+                     
+										    一些电子产品的使用体验
                      
 									</a>
 								</li>
@@ -8044,6 +8066,49 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2024/05/31/%E8%A7%A3%E5%86%B3linux%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3%E6%97%B6ssh%E8%BF%9E%E4%B8%8D%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98/">
+				<h2 class="index-title">
+					解决Linux内存不足时ssh连不上的问题
+				</h2>
+				<div class="index-brief">
+					¶ 关闭swap
+开启swap之后，当内存不足时，Linux会把内存页swap到磁盘，导致内存的速度变成了磁盘的速度，ssh进程根本跑不动。因此建议在服务器上关闭swap。
+¶
+user space OOM killer
+Linux在内存不足时不会第一时间进行OOM
+kill，而是会evict代码页
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2024-05-31</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2024/04/04/memcached%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					Memcached学习笔记
+				</h2>
+				<div class="index-brief">
+					官方文档：https://github.com/memcached/memcached/wiki
+API: https://github.com/memcached/memcached/wiki/Commands
+文档里没有讲清楚gets是干嘛的。get只返回value，而gets不仅返回value
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2024-04-04</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2024/04/01/linux%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E7%8E%87/">
 				<h2 class="index-title">
 					Linux控制进程CPU使用率
@@ -8252,51 +8317,6 @@ pip
 			</a>
                 <div class="article-meta">
 				    <span>2023-12-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/12/25/%E8%A7%A3%E5%86%B3%E6%89%BE%E4%B8%8D%E5%88%B0runpath%E4%B8%8B%E7%9A%84%E5%BA%93%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					解决找不到RUNPATH下的库的问题
-				</h2>
-				<div class="index-brief">
-					这个问题困扰了我很久，受GPT4的指点才解决的，这里记录一下解决问题的过程。
-¶ 症状
-$ ldd rocksdb-kvexe
-        libfolly.so.0.58.0-dev =&gt; /home/admin/opt/cachelib/lib/libfolly.so.0.58.0-d
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-12-25</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/12/08/perf%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					perf学习笔记
-				</h2>
-				<div class="index-brief">
-					官方文档：https://perf.wiki.kernel.org/index.php/Main_Page
-¶ 安装
-Debian:
-sudo apt install linux-perf
-¶ 开启权限
-设置/proc/sys/kernel/perf_event_paranoid:
-  -1: Al
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-12-08</span>
                     
                             
                     

@@ -1059,6 +1059,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/06/10/linux-ppt%E8%BD%ACpdf-%E5%8A%A8%E7%94%BB%E5%88%86%E9%A1%B5%E6%98%BE%E7%A4%BA/">
+                     
+										    Linux PPT转PDF 动画分页显示
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/06/14/linux-markdown%E8%BD%ACpdf/">
                      
 										    Linux markdown转pdf
@@ -3372,6 +3383,17 @@ mjx-container[display="true"] + br {
 									<a href="/2025/02/09/minecraft%E7%AC%94%E8%AE%B0/">
                      
 										    Minecraft笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/06/12/%E4%B8%80%E4%BA%9B%E7%94%B5%E5%AD%90%E4%BA%A7%E5%93%81%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">
+                     
+										    一些电子产品的使用体验
                      
 									</a>
 								</li>
@@ -8044,6 +8066,48 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/08/26/rust-vector-reduce-size/">
+				<h2 class="index-title">
+					Rust vector reduce size
+				</h2>
+				<div class="index-brief">
+					resize requires a default value:
+fn resize(&amp;mut self, new_len: usize, value: T)
+While truncate does not:
+fn truncate(&amp;mut self, len: usize)
+If
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-08-26</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/08/24/rust%E7%B4%A2%E5%BC%95string/">
+				<h2 class="index-title">
+					Rust索引String
+				</h2>
+				<div class="index-brief">
+					Rust的String里其实是UTF-8编码的，而UTF-8是变长编码，因此会导致Rust索引String时，可能是索引第k个UTF-8字符（需要遍历字符串），也可能是索引第k个字节。因此，Rust不支持直接用下标来索引String。
+如果要找到第k个UTF-8字符：
+s.chars().nth(k
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-08-24</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/08/24/rust%E7%94%9F%E6%88%90%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 				<h2 class="index-title">
 					Rust生成重复字符的字符串
@@ -8220,55 +8284,6 @@ https://www.cnblogs.com/BeautifulWater/p/15943427.html
 			</a>
                 <div class="article-meta">
 				    <span>2022-07-20</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/07/13/linux%E7%A6%81%E7%94%A8swap/">
-				<h2 class="index-title">
-					Linux禁用swap
-				</h2>
-				<div class="index-brief">
-					¶
-sudo swapoff -a
-这一步会立即禁用swap，但是下次重启还会启用。
-¶
-从/etc/fstab中删除swap条目
-¶
-mask相关systemd unit
-systemd可能会从/etc/fstab中的swap条目生成对应的systemd
-unit：https://www.free
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-07-13</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/07/11/%E4%BF%AE%E5%A4%8Dpacman%E5%8D%87%E7%BA%A7%E6%97%B6%E6%96%AD%E7%94%B5%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98/">
-				<h2 class="index-title">
-					修复pacman升级时断电导致的问题
-				</h2>
-				<div class="index-brief">
-					¶ 重装所有包
-pacman升级时断电可能会导致一些文件甚至是内核变成0长度。可以让pacman重装所有包来解决问题：
-pacman -Qqn | sudo pacman -S - --overwrite=*
-参考：
-[SOLVED]crash
-during upgrade, pacman brok
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-07-11</span>
                     
                             
                     
