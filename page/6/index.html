@@ -4709,6 +4709,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5007,6 +5018,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8055,6 +8077,52 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2023/09/05/apt%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<h2 class="index-title">
+					apt学习笔记
+				</h2>
+				<div class="index-brief">
+					¶
+查看已安装的包
+apt list --installed
+¶ 清理apt cache
+# https://itsfoss.com/clear-apt-cache/
+sudo apt clean
+¶ 查看依赖关系
+查看某个包的依赖，以及哪些包依赖这个包：
+apt-cache showpkg pac
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-09-05</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2023/08/25/cmake-find-package%E5%85%BC%E5%AE%B9add-subdirectory/">
+				<h2 class="index-title">
+					CMake find_package兼容add_subdirectory
+				</h2>
+				<div class="index-brief">
+					如果依赖是通过add_subdirectory添加的，那么find_package的时候会报错找不到xxx-config.cmake。
+实际上通过add_subdirectory添加的话，对应的target已经存在了。所以我们可以直接判断如果target已经存在就跳过find_package:
+if
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2023-08-25</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2023/08/13/zsh%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
 				<h2 class="index-title">
 					zsh使用笔记
@@ -8242,56 +8310,10 @@ sudo apt install s-nail
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2023/06/11/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-				<h2 class="index-title">
-					nginx学习笔记
-				</h2>
-				<div class="index-brief">
-					¶ https server
-server {
-        listen 端口 ssl http2;
-        listen [::]:端口 ssl http2;
-        server_name __domain_name__;
-        ssl_certificate __
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-06-11</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2023/06/11/bash%E8%8E%B7%E5%8F%96exit-code/">
-				<h2 class="index-title">
-					bash获取exit code
-				</h2>
-				<div class="index-brief">
-					echo $?可以获取上一条命令的exit code。
-但是如果bash脚本中设置了set -e，那么如果命令的exit
-code不为0，当前bash脚本会直接退出。这种情况下如果要获取命令的exit
-code而不退出，需要让该命令在一个新的shell中执行：
-set -e
-ret=$(bash -
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2023-06-11</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/5/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/7/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/5/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/7/">&gt;</a>
 		
 	</div>
 </div>

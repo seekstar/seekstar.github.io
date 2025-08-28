@@ -4709,6 +4709,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5007,6 +5018,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8055,6 +8077,51 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/05/09/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
+				<h2 class="index-title">
+					垃圾回收算法
+				</h2>
+				<div class="index-brief">
+					垃圾回收算法分为跟踪式垃圾回收(Tracing garbage
+collection)和引用计数(Reference counting)两大类。
+¶
+跟踪式垃圾回收
+跟踪式垃圾回收的基本原理是先认定一些对象为root，比如全局变量和栈变量。然后跟踪(trace)哪些对象是从这些root可达的，而剩下
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-09</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2022/05/08/archlinux-tlp/">
+				<h2 class="index-title">
+					ArchLinux TLP
+				</h2>
+				<div class="index-brief">
+					TLP是一款Linux的电源管理软件，装上可以省电。
+sudo pacman -S tlp
+sudo systemctl mask systemd-rfkill.service
+sudo systemctl mask systemd-rfkill.socket
+# sudo tlp start
+# 
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-05-08</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/05/05/linux%E6%9F%A5%E7%9C%8B%E5%90%84%E4%B8%AA%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87%E7%9A%84%E5%B8%A6%E5%AE%BD%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5/">
 				<h2 class="index-title">
 					linux查看各个存储设备的带宽占用情况
@@ -8225,48 +8292,10 @@ echo 1 &gt; /proc/sys/kernel/sysrq
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2022/04/27/pacman%E6%B8%85%E7%90%86%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%BC%93%E5%AD%98/">
-				<h2 class="index-title">
-					pacman清理软件包缓存
-				</h2>
-				<div class="index-brief">
-					pacman并不会自动清理下载的软件包，这样的好处是出问题之后可以方便地进行reinstall和downgrade，不然就只能从官方的仓库下载了，但是官方的仓库只保存最新版，所以只能将整个系统升级到最新版，而且出问题的时候可能会没有网络。但是软件包缓存过多的话可能会占用太多存储，所以如果存储不够可以
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-27</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/04/24/%E4%BF%AE%E5%A4%8Dwindows%E5%BC%95%E5%AF%BC/">
-				<h2 class="index-title">
-					修复Windows引导
-				</h2>
-				<div class="index-brief">
-					本博客是修复以后凭记忆写的，记忆不一定准确。
-情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system
-reserved分区。在Linux上进行update-grub没有办法识别出这个windows系统，因此这个windows系
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-04-24</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/archives/page/17/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/16/">16</a><a class="page-number" href="/archives/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/archives/page/19/">19</a><a class="page-number" href="/archives/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/67/">67</a><a class="extend next" rel="next" href="/archives/page/19/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/archives/page/17/">&lt;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/16/">16</a><a class="page-number" href="/archives/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/archives/page/19/">19</a><a class="page-number" href="/archives/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/68/">68</a><a class="extend next" rel="next" href="/archives/page/19/">&gt;</a>
 		
 	</div>
 </div>

@@ -4709,6 +4709,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5007,6 +5018,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8055,6 +8077,50 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/08/24/linux%E5%86%85%E6%A0%B8%E7%9C%8Bconfig%E5%AE%8F%E6%98%AF%E5%90%A6%E5%AE%9A%E4%B9%89/">
+				<h2 class="index-title">
+					Linux内核看CONFIG宏是否定义
+				</h2>
+				<div class="index-brief">
+					vim /usr/src/linux-headers-$(uname -r)/.config
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-08-24</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2020/08/23/linux%E6%8C%82%E8%BD%BDext4-ramdisk/">
+				<h2 class="index-title">
+					Linux挂载ext4 ramdisk
+				</h2>
+				<div class="index-brief">
+					¶ 划分一块DRAM作为ramdisk
+在/etc/default/grub改：
+GRUB_CMDLINE_LINUX="memmap=4G!4G"
+然后重启就可以看到/dev/pmem0，这就是划分出来的ramdisk了。
+¶ 格式化
+mkfs -t ext4 /dev/pmem0
+¶ 挂载
+这里
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-08-23</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/08/23/linux%E6%9F%A5%E7%9C%8B%E5%9B%BA%E6%80%81%E7%9B%98%E6%80%BB%E5%86%99%E5%85%A5%E9%87%8F%E7%AD%89%E4%BF%A1%E6%81%AF/">
 				<h2 class="index-title">
 					Linux查看固态盘总写入量等信息
@@ -8237,55 +8303,10 @@ gs -q -dBATCH -dNOPAUSE
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2020/08/17/rust%E6%9F%A5%E7%9C%8B%E6%A0%87%E5%87%86%E5%BA%93%E6%BA%90%E7%A0%81/">
-				<h2 class="index-title">
-					rust查看标准库源码
-				</h2>
-				<div class="index-brief">
-					标准库文档：https://docs.rs/std
-点击API文档的src即可看到。
-
-
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-17</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/08/15/rust%E5%8D%95%E8%A1%8C%E8%AF%BB%E5%8F%96%E5%A4%9A%E4%B8%AA%E6%95%B4%E6%95%B0/">
-				<h2 class="index-title">
-					rust单行读取多个整数
-				</h2>
-				<div class="index-brief">
-					rust读取真的很麻烦。网上的方法一般是用split('
-')来分割出整数。但是如果中间有多个空格就凉了。后面查阅官方文档发现了split_whitespace，可以用多个空白字符（空格和tab，不含换行符）分割。
-use std::io;
-
-fn main() {
-    let mut inpu
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-08-15</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/50/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/52/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/50/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="page-number" href="/page/50/">50</a><span class="page-number current">51</span><a class="page-number" href="/page/52/">52</a><a class="page-number" href="/page/53/">53</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/52/">&gt;</a>
 		
 	</div>
 </div>

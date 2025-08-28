@@ -4709,6 +4709,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5007,6 +5018,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8055,6 +8077,48 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2021/07/18/cannot-stat-%E2%80%98-modules-builtin%E2%80%98-no-such-file-or-directory/">
+				<h2 class="index-title">
+					cannot stat ‘./modules.builtin‘: No such file or directory
+				</h2>
+				<div class="index-brief">
+					make modules_install时报错：
+cp: cannot stat './modules.builtin': No such file or directory
+这是因为make modules.builtin时出问题了，导致这个文件没有被编译出来。再跑一遍
+make modules.
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-18</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/07/15/rust%E5%BF%BD%E7%95%A5result/">
+				<h2 class="index-title">
+					rust忽略Result
+				</h2>
+				<div class="index-brief">
+					fn main() {
+    let _ = std::fs::remove_dir_all("tmp");
+}
+原文：https://stackoverflow.com/questions/51141672/how-do-i-ignore-an-error-returned-from-a-rus
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-07-15</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2021/07/14/rust-fragment-specifier/">
 				<h2 class="index-title">
 					rust fragment specifier
@@ -8253,52 +8317,10 @@ automake --add-missing
                 </div>
 		</div>	
 	
-		<div class="index-li">
-			<a href="/2021/07/01/less%E5%88%B7%E6%96%B0%E5%86%85%E5%AE%B9/">
-				<h2 class="index-title">
-					less刷新内容
-				</h2>
-				<div class="index-brief">
-					手动刷新：G即shift+g
-自动定时刷新：F即shift+f
-参考：https://unix.stackexchange.com/questions/4351/is-there-a-way-to-dynamically-refresh-the-less-command
-
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/07/01/linux%E5%88%9B%E5%BB%BA%E5%8F%AA%E8%AF%BB%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5/">
-				<h2 class="index-title">
-					Linux创建只读目录链接
-				</h2>
-				<div class="index-brief">
-					相当于让一个可写的目录软链接到另一个地方变成只读的目录，但是原目录仍然保持可写。解决方法是用mount --bind，将目录挂载到目标点，变成只读文件系统。
-mount --bind -r /path/to/source/ /path/to/dest/
-umount /path/to/dest/
-原
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-07-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
 	
 	<div id="index-paginator">
 		
-			<a class="extend prev" rel="prev" href="/page/37/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><a class="extend next" rel="next" href="/page/39/">&gt;</a>
+			<a class="extend prev" rel="prev" href="/page/37/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/39/">&gt;</a>
 		
 	</div>
 </div>

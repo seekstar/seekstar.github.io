@@ -4711,6 +4711,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5009,6 +5020,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8085,92 +8107,404 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>安全重启：<br>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>安全重启：
 按住<code>alt+&lt;PrtSc&gt;</code>，然后依次按下reisub即可安全重启。</p>
-<h2 id="语法"><a href="#语法">¶</a> 语法</h2>
+<h2 id="语法">语法</h2>
 <p>bash支持所有POSIX shell的语法：<a href="/2024/07/29/posix-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="POSIX shell学习笔记">POSIX shell学习笔记</a></p>
 <p>下面的是不在POSIX标准里的特性。</p>
-<h3 id="条件判断"><a href="#条件判断">¶</a> 条件判断</h3>
+<h3 id="条件判断">条件判断</h3>
 <p><code>man bash</code>，然后搜索<code>CONDITIONAL EXPRESSIONS</code>，可以看到完整的列表。</p>
-<h3 id="for"><a href="#for">¶</a> for</h3>
+<h3 id="for">for</h3>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/astraylinux/article/details/7016212" class="uri">https://blog.csdn.net/astraylinux/article/details/7016212</a></p>
-<pre class="shell"><code>for ((i=0; i&lt;10; ++i))
-do
-    echo $i
-done</code></pre>
-<p>注意是双括号。<br>
-还有其他用法。看参考链接</p>
-<h3 id="正则表达式"><a href="#正则表达式">¶</a> 正则表达式</h3>
-<pre class="shell"><code>if [[ 字符串 =~ 模式 ]]; then
-	echo 字符串中含有模式
-fi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">for ((i=0; i&lt;10; ++i))</span><br><span class="line">do</span><br><span class="line">    echo $i</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
+<p>注意是双括号。 还有其他用法。看参考链接</p>
+<h3 id="正则表达式">正则表达式</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if [[ 字符串 =~ 模式 ]]; then</span><br><span class="line">	echo 字符串中含有模式</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 <p>比如最简单的：</p>
-<pre class="shell"><code>if [[ 2333test233222 =~ test233 ]]; then
-	echo yes;
-fi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if [[ 2333test233222 =~ test233 ]]; then</span><br><span class="line">	echo yes;</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 <p>会打印出<code>yes</code>。</p>
 <p>如果要判断是否不包含：</p>
-<pre class="shell"><code>if ! [[ 2333test233222 =~ test233 ]]; then
-	echo yes;
-fi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if ! [[ 2333test233222 =~ test233 ]]; then</span><br><span class="line">	echo yes;</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 <p>或操作：</p>
-<pre class="shell"><code>if [[ 2333test233222 =~ abc || 2333test233222 =~ test233 ]]; then
-	echo yes;
-fi
-# yes</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if [[ 2333test233222 =~ abc || 2333test233222 =~ test233 ]]; then</span><br><span class="line">	echo yes;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">yes</span></span></span><br></pre></td></tr></tbody></table></figure>
 <p>与操作：</p>
-<pre class="shell"><code>if [[ 2333test233222 =~ abc &amp;&amp; 2333test233222 =~ test233 ]]; then
-	echo yes;
-fi</code></pre>
-<h3 id="重定向"><a href="#重定向">¶</a> 重定向</h3>
-<pre class="shell"><code># 等价于 Command &gt; shell.log 2&gt;&amp;1
-Command &amp;&gt; shell.log</code></pre>
-<h3 id="数组"><a href="#数组">¶</a> 数组</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if [[ 2333test233222 =~ abc &amp;&amp; 2333test233222 =~ test233 ]]; then</span><br><span class="line">	echo yes;</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="重定向">重定向</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">等价于 Command &gt; shell.log 2&gt;&amp;1</span></span><br><span class="line">Command &amp;&gt; shell.log</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="数组">数组</h3>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.yiibai.com/bash/bash-array.html" class="uri">https://www.yiibai.com/bash/bash-array.html</a></p>
-<h4 id="定义"><a href="#定义">¶</a> 定义</h4>
-<pre class="shell"><code>ARRAY_NAME=(element_1st element_2nd element_Nth)</code></pre>
-<h4 id="新增元素"><a href="#新增元素">¶</a> 新增元素</h4>
-<pre class="shell"><code>a=(1 2 3)
-a+=(4 5)
-echo "${a[@]}"</code></pre>
-<pre class="text"><code>1 2 3 4 5</code></pre>
-<h4 id="访问某个下标的元素"><a href="#访问某个下标的元素">¶</a>
-访问某个下标的元素</h4>
+<h4 id="定义">定义</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ARRAY_NAME=(element_1st element_2nd element_Nth)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="新增元素">新增元素</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">a=(1 2 3)</span><br><span class="line">a+=(4 5)</span><br><span class="line">echo "${a[@]}"</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">1 2 3 4 5</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="访问某个下标的元素">访问某个下标的元素</h4>
 <p>下标从0开始。</p>
-<pre class="shell"><code>echo ${ARRAY_NAME[2]}</code></pre>
-<h4 id="访问所有元素"><a href="#访问所有元素">¶</a> 访问所有元素</h4>
-<pre class="shell"><code># 经实测，bash是每个元素一个不带引号的结果，zsh是每个元素一个带引号的结果
-echo ${ARRAY_NAME[@]}
-echo ${ARRAY_NAME[*]}
-# 每个元素一个带引号的结果
-echo "${ARRAY_NAME[@]}"
-# 所有元素组成一个结果
-echo "${ARRAY_NAME[*]}"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo ${ARRAY_NAME[2]}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="访问所有元素">访问所有元素</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">经实测，bash是每个元素一个不带引号的结果，zsh是每个元素一个带引号的结果</span></span><br><span class="line">echo ${ARRAY_NAME[@]}</span><br><span class="line">echo ${ARRAY_NAME[*]}</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">每个元素一个带引号的结果</span></span><br><span class="line">echo "${ARRAY_NAME[@]}"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">所有元素组成一个结果</span></span><br><span class="line">echo "${ARRAY_NAME[*]}"</span><br></pre></td></tr></tbody></table></figure>
 <p>例如：</p>
-<pre class="shell"><code>arg_num() {
-	echo $#
-}
-a=(1 "2   3")
-# bash 相当于 arg_num 1 2   3
-# zsh 相当于 arg_num 1 "2   3"
-arg_num ${a[@]}
-arg_num ${a[*]}
-# 相当于 arg_num 1 "2   3"
-arg_num "${a[@]}"
-# 相当于 arg_num "1 2   3"
-arg_num "${a[*]}"</code></pre>
-<h4 id="访问slice"><a href="#访问slice">¶</a> 访问slice</h4>
-<pre class="shell"><code># 从第m个开始一直到末尾
-${ARRAY_NAME[@]:m}
-# 从第m个开始取n个。下标从0开始。
-${ARRAY_NAME[@]:m:n}</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">arg_num() {</span><br><span class="line">	echo $#</span><br><span class="line">}</span><br><span class="line">a=(1 "2   3")</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bash 相当于 arg_num 1 2   3</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zsh 相当于 arg_num 1 <span class="string">"2   3"</span></span></span><br><span class="line">arg_num ${a[@]}</span><br><span class="line">arg_num ${a[*]}</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">相当于 arg_num 1 <span class="string">"2   3"</span></span></span><br><span class="line">arg_num "${a[@]}"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">相当于 arg_num <span class="string">"1 2   3"</span></span></span><br><span class="line">arg_num "${a[*]}"</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="访问slice">访问slice</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从第m个开始一直到末尾</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">{ARRAY_NAME[@]:m}</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从第m个开始取n个。下标从0开始。</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">{ARRAY_NAME[@]:m:n}</span></span><br></pre></td></tr></tbody></table></figure>
 <p>保存为新的数组：</p>
-<pre class="shell"><code>SLICED_ARRAY=(${ARRAY_NAME[@]:m:n})</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">SLICED_ARRAY=(${ARRAY_NAME[@]:m:n})</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1335815/how-to-slice-an-array-in-bash" class="uri">https://stackoverflow.com/questions/1335815/how-to-slice-an-array-in-bash</a></p>
-<h4 id="长度"><a href="#长度">¶</a> 长度</h4>
-<p>```shell<br>
-a=(1 2 3 4)<br>
-echo $</p>
+<h4 id="长度">长度</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">a=(1 2 3 4)</span><br><span class="line">echo ${#a[@]}</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/1886483/13688160" class="uri">https://stackoverflow.com/a/1886483/13688160</a></p>
+<h4 id="命令行参数">命令行参数</h4>
+<p>当数组被用于命令行参数时，会被展开成一个个参数：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">等价于./test.sh 1 2 3</span></span><br><span class="line">a=(1 2 3)</span><br><span class="line">./test.sh ${a[@]}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从第m个参数开始一直取到末尾</span></span><br><span class="line">echo ${@:m}</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从第m个参数开始取n个参数</span></span><br><span class="line">echo ${@:m:n}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="生成序列">生成序列</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">a=($(seq 1 4))</span><br><span class="line">echo "${a[@]}"</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">1 2 3 4</span><br></pre></td></tr></tbody></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39267836/create-an-array-with-a-sequence-of-numbers-in-bash" class="uri">https://stackoverflow.com/questions/39267836/create-an-array-with-a-sequence-of-numbers-in-bash</a></p>
+<h2 id="用户管理">用户管理</h2>
+<h3 id="创建普通用户">创建普通用户</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">adduser 用户名</span><br></pre></td></tr></tbody></table></figure>
+<p>但是有些发行版没有<code>adduser</code>命令，就只能用<code>useradd</code>命令创建用户了：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-m: 创建家目录</span></span><br><span class="line">useradd -m 用户名</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置密码</span></span><br><span class="line">passwd 用户名</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="创建系统用户">创建系统用户</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r, --system: 创建系统用户，UID小于1000，无密码，无家目录，无法登录。</span></span><br><span class="line">useradd --system 用户名</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://superuser.com/a/515909/1677998" class="uri">https://superuser.com/a/515909/1677998</a></p>
+<h3 id="以另一用户的身份执行命令">以另一用户的身份执行命令</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html" class="uri">https://www.cnblogs.com/bigben0123/archive/2013/05/07/3064843.html</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u UserName Command</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="判断用户是否存在">判断用户是否存在</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if id "$1" &amp;&gt;/dev/null; then</span><br><span class="line">    echo 'user found'</span><br><span class="line">else</span><br><span class="line">    echo 'user not found'</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14810684/check-whether-a-user-exists" class="uri">https://stackoverflow.com/questions/14810684/check-whether-a-user-exists</a></p>
+<h3 id="创建组">创建组</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo groupadd GroupName</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="向组中加入用户">向组中加入用户</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013078295/article/details/52173311" class="uri">https://blog.csdn.net/u013078295/article/details/52173311</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo usermod -aG GroupName UserName</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查看group里的用户">查看group里的用户</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/withiter/article/details/8132525" class="uri">https://blog.csdn.net/withiter/article/details/8132525</a>里的评论</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">grep GroupName /etc/group</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="按应用">按应用</h2>
+<h3 id="crontab">crontab</h3>
+<p>启动</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">service cron start</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="按功能">按功能</h2>
+<h3 id="查看磁盘占用情况">查看磁盘占用情况</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="以默认应用打开文件">以默认应用打开文件</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xdg-open FileName</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="按照十六进制查看文件">按照十六进制查看文件</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexdump -C FileName &gt; hex.out</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查看命令执行时间">查看命令执行时间</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">time 命令</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查看8进制文件权限">查看8进制文件权限</h3>
+<p>参考：http://novell.me/Linux/201410/stat-get-file-permission-with-octal-numb.html</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">stat -c %a FileName</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="监视某命令的执行结果">监视某命令的执行结果</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">watch -n Interval Command</span><br></pre></td></tr></tbody></table></figure>
+<p>Interval: 执行间隔，以秒为单位</p>
+<h3 id="获取精确到纳秒的当前时间">获取精确到纳秒的当前时间</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gengshenghong/article/details/7583580" class="uri">https://blog.csdn.net/gengshenghong/article/details/7583580</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">date +%Y%m%d%X%N</span><br></pre></td></tr></tbody></table></figure>
+<p>时间戳</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">date +%s%N</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="时间戳转时间字符串">时间戳转时间字符串</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">date -d '@2147483647'</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="时间字符串转时间戳">时间字符串转时间戳</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">+%Y/%m/%d %H:%m:%S</span></span><br><span class="line">date -d '2025/07/28 00:34:07' +%s</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查看端口占用情况">查看端口占用情况</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/656db9183861cde381249c87.html" class="uri">https://jingyan.baidu.com/article/656db9183861cde381249c87.html</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">lsof -i:8236</span><br></pre></td></tr></tbody></table></figure>
+<p>查看8236端口的占用情况。无输出表示没有被占用。</p>
+<h3 id="查看发行版信息">查看发行版信息</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sty945/article/details/96475882" class="uri">https://blog.csdn.net/sty945/article/details/96475882</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></tbody></table></figure>
+<p>我的输出：</p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Deepin</span><br><span class="line">Description:	Deepin 15.11</span><br><span class="line">Release:	15.11</span><br><span class="line">Codename:	stable</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="清空命令历史记录">清空命令历史记录</h3>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/1495253179240949419.html" class="uri">https://zhidao.baidu.com/question/1495253179240949419.html</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">history -c</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="创建临时文件">创建临时文件</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mktemp</span><br></pre></td></tr></tbody></table></figure>
+<p>便会在<code>/tmp</code>下创建一个文件并把文件名输出到stdout。
+示例：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo Please input:</span><br><span class="line">read -s input</span><br><span class="line">tmp=$(mktemp)</span><br><span class="line">echo $input &gt; $tmp</span><br><span class="line">cat $tmp</span><br><span class="line">rm $tmp</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="转义">转义</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">hello\\world</span></span><br><span class="line">printf "%q" "hello\world"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">var=<span class="string">'hello\\world'</span></span></span><br><span class="line">printf -v var "%q\n" "hello\world"</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/2856010/13688160" class="uri">https://stackoverflow.com/a/2856010/13688160</a></p>
+<h3 id="使用imagemagick将多个jpg转换为a4大小的pdf">使用ImageMagick将多个jpg转换为A4大小的PDF</h3>
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lpwmm/article/details/83503736" class="uri">https://blog.csdn.net/lpwmm/article/details/83503736</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">convert a.png b.png -compress jpeg -resize 1240x1753 \</span><br><span class="line">				  -extent 1240x1753 -gravity center \</span><br><span class="line">				  -units PixelsPerInch -density 150x150 multipage.pdf</span><br></pre></td></tr></tbody></table></figure>
+<p>如果不想限定高度，可以</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">convert a.png b.png -compress jpeg -resize 1240 \</span><br><span class="line">				  -extent 1240 -gravity center \</span><br><span class="line">				  -units PixelsPerInch -density 150x150 multipage.pdf</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="生成随机数">生成随机数</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo $RANDOM</span><br></pre></td></tr></tbody></table></figure>
+<p>生成长度为n字节的16进制随机数（最终生成的16进制字符串的长度是2n）：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">openssl rand -hex n</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30325071/article/details/94910182">Linux
+Shell产生16进制随机数</a></p>
+<h3 id="提取文件后缀名">提取文件后缀名</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">filename=test.tar.gz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gz</span></span><br><span class="line">echo ${filename##*.}</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">tar.gz</span></span><br><span class="line">echo ${filename#*.}</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash" class="uri">https://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash</a></p>
+<h3 id="带单位容量转字节数">带单位容量转字节数</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pip3 install humanfriendly</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2000</span></span><br><span class="line">humanfriendly --parse-size="2 KB"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2048</span></span><br><span class="line">humanfriendly --parse-size="2 KiB"</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/46373468" class="uri">https://stackoverflow.com/a/46373468</a></p>
+<h3 id="读取json">读取JSON</h3>
+<p>用<code>jq</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian</span></span><br><span class="line">sudo apt install jq</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux</span></span><br><span class="line">sudo pacman -S jq</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">curl -s 'https://api.github.com/users/lambda' | jq -r '.name'</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Brian Campbell</span><br></pre></td></tr></tbody></table></figure>
+<p>如果field不一定存在，可以用这个方式判断：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">if name=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name'); then</span><br><span class="line">	echo $name</span><br><span class="line">else</span><br><span class="line">	echo name does not exist</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if name1=$(curl -s 'https://api.github.com/users/lambda' | jq -er '.name1'); then</span><br><span class="line">	echo $name1</span><br><span class="line">else</span><br><span class="line">	echo name1 does not exist</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Brian Campbell</span><br><span class="line">name1 does not exist</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">○   -e / --exit-status:</span><br><span class="line"></span><br><span class="line">	Sets  the  exit status of jq to 0 if the last output values was neither false nor null, 1 if the last output value was either false or null, or 4 if no valid result was ever produced.</span><br></pre></td></tr></tbody></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/53135202/13688160" class="uri">https://stackoverflow.com/a/53135202/13688160</a></p>
+<p>如果是读取带有特殊字符的域，加上引号即可：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">db_size=$(jq -r ".\"db-size\"" &lt; stats.json)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="按命令">按命令</h2>
+<h3 id="awk">awk</h3>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-awk.html">Linux awk
+命令</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK
+条件语句与循环</a></p>
+<p>坑点：如果变量不存在，awk不会报错，而是会把这个变量解析成0：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49447987/testing-a-non-existent-variable-in-awk" class="uri">https://stackoverflow.com/questions/49447987/testing-a-non-existent-variable-in-awk</a></p>
+<h4 id="内置函数">内置函数</h4>
+<p>完整列表：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/awk-built-in-functions.html" class="uri">https://www.runoob.com/w3cnote/awk-built-in-functions.html</a></p>
+<p>常用的：</p>
+<ul>
+<li><code>length [(String)]</code></li>
+</ul>
+<p>返回 String 参数指定的字符串的长度（字符形式）。如果未给出 String
+参数，则返回整个记录的长度（$0 记录变量）。</p>
+<h4 id="求和">求和</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">seq 1 10 | awk '{s+=$1} END {print s}'</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line" class="uri">https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line</a></p>
+<h4 id="打印到stderr">打印到stderr</h4>
+<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">print <span class="string">"Serious error detected!"</span> &gt; <span class="string">"/dev/stderr"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Special-FD.html" class="uri">https://www.gnu.org/software/gawk/manual/html_node/Special-FD.html</a></p>
+<h4 id="exit"><a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Exit-Statement.html">exit</a></h4>
+<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">exit</span> [return code]</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="next"><a target="_blank" rel="noopener" href="https://www.gnu.org/software/gawk/manual/html_node/Next-Statement.html">next</a></h4>
+<p>立即停止处理当前record，开始处理下一个record。</p>
+<h3 id="column">column</h3>
+<p><code>cat table | column -t</code>可以输出一个漂亮的表格。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/28755377/13688160" class="uri">https://stackoverflow.com/a/28755377/13688160</a></p>
+<h3 id="comm">comm</h3>
+<p>求两个有序文件中的相同行和不同行。第一列是只在第一个文件中的行，第二列是只在第二个文件中的行，第三列是两个文件都存在的行。常用命令行选项：</p>
+<ul>
+<li><code>-1</code>: 不输出第一列</li>
+<li><code>-2</code>: 不输出第二列</li>
+<li><code>-3</code>: 不输出第三列</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set" class="uri">https://unix.stackexchange.com/questions/28865/list-the-difference-and-overlap-between-two-plain-data-set</a></p>
+<h3 id="cp">cp</h3>
+<p>把指定文件夹下面的所有文件和目录复制到另一个文件夹：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cp -a source/. dest</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/86891" class="uri">https://askubuntu.com/a/86891</a></p>
+<h3 id="cut">cut</h3>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">-d, --delimiter=DELIM</span><br><span class="line">       use DELIM instead of TAB for field delimiter</span><br><span class="line"></span><br><span class="line">-f, --fields=LIST</span><br><span class="line">       select  only these fields;  also print any line that contains no delimiter character, unless the -s option is speci‐</span><br><span class="line">       fied</span><br><span class="line"></span><br><span class="line">-s, --only-delimited</span><br><span class="line">       do not print lines not containing delimiters</span><br></pre></td></tr></tbody></table></figure>
+<p>典型用法：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">用空格分隔，打印第二个field</span></span><br><span class="line">echo "hello world" | cut -sd" " -f2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="diff">diff</h3>
+<p>忽略换行符的区别：<code>--strip-trailing-cr</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files" class="uri">https://stackoverflow.com/questions/40974170/how-can-i-ignore-line-endings-when-comparing-files</a></p>
+<h3 id="dpkg">dpkg</h3>
+<h4 id="显示当前已经安装的软件">显示当前已经安装的软件</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dpkg --list</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="查看文件由哪个包提供">查看文件由哪个包提供</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">dpkg -S /bin/ls</span></span><br><span class="line">coreutils: /bin/ls</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/482" class="uri">https://askubuntu.com/a/482</a></p>
+<h3 id="du">du</h3>
+<p><code>-d数字</code>:
+目录层数。0表示当前目录，1表示当前目录下的所有文件和子目录，以此类推。</p>
+<p><code>--all</code>: 显示文件大小。默认只显示目录大小。</p>
+<ul>
+<li>查看当前目录下所有文件夹的大小</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">du -h</span><br></pre></td></tr></tbody></table></figure>
+<p><code>-h</code>是<code>--human-readable</code>的缩写。</p>
+<ul>
+<li>查看当前目录的大小</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">du -sh</span><br></pre></td></tr></tbody></table></figure>
+<p><code>-s</code>是<code>--summarize</code>的缩写。</p>
+<ul>
+<li>按大小排序</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">du -hd 1 --all 目录 | sort -h</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size" class="uri">https://serverfault.com/questions/62411/how-can-i-sort-du-h-output-by-size</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html" class="uri">https://jingyan.baidu.com/article/ca2d939d7867e0eb6c31ce80.html</a></p>
+<h3 id="find">find</h3>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">find [目录] [查找规则] [查找完后执行的action]</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="查找规则">查找规则</h4>
+<ul>
+<li><p><code>-name</code>: 根据文件名查找（精确查找）</p></li>
+<li><p><code>-iname</code>: 不区分大小写</p></li>
+<li><p><code>!</code>:
+逻辑取反，比如<code>\! -name "xxx"</code>就是查找名字跟<code>xxx</code>不匹配的项</p></li>
+</ul>
+<h4 id="查找示例">查找示例</h4>
+<ul>
+<li>在当前目录下找到所有名字为input.txt的文件并将其放入回收站</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">find . -name "input.txt" -exec trash-put {} \;</span><br></pre></td></tr></tbody></table></figure>
+<p>其中{}替代查找到的文件，”;”是-exec的结束符</p>
+<ul>
+<li>在当前目录下不区分大小写地找以Edition.pdf结尾的文件</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">find -iname *Edition.pdf</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>在根目录下查找名字为gsettings的文件或文件夹，但是忽略目录/mnt和/media</li>
+</ul>
+<p>这些都不对，不知道为什么</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo find / -name “gsettings” ! -path “/mnt/*” ! -path “/media/*”</span><br><span class="line">sudo find / -path /media -path /mnt -prune -o -name gsettings</span><br><span class="line">sudo find . -name media -name mnt -prune -o -name gsettings</span><br><span class="line">sudo find . -path ./media -path ./mnt -prune -o -name gsettings</span><br><span class="line">sudo find . -name b ! -path “./a/*”</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="正则">正则</h4>
+<p><code>查找规则</code>部分：<code>-regex '正则表达式'</code></p>
+<p>正则表达式匹配的是完整路径。</p>
+<p>例子：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">find . -regex '.*/latency-[0-9]*'</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">./latency-2</span><br><span class="line">./latency-4</span><br><span class="line">./latency-3</span><br><span class="line">./latency-5</span><br><span class="line">./latency-1</span><br><span class="line">./latency-6</span><br><span class="line">./latency-7</span><br><span class="line">./latency-0</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command" class="uri">https://stackoverflow.com/questions/6844785/how-to-use-regex-with-find-command</a></p>
+<h3 id="grep">grep</h3>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">-v, --invert-match</span><br><span class="line">       Invert the sense of matching, to select non-matching lines.</span><br><span class="line">-m NUM, --max-count=NUM</span><br><span class="line">       Stop reading a file after NUM matching lines.  If  the  input  is  standard</span><br><span class="line">       input  from a regular file, and NUM matching lines are output, grep ensures</span><br><span class="line">       that the standard input is positioned to just after the last matching  line</span><br><span class="line">       before exiting, regardless of the presence of trailing context lines.  This</span><br><span class="line">       enables a calling process to resume a search.  When grep  stops  after  NUM</span><br><span class="line">       matching  lines,  it  outputs  any  trailing context lines.  When the -c or</span><br><span class="line">       --count option is also used, grep does not output a count greater than NUM.</span><br><span class="line">       When  the  -v  or  --invert-match  option  is  also  used, grep stops after</span><br><span class="line">       outputting NUM non-matching lines.</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>查找当前目录下有某字符串的文件：</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">grep -rn string *</span><br></pre></td></tr></tbody></table></figure>
+<p>-r:递归查找 -n:显示行号 -i:忽略大小写
+*:当前目录所有文件。可以换成某个文件名。</p>
+<ul>
+<li>查找当前目录下后缀名为<code>.rs</code>的文件中含有<code>splay_safe_rs</code>的文件：</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">grep -rn splay_safe_rs --include \*.rs</span><br></pre></td></tr></tbody></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions" class="uri">https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions</a></p>
+<p><code>--exclude</code>, <code>--exclude-dir</code>: <a target="_blank" rel="noopener" href="https://www.warp.dev/terminus/grep-exclude" class="uri">https://www.warp.dev/terminus/grep-exclude</a></p>
+<ul>
+<li>正则: <code>-E</code></li>
+</ul>
+<p>里面不支持<code>\d</code>之类的，只支持<code>[0-9]</code></p>
+<h3 id="ip">ip</h3>
+<p>查看本机ip地址</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="join">join</h3>
+<p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/join-command-linux/" class="uri">https://www.geeksforgeeks.org/join-command-linux/</a></p>
+<h3 id="less">less</h3>
+<p>最基础用法：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">less 文件路径</span><br></pre></td></tr></tbody></table></figure>
+<p>显示行号：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">less -N 文件路径</span><br></pre></td></tr></tbody></table></figure>
+<p>也可以在<code>less</code>里面按<code>-</code> <code>N</code>
+<code>Enter</code>即可显示/隐藏行号。</p>
+<p>跳转到指定行：在<code>less</code>里面输入自己要跳转的行号，然后按<code>g</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lovedingd/article/details/120885183">Linux之Less命令跳转到特定的行号</a></p>
+<h3 id="locate">locate</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">locate name</span><br></pre></td></tr></tbody></table></figure>
+<p>查找文件（文件夹）</p>
+<h3 id="ls">ls</h3>
+<p>列出目录中的文件和文件夹。常用命令行选项：</p>
+<ul>
+<li><code>-a</code>: 列出所有项。默认会隐藏<code>.</code>开头的项。</li>
+<li><code>-l</code>: 列出详细信息。</li>
+<li><code>-t</code>: 根据时间倒序排序。</li>
+</ul>
+<p>详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/nb1253587023/article/details/127188039" class="uri">https://blog.csdn.net/nb1253587023/article/details/127188039</a></p>
+<h3 id="pidof-进程名">pidof 进程名</h3>
+<p>返回某进程名对应的pid 例子： 杀掉所有名字为ssh-agent的进程</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">kill $(pidof ssh-agent)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="rm">rm</h3>
+<p><code>-d</code>: 当目录为空时才删除目录。</p>
+<h3 id="sed">sed</h3>
+<p>从stdin读入，将修改后的结果写入到stdout：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sed '命令'</span><br></pre></td></tr></tbody></table></figure>
+<p>其中<code>命令</code>形如<code>s/源pattern/目的pattern/g</code>（全局替换）</p>
+<p>从文件读入，将修改后的结果写入到stdout：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sed '命令' FileName</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="基础知识">基础知识</h4>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/demon7552003/article/details/72854231">sed模式空间(pattern
+space)和保持空间(hold space)</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed" class="uri">https://stackoverflow.com/questions/12833714/the-concept-of-hold-space-and-pattern-space-in-sed</a></p>
+<p>sed读取一行时，会先将其暂存到模式空间。处理完一行之后就会把模式空间中的内容打印到标准输出，然后自动清空缓存。</p>
+<p>保持空间是sed中的另外一个缓冲区，此缓冲区正如其名，不会自动清空，但也不会主动把此缓冲区中的内容打印到标准输出中。</p>
+<p>d: 删除模式空间的内容，开始下一个循环</p>
+<p>g: 复制保持空间的内容到模式空间</p>
+<p><code>s/regexp/replacement/</code>:
+在模式空间中如果匹配到了正则表达式<code>regexp</code>，就将其替换为<code>replacement</code></p>
+<a href="/2022/02/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="正则表达式学习笔记">正则表达式学习笔记</a>
+<p>需要注意的是，<code>sed</code>的正则表达式中，如果用到了<code>(</code>,
+<code>)</code>,
+<code>|</code>，需要在前面放一个<code>\</code>将它们转义，例如<code>sed '/\(patternx\|patterny\)/p'</code>。来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14813145/boolean-or-in-sed-regex" class="uri">https://stackoverflow.com/questions/14813145/boolean-or-in-sed-regex</a></p>
+<h4 id="全局替换">全局替换</h4>
+<p><code>sed 's/regexp/replacement/g'</code></p>
+<p>其中<code>s</code>是替换命令，表示在模式空间尝试匹配正则表达式<code>regexp</code>，找到了就将其替换为<code>replacement</code>。</p>
+<p>这里的<code>g</code>不是命令，而是隶属于<code>s</code>命令的一个flag，表示全局替换，也就是说在匹配到一个之后不停下来，而是马上继续尝试匹配下一个。</p>
+<p>一些例子：</p>
+<ul>
+<li>把文件中的CRLF替换成LF</li>
+</ul>
+<p><code>sed 's/\r//g</code></p>
+<p><code>\r</code>就是CR，将其替换成空就相当于把它删了。</p>
+<ul>
+<li>把文件中的LF替换成CRLF</li>
+</ul>
+<p><code>sed 's/$/\r/g</code></p>
+<p><code>$</code>的意思是每行的末尾。在每行的末尾把空字符串替换成<code>\r</code>（CR），也就是插入<code>\r</code>（CR）。在linux中换行是LF，所以相当于在LF前面插入一个CR，变成CRLF。</p>
+<ul>
+<li>保留每行的最后一个单词</li>
+</ul>
+<p><code>sed 's/.* //g</code></p>
+<p>正则表达式里，点<code>.</code>几乎可以匹配任何字符，所以<code>.*</code>会尽量匹配尽量长的字符串。<code>/.* /</code>表示最长的以空格结尾的字符串。目的pattern为空，这样就相当于把每行的最长的以空格结尾的字符串删掉。所以每行只留下了最后一个单词了。</p>
+<ul>
+<li>在每个单词前插入</li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lwlfox/article/details/85065026" class="uri">https://blog.csdn.net/lwlfox/article/details/85065026</a></p>
+<p><code>sed 's/\b\S*\b/test&amp;/g</code></p>
+<p><code>\b</code>: 单词边界 <code>&amp;</code>: 前面匹配的字符串</p>
+<ul>
+<li>保留部分内容的替换</li>
+</ul>
+<p>有点像<code>scanf</code>和<code>printf</code>的组合：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/scl323/article/details/84098366" class="uri">https://blog.csdn.net/scl323/article/details/84098366</a></p>
+<h4 id="删除匹配行">删除匹配行</h4>
+<p><code>sed '/regexp/d'</code></p>
+<p>如果模式空间有可以匹配正则表达式<code>regexp</code>的子串，那么就将模式空间删除，然后继续读取下一行到模式空间。</p>
+<h4 id="常用选项">常用选项</h4>
+<p><code>-i</code>: 直接修改文件（默认是输出编辑后的结果到stdout）。</p>
+<p><code>--follow-symlinks</code>:
+<code>-i</code>会破坏符号链接和硬链接，加上这个选项之后可以保护软链接不被破坏，但是不保护硬链接。参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cherryhaha1234/p/10848024.html" class="uri">https://www.cnblogs.com/cherryhaha1234/p/10848024.html</a></p>
+<p><code>-c</code>:
+保护符号链接和硬链接（但是我的sed没有这个选项）。</p>
+<p><code>-n</code>:
+sed默认会将文件的每行打印出来，然后对匹配的内容进行相应的操作。<code>-n</code>表示不把文件的每行都打印出来，只对匹配的内容做相应的操作。</p>
+<p>匹配指定行：<code>sed -n 起始行号[,终止行号]动作 file</code>，动作一般是<code>p</code>，即打印(Print)。</p>
+<p>例子：</p>
+<p>打印第2行：<code>sed -n '2p' file</code></p>
+<p>打印第2行到第4行：<code>sed -n '2,4p' file</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file" class="uri">https://www.commandlinefu.com/commands/view/3802/to-print-a-specific-line-from-a-file</a></p>
+<h3 id="sort">sort</h3>
+<p><code>-k列号</code>: 按这一列排序。列号从1开始。</p>
+<p><code>-r</code>: 逆序</p>
+<p><code>-n</code>:
+<code>--numeric-sort</code>。按照数字排序。默认是按照字符串排序。</p>
+<p><code>-o 文件</code>: 输出到文件。默认是输出到stdout的。</p>
+<h4 id="排序">排序</h4>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/17048248" class="uri">https://stackoverflow.com/a/17048248</a></p>
+<h4 id="去重">去重</h4>
+<p>参考网站：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rwxwsblog/p/4564216.html" class="uri">https://www.cnblogs.com/rwxwsblog/p/4564216.html</a></p>
+<p>例如txt中有</p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">jason</span><br><span class="line">jason</span><br><span class="line">jason</span><br><span class="line">fffff</span><br><span class="line">jason</span><br></pre></td></tr></tbody></table></figure>
+<p>执行以下命令</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sort -u txt</span><br></pre></td></tr></tbody></table></figure>
+<p>输出</p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">fffff</span><br><span class="line">jason</span><br></pre></td></tr></tbody></table></figure>
+<p>输出到文件</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sort -u txt -o txt1</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="top">top</h3>
+<p><code>-H</code>: 显示单个线程。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats" class="uri">https://serverfault.com/questions/38195/getting-a-per-thread-cpu-stats</a></p>
+<h2 id="其他">其他</h2>
+<p>{ post_link shell/‘zsh使用笔记’ }</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mydriverc2/article/details/82623778">linux中怎么用shell显示文件某一行或几行内容</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hjxhjh/article/details/17264739">linux
+shell 将多行文件转换为一行</a></p>
+<p><code>[</code>和<code>[[</code>的区别：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash" class="uri">https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

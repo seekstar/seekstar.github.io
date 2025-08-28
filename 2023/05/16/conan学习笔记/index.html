@@ -4711,6 +4711,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5009,6 +5020,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8088,283 +8110,131 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>官方教程：</p>
 <p><a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial.html" class="uri">https://docs.conan.io/2/tutorial.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/developing_packages/local_package_development_flow.html" class="uri">https://docs.conan.io/2/tutorial/developing_packages/local_package_development_flow.html</a></p>
-<h2 id="安装"><a href="#安装">¶</a> 安装</h2>
+<h2 id="安装">安装</h2>
 <p>官方教程：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/installation.html" class="uri">https://docs.conan.io/2/installation.html</a></p>
-<pre class="shell"><code>pip3 install --upgrade conan</code></pre>
-<h2 id="配置默认设置"><a href="#配置默认设置">¶</a> 配置默认设置</h2>
-<pre class="shell"><code>conan profile detect
-vim ~/.conan2/profiles/default</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pip3 install --upgrade conan</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="配置默认设置">配置默认设置</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan profile detect</span><br><span class="line">vim ~/.conan2/profiles/default</span><br></pre></td></tr></tbody></table></figure>
 <p>我的偏好：</p>
-<pre class="shell"><code>compiler.cppstd=17</code></pre>
-<h2 id="创建包"><a href="#创建包">¶</a> 创建包</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">compiler.cppstd=17</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="创建包">创建包</h2>
 <p>在工程的根目录下执行：</p>
-<pre class="shell"><code>conan new cmake_exe -d name=包名 -d version=0.1.0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan new cmake_exe -d name=包名 -d version=0.1.0</span><br></pre></td></tr></tbody></table></figure>
 <p>如果是库的话：</p>
-<pre class="shell"><code>conan new cmake_lib -d name=包名 -d version=0.1.0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan new cmake_lib -d name=包名 -d version=0.1.0</span><br></pre></td></tr></tbody></table></figure>
 <p>然后编辑<code>CMakeLists.txt</code>和<code>conanfile.py</code>。</p>
-<h3 id="conanfilepy"><a href="#conanfilepy">¶</a>
-<code>conanfile.py</code></h3>
-<h4 id="requirements"><a href="#requirements">¶</a> requirements</h4>
+<h3 id="conanfile.py"><code>conanfile.py</code></h3>
+<h4 id="requirements">requirements</h4>
 <p>定义包的依赖。例子：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> requirements(<span class="va">self</span>):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># https://semver.npmjs.com/</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 0.2.3, 0.2.4 等都行，但 0.1.x 和 0.3.x 不行</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.requires(<span class="st">"包名/[^0.2.3]"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 0.1.1, 0.1.2, 0.2.x, 0.3.x 都行</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.requires(<span class="st">"rusty-cpp/[&gt;=0.1.1]"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 0.1.x都行</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.requires(<span class="st">"rcu-vector/[~0.1]"</span>)</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">requirements</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># https://semver.npmjs.com/</span></span><br><span class="line">    <span class="comment"># 0.2.3, 0.2.4 等都行，但 0.1.x 和 0.3.x 不行</span></span><br><span class="line">    self.requires(<span class="string">"包名/[^0.2.3]"</span>)</span><br><span class="line">    <span class="comment"># 0.1.1, 0.1.2, 0.2.x, 0.3.x 都行</span></span><br><span class="line">    self.requires(<span class="string">"rusty-cpp/[&gt;=0.1.1]"</span>)</span><br><span class="line">    <span class="comment"># 0.1.x都行</span></span><br><span class="line">    self.requires(<span class="string">"rcu-vector/[~0.1]"</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/versioning/version_ranges.html#range-expressions" class="uri">https://docs.conan.io/2/tutorial/versioning/version_ranges.html#range-expressions</a></p>
-<h4 id="generate"><a href="#generate">¶</a> generate</h4>
+<h4 id="generate">generate</h4>
 <p>在<code>conan install</code>的时候被调用，用于生成用于编译的文件。</p>
-<h4 id="build"><a href="#build">¶</a> build</h4>
+<h4 id="build">build</h4>
 <p>在<code>conan build</code>的时候被调用，用于编译。</p>
-<h4 id="package"><a href="#package">¶</a> package</h4>
+<h4 id="package">package</h4>
 <p>在打包的时候被调用。</p>
-<h4 id="package_info"><a href="#package_info">¶</a> package_info</h4>
+<h4 id="package_info">package_info</h4>
 <p>提供包的各种信息，供其他包使用。</p>
 <p><code>cpp_info.libs</code>:
 此包提供的其他包应该链接的库，通常放在<code>libs</code>文件夹里。</p>
 <p><code>cpp_info.system_libs</code>:
 此包依赖的系统库。依赖此包的其他包会继承此依赖。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/conan-io/conan/issues/8104">question:
-difference between "cpp_info.libs" and "cpp_info.system_libs"</a></p>
+difference between “cpp_info.libs” and “cpp_info.system_libs”</a></p>
 <p><code>cpp_info.set_property("cmake_target_name", "xxxx")</code>:
 给出这个库的cmake
 target的名字。这样依赖这个库的其他包在它自己的<code>CMakeLists.txt</code>里用<code>find_package</code>找这个包之后就能用这个包里给出的target了。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/creating_packages/define_package_information.html" class="uri">https://docs.conan.io/2/tutorial/creating_packages/define_package_information.html</a></p>
-<h3 id="例子"><a href="#例子">¶</a> 例子</h3>
-<h4 id="生成可执行文件的包"><a href="#生成可执行文件的包">¶</a>
-生成可执行文件的包</h4>
+<h3 id="例子">例子</h3>
+<h4 id="生成可执行文件的包">生成可执行文件的包</h4>
 <p><code>CMakeLists.txt</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.15</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(包名 <span class="ot">CXX</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://seekstar.github.io/2023/09/24/cmake打印导入的包中的warning/</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_NO_SYSTEM_FROM_IMPORTED</span> <span class="ot">TRUE</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(依赖1 <span class="ot">CONFIG</span> <span class="ot">REQUIRED</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(依赖2 <span class="ot">CONFIG</span> <span class="ot">REQUIRED</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">aux_source_directory</span>(src SRCS)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">add_executable</span>(<span class="dv">${PROJECT_NAME}</span> <span class="dv">${SRCS}</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="dv">${PROJECT_NAME}</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>	<span class="bn">PUBLIC</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>		依赖1</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>		依赖2</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.15</span>)</span><br><span class="line"><span class="keyword">project</span>(包名 CXX)</span><br><span class="line"></span><br><span class="line"><span class="comment"># https://seekstar.github.io/2023/09/24/cmake打印导入的包中的warning/</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_NO_SYSTEM_FROM_IMPORTED <span class="keyword">TRUE</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(依赖<span class="number">1</span> CONFIG REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(依赖<span class="number">2</span> CONFIG REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">aux_source_directory</span>(src SRCS)</span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">${PROJECT_NAME}</span> <span class="variable">${SRCS}</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">${PROJECT_NAME}</span></span><br><span class="line">	PUBLIC</span><br><span class="line">		依赖<span class="number">1</span></span><br><span class="line">		依赖<span class="number">2</span></span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
 <p><code>conanfile.py</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> conan <span class="im">import</span> ConanFile</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> conan.tools.cmake <span class="im">import</span> CMakeToolchain, CMake, cmake_layout, CMakeDeps</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> 下划线包名Recipe(ConanFile):</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">"包名"</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    version <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optional metadata</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    license <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    author <span class="op">=</span> <span class="st">"姓名 邮箱"</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">"https://github.com/用户名/仓库名"</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    description <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    topics <span class="op">=</span> (<span class="st">"关键词1"</span>, <span class="st">"关键词2"</span>, <span class="st">"关键词3"</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Binary configuration</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    settings <span class="op">=</span> <span class="st">"os"</span>, <span class="st">"compiler"</span>, <span class="st">"build_type"</span>, <span class="st">"arch"</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> requirements(<span class="va">self</span>):</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.requires(<span class="st">"rusty-cpp/[&gt;=0.1.5]"</span>)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> layout(<span class="va">self</span>):</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        cmake_layout(<span class="va">self</span>)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> generate(<span class="va">self</span>):</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        deps <span class="op">=</span> CMakeDeps(<span class="va">self</span>)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        deps.generate()</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        tc <span class="op">=</span> CMakeToolchain(<span class="va">self</span>)</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        tc.generate()</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> build(<span class="va">self</span>):</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        cmake <span class="op">=</span> CMake(<span class="va">self</span>)</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        cmake.configure()</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        cmake.build()</span></code></pre></div>
-<h4 id="只有头文件的包-header-only"><a href="#只有头文件的包-header-only">¶</a> 只有头文件的包
-(header-only)</h4>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> conan <span class="keyword">import</span> ConanFile</span><br><span class="line"><span class="keyword">from</span> conan.tools.cmake <span class="keyword">import</span> CMakeToolchain, CMake, cmake_layout, CMakeDeps</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">下划线包名Recipe</span>(<span class="title class_ inherited__">ConanFile</span>):</span><br><span class="line">    name = <span class="string">"包名"</span></span><br><span class="line">    version = <span class="string">"0.1.0"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Optional metadata</span></span><br><span class="line">    license = <span class="string">""</span></span><br><span class="line">    author = <span class="string">"姓名 邮箱"</span></span><br><span class="line">    url = <span class="string">"https://github.com/用户名/仓库名"</span></span><br><span class="line">    description = <span class="string">""</span></span><br><span class="line">    topics = (<span class="string">"关键词1"</span>, <span class="string">"关键词2"</span>, <span class="string">"关键词3"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Binary configuration</span></span><br><span class="line">    settings = <span class="string">"os"</span>, <span class="string">"compiler"</span>, <span class="string">"build_type"</span>, <span class="string">"arch"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">requirements</span>(<span class="params">self</span>):</span><br><span class="line">        self.requires(<span class="string">"rusty-cpp/[&gt;=0.1.5]"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">layout</span>(<span class="params">self</span>):</span><br><span class="line">        cmake_layout(self)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">generate</span>(<span class="params">self</span>):</span><br><span class="line">        deps = CMakeDeps(self)</span><br><span class="line">        deps.generate()</span><br><span class="line">        tc = CMakeToolchain(self)</span><br><span class="line">        tc.generate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">build</span>(<span class="params">self</span>):</span><br><span class="line">        cmake = CMake(self)</span><br><span class="line">        cmake.configure()</span><br><span class="line">        cmake.build()</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="只有头文件的包-header-only">只有头文件的包 (header-only)</h4>
 <p>文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/header_only_packages.html" class="uri">https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/header_only_packages.html</a></p>
 <p>完整工程：<a target="_blank" rel="noopener" href="https://github.com/seekstar/counter-timer-cpp" class="uri">https://github.com/seekstar/counter-timer-cpp</a></p>
 <p><code>CMakeLists.txt</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.15</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(包名 <span class="ot">CXX</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 为了兼容git submodule</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># https://seekstar.github.io/2023/08/25/cmake-find-package兼容add-subdirectory/</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> (<span class="ot">NOT</span> <span class="ot">TARGET</span> <span class="er">依赖1)</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>	<span class="bn">find_package</span>(依赖1 CONFIG REQUIRED)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>endif()</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>if (<span class="ot">NOT</span> <span class="ot">TARGET</span> 包2里的依赖2)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>	find_package(包2 CONFIG REQUIRED COMPONENTS 依赖2)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>endif()</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>add_library(<span class="dv">${PROJECT_NAME}</span> INTERFACE)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>target_include_directories(<span class="dv">${PROJECT_NAME}</span> INTERFACE include)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/59257505</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>file(GLOB_RECURSE HEADERS <span class="st">"include/*"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># PUBLIC_HEADER会被install</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>set_target_properties(<span class="dv">${PROJECT_NAME}</span> PROPERTIES PUBLIC_HEADER <span class="st">"</span><span class="dv">${HEADERS}</span><span class="st">"</span>)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>target_link_libraries(<span class="dv">${PROJECT_NAME}</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>	INTERFACE</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>		依赖1</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>		依赖2</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 这里要设置DESTINATION，不然install的时候会直接被copy到include目录下面。</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>install(TARGETS <span class="dv">${PROJECT_NAME}</span> DESTINATION <span class="st">"include/"</span>)</span></code></pre></div>
+<figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.15</span>)</span><br><span class="line"><span class="keyword">project</span>(包名 CXX)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为了兼容git submodule</span></span><br><span class="line"><span class="comment"># https://seekstar.github.io/2023/08/25/cmake-find-package兼容add-subdirectory/</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">NOT</span> <span class="keyword">TARGET</span> 依赖<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">find_package</span>(依赖<span class="number">1</span> CONFIG REQUIRED)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">NOT</span> <span class="keyword">TARGET</span> 包<span class="number">2</span>里的依赖<span class="number">2</span>)</span><br><span class="line">	<span class="keyword">find_package</span>(包<span class="number">2</span> CONFIG REQUIRED COMPONENTS 依赖<span class="number">2</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(<span class="variable">${PROJECT_NAME}</span> INTERFACE)</span><br><span class="line"><span class="keyword">target_compile_features</span>(<span class="variable">${PROJECT_NAME}</span> INTERFACE cxx_std_17)</span><br><span class="line"><span class="keyword">target_include_directories</span>(<span class="variable">${PROJECT_NAME}</span> INTERFACE <span class="keyword">include</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">${PROJECT_NAME}</span></span><br><span class="line">	INTERFACE</span><br><span class="line">		依赖<span class="number">1</span></span><br><span class="line">		依赖<span class="number">2</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">install</span>(DIRECTORY <span class="keyword">include</span>/ DESTINATION <span class="string">"include"</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p><code>conanfile.py</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> conan <span class="im">import</span> ConanFile</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> conan.tools.cmake <span class="im">import</span> CMakeToolchain, CMake, cmake_layout, CMakeDeps</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> 下划线包名Recipe(ConanFile):</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">"包名"</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    version <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optional metadata</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    license <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    author <span class="op">=</span> <span class="st">"姓名 邮箱"</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">"https://github.com/用户名/仓库名"</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    description <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    topics <span class="op">=</span> (<span class="st">"关键词1"</span>, <span class="st">"关键词2"</span>, <span class="st">"关键词3"</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Binary configuration</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    settings <span class="op">=</span> <span class="st">"build_type"</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sources are located in the same place as this recipe, copy them to the recipe</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    exports_sources <span class="op">=</span> <span class="st">"CMakeLists.txt"</span>, <span class="st">"include/*"</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We can avoid copying the sources to the build folder in the cache</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    no_copy_source <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> requirements(<span class="va">self</span>):</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.requires(<span class="st">"依赖1/[&gt;=xx.xx.xx]"</span>)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.requires(<span class="st">"包2/[~xx.xx]"</span>)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> layout(<span class="va">self</span>):</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        cmake_layout(<span class="va">self</span>)</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> generate(<span class="va">self</span>):</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        deps <span class="op">=</span> CMakeDeps(<span class="va">self</span>)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        deps.generate()</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        tc <span class="op">=</span> CMakeToolchain(<span class="va">self</span>)</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        tc.generate()</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> package(<span class="va">self</span>):</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>        cmake <span class="op">=</span> CMake(<span class="va">self</span>)</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>        cmake.configure()</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        cmake.install()</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> package_info(<span class="va">self</span>):</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 让依赖这个包的其他包知道这个包对应的CMake target叫什么名字</span></span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.cpp_info.set_property(<span class="st">"cmake_target_name"</span>, <span class="st">"CMakeTarget名字"</span>)</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># For header-only packages, libdirs and bindirs are not used</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># so it's necessary to set those as empty.</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.cpp_info.libdirs <span class="op">=</span> []</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.cpp_info.bindirs <span class="op">=</span> []</span></code></pre></div>
-<h4 id="含多个库的包-package-with-multiple-libraries"><a href="#含多个库的包-package-with-multiple-libraries">¶</a> 含多个库的包
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> conan <span class="keyword">import</span> ConanFile</span><br><span class="line"><span class="keyword">from</span> conan.tools.cmake <span class="keyword">import</span> CMakeToolchain, CMake, cmake_layout, CMakeDeps</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">下划线包名Recipe</span>(<span class="title class_ inherited__">ConanFile</span>):</span><br><span class="line">    name = <span class="string">"包名"</span></span><br><span class="line">    version = <span class="string">"0.1.0"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Optional metadata</span></span><br><span class="line">    license = <span class="string">""</span></span><br><span class="line">    author = <span class="string">"姓名 邮箱"</span></span><br><span class="line">    url = <span class="string">"https://github.com/用户名/仓库名"</span></span><br><span class="line">    description = <span class="string">""</span></span><br><span class="line">    topics = (<span class="string">"关键词1"</span>, <span class="string">"关键词2"</span>, <span class="string">"关键词3"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Binary configuration</span></span><br><span class="line">    settings = <span class="string">"build_type"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Sources are located in the same place as this recipe, copy them to the recipe</span></span><br><span class="line">    exports_sources = <span class="string">"CMakeLists.txt"</span>, <span class="string">"include/*"</span></span><br><span class="line">    <span class="comment"># We can avoid copying the sources to the build folder in the cache</span></span><br><span class="line">    no_copy_source = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">requirements</span>(<span class="params">self</span>):</span><br><span class="line">        self.requires(<span class="string">"依赖1/[&gt;=xx.xx.xx]"</span>)</span><br><span class="line">        self.requires(<span class="string">"包2/[~xx.xx]"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">layout</span>(<span class="params">self</span>):</span><br><span class="line">        cmake_layout(self)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">generate</span>(<span class="params">self</span>):</span><br><span class="line">        deps = CMakeDeps(self)</span><br><span class="line">        deps.generate()</span><br><span class="line">        tc = CMakeToolchain(self)</span><br><span class="line">        tc.generate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">package</span>(<span class="params">self</span>):</span><br><span class="line">        cmake = CMake(self)</span><br><span class="line">        cmake.configure()</span><br><span class="line">        cmake.install()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">package_info</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 让依赖这个包的其他包知道这个包对应的CMake target叫什么名字</span></span><br><span class="line">        self.cpp_info.set_property(<span class="string">"cmake_target_name"</span>, <span class="string">"CMakeTarget名字"</span>)</span><br><span class="line">        <span class="comment"># For header-only packages, libdirs and bindirs are not used</span></span><br><span class="line">        <span class="comment"># so it's necessary to set those as empty.</span></span><br><span class="line">        self.cpp_info.libdirs = []</span><br><span class="line">        self.cpp_info.bindirs = []</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="含多个库的包-package-with-multiple-libraries">含多个库的包
 (package with multiple libraries)</h4>
 <p><a target="_blank" rel="noopener" href="https://docs.conan.io/2/examples/conanfile/package_info/components.html#examples-conanfile-package-info-components" class="uri">https://docs.conan.io/2/examples/conanfile/package_info/components.html#examples-conanfile-package-info-components</a></p>
-<h4 id="只有头文件的含多个库的包-header-only-package-with-multiple-libraries"><a href="#只有头文件的含多个库的包-header-only-package-with-multiple-libraries">¶</a>
-只有头文件的含多个库的包 (header-only package with multiple
-libraries)</h4>
+<h4 id="只有头文件的含多个库的包-header-only-package-with-multiple-libraries">只有头文件的含多个库的包
+(header-only package with multiple libraries)</h4>
 <p>例子：<a target="_blank" rel="noopener" href="https://github.com/seekstar/rcu-vector" class="uri">https://github.com/seekstar/rcu-vector</a></p>
 <p>坑点：如果库<code>a</code>是header-only的话，不能把自己（也就是<code>a</code>）放进<code>self.cpp_info.components['a'].libs</code>，因为<code>libs</code>表示依赖这个库的其他库需要链接的库，而header-only的库不能被链接。</p>
-<h2 id="生成用于编译的辅助文件"><a href="#生成用于编译的辅助文件">¶</a>
-生成用于编译的辅助文件</h2>
-<pre class="shell"><code>conan install .</code></pre>
+<h2 id="生成用于编译的辅助文件">生成用于编译的辅助文件</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan install .</span><br></pre></td></tr></tbody></table></figure>
 <p>默认生成在<code>build</code>目录下面。</p>
-<h2 id="编译"><a href="#编译">¶</a> 编译</h2>
-<pre class="shell"><code>conan build .</code></pre>
+<h2 id="编译">编译</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan build .</span><br></pre></td></tr></tbody></table></figure>
 <p>如果之前没有执行<code>conan install .</code>的话会自动执行<code>conan install .</code>。</p>
-<h2 id="打包并添加到local-cache"><a href="#打包并添加到local-cache">¶</a> 打包并添加到local cache</h2>
-<pre class="shell"><code>conan create .</code></pre>
+<h2 id="打包并添加到local-cache">打包并添加到local cache</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan create .</span><br></pre></td></tr></tbody></table></figure>
 <p>如果之前没有执行<code>conan build .</code>的话会自动执行之。</p>
 <p>Debug版本：</p>
-<pre class="shell"><code>conan create . -s build_type=Debug</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan create . -s build_type=Debug</span><br></pre></td></tr></tbody></table></figure>
 <p>从local cache删除：</p>
-<pre class="shell"><code>conan remove 包名/x.x.x@</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan remove 包名/x.x.x@</span><br></pre></td></tr></tbody></table></figure>
 <p>详见官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/1/reference/commands/misc/remove.html" class="uri">https://docs.conan.io/1/reference/commands/misc/remove.html</a></p>
-<h2 id="conanlock"><a href="#conanlock">¶</a>
-<code>conan.lock</code></h2>
+<h2 id="conan.lock"><code>conan.lock</code></h2>
 <p>固定所有依赖版本，避免未来有依赖更新之后无法编译。注意，只有当前包是end
 product的时候才能锁依赖版本。如果当前包是一个库，就不应该锁依赖版本，因为使用这个库的包可能想用别的版本。</p>
 <p>创建<code>conan.lock</code>:</p>
-<pre class="shell"><code>conan lock create .</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan lock create .</span><br></pre></td></tr></tbody></table></figure>
 <p>创建完了之后好像会自动被用上。</p>
 <p>从<code>conan.lock</code>中清楚unused locked versions：</p>
-<pre class="shell"><code>conan lock create . --lockfile-clean</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan lock create . --lockfile-clean</span><br></pre></td></tr></tbody></table></figure>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/versioning/lockfiles.html" class="uri">https://docs.conan.io/2/tutorial/versioning/lockfiles.html</a></p>
-<h2 id="conan-server"><a href="#conan-server">¶</a> Conan server</h2>
+<h2 id="conan-server">Conan server</h2>
 <p>可以自己部署一个conan server并将打好的包上传上去，方便团队协作。</p>
 <p>官方教程太简略了：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/conan_repositories/setting_up_conan_remotes/conan_server.html#conan-server" class="uri">https://docs.conan.io/2/tutorial/conan_repositories/setting_up_conan_remotes/conan_server.html#conan-server</a></p>
-<h3 id="安装-1"><a href="#安装-1">¶</a> 安装</h3>
-<pre class="shell"><code>pip3 install conan-server</code></pre>
-<h3 id="配置"><a href="#配置">¶</a> 配置</h3>
+<h3 id="安装-1">安装</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pip3 install conan-server</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="配置">配置</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/reference/conan_server.html" class="uri">https://docs.conan.io/2/reference/conan_server.html</a></p>
 <p>编辑<code>~/.conan_server/server.conf</code>。一些比较重要的项如下。</p>
-<h4 id="users"><a href="#users">¶</a> <code>[users]</code></h4>
+<h4 id="users"><code>[users]</code></h4>
 <p>格式是<code>用户名: 密码</code>。密码是明文保存的，差评。</p>
 <p>安全起见，建议把<code>demo: demo</code>删掉，换上自己的。</p>
-<h4 id="write_permissions"><a href="#write_permissions">¶</a>
-<code>[write_permissions]</code></h4>
+<h4 id="write_permissions"><code>[write_permissions]</code></h4>
 <p>默认为空。虽然上面的注释说author可以write自己的包，但是好像没法上传新的包。所以我直接设置成了所有已登录用户都可以写：</p>
-<pre class="text"><code>*/*@*/*: ?</code></pre>
-<h3 id="运行"><a href="#运行">¶</a> 运行</h3>
-<pre class="shell"><code>conan_server</code></pre>
-<h3 id="添加到remote-list"><a href="#添加到remote-list">¶</a>
-添加到remote list</h3>
-<pre class="shell"><code>conan remote add remote名字 http://localhost:9300</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">*/*@*/*: ?</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="运行">运行</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan_server</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="添加到remote-list">添加到remote list</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan remote add remote名字 http://localhost:9300</span><br></pre></td></tr></tbody></table></figure>
 <p>删除：<code>conan remote remove remote名字</code></p>
-<h3 id="登录"><a href="#登录">¶</a> 登录</h3>
-<pre class="shell"><code>conan remote login remote名字 用户名</code></pre>
+<h3 id="登录">登录</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan remote login remote名字 用户名</span><br></pre></td></tr></tbody></table></figure>
 <p>或者直接提供密码：</p>
-<pre class="shell"><code>conan remote login remote名字 用户名 -p 密码</code></pre>
-<h3 id="上传"><a href="#上传">¶</a> 上传</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan remote login remote名字 用户名 -p 密码</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="上传">上传</h3>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/tutorial/conan_repositories/uploading_packages.html" class="uri">https://docs.conan.io/2/tutorial/conan_repositories/uploading_packages.html</a></p>
-<pre class="shell"><code>conan upload 包名 -r=remote名</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan upload 包名 -r=remote名</span><br></pre></td></tr></tbody></table></figure>
 <p>注意这里只上传已经构建的版本。所以最好先构建release和debug，再把它们一起上传：</p>
-<pre class="shell"><code>conan create . &amp;&amp; conan create . -s build_type=Debug
-conan upload 包名 -r=remote名</code></pre>
-<h3 id="搜索包"><a href="#搜索包">¶</a> 搜索包</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan create . &amp;&amp; conan create . -s build_type=Debug</span><br><span class="line">conan upload 包名 -r=remote名</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="搜索包">搜索包</h3>
 <p>这里列出所有包：</p>
-<pre class="shell"><code>conan search "*" -r=remote名</code></pre>
-<h2 id="将变量传给cmake"><a href="#将变量传给cmake">¶</a>
-将变量传给cmake</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan search "*" -r=remote名</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="将变量传给cmake">将变量传给cmake</h2>
 <p>网上通常说是通过<code>cmake.definitions</code>：<a target="_blank" rel="noopener" href="https://github.com/conan-io/conan/issues/4572">passing command
 line arguments to cmake during conan build</a></p>
 <p>但是在conan2上会报这个错：<code>AttributeError: 'CMake' object has no attribute 'definitions'</code></p>
 <p>实际上应该用cmake.configure的cli_args参数把变量传给cmake：</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> {</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ARG1"</span>: [<span class="st">"ANY"</span>],</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ARG2"</span>: [<span class="st">"ANY"</span>],</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> build(<span class="va">self</span>):</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        cmake <span class="op">=</span> CMake(<span class="va">self</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        cli_args<span class="op">=</span>[</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"-DARG1="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG1),</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"-DARG2="</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.options.ARG2),</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        cmake.configure(cli_args<span class="op">=</span>cli_args)</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        cmake.build()</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">options = {</span><br><span class="line">    <span class="string">"ARG1"</span>: [<span class="string">"ANY"</span>],</span><br><span class="line">    <span class="string">"ARG2"</span>: [<span class="string">"ANY"</span>],</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build</span>(<span class="params">self</span>):</span><br><span class="line">    cmake = CMake(self)</span><br><span class="line">    cli_args=[</span><br><span class="line">        <span class="string">"-DARG1="</span> + <span class="built_in">str</span>(self.options.ARG1),</span><br><span class="line">        <span class="string">"-DARG2="</span> + <span class="built_in">str</span>(self.options.ARG2),</span><br><span class="line">    ]</span><br><span class="line">    cmake.configure(cli_args=cli_args)</span><br><span class="line">    cmake.build()</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://docs.conan.io/2/reference/tools/cmake/cmake.html#conan.tools.cmake.cmake.CMake.configure" class="uri">https://docs.conan.io/2/reference/tools/cmake/cmake.html#conan.tools.cmake.cmake.CMake.configure</a></p>
-<h2 id="已知的问题"><a href="#已知的问题">¶</a> 已知的问题</h2>
-<h3 id="测试"><a href="#测试">¶</a> 测试</h3>
-<pre class="shell"><code>conan test test_package 包名/版本</code></pre>
+<h2 id="已知的问题">已知的问题</h2>
+<h3 id="测试">测试</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conan test test_package 包名/版本 -s build_type=Debug --build missing</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>包名/版本</code>不可忽略。感觉应该默认为当前包的最新版本。</p>
 <p>此外，没找到怎么直接在<code>conan test</code>的时候把参数传进去。好像只能通过直接运行<code>./test_package/build/gcc-10-x86_64-17-release/test 参数1 参数2</code>来传参。</p>
-<h3 id="与conan2不兼容的包"><a href="#与conan2不兼容的包">¶</a>
-与conan2不兼容的包</h3>
+<h3 id="与conan2不兼容的包">与conan2不兼容的包</h3>
 <p>(2023.07.07) <a target="_blank" rel="noopener" href="https://conan.io/center/userspace-rcu">userspace-rcu</a></p>
-<h3 id="会自动使用用nix-env安装的库"><a href="#会自动使用用nix-env安装的库">¶</a>
-会自动使用用<code>nix-env</code>安装的库</h3>
+<h3 id="会自动使用用nix-env安装的库">会自动使用用<code>nix-env</code>安装的库</h3>
 <p>比如用<code>nix-env</code>安装了gflags之后，conan会自动使用它，但是与此同时会使用系统安装的glibc。但是<code>nix-env</code>安装的gflags通常依赖高版本的glibc，如果系统里自带的glibc版本过低，就会报链接错误。这时只需要<code>nix-env -e gflags</code>，让conan使用系统自带的gflags即可。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

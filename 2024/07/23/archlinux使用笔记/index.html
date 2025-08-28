@@ -4711,6 +4711,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5009,6 +5020,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8089,79 +8111,46 @@ mjx-container[display="true"] + br {
 <li><a href="/2022/10/08/%E5%85%8D%E5%90%AF%E5%8A%A8%E7%9B%98%E5%AE%89%E8%A3%85archlinux/" title="免启动盘安装ArchLinux">免启动盘安装ArchLinux</a></li>
 <li><a href="/2022/05/08/archlinux-tlp/" title="ArchLinux TLP">ArchLinux TLP</a></li>
 </ul>
-<h2 id="安装nvidia驱动"><a href="#安装nvidia驱动">¶</a>
-安装NVIDIA驱动</h2>
+<h2 id="安装nvidia驱动">安装NVIDIA驱动</h2>
 <p>官方完整教程：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/NVIDIA" class="uri">https://wiki.archlinux.org/title/NVIDIA</a></p>
-<p>只要卡不是太老，一般情况下，如果用的是stable内核(<code>linux</code>)，就安装<code>nvidia</code>，如果用的是LTS内核(<code>linux-lts</code>)，就安装<code>nvidia-lts</code>。包里自带了把<code>nouveau</code>屏蔽掉的配置文件，因此重启即可。</p>
+<p>只要卡不是太老，一般情况下，如果用的是stable内核(<code>linux</code>)，就安装<code>nvidia</code>，如果用的是LTS内核(<code>linux-lts</code>)，就安装<code>nvidia-lts</code>。包里自带了把<code>nouveau</code>屏蔽掉的配置文件，因此重启即可。<code>Turing (NV160/TUXXX)</code>之后的卡也可以装<code>nvidia-open</code>或<code>nvidia-open-lts</code>。</p>
 <p>然后执行<code>nvidia-smi</code>，有这种输出就说明安装成功了：</p>
-<pre class="text"><code>Sat Dec 10 11:54:20 2022
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
-| N/A   74C    P0    50W /  N/A |     67MiB /  4096MiB |     94%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-|    0   N/A  N/A       950      G   /usr/lib/Xorg                       4MiB |
-|    0   N/A  N/A     18194      C   ...psieveCUDA_0.2.3b_linux64       58MiB |
-+-----------------------------------------------------------------------------+</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Sat Dec 10 11:54:20 2022</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |</span><br><span class="line">| N/A   74C    P0    50W /  N/A |     67MiB /  4096MiB |     94%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                  |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |</span><br><span class="line">|        ID   ID                                                   Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0   N/A  N/A       950      G   /usr/lib/Xorg                       4MiB |</span><br><span class="line">|    0   N/A  N/A     18194      C   ...psieveCUDA_0.2.3b_linux64       58MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></tbody></table></figure>
 <p>有些应用依赖<code>opencl</code>，一款编程框架，类似于CUDA，因此也建议安装<code>opencl-nvidia</code>，这样使用opencl的程序就可以调用NVIDIA
 GPU的算力了。</p>
-<h2 id="aur"><a href="#aur">¶</a> aur</h2>
+<h2 id="aur">aur</h2>
 <p>孤立包其实就是orphan，也就是没有Maintainer。</p>
 <p>尽量不要安装aur上的软件包，因为包的维护者往往不是官方，而且安装脚本有root权限，不安全。</p>
-<h2 id="常用软件的安装"><a href="#常用软件的安装">¶</a>
-常用软件的安装</h2>
-<h3 id="微信"><a href="#微信">¶</a> 微信</h3>
-<h4 id="flatpak"><a href="#flatpak">¶</a> flatpak</h4>
+<h2 id="常用软件的安装">常用软件的安装</h2>
+<h3 id="seafile">Seafile</h3>
+<p>可以使用linglong安装：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed linyaps</span><br><span class="line">ll-cli install com.seafile-gui.linyaps</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="微信">微信</h3>
+<h4 id="flatpak">flatpak</h4>
 <p>原生微信。</p>
-<pre class="shell"><code>flatpak install com.tencent.WeChat
-flatpak run com.tencent.WeChat</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak install com.tencent.WeChat</span><br><span class="line">flatpak run com.tencent.WeChat</span><br></pre></td></tr></tbody></table></figure>
 <p>也可以从系统的启动器里启动。</p>
 <a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a>
-<h4 id="deepin-wine-wechat"><a href="#deepin-wine-wechat">¶</a>
-deepin-wine-wechat</h4>
-<pre class="shell"><code>yay -S deepin-wine-wechat</code></pre>
+<h4 id="deepin-wine-wechat">deepin-wine-wechat</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">yay -S deepin-wine-wechat</span><br></pre></td></tr></tbody></table></figure>
 <p>我尝试的版本：3.9.0.28-3</p>
 <p>如果是KDE的话，大概会报这个错：</p>
-<pre class="shell"><code>/opt/apps/com.qq.weixin.deepin/files/run.sh</code></pre>
-<pre class="text"><code>==&gt; Creating /home/searchstar/.deepinwine/Deepin-WeChat/PACKAGE_VERSION ...
-  X Error of failed request:  BadWindow (invalid Window parameter)
-  Major opcode of failed request:  20 (X_GetProperty)
-  Resource id in failed request:  0x0
-  Serial number of failed request:  10
-  Current serial number in output stream:  10</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/opt/apps/com.qq.weixin.deepin/files/run.sh</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">==&gt; Creating /home/searchstar/.deepinwine/Deepin-WeChat/PACKAGE_VERSION ...</span><br><span class="line">  X Error of failed request:  BadWindow (invalid Window parameter)</span><br><span class="line">  Major opcode of failed request:  20 (X_GetProperty)</span><br><span class="line">  Resource id in failed request:  0x0</span><br><span class="line">  Serial number of failed request:  10</span><br><span class="line">  Current serial number in output stream:  10</span><br></pre></td></tr></tbody></table></figure>
 <p>相关issue: <a target="_blank" rel="noopener" href="https://github.com/vufa/deepin-wine-wechat-arch/issues/293">Xorg显示服务器无法运行微信
 #293</a></p>
 <p>解决方案参考<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Deepin-wine" class="uri">https://wiki.archlinux.org/title/Deepin-wine</a>的3.1部分：</p>
-<pre class="shell"><code>sudo pacman -S xsettingsd
-cat &gt; $HOME/.config/autostart/xsettingsd.desktop &lt;&lt;EOF
-[Desktop Entry]
-Name=xsettingsd
-Exec=/usr/bin/xsettingsd
-Type=Application
-EOF</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xsettingsd</span><br><span class="line">cat &gt; $HOME/.config/autostart/xsettingsd.desktop &lt;&lt;EOF</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Name=xsettingsd</span><br><span class="line">Exec=/usr/bin/xsettingsd</span><br><span class="line">Type=Application</span><br><span class="line">EOF</span><br></pre></td></tr></tbody></table></figure>
 <p>注销再重新登录就好了。</p>
 <p>第一次启动可能会报一个serious bug的错，不用管，再启动一次就好了。</p>
-<h3 id="wps"><a href="#wps">¶</a> WPS</h3>
+<h3 id="wps">WPS</h3>
 <p>flatpak里只有英文版，建议用nix安装中文版：</p>
-<pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nix-env -iA nixpkgs.wpsoffice-cn</span><br></pre></td></tr></tbody></table></figure>
 <p>教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
-<h2 id="修复系统目录和文件的权限"><a href="#修复系统目录和文件的权限">¶</a> 修复系统目录和文件的权限</h2>
+<h2 id="修复系统目录和文件的权限">修复系统目录和文件的权限</h2>
 <p>根目录权限有时会变成777。可能是AUR里的<code>wps-office-cn</code>导致的：<a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049" class="uri">https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049</a>。可以用flatpak安装国际版的WPS。教程：<a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a></p>
 <p>权限修复教程：<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/" title="ArchLinux修复系统目录和文件的权限">ArchLinux修复系统目录和文件的权限</a></p>
-<h2 id="wayland存在的一些问题"><a href="#wayland存在的一些问题">¶</a>
-Wayland存在的一些问题</h2>
+<h2 id="wayland存在的一些问题">Wayland存在的一些问题</h2>
 <p>ArchLinux在某次升级之后就默认wayland了，但会导致一些问题。如果有需要的话可以在登录界面的左上角选择X11
 session。</p>
 <ul>

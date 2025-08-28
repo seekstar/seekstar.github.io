@@ -4711,6 +4711,17 @@ mjx-container[display="true"] + br {
 								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
+							<ul>
+								<li class="file">
+									<a href="/2025/08/29/%E8%A7%A3%E5%86%B3core-dump%E5%88%B0nfs%E4%B8%8A%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决core dump到NFS上失败的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
 								</li>
 								
 							</ul>
@@ -5009,6 +5020,17 @@ mjx-container[display="true"] + br {
 									<a href="/2021/07/13/mac-cargo-flamegraph-dtrace/">
                      
 										    Mac cargo flamegraph dtrace
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2025/07/31/macos%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
+                     
+										    MacOS使用笔记
                      
 									</a>
 								</li>
@@ -8085,17 +8107,20 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><pre class="shell"><code># 搜索
-ll-cli search xxx
-# 安装某包
-ll-cli install 包名
-# 列出所有已安装的包
-ll-cli list
-# 卸载某包
-ll-cli uninstall 包名</code></pre>
-<h2 id="常用"><a href="#常用">¶</a> 常用</h2>
-<h3 id="网易云音乐"><a href="#网易云音乐">¶</a> 网易云音乐</h3>
-<pre class="shell"><code>ll-cli install com.163.music</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装">安装</h2>
+<h3 id="archlinux">ArchLinux</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed linyaps</span><br></pre></td></tr></tbody></table></figure>
+<p>安装的包的<code>.desktop</code>文件在<code>/var/lib/linglong/entries/share/applications</code>下。注销重新登录之后这个目录才会出现在<code>XDG_DATA_DIRS</code>里，安装的软件才能在启动器里找到。</p>
+<p>之后<code>ll-cli install</code>的时候要加<code>sudo</code>。</p>
+<h2 id="常用的命令">常用的命令</h2>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">搜索</span></span><br><span class="line">ll-cli search xxx</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装某包</span></span><br><span class="line">ll-cli install 包名</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出所有已安装的包</span></span><br><span class="line">ll-cli list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载某包</span></span><br><span class="line">ll-cli uninstall 包名</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行某包</span></span><br><span class="line">ll-cli run 包名</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="常用软件">常用软件</h2>
+<h3 id="seafile">Seafile</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ll-cli install com.seafile-gui.linyaps</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="wps">WPS</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ll-cli install cn.wps.wps-office</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="网易云音乐">网易云音乐</h3>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ll-cli install com.163.music</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
