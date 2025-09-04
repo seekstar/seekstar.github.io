@@ -982,6 +982,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/09/04/kde%E8%BE%93%E5%85%A5emoji/">
+                     
+										    KDE输入emoji
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/13/kde%E8%BF%9E%E6%8E%A5%E9%BC%A0%E6%A0%87%E6%97%B6%E7%A6%81%E7%94%A8%E8%A7%A6%E6%91%B8%E6%9D%BF/">
                      
 										    KDE连接鼠标时禁用触摸板
@@ -8077,6 +8088,29 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2022/09/30/c-panic/">
+				<h2 class="index-title">
+					C++ panic
+				</h2>
+				<div class="index-brief">
+					#define panic(...) do { \
+	fprintf(stderr, "panic: %s:%u: %s:", \
+		__FILE__, __LINE__, __func__); \
+	fprintf(stderr, " " __VA_ARGS__);	\
+	abort(); \
+
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2022-09-30</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2022/09/30/make%E4%BC%A0%E5%85%A5%E5%8F%98%E9%87%8F/">
 				<h2 class="index-title">
 					make传入变量
@@ -8273,31 +8307,6 @@ class A {
 public:
 	A(const char* data, size_t size) : data_(data), size_(size) {}
 	c
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2022-09-02</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2022/09/02/c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8rust/">
-				<h2 class="index-title">
-					C语言调用Rust
-				</h2>
-				<div class="index-brief">
-					比方说要把这个函数暴露给C语言使用：
-fn add(a: i32, b: i32) -&gt; i32 {
-    return a + b;
-}
-cargo new add --lib
-在add/src/lib.rs里写入：
-#[no_mangle]
-pub extern "C" fn add(a
 					...
 				</div>
 			</a>

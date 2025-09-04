@@ -984,6 +984,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/09/04/kde%E8%BE%93%E5%85%A5emoji/">
+                     
+										    KDE输入emoji
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/12/13/kde%E8%BF%9E%E6%8E%A5%E9%BC%A0%E6%A0%87%E6%97%B6%E7%A6%81%E7%94%A8%E8%A7%A6%E6%91%B8%E6%9D%BF/">
                      
 										    KDE连接鼠标时禁用触摸板
@@ -8115,100 +8126,57 @@ mjx-container[display="true"] + br {
 <li><a href="/2020/12/10/python-dataframe%E6%A0%B9%E6%8D%AE%E5%88%97%E5%8F%B7%E5%8F%96%E5%87%BA%E5%88%97/" title="python dataframe根据列号取出列">python dataframe根据列号取出列</a></li>
 </ul>
 <p>添加新列：<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/adding-new-column-to-existing-dataframe-in-pandas/" class="uri">https://www.geeksforgeeks.org/adding-new-column-to-existing-dataframe-in-pandas/</a></p>
-<h2 id="创建"><a href="#创建">¶</a> 创建</h2>
+<h2 id="创建">创建</h2>
 <p>构造函数：<a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html" class="uri">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html</a></p>
-<h3 id="从已有列创建"><a href="#从已有列创建">¶</a> 从已有列创建</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="st">'x'</span>, <span class="st">'y'</span>, <span class="st">'z'</span>]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'a'</span>: a, <span class="st">'b'</span>: b})</span></code></pre></div>
-<pre class="text"><code>   a  b
-0  1  x
-1  2  y
-2  3  z</code></pre>
-<h3 id="从series-list创建"><a href="#从series-list创建">¶</a> 从Series
-list创建</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>li <span class="op">=</span> []</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>li.append(pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>li.append(pd.Series([<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stackoverflow.com/a/57034111/13688160</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Series相当于列向量，所以concat的方向为column</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 然后.T转置一下</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.concat(li, axis<span class="op">=</span><span class="dv">1</span>).T</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.kdnuggets.com/2022/11/4-ways-rename-pandas-columns.html</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
-<pre class="text"><code>   a  b  c
-0  1  2  3
-1  4  5  6</code></pre>
-<h2 id="从stdin读取"><a href="#从stdin读取">¶</a> 从stdin读取</h2>
+<h3 id="从已有列创建">从已有列创建</h3>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">b = [<span class="string">'x'</span>, <span class="string">'y'</span>, <span class="string">'z'</span>]</span><br><span class="line">pd.DataFrame({<span class="string">'a'</span>: a, <span class="string">'b'</span>: b})</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">   a  b</span><br><span class="line">0  1  x</span><br><span class="line">1  2  y</span><br><span class="line">2  3  z</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="从series-list创建">从Series list创建</h3>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">li = []</span><br><span class="line">li.append(pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br><span class="line">li.append(pd.Series([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]))</span><br><span class="line"><span class="comment"># https://stackoverflow.com/a/57034111/13688160</span></span><br><span class="line"><span class="comment"># Series相当于列向量，所以concat的方向为column</span></span><br><span class="line"><span class="comment"># 然后.T转置一下</span></span><br><span class="line">df = pd.concat(li, axis=<span class="number">1</span>).T</span><br><span class="line"><span class="comment"># https://www.kdnuggets.com/2022/11/4-ways-rename-pandas-columns.html</span></span><br><span class="line">df.columns = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line">df</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">   a  b  c</span><br><span class="line">0  1  2  3</span><br><span class="line">1  4  5  6</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="从stdin读取">从stdin读取</h2>
 <p>直接把<code>sys.stdin</code>当file输入进去即可：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>latencies <span class="op">=</span> pd.read_table(sys.stdin, names<span class="op">=</span>[<span class="st">'operation'</span>, <span class="st">'latency(ns)'</span>], delim_whitespace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">latencies = pd.read_table(sys.stdin, names=[<span class="string">'operation'</span>, <span class="string">'latency(ns)'</span>], sep=<span class="string">r'\s+'</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18495846/pandas-data-from-stdin" class="uri">https://stackoverflow.com/questions/18495846/pandas-data-from-stdin</a></p>
-<h2 id="添加新行"><a href="#添加新行">¶</a> 添加新行</h2>
+<h2 id="添加新行">添加新行</h2>
 <p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html#pandas.concat" class="uri">https://pandas.pydata.org/docs/reference/api/pandas.concat.html#pandas.concat</a></p>
 <p>注意，append已经被deprecated了：<a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.append.html" class="uri">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.append.html</a></p>
 <p>如果需要把Series作为行添加到DataFrame里，需要先将其转换成DataFrame，再转置：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], index <span class="op">=</span> [<span class="st">'col1'</span>, <span class="st">'col2'</span>, <span class="st">'col3'</span>])</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">'col2'</span>: [<span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'col3'</span>: [<span class="dv">4</span>, <span class="dv">5</span>]})</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>pd.concat([d, pd.DataFrame(r).T])</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">r = pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], index = [<span class="string">'col1'</span>, <span class="string">'col2'</span>, <span class="string">'col3'</span>])</span><br><span class="line">d = pd.DataFrame({<span class="string">'col1'</span>: [<span class="number">0</span>, <span class="number">1</span>], <span class="string">'col2'</span>: [<span class="number">2</span>, <span class="number">3</span>], <span class="string">'col3'</span>: [<span class="number">4</span>, <span class="number">5</span>]})</span><br><span class="line">pd.concat([d, pd.DataFrame(r).T])</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，<code>pd.concat</code>会返回一个新的DataFrame，所以复杂度是<code>O(n)</code>的：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/36489724/13688160" class="uri">https://stackoverflow.com/a/36489724/13688160</a></p>
-<h2 id="根据index取出行"><a href="#根据index取出行">¶</a>
-根据index取出行</h2>
+<h2 id="根据index取出行">根据index取出行</h2>
 <p>用<code>.iloc</code>，与python自带的list的语法类似：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="st">'col2'</span>: <span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">20</span>)})</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 取出第2行到第4行：</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>test.iloc[<span class="dv">1</span>:<span class="dv">4</span>]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 取出最后一行</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test.iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
-<h2 id="取出满足条件的行"><a href="#取出满足条件的行">¶</a>
-取出满足条件的行</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择年龄大于25岁且性别为男性的数据行</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[(df[<span class="st">'age'</span>] <span class="op">&gt;</span> <span class="dv">25</span>) <span class="op">&amp;</span> (df[<span class="st">'gender'</span>] <span class="op">==</span> <span class="st">'male'</span>)])</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">test = pd.DataFrame({<span class="string">'col1'</span>: <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>), <span class="string">'col2'</span>: <span class="built_in">range</span>(<span class="number">10</span>, <span class="number">20</span>)})</span><br><span class="line"><span class="comment"># 取出第2行到第4行：</span></span><br><span class="line">test.iloc[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="comment"># 取出最后一行</span></span><br><span class="line">test.iloc[-<span class="number">1</span>]</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="取出满足条件的行">取出满足条件的行</h2>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># 选择年龄大于25岁且性别为男性的数据行</span></span><br><span class="line"><span class="built_in">print</span>(df[(df[<span class="string">'age'</span>] &gt; <span class="number">25</span>) &amp; (df[<span class="string">'gender'</span>] == <span class="string">'male'</span>)])</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.ycpai.cn/python/UcXZsYr8.html" class="uri">https://www.ycpai.cn/python/UcXZsYr8.html</a></p>
-<h2 id="取出多列"><a href="#取出多列">¶</a> 取出多列</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">'col2'</span>: [<span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'col3'</span>: [<span class="dv">4</span>, <span class="dv">5</span>]})</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 取出col2和col1列</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>test[[<span class="st">'col2'</span>, <span class="st">'col1'</span>]]</span></code></pre></div>
+<h2 id="取出多列">取出多列</h2>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">test = pd.DataFrame({<span class="string">'col1'</span>: [<span class="number">0</span>, <span class="number">1</span>], <span class="string">'col2'</span>: [<span class="number">2</span>, <span class="number">3</span>], <span class="string">'col3'</span>: [<span class="number">4</span>, <span class="number">5</span>]})</span><br><span class="line"><span class="comment"># 取出col2和col1列</span></span><br><span class="line">test[[<span class="string">'col2'</span>, <span class="string">'col1'</span>]]</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>   col2  col1
-0     2     0
-1     3     1</code></pre>
-<h2 id="求均值"><a href="#求均值">¶</a> 求均值</h2>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">   col2  col1</span><br><span class="line">0     2     0</span><br><span class="line">1     3     1</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="求均值">求均值</h2>
 <p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.mean.html" class="uri">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.mean.html</a></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'col2'</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>]})</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 求每列的平均数</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>test.mean()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>test.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 求每行的平均数</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>test.mean(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
-<h2 id="groupby"><a href="#groupby">¶</a> groupby</h2>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">test = pd.DataFrame({<span class="string">'col1'</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">'col2'</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]})</span><br><span class="line"><span class="comment"># 求每列的平均数</span></span><br><span class="line">test.mean()</span><br><span class="line">test.mean(axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 求每行的平均数</span></span><br><span class="line">test.mean(axis=<span class="number">1</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="groupby">groupby</h2>
 <p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html" class="uri">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html</a></p>
-<h3 id="每3行分组并求均值"><a href="#每3行分组并求均值">¶</a>
-每3行分组并求均值</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="st">'col2'</span>: <span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">20</span>)})</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>test.groupby(test.index <span class="op">//</span> <span class="dv">3</span>).mean()</span></code></pre></div>
+<h3 id="每3行分组并求均值">每3行分组并求均值</h3>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">test = pd.DataFrame({<span class="string">'col1'</span>: <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>), <span class="string">'col2'</span>: <span class="built_in">range</span>(<span class="number">10</span>, <span class="number">20</span>)})</span><br><span class="line">test.groupby(test.index // <span class="number">3</span>).mean()</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>   col1  col2
-0   1.0  11.0
-1   4.0  14.0
-2   7.0  17.0
-3   9.0  19.0</code></pre>
-<h3 id="将某列的值相同的合并成一个list"><a href="#将某列的值相同的合并成一个list">¶</a>
-将某列的值相同的合并成一个list</h3>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">   col1  col2</span><br><span class="line">0   1.0  11.0</span><br><span class="line">1   4.0  14.0</span><br><span class="line">2   7.0  17.0</span><br><span class="line">3   9.0  19.0</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="将某列的值相同的合并成一个list">将某列的值相同的合并成一个list</h3>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22219004/how-to-group-dataframe-rows-into-list-in-pandas-groupby" class="uri">https://stackoverflow.com/questions/22219004/how-to-group-dataframe-rows-into-list-in-pandas-groupby</a></p>
-<h2 id="遍历"><a href="#遍历">¶</a> 遍历</h2>
+<h2 id="遍历">遍历</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas" class="uri">https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas</a></p>
-<h2 id="前缀和"><a href="#前缀和">¶</a> 前缀和</h2>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.DataFrame({<span class="st">'col1'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'col2'</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>]})</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>test[<span class="st">'col1'</span>].cumsum()</span></code></pre></div>
-<h2 id="转dict"><a href="#转dict">¶</a> 转dict</h2>
+<h2 id="前缀和">前缀和</h2>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">test = pd.DataFrame({<span class="string">'col1'</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">'col2'</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]})</span><br><span class="line">test[<span class="string">'col1'</span>].cumsum()</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="转dict">转dict</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18695605/how-to-convert-a-dataframe-to-a-dictionary" class="uri">https://stackoverflow.com/questions/18695605/how-to-convert-a-dataframe-to-a-dictionary</a></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'id'</span>)</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">df.set_index(<span class="string">'id'</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>然后就变成了一个dict-like了，value是其他所有列。</p>
 <p>如果要得到映射到另一列的dict:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'id'</span>)[<span class="st">'column'</span>]</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">df.set_index(<span class="string">'id'</span>)[<span class="string">'column'</span>]</span><br></pre></td></tr></tbody></table></figure>
 <p>转成真正的dict:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'id'</span>)[<span class="st">'column'</span>].to_dict()</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">df.set_index(<span class="string">'id'</span>)[<span class="string">'column'</span>].to_dict()</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
