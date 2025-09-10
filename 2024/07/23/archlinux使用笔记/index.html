@@ -8165,9 +8165,20 @@ GPU的算力了。</p>
 <h2 id="修复系统目录和文件的权限">修复系统目录和文件的权限</h2>
 <p>根目录权限有时会变成777。可能是AUR里的<code>wps-office-cn</code>导致的：<a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049" class="uri">https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049</a>。可以用flatpak安装国际版的WPS。教程：<a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a></p>
 <p>权限修复教程：<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/" title="ArchLinux修复系统目录和文件的权限">ArchLinux修复系统目录和文件的权限</a></p>
-<h2 id="wayland存在的一些问题">Wayland存在的一些问题</h2>
-<p>ArchLinux在某次升级之后就默认wayland了，但会导致一些问题。如果有需要的话可以在登录界面的左上角选择X11
-session。</p>
+<h2 id="wayland">Wayland</h2>
+<p>ArchLinux在某次升级之后就默认wayland了。需要更改<code>/etc/environment</code>来确保输入法可以正常使用：</p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># For XWayland applications such as WeChat</span><br><span class="line">XMODIFIERS=@im=fcitx</span><br><span class="line"># For Electron applications such as vscode</span><br><span class="line">ELECTRON_OZONE_PLATFORM_HINT=auto</span><br></pre></td></tr></tbody></table></figure>
+<p>然后重启（注销重新登录好像没用）</p>
+<p>不要设置这几个环境变量，它们与wayland不兼容：GTK_IM_MODULE，QT_IM_MODULE，SDL_IM_MODULE。</p>
+<p>如果设置了<code>GTK_IM_MODULE</code>或者<code>QT_IM_MODULE</code>，会出现这个问题：<a target="_blank" rel="noopener" href="https://fcitx-im.org/wiki/FAQ#Candidate_window_is_blinking_under_wayland_with_Fcitx_5" class="uri">https://fcitx-im.org/wiki/FAQ#Candidate_window_is_blinking_under_wayland_with_Fcitx_5</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland" class="uri">https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland</a></p>
+<h3 id="failed-to-connect-to-wayland-display">Failed to connect to
+Wayland display</h3>
+<p>由于我们全局设置了<code>ELECTRON_OZONE_PLATFORM_HINT=auto</code>，因此flatpak里支持wayland的软件会使用wayland模式启动。但是flatpak默认又不允许软件访问wayland
+socket，因此如果一个图形界面的包没有在manifest里声明访问wayland
+socket的权限，就会在<code>flatpak run</code>的时候会报错：<code>Failed to connect to Wayland display: No such file or directory</code>。解决方法是在flatseal里手动打开这个包的<code>socket=wayland</code>选项。</p>
+<h3 id="暂时无法解决的问题">暂时无法解决的问题</h3>
+<p>如果有需要的话可以在登录界面的左上角选择X11 session。</p>
 <ul>
 <li>keepass桌面客户端不能执行auto-type，因为wayland没有提供向另一个窗口发送keypress的API：<a target="_blank" rel="noopener" href="https://keepass.info/help/kb/autotype_wayland.html" class="uri">https://keepass.info/help/kb/autotype_wayland.html</a></li>
 </ul>
@@ -8175,7 +8186,7 @@ session。</p>
 Auto-Type on Wayland</a></p>
 <p>相关PR: <a target="_blank" rel="noopener" href="https://github.com/keepassxreboot/keepassxc/pull/10905">Wayland
 autotype implementation (using xdg-desktop-portal)</a></p>
-<p>已解决的问题：</p>
+<h3 id="已解决的问题">已解决的问题</h3>
 <ul>
 <li>腾讯会议无法共享屏幕。</li>
 </ul>
