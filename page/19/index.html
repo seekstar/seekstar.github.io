@@ -8167,9 +8167,9 @@ echo 1 &gt; /proc/sys/kernel/sysrq
 					修复Windows引导
 				</h2>
 				<div class="index-brief">
-					本博客是修复以后凭记忆写的，记忆不一定准确。
-情况：原先有两个windows，然后把其中一个windows连同EFI分区全部删掉了，只剩下另一个windows及其system
-reserved分区。在Linux上进行update-grub没有办法识别出这个windows系统，因此这个windows系
+					背景：EFI分区由于意外被清空了。首先修复了Linux的引导，现在需要修复Windows引导。
+首先烧一个windows启动盘，进去之后不安装，而是选择修复这台计算机，选择疑难解答，选择命令提示符。
+然后首先C:切换到C盘，然后bootrec /FixBoot。如果提示拒绝访问，就bootsect 
 					...
 				</div>
 			</a>
