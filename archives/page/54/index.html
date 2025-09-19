@@ -6911,6 +6911,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/09/18/transformer%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/">
+                     
+										    Transformer的个人理解
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2023/10/02/ycsb-zipfian%E5%88%86%E5%B8%83%E7%94%9F%E6%88%90%E5%8E%9F%E7%90%86/">
                      
 										    YCSB zipfian分布生成原理
@@ -8099,6 +8110,31 @@ mjx-container[display="true"] + br {
 		<div id="index">
 	
 		<div class="index-li">
+			<a href="/2020/06/06/chroot%E6%97%B6%E7%A1%AC%E9%93%BE%E6%8E%A5ldd%E4%BE%9D%E8%B5%96%E7%9A%84%E8%84%9A%E6%9C%AC/">
+				<h2 class="index-title">
+					chroot时硬链接ldd依赖的脚本
+				</h2>
+				<div class="index-brief">
+					chroot_ln_file.sh
+#!/bin/bash
+
+mkdir -p $(dirname $2/$1)
+ln $1 $2/$1 &amp;&gt; /dev/null
+ori=$(readlink $1)
+if [ -n "$ori" ]; then
+	real=$(realpath -s
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2020-06-06</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
 			<a href="/2020/06/05/bash%E6%9F%A5%E8%AF%A2%E6%9F%90%E6%96%87%E4%BB%B6%E7%9A%84%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84/">
 				<h2 class="index-title">
 					bash查询某文件的绝对路径
@@ -8333,28 +8369,6 @@ mfence: memory fence
 			</a>
                 <div class="article-meta">
 				    <span>2020-05-12</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2020/05/04/c-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/">
-				<h2 class="index-title">
-					C++生成随机数
-				</h2>
-				<div class="index-brief">
-					¶
-大段随机二进制
-思路：先用std::random_device生成真随机数，用来初始化长周期随机数发生器std::mt19937，然后再用std::mt19937来不断生成随机数。
-生成大段随机二进制的部分C++17之后可以用这些：
-https://en.cppreference.com/w/c
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2020-05-04</span>
                     
                             
                     
