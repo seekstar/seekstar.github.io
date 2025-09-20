@@ -8146,13 +8146,13 @@ mjx-container[display="true"] + br {
 <p>文本进来之后，首先经过Tokenizer（分词器）分割成很多个token。每个token都会赋予一个从0开始的ID，用于后续索引。</p>
 <p>然后通过一个embedding层，将token转换成一个多维向量，也叫做embedding。这个embedding层实际上是一个矩阵，大小是
 <code>token总个数</code> *
-<code>隐藏层维度</code>。隐藏层维度就是embedding向量的长度。假如一个token的ID是233，那么就把这个矩阵的第233行拿出来作为这个token的embedding向量。这个embedding矩阵最开始是初始化成随机数（微调场景除外），在训练过程中通过反向传播之类的算法不断更新和调整。最终相似的token在向量空间中的距离会比较近。</p>
+<code>隐藏层维度</code>。隐藏层维度就是embedding向量的长度。假如一个token的ID是233，那么就把这个矩阵的第233行拿出来作为这个token的embedding向量。这个embedding矩阵在训练开始时通常随机初始化（但在微调场景下，会加载预训练模型的权重作为初始值），在训练过程中通过反向传播之类的算法不断更新和调整。最终相似的token在向量空间中的距离会比较近。</p>
 <p>通过embedding矩阵拿到token
 embedding之后，还要加上位置编码，这样模型才知道这个token跟其他token的相对位置。方便起见，我们仍然称加上了位置编码的向量为embedding。</p>
 <p>把这些加上了位置编码的embedding一行一行叠在一起，就构成了最初始的输入矩阵X。X会依次通过模型的<code>N</code>个解码层。</p>
 <h3 id="残差连接-residual-connection">残差连接 Residual Connection</h3>
 <p>为了防止层数过多时原始信息丢失，进而导致梯度消失的问题，现代模型通常采用残差连接的技术来连接各层以及子层。一个完整的Transformer解码层的大致流程如下。</p>
-<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># 有些模型是Post-Layer Normalization (Post-LN)，先Attention再加，再LayerNorm。</span><br><span class="line"># 不过现代Transformer一般用Pre-LN。所以下面展示的是Pre-LN</span><br><span class="line"></span><br><span class="line">X: 输入矩阵</span><br><span class="line"></span><br><span class="line"># 多头自注意力子层</span><br><span class="line"></span><br><span class="line"># 层归一化。按行归一化。</span><br><span class="line">X' = LayerNorm(X)</span><br><span class="line"># 多头自注意力</span><br><span class="line">X' = MultiHeadAttention(X')</span><br><span class="line"># 残差连接</span><br><span class="line">X = X' + X</span><br><span class="line"></span><br><span class="line"># 前馈神经网络子层（FFN）</span><br><span class="line"></span><br><span class="line"># 层归一化</span><br><span class="line">X' = LayerNorm(X)</span><br><span class="line"># 前馈网络</span><br><span class="line">X' = FFN(X')</span><br><span class="line"># 残差连接</span><br><span class="line">X = X' + X</span><br><span class="line"></span><br><span class="line">X输出给下一层</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># 有些模型是Post-Layer Normalization (Post-LN)，先Attention，再残差连接，再LayerNorm。</span><br><span class="line"># 不过现代模型一般用Pre-LN。所以下面展示的是Pre-LN</span><br><span class="line"></span><br><span class="line">X: 输入矩阵</span><br><span class="line"></span><br><span class="line"># 多头自注意力子层</span><br><span class="line"></span><br><span class="line"># 层归一化。按行归一化。</span><br><span class="line">X' = LayerNorm(X)</span><br><span class="line"># 多头自注意力</span><br><span class="line">X' = MultiHeadAttention(X')</span><br><span class="line"># 残差连接</span><br><span class="line">X = X' + X</span><br><span class="line"></span><br><span class="line"># 前馈神经网络子层（FFN）</span><br><span class="line"></span><br><span class="line"># 层归一化</span><br><span class="line">X' = LayerNorm(X)</span><br><span class="line"># 前馈网络</span><br><span class="line">X' = FFN(X')</span><br><span class="line"># 残差连接</span><br><span class="line">X = X' + X</span><br><span class="line"></span><br><span class="line">X输出给下一层</span><br></pre></td></tr></tbody></table></figure>
 <p>直观上来讲，残差连接允许模型选择应该保留哪些原始信息，应该对哪些信息进行变化再传往下层。值得注意的是，由于残差连接，每层的输出矩阵跟它的输入矩阵都是一样大的，行数是输入token数，列数是模型维度<code>d_model</code>。模型维度要比较大，这样才能容纳足够多的信息。大型模型的维度可以上万。</p>
 <p>下面介绍 MultiHeadAttention 和 FFN 的实现。</p>
 <h3 id="自注意力">自注意力</h3>
@@ -8180,7 +8180,8 @@ MultiHeadAttention</h3>
 <p>主要作用是对信息进行非线性变换和特征提取。现代模型通常会把ReLU换成GELU。</p>
 <p>值得注意的是，这里面<span class="math inline"><em>b</em><sub>1</sub></span>是一个向量，在这个语境下，矩阵加一个向量实际上是矩阵的每行都加这个向量。</p>
 <h3 id="输出next-token">输出next token</h3>
-<p>在经过所有的解码层之后，会得到一个跟原始输入矩阵大小相同的矩阵。我们只关注最后一行，将它取出，记为<code>hidden_states</code>。然后经过一个线性层：</p>
+<p>在经过所有的解码层之后，会得到一个跟原始输入矩阵大小相同的矩阵。我们只关注最后一行，将它取出，记为<code>hidden_states</code>。然后经过一个线性层（语言模型头，LM
+Head）：</p>
 <p>logits = hidden_states <span class="math inline">×</span>
 W_projection + b</p>
 <p>其中 <code>W_projection</code>的大小是(d_model,
@@ -8242,7 +8243,15 @@ Cache。</p>
 <h3 id="prefill">Prefill</h3>
 <p>考虑这样一个情形：用户给出prompt，然后模型在后面进行next
 token的预测。根据我们上面的分析，我们只需要得到prompt的K和V即可开始预测。而这个得到prompt的K和V的过程就叫做prefill。</p>
-<p>如果是没见过的prompt，那么我们就用矩阵乘法逐层算出K和V。这个过程是非常消耗算力的。所以如果一个prompt经常被使用，那么我们可以考虑把它的K和V存下来，下次看到了就可以直接把对应的K和V读出来用。</p>
+<p>如果是没见过的prompt，那么我们就要依照完整的transformer算法逐层算出K和V。需要注意的是，除了最后一层，前面的层不仅要算K和V，还要计算Q和自注意力，这样才能得到下一层的完整输入用来算出下一层的K和V。这个过程非常消耗算力，复杂度是
+<span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>。所以如果一个prompt经常被使用，那么我们可以考虑把它的K和V存下来，下次看到了就可以直接把对应的K和V读出来用。</p>
+<h2 id="batch">Batch</h2>
+<p>计算一段prompt的K和V时，如果prompt比较短，那么可能不能充分利用GPU的并行度。因此现代推理系统普遍采用动态批处理技术，将差不多时间到达的请求中长度相近的进行padding，让它们等长，然后凑成batch。现代深度学习框架对这种batch的矩阵运算进行了高度优化，从而可以更高效地利用GPU资源。</p>
+<h2 id="nanoflow">NanoFlow</h2>
+<p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2408.12757" class="uri">https://arxiv.org/pdf/2408.12757</a></p>
+<p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/efeslab/Nanoflow" class="uri">https://github.com/efeslab/Nanoflow</a></p>
+<p>这篇论文注意到Prefill的过程是计算密集型的，但是推理的过程却是memory-bound的，因为推理的时候很多向量乘以矩阵的操作，实际上相当于把矩阵读了一遍，而每次产生一个新的token都要把模型里的矩阵都读一遍，因此会消耗很多显存带宽。</p>
+<p>因此这篇论文旨在想办法让memory-bound的过程跟compute-bound的过程在时间上overlap，从而可以充分利用GPU的资源。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
