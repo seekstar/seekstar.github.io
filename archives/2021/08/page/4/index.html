@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8115,16 +8115,7 @@ mjx-container[display="true"] + br {
 					rust private super trait
 				</h2>
 				<div class="index-brief">
-					pub(crate) mod private {
-
-    #[doc(hidden)]
-    pub trait FooPrivate&lt;Arg&gt; {
-        fn foo(&amp;self, arg: Arg);
-    }
-
-}
-
-pub trait Foo&lt;Arg
+					pub(crate) mod private {    #[doc(hidden)]    pub trait FooPrivate&lt;Arg&gt; {        fn foo(&amp;self, arg: Arg);    }}pub trait Foo&lt;Arg&gt;: pri
 					...
 				</div>
 			</a>
@@ -8147,12 +8138,7 @@ pub trait Foo&lt;Arg
 
 打开或创建文件
 
-#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-
-int open(const char *pathname, int flags);
-
+#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt;int open(const char *pathname, int flags);int o
 					...
 				</div>
 			</a>
@@ -8170,12 +8156,7 @@ int open(const char *pathname, int flags);
 					使得两次编译linux内核产生一样的结果
 				</h2>
 				<div class="index-brief">
-					export INSTALL_MOD_STRIP=-s
-export KBUILD_BUILD_TIMESTAMP=0
-export KBUILD_BUILD_USER=root
-export KBUILD_BUILD_HOST=localhost
-make mrproper
-make allnoc
+					export INSTALL_MOD_STRIP=-sexport KBUILD_BUILD_TIMESTAMP=0export KBUILD_BUILD_USER=rootexport KBUILD_BUILD_HOST=localhostmake mrpropermake allnoconfig
 					...
 				</div>
 			</a>

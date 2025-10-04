@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8148,27 +8148,21 @@ mjx-container[display="true"] + br {
 </ul>
 <h1 id="非模态窗口的内存释放"><a href="#非模态窗口的内存释放">¶</a>
 非模态窗口的内存释放</h1>
-<p>使用setAttribute(Qt::WA_DeleteOnClose)。其中WA是<code>Window Attribute</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HelpWindow <span class="op">*</span>w <span class="op">=</span> <span class="kw">new</span> HelpWindow<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>w<span class="op">-&gt;</span>setAttribute<span class="op">(</span><span class="ex">Qt::</span>WA_DeleteOnClose<span class="op">);</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>w<span class="op">-&gt;</span>show<span class="op">();</span></span></code></pre></div>
+<p>使用setAttribute(Qt::WA_DeleteOnClose)。其中WA是<code>Window Attribute</code><br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">HelpWindow *w = <span class="keyword">new</span> HelpWindow;</span><br><span class="line">w-&gt;<span class="built_in">setAttribute</span>(Qt::WA_DeleteOnClose);</span><br><span class="line">w-&gt;<span class="built_in">show</span>();</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="layout太小导致部件拖不进去"><a href="#layout太小导致部件拖不进去">¶</a> layout太小导致部件拖不进去</h1>
 <p>把margin改大一点，拖进去之后再改回来。<br>
 <img src="/2020/03/29/qt%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/20200329165035532.png" alt="在这里插入图片描述"></p>
 <h1 id="qstring和stdstring的相互转化"><a href="#qstring和stdstring的相互转化">¶</a>
 QString和std::string的相互转化</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Braveliu/p/9844427.html" class="uri">https://www.cnblogs.com/Braveliu/p/9844427.html</a><br>
-QString -&gt; std::string</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">QString</span><span class="op">.</span>toStdString<span class="op">()</span></span></code></pre></div>
-<p>std::string -&gt; QString</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">QString</span><span class="op">(</span><span class="bu">std::</span>string<span class="op">.</span>c_str<span class="op">())</span></span></code></pre></div>
+QString -&gt; std::string<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">QString.<span class="built_in">toStdString</span>()</span><br></pre></td></tr></tbody></table></figure><br>
+std::string -&gt; QString<br>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">QString</span>(std::string.<span class="built_in">c_str</span>())</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="pro中添加头文件和源文件"><a href="#pro中添加头文件和源文件">¶</a> pro中添加头文件和源文件</h1>
-<p>参考：<a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/390499545?page=1" class="uri">https://bbs.csdn.net/topics/390499545?page=1</a></p>
-<pre><code>HEADERS += your/dir1/*.h \
-   your/dir2/*.hpp
-
-SOURCES += your/dir1/*.cpp \
-   your/dir2/*.c</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/390499545?page=1" class="uri">https://bbs.csdn.net/topics/390499545?page=1</a><br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">HEADERS += your/dir1/*.h \</span><br><span class="line">   your/dir2/*.hpp</span><br><span class="line"></span><br><span class="line">SOURCES += your/dir1/*.cpp \</span><br><span class="line">   your/dir2/*.c</span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

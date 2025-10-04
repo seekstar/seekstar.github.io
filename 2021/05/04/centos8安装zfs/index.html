@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,32 +8141,24 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>查看当前centos版本号</p>
-<pre class="shell"><code>cat /etc/redhat-release</code></pre>
-<pre class="text"><code>CentOS Linux release 8.3.2011</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">CentOS Linux release 8.3.2011</span><br></pre></td></tr></tbody></table></figure>
 <p>然后</p>
-<pre class="shell"><code>sudo dnf install https://zfsonlinux.org/epel/zfs-release.&lt;dist&gt;.noarch.rpm
-gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo dnf install https://zfsonlinux.org/epel/zfs-release.&lt;dist&gt;.noarch.rpm</span><br><span class="line">gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>&lt;dist&gt;</code>换成版本号，比如我这个就是<code>el8_3</code>。</p>
 <h2 id="dkms"><a href="#dkms">¶</a> DKMS</h2>
-<pre class="shell"><code>yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-sudo dnf config-manager --set-enabled powertools</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm</span><br><span class="line">sudo dnf config-manager --set-enabled powertools</span><br></pre></td></tr></tbody></table></figure>
 <p>（上面这段是不是可以不要？）</p>
-<pre class="shell"><code>sudo dnf install epel-release
-sudo dnf install kernel-devel zfs</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo dnf install epel-release</span><br><span class="line">sudo dnf install kernel-devel zfs</span><br></pre></td></tr></tbody></table></figure>
 <p>要等好久。</p>
 <h2 id="插入内核模块"><a href="#插入内核模块">¶</a> 插入内核模块</h2>
-<pre class="shell"><code>/sbin/modprobe zfs</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/sbin/modprobe zfs</span><br></pre></td></tr></tbody></table></figure>
 <p>检查一下是否安装成功：</p>
-<pre class="shell"><code>sudo zfs list</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo zfs list</span><br></pre></td></tr></tbody></table></figure>
 <p>显示这个就说明装好了。</p>
-<pre class="text"><code>no datasets available</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">no datasets available</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="卸载"><a href="#卸载">¶</a> 卸载</h2>
-<pre class="shell"><code>sudo yum remove zfs-release
-# https://stackoverflow.com/a/25500911
-rpm -e --nodeps $(yum list installed | grep zfs | awk '{ print $1 }')
-# https://superuser.com/questions/513159/how-to-remove-systemd-services
-sudo systemctl daemon-reload
-sudo systemctl reset-failed</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo yum remove zfs-release</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/a/25500911</span></span><br><span class="line">rpm -e --nodeps $(yum list installed | grep zfs | awk '{ print $1 }')</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://superuser.com/questions/513159/how-to-remove-systemd-services</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl reset-failed</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p>官方教程：<a target="_blank" rel="noopener" href="https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html" class="uri">https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/openzfs/zfs" class="uri">https://github.com/openzfs/zfs</a></p>

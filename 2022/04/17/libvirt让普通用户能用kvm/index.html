@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,26 +8141,18 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有些发行版中，普通用户可能没法用KVM：</p>
-<pre class="shell"><code>virsh capabilities | grep domain</code></pre>
-<pre class="text"><code>      &lt;domain type='qemu'/&gt;
-      &lt;domain type='qemu'/&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh capabilities | grep domain</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">&lt;domain type='qemu'/&gt;</span><br><span class="line">&lt;domain type='qemu'/&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>作为对比：</p>
-<pre class="shell"><code>sudo virsh capabilities | grep domain</code></pre>
-<pre class="text"><code>      &lt;domain type='qemu'/&gt;
-      &lt;domain type='kvm'/&gt;
-      &lt;domain type='qemu'/&gt;
-      &lt;domain type='kvm'/&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo virsh capabilities | grep domain</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">&lt;domain type='qemu'/&gt;</span><br><span class="line">&lt;domain type='kvm'/&gt;</span><br><span class="line">&lt;domain type='qemu'/&gt;</span><br><span class="line">&lt;domain type='kvm'/&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>所以应该是权限问题，<code>stat /dev/kvm</code>：</p>
-<pre class="text"><code>Access: (0660/crw-rw----)  Uid: (    0/    root)   Gid: (  106/     kvm)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Access: (0660/crw-rw----)  Uid: (    0/    root)   Gid: (  106/     kvm)</span><br></pre></td></tr></tbody></table></figure>
 <p>解决方案就是将用户添加进<code>kvm</code>（好像不用加入<code>libvirt</code>？）：</p>
-<pre class="shell"><code># sudo usermod -aG libvirt $USER
-sudo usermod -aG kvm $USER</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">sudo usermod -aG libvirt <span class="variable">$USER</span></span></span><br><span class="line">sudo usermod -aG kvm $USER</span><br></pre></td></tr></tbody></table></figure>
 <p>然后重新登录，运行<code>id</code>确认已经加入<code>kvm</code>组了，然后：</p>
-<pre class="shell"><code>virsh capabilities | grep domain</code></pre>
-<pre class="text"><code>      &lt;domain type='qemu'/&gt;
-      &lt;domain type='kvm'/&gt;
-      &lt;domain type='qemu'/&gt;
-      &lt;domain type='kvm'/&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh capabilities | grep domain</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">&lt;domain type='qemu'/&gt;</span><br><span class="line">&lt;domain type='kvm'/&gt;</span><br><span class="line">&lt;domain type='qemu'/&gt;</span><br><span class="line">&lt;domain type='kvm'/&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>就正常了。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/1002043/libvirt-has-no-kvm-capabilities-even-though-qemu-kvm-works" class="uri">https://serverfault.com/questions/1002043/libvirt-has-no-kvm-capabilities-even-though-qemu-kvm-works</a></p>
 <p>ps: CentOS Stream

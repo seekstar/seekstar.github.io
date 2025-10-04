@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,26 +8142,20 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <h3 id="官方脚本"><a href="#官方脚本">¶</a> 官方脚本</h3>
-<pre class="shell"><code># stable版本。升级也是这个命令
-curl -f https://zed.dev/install.sh | sh
-# preview版本。升级也是这个命令
-curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">stable版本。升级也是这个命令</span></span><br><span class="line">curl -f https://zed.dev/install.sh | sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">preview版本。升级也是这个命令</span></span><br><span class="line">curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh</span><br></pre></td></tr></tbody></table></figure>
 <p>安装的zed的命令名字就叫<code>zed</code>。</p>
 <h3 id="flatpak"><a href="#flatpak">¶</a> flatpak</h3>
-<pre class="shell"><code>flatpak install dev.zed.Zed</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak install dev.zed.Zed</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="pacman"><a href="#pacman">¶</a> <code>pacman</code></h3>
-<pre class="shell"><code># ArchLinux。命令名字叫zeditor
-sudo pacman -S zed</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux。命令名字叫zeditor</span></span><br><span class="line">sudo pacman -S zed</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="nix"><a href="#nix">¶</a> Nix</h3>
-<pre class="shell"><code># 目前只有unstable channel有
-nix-channel --update
-nix-env -iA nixpkgs.zed-editor</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">目前只有unstable channel有</span></span><br><span class="line">nix-channel --update</span><br><span class="line">nix-env -iA nixpkgs.zed-editor</span><br></pre></td></tr></tbody></table></figure>
 <p>会调用cargo编译一堆东西</p>
 <h2 id="vulkanerror"><a href="#vulkanerror">¶</a>
 <code>VulkanError</code></h2>
 <p>输入命令<code>zed</code>或者<code>zeditor</code>就可以打开zed编辑器。如果报错<code>VulkanError(ERROR_INCOMPATIBLE_DRIVER)</code>，则需要根据自己的硬件配置安装相应的<code>vulkan</code>包。</p>
 <p>例如我用的是Intel集显，那么就安装<code>vulkan-intel</code>:</p>
-<pre class="shell"><code>sudo pacman -S vulkan-intel</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S vulkan-intel</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/zed-industries/zed/issues/14436#issuecomment-2227309862" class="uri">https://github.com/zed-industries/zed/issues/14436#issuecomment-2227309862</a></p>
 <h2 id="连接到服务器"><a href="#连接到服务器">¶</a> 连接到服务器</h2>
 <p>官方教程：<a target="_blank" rel="noopener" href="https://zed.dev/docs/remote-development" class="uri">https://zed.dev/docs/remote-development</a></p>
@@ -8173,13 +8167,7 @@ nix-env -iA nixpkgs.zed-editor</code></pre>
 <li>删除以前没下载完的文件：<code>rm ~/.zed_server/*.gz</code></li>
 <li>手动下载server：</li>
 </ol>
-<pre class="shell"><code>version=0.175.6
-channel=stable
-cd ~/.zed_server/
-wget https://github.com/zed-industries/zed/releases/download/v$version/zed-remote-server-linux-x86_64.gz
-gzip -d zed-remote-server-linux-x86_64.gz
-mv zed-remote-server-linux-x86_64 zed-remote-server-$channel-$version
-chmod +x zed-remote-server-$channel-$version</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">version=0.175.6</span><br><span class="line">channel=stable</span><br><span class="line">cd ~/.zed_server/</span><br><span class="line">wget https://github.com/zed-industries/zed/releases/download/v$version/zed-remote-server-linux-x86_64.gz</span><br><span class="line">gzip -d zed-remote-server-linux-x86_64.gz</span><br><span class="line">mv zed-remote-server-linux-x86_64 zed-remote-server-$channel-$version</span><br><span class="line">chmod +x zed-remote-server-$channel-$version</span><br></pre></td></tr></tbody></table></figure>
 <p>然后再在zed里尝试连接到服务器就好了。</p>
 <h2 id="常用快捷键"><a href="#常用快捷键">¶</a> 常用快捷键</h2>
 <p>完整的快捷键列表：<a target="_blank" rel="noopener" href="https://zed.dev/docs/key-bindings" class="uri">https://zed.dev/docs/key-bindings</a>。注意，这里面<code>⌘</code>对应<code>ctrl</code>而不是Super/Win键。</p>
@@ -8211,14 +8199,7 @@ chmod +x zed-remote-server-$channel-$version</code></pre>
 </tbody>
 </table>
 <p><code>Newline below</code>默认的快捷键是<code>⌘ + Enter</code>，在Linux上本来对应<code>ctrl+Enter</code>。但这个快捷键被<code>assistant::InlineAssist</code>占用了。所以需要在<code>~/.config/zed/keymap.json</code>里手动指定一下：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"context"</span><span class="fu">:</span> <span class="st">"Editor"</span><span class="fu">,</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"bindings"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"ctrl-enter"</span><span class="fu">:</span> <span class="st">"editor::NewlineBelow"</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+<figure class="highlight json"><table><tbody><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"context"</span><span class="punctuation">:</span> <span class="string">"Editor"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"bindings"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"ctrl-enter"</span><span class="punctuation">:</span> <span class="string">"editor::NewlineBelow"</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></tbody></table></figure>
 <h2 id="settingsjson"><a href="#settingsjson">¶</a>
 <code>settings.json</code></h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://zed.dev/docs/configuring-zed" class="uri">https://zed.dev/docs/configuring-zed</a></p>
@@ -8228,17 +8209,7 @@ chmod +x zed-remote-server-$channel-$version</code></pre>
 </ul>
 <h3 id="按语言配置"><a href="#按语言配置">¶</a> 按语言配置</h3>
 <p>例子：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"languages"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"Markdown"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"tab_size"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"hard_tabs"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"soft_wrap"</span><span class="fu">:</span> <span class="st">"editor_width"</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<figure class="highlight json"><table><tbody><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="attr">"languages"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"Markdown"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"tab_size"</span><span class="punctuation">:</span> <span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"hard_tabs"</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"soft_wrap"</span><span class="punctuation">:</span> <span class="string">"editor_width"</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line">  ...</span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
 <p>支持的语言列表：<a target="_blank" rel="noopener" href="https://zed.dev/docs/languages" class="uri">https://zed.dev/docs/languages</a></p>
 <h2 id="目前的问题"><a href="#目前的问题">¶</a> 目前的问题</h2>
 <ul>

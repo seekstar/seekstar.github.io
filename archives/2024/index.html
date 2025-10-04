@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,8 +8140,7 @@ redshift -b 亮度
 					¶ 宿主机
 sudo apt install nfs-kernel-server
 假设要把$server_dir暴露给NFS的client，那么要把它的owner变成nobody，group变成nogroup：
-sudo mkdir -p $server_dir
-sudo chown nobody:
+sudo mkdir -p $server_dirsudo chown nobody:n
 					...
 				</div>
 			</a>
@@ -8226,14 +8225,10 @@ ASan)。官方文档：https://github.com/google/sanitizers/wiki/AddressSanitize
 				</h2>
 				<div class="index-brief">
 					假设出口网口是end0，入口网口是end1：
-outdev=end0
-indev=end1
-# 子网不要与其他interface的IP重合
-prefix=10.233.233
+outdev=end0indev=end1# 子网不要与其他interface的IP重合prefix=10.233.233
 ¶
 配置入口网口IP
-#nmcli dev set $indev managed no
-ip link set up dev
+#nmcli dev set $indev managed noip link set up dev $in
 					...
 				</div>
 			</a>
@@ -8298,12 +8293,9 @@ token
 https://github.com/settings/tokens
 权限至少要选repo和read:org。
 ¶ 安装gh
-# ArchLinux
-sudo pacman -S github-cli
-# Debian
-sudo apt install gh
+# ArchLinuxsudo pacman -S github-cli# Debiansudo apt install gh
 ¶
-g
+gh a
 					...
 				</div>
 			</a>
@@ -8323,10 +8315,8 @@ g
 				<div class="index-brief">
 					¶ 安装
 ¶ 官方脚本
-# stable版本。升级也是这个命令
-curl -f https://zed.dev/install.sh | sh
-# preview版本。升级也是这个命令
-curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview 
+# stable版本。升级也是这个命令curl -f https://zed.dev/install.sh | sh# preview版本。升级也是这个命令curl -f https://zed.dev/install.sh | ZED_CHANNEL=preview sh
+
 					...
 				</div>
 			</a>

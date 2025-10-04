@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,128 +8141,28 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>假设出口网口是<code>end0</code>，入口网口是<code>end1</code>：</p>
-<pre class="shell"><code>outdev=end0
-indev=end1
-# 子网不要与其他interface的IP重合
-prefix=10.233.233</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">outdev=end0</span><br><span class="line">indev=end1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">子网不要与其他interface的IP重合</span></span><br><span class="line">prefix=10.233.233</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="配置入口网口ip"><a href="#配置入口网口ip">¶</a>
 配置入口网口IP</h2>
-<pre class="shell"><code>#nmcli dev set $indev managed no
-ip link set up dev $indev
-ip addr add $prefix.1/24 dev $indev</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">nmcli dev <span class="built_in">set</span> <span class="variable">$indev</span> managed no</span></span><br><span class="line">ip link set up dev $indev</span><br><span class="line">ip addr add $prefix.1/24 dev $indev</span><br></pre></td></tr></tbody></table></figure>
 <p>但网线拔下来之后这个IP就会消失。可以参考下面的<code>开机自启</code>设置永久静态IP。</p>
 <h2 id="配置dhcp"><a href="#配置dhcp">¶</a> 配置DHCP</h2>
-<pre class="shell"><code>apt install isc-dhcp-server
-
-# 我们不需要IPv6的DHCP，因为IPv6有Router Advertisements
-# https://tomsalmon.eu/2020/02/isc-dhcp-server-disable-dhcpv6-debian-9/
-mv /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.$(date +%s%N)
-echo INTERFACESv4=\"$indev\" &gt; /etc/default/isc-dhcp-server
-
-mv /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)
-
-cat &gt; /etc/dhcp/dhcpd.conf &lt;&lt;EOF
-option domain-name-servers 223.6.6.6;
-option subnet-mask 255.255.255.0;
-option routers $prefix.1;
-subnet $prefix.0 netmask 255.255.255.0 {
-  range $prefix.2 $prefix.254;
-}
-
-default-lease-time 600;
-max-lease-time 7200;
-EOF
-
-systemctl restart isc-dhcp-server</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">apt install isc-dhcp-server</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">我们不需要IPv6的DHCP，因为IPv6有Router Advertisements</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://tomsalmon.eu/2020/02/isc-dhcp-server-disable-dhcpv6-debian-9/</span></span><br><span class="line">mv /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.$(date +%s%N)</span><br><span class="line">echo INTERFACESv4=\"$indev\" &gt; /etc/default/isc-dhcp-server</span><br><span class="line"></span><br><span class="line">mv /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.$(date +%s%N)</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/dhcp/dhcpd.conf &lt;&lt;EOF</span><br><span class="line">option domain-name-servers 223.6.6.6;</span><br><span class="line">option subnet-mask 255.255.255.0;</span><br><span class="line">option routers $prefix.1;</span><br><span class="line">subnet $prefix.0 netmask 255.255.255.0 {</span><br><span class="line">  range $prefix.2 $prefix.254;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">default-lease-time 600;</span><br><span class="line">max-lease-time 7200;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">systemctl restart isc-dhcp-server</span><br></pre></td></tr></tbody></table></figure>
 <p><code>223.6.6.6</code>是阿里的DNS server。其他DNS server: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/32229915/answer/3572478879" class="uri">https://www.zhihu.com/question/32229915/answer/3572478879</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Dhcpd" class="uri">https://wiki.archlinux.org/title/Dhcpd</a></p>
 <h2 id="开启转发"><a href="#开启转发">¶</a> 开启转发</h2>
-<pre class="shell"><code># 查看是否开启了转发
-sysctl net.ipv4.ip_forward
-# 开启转发
-sysctl -w net.ipv4.ip_forward=1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看是否开启了转发</span></span><br><span class="line">sysctl net.ipv4.ip_forward</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启转发</span></span><br><span class="line">sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="配置nat"><a href="#配置nat">¶</a> 配置NAT</h2>
-<pre class="shell"><code>iptables -t nat -A POSTROUTING -s $prefix.0/24 -o $outdev -j MASQUERADE</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s $prefix.0/24 -o $outdev -j MASQUERADE</span><br></pre></td></tr></tbody></table></figure>
 <p>让防火墙不要拦截从indev到outdev的流量：</p>
-<pre class="shell"><code>iptables -t filter -A FORWARD -i $indev -o $outdev -j ACCEPT</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">iptables -t filter -A FORWARD -i $indev -o $outdev -j ACCEPT</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="ipv6-nat"><a href="#ipv6-nat">¶</a> IPv6 NAT</h2>
 <p>一般认为IPv6是不需要NAT的。但是在类似校园网的环境，每个接入的IPv6地址都需要进行认证，这时候就可以用IPv6
 NAT，只需要一个通过认证的IP就可以代理整个子网的流量。</p>
-<pre class="shell"><code># 子网前缀
-prefix6=fd00:1</code></pre>
-<pre class="shell"><code># 生成link local address，这样链路才能工作
-sysctl -w net.ipv6.conf.$indev.addr_gen_mode=0
-
-# 设置静态IP
-ip -6 addr add $prefix6::1/64 dev $indev
-
-# 开启IPv6转发
-sysctl -w net.ipv6.conf.all.forwarding=1
-# 接受router advertisements
-sysctl -w net.ipv6.conf.$indev.accept_ra=2
-
-ip6tables -t nat -A POSTROUTING -o $outdev -j MASQUERADE
-ip6tables -t filter -A FORWARD -i $indev -o $outdev -j ACCEPT</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">子网前缀</span></span><br><span class="line">prefix6=fd00:1</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成<span class="built_in">link</span> <span class="built_in">local</span> address，这样链路才能工作</span></span><br><span class="line">sysctl -w net.ipv6.conf.$indev.addr_gen_mode=0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置静态IP</span></span><br><span class="line">ip -6 addr add $prefix6::1/64 dev $indev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启IPv6转发</span></span><br><span class="line">sysctl -w net.ipv6.conf.all.forwarding=1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">接受router advertisements</span></span><br><span class="line">sysctl -w net.ipv6.conf.$indev.accept_ra=2</span><br><span class="line"></span><br><span class="line">ip6tables -t nat -A POSTROUTING -o $outdev -j MASQUERADE</span><br><span class="line">ip6tables -t filter -A FORWARD -i $indev -o $outdev -j ACCEPT</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="开机自启"><a href="#开机自启">¶</a> 开机自启</h2>
-<pre class="shell"><code>cat &gt;&gt; /etc/network/interfaces &lt;&lt;EOF
-allow-hotplug $indev
-iface $indev inet static
-	address $prefix.1
-	netmask 255.255.255.0
-iface end1 inet6 static
-	address $prefix6::1
-	netmask 64
-EOF
-
-sudo systemctl restart networking
-
-systemctl enable isc-dhcp-server
-
-cat &gt;&gt; /etc/sysctl.conf &lt;&lt;EOF
-net.ipv4.ip_forward=1
-net.ipv6.conf.$indev.addr_gen_mode=0
-net.ipv6.conf.all.forwarding=1
-net.ipv6.conf.$indev.accept_ra=2
-EOF
-sysctl -p
-
-sudo apt install -y iptables-persistent
-# https://serverfault.com/a/714348
-# :&lt;NAME&gt; &lt;DEFAULT_POLICY&gt; [&lt;PACKET_COUNT&gt;:&lt;BYTE_COUNT&gt;]
-# PACKET_COUNT和BYTE_COUNT不重要，这里全部设置为0
-cat &gt; /etc/iptables/rules.v4 &lt;&lt;EOF
-*nat
-:PREROUTING ACCEPT [0:0]
-:INPUT ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-:POSTROUTING ACCEPT [0:0]
--A POSTROUTING -s 10.233.233.0/24 -o end0 -j MASQUERADE
-COMMIT
-
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
--A FORWARD -i end1 -o end0 -j ACCEPT
-COMMIT
-EOF
-
-cat &gt; /etc/iptables/rules.v6 &lt;&lt;EOF
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
--A FORWARD -i end1 -o end0 -j ACCEPT
-COMMIT
-
-*nat
-:PREROUTING ACCEPT [0:0]
-:INPUT ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-:POSTROUTING ACCEPT [0:0]
--A POSTROUTING -o end0 -j MASQUERADE
-COMMIT
-EOF</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cat &gt;&gt; /etc/network/interfaces &lt;&lt;EOF</span><br><span class="line">allow-hotplug $indev</span><br><span class="line">iface $indev inet static</span><br><span class="line">	address $prefix.1</span><br><span class="line">	netmask 255.255.255.0</span><br><span class="line">iface end1 inet6 static</span><br><span class="line">	address $prefix6::1</span><br><span class="line">	netmask 64</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo systemctl restart networking</span><br><span class="line"></span><br><span class="line">systemctl enable isc-dhcp-server</span><br><span class="line"></span><br><span class="line">cat &gt;&gt; /etc/sysctl.conf &lt;&lt;EOF</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">net.ipv6.conf.$indev.addr_gen_mode=0</span><br><span class="line">net.ipv6.conf.all.forwarding=1</span><br><span class="line">net.ipv6.conf.$indev.accept_ra=2</span><br><span class="line">EOF</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line">sudo apt install -y iptables-persistent</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://serverfault.com/a/714348</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">:&lt;NAME&gt; &lt;DEFAULT_POLICY&gt; [&lt;PACKET_COUNT&gt;:&lt;BYTE_COUNT&gt;]</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">PACKET_COUNT和BYTE_COUNT不重要，这里全部设置为0</span></span><br><span class="line">cat &gt; /etc/iptables/rules.v4 &lt;&lt;EOF</span><br><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [0:0]</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -s 10.233.233.0/24 -o end0 -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line"></span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A FORWARD -i end1 -o end0 -j ACCEPT</span><br><span class="line">COMMIT</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/iptables/rules.v6 &lt;&lt;EOF</span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A FORWARD -i end1 -o end0 -j ACCEPT</span><br><span class="line">COMMIT</span><br><span class="line"></span><br><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [0:0]</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -o end0 -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line">EOF</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

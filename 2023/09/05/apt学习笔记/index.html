@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,26 +8142,21 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="查看已安装的包"><a href="#查看已安装的包">¶</a>
 查看已安装的包</h2>
-<pre class="shell"><code>apt list --installed</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">apt list --installed</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="清理apt-cache"><a href="#清理apt-cache">¶</a> 清理apt cache</h2>
-<pre class="shell"><code># https://itsfoss.com/clear-apt-cache/
-sudo apt clean</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://itsfoss.com/clear-apt-cache/</span></span><br><span class="line">sudo apt clean</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="查看依赖关系"><a href="#查看依赖关系">¶</a> 查看依赖关系</h2>
 <p>查看某个包的依赖，以及哪些包依赖这个包：</p>
-<pre class="shell"><code>apt-cache showpkg package_name</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">apt-cache showpkg package_name</span><br></pre></td></tr></tbody></table></figure>
 <p>树形的依赖图：</p>
-<pre class="shell"><code>sudo apt install apt-rdepends
-# 这个包依赖哪些包
-apt-rdepends package_name
-# 哪些包依赖这个包
-apt-rdepends -r package_name</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install apt-rdepends</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个包依赖哪些包</span></span><br><span class="line">apt-rdepends package_name</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">哪些包依赖这个包</span></span><br><span class="line">apt-rdepends -r package_name</span><br></pre></td></tr></tbody></table></figure>
 <p>其他选项：</p>
 <p><code>--state-follow=Installed --state-show=Installed</code>:
 只查看已安装的包。例如：查看哪些已安装的包依赖这个包：<code>apt-rdepends -r package_name --state-follow=Installed --state-show=Installed</code></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_56286468/article/details/131572964">如何查询摸个版本包的依赖关系和被依赖关系</a></p>
 <h2 id="查看手动安装的包"><a href="#查看手动安装的包">¶</a>
 查看手动安装的包</h2>
-<pre class="shell"><code>apt-mark showmanual</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">apt-mark showmanual</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

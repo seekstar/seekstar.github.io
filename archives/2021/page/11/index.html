@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8208,13 +8208,9 @@ import os, shutil
 python逐字符读入
 ¶ 逐行读入
 ¶ stdin
-import sys
-for line in sys.stdin:
-	# 去掉末尾换行符
-	line = line.strip()
-    print(line)
+import sysfor line in sys.stdin:	# 去掉末尾换行符	line = line.strip()    print(line)
 参考
-https://blog.csdn.net/qq_41961
+https://blog.csdn.net/qq_41961459/
 					...
 				</div>
 			</a>
@@ -8233,18 +8229,10 @@ https://blog.csdn.net/qq_41961
 				</h2>
 				<div class="index-brief">
 					比如有一个目录a需要复制：
-mkdir a
-touch a/a
-mkdir a/b
-touch a/b/c
-tree a
-a
-├── a
-└── b
-    └── c
+mkdir atouch a/amkdir a/btouch a/b/ctree a
+a├── a└── b    └── c
 将其复制为目录d只需要用find找出目录下所有的文件，然后用gnu-parallel开多线程逐个复制即可：
-mkdir d
-cd 
+mkdir dcd afind . 
 					...
 				</div>
 			</a>
@@ -8288,11 +8276,10 @@ tmux new -s &lt;session-name&gt;
 				</h2>
 				<div class="index-brief">
 					是因为提供crc32c这个符号的内核模块没有被load。在内核模块的目录下搜一下
-cd /lib/modules/$(uname -r)
-find . -iname "*crc32c*"
+cd /lib/modules/$(uname -r)find . -iname "*crc32c*"
 ./kernel/lib/libcrc32c.ko
 这就是我们要load的模块了。
-sudo modprobe 
+sudo modprobe l
 					...
 				</div>
 			</a>

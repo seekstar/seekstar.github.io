@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8136,16 +8136,7 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					golang的slice相当于对一段连续空间的引用。当底层数组的前面一段空间没有被任何slice引用时，这段连续空间可以被释放。用一个小实验证明这一点：
-package main
-
-import (
-	"fmt"
-	"runtime"
-	"time"
-)
-
-func main() {
-	a := m
+package mainimport (	"fmt"	"runtime"	"time")func main() {	a := make([]boo
 					...
 				</div>
 			</a>
@@ -8163,9 +8154,7 @@ func main() {
 					golang手动触发GC
 				</h2>
 				<div class="index-brief">
-					import "runtime"
-
-runtime.GC()
+					import "runtime"runtime.GC()
 来源：Golang什么时候会触发GC
 
 					...
@@ -8208,11 +8197,7 @@ collection)和引用计数(Reference counting)两大类。
 				</h2>
 				<div class="index-brief">
 					TLP是一款Linux的电源管理软件，装上可以省电。
-sudo pacman -S tlp
-sudo systemctl mask systemd-rfkill.service
-sudo systemctl mask systemd-rfkill.socket
-# sudo tlp start
-# 
+sudo pacman -S tlpsudo systemctl mask systemd-rfkill.servicesudo systemctl mask systemd-rfkill.socket# sudo tlp start# 开机自启
 					...
 				</div>
 			</a>
@@ -8232,9 +8217,7 @@ sudo systemctl mask systemd-rfkill.socket
 				<div class="index-brief">
 					用iostat可以查看各个存储设备的读写带宽占用情况。
 注意单独的一个iostat命令的输出是不准的，因为采样窗口太短了。正确的使用方法如下：
-# 每隔一秒钟打印一次过去的一秒钟里的I/O情况
-iostat 1
-# 收集一秒钟内的I/O情况，然后打印出来。第二个参数的含义是打印两次，只有第二次的才是
+# 每隔一秒钟打印一次过去的一秒钟里的I/O情况iostat 1# 收集一秒钟内的I/O情况，然后打印出来。第二个参数的含义是打印两次，只有第二次的才是准确
 					...
 				</div>
 			</a>
@@ -8253,8 +8236,7 @@ iostat 1
 				</h2>
 				<div class="index-brief">
 					find . -maxdepth 1 ! -path . -exec rm -r {} +
--exec command {} +
-        This  variant of the -exec action runs the specified command on the selected 
+-exec command {} +        This  variant of the -exec action runs the specified command on the selected f
 					...
 				</div>
 			</a>

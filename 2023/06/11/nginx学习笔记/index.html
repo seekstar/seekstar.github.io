@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,16 +8141,7 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="https-server"><a href="#https-server">¶</a> https server</h2>
-<pre class="text"><code>server {
-        listen 端口 ssl http2;
-        listen [::]:端口 ssl http2;
-        server_name __domain_name__;
-        ssl_certificate __cert_dir__/fullchain.cer;
-        ssl_certificate_key __cert_dir__/__domain_name__.key;
-        location / { 
-                root /home/wwwroot/;
-        }   
-}</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">server {</span><br><span class="line">        listen 端口 ssl http2;</span><br><span class="line">        listen [::]:端口 ssl http2;</span><br><span class="line">        server_name __domain_name__;</span><br><span class="line">        ssl_certificate __cert_dir__/fullchain.cer;</span><br><span class="line">        ssl_certificate_key __cert_dir__/__domain_name__.key;</span><br><span class="line">        location / { </span><br><span class="line">                root /home/wwwroot/;</span><br><span class="line">        }   </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="alias--root"><a href="#alias--root">¶</a> alias / root</h2>
 <p><code>alias</code>类似于<code>proxy_pass</code>，会自动把跟location
 match的部分从URI中删掉。而<code>root</code>仍然会保留location里的部分。</p>

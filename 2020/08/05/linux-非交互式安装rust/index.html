@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,58 +8142,18 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="使用官方源"><a href="#使用官方源">¶</a> 使用官方源</h2>
 <p>官网提供的安装方式是交互式的，需要手动输入回车来使用默认配置。</p>
-<pre class="shell"><code>curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></tbody></table></figure>
 <p>其实下载下来的脚本里有使用帮助</p>
-<pre class="shell"><code>rustup-init 1.22.1 (76644d669 2020-07-08)
-The installer for rustup
-
-USAGE:
-    rustup-init [FLAGS] [OPTIONS]
-
-FLAGS:
-    -v, --verbose           Enable verbose output
-    -q, --quiet             Disable progress output
-    -y                      Disable confirmation prompt.
-        --no-modify-path    Don't configure the PATH environment variable
-    -h, --help              Prints help information
-    -V, --version           Prints version information
-
-OPTIONS:
-        --default-host &lt;default-host&gt;              Choose a default host triple
-        --default-toolchain &lt;default-toolchain&gt;    Choose a default toolchain to install
-        --default-toolchain none                   Do not install any toolchains
-        --profile [minimal|default|complete]       Choose a profile
-    -c, --component &lt;components&gt;...                Component name to also install
-    -t, --target &lt;targets&gt;...                      Target name to also install</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">rustup-init 1.22.1 (76644d669 2020-07-08)</span><br><span class="line">The installer for rustup</span><br><span class="line"></span><br><span class="line">USAGE:</span><br><span class="line">    rustup-init [FLAGS] [OPTIONS]</span><br><span class="line"></span><br><span class="line">FLAGS:</span><br><span class="line">    -v, --verbose           Enable verbose output</span><br><span class="line">    -q, --quiet             Disable progress output</span><br><span class="line">    -y                      Disable confirmation prompt.</span><br><span class="line">        --no-modify-path    Don't configure the PATH environment variable</span><br><span class="line">    -h, --help              Prints help information</span><br><span class="line">    -V, --version           Prints version information</span><br><span class="line"></span><br><span class="line">OPTIONS:</span><br><span class="line">        --default-host &lt;default-host&gt;              Choose a default host triple</span><br><span class="line">        --default-toolchain &lt;default-toolchain&gt;    Choose a default toolchain to install</span><br><span class="line">        --default-toolchain none                   Do not install any toolchains</span><br><span class="line">        --profile [minimal|default|complete]       Choose a profile</span><br><span class="line">    -c, --component &lt;components&gt;...                Component name to also install</span><br><span class="line">    -t, --target &lt;targets&gt;...                      Target name to also install</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到<code>-y</code>就是非交互式模式了。<br>
 所以在脚本中写入：</p>
-<pre class="shell"><code>sh &lt;(curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf) -y</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sh &lt;(curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf) -y</span><br></pre></td></tr></tbody></table></figure>
 <p>就可以非交互式安装rust了。</p>
 <h2 id="使用国内镜像"><a href="#使用国内镜像">¶</a> 使用国内镜像</h2>
 <p>详情：<a target="_blank" rel="noopener" href="https://blog.csdn.net/inthat/article/details/106742193">Rust使用国内Crates
 源、 rustup源 |字节跳动新的 Rust 镜像源以及安装rust</a></p>
 <p>这里直接给脚本：</p>
-<pre class="shell"><code>mkdir -p ~/.cargo
-cat &gt;&gt; ~/.cargo/config &lt;&lt;EOF
-[source.crates-io]
-replace-with = 'rsproxy'
-
-[source.rsproxy]
-registry = "https://rsproxy.cn/crates.io-index"
-
-[registries.rsproxy]
-index = "https://rsproxy.cn/crates.io-index"
-
-[net]
-git-fetch-with-cli = true
-EOF
-cat &gt;&gt; ~/.profile &lt;&lt;EOF
-export RUSTUP_DIST_SERVER="https://rsproxy.cn"
-export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
-EOF
-source ~/.profile
-sh &lt;(curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh) -y
-source "$HOME/.cargo/env"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir -p ~/.cargo</span><br><span class="line">cat &gt;&gt; ~/.cargo/config &lt;&lt;EOF</span><br><span class="line">[source.crates-io]</span><br><span class="line">replace-with = 'rsproxy'</span><br><span class="line"></span><br><span class="line">[source.rsproxy]</span><br><span class="line">registry = "https://rsproxy.cn/crates.io-index"</span><br><span class="line"></span><br><span class="line">[registries.rsproxy]</span><br><span class="line">index = "https://rsproxy.cn/crates.io-index"</span><br><span class="line"></span><br><span class="line">[net]</span><br><span class="line">git-fetch-with-cli = true</span><br><span class="line">EOF</span><br><span class="line">cat &gt;&gt; ~/.profile &lt;&lt;EOF</span><br><span class="line">export RUSTUP_DIST_SERVER="https://rsproxy.cn"</span><br><span class="line">export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"</span><br><span class="line">EOF</span><br><span class="line">source ~/.profile</span><br><span class="line">sh &lt;(curl --proto '=https' --tlsv1.2 -sSf https://rsproxy.cn/rustup-init.sh) -y</span><br><span class="line">source "$HOME/.cargo/env"</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

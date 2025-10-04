@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,24 +8142,14 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="问题"><a href="#问题">¶</a> 问题</h1>
 <p><code>kill -2</code>就是发送SIGINT信号。我们期望的行为是，进程接收到SIGINT信号后就停止运行。例如：</p>
-<pre class="shell"><code>yes &gt;/dev/null &amp;
-pid=$!
-echo $pid
-sleep 2
-kill -INT $pid
-sleep 2
-ps aux | grep yes</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">yes &gt;/dev/null &amp;</span><br><span class="line">pid=$!</span><br><span class="line">echo $pid</span><br><span class="line">sleep 2</span><br><span class="line">kill -INT $pid</span><br><span class="line">sleep 2</span><br><span class="line">ps aux | grep yes</span><br></pre></td></tr></tbody></table></figure>
 <p>将其保存为<code>kill.sh</code>，让其直接在当前交互式shell里执行：</p>
-<pre class="shell"><code>source kill.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">source kill.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>结果：</p>
-<pre><code>21505
-[1]+  中断                  yes &gt; /dev/null
-searchs+ 21520  0.0  0.0   9168   888 pts/2    S+   22:12   0:00 grep yes</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">21505</span><br><span class="line">[1]+  中断                  yes &gt; /dev/null</span><br><span class="line">searchs+ 21520  0.0  0.0   9168   888 pts/2    S+   22:12   0:00 grep yes</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到这个后台进程被顺利中断了。但是如果用bash执行它：</p>
-<pre class="shell"><code>bash kill.sh</code></pre>
-<pre><code>21981
-searchs+ 21981  100  0.0   8340   748 pts/2    R+   22:14   0:04 yes
-searchs+ 21990  0.0  0.0   9168   892 pts/2    S+   22:14   0:00 grep yes</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">bash kill.sh</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">21981</span><br><span class="line">searchs+ 21981  100  0.0   8340   748 pts/2    R+   22:14   0:04 yes</span><br><span class="line">searchs+ 21990  0.0  0.0   9168   892 pts/2    S+   22:14   0:00 grep yes</span><br></pre></td></tr></tbody></table></figure>
 <p>这时就没有被中断。</p>
 <h1 id="原因"><a href="#原因">¶</a> 原因</h1>
 <p>在交互式shell中，有job

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,25 +8141,15 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p><code>/usr/share/doc/tigervnc/HOWTO.md</code>里有新版本的使用方法。这里放一下简单的用法。</p>
-<pre class="shell"><code>sudo vim /etc/tigervnc/vncserver.users</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo vim /etc/tigervnc/vncserver.users</span><br></pre></td></tr></tbody></table></figure>
 <p>里面加上一行：</p>
-<pre><code>:1=searchstar</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">:1=searchstar</span><br></pre></td></tr></tbody></table></figure>
 <p>其中searchstar是我的用户名，要换成你自己的用户名。</p>
 <p>设置当前用户的vnc密码：</p>
-<pre class="shell"><code>vncpasswd
-restorecon -RFv ~/.vnc</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vncpasswd</span><br><span class="line">restorecon -RFv ~/.vnc</span><br></pre></td></tr></tbody></table></figure>
 <p>开启服务：</p>
-<pre class="shell"><code>sudo systemctl start vncserver@:1
-systemctl status vncserver@:1</code></pre>
-<pre><code>● vncserver@:1.service - Remote desktop service (VNC)
-   Loaded: loaded (/usr/lib/systemd/system/vncserver@.service; disabled; vendor pres&gt;
-   Active: active (running) since Thu 2021-08-12 20:52:48 CST; 3s ago
-  Process: 704047 ExecStart=/usr/libexec/vncsession-start :1 (code=exited, status=0/&gt;
- Main PID: 704054 (vncsession)
-    Tasks: 0 (limit: 817104)
-   Memory: 2.3M
-   CGroup: /system.slice/system-vncserver.slice/vncserver@:1.service
-           ‣ 704054 /usr/sbin/vncsession searchstar :1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl start vncserver@:1</span><br><span class="line">systemctl status vncserver@:1</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">● vncserver@:1.service - Remote desktop service (VNC)</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/vncserver@.service; disabled; vendor pres&gt;</span><br><span class="line">   Active: active (running) since Thu 2021-08-12 20:52:48 CST; 3s ago</span><br><span class="line">  Process: 704047 ExecStart=/usr/libexec/vncsession-start :1 (code=exited, status=0/&gt;</span><br><span class="line"> Main PID: 704054 (vncsession)</span><br><span class="line">    Tasks: 0 (limit: 817104)</span><br><span class="line">   Memory: 2.3M</span><br><span class="line">   CGroup: /system.slice/system-vncserver.slice/vncserver@:1.service</span><br><span class="line">           ‣ 704054 /usr/sbin/vncsession searchstar :1</span><br></pre></td></tr></tbody></table></figure>
 <p>剩下的部分跟原来的一样。可以看这里：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/112909800" class="uri">https://blog.csdn.net/qq_41961459/article/details/112909800</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

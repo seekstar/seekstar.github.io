@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8125,8 +8125,7 @@ mjx-container[display="true"] + br {
 这时windows桌面成了:0.0号桌面
 
 在wsl中安装x11-apps
-
-sudo apt-get 
+sudo apt-get i
 					...
 				</div>
 			</a>
@@ -8145,14 +8144,9 @@ sudo apt-get
 				</h2>
 				<div class="index-brief">
 					参考：https://zhidao.baidu.com/question/331182996978018685.html
-win32 {
-    DEFINES  -= UNICODE
-    LIBS += -lodbc32
-}
-unix {
-    LIBS += -lodbc
-}
-linux属
+win32 {    DEFINES  -= UNICODE    LIBS += -lodbc32}unix {    LIBS += -lodbc}
+linux属于unix
+
 					...
 				</div>
 			</a>
@@ -8175,9 +8169,7 @@ linux属
 ¶ 代码
 在windows下sqlext.h依赖于windows.h。详情看我的另一篇文章
 示例代码：
-#include &lt;iostream&gt;
-
-#
+#include &lt;iostream&gt;#if
 					...
 				</div>
 			</a>
@@ -8196,10 +8188,7 @@ linux属
 				</h2>
 				<div class="index-brief">
 					在windows下sqlext.h依赖于windows.h。
-#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)
-#include &lt;windows.h&gt;
-#endif
-#include &lt;sqlext.h&gt;
+#if defined(_WIN16) || defined(_WIN32) || defined(_WIN64)#include &lt;windows.h&gt;#endif#include &lt;sqlext.h&gt;
 
 					...
 				</div>
@@ -8219,10 +8208,7 @@ linux属
 				</h2>
 				<div class="index-brief">
 					参考：https://sourceforge.net/p/predef/wiki/OperatingSystems/
-#include &lt;stdio.h&gt;
-
-int main() {
-#if defined(_WIN16) || defined(_WIN32) || defined(_W
+#include &lt;stdio.h&gt;int main() {#if defined(_WIN16) || defined(_WIN32) || defined(_WIN6
 					...
 				</div>
 			</a>
@@ -8312,12 +8298,7 @@ layout或者vertical layout），然后使用lay
 				<div class="index-brief">
 					¶
 .clang-format
-# &lt;https://clang.llvm.org/docs/ClangFormatStyleOptions.html&gt;
-
-IndentWidth: 4
-UseTab: Always
-TabWidth: 4
-IndentAccessModifiers: f
+# &lt;https://clang.llvm.org/docs/ClangFormatStyleOptions.html&gt;IndentWidth: 4UseTab: AlwaysTabWidth: 4IndentAccessModifiers: falseA
 					...
 				</div>
 			</a>
@@ -8336,13 +8317,11 @@ IndentAccessModifiers: f
 				</h2>
 				<div class="index-brief">
 					¶ 设置字体
-QFont nullFont;
-nullFont.setItalic(true);
-nullFont.setBold(true);
+QFont nullFont;nullFont.setItalic(true);nullFont.setBold(true);
 这里设置了斜体(italic)和粗体(bold)，字体型号为默认。
 ¶ 设置颜色
 QBrush nullColor(Qt::gray)
-这里设置成灰色。如
+这里设置成灰色。如果想
 					...
 				</div>
 			</a>

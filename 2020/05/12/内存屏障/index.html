@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8151,9 +8151,7 @@ mjx-container[display="true"] + br {
 </ul>
 <p>linux内核中把它们封装成了一些函数。</p>
 <p><code>/linux/arch/x86/um/asm/barrier.h</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define mb()	asm volatile("mfence" : : : "memory")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define rmb()	asm volatile("lfence" : : : "memory")</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define wmb()	asm volatile("sfence" : : : "memory")</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> mb()	asm volatile(<span class="string">"mfence"</span> : : : <span class="string">"memory"</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rmb()	asm volatile(<span class="string">"lfence"</span> : : : <span class="string">"memory"</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> wmb()	asm volatile(<span class="string">"sfence"</span> : : : <span class="string">"memory"</span>)</span></span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/maotianwang/article/details/9154159" class="uri">https://blog.csdn.net/maotianwang/article/details/9154159</a></p>
 <h2 id="c-memory-order"><a href="#c-memory-order">¶</a> C++ memory
 order</h2>

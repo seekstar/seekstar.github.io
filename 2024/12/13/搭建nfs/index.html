@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,27 +8141,23 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="宿主机"><a href="#宿主机">¶</a> 宿主机</h2>
-<pre class="shell"><code>sudo apt install nfs-kernel-server</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install nfs-kernel-server</span><br></pre></td></tr></tbody></table></figure>
 <p>假设要把<code>$server_dir</code>暴露给NFS的client，那么要把它的owner变成<code>nobody</code>，group变成<code>nogroup</code>：</p>
-<pre class="shell"><code>sudo mkdir -p $server_dir
-sudo chown nobody:nogroup $server_dir</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo mkdir -p $server_dir</span><br><span class="line">sudo chown nobody:nogroup $server_dir</span><br></pre></td></tr></tbody></table></figure>
 <p><code>/etc/exports</code>:</p>
-<pre class="text"><code>$server_dir    client_ip(rw,sync,no_subtree_check,all_squash)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">$server_dir    client_ip(rw,sync,no_subtree_check,all_squash)</span><br></pre></td></tr></tbody></table></figure>
 <p>文档：<code>man exports</code></p>
 <p><code>client_ip</code>可以是单个IP，也可以是CIDR：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/998736" class="uri">https://askubuntu.com/a/998736</a></p>
-<pre class="text"><code>all_squash
-       Map all uids and gids to the anonymous user. Useful for NFS-exported public FTP  directories,  news
-       spool directories, etc. The opposite option is no_all_squash, which is the default setting.</code></pre>
-<pre class="shell"><code>sudo systemctl reload nfs-kernel-server</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">all_squash</span><br><span class="line">       Map all uids and gids to the anonymous user. Useful for NFS-exported public FTP  directories,  news</span><br><span class="line">       spool directories, etc. The opposite option is no_all_squash, which is the default setting.</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl reload nfs-kernel-server</span><br></pre></td></tr></tbody></table></figure>
 <p>如果有防火墙的话需要对<code>client_ip</code>放开2049端口。</p>
 <h2 id="客户端"><a href="#客户端">¶</a> 客户端</h2>
-<pre class="shell"><code>sudo apt install nfs-common</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install nfs-common</span><br></pre></td></tr></tbody></table></figure>
 <p>假设要把宿主机上的<code>$server_dir</code>
 mount到<code>$mount_dir</code>上：</p>
-<pre class="shell"><code>sudo mkdir -p $mount_dir
-sudo mount host_ip:$server_dir $mount_dir</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo mkdir -p $mount_dir</span><br><span class="line">sudo mount host_ip:$server_dir $mount_dir</span><br></pre></td></tr></tbody></table></figure>
 <p>如果需要开机自动mount，在<code>/etc/fstab</code>里加入：</p>
-<pre class="shell"><code>host_ip:$server_dir	$mount_dir	nfs4	defaults,nofail	0	0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">host_ip:$server_dir	$mount_dir	nfs4	defaults,nofail	0	0</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题：</h2>
 <ul>
 <li><p>NFS需要客户端的IP来做访问控制。这样如果客户端没有固定IP的话就不行。而且IP很容易伪造，所以只能在局域网里用。</p></li>

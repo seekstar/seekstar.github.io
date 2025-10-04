@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,27 +8141,9 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>据nzh大佬说是没有指定编译器啥的</p>
-<pre><code>cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -G "Unix Makefiles"</code></pre>
-<p>我的CMakeLists.txt</p>
-<pre><code>cmake_minimum_required(VERSION 3.2)
-project(main)
-set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -g -Wall -Wextra -fexceptions")
-set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall -Wextra -fexceptions")
-IF (CMAKE_BUILD_TYPE STREQUAL Debug)
-    ADD_DEFINITIONS(-DDEBUG)
-ENDIF()
-
-aux_source_directory(src SRCS)
-add_executable(${PROJECT_NAME} ${SRCS})
-target_include_directories(${PROJECT_NAME}
-	PRIVATE
-		${PROJECT_SOURCE_DIR}/include
-)
-target_link_libraries(${PROJECT_NAME}
-	PRIVATE
-)
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_auto_type)
-#set(CMAKE_CXX_STANDARD 11)</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -G "Unix Makefiles"</span><br></pre></td></tr></tbody></table></figure>
+<p>我的CMakeLists.txt<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.2)</span><br><span class="line">project(main)</span><br><span class="line">set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -g -Wall -Wextra -fexceptions")</span><br><span class="line">set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall -Wextra -fexceptions")</span><br><span class="line">IF (CMAKE_BUILD_TYPE STREQUAL Debug)</span><br><span class="line">    ADD_DEFINITIONS(-DDEBUG)</span><br><span class="line">ENDIF()</span><br><span class="line"></span><br><span class="line">aux_source_directory(src SRCS)</span><br><span class="line">add_executable(${PROJECT_NAME} ${SRCS})</span><br><span class="line">target_include_directories(${PROJECT_NAME}</span><br><span class="line">	PRIVATE</span><br><span class="line">		${PROJECT_SOURCE_DIR}/include</span><br><span class="line">)</span><br><span class="line">target_link_libraries(${PROJECT_NAME}</span><br><span class="line">	PRIVATE</span><br><span class="line">)</span><br><span class="line">target_compile_features(${PROJECT_NAME} PRIVATE cxx_auto_type)</span><br><span class="line">#set(CMAKE_CXX_STANDARD 11)</span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

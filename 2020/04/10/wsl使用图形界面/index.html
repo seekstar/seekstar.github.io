@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8149,18 +8149,15 @@ mjx-container[display="true"] + br {
 <p><img src="/2020/04/10/wsl%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/20200409223243460.png" alt="在这里插入图片描述"></p>
 <p>这时windows桌面成了<code>:0.0</code>号桌面</p>
 <ul>
-<li>在wsl中安装<code>x11-apps</code></li>
-</ul>
-<pre class="shell"><code>sudo apt-get install x11-apps</code></pre>
-<ul>
+<li>在wsl中安装<code>x11-apps</code><br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-get install x11-apps</span><br></pre></td></tr></tbody></table></figure></li>
 <li>在wsl中设定要使用的桌面</li>
 </ul>
-<pre class="shell"><code>export DISPLAY=:0.0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">export DISPLAY=:0.0</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>测试</li>
 </ul>
-<pre class="shell"><code>sudo apt install -y gedit
-gedit</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y gedit</span><br><span class="line">gedit</span><br></pre></td></tr></tbody></table></figure>
 <p><img src="/2020/04/10/wsl%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/20200409223533172.png" alt="在这里插入图片描述"></p>
 <p>成功在windows桌面打开。</p>
 <p>但是不能输入中文。</p>
@@ -8168,24 +8165,18 @@ gedit</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8404e34feefe" class="uri">https://www.jianshu.com/p/8404e34feefe</a></p>
 <p>先执行上面的使用windows桌面的操作，然后执行下面的步骤。</p>
 <ul>
-<li>安装桌面</li>
-</ul>
-<pre class="shell"><code>sudo apt-get install xfce4-terminal
-sudo apt-get install xfce4</code></pre>
-<ul>
-<li>设置显示设置</li>
-</ul>
-<pre class="shell"><code>export DISPLAY=:0.0
-export LIBGL_ALWAYS_INDIRECT=1</code></pre>
-<ul>
-<li>windows上打开XLaunch<br>
-使用One Window</li>
+<li><p>安装桌面<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-get install xfce4-terminal</span><br><span class="line">sudo apt-get install xfce4</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+<li><p>设置显示设置<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">export DISPLAY=:0.0</span><br><span class="line">export LIBGL_ALWAYS_INDIRECT=1</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+<li><p>windows上打开XLaunch<br>
+使用One Window</p></li>
 </ul>
 <p><img src="/2020/04/10/wsl%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/202004101405281.png" alt="在这里插入图片描述"></p>
 <ul>
-<li>启动桌面</li>
+<li>启动桌面<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">startxfce4</span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
-<pre class="shell"><code>startxfce4</code></pre>
 <p><img src="/2020/04/10/wsl%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/2020041014093694.png" alt="在这里插入图片描述"></p>
 <p>但是还是无法输入中文。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

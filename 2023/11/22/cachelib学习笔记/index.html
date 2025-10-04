@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,16 +8143,15 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="编译"><a href="#编译">¶</a> 编译</h2>
 <p>官方编译教程：<a target="_blank" rel="noopener" href="https://cachelib.org/docs/installation/" class="uri">https://cachelib.org/docs/installation/</a></p>
 <p>Debian 11上的liburing版本是0.7-3，好像太老了，编译会报错</p>
-<pre class="text"><code>error: ‘IORING_SETUP_SQE128’ was not declared in this scope</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">error: ‘IORING_SETUP_SQE128’ was not declared in this scope</span><br></pre></td></tr></tbody></table></figure>
 <p>把它删掉就好了：</p>
-<pre class="shell"><code>sudo apt remove liburing1 liburing-dev</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt remove liburing1 liburing-dev</span><br></pre></td></tr></tbody></table></figure>
 <p>然后编译：</p>
-<pre class="shell"><code>./contrib/build.sh -j</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">./contrib/build.sh -j</span><br></pre></td></tr></tbody></table></figure>
 <p>编译结果默认存在<code>./opt/cachelib</code>里。如果要编译安装到另一个目录，比如<code>$HOME/opt/cachelib</code>：</p>
-<pre class="shell"><code>./contrib/build.sh -j -p $HOME/opt/cachelib</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">./contrib/build.sh -j -p $HOME/opt/cachelib</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，编译安装好了之后是不能移动的，因为里面有些so文件中硬编码了RUNPATH，比如：</p>
-<pre class="text"><code>% readelf -d libthriftprotocol.so.1.0.0 | grep PATH
- 0x000000000000001d (RUNPATH)            Library runpath: [/home/searchstar/opt/cachelib/lib:/usr/local/lib]</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">% readelf -d libthriftprotocol.so.1.0.0 | grep PATH</span><br><span class="line"> 0x000000000000001d (RUNPATH)            Library runpath: [/home/searchstar/opt/cachelib/lib:/usr/local/lib]</span><br></pre></td></tr></tbody></table></figure>
 <p>移动了位置之后就会发生library not found的错误：<a href="/2023/12/25/%E8%A7%A3%E5%86%B3%E6%89%BE%E4%B8%8D%E5%88%B0runpath%E4%B8%8B%E7%9A%84%E5%BA%93%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决找不到RUNPATH下的库的问题">解决找不到RUNPATH下的库的问题</a></p>
 <h3 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h3>
 <h4 id="gcc-internal-error"><a href="#gcc-internal-error">¶</a> gcc
@@ -8160,52 +8159,23 @@ internal error</h4>
 <p>Debian
 11上的gcc版本为<code>10.2.1 20210110</code>，太老了。如果出现了internal
 error的话，可以用<code>nix</code>安装新版本的<code>gcc10</code>：</p>
-<pre class="shell"><code>nix-env -iA nixpkgs.gcc10</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nix-env -iA nixpkgs.gcc10</span><br></pre></td></tr></tbody></table></figure>
 <p><code>nix</code>包管理器教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <h2 id="配置环境变量"><a href="#配置环境变量">¶</a> 配置环境变量</h2>
 <p>把编译安装的目录的绝对路径存入<code>CACHELIB_HOME</code>里，然后在<code>~/.profile</code>里加入如下内容来将其头文件和库暴露出去：</p>
-<pre class="shell"><code>export CPLUS_INCLUDE_PATH=$CACHELIB_HOME/include:$CPLUS_INCLUDE_PATH
-export LIBRARY_PATH=$CACHELIB_HOME/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$CACHELIB_HOME/lib:$LD_LIBRARY_PATH
-export CMAKE_PREFIX_PATH=$CACHELIB_HOME/lib/cmake:$CMAKE_PREFIX_PATH</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">export CPLUS_INCLUDE_PATH=$CACHELIB_HOME/include:$CPLUS_INCLUDE_PATH</span><br><span class="line">export LIBRARY_PATH=$CACHELIB_HOME/lib:$LIBRARY_PATH</span><br><span class="line">export LD_LIBRARY_PATH=$CACHELIB_HOME/lib:$LD_LIBRARY_PATH</span><br><span class="line">export CMAKE_PREFIX_PATH=$CACHELIB_HOME/lib/cmake:$CMAKE_PREFIX_PATH</span><br></pre></td></tr></tbody></table></figure>
 <p>然后<code>source ~/.profile</code></p>
 <h2 id="使用"><a href="#使用">¶</a> 使用</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://cachelib.org/docs/" class="uri">https://cachelib.org/docs/</a></p>
 <h3 id="cmake"><a href="#cmake">¶</a> CMake</h3>
 <p>官方文档里似乎没写。</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(cachelib <span class="ot">REQUIRED</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="dv">${PROJECT_NAME}</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>	<span class="bn">PRIVATE</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>		cachelib</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre class="shell"><code># Additional "FindXXX.cmake" files are here (e.g. FindSodium.cmake)
-CLCMAKE="$workspace/CacheLib/cachelib/cmake"
-CMAKE_PARAMS="-DCMAKE_MODULE_PATH='$CLCMAKE'"
-
-mkdir -p build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo $CMAKE_PARAMS
-make
-cd ..</code></pre>
+<figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(cachelib REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">${PROJECT_NAME}</span></span><br><span class="line">	PRIVATE</span><br><span class="line">		cachelib</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Additional <span class="string">"FindXXX.cmake"</span> files are here (e.g. FindSodium.cmake)</span></span><br><span class="line">CLCMAKE="$workspace/CacheLib/cachelib/cmake"</span><br><span class="line">CMAKE_PARAMS="-DCMAKE_MODULE_PATH='$CLCMAKE'"</span><br><span class="line"></span><br><span class="line">mkdir -p build</span><br><span class="line">cd build</span><br><span class="line">cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo $CMAKE_PARAMS</span><br><span class="line">make</span><br><span class="line">cd ..</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="头文件"><a href="#头文件">¶</a> 头文件</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cachelib/allocator/CacheAllocator.h&gt;</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cachelib/allocator/CacheAllocator.h&gt;</span></span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="hybrid-cache"><a href="#hybrid-cache">¶</a>
 <code>Hybrid Cache</code></h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator<span class="op">::</span>Config lruConfig<span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator<span class="op">::</span>NvmCacheConfig nvmConfig<span class="op">;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>setBlockSize<span class="op">(</span><span class="dv">4096</span><span class="op">);</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>setSimpleFile<span class="op">(</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      options<span class="op">.</span>db_paths<span class="op">[</span><span class="dv">0</span><span class="op">].</span>path <span class="op">+</span> <span class="st">"/cachelib"</span><span class="op">,</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      cachelib_size<span class="op">,</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">true</span> <span class="co">/*truncateFile*/</span><span class="op">);</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  nvmConfig<span class="op">.</span>navyConfig<span class="op">.</span>blockCache<span class="op">().</span>setRegionSize<span class="op">(</span><span class="dv">16</span> <span class="op">*</span> <span class="dv">1024</span> <span class="op">*</span> <span class="dv">1024</span><span class="op">);</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  lruConfig<span class="op">.</span>enableNvmCache<span class="op">(</span>nvmConfig<span class="op">);</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  lruConfig<span class="op">.</span>setAccessConfig<span class="op">({</span><span class="co">/*bucketsPower*/</span> <span class="dv">25</span><span class="op">,</span> <span class="co">/*locksPower*/</span> <span class="dv">10</span><span class="op">})</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span>validate<span class="op">();</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  facebook<span class="op">::</span>cachelib<span class="op">::</span>LruAllocator cache<span class="op">(</span>lruConfig<span class="op">);</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">auto</span> poolId <span class="op">=</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    cache<span class="op">.</span>addPool<span class="op">(</span><span class="st">"default_pool"</span><span class="op">,</span> cache<span class="op">.</span>getCacheMemoryStats<span class="op">().</span>ramCacheSize<span class="op">);</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">facebook::cachelib::LruAllocator::Config lruConfig;</span><br><span class="line">facebook::cachelib::LruAllocator::NvmCacheConfig nvmConfig;</span><br><span class="line">nvmConfig.navyConfig.<span class="built_in">setBlockSize</span>(<span class="number">4096</span>);</span><br><span class="line">nvmConfig.navyConfig.<span class="built_in">setSimpleFile</span>(</span><br><span class="line">    options.db_paths[<span class="number">0</span>].path + <span class="string">"/cachelib"</span>,</span><br><span class="line">    cachelib_size,</span><br><span class="line">    <span class="literal">true</span> <span class="comment">/*truncateFile*/</span>);</span><br><span class="line">nvmConfig.navyConfig.<span class="built_in">blockCache</span>().<span class="built_in">setRegionSize</span>(<span class="number">16</span> * <span class="number">1024</span> * <span class="number">1024</span>);</span><br><span class="line">lruConfig.<span class="built_in">enableNvmCache</span>(nvmConfig);</span><br><span class="line">lruConfig.<span class="built_in">setAccessConfig</span>({<span class="comment">/*bucketsPower*/</span> <span class="number">25</span>, <span class="comment">/*locksPower*/</span> <span class="number">10</span>})</span><br><span class="line">    .<span class="built_in">validate</span>();</span><br><span class="line">facebook::<span class="function">cachelib::LruAllocator <span class="title">cache</span><span class="params">(lruConfig)</span></span>;</span><br><span class="line"><span class="keyword">auto</span> poolId =</span><br><span class="line">  cache.<span class="built_in">addPool</span>(<span class="string">"default_pool"</span>, cache.<span class="built_in">getCacheMemoryStats</span>().ramCacheSize);</span><br></pre></td></tr></tbody></table></figure>
 <p><code>bucketsPower</code>默认是10，也就是默认1024个bucket，<code>locksPower</code>默认是5，也就是32个lock，都太小了，一定要手动调成更大的值。<code>bucketsPower</code>取值教程：<a target="_blank" rel="noopener" href="https://cachelib.org/docs/Cache_Library_User_Guides/Configure_HashTable#choosing-a-good-value" class="uri">https://cachelib.org/docs/Cache_Library_User_Guides/Configure_HashTable#choosing-a-good-value</a></p>
 <h3 id="常用方法"><a href="#常用方法">¶</a> 常用方法</h3>
 <p><code>allocate(poolId, key, value_size)</code>:

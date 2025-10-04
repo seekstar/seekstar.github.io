@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8116,8 +8116,7 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					要生成长度为2048的密钥。。。
-genrsa -out app_private_key.pem   2048
-rsa -in app_private_key.pem -pubout -out app_public_key.pem
+genrsa -out app_private_key.pem   2048rsa -in app_private_key.pem -pubout -out app_public_key.pem
 
 					...
 				</div>
@@ -8137,7 +8136,7 @@ rsa -in app_private_key.pem -pubout -out app_public_key.pem
 				</h2>
 				<div class="index-brief">
 					直接msg-&gt;get_payload().data()就好了。
-std::string里可以装'\0'，用data()就可以访问。
+std::string里可以装’\0’，用data()就可以访问。
 参考：
 https://github.com/zaphoyd/websocketpp/issues/412
 
@@ -8159,13 +8158,7 @@ https://github.com/zaphoyd/websocketpp/issues/412
 				</h2>
 				<div class="index-brief">
 					chroot_ln_file.sh
-#!/bin/bash
-
-mkdir -p $(dirname $2/$1)
-ln $1 $2/$1 &amp;&gt; /dev/null
-ori=$(readlink $1)
-if [ -n "$ori" ]; then
-	real=$(realpath -s
+#!/bin/bashmkdir -p $(dirname $2/$1)ln $1 $2/$1 &amp;&gt; /dev/nullori=$(readlink $1)if [ -n "$ori" ]; then	real=$(realpath -s $ori)
 					...
 				</div>
 			</a>
@@ -8184,9 +8177,7 @@ if [ -n "$ori" ]; then
 				</h2>
 				<div class="index-brief">
 					用realpath即可。
-searchstar@searchstar-PC:/tmp/test$ ls
-chroot  test2.sh  test3.sh  test4.sh  test5.sh  test.sh
-searchstar@searchstar-PC:/tmp/test$ realpa
+searchstar@searchstar-PC:/tmp/test$ lschroot  test2.sh  test3.sh  test4.sh  test5.sh  test.shsearchstar@searchstar-PC:/tmp/test$ realpath
 					...
 				</div>
 			</a>

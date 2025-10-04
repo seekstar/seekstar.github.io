@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,15 +8141,14 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>首先安装<code>setfacl</code>:</p>
-<pre class="shell"><code># Debian
-sudo apt install acl</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian</span></span><br><span class="line">sudo apt install acl</span><br></pre></td></tr></tbody></table></figure>
 <p>（可选）首先设置<code>setgid</code>，使得在这个目录下新建的文件和目录都继承这个目录的组：</p>
-<pre class="shell"><code>chmod g+s &lt;directory&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">chmod g+s &lt;directory&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>然后用<code>setfacl</code>设置这个目录下面新建文件或者目录时的默认权限。例如让这个目录下面新建的目录的group权限默认为<code>rwx</code>：</p>
-<pre class="shell"><code>setfacl -d -m g::rwx &lt;directory&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">setfacl -d -m g::rwx &lt;directory&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>注意此时这个目录下面新建的文件的group权限默认为<code>rw</code>，没有可执行权限<code>x</code>。</p>
 <p>如果要让这个目录下面所有的子目录，以及以后新建的目录都有这个默认权限，那么可以用<code>-R</code>选项：</p>
-<pre class="shell"><code>setfacl -d -m g::rwx -R &lt;directory&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">setfacl -d -m g::rwx -R &lt;directory&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/1314/how-to-set-default-file-permissions-for-all-folders-files-in-a-directory" class="uri">https://unix.stackexchange.com/questions/1314/how-to-set-default-file-permissions-for-all-folders-files-in-a-directory</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

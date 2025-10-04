@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,14 +8143,12 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>XFCE是一款轻量级桌面环境，但是上手并不容易。本文介绍其基础用法。</p>
 <h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <h3 id="archlinux"><a href="#archlinux">¶</a> ArchLinux</h3>
-<pre class="shell"><code>sudo pacman -S xfce4</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xfce4</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="centos-9-stream"><a href="#centos-9-stream">¶</a> CentOS 9
 stream</h3>
-<pre class="shell"><code>sudo yum groupinstall Xfce
-sudo yum install sddm
-sudo systemctl enable sddm --now</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo yum groupinstall Xfce</span><br><span class="line">sudo yum install sddm</span><br><span class="line">sudo systemctl enable sddm --now</span><br></pre></td></tr></tbody></table></figure>
 <p>设置默认进入桌面环境：</p>
-<pre class="shell"><code>sudo systemctl set-default graphical.target</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl set-default graphical.target</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/mo5k1m8Ezw/">Centos7更改默认启动桌面（或命令行）模式</a></p>
 <h2 id="调整缩放"><a href="#调整缩放">¶</a> 调整缩放</h2>
 <a href="/2023/02/23/xfce%E9%AB%98%E5%88%86%E5%B1%8F%E7%BC%A9%E6%94%BE/" title="xfce高分屏缩放">xfce高分屏缩放</a>
@@ -8162,27 +8160,22 @@ Application Shortcuts</p>
 <p>也可以用命令行来设置快捷键：<a href="/2023/02/23/xfce%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="xfce命令行设置快捷键">xfce命令行设置快捷键</a></p>
 <h2 id="托盘项"><a href="#托盘项">¶</a> 托盘项</h2>
 <h3 id="音量调节"><a href="#音量调节">¶</a> 音量调节</h3>
-<pre class="shell"><code>sudo pacman -S xfce4-pulseaudio-plugin</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xfce4-pulseaudio-plugin</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在右上角的托盘右键，依次点击<code>Panel -&gt; Panel Preferences -&gt; Items -&gt; Add</code>，选择<code>PulseAudio Plugin</code>，点击<code>Add</code>，然后音量调节的托盘项就出现在托盘的最右边了。可以在<code>Items</code>界面调整其位置。</p>
 <p>如果用的是pipewire，需要安装pulseaudio的兼容层：</p>
-<pre class="shell"><code>sudo pacman -S --needed pipewire-pulse</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed pipewire-pulse</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/PipeWire" class="uri">https://wiki.archlinux.org/title/PipeWire</a></p>
 <h3 id="网络管理"><a href="#网络管理">¶</a> 网络管理</h3>
-<pre class="shell"><code># ArchLinux
-sudo pacman -S --needed network-manager-applet
-# Deepin V23
-sudo apt install network-manager-gnome</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux</span></span><br><span class="line">sudo pacman -S --needed network-manager-applet</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Deepin V23</span></span><br><span class="line">sudo apt install network-manager-gnome</span><br></pre></td></tr></tbody></table></figure>
 <p>然后启动<code>nm-applet</code>：<code>nohup nm-applet &amp;</code>，托盘中就会出现网络管理的托盘项了。logout再login之后它会被自动启动。</p>
 <p>在Settings
 Manager里没有网络管理的入口。如果需要管理网络连接，需要右键网络管理的托盘项，选择<code>Edit Connections</code>，里面就可以设置自动连接之类的了。</p>
 <h3 id="蓝牙管理"><a href="#蓝牙管理">¶</a> 蓝牙管理</h3>
-<pre class="shell"><code>sudo pacman -S --needed blueman</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed blueman</span><br></pre></td></tr></tbody></table></figure>
 <p>然后<code>nohup blueman-applet &amp;</code>，托盘中就出现蓝牙管理的托盘项了。重启之后会被自动启动。</p>
 <h2 id="代理"><a href="#代理">¶</a> 代理</h2>
 <p>XFCE的桌面设置中没有提供系统代理的设置。可以将代理设置写入<code>/etc/profile.d/profile.sh</code>，例如：</p>
-<pre class="shell"><code>export http_proxy=http://localhost:端口号/
-export https_proxy=$http_proxy
-export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">export http_proxy=http://localhost:端口号/</span><br><span class="line">export https_proxy=$http_proxy</span><br><span class="line">export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"</span><br></pre></td></tr></tbody></table></figure>
 <p>然后重启即可。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Proxy_server" class="uri">https://wiki.archlinux.org/title/Proxy_server</a></p>
 <h2 id="翻转滚动方向"><a href="#翻转滚动方向">¶</a> 翻转滚动方向</h2>
@@ -8192,21 +8185,16 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"</code></pre>
 <h4 id="手动交互式配置"><a href="#手动交互式配置">¶</a>
 手动交互式配置</h4>
 <p>首先要把系统设置里的<code>Reverse scroll direction</code>取消勾选。</p>
-<pre class="shell"><code>sudo pacman -S xf86-input-synaptics</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xf86-input-synaptics</span><br></pre></td></tr></tbody></table></figure>
 <p>然后重启。运行<code>synclient</code>，查看<code>VertScrollDelta</code>和<code>HorizScrollDelta</code>的当前值，我的：</p>
-<pre class="text"><code>    VertScrollDelta         = 87
-    HorizScrollDelta        = 87</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">VertScrollDelta         = 87</span><br><span class="line">HorizScrollDelta        = 87</span><br></pre></td></tr></tbody></table></figure>
 <p>然后将其设置成原来的相反数：</p>
-<pre class="text"><code>synclient VertScrollDelta=-87
-synclient HorizScrollDelta=-87</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">synclient VertScrollDelta=-87</span><br><span class="line">synclient HorizScrollDelta=-87</span><br></pre></td></tr></tbody></table></figure>
 <p>但是重启之后又会回到原来的状态。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/853262" class="uri">https://askubuntu.com/a/853262</a></p>
 <h4 id="开机自动配置"><a href="#开机自动配置">¶</a> 开机自动配置</h4>
 <p>将下面的命令放入<code>/etc/profile</code>：</p>
-<pre class="shell"><code>old_value=$(synclient | awk '{if ($1 == "VertScrollDelta") { print $3 }}')
-synclient VertScrollDelta=$((-$old_value))
-old_value=$(synclient | awk '{if ($1 == "HorizScrollDelta") { print $3 }}')
-synclient HorizScrollDelta=$((-$old_value))</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">old_value=$(synclient | awk '{if ($1 == "VertScrollDelta") { print $3 }}')</span><br><span class="line">synclient VertScrollDelta=$((-$old_value))</span><br><span class="line">old_value=$(synclient | awk '{if ($1 == "HorizScrollDelta") { print $3 }}')</span><br><span class="line">synclient HorizScrollDelta=$((-$old_value))</span><br></pre></td></tr></tbody></table></figure>
 <p>然后<code>source /etc/profile</code>或者重启即可生效。</p>
 <h3 id="系统设置不推荐"><a href="#系统设置不推荐">¶</a>
 系统设置（不推荐）</h3>
@@ -8218,30 +8206,22 @@ synclient HorizScrollDelta=$((-$old_value))</code></pre>
 <p><code>Settings Manager -&gt; Mouse and Touchpad</code>，<code>Device:</code>选择触摸板，然后选择<code>Touchpad</code>选项卡，勾选<code>Tap touchpad to click</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://forums.linuxmint.com/viewtopic.php?t=272698" class="uri">https://forums.linuxmint.com/viewtopic.php?t=272698</a></p>
 <h2 id="锁屏"><a href="#锁屏">¶</a> 锁屏</h2>
-<pre class="shell"><code># ArchLinux
-sudo pacman -S xfce4-screensaver
-# Debian
-sudo apt install xfce4-screensaver</code></pre>
-<pre class="shell"><code>nohup xfce4-screensaver &amp;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux</span></span><br><span class="line">sudo pacman -S xfce4-screensaver</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian</span></span><br><span class="line">sudo apt install xfce4-screensaver</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nohup xfce4-screensaver &amp;</span><br></pre></td></tr></tbody></table></figure>
 <p>然后左键右上角，点击<code>Lock Screen</code>就可以锁屏了。</p>
 <p>快捷键设置在<code>Settings Manager -&gt; Keyboard -&gt; Application shortcuts -&gt; xflock4</code>。默认是<code>ctrl+alt+L</code>。可以改成<code>Super+L</code>。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Xfce#Lock_the_screen" class="uri">https://wiki.archlinux.org/title/Xfce#Lock_the_screen</a></p>
 <h2 id="剪切板管理工具"><a href="#剪切板管理工具">¶</a>
 剪切板管理工具</h2>
 <h3 id="快捷键"><a href="#快捷键">¶</a> 快捷键</h3>
-<pre class="shell"><code># ArchLinux
-sudo pacman -S xfce4-clipman-plugin
-# Deepin V23
-sudo apt install xfce4-clipman</code></pre>
-<pre class="shell"><code># Deepin V23
-nohup xfce4-clipman &amp;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux</span></span><br><span class="line">sudo pacman -S xfce4-clipman-plugin</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Deepin V23</span></span><br><span class="line">sudo apt install xfce4-clipman</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Deepin V23</span></span><br><span class="line">nohup xfce4-clipman &amp;</span><br></pre></td></tr></tbody></table></figure>
 <p>弹出所有剪切板历史的命令：</p>
-<pre class="shell"><code>xfce4-clipman-history</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xfce4-clipman-history</span><br></pre></td></tr></tbody></table></figure>
 <p>所以将快捷键映射到这个命令即可。用命令行设置快捷键：</p>
-<pre class="shell"><code># Super+v 弹出剪切板历史
-xfconf-query --create -c xfce4-keyboard-shortcuts -p "/commands/custom/&lt;Super&gt;v" -s "xfce4-clipman-history" --type string</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Super+v 弹出剪切板历史</span></span><br><span class="line">xfconf-query --create -c xfce4-keyboard-shortcuts -p "/commands/custom/&lt;Super&gt;v" -s "xfce4-clipman-history" --type string</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="托盘项-1"><a href="#托盘项-1">¶</a> 托盘项</h3>
-<pre class="shell"><code>sudo pacman -S xfce4-clipman-plugin</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xfce4-clipman-plugin</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在右上角的面板右键，依次点击<code>Panel -&gt; Panel Preferences -&gt; Items -&gt; Add</code>，选择Clipman，点击<code>Add</code>，然后托盘项就出现在托盘的最右边了。可以在<code>Items</code>界面调整其位置。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

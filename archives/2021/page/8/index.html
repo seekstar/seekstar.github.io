@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8157,8 +8157,7 @@ mjx-container[display="true"] + br {
 比如：
 echo -n $(echo test)
 输出：
-[searchstar@localhost ~]$ echo -n $(echo test)
-test[searchstar@localhost ~]$
+[searchstar@localhost ~]$ echo -n $(echo test)test[searchstar@localhost ~]$
 
 					...
 				</div>
@@ -8177,16 +8176,7 @@ test[searchstar@localhost ~]$
 					rust运行shell命令并获取输出
 				</h2>
 				<div class="index-brief">
-					use std::io::{BufReader, BufRead};
-use std::process::{self, Command, Stdio};
-
-fn main() {
-    ls();
-    ps();
-    xargs();
-    time();
-    iostat();
-}
+					use std::io::{BufReader, BufRead};use std::process::{self, Command, Stdio};fn main() {    ls();    ps();    xargs();    time();    iostat();}// 不带参数命令
 					...
 				</div>
 			</a>
@@ -8206,8 +8196,7 @@ fn main() {
 				<div class="index-brief">
 					在/proc/[pid]/stat里有该进程的详细信息。其内容的解释可以在man 5 proc里查看（搜/stat）
 相关部分如下：
-(14) utime%lu
-          Amount of time that this process has been scheduled in user
+(14) utime%lu          Amount of time that this process has been scheduled in user 
 					...
 				</div>
 			</a>
@@ -8226,10 +8215,7 @@ fn main() {
 				</h2>
 				<div class="index-brief">
 					tokio = { "version" = "1.10", features = ["full"] }
-use tokio::time;
-
-async fn print() {
-    let mut interval = time::interval(time::Duration::from_se
+use tokio::time;async fn print() {    let mut interval = time::interval(time::Duration::from_secs(
 					...
 				</div>
 			</a>
@@ -8248,10 +8234,9 @@ async fn print() {
 				</h2>
 				<div class="index-brief">
 					比方说监听本地的23333端口，将数据都转发到10.249.40.227的22端口上，可以这样：
-sudo yum install nmap-ncat
-ncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open
+sudo yum install nmap-ncatncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open
 如果要后台运行：
-nohup
+nohup 
 					...
 				</div>
 			</a>
@@ -8270,11 +8255,7 @@ nohup
 				</h2>
 				<div class="index-brief">
 					/etc/network/interfaces里：
-# https://unix.stackexchange.com/a/128662/453838
-allow-hotplug enp0s2
-iface enp0s2 inet static
-	address 10.249.44.127
-	netma
+# https://unix.stackexchange.com/a/128662/453838allow-hotplug enp0s2iface enp0s2 inet static	address 10.249.44.127	netmask 2
 					...
 				</div>
 			</a>
@@ -8293,10 +8274,10 @@ iface enp0s2 inet static
 				</h2>
 				<div class="index-brief">
 					等个几分钟再试试就好了。查看dmesg，发现在输出这几条消息前卡了几分钟：
-random : crng init done
-random: 7 urandom warning(s) missed due to ratelimiting
+random : crng init donerandom: 7 urandom warning(s) missed due to ratelimiting
 于是猜测是因为初始化随机数生成器太慢了。根据这篇文章：
 Boot
+
 					...
 				</div>
 			</a>

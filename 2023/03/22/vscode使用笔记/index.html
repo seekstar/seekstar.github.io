@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,25 +8144,11 @@ mjx-container[display="true"] + br {
 Debug: attach到某个进程</h2>
 <p>安装插件：<code>WebFreak</code>的<code>Native Debug</code></p>
 <p>在<code>.vscode/launch.json</code>里：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"version"</span><span class="fu">:</span> <span class="st">"0.2.0"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"configurations"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Attach to PID"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"gdb"</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"request"</span><span class="fu">:</span> <span class="st">"attach"</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"target"</span><span class="fu">:</span> <span class="st">"要attach到的PID"</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"cwd"</span><span class="fu">:</span> <span class="st">"${workspaceRoot}"</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"valuesFormatting"</span><span class="fu">:</span> <span class="st">"parseText"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<figure class="highlight json"><table><tbody><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"version"</span><span class="punctuation">:</span> <span class="string">"0.2.0"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"configurations"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"Attach to PID"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"gdb"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"request"</span><span class="punctuation">:</span> <span class="string">"attach"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"target"</span><span class="punctuation">:</span> <span class="string">"要attach到的PID"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"cwd"</span><span class="punctuation">:</span> <span class="string">"${workspaceRoot}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"valuesFormatting"</span><span class="punctuation">:</span> <span class="string">"parseText"</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
 <h2 id="只对特定语言开启保存时自动格式化"><a href="#只对特定语言开启保存时自动格式化">¶</a>
 只对特定语言开启保存时自动格式化</h2>
 <p>例如只对js开启保存时自动格式化：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">javascript</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<figure class="highlight json"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">"[javascript]"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"editor.formatOnSave"</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
 <p>Language Identifiers: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/languages/identifiers" class="uri">https://code.visualstudio.com/docs/languages/identifiers</a></p>
 <p>补充：</p>
 <table>
@@ -8190,7 +8176,7 @@ Debug: attach到某个进程</h2>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44831313/how-to-exclude-file-extensions-and-languages-from-format-on-save-in-vscode" class="uri">https://stackoverflow.com/questions/44831313/how-to-exclude-file-extensions-and-languages-from-format-on-save-in-vscode</a></p>
 <h2 id="切换字体"><a href="#切换字体">¶</a> 切换字体</h2>
 <p>默认的字体不行，<code>1</code>和<code>l</code>都分不清。可以在<code>Editor: Font Family</code>里更改字体，推荐<code>Hack</code>：</p>
-<pre class="text"><code>'Hack', 'monospace', monospace</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">'Hack', 'monospace', monospace</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

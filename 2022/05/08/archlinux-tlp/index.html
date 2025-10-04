@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,20 +8141,9 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>TLP是一款Linux的电源管理软件，装上可以省电。</p>
-<pre class="shell"><code>sudo pacman -S tlp
-sudo systemctl mask systemd-rfkill.service
-sudo systemctl mask systemd-rfkill.socket
-# sudo tlp start
-# 开机自启
-sudo systemctl enable tlp.service
-sudo systemctl start tlp.service
-# Radio Device Wizard
-sudo pacman -S tlp-rdw
-sudo systemctl enable NetworkManager-dispatcher.service
-sudo systemctl start NetworkManager-dispatcher.service</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S tlp</span><br><span class="line">sudo systemctl mask systemd-rfkill.service</span><br><span class="line">sudo systemctl mask systemd-rfkill.socket</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">sudo tlp start</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开机自启</span></span><br><span class="line">sudo systemctl enable tlp.service</span><br><span class="line">sudo systemctl start tlp.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Radio Device Wizard</span></span><br><span class="line">sudo pacman -S tlp-rdw</span><br><span class="line">sudo systemctl enable NetworkManager-dispatcher.service</span><br><span class="line">sudo systemctl start NetworkManager-dispatcher.service</span><br></pre></td></tr></tbody></table></figure>
 <p>临时把电池充满电：</p>
-<pre class="shell"><code># BAT0是内置电池
-sudo tlp setcharge 65 100 BAT0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">BAT0是内置电池</span></span><br><span class="line">sudo tlp setcharge 65 100 BAT0</span><br></pre></td></tr></tbody></table></figure>
 <p><code>man tlp</code>里写<code>sudo tlp fullcharge BAT0</code>也可以临时把电池充满，但是在我的Matebook
 X pro上好像不太管用。。。</p>
 <p>参考：</p>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,10 +8141,7 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>首先，<code>github.com</code>的<code>git@github.com:xxx/xxxx.git</code>使用的其实不是git协议，而是SSH协议，所以如果要代理之，需要配置的其实是SSH代理，在<code>~/.ssh/config</code>里配置如下：</p>
-<pre class="text"><code>Host github.com
-        User git
-        # ProxyCommand netcat -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p
-        ProxyCommand netcat -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">        User git</span><br><span class="line">        # ProxyCommand netcat -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</span><br><span class="line">        ProxyCommand netcat -x &lt;socks_host&gt;:&lt;socks_port&gt; %h %p</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>%h</code>表示host，<code>%p</code>表示port。</p>
 <p>注意这里的<code>netcat</code>有些教程里是写的<code>nc</code>，但是这是不合适的，因为<code>nc</code>在debian系中指向<code>ncat</code>，而在CentOS中指向<code>netcat</code>，两者是不同的。</p>
 <p>而<code>netcat</code>其实也有很多个变种。在Debian系和CentOS中默认是OpenBSD
@@ -8153,34 +8150,15 @@ netcat，安装方法：</p>
 <ul>
 <li>Arch Linux</li>
 </ul>
-<pre class="shell"><code>sudo pacman -S openbsd-netcat</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S openbsd-netcat</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Network_tools#Netcat" class="uri">https://wiki.archlinux.org/title/Network_tools#Netcat</a></p>
 <ul>
 <li>Debian</li>
 </ul>
-<pre class="shell"><code>sudo apt install netcat-openbsd</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install netcat-openbsd</span><br></pre></td></tr></tbody></table></figure>
 <p>可以用<code>nc.openbsd</code>来指定使用OpenBSD netcat。</p>
 <p><code>man netcat</code>:</p>
-<pre class="text"><code>NAME
-     nc — arbitrary TCP and UDP connections and listens
-
-SYNOPSIS
-     nc [-46bCDdFhklNnrStUuvZz] [-I length] [-i interval] [-M ttl] [-m minttl]
-        [-O length] [-P proxy_username] [-p source_port] [-q seconds] [-s source]
-        [-T keyword] [-V rtable] [-W recvlimit] [-w timeout] [-X proxy_protocol]
-        [-x proxy_address[:port]] [destination] [port]
-
--X proxy_protocol
-        Use proxy_protocol when talking to the proxy server.  Supported protocols
-        are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy).  If the proto‐
-        col is not specified, SOCKS version 5 is used.
-
--x proxy_address[:port]
-        Connect to destination using a proxy at proxy_address and port.  If port
-        is not specified, the well-known port for the proxy protocol is used (1080
-        for SOCKS, 3128 for HTTPS).  An IPv6 address can be specified unambigu‐
-        ously by enclosing proxy_address in square brackets.  A proxy cannot be
-        used with any of the options -lsuU.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">NAME</span><br><span class="line">     nc — arbitrary TCP and UDP connections and listens</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">     nc [-46bCDdFhklNnrStUuvZz] [-I length] [-i interval] [-M ttl] [-m minttl]</span><br><span class="line">        [-O length] [-P proxy_username] [-p source_port] [-q seconds] [-s source]</span><br><span class="line">        [-T keyword] [-V rtable] [-W recvlimit] [-w timeout] [-X proxy_protocol]</span><br><span class="line">        [-x proxy_address[:port]] [destination] [port]</span><br><span class="line"></span><br><span class="line">-X proxy_protocol</span><br><span class="line">        Use proxy_protocol when talking to the proxy server.  Supported protocols</span><br><span class="line">        are 4 (SOCKS v.4), 5 (SOCKS v.5) and connect (HTTPS proxy).  If the proto‐</span><br><span class="line">        col is not specified, SOCKS version 5 is used.</span><br><span class="line"></span><br><span class="line">-x proxy_address[:port]</span><br><span class="line">        Connect to destination using a proxy at proxy_address and port.  If port</span><br><span class="line">        is not specified, the well-known port for the proxy protocol is used (1080</span><br><span class="line">        for SOCKS, 3128 for HTTPS).  An IPv6 address can be specified unambigu‐</span><br><span class="line">        ously by enclosing proxy_address in square brackets.  A proxy cannot be</span><br><span class="line">        used with any of the options -lsuU.</span><br></pre></td></tr></tbody></table></figure>
 <p>如果真的是使用的git协议，那么参考：<a target="_blank" rel="noopener" href="https://yechengfu.com/blog/2015/01/16/use-git-behind-proxy/" class="uri">https://yechengfu.com/blog/2015/01/16/use-git-behind-proxy/</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

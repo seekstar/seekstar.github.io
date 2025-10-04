@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,26 +8142,7 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>在<code>/proc/[pid]/stat</code>里有该进程的详细信息。其内容的解释可以在<code>man 5 proc</code>里查看（搜<code>/stat</code>）</p>
 <p>相关部分如下：</p>
-<pre><code>(14) utime%lu
-          Amount of time that this process has been scheduled in user mode, measured
-          in  clock  ticks  (divide  by  sysconf(_SC_CLK_TCK)).  This includes guest
-          time, guest_time (time spent running a virtual CPU, see  below),  so  that
-          applications  that  are not aware of the guest time field do not lose that
-          time from their calculations.
-
-(15) stime  %lu
-          Amount of time that this process has been scheduled in kernel  mode,  mea‐
-          sured in clock ticks (divide by sysconf(_SC_CLK_TCK)).
-
-(16) cutime  %ld
-          Amount of time that this process's waited-for children have been scheduled
-          in user mode, measured in clock ticks  (divide  by  sysconf(_SC_CLK_TCK)).
-          (See  also  times(2).)   This includes guest time, cguest_time (time spent
-          running a virtual CPU, see below).
-
-(17) cstime  %ld
-          Amount of time that this process's waited-for children have been scheduled
-          in kernel mode, measured in clock ticks (divide by sysconf(_SC_CLK_TCK)).</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">(14) utime%lu</span><br><span class="line">          Amount of time that this process has been scheduled in user mode, measured</span><br><span class="line">          in  clock  ticks  (divide  by  sysconf(_SC_CLK_TCK)).  This includes guest</span><br><span class="line">          time, guest_time (time spent running a virtual CPU, see  below),  so  that</span><br><span class="line">          applications  that  are not aware of the guest time field do not lose that</span><br><span class="line">          time from their calculations.</span><br><span class="line"></span><br><span class="line">(15) stime  %lu</span><br><span class="line">          Amount of time that this process has been scheduled in kernel  mode,  mea‐</span><br><span class="line">          sured in clock ticks (divide by sysconf(_SC_CLK_TCK)).</span><br><span class="line"></span><br><span class="line">(16) cutime  %ld</span><br><span class="line">          Amount of time that this process's waited-for children have been scheduled</span><br><span class="line">          in user mode, measured in clock ticks  (divide  by  sysconf(_SC_CLK_TCK)).</span><br><span class="line">          (See  also  times(2).)   This includes guest time, cguest_time (time spent</span><br><span class="line">          running a virtual CPU, see below).</span><br><span class="line"></span><br><span class="line">(17) cstime  %ld</span><br><span class="line">          Amount of time that this process's waited-for children have been scheduled</span><br><span class="line">          in kernel mode, measured in clock ticks (divide by sysconf(_SC_CLK_TCK)).</span><br></pre></td></tr></tbody></table></figure>
 <p>一个进程里的所有线程的stat文件的内容都是一样的。</p>
 <p>原文：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/132035/obtain-user-and-kernel-time-of-a-running-process" class="uri">https://unix.stackexchange.com/questions/132035/obtain-user-and-kernel-time-of-a-running-process</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,21 +8143,14 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>更新到deepin
 v20之后，新系统的设置里的亮度调节貌似只能调节硬件背光。而我的显示器不支持调节背光，所以设置里的亮度调节失效了。<br>
 解决方案是使用软件背光，并且设置自启。</p>
-<p>先安装redshift。在终端输入</p>
-<pre class="shell"><code>sudo apt install redshift</code></pre>
-<p>在<code>~/.config/autostart</code>里创建文件<code>redshift.desktop</code>，内容：</p>
-<pre><code>[Desktop Entry]
-Version=1.0
-Name=redshift
-Comment=redshift
-Exec=redshift -b 0.3
-Terminal=false
-Type=Application
-Categories=System</code></pre>
-<p>其中的0.3是亮度，可以根据需求换成0.1到1。<br>
+<p>先安装redshift。在终端输入<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install redshift</span><br></pre></td></tr></tbody></table></figure><br>
+在<code>~/.config/autostart</code>里创建文件<code>redshift.desktop</code>，内容：<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Version=1.0</span><br><span class="line">Name=redshift</span><br><span class="line">Comment=redshift</span><br><span class="line">Exec=redshift -b 0.3</span><br><span class="line">Terminal=false</span><br><span class="line">Type=Application</span><br><span class="line">Categories=System</span><br></pre></td></tr></tbody></table></figure><br>
+其中的0.3是亮度，可以根据需求换成0.1到1。<br>
 然后重启就好了。<br>
-如果要立即生效（不重启），可以直接在终端执行</p>
-<pre class="shell"><code>nohup redshift -b 0.3 &amp;</code></pre>
+如果要立即生效（不重启），可以直接在终端执行<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nohup redshift -b 0.3 &amp;</span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

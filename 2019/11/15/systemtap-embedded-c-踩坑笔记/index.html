@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8146,55 +8146,28 @@ mjx-container[display="true"] + br {
 <p>systemtap的embedded C中，不能#include
 &lt;stdio.h&gt;，也不能用printf和print。那怎么打印呢？用STAP_PRINTF。用法与printf一样。</p>
 <p>还可以访问cript中的全局变量。<br>
-官方文档中的示例：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>global var</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>global var2<span class="op">[</span><span class="dv">100</span><span class="op">]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>function increment<span class="op">()</span> <span class="op">%{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* pragma:read:var */</span> <span class="co">/* pragma:write:var */</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* pragma:read:var2 */</span> <span class="co">/* pragma:write:var2 */</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    STAP_GLOBAL_SET_var<span class="op">(</span>STAP_GLOBAL_GET_var<span class="op">()+</span><span class="dv">1</span><span class="op">);</span> <span class="co">//var++</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    STAP_GLOBAL_SET_var2<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> STAP_GLOBAL_GET_var2<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">)+</span><span class="dv">1</span><span class="op">);</span> <span class="co">//var2[1,1]++</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
-<p>注意function中头两行的注释不能删。具体意义看文档。</p>
+官方文档中的示例：<br>
+</p><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">global var</span><br><span class="line">global var2[<span class="number">100</span>]</span><br><span class="line">function <span class="title function_">increment</span><span class="params">()</span> %{</span><br><span class="line">    <span class="comment">/* pragma:read:var */</span> <span class="comment">/* pragma:write:var */</span></span><br><span class="line">    <span class="comment">/* pragma:read:var2 */</span> <span class="comment">/* pragma:write:var2 */</span></span><br><span class="line">    STAP_GLOBAL_SET_var(STAP_GLOBAL_GET_var()+<span class="number">1</span>); <span class="comment">//var++</span></span><br><span class="line">    STAP_GLOBAL_SET_var2(<span class="number">1</span>, <span class="number">1</span>, STAP_GLOBAL_GET_var2(<span class="number">1</span>, <span class="number">1</span>)+<span class="number">1</span>); <span class="comment">//var2[1,1]++</span></span><br><span class="line">%}</span><br></pre></td></tr></tbody></table></figure><br>
+注意function中头两行的注释不能删。具体意义看文档。<p></p>
 <h1 id="返回"><a href="#返回">¶</a> 返回</h1>
 <p>获取一个task_struct的sibling的函数这样写：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>function GetSibling<span class="op">(</span>task<span class="op">:</span><span class="dt">long</span><span class="op">)</span> <span class="op">%{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> task_struct <span class="op">*</span>task <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> task_struct<span class="op">*)</span>STAP_ARG_task<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> list_entry<span class="op">(</span>task<span class="op">-&gt;</span>sibling<span class="op">.</span>next<span class="op">,</span> <span class="kw">struct</span> task_struct<span class="op">,</span> sibling<span class="op">);</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
-<p>报错：</p>
-<pre><code>include/linux/kernel.h:908:41: 错误：expected ‘;’ before ‘(’ token
- #define container_of(ptr, type, member) ({   \
-                                         ^
-include/linux/list.h:374:2: 附注：in expansion of macro ‘container_of’
-  container_of(ptr, type, member)
-  ^
-/tmp/stapcGCPg6/stap_8142d625ec4d0f2acc7a14543f578111_12083_src.c:1416:9: 附注：in expansion of macro ‘list_entry’
-  return list_entry(task-&gt;sibling.next, struct task_struct, sibling);
-         ^
-/tmp/stapcGCPg6/stap_8142d625ec4d0f2acc7a14543f578111_12083_src.c: 在文件作用域：
-cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-Werror]</code></pre>
-<p>看起来好像是编译器出错了。<br>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">function <span class="title function_">GetSibling</span><span class="params">(task:<span class="type">long</span>)</span> %{</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span> =</span> (<span class="keyword">struct</span> task_struct*)STAP_ARG_task;</span><br><span class="line">	<span class="keyword">return</span> list_entry(task-&gt;sibling.next, <span class="keyword">struct</span> task_struct, sibling);</span><br><span class="line">%}</span><br></pre></td></tr></tbody></table></figure>
+<p>报错：<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">include/linux/kernel.h:908:41: 错误：expected ‘;’ before ‘(’ token</span><br><span class="line"> #define container_of(ptr, type, member) ({   \</span><br><span class="line">                                         ^</span><br><span class="line">include/linux/list.h:374:2: 附注：in expansion of macro ‘container_of’</span><br><span class="line">  container_of(ptr, type, member)</span><br><span class="line">  ^</span><br><span class="line">/tmp/stapcGCPg6/stap_8142d625ec4d0f2acc7a14543f578111_12083_src.c:1416:9: 附注：in expansion of macro ‘list_entry’</span><br><span class="line">  return list_entry(task-&gt;sibling.next, struct task_struct, sibling);</span><br><span class="line">         ^</span><br><span class="line">/tmp/stapcGCPg6/stap_8142d625ec4d0f2acc7a14543f578111_12083_src.c: 在文件作用域：</span><br><span class="line">cc1: 错误：无法识别的命令行选项“-Wno-tautological-compare” [-Werror]</span><br></pre></td></tr></tbody></table></figure><br>
+看起来好像是编译器出错了。<br>
 但是原因其实是embedded C不能写return，要写STAP_RETURN。<br>
-所以要改成这样：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>function GetSibling<span class="op">(</span>task<span class="op">:</span><span class="dt">long</span><span class="op">)</span> <span class="op">%{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">struct</span> task_struct <span class="op">*</span>task <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> task_struct<span class="op">*)</span>STAP_ARG_task<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>	STAP_RETURN<span class="op">(</span>list_entry<span class="op">(</span>task<span class="op">-&gt;</span>sibling<span class="op">.</span>next<span class="op">,</span> <span class="kw">struct</span> task_struct<span class="op">,</span> sibling<span class="op">));</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">%}</span></span></code></pre></div>
+所以要改成这样：<br>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">function <span class="title function_">GetSibling</span><span class="params">(task:<span class="type">long</span>)</span> %{</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span> =</span> (<span class="keyword">struct</span> task_struct*)STAP_ARG_task;</span><br><span class="line">	STAP_RETURN(list_entry(task-&gt;sibling.next, <span class="keyword">struct</span> task_struct, sibling));</span><br><span class="line">%}</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="打印路径"><a href="#打印路径">¶</a> 打印路径</h1>
 <p>可以用d_path把struct path解析为绝对路径。centos
-7中d_path的声明如下：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// include/linux/dcache.h</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="dt">char</span> <span class="op">*</span>d_path<span class="op">(</span><span class="dt">const</span> <span class="kw">struct</span> path <span class="op">*,</span> <span class="dt">char</span> <span class="op">*,</span> <span class="dt">int</span><span class="op">);</span></span></code></pre></div>
-<p>其中char*是buffer的首地址，int是buffer的大小。<br>
-注意，d_path的返回值并不是传进去的buffer。直接输出buffer会输出空串。。。</p>
-<p>正确用法示例：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">char</span> full_path<span class="op">[</span>BUFFER_SIZE<span class="op">];</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>STAP_PRINTF<span class="op">(</span><span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> d_path<span class="op">(&amp;(</span>f<span class="op">-&gt;</span>f_path<span class="op">),</span> full_path<span class="op">,</span> BUFFER_SIZE<span class="op">));</span></span></code></pre></div>
-<p>错误用法示例：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">char</span> full_path<span class="op">[</span>BUFFER_SIZE<span class="op">];</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>d_path<span class="op">(&amp;(</span>f<span class="op">-&gt;</span>f_path<span class="op">),</span> full_path<span class="op">,</span> BUFFER_SIZE<span class="op">);</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>STAP_PRINTF<span class="op">(</span><span class="st">"%s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> full_path<span class="op">);</span></span></code></pre></div>
+7中d_path的声明如下：<br>
+</p><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// include/linux/dcache.h</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">char</span> *<span class="title function_">d_path</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> path *, <span class="type">char</span> *, <span class="type">int</span>)</span>;</span><br></pre></td></tr></tbody></table></figure><br>
+其中char*是buffer的首地址，int是buffer的大小。<br>
+注意，d_path的返回值并不是传进去的buffer。直接输出buffer会输出空串。。。<p></p>
+<p>正确用法示例：<br>
+</p><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">char</span> full_path[BUFFER_SIZE];</span><br><span class="line">STAP_PRINTF(<span class="string">"%s\n"</span>, d_path(&amp;(f-&gt;f_path), full_path, BUFFER_SIZE));</span><br></pre></td></tr></tbody></table></figure><br>
+错误用法示例：<br>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">char</span> full_path[BUFFER_SIZE];</span><br><span class="line">d_path(&amp;(f-&gt;f_path), full_path, BUFFER_SIZE);</span><br><span class="line">STAP_PRINTF(<span class="string">"%s\n"</span>, full_path);</span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

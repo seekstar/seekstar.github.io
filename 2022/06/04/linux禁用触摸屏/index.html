@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,20 +8142,9 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有些桌面环境比如KDE没有提供禁用触摸屏的选项。不过可以通过修改配置文件来禁用触摸屏。</p>
 <p>编辑<code>/usr/share/X11/xorg.conf.d/40-libinput.conf</code>，找到<code>touchscreen</code>这项：</p>
-<pre class="text"><code>Section "InputClass"
-        Identifier "libinput touchscreen catchall"
-        MatchIsTouchscreen "on"
-        MatchDevicePath "/dev/input/event*"
-        Driver "libinput"
-EndSection</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Section "InputClass"</span><br><span class="line">        Identifier "libinput touchscreen catchall"</span><br><span class="line">        MatchIsTouchscreen "on"</span><br><span class="line">        MatchDevicePath "/dev/input/event*"</span><br><span class="line">        Driver "libinput"</span><br><span class="line">EndSection</span><br></pre></td></tr></tbody></table></figure>
 <p>加上<code>Option "Ignore" "on"</code>：</p>
-<pre class="text"><code>Section "InputClass"
-        Identifier "libinput touchscreen catchall"
-        MatchIsTouchscreen "on"
-        MatchDevicePath "/dev/input/event*"
-        Driver "libinput"
-        Option "Ignore" "on"
-EndSection</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Section "InputClass"</span><br><span class="line">        Identifier "libinput touchscreen catchall"</span><br><span class="line">        MatchIsTouchscreen "on"</span><br><span class="line">        MatchDevicePath "/dev/input/event*"</span><br><span class="line">        Driver "libinput"</span><br><span class="line">        Option "Ignore" "on"</span><br><span class="line">EndSection</span><br></pre></td></tr></tbody></table></figure>
 <p>然后重启即可。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5QgfpW65SwY">How to
 Disable Touch Screen on any Linux Distribution</a></p>

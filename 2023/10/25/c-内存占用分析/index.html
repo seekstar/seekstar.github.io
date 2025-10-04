@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,61 +8143,25 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="max-resident-set-size-rss"><a href="#max-resident-set-size-rss">¶</a> Max resident set size (RSS)</h2>
 <p>用<code>getrusage</code></p>
 <p>文档：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/getrusage.2.html" class="uri">https://man7.org/linux/man-pages/man2/getrusage.2.html</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/resource.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> getrusage<span class="op">(</span><span class="dt">int</span> who<span class="op">,</span> <span class="kw">struct</span> rusage <span class="op">*</span>usage<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">getrusage</span><span class="params">(<span class="type">int</span> who, <span class="keyword">struct</span> rusage *usage)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="who"><a href="#who">¶</a> <code>who</code></h3>
-<pre class="text"><code>RUSAGE_SELF
-      Return resource usage statistics for the calling process,
-      which is the sum of resources used by all threads in the
-      process.
-
-RUSAGE_CHILDREN
-      Return resource usage statistics for all children of the
-      calling process that have terminated and been waited for.
-      These statistics will include the resources used by
-      grandchildren, and further removed descendants, if all of
-      the intervening descendants waited on their terminated
-      children.
-
-RUSAGE_THREAD (since Linux 2.6.26)
-      Return resource usage statistics for the calling thread.
-      The _GNU_SOURCE feature test macro must be defined (before
-      including any header file) in order to obtain the
-      definition of this constant from &lt;sys/resource.h&gt;.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">RUSAGE_SELF</span><br><span class="line">      Return resource usage statistics for the calling process,</span><br><span class="line">      which is the sum of resources used by all threads in the</span><br><span class="line">      process.</span><br><span class="line"></span><br><span class="line">RUSAGE_CHILDREN</span><br><span class="line">      Return resource usage statistics for all children of the</span><br><span class="line">      calling process that have terminated and been waited for.</span><br><span class="line">      These statistics will include the resources used by</span><br><span class="line">      grandchildren, and further removed descendants, if all of</span><br><span class="line">      the intervening descendants waited on their terminated</span><br><span class="line">      children.</span><br><span class="line"></span><br><span class="line">RUSAGE_THREAD (since Linux 2.6.26)</span><br><span class="line">      Return resource usage statistics for the calling thread.</span><br><span class="line">      The _GNU_SOURCE feature test macro must be defined (before</span><br><span class="line">      including any header file) in order to obtain the</span><br><span class="line">      definition of this constant from &lt;sys/resource.h&gt;.</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="struct-rusage"><a href="#struct-rusage">¶</a>
 <code>struct rusage</code></h3>
 <p>Max RSS是这个域：</p>
-<pre class="shell"><code>long   ru_maxrss;        /* maximum resident set size */</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">long   ru_maxrss;        /* maximum resident set size */</span><br></pre></td></tr></tbody></table></figure>
 <p>单位是KiB，见<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/12050966/13688160" class="uri">https://stackoverflow.com/a/12050966/13688160</a>的第一条评论。</p>
 <p>其他常用的域：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timeval ru_utime<span class="op">;</span> <span class="co">/* user CPU time used */</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> timeval ru_stime<span class="op">;</span> <span class="co">/* system CPU time used */</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">ru_utime</span>;</span> <span class="comment">/* user CPU time used */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">ru_stime</span>;</span> <span class="comment">/* system CPU time used */</span></span><br></pre></td></tr></tbody></table></figure>
 <p>这几个域在Linux上是unmaintained状态，始终是0：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_ixrss<span class="op">;</span>         <span class="co">/* integral shared memory size */</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_idrss<span class="op">;</span>         <span class="co">/* integral unshared data size */</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span>   ru_isrss<span class="op">;</span>         <span class="co">/* integral unshared stack size */</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">long</span>   ru_ixrss;         <span class="comment">/* integral shared memory size */</span></span><br><span class="line"><span class="type">long</span>   ru_idrss;         <span class="comment">/* integral unshared data size */</span></span><br><span class="line"><span class="type">long</span>   ru_isrss;         <span class="comment">/* integral unshared stack size */</span></span><br></pre></td></tr></tbody></table></figure>
 <p>所以目前通过<code>getrusage</code>不能获得current RSS</p>
 <h3 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h3>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/68284459/13688160" class="uri">https://stackoverflow.com/a/68284459/13688160</a></p>
 <h2 id="current-resident-set-size-rss"><a href="#current-resident-set-size-rss">¶</a> Current resident set size
 (RSS)</h2>
 <h3 id="ps"><a href="#ps">¶</a> <code>ps</code></h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>pid <span class="op">=</span> <span class="bu">std::</span>to_string<span class="op">(</span>getpid<span class="op">());</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>string<span class="op"> </span>mem_command <span class="op">=</span> <span class="st">"ps -q "</span> <span class="op">+</span> pid <span class="op">+</span> <span class="st">" -o rss | tail -n 1"</span><span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">FILE</span><span class="op">*</span> pipe <span class="op">=</span> popen<span class="op">(</span>mem_command<span class="op">.</span>c_str<span class="op">(),</span> <span class="st">"r"</span><span class="op">);</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>pipe <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"popen"</span><span class="op">);</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>	rusty_panic<span class="op">();</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>fgets<span class="op">(</span>buf<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>buf<span class="op">),</span> pipe<span class="op">)</span> <span class="op">!=</span> NULL<span class="op">,</span> <span class="st">"buf too short"</span><span class="op">);</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dt">size_t</span> buflen <span class="op">=</span> strlen<span class="op">(</span>buf<span class="op">);</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>buflen <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>rusty_assert<span class="op">(</span>buf<span class="op">[--</span>buflen<span class="op">]</span> <span class="op">==</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">);</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>buf<span class="op">[</span>buflen<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(-</span><span class="dv">1</span> <span class="op">==</span> pclose<span class="op">(</span>pipe<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>	perror<span class="op">(</span><span class="st">"pclose"</span><span class="op">);</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>	rusty_panic<span class="op">();</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">std::string pid = std::<span class="built_in">to_string</span>(<span class="built_in">getpid</span>());</span><br><span class="line">std::string mem_command = <span class="string">"ps -q "</span> + pid + <span class="string">" -o rss | tail -n 1"</span>;</span><br><span class="line">FILE* pipe = <span class="built_in">popen</span>(mem_command.<span class="built_in">c_str</span>(), <span class="string">"r"</span>);</span><br><span class="line"><span class="keyword">if</span> (pipe == <span class="literal">NULL</span>) {</span><br><span class="line">	<span class="built_in">perror</span>(<span class="string">"popen"</span>);</span><br><span class="line">	<span class="built_in">rusty_panic</span>();</span><br><span class="line">}</span><br><span class="line"><span class="built_in">rusty_assert</span>(<span class="built_in">fgets</span>(buf, <span class="built_in">sizeof</span>(buf), pipe) != <span class="literal">NULL</span>, <span class="string">"buf too short"</span>);</span><br><span class="line"><span class="type">size_t</span> buflen = <span class="built_in">strlen</span>(buf);</span><br><span class="line"><span class="built_in">rusty_assert</span>(buflen &gt; <span class="number">0</span>);</span><br><span class="line"><span class="built_in">rusty_assert</span>(buf[--buflen] == <span class="string">'\n'</span>);</span><br><span class="line">buf[buflen] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="number">-1</span> == <span class="built_in">pclose</span>(pipe)) {</span><br><span class="line">	<span class="built_in">perror</span>(<span class="string">"pclose"</span>);</span><br><span class="line">	<span class="built_in">rusty_panic</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p><code>buf</code>里面就是字符串形式的current resident set
 size，单位是KiB：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/683319" class="uri">https://unix.stackexchange.com/a/683319</a></p>
 <p><code>rusty_panic</code>和<code>rusty_assert</code>: <a target="_blank" rel="noopener" href="https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h" class="uri">https://github.com/seekstar/rusty-cpp/blob/main/include/rusty/macro.h</a></p>
@@ -8206,13 +8170,7 @@ size，单位是KiB：<a target="_blank" rel="noopener" href="https://unix.stack
 <p>glibc 2.33之后用<code>mallinfo2</code>。</p>
 <p>Debian 11是2.31，用<code>mallinfo</code>。</p>
 <p>常用的域：</p>
-<pre class="text"><code>uordblks
-      The total number of bytes used by in-use allocations.
-      应该就是真正被应用分配的空间。
-
-fordblks
-      The total number of bytes in free blocks.
-      应该是因为fragmentation没有分配给应用也没有还给OS的空间。</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">uordblks</span><br><span class="line">      The total number of bytes used by in-use allocations.</span><br><span class="line">      应该就是真正被应用分配的空间。</span><br><span class="line"></span><br><span class="line">fordblks</span><br><span class="line">      The total number of bytes in free blocks.</span><br><span class="line">      应该是因为fragmentation没有分配给应用也没有还给OS的空间。</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，这个只对glibc malloc有用。jemalloc这两个域始终为0。</p>
 <h2 id="heaptrack"><a href="#heaptrack">¶</a> heaptrack</h2>
 <p>可以打印出消耗内存最多的地方、申请内存次数最多的地方、临时申请内存最多的地方。</p>
@@ -8221,12 +8179,11 @@ fordblks
 <p>官方文档：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/KDE/heaptrack" class="uri">https://github.com/KDE/heaptrack</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/KDE/heaptrack#heaptrack_print" class="uri">https://github.com/KDE/heaptrack#heaptrack_print</a></p>
-<pre class="shell"><code>sudo apt install heaptrack</code></pre>
-<pre class="shell"><code>heaptrack 可执行文件 参数...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install heaptrack</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">heaptrack 可执行文件 参数...</span><br></pre></td></tr></tbody></table></figure>
 <p>常用参数：</p>
-<pre class="text"><code>-l [ --print-leaks ] [=arg(=1)] (=0)
-      Print backtraces to leaked memory allocations.</code></pre>
-<pre class="shell"><code>heaptrack_print -l 1 xxx.gz &gt; report</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">-l [ --print-leaks ] [=arg(=1)] (=0)</span><br><span class="line">      Print backtraces to leaked memory allocations.</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">heaptrack_print -l 1 xxx.gz &gt; report</span><br></pre></td></tr></tbody></table></figure>
 <p>有几个section:</p>
 <h3 id="most-calls-to-allocation-functions"><a href="#most-calls-to-allocation-functions">¶</a>
 <code>MOST CALLS TO ALLOCATION FUNCTIONS</code></h3>
@@ -8237,12 +8194,12 @@ fordblks
 分配内存的位置</p>
 <p>有很多地方会调用这个位置。所以heaptrack会根据分配内存的总大小从大到小列出调用这个位置的调用栈：</p>
 <p>&lt;内存大小&gt; consumed over &lt;数量&gt; calls from:<br>
-调用栈1...<br>
+调用栈1…<br>
 &lt;内存大小&gt; consumed over &lt;数量&gt; calls from:<br>
-调用栈2...<br>
+调用栈2…<br>
 &lt;内存大小&gt; consumed over &lt;数量&gt; calls from:<br>
-调用栈3...<br>
-...</p>
+调用栈3…<br>
+…</p>
 <h3 id="memory-leaks"><a href="#memory-leaks">¶</a>
 <code>MEMORY LEAKS</code></h3>
 <p>如果开启了<code>--print-leaks</code>就会打印这个section。heaptrack只知道哪些内存最终没有被释放，并不知道这些内存具体是怎么泄漏的。所以在这个section中，heaptrack列出没有被释放的这些内存是在哪里分配的。</p>
@@ -8261,10 +8218,9 @@ memory显著小于heap实际占用的memory：<a target="_blank" rel="noopener" 
 malloc：<a target="_blank" rel="noopener" href="https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/" class="uri">https://runsisi.com/2019/10/18/jemalloc-for-shared-lib/</a></p>
 <p>让整个程序使用tcmalloc或者jemalloc，最保险的方法是用<code>LD_PRELOAD</code>。</p>
 <p>tcmalloc:</p>
-<pre class="shell"><code>sudo apt install libtcmalloc-minimal4
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install libtcmalloc-minimal4</span><br><span class="line">LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...</span><br></pre></td></tr></tbody></table></figure>
 <p>jemalloc:</p>
-<pre class="shell"><code>MALLOC_CONF="dirty_decay_ms:0" LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so 程序 参数...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">MALLOC_CONF="dirty_decay_ms:0" LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so 程序 参数...</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>dirty_decay_ms</code>是用来调节页面free之后多久会还给操作系统。<code>0</code>应该是表示立即归还。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://engineering.linkedin.com/blog/2021/taming-memory-fragmentation-in-venice-with-jemalloc" class="uri">https://engineering.linkedin.com/blog/2021/taming-memory-fragmentation-in-venice-with-jemalloc</a></p>
 <p>文档：</p>
@@ -8279,11 +8235,9 @@ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 程序 参数...</
 memory leaked</h4>
 <h3 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h3>
 <p>似乎跟tcmalloc不兼容。</p>
-<pre class="shell"><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 heaptrack 命令 参数...
-heaptrack_print xxx &gt; report</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4 heaptrack 命令 参数...</span><br><span class="line">heaptrack_print xxx &gt; report</span><br></pre></td></tr></tbody></table></figure>
 <p>会报错：</p>
-<pre class="text"><code>Trace recursion detected - corrupt data file?
-Trace recursion detected - corrupt data file?</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Trace recursion detected - corrupt data file?</span><br><span class="line">Trace recursion detected - corrupt data file?</span><br></pre></td></tr></tbody></table></figure>
 <p>而且<code>heaptrack*</code>文件特别小。应该是完全没有track到内存分配。</p>
 <p>相关：<a target="_blank" rel="noopener" href="https://github.com/microsoft/mimalloc/issues/522" class="uri">https://github.com/microsoft/mimalloc/issues/522</a></p>
 <h2 id="valgrind"><a href="#valgrind">¶</a> valgrind</h2>
@@ -8298,7 +8252,7 @@ Trace recursion detected - corrupt data file?</code></pre>
 <code>cmake</code>的时候加上<code>-DPORTABLE=ON</code>即可。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html" class="uri">https://wanghenshui.github.io/2019/06/02/valgrind-rocksdb.html</a></p>
 <h3 id="内存泄漏分析"><a href="#内存泄漏分析">¶</a> 内存泄漏分析</h3>
-<pre class="shell"><code>valgrind --leak-check=full --log-file=valgrind.txt executable args...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">valgrind --leak-check=full --log-file=valgrind.txt executable args...</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><p><code>--leak-check=full</code>: each individual leak will be
 shown in detail.</p></li>
@@ -8308,32 +8262,18 @@ shown in detail.</p></li>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks" class="uri">https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks</a></p>
 <h2 id="libtcmalloc"><a href="#libtcmalloc">¶</a> libtcmalloc</h2>
 <p>官方文档：<a target="_blank" rel="noopener" href="https://goog-perftools.sourceforge.net/doc/heap_profiler.html" class="uri">https://goog-perftools.sourceforge.net/doc/heap_profiler.html</a></p>
-<pre class="shell"><code># Debian 11
-# libtcmalloc.so
-sudo apt install libgoogle-perftools-dev
-# pprof-symbolize
-sudo apt install google-perftools</code></pre>
-<pre class="shell"><code>mkdir profile
-LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/profile 程序 参数...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian 11</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">libtcmalloc.so</span></span><br><span class="line">sudo apt install libgoogle-perftools-dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pprof-symbolize</span></span><br><span class="line">sudo apt install google-perftools</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir profile</span><br><span class="line">LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" HEAPPROFILE=./profile/profile 程序 参数...</span><br></pre></td></tr></tbody></table></figure>
 <p>默认每申请1GB内存会生成一个这样的文件：</p>
-<pre class="text"><code>&lt;prefix&gt;.0000.heap
-&lt;prefix&gt;.0001.heap
-&lt;prefix&gt;.0002.heap
-...</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">&lt;prefix&gt;.0000.heap</span><br><span class="line">&lt;prefix&gt;.0001.heap</span><br><span class="line">&lt;prefix&gt;.0002.heap</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，生成报告的时候似乎要读取文件里的符号，所以不要重新编译之类的，不然生成的报告里的符号不对。</p>
 <h3 id="生成文本报告"><a href="#生成文本报告">¶</a> 生成文本报告</h3>
-<pre class="shell"><code>google-pprof --text --lines 可执行文件的路径 profile/profile.xxxx.heap</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">google-pprof --text --lines 可执行文件的路径 profile/profile.xxxx.heap</span><br></pre></td></tr></tbody></table></figure>
 <p><code>--text</code>: 不进入interactive模式，而是直接打印报告。</p>
 <p><code>--lines</code>: 输出行号</p>
-<pre class="text"><code>   --add_lib=&lt;file&gt;    Read additional symbols and line info from the given library</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">--add_lib=&lt;file&gt;    Read additional symbols and line info from the given library</span><br></pre></td></tr></tbody></table></figure>
 <p>会打印出内存消耗最多的地方。官方的例子（没有<code>--lines</code>，所以没有行号）：</p>
-<pre class="shell"><code>   255.6  24.7%  24.7%    255.6  24.7% GFS_MasterChunk::AddServer
-   184.6  17.8%  42.5%    298.8  28.8% GFS_MasterChunkTable::Create
-   176.2  17.0%  59.5%    729.9  70.5% GFS_MasterChunkTable::UpdateState
-   169.8  16.4%  75.9%    169.8  16.4% PendingClone::PendingClone
-    76.3   7.4%  83.3%     76.3   7.4% __default_alloc_template::_S_chunk_alloc
-    49.5   4.8%  88.0%     49.5   4.8% hashtable::resize
-   ...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">255.6  24.7%  24.7%    255.6  24.7% GFS_MasterChunk::AddServer</span><br><span class="line">184.6  17.8%  42.5%    298.8  28.8% GFS_MasterChunkTable::Create</span><br><span class="line">176.2  17.0%  59.5%    729.9  70.5% GFS_MasterChunkTable::UpdateState</span><br><span class="line">169.8  16.4%  75.9%    169.8  16.4% PendingClone::PendingClone</span><br><span class="line"> 76.3   7.4%  83.3%     76.3   7.4% __default_alloc_template::_S_chunk_alloc</span><br><span class="line"> 49.5   4.8%  88.0%     49.5   4.8% hashtable::resize</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><p>The first column contains the direct memory use in MB.</p></li>
 <li><p>The fourth column contains memory use by the procedure and all of
@@ -8349,7 +8289,7 @@ the second column.)</p></li>
 <h3 id="生成图片"><a href="#生成图片">¶</a> 生成图片</h3>
 <p>里面有很漂亮的调用关系。</p>
 <p>以svg为例：</p>
-<pre class="shell"><code>google-pprof --svg --lines 可执行文件的路径 profile/profile.xxxx.heap &gt; xxxx.svg</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">google-pprof --svg --lines 可执行文件的路径 profile/profile.xxxx.heap &gt; xxxx.svg</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="存在的问题-1"><a href="#存在的问题-1">¶</a> 存在的问题</h3>
 <p>跑得很慢。这里说libtcmalloc开了heap
 profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>

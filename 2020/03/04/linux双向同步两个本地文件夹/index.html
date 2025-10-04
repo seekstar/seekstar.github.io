@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8148,33 +8148,23 @@ mjx-container[display="true"] + br {
 <li>创建两个进程分别进行单向同步，从而变成了双向同步。</li>
 </ul>
 <h1 id="安装必要程序"><a href="#安装必要程序">¶</a> 安装必要程序：</h1>
-<pre class="shell"><code>sudo apt install -y inotify-tools unison</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y inotify-tools unison</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="单向同步"><a href="#单向同步">¶</a> 单向同步</h1>
-<p>把下面的代码保存为syncto.sh</p>
-<pre class="shell"><code>#/bin/bash
-
-# $1: from
-# $2: to
-unison -batch $1 $2
-inotifywait -mrq -e create,delete,modify,move $1 | while read line; do
-        unison -batch $1 $2
-done</code></pre>
-<ul>
-<li>inotifywait<br>
+<p>把下面的代码保存为syncto.sh<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="variable">$1</span>: from</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="variable">$2</span>: to</span></span><br><span class="line">unison -batch $1 $2</span><br><span class="line">inotifywait -mrq -e create,delete,modify,move $1 | while read line; do</span><br><span class="line">        unison -batch $1 $2</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure><br>
+- inotifywait<br>
 m: (monitor)一直监控<br>
 r: (recursive)递归监测目录<br>
 q: (quite)打印最少（只打印事件）<br>
-e: (event)只监测后面的特定事件</li>
-<li>unison<br>
-batch: 不问任何问题</li>
-</ul>
+e: (event)只监测后面的特定事件<br>
+- unison<br>
+batch: 不问任何问题<p></p>
 <h1 id="双向同步"><a href="#双向同步">¶</a> 双向同步</h1>
-<p>保存为syncboth.sh</p>
-<pre class="shell"><code>nohup syncto.sh $1 $2 &amp;
-nohup syncto.sh $2 $1 &amp;</code></pre>
-<p>然后</p>
-<pre class="shell"><code>bash syncboth.sh dir1/ dir2/</code></pre>
-<p>其中dir1和dir2必须是绝对路径。</p>
+<p>保存为syncboth.sh<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nohup syncto.sh $1 $2 &amp;</span><br><span class="line">nohup syncto.sh $2 $1 &amp;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>然后<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">bash syncboth.sh dir1/ dir2/</span><br></pre></td></tr></tbody></table></figure><br>
+其中dir1和dir2必须是绝对路径。<p></p>
 <p>这样即可同步两个文件夹了（前提是两个文件夹没有冲突的部分。建议先手动同步一下两个文件夹，否则容易出问题）</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

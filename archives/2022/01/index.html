@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,9 +8140,7 @@ sudo apt install man-db
 					列出正在发出声音的程序：
 pacmd list-sink-inputs
 主要看media.name，找到要录制的是哪个，比如这里就是index为2358的那个。然后：
-INDEX=2358
-pactl load-module module-null-sink sink_name=steam
-pact
+INDEX=2358pactl load-module module-null-sink sink_name=steampactl 
 					...
 				</div>
 			</a>
@@ -8165,8 +8163,7 @@ pact
 ¶ 安装SPDK
 Debian 11 安装SPDK
 ¶ （可选）把memlock的限制解除
-sudo bash -c "ulimit -Hl unlimited"
-ulimit -Sl unlimit
+sudo bash -c "ulimit -Hl unlimited"ulimit -Sl unlimite
 					...
 				</div>
 			</a>
@@ -8209,9 +8206,8 @@ git clone https://github.co
 					¶ 基础用法
 ¶ 编译
 git clone https://github.com/brianfrankcooper/YCSB.git
-# 提供mvn命令
-sudo apt install -y maven
-mvn -pl site.ycsb:rocksdb-binding -am clean pac
+# 提供mvn命令sudo apt install -y maven
+mvn -pl site.ycsb:rocksdb-binding -am clean pack
 					...
 				</div>
 			</a>
@@ -8314,12 +8310,11 @@ default-java  java-1.11.0-openjdk-amd64  java-11-openjdk-amd64
 				</h2>
 				<div class="index-brief">
 					用apt-file查看。
-sudo apt install apt-file
-sudo apt-file update
+sudo apt install apt-filesudo apt-file update
 搜索javac是由哪个包提供的：
 apt-file search -x "javac$"
 其中-x表示使用正则表达式。输出：
-bash-completion: /usr/share
+bash-completion: /usr/share/
 					...
 				</div>
 			</a>

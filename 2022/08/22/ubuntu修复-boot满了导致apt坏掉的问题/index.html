@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8146,25 +8146,19 @@ mjx-container[display="true"] + br {
 <p>可以采用这里的方案解决：<a target="_blank" rel="noopener" href="https://askubuntu.com/a/906046" class="uri">https://askubuntu.com/a/906046</a></p>
 <p>思路是先删除<code>/boot</code>里的旧内核，然后再<code>apt --fix-broken install</code>，重新安装这个包，即可解决问题。</p>
 <p>由于旧内核是用<code>apt</code>安装的，不能直接<code>rm</code>删除，而是要先<code>dpkg --purge</code>删除，再<code>rm</code>删除。比如要删掉内核<code>5.13.0-40</code>，先找到对应的包：</p>
-<pre class="shell"><code>apt list --installed | grep 5.13.0-40</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">apt list --installed | grep 5.13.0-40</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>linux-headers-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]
-linux-hwe-5.13-headers-5.13.0-40/focal-updates,focal-updates,focal-security,focal-security,now 5.13.0-40.45~20.04.1 all [installed,automatic]
-linux-image-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]
-linux-modules-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]
-linux-modules-extra-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">linux-headers-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]</span><br><span class="line">linux-hwe-5.13-headers-5.13.0-40/focal-updates,focal-updates,focal-security,focal-security,now 5.13.0-40.45~20.04.1 all [installed,automatic]</span><br><span class="line">linux-image-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]</span><br><span class="line">linux-modules-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]</span><br><span class="line">linux-modules-extra-5.13.0-40-generic/focal-updates,focal-security,now 5.13.0-40.45~20.04.1 amd64 [installed,automatic]</span><br></pre></td></tr></tbody></table></figure>
 <p>然后一次性全<code>purge</code>掉（逐个<code>purge</code>可能会出现循环依赖的问题）：</p>
-<pre class="shell"><code>dpkg --purge linux-headers-5.13.0-40-generic linux-hwe-5.13-headers-5.13.0-40 linux-image-5.13.0-40-generic linux-modules-5.13.0-40-generic linux-modules-extra-5.13.0-40-generic</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dpkg --purge linux-headers-5.13.0-40-generic linux-hwe-5.13-headers-5.13.0-40 linux-image-5.13.0-40-generic linux-modules-5.13.0-40-generic linux-modules-extra-5.13.0-40-generic</span><br></pre></td></tr></tbody></table></figure>
 <p>但是不知道为什么这一步并不会把内核文件删掉，因此再手动把文件删掉：</p>
-<pre class="shell"><code>rm /boot/config-5.13.0-40-generic /boot/System.map-5.13.0-40-generic /boot/initrd.img-5.13.0-40-generic /boot/vmlinuz-5.13.0-40-generic
-rm -r /usr/lib/modules/5.13.0-40-generic</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">rm /boot/config-5.13.0-40-generic /boot/System.map-5.13.0-40-generic /boot/initrd.img-5.13.0-40-generic /boot/vmlinuz-5.13.0-40-generic</span><br><span class="line">rm -r /usr/lib/modules/5.13.0-40-generic</span><br></pre></td></tr></tbody></table></figure>
 <p>然后更新grub：</p>
-<pre class="shell"><code>update-grub</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">update-grub</span><br></pre></td></tr></tbody></table></figure>
 <p>然后<code>apt --fix-broken install</code>就可以了。</p>
 <h2 id="讨论"><a href="#讨论">¶</a> 讨论</h2>
 <p>其实如果能取消需要往<code>/boot</code>里安装新内核的包的安装更好：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/525088/how-to-delete-broken-packages-in-ubuntu" class="uri">https://askubuntu.com/questions/525088/how-to-delete-broken-packages-in-ubuntu</a></p>
-<pre class="shell"><code>sudo dpkg --remove --force-remove-reinstreq package_name
-sudo apt-get update</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo dpkg --remove --force-remove-reinstreq package_name</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></tbody></table></figure>
 <p>但是不知道为什么虽然<code>apt update</code>是成功了，但是此后使用<code>apt install</code>的时候还是会报以前的错，就好像<code>apt</code>不知道那个包已经被删掉了一样。</p>
 <p>而且下面的评论有人说<code>--force-remove-reinstreq</code>是个非常危险的选项。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

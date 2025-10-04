@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,43 +8140,36 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>例如在文件<code>test.txt</code>里写入</p>
-<pre><code>test</code></pre>
-<p>没有换行。</p>
-<p>然后</p>
-<pre class="shell"><code>sha256sum test.txt</code></pre>
-<p>出来的结果是</p>
-<pre><code>f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2  test.txt</code></pre>
-<p>但是在这个网站上<br>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>例如在文件<code>test.txt</code>里写入<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">test</span><br></pre></td></tr></tbody></table></figure><br>
+没有换行。<p></p>
+<p>然后<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sha256sum test.txt</span><br></pre></td></tr></tbody></table></figure><br>
+出来的结果是<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2  test.txt</span><br></pre></td></tr></tbody></table></figure><br>
+但是在这个网站上<br>
 <a target="_blank" rel="noopener" href="http://encode.chahuo.com/" class="uri">http://encode.chahuo.com/</a><br>
-输入test，然后以sha256方式哈希得到的结果是</p>
-<pre><code>9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</code></pre>
-<p>两者不一致。</p>
-<pre class="shell"><code>stat test.txt</code></pre>
-<pre><code>  文件：test.txt
-  大小：5         	块：8          IO 块：4096   普通文件
-设备：10301h/66305d	Inode：270564      硬链接：1
-权限：(0644/-rw-r--r--)  Uid：( 1000/searchstar)   Gid：( 1000/searchstar)
-最近访问：2020-04-23 11:53:08.989247877 +0800
-最近更改：2020-04-23 11:53:03.077686032 +0800
-最近改动：2020-04-23 11:53:03.077686032 +0800
-创建时间：-</code></pre>
-<p>会发现大小为5字节，说明linux的文件中加上了其他东西。<br>
+输入test，然后以sha256方式哈希得到的结果是<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</span><br></pre></td></tr></tbody></table></figure><br>
+两者不一致。<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">stat test.txt</span><br></pre></td></tr></tbody></table></figure><br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">  文件：test.txt</span><br><span class="line">  大小：5         	块：8          IO 块：4096   普通文件</span><br><span class="line">设备：10301h/66305d	Inode：270564      硬链接：1</span><br><span class="line">权限：(0644/-rw-r--r--)  Uid：( 1000/searchstar)   Gid：( 1000/searchstar)</span><br><span class="line">最近访问：2020-04-23 11:53:08.989247877 +0800</span><br><span class="line">最近更改：2020-04-23 11:53:03.077686032 +0800</span><br><span class="line">最近改动：2020-04-23 11:53:03.077686032 +0800</span><br><span class="line">创建时间：-</span><br></pre></td></tr></tbody></table></figure><br>
+会发现大小为5字节，说明linux的文件中加上了其他东西。<br>
 用<code>hexdump</code>来看看到底加上了什么。<br>
 <img src="/2020/04/23/sha256sum%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E5%80%BC%E5%92%8C%E7%9B%B4%E6%8E%A5%E5%93%88%E5%B8%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E4%B8%8D%E4%B8%80%E6%A0%B7/20201026125233724.png" alt="在这里插入图片描述"><br>
 居然是<code>0x0a</code>，也就是<code>\n</code>。为了验证，用vscode打开它看看<br>
 <img src="/2020/04/23/sha256sum%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E5%80%BC%E5%92%8C%E7%9B%B4%E6%8E%A5%E5%93%88%E5%B8%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E4%B8%8D%E4%B8%80%E6%A0%B7/20201026125339199.png" alt="在这里插入图片描述"><br>
 末尾果然多了个换行符。把它去掉，保存。<br>
 <img src="/2020/04/23/sha256sum%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E5%80%BC%E5%92%8C%E7%9B%B4%E6%8E%A5%E5%93%88%E5%B8%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E4%B8%8D%E4%B8%80%E6%A0%B7/20201026125504958.png" alt="在这里插入图片描述"><br>
-文件大小变回4字节了，而且sha256sum的输出也和网站一样了。</p>
-<p>此外，还可以尝试让sha256sum直接从stdin中读入</p>
-<pre class="shell"><code>sha256sum -</code></pre>
-<p>然后输入</p>
-<pre><code>test&lt;EOF&gt;</code></pre>
-<p>其中EOF在linux上一般是ctrl+d。<br>
-然后得到的结果就是</p>
-<pre><code>9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</code></pre>
-<p>与网站上的一致了。</p>
+文件大小变回4字节了，而且sha256sum的输出也和网站一样了。<p></p>
+<p>此外，还可以尝试让sha256sum直接从stdin中读入<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sha256sum -</span><br></pre></td></tr></tbody></table></figure><br>
+然后输入<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">test&lt;EOF&gt;</span><br></pre></td></tr></tbody></table></figure><br>
+其中EOF在linux上一般是ctrl+d。<br>
+然后得到的结果就是<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</span><br></pre></td></tr></tbody></table></figure><br>
+与网站上的一致了。<p></p>
 <h1 id="为什么要自动加一个换行呢"><a href="#为什么要自动加一个换行呢">¶</a> 为什么要自动加一个换行呢？</h1>
 <p>如果没有换行，那就会这样<br>
 <img src="/2020/04/23/sha256sum%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E5%80%BC%E5%92%8C%E7%9B%B4%E6%8E%A5%E5%93%88%E5%B8%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E4%B8%8D%E4%B8%80%E6%A0%B7/20201026130233725.png" alt="在这里插入图片描述"><br>
@@ -8185,10 +8178,9 @@ mjx-container[display="true"] + br {
 <h1 id="vim中禁用自动加换行"><a href="#vim中禁用自动加换行">¶</a>
 vim中禁用自动加换行</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1050640/vim-disable-automatic-newline-at-end-of-file" class="uri">https://stackoverflow.com/questions/1050640/vim-disable-automatic-newline-at-end-of-file</a><br>
-在<code>~/.vimrc</code>中加入</p>
-<pre><code>set noeol
-set nofixendofline</code></pre>
-<p>两个缺一不可，而且只有新建文件时才有用，打开已有文件时仍然不能显示出多加的那个空行。最气的是当没有最后的空行，然后又自己手动加一个，保存关闭再打开之后空行又不显示了。说好的Linux高自由度呢？？？</p>
+在<code>~/.vimrc</code>中加入<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">set noeol</span><br><span class="line">set nofixendofline</span><br></pre></td></tr></tbody></table></figure><br>
+两个缺一不可，而且只有新建文件时才有用，打开已有文件时仍然不能显示出多加的那个空行。最气的是当没有最后的空行，然后又自己手动加一个，保存关闭再打开之后空行又不显示了。说好的Linux高自由度呢？？？<p></p>
 <p>祭奠我逝去的一小时</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

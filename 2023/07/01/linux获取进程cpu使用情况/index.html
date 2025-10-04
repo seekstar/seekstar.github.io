@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,7 +8143,7 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>相关：<a href="/2023/11/14/linux%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8Bcpu%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5/" title="Linux获取线程CPU使用情况">Linux获取线程CPU使用情况</a></p>
 <h2 id="cpu使用率"><a href="#cpu使用率">¶</a> CPU使用率</h2>
 <h3 id="pidstat-推荐"><a href="#pidstat-推荐">¶</a> pidstat (推荐)</h3>
-<pre class="shell"><code>pidstat -p 进程PID -H -u 间隔秒数 | awk '{if(NR&gt;3){print $1,$8}}'</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pidstat -p 进程PID -H -u 间隔秒数 | awk '{if(NR&gt;3){print $1,$8}}'</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><code>-H</code>: Display timestamp in seconds since the epoch.</li>
 <li><code>-u</code>: Report CPU utilization.</li>
@@ -8151,35 +8151,25 @@ mjx-container[display="true"] + br {
 </ul>
 <p>awk可能需要加上<code>fflush(stdout)</code>: <a href="/2022/06/08/awk-fflush/" title="awk fflush">awk fflush</a></p>
 <h3 id="top"><a href="#top">¶</a> top</h3>
-<pre class="shell"><code>top -b -p 进程PID -d 间隔秒数</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">top -b -p 进程PID -d 间隔秒数</span><br></pre></td></tr></tbody></table></figure>
 <p><code>-b</code>: Batch mode.</p>
 <p>配合<code>awk</code>等可以把CPU使用率给提取出来，但是由于CPU使用率在哪一列是根据<code>~/.toprc</code>确定的，所以要做到portable很麻烦。</p>
 <h3 id="ps-不推荐"><a href="#ps-不推荐">¶</a> ps (不推荐)</h3>
 <p>注意，这个方法只能用来获取整个进程生命周期的平均CPU使用率。</p>
-<pre class="shell"><code>ps -q 进程PID -o %cpu</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ps -q 进程PID -o %cpu</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>%CPU
-52.3</code></pre>
-<pre class="text"><code>       %cpu        %CPU      cpu utilization of the process in "##.#" format.  Currently, it is the CPU time used
-                             divided by the time the process has been running (cputime/realtime ratio), expressed
-                             as a percentage.  It will not add up to 100% unless you are lucky.  (alias pcpu).</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">%CPU</span><br><span class="line">52.3</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">%cpu        %CPU      cpu utilization of the process in "##.#" format.  Currently, it is the CPU time used</span><br><span class="line">                      divided by the time the process has been running (cputime/realtime ratio), expressed</span><br><span class="line">                      as a percentage.  It will not add up to 100% unless you are lucky.  (alias pcpu).</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="累积cpu-time"><a href="#累积cpu-time">¶</a> 累积CPU time</h2>
 <h3 id="cc-clock_gettime"><a href="#cc-clock_gettime">¶</a> C/C++:
 <code>clock_gettime</code></h3>
 <p>获取当前进程的CPU时间戳：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">time_t</span> process_cpu_timestamp_ns<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> timespec t<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(-</span><span class="dv">1</span> <span class="op">==</span> clock_gettime<span class="op">(</span>CLOCK_PROCESS_CPUTIME_ID<span class="op">,</span> <span class="op">&amp;</span>t<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    perror<span class="op">(</span><span class="st">"clock_gettime"</span><span class="op">);</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> t<span class="op">.</span>tv_sec <span class="op">*</span> <span class="dv">1000000000</span> <span class="op">+</span> t<span class="op">.</span>tv_nsec<span class="op">;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">time_t</span> <span class="title function_">process_cpu_timestamp_ns</span><span class="params">()</span> {</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">t</span>;</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="number">-1</span> == clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;t)) {</span><br><span class="line">    perror(<span class="string">"clock_gettime"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> t.tv_sec * <span class="number">1000000000</span> + t.tv_nsec;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>两个CPU时间戳相减就是中间进程消耗的CPU time。</p>
 <h3 id="ps"><a href="#ps">¶</a> ps</h3>
 <p>累积CPU time的秒数：</p>
-<pre class="shell"><code>ps -q 进程PID -o cputimes</code></pre>
-<pre class="text"><code>       cputimes    TIME      cumulative CPU time in seconds (alias times).</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ps -q 进程PID -o cputimes</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">cputimes    TIME      cumulative CPU time in seconds (alias times).</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.baeldung.com/linux/process-periodic-cpu-usage" class="uri">https://www.baeldung.com/linux/process-periodic-cpu-usage</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,37 +8142,21 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>这个问题困扰了我很久，受GPT4的指点才解决的，这里记录一下解决问题的过程。</p>
 <h2 id="症状"><a href="#症状">¶</a> 症状</h2>
-<pre class="text"><code>$ ldd rocksdb-kvexe
-        libfolly.so.0.58.0-dev =&gt; /home/admin/opt/cachelib/lib/libfolly.so.0.58.0-dev (0x00007ff382e00000)
-        libthrift-core.so.1.0.0 =&gt; not found
-
-$ ./rocksdb-kvexe 
-./rocksdb-kvexe: error while loading shared libraries: libthrift-core.so.1.0.0: cannot open shared object file: No such file or directory</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">$ ldd rocksdb-kvexe</span><br><span class="line">        libfolly.so.0.58.0-dev =&gt; /home/admin/opt/cachelib/lib/libfolly.so.0.58.0-dev (0x00007ff382e00000)</span><br><span class="line">        libthrift-core.so.1.0.0 =&gt; not found</span><br><span class="line"></span><br><span class="line">$ ./rocksdb-kvexe </span><br><span class="line">./rocksdb-kvexe: error while loading shared libraries: libthrift-core.so.1.0.0: cannot open shared object file: No such file or directory</span><br></pre></td></tr></tbody></table></figure>
 <p>找不到这个库：<code>libthrift-core.so.1.0.0</code>。它在这里：</p>
-<pre class="text"><code>$ stat /home/admin/opt/cachelib/lib/libthrift-core.so.1.0.0
-  File: /home/admin/opt/cachelib/lib/libthrift-core.so.1.0.0
-  Size: 187504          Blocks: 368        IO Block: 4096   regular file
-Device: 259,2   Inode: 950220      Links: 1
-Access: (0644/-rw-r--r--)  Uid: ( 1000/   admin)   Gid: ( 1000/   admin)
-Access: 2023-12-24 16:23:10.233856940 +0000
-Modify: 2023-12-23 12:44:00.000000000 +0000
-Change: 2023-12-23 12:49:50.050831528 +0000
- Birth: 2023-12-23 12:49:50.050831528 +0000</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">$ stat /home/admin/opt/cachelib/lib/libthrift-core.so.1.0.0</span><br><span class="line">  File: /home/admin/opt/cachelib/lib/libthrift-core.so.1.0.0</span><br><span class="line">  Size: 187504          Blocks: 368        IO Block: 4096   regular file</span><br><span class="line">Device: 259,2   Inode: 950220      Links: 1</span><br><span class="line">Access: (0644/-rw-r--r--)  Uid: ( 1000/   admin)   Gid: ( 1000/   admin)</span><br><span class="line">Access: 2023-12-24 16:23:10.233856940 +0000</span><br><span class="line">Modify: 2023-12-23 12:44:00.000000000 +0000</span><br><span class="line">Change: 2023-12-23 12:49:50.050831528 +0000</span><br><span class="line"> Birth: 2023-12-23 12:49:50.050831528 +0000</span><br></pre></td></tr></tbody></table></figure>
 <p>我们检查一下<code>RUNPATH</code>：</p>
-<pre class="shell"><code>readelf -d rocksdb-kvexe | grep PATH
- 0x000000000000001d (RUNPATH)            Library runpath: [/home/admin/rocksdb/build:/home/admin/opt/cachelib/lib]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">readelf -d rocksdb-kvexe | grep PATH</span><br><span class="line"> 0x000000000000001d (RUNPATH)            Library runpath: [/home/admin/rocksdb/build:/home/admin/opt/cachelib/lib]</span><br></pre></td></tr></tbody></table></figure>
 <p>它已经包含了<code>libthrift-core.so.1.0.0</code>所在的目录<code>/home/admin/opt/cachelib/lib</code>。说明<code>RUNPATH</code>没有问题。而且跟它同目录的<code>libfolly.so.0.58.0-dev</code>也找到了，说明问题不是出在binary的<code>RUNPATH</code>上。</p>
 <h2 id="排查问题"><a href="#排查问题">¶</a> 排查问题</h2>
 <p>GPT4建议我用<code>LD_DEBUG=libs</code>来debug链接的过程：</p>
-<pre class="shell"><code>LD_DEBUG=libs ./rocksdb-kvexe</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">LD_DEBUG=libs ./rocksdb-kvexe</span><br></pre></td></tr></tbody></table></figure>
 <p>其中有这样一段：</p>
-<pre class="text"><code>   1654057:     find library=libthrift-core.so.1.0.0 [0]; searching
-   1654057:      search path=/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v4:/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v3:/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v2:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell:/home/admin/CacheLib/opt/cachelib/lib/tls/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/tls/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls:/home/admin/CacheLib/opt/cachelib/lib/haswell/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/haswell/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/haswell/x86_64:/home/admin/CacheLib/opt/cachelib/lib/haswell:/home/admin/CacheLib/opt/cachelib/lib/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/x86_64:/home/admin/CacheLib/opt/cachelib/lib(RUNPATH from file /home/admin/opt/cachelib/lib/libthriftprotocol.so.1.0.0)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">1654057:     find library=libthrift-core.so.1.0.0 [0]; searching</span><br><span class="line">1654057:      search path=/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v4:/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v3:/home/admin/CacheLib/opt/cachelib/lib/glibc-hwcaps/x86-64-v2:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/haswell:/home/admin/CacheLib/opt/cachelib/lib/tls/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/tls/x86_64:/home/admin/CacheLib/opt/cachelib/lib/tls:/home/admin/CacheLib/opt/cachelib/lib/haswell/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/haswell/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/haswell/x86_64:/home/admin/CacheLib/opt/cachelib/lib/haswell:/home/admin/CacheLib/opt/cachelib/lib/avx512_1/x86_64:/home/admin/CacheLib/opt/cachelib/lib/avx512_1:/home/admin/CacheLib/opt/cachelib/lib/x86_64:/home/admin/CacheLib/opt/cachelib/lib(RUNPATH from file /home/admin/opt/cachelib/lib/libthriftprotocol.so.1.0.0)</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到，<code>libthrift-core.so.1.0.0</code>是<code>libthriftprotocol.so.1.0.0</code>的dependency，所以查找<code>libthrift-core.so.1.0.0</code>的时候会在<code>libthriftprotocol.so.1.0.0</code>的RUNPATH而不是<code>rocksdb-kvexe</code>的RUNPATH里找，而<code>libthriftprotocol.so.1.0.0</code>的RUNPATH是错误的，导致了<code>libthrift-core.so.1.0.0</code>找不到。</p>
 <h2 id="解决方案"><a href="#解决方案">¶</a> 解决方案</h2>
 <p>GPT4说可以直接用<code>patchelf --set-rpath</code>来更正library的RUNPATH:</p>
-<pre class="shell"><code>cd ~/opt/cachelib/lib
-patchelf --set-rpath $(pwd) libthriftprotocol.so.1.0.0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cd ~/opt/cachelib/lib</span><br><span class="line">patchelf --set-rpath $(pwd) libthriftprotocol.so.1.0.0</span><br></pre></td></tr></tbody></table></figure>
 <p>问题解决。</p>
 <p>注意不能把RUNPATH设置成相对路径，因为链接器在RUNPATH里找的时候是在当前工作目录解析RUNPATH的，而不会相对于库的路径去解析RUNPATH里的相对路径。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

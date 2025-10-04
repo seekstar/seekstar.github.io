@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,21 +8140,21 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考网址：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28169767" class="uri">https://www.zhihu.com/question/28169767</a></p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考网址：https://www.zhihu.com/question/28169767</p>
 <p>常规方法是修改.vimrc中的sw，然后使用&gt;或者&lt;来缩进。<br>
 如果只是临时需要，比如只需要缩进一格，可以使用vim的norm命令，方法如下。</p>
 <h1 id="批量右移n格"><a href="#批量右移n格">¶</a> 批量右移n格</h1>
 <p>以右移一格为例。<br>
-shift+v进入行选择模式，选完了需要缩进的行之后，输入冒号<code>:</code>，然后vim会自动把<code>'&lt;,'&gt;</code>加上，像这样</p>
-<pre><code>:'&lt;,'&gt;</code></pre>
-<p>然后再输入</p>
-<pre><code>norm I&lt;space&gt;</code></pre>
-<p>其中<code>&lt;space&gt;</code>表示一个空格。再按回车键即可在选中的所有行的前面加上一个空格。<br>
+shift+v进入行选择模式，选完了需要缩进的行之后，输入冒号<code>:</code>，然后vim会自动把<code>'&lt;,'&gt;</code>加上，像这样<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">:'&lt;,'&gt;</span><br></pre></td></tr></tbody></table></figure><br>
+然后再输入<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">norm I&lt;space&gt;</span><br></pre></td></tr></tbody></table></figure><br>
+其中<code>&lt;space&gt;</code>表示一个空格。再按回车键即可在选中的所有行的前面加上一个空格。<br>
 事实上，上述命令可以认为在每行的开头执行<code>I&lt;space&gt;</code>，即插入一个空格。<br>
 # 批量左移n格<br>
-以批量左移2格为例。只需要把上面的命令改成</p>
-<pre><code>norm xx</code></pre>
-<p>即在选中的每行的开头执行<code>xx</code>，即删除两个字符，即可。注意如果前面的空格不足，会把后面的有用的字符删掉。</p>
+以批量左移2格为例。只需要把上面的命令改成<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">norm xx</span><br></pre></td></tr></tbody></table></figure><br>
+即在选中的每行的开头执行<code>xx</code>，即删除两个字符，即可。注意如果前面的空格不足，会把后面的有用的字符删掉。<p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

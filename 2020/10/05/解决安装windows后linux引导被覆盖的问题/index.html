@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8148,18 +8148,17 @@ mjx-container[display="true"] + br {
 <h2 id="方法二重新安装grub"><a href="#方法二重新安装grub">¶</a>
 方法二：重新安装grub</h2>
 <p>先利用启动盘等方式进入live操作系统，然后利用<code>lsblk</code>等方式找到你想用来提供grub界面的linux发行版的分区，假设是<code>/dev/A</code>。然后把这个分区挂载到<code>/mnt</code>：</p>
-<pre class="shell"><code>mount /dev/A /mnt
-cd /mnt</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mount /dev/A /mnt</span><br><span class="line">cd /mnt</span><br></pre></td></tr></tbody></table></figure>
 <p>然后把<code>/mnt/dev</code>, <code>/mnt/proc</code>,
 <code>/mnt/sys</code>, <code>/mnt/run</code>都挂上：<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/" title="在chroot环境中挂载dev, proc, sys">在chroot环境中挂载dev, proc, sys</a></p>
 <p>然后把EFI分区挂到<code>mnt/boot/efi</code>（其实在chroot里mount也可以）：</p>
-<pre class="shell"><code>mount /dev/EFI分区 /mnt/boot/efi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mount /dev/EFI分区 /mnt/boot/efi</span><br></pre></td></tr></tbody></table></figure>
 <p>然后chroot到原有Linux:</p>
-<pre class="shell"><code>sudo chroot /mnt</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo chroot /mnt</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在chroot里生成grub配置：</p>
-<pre class="shell"><code>update-grub</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">update-grub</span><br></pre></td></tr></tbody></table></figure>
 <p>然后安装grub到EFI分区所在的磁盘：</p>
-<pre class="shell"><code>grub-install /dev/EFI分区所在的磁盘</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">grub-install /dev/EFI分区所在的磁盘</span><br></pre></td></tr></tbody></table></figure>
 <p>然后检查<code>/etc/fstab</code>里的<code>/boot/efi</code>所在的行，如果使用的是UUID，那么可能需要改成<code>/dev/EFI分区</code>，因为UUID可能会改变，导致之后进不去系统。</p>
 <p>然后退出chroot，重启之后应该就可以看到正常的GRUB界面，Linux和Windows系统也应该都能进去了。</p>
 <p>P.S.

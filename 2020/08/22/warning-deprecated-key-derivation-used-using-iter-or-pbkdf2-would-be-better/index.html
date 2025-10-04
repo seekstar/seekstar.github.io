@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,10 +8141,10 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/507131/openssl-1-1-1b-warning-using-iter-or-pbkdf2-would-be-better-while-decrypting" class="uri">https://unix.stackexchange.com/questions/507131/openssl-1-1-1b-warning-using-iter-or-pbkdf2-would-be-better-while-decrypting</a></p>
-<p>加上<code>-pbkdf2</code>即可。</p>
-<pre><code>openssl aes-256-cbc -salt -pbkdf2 -in name -out name.aes</code></pre>
-<pre><code>openssl aes-256-cbc -d -salt -pbkdf2 -in name.aes -out name</code></pre>
-<p>但是要注意没有用<code>-pbkdf2</code>加密的文件不能用<code>-pbkdf2</code>选项解密。</p>
+<p>加上<code>-pbkdf2</code>即可。<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">openssl aes-256-cbc -salt -pbkdf2 -in name -out name.aes</span><br></pre></td></tr></tbody></table></figure><br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">openssl aes-256-cbc -d -salt -pbkdf2 -in name.aes -out name</span><br></pre></td></tr></tbody></table></figure><br>
+但是要注意没有用<code>-pbkdf2</code>加密的文件不能用<code>-pbkdf2</code>选项解密。<p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8117,10 +8117,10 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					设f[i]为第i天出售后最多能得到的钱数，枚举最后一次买入的天数j，那么有转移方程：
 
-化成斜率优化的形式
+化成斜率优化的形式y(j) = k(i)x(j) + b(i)
 
 注意到截距b(i)与f(i)成正相关，因此应该用直线切上凸包。
-这里斜率和点的坐标显然都不单调，因此要用动态凸包。然后又因为还要在凸包上二分，而set维护的动态凸包不支持凸包上二分，因此要手
+这里斜率和点的坐标显然都不单调，因此要用动态凸包。然后又因为还要在凸包上二分，而s
 					...
 				</div>
 			</a>
@@ -8140,15 +8140,7 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					用整形实现的。封装好了。就是不知道为什么有点慢。
 code(373ms):
-#include &lt;iostream&gt;
-#include &lt;set&gt;
-
-using namespace std;
-
-#define DEBUG 0
-
-typedef long long LL;
-typ
+#include &lt;iostream&gt;#include &lt;set&gt;using namespace std;#define DEBUG 0typedef long long LL;typedef LL 
 					...
 				</div>
 			</a>
@@ -8166,13 +8158,7 @@ typ
 					vscode javascript用firefox来debug
 				</h2>
 				<div class="index-brief">
-					{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "firefox",
-            "request": "launch",
-            "name": "Launc
+					{    "version": "0.2.0",    "configurations": [        {            "type": "firefox",            "request": "launch",            "name": "Launch fire
 					...
 				</div>
 			</a>
@@ -8192,12 +8178,7 @@ typ
 				<div class="index-brief">
 					目录结构：
 
-# Works only when there is only one target
-# You may want to modify it
-run_debug: debug
-	./$(TARGETS_EXE_DEBUG)
-
-# Works only when there is onl
+# Works only when there is only one target# You may want to modify itrun_debug: debug	./$(TARGETS_EXE_DEBUG)# Works only when there is only one
 					...
 				</div>
 			</a>
@@ -8219,10 +8200,7 @@ run_debug: debug
 原理与最小圆覆盖类似，只是要多求一个四面体的外接圆。
 坑点：poj不能srand(time(NULL))，会RE
 代码：
-#include &lt;cstdio&gt;
-#include &lt;cmath&gt;
-#include &lt;limits&gt;
-#include
+#include &lt;cstdio&gt;#include &lt;cmath&gt;#include &lt;limits&gt;#include &l
 					...
 				</div>
 			</a>
@@ -8241,7 +8219,7 @@ run_debug: debug
 				</h2>
 				<div class="index-brief">
 					参考链接：https://unix.stackexchange.com/questions/23179/how-to-send-variable-to-an-inline-shell-script
-to=to'
+to=to’
 输出2333，没有to指向的路径。
 解决方案：把to变成环境变量。
 to=$(pwd)/

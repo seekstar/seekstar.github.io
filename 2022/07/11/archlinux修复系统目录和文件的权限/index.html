@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,36 +8142,11 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时会出现本地目录权限与包里的目录权限不一致的情况。这时可以使用<code>pacman-fix-permissions</code>来修复系统目录权限。</p>
 <p>现在好像用yay安装会失败：</p>
-<pre class="shell"><code>yay -S pacman-fix-permissions</code></pre>
-<pre class="text"><code>Traceback (most recent call last):
-  File "/home/searchstar/.cache/yay/pacman-fix-permissions/src/pacman-fix-permissions-1.1.2/setup.py", line 2, in &lt;module&gt;
-    from setuptools import setup
-ModuleNotFoundError: No module named 'setuptools'
-==&gt; ERROR: A failure occurred in package().
-    Aborting...
- -&gt; error making: pacman-fix-permissions-exit status 4
- -&gt; Failed to install the following packages. Manual intervention is required:
-pacman-fix-permissions - exit status 4</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">yay -S pacman-fix-permissions</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/home/searchstar/.cache/yay/pacman-fix-permissions/src/pacman-fix-permissions-1.1.2/setup.py", line 2, in &lt;module&gt;</span><br><span class="line">    from setuptools import setup</span><br><span class="line">ModuleNotFoundError: No module named 'setuptools'</span><br><span class="line">==&gt; ERROR: A failure occurred in package().</span><br><span class="line">    Aborting...</span><br><span class="line"> -&gt; error making: pacman-fix-permissions-exit status 4</span><br><span class="line"> -&gt; Failed to install the following packages. Manual intervention is required:</span><br><span class="line">pacman-fix-permissions - exit status 4</span><br></pre></td></tr></tbody></table></figure>
 <p>所以我们直接从源码安装：</p>
-<pre class="shell"><code>sudo pacman -S python-poetry
-
-git clone -b update-lock-file https://github.com/seekstar/pacman-fix-permissions.git
-cd pacman-fix-permissions
-make install
-sudo pacman-fix-permissions/</code></pre>
-<pre class="text"><code>...
-==&gt; Scan completed. Broken permissions in your filesystem:
-/var/lib/AccountsService: 0o775 =&gt; 0o755
-/var/lib/AccountsService/icons: 0o775 =&gt; 0o755
-/usr/lib/utempter/utempter: 0o2755 =&gt; 0o2711
-/usr/lib/systemd/system: 0o755 =&gt; 0o775
-/usr/lib/systemd/system-generators: 0o755 =&gt; 0o775
-/etc/proxychains.conf: 0o777 =&gt; 0o644
-/usr/bin/newgidmap: 0o755 =&gt; 0o4755
-/usr/bin/newuidmap: 0o755 =&gt; 0o4755
-==&gt; Apply? (yes/no)
-yes
-==&gt; Done!</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S python-poetry</span><br><span class="line"></span><br><span class="line">git clone -b update-lock-file https://github.com/seekstar/pacman-fix-permissions.git</span><br><span class="line">cd pacman-fix-permissions</span><br><span class="line">make install</span><br><span class="line">sudo pacman-fix-permissions/</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">...</span><br><span class="line">==&gt; Scan completed. Broken permissions in your filesystem:</span><br><span class="line">/var/lib/AccountsService: 0o775 =&gt; 0o755</span><br><span class="line">/var/lib/AccountsService/icons: 0o775 =&gt; 0o755</span><br><span class="line">/usr/lib/utempter/utempter: 0o2755 =&gt; 0o2711</span><br><span class="line">/usr/lib/systemd/system: 0o755 =&gt; 0o775</span><br><span class="line">/usr/lib/systemd/system-generators: 0o755 =&gt; 0o775</span><br><span class="line">/etc/proxychains.conf: 0o777 =&gt; 0o644</span><br><span class="line">/usr/bin/newgidmap: 0o755 =&gt; 0o4755</span><br><span class="line">/usr/bin/newuidmap: 0o755 =&gt; 0o4755</span><br><span class="line">==&gt; Apply? (yes/no)</span><br><span class="line">yes</span><br><span class="line">==&gt; Done!</span><br></pre></td></tr></tbody></table></figure>
 <p>但是这个工具似乎不能修复<code>/</code>的权限错误，需要手动修复一下。（据<code>#archlinux-cn:nichi.co</code>群的<code>shootingstardragon</code>说，flatpak存在一个有概率导致<code>/</code>的权限变成<code>777</code>的BUG）</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

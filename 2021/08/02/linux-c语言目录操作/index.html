@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8145,114 +8145,61 @@ mjx-container[display="true"] + br {
 <ul>
 <li>打开或创建文件</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> open<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> <span class="dt">int</span> flags<span class="op">);</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> open<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> <span class="dt">int</span> flags<span class="op">,</span> mode_t mode<span class="op">)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> creat<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> mode_t mode<span class="op">);</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> openat<span class="op">(</span><span class="dt">int</span> dirfd<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> <span class="dt">int</span> flags<span class="op">);</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> openat<span class="op">(</span><span class="dt">int</span> dirfd<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> <span class="dt">int</span> flags<span class="op">,</span> mode_t mode<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, <span class="type">mode_t</span> mode)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">creat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">openat</span><span class="params">(<span class="type">int</span> dirfd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">openat</span><span class="params">(<span class="type">int</span> dirfd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flags, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>关闭文件</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> close<span class="op">(</span><span class="dt">int</span> fd<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">close</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>创建目录</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> mkdir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> mode_t mode<span class="op">);</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span><span class="pp"> </span><span class="co">/* Definition of AT_* constants */</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">// 在指定目录下创建目录</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> mkdirat<span class="op">(</span><span class="dt">int</span> dirfd<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> mode_t mode<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span> <span class="comment">/* Definition of AT_* constants */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="comment">// 在指定目录下创建目录</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdirat</span><span class="params">(<span class="type">int</span> dirfd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>改变工作目录</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> chdir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fchdir<span class="op">(</span><span class="dt">int</span> fd<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchdir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>读取符号连接</li>
 </ul>
 <p>符号链接不能直接open+read读取，不然会读取到其指向的文件。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ssize_t</span> readlink<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">size_t</span> bufsiz<span class="op">);</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span><span class="pp"> </span><span class="co">/* Definition of AT_* constants */</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="dt">ssize_t</span> readlinkat<span class="op">(</span><span class="dt">int</span> dirfd<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>pathname<span class="op">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">size_t</span> bufsiz<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">readlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">char</span> *buf, <span class="type">size_t</span> bufsiz)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span> <span class="comment">/* Definition of AT_* constants */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">readlinkat</span><span class="params">(<span class="type">int</span> dirfd, <span class="type">const</span> <span class="type">char</span> *pathname,</span></span><br><span class="line"><span class="params">    <span class="type">char</span> *buf, <span class="type">size_t</span> bufsiz)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>创建符号链接</li>
 </ul>
 <p>创建符号链接不能用open+write</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> symlink<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>target<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>linkpath<span class="op">);</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span><span class="pp"> </span><span class="co">/* Definition of AT_* constants */</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> symlinkat<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>target<span class="op">,</span> <span class="dt">int</span> newdirfd<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>linkpath<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">symlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *target, <span class="type">const</span> <span class="type">char</span> *linkpath)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span> <span class="comment">/* Definition of AT_* constants */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">symlinkat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *target, <span class="type">int</span> newdirfd, <span class="type">const</span> <span class="type">char</span> *linkpath)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="glibc-man-3"><a href="#glibc-man-3">¶</a> glibc (man 3)</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> dirent <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>	ino_t          d_ino<span class="op">;</span>       <span class="co">/* Inode number */</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>	off_t          d_off<span class="op">;</span>       <span class="co">/* Not an offset; see below */</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>	<span class="dt">unsigned</span> <span class="dt">short</span> d_reclen<span class="op">;</span>    <span class="co">/* Length of this record */</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>	<span class="dt">unsigned</span> <span class="dt">char</span>  d_type<span class="op">;</span>      <span class="co">/* Type of file; not supported by all filesystem types */</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>	<span class="dt">char</span>           d_name<span class="op">[</span><span class="dv">256</span><span class="op">];</span> <span class="co">/* Null-terminated filename */</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> {</span></span><br><span class="line">	<span class="type">ino_t</span>          d_ino;       <span class="comment">/* Inode number */</span></span><br><span class="line">	<span class="type">off_t</span>          d_off;       <span class="comment">/* Not an offset; see below */</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">short</span> d_reclen;    <span class="comment">/* Length of this record */</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span>  d_type;      <span class="comment">/* Type of file; not supported by all filesystem types */</span></span><br><span class="line">	<span class="type">char</span>           d_name[<span class="number">256</span>]; <span class="comment">/* Null-terminated filename */</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 <p>d_type:</p>
-<pre><code>DT_BLK      This is a block device.
-DT_CHR      This is a character device.
-DT_DIR      This is a directory.
-DT_FIFO     This is a named pipe (FIFO).
-DT_LNK      This is a symbolic link.
-DT_REG      This is a regular file.
-DT_SOCK     This is a UNIX domain socket.
-DT_UNKNOWN  The file type could not be determined.</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">DT_BLK      This is a block device.</span><br><span class="line">DT_CHR      This is a character device.</span><br><span class="line">DT_DIR      This is a directory.</span><br><span class="line">DT_FIFO     This is a named pipe (FIFO).</span><br><span class="line">DT_LNK      This is a symbolic link.</span><br><span class="line">DT_REG      This is a regular file.</span><br><span class="line">DT_SOCK     This is a UNIX domain socket.</span><br><span class="line">DT_UNKNOWN  The file type could not be determined.</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>打开目录</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>DIR <span class="op">*</span>opendir<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>name<span class="op">);</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>DIR <span class="op">*</span>fdopendir<span class="op">(</span><span class="dt">int</span> fd<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line">DIR *<span class="title function_">opendir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line">DIR *<span class="title function_">fdopendir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>取得目录fd</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> dirfd<span class="op">(</span>DIR <span class="op">*</span>dirp<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">dirfd</span><span class="params">(DIR *dirp)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>遍历目录</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> dirent <span class="op">*</span>readdir<span class="op">(</span>DIR <span class="op">*</span>dirp<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> dirent *<span class="title function_">readdir</span><span class="params">(DIR *dirp)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>当到达末尾时返回NULL。</p>
 <ul>
 <li>关闭目录</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> closedir<span class="op">(</span>DIR <span class="op">*</span>dirp<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">closedir</span><span class="params">(DIR *dirp)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>dirname以及basename</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;libgen.h&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> <span class="op">*</span>dirname<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> <span class="op">*</span>basename<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>path<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libgen.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> *<span class="title function_">dirname</span><span class="params">(<span class="type">char</span> *path)</span>;</span><br><span class="line"><span class="type">char</span> *<span class="title function_">basename</span><span class="params">(<span class="type">char</span> *path)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>一般情况下的规则是先把末尾的<code>/</code>去掉，然后最后一个<code>/</code>后面的就是basename，前面的就是dirname。</p>
 <p>特殊情况如下：</p>
-<p>If path does not contain a slash, dirname() returns the string "."
-while basename() returns a copy of path. If path is the string "/", then
-both dirname() and basename() return the string "/". If path is a null
+<p>If path does not contain a slash, dirname() returns the string “.”
+while basename() returns a copy of path. If path is the string “/”, then
+both dirname() and basename() return the string “/”. If path is a null
 pointer or points to an empty string, then both dirname() and basename()
-return the string ".".</p>
+return the string “.”.</p>
 <p>注意这两个函数可能会修改传进去的字符串。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

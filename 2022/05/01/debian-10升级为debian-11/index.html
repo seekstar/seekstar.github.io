@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,26 +8143,11 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>可以通过ustc升级：官方教程：<a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/debian.html" class="uri">https://mirrors.ustc.edu.cn/help/debian.html</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://linux.cn/article-13647-1.html" class="uri">https://linux.cn/article-13647-1.html</a></p>
 <p>先把<code>/etc/apt/sources.list</code>里的所有行注释掉，然后加上</p>
-<pre class="text"><code>deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free
-# deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free
-deb http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
-# deb-src http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
-
-deb http://mirrors.ustc.edu.cn/debian-security/ stable-security main non-free contrib
-# deb-src http://mirrors.ustc.edu.cn/debian-security/ stable-security main non-free contrib</code></pre>
-<pre class="shell"><code>sudo apt update
-sudo apt full-upgrade</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free</span><br><span class="line"># deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free</span><br><span class="line">deb http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free</span><br><span class="line"># deb-src http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http://mirrors.ustc.edu.cn/debian-security/ stable-security main non-free contrib</span><br><span class="line"># deb-src http://mirrors.ustc.edu.cn/debian-security/ stable-security main non-free contrib</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt full-upgrade</span><br></pre></td></tr></tbody></table></figure>
 <p>验证一下是不是升级成功了：</p>
-<pre class="shell"><code>cat /etc/os-release</code></pre>
-<pre class="text"><code>PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
-NAME="Debian GNU/Linux"
-VERSION_ID="11"
-VERSION="11 (bullseye)"
-VERSION_CODENAME=bullseye
-ID=debian
-HOME_URL="https://www.debian.org/"
-SUPPORT_URL="https://www.debian.org/support"
-BUG_REPORT_URL="https://bugs.debian.org/"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cat /etc/os-release</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"</span><br><span class="line">NAME="Debian GNU/Linux"</span><br><span class="line">VERSION_ID="11"</span><br><span class="line">VERSION="11 (bullseye)"</span><br><span class="line">VERSION_CODENAME=bullseye</span><br><span class="line">ID=debian</span><br><span class="line">HOME_URL="https://www.debian.org/"</span><br><span class="line">SUPPORT_URL="https://www.debian.org/support"</span><br><span class="line">BUG_REPORT_URL="https://bugs.debian.org/"</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

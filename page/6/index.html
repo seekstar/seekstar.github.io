@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8162,13 +8162,12 @@ find a/ -mindepth 1 -maxdepth 1 -print0 | xargs -0 -r mv -t b/
 					没有宏时直接用就好了：用soul宏包解决Latex
 
 但是如果里面有宏则会报错：
-\def\testc#{test}
-\ul{\testc{}}
+\def\testc#{test}\ul{\testc{}}
 Use of \testc doesn't match its definition.
 有两种解决方案：
 ¶
 soulregister
-这种方案是非侵入式
+这种方案是非侵入式的
 					...
 				</div>
 			</a>
@@ -8190,11 +8189,10 @@ soulregister
 查看已安装的包
 apt list --installed
 ¶ 清理apt cache
-# https://itsfoss.com/clear-apt-cache/
-sudo apt clean
+# https://itsfoss.com/clear-apt-cache/sudo apt clean
 ¶ 查看依赖关系
 查看某个包的依赖，以及哪些包依赖这个包：
-apt-cache showpkg pac
+apt-cache showpkg pack
 					...
 				</div>
 			</a>
@@ -8232,11 +8230,10 @@ if
 					zsh使用笔记
 				</h2>
 				<div class="index-brief">
-					{post_link shell/'zsh和bash共用自定义配置' }
+					{post_link shell/‘zsh和bash共用自定义配置’ }
 ¶ 不共享历史
 zsh默认会在不同的会话之间共享历史，禁用这个特性：
-# https://github.com/ohmyzsh/ohmyzsh/issues/2537
-echo "unsetopt share_history"
+# https://github.com/ohmyzsh/ohmyzsh/issues/2537echo "unsetopt share_history" 
 					...
 				</div>
 			</a>

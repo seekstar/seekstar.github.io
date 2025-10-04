@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,12 +8141,12 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>目前的Linux发行版一般都开启了SysRq。</p>
-<pre class="shell"><code>cat /proc/sys/kernel/sysrq</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cat /proc/sys/kernel/sysrq</span><br></pre></td></tr></tbody></table></figure>
 <p>如果输出非0，就说明开启了SysRq，如果输出为0，可以临时启用SysRq：</p>
-<pre class="shell"><code>echo 1 &gt; /proc/sys/kernel/sysrq</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/kernel/sysrq</span><br></pre></td></tr></tbody></table></figure>
 <p>也可以在<code>/etc/sysctl.conf</code>里写入<code>kernel.sysrq = 1</code>实现在开机时自动启用SysRq。</p>
 <p>SysRq可以通过命令行发送给内核：</p>
-<pre class="shell"><code>echo 字母 &gt; /proc/sysrq-trigger</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo 字母 &gt; /proc/sysrq-trigger</span><br></pre></td></tr></tbody></table></figure>
 <p>也可以通过键盘发送给内核：同时按住<code>Alt</code>和<code>SysRq</code>键以及相应的字母。注意现在的键盘上<code>SysRq</code>键通常跟截屏键<code>PrtSc</code>是一个键。</p>
 <p>一些常用的SysRq如下。</p>
 <ul>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8149,30 +8149,27 @@ mjx-container[display="true"] + br {
 <p>但是我没找到可以往这个进程的stdin里塞东西的方法。</p>
 <h2 id="例子"><a href="#例子">¶</a> 例子</h2>
 <p><code>loop.sh</code>:</p>
-<pre class="shell"><code>while true; do
-	date
-	sleep 1
-done</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">while true; do</span><br><span class="line">	date</span><br><span class="line">	sleep 1</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 <p>运行之：</p>
-<pre class="shell"><code>bash loop.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">bash loop.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>按<code>ctrl+z</code>：</p>
-<pre class="text"><code>[1]  + 60237 suspended  bash loop.sh</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[1]  + 60237 suspended  bash loop.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>所以它的编号是<code>1</code>，进程号是<code>60237</code>。</p>
 <p>也可以用<code>jobs</code>:</p>
-<pre class="text"><code>[1]  + suspended  bash loop.sh</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[1]  + suspended  bash loop.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>也显示其编号是<code>1</code>。</p>
 <p>将其放到后台运行：</p>
-<pre class="shell"><code>bg %1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">bg %1</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>[1]  + 60237 continued  bash loop.sh</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[1]  + 60237 continued  bash loop.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>从jobs列表里删除：</p>
-<pre class="shell"><code>disown %1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">disown %1</span><br></pre></td></tr></tbody></table></figure>
 <p>再<code>jobs</code>，打印的列表就是空的了。</p>
 <p>此时<code>pstree -lp -s 60237</code>查看其父进程：</p>
-<pre class="text"><code>systemd(1)───sshd(733)───sshd(57315)───sshd(57321)───zsh(57322)───bash(60237)───sleep(60330)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">systemd(1)───sshd(733)───sshd(57315)───sshd(57321)───zsh(57322)───bash(60237)───sleep(60330)</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到其父进程仍然没有改变。</p>
 <p>然后<code>exit</code>退出当前终端，也就是上面的<code>zsh(57322)</code>，再<code>pstree -lp -s 60237</code>查看其父进程：</p>
-<pre class="text"><code>systemd(1)───bash(60237)───sleep(60520)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">systemd(1)───bash(60237)───sleep(60520)</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到变成孤儿进程，被1号进程收养了。</p>
 <p>如果要获取其输出，可以用reredirect：<code>reredirect -m FILE 60237</code>，然后其<code>stdout</code>和<code>stderr</code>都被重定向到<code>FILE</code>了。详见：<a href="/2022/04/17/%E9%87%8D%E5%AE%9A%E5%90%91%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BE%93%E5%87%BA/" title="重定向正在运行的进程的输出">重定向正在运行的进程的输出</a></p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>

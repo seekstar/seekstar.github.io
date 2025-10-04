@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,8 +8141,7 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
-<pre class="shell"><code># Debian 12
-sudo apt install -y libvirt-daemon libvirt-clients</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian 12</span></span><br><span class="line">sudo apt install -y libvirt-daemon libvirt-clients</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="配置权限"><a href="#配置权限">¶</a> 配置权限</h2>
 <p>如果要使用KVM的话，首先要让普通用户使用libvirt时能使用KVM：</p>
 <a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a>
@@ -8151,68 +8150,20 @@ sudo apt install -y libvirt-daemon libvirt-clients</code></pre>
 <h2 id="将虚拟机导入virsh"><a href="#将虚拟机导入virsh">¶</a>
 将虚拟机导入virsh</h2>
 <p>这里假设domain的名字设置成centos8。先写一个<code>centos8.xml</code>，定义虚拟机的基本属性：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">domain</span><span class="ot"> type=</span><span class="st">'kvm'</span>&gt;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">name</span>&gt;centos8&lt;/<span class="kw">name</span>&gt;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">memory</span><span class="ot"> unit=</span><span class="st">'GiB'</span>&gt;2&lt;/<span class="kw">memory</span>&gt;</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">vcpu</span>&gt;4&lt;/<span class="kw">vcpu</span>&gt;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  // 如果要让虚拟机可以迁移到其他宿主机上，要把这个删掉</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">cpu</span><span class="ot"> mode=</span><span class="st">'host-passthrough'</span><span class="ot"> migratable=</span><span class="st">'off'</span>&gt;</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">cache</span><span class="ot"> mode=</span><span class="st">'passthrough'</span>/&gt;</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">cpu</span>&gt;</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">os</span>&gt;</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">type</span><span class="ot"> arch=</span><span class="st">'x86_64'</span>&gt;hvm&lt;/<span class="kw">type</span>&gt;</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">os</span>&gt;</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">devices</span>&gt;</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    // 这里有的发行版是 /usr/bin/qemu-system-x86_64</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">emulator</span>&gt;/usr/libexec/qemu-kvm&lt;/<span class="kw">emulator</span>&gt;</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">disk</span><span class="ot"> type=</span><span class="st">'file'</span><span class="ot"> device=</span><span class="st">'disk'</span>&gt;</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      // 这里的type注意不要搞错了。可以用qemu-img info查看镜像的格式</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'qcow2'</span>/&gt;</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">source</span><span class="ot"> file=</span><span class="st">'/home/searchstar/vm/centos.img'</span>/&gt;</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">target</span><span class="ot"> dev=</span><span class="st">'vda'</span><span class="ot"> bus=</span><span class="st">'virtio'</span>/&gt;</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">disk</span>&gt;</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    // 将宿主机上的/dev/sdb作为虚拟机的/dev/vdb。如果不需要可以删掉这部分。</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">disk</span><span class="ot"> type=</span><span class="st">"block"</span><span class="ot"> device=</span><span class="st">"disk"</span>&gt;</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">driver</span><span class="ot"> name=</span><span class="st">'qemu'</span><span class="ot"> type=</span><span class="st">'raw'</span><span class="ot"> cache=</span><span class="st">'none'</span>/&gt;</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">source</span><span class="ot"> dev=</span><span class="st">'/dev/sdb'</span>/&gt;</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">target</span><span class="ot"> dev=</span><span class="st">'vdb'</span><span class="ot"> bus=</span><span class="st">'virtio'</span>/&gt;</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">disk</span>&gt;</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    // 下面的是为了console访问</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">serial</span><span class="ot"> type=</span><span class="st">'pty'</span>&gt;</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span>/&gt;</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">target</span><span class="ot"> type=</span><span class="st">'isa-serial'</span><span class="ot"> port=</span><span class="st">'0'</span>&gt;</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">model</span><span class="ot"> name=</span><span class="st">'isa-serial'</span>/&gt;</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">target</span>&gt;</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">alias</span><span class="ot"> name=</span><span class="st">'serial0'</span>/&gt;</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">serial</span>&gt;</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">console</span><span class="ot"> type=</span><span class="st">'pty'</span><span class="ot"> tty=</span><span class="st">'/dev/pts/0'</span>&gt;</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">source</span><span class="ot"> path=</span><span class="st">'/dev/pts/0'</span>/&gt;</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">target</span><span class="ot"> type=</span><span class="st">'serial'</span><span class="ot"> port=</span><span class="st">'0'</span>/&gt;</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">alias</span><span class="ot"> name=</span><span class="st">'serial0'</span>/&gt;</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">console</span>&gt;</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    // 联网</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">interface</span><span class="ot"> type=</span><span class="st">'bridge'</span>&gt;</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>      // 如果使用的是virsh default network，这里的br0要改成virbr0。</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">source</span><span class="ot"> bridge=</span><span class="st">'br0'</span>/&gt;</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      // 这行好像不用也可以？</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">model</span><span class="ot"> type=</span><span class="st">'virtio'</span>/&gt;</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">interface</span>&gt;</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">devices</span>&gt;</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">domain</span>&gt;</span></code></pre></div>
+<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">domain</span> <span class="attr">type</span>=<span class="string">'kvm'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>centos8<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">memory</span> <span class="attr">unit</span>=<span class="string">'GiB'</span>&gt;</span>2<span class="tag">&lt;/<span class="name">memory</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">vcpu</span>&gt;</span>4<span class="tag">&lt;/<span class="name">vcpu</span>&gt;</span></span><br><span class="line">  // 如果要让虚拟机可以迁移到其他宿主机上，要把这个删掉</span><br><span class="line">  <span class="tag">&lt;<span class="name">cpu</span> <span class="attr">mode</span>=<span class="string">'host-passthrough'</span> <span class="attr">migratable</span>=<span class="string">'off'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">mode</span>=<span class="string">'passthrough'</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">cpu</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">os</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span> <span class="attr">arch</span>=<span class="string">'x86_64'</span>&gt;</span>hvm<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">os</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">devices</span>&gt;</span></span><br><span class="line">    // 这里有的发行版是 /usr/bin/qemu-system-x86_64</span><br><span class="line">    <span class="tag">&lt;<span class="name">emulator</span>&gt;</span>/usr/libexec/qemu-kvm<span class="tag">&lt;/<span class="name">emulator</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">disk</span> <span class="attr">type</span>=<span class="string">'file'</span> <span class="attr">device</span>=<span class="string">'disk'</span>&gt;</span></span><br><span class="line">      // 这里的type注意不要搞错了。可以用qemu-img info查看镜像的格式</span><br><span class="line">      <span class="tag">&lt;<span class="name">driver</span> <span class="attr">name</span>=<span class="string">'qemu'</span> <span class="attr">type</span>=<span class="string">'qcow2'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span> <span class="attr">file</span>=<span class="string">'/home/searchstar/vm/centos.img'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span> <span class="attr">dev</span>=<span class="string">'vda'</span> <span class="attr">bus</span>=<span class="string">'virtio'</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">    // 将宿主机上的/dev/sdb作为虚拟机的/dev/vdb。如果不需要可以删掉这部分。</span><br><span class="line">    <span class="tag">&lt;<span class="name">disk</span> <span class="attr">type</span>=<span class="string">"block"</span> <span class="attr">device</span>=<span class="string">"disk"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">driver</span> <span class="attr">name</span>=<span class="string">'qemu'</span> <span class="attr">type</span>=<span class="string">'raw'</span> <span class="attr">cache</span>=<span class="string">'none'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span> <span class="attr">dev</span>=<span class="string">'/dev/sdb'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span> <span class="attr">dev</span>=<span class="string">'vdb'</span> <span class="attr">bus</span>=<span class="string">'virtio'</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">    // 下面的是为了console访问</span><br><span class="line">    <span class="tag">&lt;<span class="name">serial</span> <span class="attr">type</span>=<span class="string">'pty'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span> <span class="attr">path</span>=<span class="string">'/dev/pts/0'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span> <span class="attr">type</span>=<span class="string">'isa-serial'</span> <span class="attr">port</span>=<span class="string">'0'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">model</span> <span class="attr">name</span>=<span class="string">'isa-serial'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">'serial0'</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">serial</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">console</span> <span class="attr">type</span>=<span class="string">'pty'</span> <span class="attr">tty</span>=<span class="string">'/dev/pts/0'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span> <span class="attr">path</span>=<span class="string">'/dev/pts/0'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span> <span class="attr">type</span>=<span class="string">'serial'</span> <span class="attr">port</span>=<span class="string">'0'</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">'serial0'</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">console</span>&gt;</span></span><br><span class="line">    // 联网</span><br><span class="line">    <span class="tag">&lt;<span class="name">interface</span> <span class="attr">type</span>=<span class="string">'bridge'</span>&gt;</span></span><br><span class="line">      // 如果使用的是virsh default network，这里的br0要改成virbr0。</span><br><span class="line">      <span class="tag">&lt;<span class="name">source</span> <span class="attr">bridge</span>=<span class="string">'br0'</span>/&gt;</span></span><br><span class="line">      // 这行好像不用也可以？</span><br><span class="line">      <span class="tag">&lt;<span class="name">model</span> <span class="attr">type</span>=<span class="string">'virtio'</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">interface</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">devices</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">domain</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
 <p>导入虚拟机：</p>
-<pre class="shell"><code>virsh define centos8.xml</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh define centos8.xml</span><br></pre></td></tr></tbody></table></figure>
 <p>如果要删除虚拟机的话：</p>
-<pre class="shell"><code>virsh undefine centos8</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh undefine centos8</span><br></pre></td></tr></tbody></table></figure>
 <p>查看和编辑导入后的虚拟机配置：</p>
-<pre class="shell"><code>virsh edit centos8</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh edit centos8</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="访问虚拟机"><a href="#访问虚拟机">¶</a> 访问虚拟机</h2>
 <p>启动虚拟机：</p>
-<pre class="shell"><code>virsh start centos8</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh start centos8</span><br></pre></td></tr></tbody></table></figure>
 <p>强行关闭虚拟机：</p>
-<pre class="shell"><code>virsh destroy centos8</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh destroy centos8</span><br></pre></td></tr></tbody></table></figure>
 <p>终端访问虚拟机（要先start）：</p>
-<pre class="shell"><code>virsh console centos8
-// 退出按ctrl+]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh console centos8</span><br><span class="line">// 退出按ctrl+]</span><br></pre></td></tr></tbody></table></figure>
 <p>如果没有反应，说明虚拟机里没有配置console，要看这篇文章进行配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/119108333" class="uri">https://blog.csdn.net/qq_41961459/article/details/119108333</a></p>
 <p>奇怪的是有时候console里shutdown之后不会自动destroy。这时要<code>ctrl+]</code>退出console，然后手动<code>virsh destroy</code>一下。</p>
 <p>注意，普通用户的virsh域和root的virsh域是不互通的。</p>
@@ -8243,17 +8194,15 @@ global secondary eth0）</a></p>
 7 怎样自动连接网络</a></p>
 <p>有时候也可能是因为网络设备的名字变了，导致原来的网络配置没有用了。Debian的话修改<code>/etc/network/interfaces</code>里的设备名即可，比如把<code>ens2</code>改成<code>enp0s2</code>。</p>
 <h3 id="could-not-open-devsdb-permission-denied"><a href="#could-not-open-devsdb-permission-denied">¶</a> Could not open
-'/dev/sdb': Permission denied</h3>
+‘/dev/sdb’: Permission denied</h3>
 <p>将<code>/dev/sdb</code>的owner和group改成自己：</p>
-<pre class="shell"><code>sudo chown $USER /dev/sdb</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo chown $USER /dev/sdb</span><br></pre></td></tr></tbody></table></figure>
 <p>理论上把自己加入到disk组也可以，因为/dev/sdb的组是disk，但是我这里没用，不知道为什么。</p>
 <h3 id="error-failed-to-connect-to-the-hypervisor"><a href="#error-failed-to-connect-to-the-hypervisor">¶</a> error: failed to
 connect to the hypervisor</h3>
-<pre class="text"><code>error: failed to connect to the hypervisor
-error: Failed to connect socket to '/run/user/1000/libvirt/libvirt-sock': 没有那个文件或目录</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">error: failed to connect to the hypervisor</span><br><span class="line">error: Failed to connect socket to '/run/user/1000/libvirt/libvirt-sock': 没有那个文件或目录</span><br></pre></td></tr></tbody></table></figure>
 <p>解决方法：</p>
-<pre class="shell"><code>sudo apt install libvirt-daemon
-libvirtd -d</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install libvirt-daemon</span><br><span class="line">libvirtd -d</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fang888/p/8496562.html" class="uri">https://www.cnblogs.com/fang888/p/8496562.html</a></p>
 <h3 id="qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted"><a href="#qemu-bridge-helper-failed-to-create-tun-device-operation-not-permitted">¶</a>
 qemu-bridge-helper: failed to create tun device: Operation not
@@ -8262,10 +8211,7 @@ permitted</h3>
 <h3 id="错误域管理的保存映像存在时拒绝取消定义"><a href="#错误域管理的保存映像存在时拒绝取消定义">¶</a>
 错误：域管理的保存映像存在时拒绝取消定义</h3>
 <p>我进行如下操作之后就正常undefine了，原因不明。</p>
-<pre class="shell"><code>virsh start centos8
-virsh console centos8
-virsh destroy centos8
-virsh undefine centos8</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virsh start centos8</span><br><span class="line">virsh console centos8</span><br><span class="line">virsh destroy centos8</span><br><span class="line">virsh undefine centos8</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://libvirt.org/formatdomain.html" class="uri">https://libvirt.org/formatdomain.html</a><br>
 <a target="_blank" rel="noopener" href="https://ravada.readthedocs.io/en/latest/docs/config_console.html">How

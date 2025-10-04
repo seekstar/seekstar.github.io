@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,21 +8141,13 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>deepin中使用git时，经常在push时会报错：</p>
-<pre class="shell"><code>searchstar@searchstar-PC:~/git/tools$ git push gitee 
-sign_and_send_pubkey: signing failed: agent refused operation
-Permission denied (publickey).
-fatal: 无法读取远程仓库。
-
-请确认您有正确的访问权限并且仓库存在。</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">searchstar@searchstar-PC:~/git/tools$ git push gitee </span><br><span class="line">sign_and_send_pubkey: signing failed: agent refused operation</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: 无法读取远程仓库。</span><br><span class="line"></span><br><span class="line">请确认您有正确的访问权限并且仓库存在。</span><br></pre></td></tr></tbody></table></figure>
 <p>ubuntu中如果把默认名的私钥文件（id_rsa）改成其他名字（如id_rsa_git）后，也会报这个错。<br>
 一般情况下，执行以下两条命令即可</p>
-<pre class="shell"><code>eval "$(ssh-agent -s)"
-ssh-add</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">eval "$(ssh-agent -s)"</span><br><span class="line">ssh-add</span><br></pre></td></tr></tbody></table></figure>
 <p>但是这样会多出一个ssh-agent的进程，而且终端关闭后也不会终止。</p>
 <p>一个更好的解决方案是在~/.ssh下添加一个名为config的文件，内容如下：</p>
-<pre><code>Host gitee.com
-	User git
-	IdentityFile ~/.ssh/id_rsa_git</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">Host gitee.com</span><br><span class="line">	User git</span><br><span class="line">	IdentityFile ~/.ssh/id_rsa_git</span><br></pre></td></tr></tbody></table></figure>
 <p>其中id_rsa_git是给git用的私钥文件名。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

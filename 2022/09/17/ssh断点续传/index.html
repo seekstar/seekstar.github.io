@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,28 +8141,15 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>可以用<code>rsync</code>。例子：</p>
-<pre class="shell"><code># 相当于scp sshname:/path/to/file .
-rsync -zP -e ssh sshname:/path/to/file .
-# 类似于scp -r sshname:/path/to/dir .
-# 但是当/path/to/dir已经存在时不会在下面新建一个文件夹，而是直接把文件夹内容拷贝到/path/to/dir里面。
-rsync -zPrt -e ssh sshname:/path/to/dir .</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">相当于scp sshname:/path/to/file .</span></span><br><span class="line">rsync -zP -e ssh sshname:/path/to/file .</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">类似于scp -r sshname:/path/to/dir .</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">但是当/path/to/dir已经存在时不会在下面新建一个文件夹，而是直接把文件夹内容拷贝到/path/to/dir里面。</span></span><br><span class="line">rsync -zPrt -e ssh sshname:/path/to/dir .</span><br></pre></td></tr></tbody></table></figure>
 <p>常用选项：</p>
 <p>-v: verbose</p>
-<p>-z: --compress。</p>
+<p>-z: –compress。</p>
 <p>-P: <code>-partial -progress</code>，部分传送和显示进度。</p>
-<p>--bwlimit:
+<p>–bwlimit:
 限速。用法：<code>--bwlimit=RATE</code>。单位默认<code>KiB/s</code>。也可以指定单位，比如<code>m</code>表示单位是<code>MiB/s</code>，<code>--bwlimit=1.5m</code>就表示限速到<code>1.5MiB/s</code>。</p>
-<pre class="text"><code>--archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
---recursive, -r          recurse into directories
---links, -l              copy symlinks as symlinks
---perms, -p              preserve permissions
---times, -t              preserve modification times
---group, -g              preserve group
---owner, -o              preserve owner (super-user only)
--D                       same as --devices --specials
---devices                preserve device files (super-user only)
---specials               preserve special files</code></pre>
-<p>--include, --exclude: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively" class="uri">https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively</a></p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">--archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)</span><br><span class="line">--recursive, -r          recurse into directories</span><br><span class="line">--links, -l              copy symlinks as symlinks</span><br><span class="line">--perms, -p              preserve permissions</span><br><span class="line">--times, -t              preserve modification times</span><br><span class="line">--group, -g              preserve group</span><br><span class="line">--owner, -o              preserve owner (super-user only)</span><br><span class="line">-D                       same as --devices --specials</span><br><span class="line">--devices                preserve device files (super-user only)</span><br><span class="line">--specials               preserve special files</span><br></pre></td></tr></tbody></table></figure>
+<p>–include, –exclude: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively" class="uri">https://stackoverflow.com/questions/1228466/how-to-filter-files-when-using-scp-to-copy-dir-recursively</a></p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/" class="uri">https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hepeng597/article/details/8960885" class="uri">https://blog.csdn.net/hepeng597/article/details/8960885</a></p>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,40 +8144,33 @@ mjx-container[display="true"] + br {
 <p>首先用USB数据线将手机连接到电脑，在手机上切换到文件传输模式（MTP模式）</p>
 <h2 id="安装adb"><a href="#安装adb">¶</a> 安装<code>adb</code></h2>
 <h3 id="archlinux"><a href="#archlinux">¶</a> ArchLinux</h3>
-<pre class="shell"><code># https://wiki.archlinux.org/title/Android_Debug_Bridge
-sudo pacman -S android-tools</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://wiki.archlinux.org/title/Android_Debug_Bridge</span></span><br><span class="line">sudo pacman -S android-tools</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="打开usb调试"><a href="#打开usb调试">¶</a> 打开USB调试</h2>
 <p>这个选项一般在开发者模式中。</p>
 <p>进入开发者模式：一般是在系统信息中连续点击系统版本。</p>
 <p>然后在开发者选项中打开USB调试。可能还需要打开弹窗提醒。</p>
 <h2 id="usb调试"><a href="#usb调试">¶</a> USB调试</h2>
-<pre class="shell"><code>adb devices</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></tbody></table></figure>
 <p>会自动启动daemon:</p>
-<pre class="text"><code>* daemon not running; starting now at tcp:5037
-* daemon started successfully</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">* daemon not running; starting now at tcp:5037</span><br><span class="line">* daemon started successfully</span><br></pre></td></tr></tbody></table></figure>
 <p><code>List of devices attached</code>下面会有一行，这就是你的手机。</p>
 <p>然后手机上会弹出是否允许USB调试的选项框，点击确定即可。</p>
 <h2 id="adb-shell"><a href="#adb-shell">¶</a>
 <code>adb shell</code></h2>
 <p>在终端中执行<code>adb shell</code>。然后就可以在这里面卸载应用了。</p>
 <p>以下是shell里的命令：</p>
-<pre class="shell"><code>pm list packages
-# https://stackoverflow.com/questions/21164748/difference-between-pm-clear-and-pm-uninstall-k-on-android
-pm uninstall --user 0 包名
-exit</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pm list packages</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/21164748/difference-between-pm-clear-and-pm-uninstall-k-on-android</span></span><br><span class="line">pm uninstall --user 0 包名</span><br><span class="line">exit</span><br></pre></td></tr></tbody></table></figure>
 <p><code>--user 0</code>: The user to disable. User 0 is the system
 user.</p>
 <p><code>-k</code> : Keep the data and cache directories around after
 package removal.</p>
 <p>也可以在Linux的shell里直接执行指令：</p>
-<pre class="shell"><code>adb shell pm list packages
-adb shell pm uninstall --user 0 包名</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">adb shell pm list packages</span><br><span class="line">adb shell pm uninstall --user 0 包名</span><br></pre></td></tr></tbody></table></figure>
 <p>可以用F-Droid在手机上装<code>Package Manager</code>查看应用的包名：<a href="/2021/12/29/f-droid%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="F-Droid使用教程">F-Droid使用教程</a></p>
 <h2 id="你可能想卸载的系统软件"><a href="#你可能想卸载的系统软件">¶</a>
 你可能想卸载的系统软件</h2>
 <h3 id="华为手机"><a href="#华为手机">¶</a> 华为手机</h3>
-<pre class="shell"><code># 智慧助手-今天
-adb shell pm uninstall --user 0 com.huawei.intelligent</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">智慧助手-今天</span></span><br><span class="line">adb shell pm uninstall --user 0 com.huawei.intelligent</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_43404934/article/details/124902494">利用adb卸载手机预装软件(系统软件)</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

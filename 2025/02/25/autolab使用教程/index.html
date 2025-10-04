@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8182,179 +8182,36 @@ Image创建一个Docker container，然后把Autograder
 Makefile重命名成<code>Makefile</code>，把Autograder
 Tar重命名成<code>autograde.tar</code>，和<code>submission.zip</code>放在Docker
 container里的同一个空目录下面，然后执行<code>make</code>，要求它输出的最后一行形如:</p>
-<pre class="text"><code>{"scores": {"问题1": 分数1, "问题2": 分数2, ..., "问题n": 分数n}}</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">{"scores": {"问题1": 分数1, "问题2": 分数2, ..., "问题n": 分数n}}</span><br></pre></td></tr></tbody></table></figure>
 <p>autolab会解析这一行，用来打分。其中<code>问题n</code>对应之前<code>PROBLEMS</code>里输入的<code>Name</code>，分数的范围是0到<code>Max score</code>，可以是小数。</p>
 <h4 id="vm-image"><a href="#vm-image">¶</a> VM Image</h4>
 <p>假设我们要给这个作业的image叫<code>image_p0</code>。</p>
 <p>我们在autolab的服务器上写一个<code>Dockerfile_p0</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> debian:12</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># git: clone Tango. Dependency of cpptrace</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo: needed when installing autodriver</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># procps: pkill. Otherwise no feedback</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># unzip: submission.zip</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># python: grade.py</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>	git <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>	build-essential <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>	gcc <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>	make <span class="dt">\</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>	sudo <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>	procps <span class="dt">\</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>	unzip <span class="dt">\</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>	python3 <span class="dt">\</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>	python3-venv</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Install autodriver</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /home</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">useradd</span> autolab</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">useradd</span> autograde</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">mkdir</span> autolab autograde output</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">chown</span> autolab:autolab autolab</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">chown</span> autolab:autolab output</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">chown</span> autograde:autograde autograde</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">git</span> clone <span class="at">--depth</span> 1 https://github.com/autolab/Tango.git</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> Tango/autodriver</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">make</span> clean <span class="kw">&amp;&amp;</span> <span class="fu">make</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">cp</span> autodriver /usr/bin/autodriver</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">chmod</span> +s /usr/bin/autodriver</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /home</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">rm</span> <span class="at">-rf</span> Tango/</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">python3</span> <span class="at">-m</span> venv /home/.venvs/base</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="bu">echo</span> <span class="st">". /home/.venvs/base/bin/activate"</span> <span class="op">&gt;&gt;</span> /home/.profile</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="bu">.</span> /home/.profile <span class="kw">&amp;&amp;</span> <span class="ex">pip3</span> install func-timeout</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># assessment-specific packages</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> <span class="dt">\</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>	sqlite3</span></code></pre></div>
-<pre class="shell"><code>sudo docker build -t image_p0 -f Dockerfile_p0 .</code></pre>
+<figure class="highlight dockerfile"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> debian:<span class="number">12</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git: clone Tango. Dependency of cpptrace</span></span><br><span class="line"><span class="comment"># sudo: needed when installing autodriver</span></span><br><span class="line"><span class="comment"># procps: pkill. Otherwise no feedback</span></span><br><span class="line"><span class="comment"># unzip: submission.zip</span></span><br><span class="line"><span class="comment"># python: grade.py</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="language-bash">	git \</span></span><br><span class="line"><span class="language-bash">	build-essential \</span></span><br><span class="line"><span class="language-bash">	gcc \</span></span><br><span class="line"><span class="language-bash">	make \</span></span><br><span class="line"><span class="language-bash">	sudo \</span></span><br><span class="line"><span class="language-bash">	procps \</span></span><br><span class="line"><span class="language-bash">	unzip \</span></span><br><span class="line"><span class="language-bash">	python3 \</span></span><br><span class="line"><span class="language-bash">	python3-venv</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install autodriver</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> useradd autolab</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> useradd autograde</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> autolab autograde output</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> autolab:autolab autolab</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> autolab:autolab output</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> autograde:autograde autograde</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> git <span class="built_in">clone</span> --depth 1 https://github.com/autolab/Tango.git</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> Tango/autodriver</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> make clean &amp;&amp; make</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cp</span> autodriver /usr/bin/autodriver</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> +s /usr/bin/autodriver</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clean up</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">rm</span> -rf Tango/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> python3 -m venv /home/.venvs/base</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">". /home/.venvs/base/bin/activate"</span> &gt;&gt; /home/.profile</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> . /home/.profile &amp;&amp; pip3 install func-timeout</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># assessment-specific packages</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="language-bash">	sqlite3</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo docker build -t image_p0 -f Dockerfile_p0 .</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在autolab的<code>VM Image</code>里填入<code>image_p0</code>即可。</p>
 <h4 id="autograder-makefile"><a href="#autograder-makefile">¶</a>
 Autograder Makefile</h4>
 <p>我们可以创建一个通用的Autograder Makefile：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> submission.zip autograde.tar</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>	if [ -f /home/.profile ]; then <span class="ch">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>		. /home/.profile; <span class="ch">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>	fi; <span class="ch">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>	rm -rf handin; <span class="ch">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>	mkdir handin; <span class="ch">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>	unzip submission.zip -d handin; <span class="ch">\</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>	mkdir -p autograde; <span class="ch">\</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>	tar xf autograde.tar -C autograde; <span class="ch">\</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>	cd autograde &amp;&amp; ./driver</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dv">clean:</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>	rm -rf handin autograde</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ot">.PHONY:</span><span class="dt"> all clean</span></span></code></pre></div>
+<figure class="highlight makefile"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">all: submission.zip autograde.tar</span></span><br><span class="line">	if [ -f /home/.profile ]; then \</span><br><span class="line">		. /home/.profile; \</span><br><span class="line">	fi; \</span><br><span class="line">	rm -rf handin; \</span><br><span class="line">	mkdir handin; \</span><br><span class="line">	unzip submission.zip -d handin; \</span><br><span class="line">	mkdir -p autograde; \</span><br><span class="line">	tar xf autograde.tar -C autograde; \</span><br><span class="line">	cd autograde &amp;&amp; ./driver</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -rf handin autograde</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: all clean</span></span><br></pre></td></tr></tbody></table></figure>
 <p>在这个Autograder
 Makefile中，我们把<code>submission.zip</code>解压到<code>handin</code>里，把<code>autograde.tar</code>解压到<code>autograde</code>里，然后执行<code>driver</code>来评测。</p>
 <h4 id="driver"><a href="#driver">¶</a> driver</h4>
 <p>一般我们把测试相关的文件放到autograde.tar里，在<code>driver</code>中把这些文件copy到<code>handin</code>里，防止学生篡改这些文件。然后再做编译之类的准备工作。最后调用<code>grade.py</code>评分。例子：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env sh</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Overwrite essential files in case students tampered up them</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> essential/<span class="pp">*</span> ../handin/</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../handin</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果需要编译的话，在这里加上编译的命令</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">../autograde/grade.py</span></span></code></pre></div>
+<figure class="highlight sh"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env sh</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"><span class="comment"># Overwrite essential files in case students tampered up them</span></span><br><span class="line"><span class="built_in">cp</span> -r essential/* ../handin/</span><br><span class="line"><span class="built_in">cd</span> ../handin</span><br><span class="line"><span class="comment"># 如果需要编译的话，在这里加上编译的命令</span></span><br><span class="line">../autograde/grade.py</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="gradepy"><a href="#gradepy">¶</a> <code>grade.py</code></h4>
 <p>我们可以写一个通用的<code>grade.py</code>，让它读取<code>config.json</code>来决定怎么评分，并且在超时时输出已经测完的问题的分数：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Call this script in the handin folder</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout <span class="im">import</span> FunctionTimedOut</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> func_timeout.StoppableThread <span class="im">import</span> StoppableThread</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>mydir <span class="op">=</span> os.path.dirname(os.path.abspath(sys.argv[<span class="dv">0</span>]))</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> json.load(<span class="bu">open</span>(os.path.join(mydir, <span class="st">'config.json'</span>)))</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> {}</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_tests():</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">global</span> scores</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> problem <span class="kw">in</span> config[<span class="st">'problems'</span>]:</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            executable <span class="op">=</span> problem[<span class="st">'exec'</span>]</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            args <span class="op">=</span> problem[<span class="st">'args'</span>]</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            process <span class="op">=</span> subprocess.Popen([executable] <span class="op">+</span> args)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We must wait with timeout, otherwise it won't respond to external exceptions.</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># https://stackoverflow.com/a/631605/13688160</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> process.wait(timeout<span class="op">=</span><span class="dv">23333333</span>) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                score <span class="op">=</span> problem[<span class="st">'score'</span>]</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(problem[<span class="st">'name'</span>] <span class="op">+</span> <span class="st">' passed'</span>)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                score <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(problem[<span class="st">'name'</span>] <span class="op">+</span> <span class="st">' failed'</span>)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>            scores[problem[<span class="st">'name'</span>]] <span class="op">=</span> score</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> FunctionTimedOut:</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>            process.kill()</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">NameError</span>:</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Code to handle any other exception</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"An error occurred: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="bu">str</span>(e)))</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>tester <span class="op">=</span> StoppableThread(target<span class="op">=</span>run_tests)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>tester.start()</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>tester.join(timeout<span class="op">=</span>config[<span class="st">'timeout'</span>])</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> tester.is_alive():</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    tester.stop(exception<span class="op">=</span>FunctionTimedOut)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    tester.join()</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"The whole google test timed out after </span><span class="sc">{</span>config[<span class="st">'timeout'</span>]<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Please make your code faster."</span>)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> problem <span class="kw">in</span> config[<span class="st">'problems'</span>]:</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(out) <span class="op">!=</span> <span class="dv">0</span>:</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        out <span class="op">+=</span> <span class="st">', '</span></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> problem[<span class="st">'name'</span>] <span class="kw">in</span> scores:</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        score <span class="op">=</span> scores[problem[<span class="st">'name'</span>]]</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        score <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    out <span class="op">+=</span> <span class="st">'"'</span> <span class="op">+</span> problem[<span class="st">'name'</span>] <span class="op">+</span> <span class="st">'": '</span> <span class="op">+</span> <span class="bu">str</span>(score)</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'{"scores": {'</span> <span class="op">+</span> out <span class="op">+</span> <span class="st">'</span><span class="sc">}}</span><span class="st">'</span>)</span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># Call this script in the handin folder</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> func_timeout <span class="keyword">import</span> FunctionTimedOut</span><br><span class="line"><span class="keyword">from</span> func_timeout.StoppableThread <span class="keyword">import</span> StoppableThread</span><br><span class="line"></span><br><span class="line">mydir = os.path.dirname(os.path.abspath(sys.argv[<span class="number">0</span>]))</span><br><span class="line">config = json.load(<span class="built_in">open</span>(os.path.join(mydir, <span class="string">'config.json'</span>)))</span><br><span class="line"></span><br><span class="line">scores = {}</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run_tests</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">global</span> scores</span><br><span class="line">        <span class="keyword">for</span> problem <span class="keyword">in</span> config[<span class="string">'problems'</span>]:</span><br><span class="line">            executable = problem[<span class="string">'exec'</span>]</span><br><span class="line">            args = problem[<span class="string">'args'</span>]</span><br><span class="line">            process = subprocess.Popen([executable] + args)</span><br><span class="line">            <span class="comment"># We must wait with timeout, otherwise it won't respond to external exceptions.</span></span><br><span class="line">            <span class="comment"># https://stackoverflow.com/a/631605/13688160</span></span><br><span class="line">            <span class="keyword">if</span> process.wait(timeout=<span class="number">23333333</span>) == <span class="number">0</span>:</span><br><span class="line">                score = problem[<span class="string">'score'</span>]</span><br><span class="line">                <span class="built_in">print</span>(problem[<span class="string">'name'</span>] + <span class="string">' passed'</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                score = <span class="number">0</span></span><br><span class="line">                <span class="built_in">print</span>(problem[<span class="string">'name'</span>] + <span class="string">' failed'</span>)</span><br><span class="line">            scores[problem[<span class="string">'name'</span>]] = score</span><br><span class="line">    <span class="keyword">except</span> FunctionTimedOut:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            process.kill()</span><br><span class="line">        <span class="keyword">except</span> NameError:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="comment"># Code to handle any other exception</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"An error occurred: {}"</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(e)))</span><br><span class="line"></span><br><span class="line">tester = StoppableThread(target=run_tests)</span><br><span class="line">tester.start()</span><br><span class="line">tester.join(timeout=config[<span class="string">'timeout'</span>])</span><br><span class="line"><span class="keyword">if</span> tester.is_alive():</span><br><span class="line">    tester.stop(exception=FunctionTimedOut)</span><br><span class="line">    tester.join()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"The whole google test timed out after <span class="subst">{config[<span class="string">'timeout'</span>]}</span> seconds"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Please make your code faster."</span>)</span><br><span class="line"></span><br><span class="line">out = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> problem <span class="keyword">in</span> config[<span class="string">'problems'</span>]:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(out) != <span class="number">0</span>:</span><br><span class="line">        out += <span class="string">', '</span></span><br><span class="line">    <span class="keyword">if</span> problem[<span class="string">'name'</span>] <span class="keyword">in</span> scores:</span><br><span class="line">        score = scores[problem[<span class="string">'name'</span>]]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        score = <span class="number">0</span></span><br><span class="line">    out += <span class="string">'"'</span> + problem[<span class="string">'name'</span>] + <span class="string">'": '</span> + <span class="built_in">str</span>(score)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'{"scores": {'</span> + out + <span class="string">'}}'</span>)</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="configjson"><a href="#configjson">¶</a>
 <code>config.json</code></h4>
 <p>示例：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>	<span class="dt">"problems"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>		<span class="fu">{</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"name"</span><span class="fu">:</span> <span class="st">"问题1"</span><span class="fu">,</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"exec"</span><span class="fu">:</span> <span class="st">"执行的文件（相对于handin的路径）"</span><span class="fu">,</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"参数1"</span><span class="ot">,</span> <span class="st">"参数2"</span><span class="ot">,</span> <span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"score"</span><span class="fu">:</span> <span class="er">分数</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>		<span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>	<span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>	<span class="dt">"timeout"</span><span class="fu">:</span> <span class="dv">120</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<figure class="highlight json"><table><tbody><tr><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">	<span class="attr">"problems"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">		<span class="punctuation">{</span></span><br><span class="line">			<span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"问题1"</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">"exec"</span><span class="punctuation">:</span> <span class="string">"执行的文件（相对于handin的路径）"</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">"args"</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">"参数1"</span><span class="punctuation">,</span> <span class="string">"参数2"</span><span class="punctuation">,</span> ...<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">			<span class="attr">"score"</span><span class="punctuation">:</span> 分数</span><br><span class="line">		<span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">	<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">"timeout"</span><span class="punctuation">:</span> <span class="number">120</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
 <h4 id="autograder-tar"><a href="#autograder-tar">¶</a> Autograder
 Tar</h4>
 <p>建议的目录结构：</p>
-<pre class="text"><code>XX-course
-|- common
-|  |- grade.py
-|- p0
-   |- .gitignore
-   |- autograde.tar (ignore in .gitignore)
-   |- config.json
-   |- driver
-   |- essential
-   |  |-略
-   |- Makefile</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">XX-course</span><br><span class="line">|- common</span><br><span class="line">|  |- grade.py</span><br><span class="line">|- p0</span><br><span class="line">   |- .gitignore</span><br><span class="line">   |- autograde.tar (ignore in .gitignore)</span><br><span class="line">   |- config.json</span><br><span class="line">   |- driver</span><br><span class="line">   |- essential</span><br><span class="line">   |  |-略</span><br><span class="line">   |- Makefile</span><br></pre></td></tr></tbody></table></figure>
 <p><code>p0/Makefile</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">files </span><span class="ch">=</span><span class="st"> driver config.json </span><span class="ch">$(</span><span class="kw">wildcard</span><span class="st"> essential/*</span><span class="ch">)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">autograde.tar:</span><span class="dt"> ../common/grade.py </span><span class="ch">$(</span><span class="dt">files</span><span class="ch">)</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>	tar cf autograde.tar <span class="ch">$(</span><span class="dt">files</span><span class="ch">)</span> -C ../common grade.py</span></code></pre></div>
+<figure class="highlight makefile"><table><tbody><tr><td class="code"><pre><span class="line">files = driver config.json <span class="variable">$(<span class="built_in">wildcard</span> essential/*)</span></span><br><span class="line"><span class="section">autograde.tar: ../common/grade.py <span class="variable">$(files)</span></span></span><br><span class="line">	tar cf autograde.tar <span class="variable">$(files)</span> -C ../common grade.py</span><br></pre></td></tr></tbody></table></figure>
 <p>以后在<code>p0</code>下面直接<code>make</code>就可以生成<code>autograde.tar</code>了。然后用<code>scp</code>之类的方法弄到本地，然后上传到autolab的Autograder
 Tar即可。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

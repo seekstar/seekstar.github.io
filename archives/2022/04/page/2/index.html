@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8139,10 +8139,8 @@ kerne
 					¶
 virsh default network
 可以利用virsh自带的default network，它是利用NAT实现的。
-sudo virsh net-start default
-# 关闭
-# sudo virsh net-destroy default
-然后ip a就可以看到一个名为virb
+sudo virsh net-start default# 关闭# sudo virsh net-destroy default
+然后ip a就可以看到一个名为virbr0
 					...
 				</div>
 			</a>
@@ -8162,8 +8160,7 @@ sudo virsh net-start default
 				<div class="index-brief">
 					症状：
 nmcli device status
-DEVICE        TYPE      STATE                                  CONNECTION
-enp89s0       ethernet  unmanaged                   
+DEVICE        TYPE      STATE                                  CONNECTIONenp89s0       ethernet  unmanaged                    
 					...
 				</div>
 			</a>
@@ -8183,10 +8180,9 @@ enp89s0       ethernet  unmanaged
 				<div class="index-brief">
 					有些发行版中，普通用户可能没法用KVM：
 virsh capabilities | grep domain
-      &lt;domain type='qemu'/&gt;
-      &lt;domain type='qemu'/&gt;
+&lt;domain type='qemu'/&gt;&lt;domain type='qemu'/&gt;
 作为对比：
-sudo virsh capabilitie
+sudo virsh capabilities | grep doma
 					...
 				</div>
 			</a>
@@ -8295,9 +8291,7 @@ sudo bash -c "echo 0 &gt; /pro
 				</h2>
 				<div class="index-brief">
 					如果在RocksDB内部，可以用这个：
-void DBImpl::WaitForBackgroundWork() {
-  // Wait for background work to finish
-  while (bg_bottom_compaction_scheduled_ || bg_comp
+void DBImpl::WaitForBackgroundWork() {  // Wait for background work to finish  while (bg_bottom_compaction_scheduled_ || bg_compac
 					...
 				</div>
 			</a>

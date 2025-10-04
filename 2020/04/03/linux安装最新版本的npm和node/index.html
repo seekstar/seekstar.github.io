@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,56 +8142,38 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="先安装旧版本npm"><a href="#先安装旧版本npm">¶</a>
 先安装旧版本npm</h2>
-<pre class="shell"><code># Deepin
-sudo apt install -y npm
-# CentOS
-sudo yum install npm</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Deepin</span></span><br><span class="line">sudo apt install -y npm</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">CentOS</span></span><br><span class="line">sudo yum install npm</span><br></pre></td></tr></tbody></table></figure>
 <p>查看当前版本</p>
-<pre class="shell"><code>npm -v</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></tbody></table></figure>
 <p>我的输出是</p>
-<pre class="text"><code>3.5.2</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">3.5.2</span><br></pre></td></tr></tbody></table></figure>
 <p>是非常老的版本</p>
 <h2 id="安装最新版node"><a href="#安装最新版node">¶</a>
 安装最新版node</h2>
 <p>新版npm可能不支持老版本的node：<a href="https://seekstar.github.io/2021/12/30/npm-does-not-support-node-js-v10-21-0-you-should-probably-upgrade-to-a-newer-version-of-node/" class="uri">https://seekstar.github.io/2021/12/30/npm-does-not-support-node-js-v10-21-0-you-should-probably-upgrade-to-a-newer-version-of-node/</a></p>
 <p>所以先升级node。使用国内镜像源升级：</p>
-<pre class="shell"><code>sudo npm install -g n --registry=https://registry.npmmirror.com
-# https://github.com/tj/n#custom-source
-# 有些发行版sudo的PATH可能没有/usr/local/bin，加上-i之后会执行/etc/profile，就有/usr/local/bin了。
-sudo bash -i -c "N_NODE_MIRROR=https://npmmirror.com/mirrors/node n stable"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo npm install -g n --registry=https://registry.npmmirror.com</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://github.com/tj/n<span class="comment">#custom-source</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">有些发行版sudo的PATH可能没有/usr/local/bin，加上-i之后会执行/etc/profile，就有/usr/local/bin了。</span></span><br><span class="line">sudo bash -i -c "N_NODE_MIRROR=https://npmmirror.com/mirrors/node n stable"</span><br></pre></td></tr></tbody></table></figure>
 <p>如果不使用国内镜像源的话：</p>
-<pre class="shell"><code>sudo npm install -g n
-sudo n stable</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo npm install -g n</span><br><span class="line">sudo n stable</span><br></pre></td></tr></tbody></table></figure>
 <p>我的输出</p>
-<pre class="text"><code>searchstar@searchstar-mint19:~$ sudo n stable
-
-  installing : node-v12.16.1
-       mkdir : /usr/local/n/versions/node/12.16.1
-       fetch : https://nodejs.org/dist/v12.16.1/node-v12.16.1-linux-x64.tar.xz
-   installed : v12.16.1 (with npm 6.13.4)
-
-Note: the node command changed location and the old location may be remembered in your current shell.
-         old : /usr/bin/node
-         new : /usr/local/bin/node
-To reset the command location hash either start a new shell, or execute PATH="$PATH"</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">searchstar@searchstar-mint19:~$ sudo n stable</span><br><span class="line"></span><br><span class="line">  installing : node-v12.16.1</span><br><span class="line">       mkdir : /usr/local/n/versions/node/12.16.1</span><br><span class="line">       fetch : https://nodejs.org/dist/v12.16.1/node-v12.16.1-linux-x64.tar.xz</span><br><span class="line">   installed : v12.16.1 (with npm 6.13.4)</span><br><span class="line"></span><br><span class="line">Note: the node command changed location and the old location may be remembered in your current shell.</span><br><span class="line">         old : /usr/bin/node</span><br><span class="line">         new : /usr/local/bin/node</span><br><span class="line">To reset the command location hash either start a new shell, or execute PATH="$PATH"</span><br></pre></td></tr></tbody></table></figure>
 <p>这里很良心地提示了要重启终端或者执行</p>
-<pre class="shell"><code>PATH="$PATH"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">PATH="$PATH"</span><br></pre></td></tr></tbody></table></figure>
 <p>才能使用最新版本</p>
 <p>查看现在的node版本</p>
-<pre class="shell"><code>node -v</code></pre>
-<pre class="text"><code>v12.16.1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">v12.16.1</span><br></pre></td></tr></tbody></table></figure>
 <p>已经是最新版了</p>
 <h2 id="安装最新npm"><a href="#安装最新npm">¶</a> 安装最新npm</h2>
 <p>可以通过旧版本npm直接安装新版npm</p>
-<pre class="shell"><code># 可以加上--registry=https://registry.npmmirror.com来使用国内镜像源
-sudo npm install npm@latest -g</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以加上--registry=https://registry.npmmirror.com来使用国内镜像源</span></span><br><span class="line">sudo npm install npm@latest -g</span><br></pre></td></tr></tbody></table></figure>
 <p>非常坑的是，现在立即执行</p>
-<pre class="shell"><code>npm -v</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></tbody></table></figure>
 <p>得到的还是旧版本，这是因为此时npm仍然指向旧的npm可执行文件。其实只要重开终端或者执行</p>
-<pre class="shell"><code>PATH="$PATH"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">PATH="$PATH"</span><br></pre></td></tr></tbody></table></figure>
 <p>就可以更新npm命令指向的文件了。<br>
 再查看版本：</p>
-<pre class="text"><code>6.14.4</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">6.14.4</span><br></pre></td></tr></tbody></table></figure>
 <p>这就是最新版的npm了。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

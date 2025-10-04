@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8116,13 +8116,10 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					比方说要把这个函数暴露给C语言使用：
-fn add(a: i32, b: i32) -&gt; i32 {
-    return a + b;
-}
+fn add(a: i32, b: i32) -&gt; i32 {    return a + b;}
 cargo new add --lib
 在add/src/lib.rs里写入：
-#[no_mangle]
-pub extern "C" fn add(a
+#[no_mangle]pub extern "C" fn add(a: i
 					...
 				</div>
 			</a>
@@ -8141,10 +8138,9 @@ pub extern "C" fn add(a
 				</h2>
 				<div class="index-brief">
 					Cargo.toml:
-[profile.dev]
-opt-level = 3
+[profile.dev]opt-level = 3
 然后cargo build:
-    Finished dev [optimized + debuginfo] target(s) in 6.35s
+Finished dev [optimized + debuginfo] target(s) in 6.35s
 
 					...
 				</div>

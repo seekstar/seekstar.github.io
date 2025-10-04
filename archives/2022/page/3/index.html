@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8157,10 +8157,7 @@ git reset --hard HEAD~3
 				</h2>
 				<div class="index-brief">
 					可以用rsync。例子：
-# 相当于scp sshname:/path/to/file .
-rsync -zP -e ssh sshname:/path/to/file .
-# 类似于scp -r sshname:/path/to/dir .
-# 但是当/path/to/dir已经存在时不会在下面新
+# 相当于scp sshname:/path/to/file .rsync -zP -e ssh sshname:/path/to/file .# 类似于scp -r sshname:/path/to/dir .# 但是当/path/to/dir已经存在时不会在下面新建一个
 					...
 				</div>
 			</a>
@@ -8179,15 +8176,9 @@ rsync -zP -e ssh sshname:/path/to/file .
 				</h2>
 				<div class="index-brief">
 					例如这个objdump.c：
-#include &lt;stdio.h&gt;
-
-int main() {
-	printf("Hello world!\n");
-
-	return 0;
-}
+#include &lt;stdio.h&gt;int main() {	printf("Hello world!\n");	return 0;}
 编译选项中加入-g编译：gcc objdump.c -g -o objdump。
-然后查看编译结果的汇编码：o
+然后查看编译结果的汇编码：objdump
 					...
 				</div>
 			</a>
@@ -8273,15 +8264,11 @@ conda install -c cond
 					相关：C语言动态链接库
 ¶ 场景
 add.c:
-int add(int a, int b) {
-    return a + b;
-}
+int add(int a, int b) {    return a + b;}
 sub.c:
-int sub(int a, int b) {
-    return a - b;
-}
+int sub(int a, int b) {    return a - b;}
 main.c:
-#include &lt;stdio.h&gt
+#include &lt;stdio.h&gt;int
 					...
 				</div>
 			</a>
@@ -8302,10 +8289,7 @@ main.c:
 					相关：C语言调用Rust
 ¶ 场景
 在C++中有一个类想用Rust的std::collections::BinaryHeap维护：
-class A {
-public:
-	A(const char* data, size_t size) : data_(data), size_(size) {}
-	c
+class A {public:	A(const char* data, size_t size) : data_(data), size_(size) {}	cons
 					...
 				</div>
 			</a>
@@ -8324,13 +8308,10 @@ public:
 				</h2>
 				<div class="index-brief">
 					比方说要把这个函数暴露给C语言使用：
-fn add(a: i32, b: i32) -&gt; i32 {
-    return a + b;
-}
+fn add(a: i32, b: i32) -&gt; i32 {    return a + b;}
 cargo new add --lib
 在add/src/lib.rs里写入：
-#[no_mangle]
-pub extern "C" fn add(a
+#[no_mangle]pub extern "C" fn add(a: i
 					...
 				</div>
 			</a>

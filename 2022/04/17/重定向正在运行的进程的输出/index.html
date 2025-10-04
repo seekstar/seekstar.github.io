@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,17 +8142,16 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用reredirect可以实现：<a target="_blank" rel="noopener" href="https://github.com/jerome-pouiller/reredirect/" class="uri">https://github.com/jerome-pouiller/reredirect/</a></p>
 <p>基础用法：</p>
-<pre class="shell"><code>reredirect -m FILE PID</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">reredirect -m FILE PID</span><br></pre></td></tr></tbody></table></figure>
 <p>然后进程的stdout和stderr都重定向到<code>FILE</code>了。</p>
 <p>如果要把stdout和stderr分别重定向到两个文件：</p>
-<pre class="shell"><code>reredirect -o FILE1 -e FILE2 PID</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">reredirect -o FILE1 -e FILE2 PID</span><br></pre></td></tr></tbody></table></figure>
 <p>重定向完成后，会打印一条消息：</p>
-<pre class="text"><code># Previous state saved. To restore, use:
-reredirect -N -O 5 -E 3 57780</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># Previous state saved. To restore, use:</span><br><span class="line">reredirect -N -O 5 -E 3 57780</span><br></pre></td></tr></tbody></table></figure>
 <p>意思应该是原来的stdout的fd变成了<code>5</code>，原来的stderr的fd变成了<code>3</code>。而这条命令的作用就是将原来的stdout和stderr都恢复回去。</p>
 <p>reredirect甚至对挂在init进程下的孤儿进程都起作用。</p>
 <p>这个repo还提供了<code>relink</code>，可以将进程的输出重定向到当前terminal：</p>
-<pre class="shell"><code>relink PID</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">relink PID</span><br></pre></td></tr></tbody></table></figure>
 <p>同样，<code>relink</code>对挂载init进程下的孤儿进程也有效。</p>
 <h2 id="特殊情况"><a href="#特殊情况">¶</a> 特殊情况</h2>
 <ul>

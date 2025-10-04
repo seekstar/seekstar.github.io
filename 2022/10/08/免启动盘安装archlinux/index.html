@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8145,144 +8145,52 @@ V23为例。</p>
 <h2 id="必要工具"><a href="#必要工具">¶</a> 必要工具</h2>
 <p>这些工具ArchLinux的启动盘已经提供了。我们不用启动盘的话就得自己编译安装。</p>
 <h3 id="pacstrap-和-arch-chroot"><a href="#pacstrap-和-arch-chroot">¶</a> pacstrap 和 arch-chroot</h3>
-<pre class="shell"><code>sudo apt install m4
-# 这个六百多MB。不知道是不是必须的。
-#sudo apt install asciidoc
-git clone https://github.com/archlinux/arch-install-scripts
-cd arch-install-scripts
-make
-sudo make install</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install m4</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个六百多MB。不知道是不是必须的。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">sudo apt install asciidoc</span></span><br><span class="line">git clone https://github.com/archlinux/arch-install-scripts</span><br><span class="line">cd arch-install-scripts</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="pacman"><a href="#pacman">¶</a> pacman</h3>
-<pre class="shell"><code>sudo apt install libarchive-dev
-# bsdtar
-sudo apt install libarchive-tools
-sudo apt install meson
-# Get the newest version automatically
-# https://stackoverflow.com/questions/4493205/unix-sort-of-version-numbers
-version=$(curl https://sources.archlinux.org/other/pacman/ | grep pacman | cut -d '"' -f 2 | sed 's/^[^0-9]*//g' | grep '^[0-9\.]*[0-9]' -o | sort -V | tail -n 1)
-wget https://sources.archlinux.org/other/pacman/pacman-$version.tar.xz
-tar xJf pacman-$version.tar.xz
-cd pacman-$version/
-# https://stackoverflow.com/questions/62475190/meson-and-ninja-build-system-specifify-where-binaries-are-stored
-meson build
-ninja -C build
-sudo ninja -C build install</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install libarchive-dev</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bsdtar</span></span><br><span class="line">sudo apt install libarchive-tools</span><br><span class="line">sudo apt install meson</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Get the newest version automatically</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/4493205/unix-sort-of-version-numbers</span></span><br><span class="line">version=$(curl https://sources.archlinux.org/other/pacman/ | grep pacman | cut -d '"' -f 2 | sed 's/^[^0-9]*//g' | grep '^[0-9\.]*[0-9]' -o | sort -V | tail -n 1)</span><br><span class="line">wget https://sources.archlinux.org/other/pacman/pacman-$version.tar.xz</span><br><span class="line">tar xJf pacman-$version.tar.xz</span><br><span class="line">cd pacman-$version/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/62475190/meson-and-ninja-build-system-specifify-where-binaries-are-stored</span></span><br><span class="line">meson build</span><br><span class="line">ninja -C build</span><br><span class="line">sudo ninja -C build install</span><br></pre></td></tr></tbody></table></figure>
 <p>但是库的pc文件被安装到了<code>/usr/lib64/pkgconfig</code>里，而这下面的pc文件通常默认是不被搜索的：</p>
-<pre class="shell"><code># https://askubuntu.com/a/373217
-pkg-config --variable pc_path pkg-config
-# 里面通常没有/usr/lib64/pkgconfig</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://askubuntu.com/a/373217</span></span><br><span class="line">pkg-config --variable pc_path pkg-config</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">里面通常没有/usr/lib64/pkgconfig</span></span><br></pre></td></tr></tbody></table></figure>
 <p>因此需要将这个路径添加到<code>PKG_CONFIG_PATH</code>里：</p>
-<pre class="shell"><code># https://people.freedesktop.org/~dbn/pkg-config-guide.html
-sudo bash -c 'echo "export PKG_CONFIG_PATH=/usr/lib64/pkgconfig" &gt;&gt; /etc/bash.bashrc'
-# 需要重启终端使PKG_CONFIG_PATH生效
-# 需要把PKG_CONFIG_PATH加入到sudoers里的env_keep才能在sudo的时候使用这个设置的环境变量。</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://people.freedesktop.org/~dbn/pkg-config-guide.html</span></span><br><span class="line">sudo bash -c 'echo "export PKG_CONFIG_PATH=/usr/lib64/pkgconfig" &gt;&gt; /etc/bash.bashrc'</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要重启终端使PKG_CONFIG_PATH生效</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要把PKG_CONFIG_PATH加入到sudoers里的env_keep才能在sudo的时候使用这个设置的环境变量。</span></span><br></pre></td></tr></tbody></table></figure>
 <p>然后配置一下pacman的源：</p>
-<pre class="shell"><code># https://archlinux.org/pacman/pacman.conf.5.html
-# https://stackoverflow.com/questions/23929235/multi-line-string-with-extra-space-preserved-indentation
-sudo bash -c "cat &gt; /etc/pacman.conf" &lt;&lt; EOF
-[options]
-HoldPkg     = pacman glibc
-# 不设置XferCommand的话可能会下载失败。
-XferCommand = /usr/bin/curl -L -C - -f -o %o %u
-Architecture = auto
-CheckSpace
-ParallelDownloads = 5
-
-[core]
-Include = /etc/pacman.d/mirrorlist
-
-[community]
-Include = /etc/pacman.d/mirrorlist
-
-[extra]
-Include = /etc/pacman.d/mirrorlist
-EOF
-
-sudo mkdir -p /etc/pacman.d/
-sudo bash -c "echo \"Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\\\$repo/os/\\\$arch\" &gt; /etc/pacman.d/mirrorlist"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://archlinux.org/pacman/pacman.conf.5.html</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/23929235/multi-line-string-with-extra-space-preserved-indentation</span></span><br><span class="line">sudo bash -c "cat &gt; /etc/pacman.conf" &lt;&lt; EOF</span><br><span class="line">[options]</span><br><span class="line">HoldPkg     = pacman glibc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">不设置XferCommand的话可能会下载失败。</span></span><br><span class="line">XferCommand = /usr/bin/curl -L -C - -f -o %o %u</span><br><span class="line">Architecture = auto</span><br><span class="line">CheckSpace</span><br><span class="line">ParallelDownloads = 5</span><br><span class="line"></span><br><span class="line">[core]</span><br><span class="line">Include = /etc/pacman.d/mirrorlist</span><br><span class="line"></span><br><span class="line">[community]</span><br><span class="line">Include = /etc/pacman.d/mirrorlist</span><br><span class="line"></span><br><span class="line">[extra]</span><br><span class="line">Include = /etc/pacman.d/mirrorlist</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo mkdir -p /etc/pacman.d/</span><br><span class="line">sudo bash -c "echo \"Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\\\$repo/os/\\\$arch\" &gt; /etc/pacman.d/mirrorlist"</span><br></pre></td></tr></tbody></table></figure>
 <p>在国外的话可以使用worldwide源：<code>https://geo.mirror.pkgbuild.com/$repo/os/$arch</code>。参考：<a target="_blank" rel="noopener" href="https://archlinux.org/mirrorlist/all/https/" class="uri">https://archlinux.org/mirrorlist/all/https/</a></p>
 <h2 id="分区并挂载"><a href="#分区并挂载">¶</a> 分区并挂载</h2>
-<pre class="shell"><code>sudo cfdisk /dev/sda
-#efidev=/dev/sda1
-#rootdev=/dev/sda3
-sudo mkfs.ext4 $rootdev
-sudo mount $rootdev /mnt
-sudo mkdir /mnt/efi
-sudo mount $efidev /mnt/efi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo cfdisk /dev/sda</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">efidev=/dev/sda1</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">rootdev=/dev/sda3</span></span><br><span class="line">sudo mkfs.ext4 $rootdev</span><br><span class="line">sudo mount $rootdev /mnt</span><br><span class="line">sudo mkdir /mnt/efi</span><br><span class="line">sudo mount $efidev /mnt/efi</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="安装必要的包以及进行必要的配置"><a href="#安装必要的包以及进行必要的配置">¶</a>
 安装必要的包，以及进行必要的配置</h2>
-<pre class="shell"><code>sudo pacstrap /mnt base base-devel linux linux-headers linux-firmware dhcpcd vim bash-completion
-sudo bash -c "genfstab -U /mnt &gt;&gt; /mnt/etc/fstab"
-#hostname=hasee-arch
-sudo bash -c "echo $hostname &gt; /mnt/etc/hostname"
-sudo bash -c "cat &gt; /mnt/etc/hosts" &lt;&lt; EOF
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   $hostname
-EOF
-
-echo Setting root password:
-sudo chroot /mnt /bin/bash -c "passwd"
-echo Setting admin account
-echo -n "Please enter admin user name: "
-read admin_name
-echo Setting admin password:
-sudo chroot /mnt /bin/bash -c "useradd -m -G wheel $admin_name &amp;&amp; passwd $admin_name"
-sudo chmod 740 /mnt/etc/sudoers
-sudo bash -c 'echo "%wheel ALL=(ALL) ALL" &gt;&gt; /mnt/etc/sudoers'
-sudo chmod 440 /mnt/etc/sudoers</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacstrap /mnt base base-devel linux linux-headers linux-firmware dhcpcd vim bash-completion</span><br><span class="line">sudo bash -c "genfstab -U /mnt &gt;&gt; /mnt/etc/fstab"</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">hostname=hasee-arch</span></span><br><span class="line">sudo bash -c "echo $hostname &gt; /mnt/etc/hostname"</span><br><span class="line">sudo bash -c "cat &gt; /mnt/etc/hosts" &lt;&lt; EOF</span><br><span class="line">127.0.0.1   localhost</span><br><span class="line">::1         localhost</span><br><span class="line">127.0.1.1   $hostname</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">echo Setting root password:</span><br><span class="line">sudo chroot /mnt /bin/bash -c "passwd"</span><br><span class="line">echo Setting admin account</span><br><span class="line">echo -n "Please enter admin user name: "</span><br><span class="line">read admin_name</span><br><span class="line">echo Setting admin password:</span><br><span class="line">sudo chroot /mnt /bin/bash -c "useradd -m -G wheel $admin_name &amp;&amp; passwd $admin_name"</span><br><span class="line">sudo chmod 740 /mnt/etc/sudoers</span><br><span class="line">sudo bash -c 'echo "%wheel ALL=(ALL) ALL" &gt;&gt; /mnt/etc/sudoers'</span><br><span class="line">sudo chmod 440 /mnt/etc/sudoers</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="chroot"><a href="#chroot">¶</a> chroot</h2>
 <p>使用<code>arch-chroot</code>来chroot，因为<code>arch-chroot</code>会自动挂载一些其他目录。</p>
-<pre class="shell"><code>sudo arch-chroot /mnt</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo arch-chroot /mnt</span><br></pre></td></tr></tbody></table></figure>
 <p>接下来的操作都在chroot里执行。</p>
 <h2 id="安装桌面环境"><a href="#安装桌面环境">¶</a> 安装桌面环境</h2>
 <p>以KDE为例：</p>
-<pre class="shell"><code>pacman -S --needed plasma-meta konsole dolphin ark
-# Optional dependencies of ark
-pacman -S --needed p7zip unrar unarchiver lzop lrzip
-systemctl enable sddm
-# Dependencies of Discover
-pacman -S --needed packagekit-qt5 packagekit appstream-qt appstream</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pacman -S --needed plasma-meta konsole dolphin ark</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Optional dependencies of ark</span></span><br><span class="line">pacman -S --needed p7zip unrar unarchiver lzop lrzip</span><br><span class="line">systemctl enable sddm</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Dependencies of Discover</span></span><br><span class="line">pacman -S --needed packagekit-qt5 packagekit appstream-qt appstream</span><br></pre></td></tr></tbody></table></figure>
 <p>好像默认只有X11 session。如果要wayland session的话：</p>
-<pre class="shell"><code>sudo pacman -S plasma-wayland-session</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S plasma-wayland-session</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="安装一些额外包"><a href="#安装一些额外包">¶</a>
 安装一些额外包</h2>
-<pre class="shell"><code># Sound
-pacman -S --needed sof-firmware alsa-firmware alsa-ucm-conf
-pacman -S --needed ntfs-3g
-pacman -S --needed adobe-source-han-serif-cn-fonts wqy-zenhei noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-pacman -S --needed firefox
-pacman -S --needed wget</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Sound</span></span><br><span class="line">pacman -S --needed sof-firmware alsa-firmware alsa-ucm-conf</span><br><span class="line">pacman -S --needed ntfs-3g</span><br><span class="line">pacman -S --needed adobe-source-han-serif-cn-fonts wqy-zenhei noto-fonts-cjk noto-fonts-emoji noto-fonts-extra</span><br><span class="line">pacman -S --needed firefox</span><br><span class="line">pacman -S --needed wget</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="本地化"><a href="#本地化">¶</a> 本地化</h2>
 <h3 id="locale"><a href="#locale">¶</a> Locale</h3>
 <p>ArchLinux没有默认的locale，所以一定要设置locale，否则之后运行一些命令时会出现这种报错：<code>bsdtar: Failed to set default locale</code>。</p>
 <p>为了方便出现问题后到国际平台上寻求帮助，这里设置成<code>en_US.UTF-8</code>。</p>
-<pre class="shell"><code>echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" &gt;&gt; /etc/locale.gen &amp;&amp; locale-gen
-# https://wiki.archlinux.org/title/Locale
-# /etc/locale.conf
-sudo localectl set-locale LANG=en_US.UTF-8
-# https://wiki.archlinux.org/title/Locale#My_system_is_still_using_wrong_language
-#rm ~/.config/plasma-localerc</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo -e "en_US.UTF-8 UTF-8\nzh_CN.UTF-8 UTF-8" &gt;&gt; /etc/locale.gen &amp;&amp; locale-gen</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://wiki.archlinux.org/title/Locale</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/etc/locale.conf</span></span><br><span class="line">sudo localectl set-locale LANG=en_US.UTF-8</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://wiki.archlinux.org/title/Locale<span class="comment">#My_system_is_still_using_wrong_language</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">rm</span> ~/.config/plasma-localerc</span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="时区"><a href="#时区">¶</a> 时区</h3>
-<pre class="shell"><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="引导"><a href="#引导">¶</a> 引导</h2>
 <p>可以直接使用原有的引导，也可以安装并使用ArchLinux的引导。</p>
 <h3 id="使用原有的引导"><a href="#使用原有的引导">¶</a>
 使用原有的引导</h3>
-<pre class="shell"><code>update-grub</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">update-grub</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="安装并使用archlinux的引导"><a href="#安装并使用archlinux的引导">¶</a> 安装并使用ArchLinux的引导</h3>
-<pre class="shell"><code>pacman -S --needed grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-echo GRUB_DISABLE_OS_PROBER=false &gt;&gt; /etc/default/grub
-grub-mkconfig -o /boot/grub/grub.cfg</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pacman -S --needed grub efibootmgr</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB</span><br><span class="line">echo GRUB_DISABLE_OS_PROBER=false &gt;&gt; /etc/default/grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="启动archlinux"><a href="#启动archlinux">¶</a> 启动ArchLinux</h2>
 <p>重启电脑，应该就能在GRUB菜单里看到刚刚安装的ArchLinux了。</p>
 <p>进去之后可能会出现key出错的问题。可参考这里解决：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1790e92b2189/" class="uri">https://www.jianshu.com/p/1790e92b2189/</a></p>
 <p>KDE自带Baloo，用于文件索引，非常耗费资源。如果用不着的话可以关掉它：</p>
-<pre class="shell"><code># https://wiki.archlinux.org/title/Baloo
-balooctl suspend
-balooctl disable
-balooctl purge</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://wiki.archlinux.org/title/Baloo</span></span><br><span class="line">balooctl suspend</span><br><span class="line">balooctl disable</span><br><span class="line">balooctl purge</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://archlinuxstudio.github.io/ArchLinuxTutorial/#/" class="uri">https://archlinuxstudio.github.io/ArchLinuxTutorial/#/</a></p>
 <p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux" class="uri">https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux</a></p>

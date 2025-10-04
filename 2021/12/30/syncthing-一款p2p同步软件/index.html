@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,37 +8144,15 @@ mjx-container[display="true"] + br {
 <p>安卓端可以在F-Droid下载。F-Droid使用教程：<a href="https://seekstar.github.io/2021/12/29/f-droid%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="uri">https://seekstar.github.io/2021/12/29/f-droid%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</a></p>
 <h2 id="电脑端"><a href="#电脑端">¶</a> 电脑端</h2>
 <h3 id="安装"><a href="#安装">¶</a> 安装</h3>
-<pre class="shell"><code># Debian
-sudo apt install syncthing</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian</span></span><br><span class="line">sudo apt install syncthing</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="命令行"><a href="#命令行">¶</a> 命令行</h3>
 <p><a target="_blank" rel="noopener" href="https://gist.github.com/Jonny-exe/9bad76c3adc6e916434005755ea70389">syncthing
 setup exclusively with CLI</a></p>
-<pre class="shell"><code># 指定网页GUI的端口
-syncthing --gui-address=localhost:端口
-# 显示自己的device ID
-syncthing --device-id
-# 查看已添加的设备的device ID
-syncthing cli config devices list
-# 删除设备
-syncthing cli config devices &lt;device-ID&gt; delete
-# 查看接收到的连接请求的device ID
-syncthing cli show pending devices
-# 添加另一台设备。另一台设备会收到连接请求，同意即可。注意，手机端的连接请求在通知栏，而不是在app里。
-syncthing cli config devices add --device-id &lt;device-ID&gt;
-# 列出已知的folder
-syncthing cli config folders list
-# 查看folder的详细信息，例如在本地的路径，跟哪些设备分享
-syncthing cli config folders &lt;folder-ID&gt; dump-json
-# 查看folder在本地的路径
-syncthing cli config folders &lt;folder-ID&gt; path get
-# 列出folder跟哪些设备共享
-syncthing cli config folders &lt;folder-ID&gt; devices list
-# 将folder分享给另一台设备
-syncthing cli config folders 9sf9n-jh2yz devices add --device-id &lt;device-ID&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定网页GUI的端口</span></span><br><span class="line">syncthing --gui-address=localhost:端口</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示自己的device ID</span></span><br><span class="line">syncthing --device-id</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看已添加的设备的device ID</span></span><br><span class="line">syncthing cli config devices list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除设备</span></span><br><span class="line">syncthing cli config devices &lt;device-ID&gt; delete</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看接收到的连接请求的device ID</span></span><br><span class="line">syncthing cli show pending devices</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加另一台设备。另一台设备会收到连接请求，同意即可。注意，手机端的连接请求在通知栏，而不是在app里。</span></span><br><span class="line">syncthing cli config devices add --device-id &lt;device-ID&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出已知的folder</span></span><br><span class="line">syncthing cli config folders list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看folder的详细信息，例如在本地的路径，跟哪些设备分享</span></span><br><span class="line">syncthing cli config folders &lt;folder-ID&gt; dump-json</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看folder在本地的路径</span></span><br><span class="line">syncthing cli config folders &lt;folder-ID&gt; path get</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出folder跟哪些设备共享</span></span><br><span class="line">syncthing cli config folders &lt;folder-ID&gt; devices list</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将folder分享给另一台设备</span></span><br><span class="line">syncthing cli config folders 9sf9n-jh2yz devices add --device-id &lt;device-ID&gt;</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="home-is-undefined"><a href="#home-is-undefined">¶</a>
 <code>$HOME is undefined</code></h3>
 <p>在使用<code>supervisor</code>实现开启自动启动syncthing时，可能会失败，然后在日志里可能会发现这个错误信息。这是因为<code>supervisor</code>不会自动设置<code>HOME</code>等环境变量，但是syncthing又需要。这时只需要在conf里加上一行这个：</p>
-<pre><code>environment=HOME="/home/your_name"</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">environment=HOME="/home/your_name"</span><br></pre></td></tr></tbody></table></figure>
 <p>就手动设置了<code>HOME</code>环境变量了。</p>
 <p>来源：<a target="_blank" rel="noopener" href="http://supervisord.org/subprocess.html#subprocess-environment" class="uri">http://supervisord.org/subprocess.html#subprocess-environment</a></p>
 <h3 id="远程机器上设置gui密码之后浏览器连不上了"><a href="#远程机器上设置gui密码之后浏览器连不上了">¶</a>

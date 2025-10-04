@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8151,77 +8151,64 @@ warp，因此本教程介绍如何使用netns绕过wireguard。</p>
 device的流量会通过wireguard协议流向cloudflare warp，然后从cloudflare
 warp提供的原生IP流向目标IP。</p>
 <p>传统VPN是通过路由表实现访问内网资源的，即在路由表中加入条目，将目标IP是目标内网的流量的出口设置为VPN的device。但是wireguard的目标是使得机器上所有的流量的出口都为它的device。因此wireguard官方的wg-quick工具在配置wireguard的时候，会加入这样一条路由设置：</p>
-<pre class="shell"><code>ip -4 route add 0.0.0.0/0 dev wgcf table 51820</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip -4 route add 0.0.0.0/0 dev wgcf table 51820</span><br></pre></td></tr></tbody></table></figure>
 <p>它新建了一个路由表<code>51820</code>，它将<code>0.0.0.0/0</code>也就是任何IP的出口device都设置成了wireguard设备（这里是<code>wgcf</code>）。注意<code>ip route show</code>看到的是<code>main</code>
 table，而这里的table
 51820必须用<code>ip route show table 51820</code>才能看到，其内容为<code>default dev wgcf scope link</code>。按照我的理解，路由表要靠<code>ip rule</code>来调用。wg-quick添加了如下rule来调用刚刚定义的table
 51820<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://www.procustodibus.com/blog/2022/01/wg-quick-firewall-rules/#routes-and-policies>">[4]</span></a></sup>：</p>
-<pre class="shell"><code>ip -4 rule add not fwmark 51820 table 51820</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip -4 rule add not fwmark 51820 table 51820</span><br></pre></td></tr></tbody></table></figure>
 <p>其含义为<code>fwmark</code>不为51820的流量使用table
 51820来路由。这条rule可以使用<code>ip rule list</code>查看：</p>
-<pre class="text"><code>0:	from all lookup local
-18:	from &lt;我的本地IP&gt; lookup main
-32764:	from all lookup main suppress_prefixlength 0
-32765:	not from all fwmark 0xca6c lookup 51820
-32766:	from all lookup main
-32767:	from all lookup default</code></pre>
-<p>其中<code>32765:	not from all fwmark 0xca6c lookup 51820</code>就是刚刚加入的rule。可以看到fwmark不为<code>0xca6c</code>即51820的流量才会查询<code>main</code>和<code>default</code>路由表。因此我们绕过wireguard的思路就很明显了：把目标进程产生的流量的fwmark都设置成<code>51820</code>。</p>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">0:	from all lookup local</span><br><span class="line">18:	from &lt;我的本地IP&gt; lookup main</span><br><span class="line">32764:	from all lookup main suppress_prefixlength 0</span><br><span class="line">32765:	not from all fwmark 0xca6c lookup 51820</span><br><span class="line">32766:	from all lookup main</span><br><span class="line">32767:	from all lookup default</span><br></pre></td></tr></tbody></table></figure>
+<p>其中<code>32765:   not from all fwmark 0xca6c lookup 51820</code>就是刚刚加入的rule。可以看到fwmark不为<code>0xca6c</code>即51820的流量才会查询<code>main</code>和<code>default</code>路由表。因此我们绕过wireguard的思路就很明显了：把目标进程产生的流量的fwmark都设置成<code>51820</code>。</p>
 <h2 id="network-namespace-netns"><a href="#network-namespace-netns">¶</a> network namespace (netns)</h2>
 <h3 id="思路"><a href="#思路">¶</a> 思路</h3>
 <p>使用netns构建一个NAT网络，然后使用iptables将来自NAT网络的所有流量的<code>fwmark</code>都设置成<code>51820</code>。</p>
 <h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
-<pre class="shell"><code># Debian 11
-sudo apt install iptables</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian 11</span></span><br><span class="line">sudo apt install iptables</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="查找真实网卡"><a href="#查找真实网卡">¶</a> 查找真实网卡</h3>
 <p>首先通过<code>ip a</code>等方式找到机器的真实网卡，将其保存到<code>realdev</code>环境变量中：<code>realdev=eth0</code></p>
 <h3 id="打开ip-forward"><a href="#打开ip-forward">¶</a> 打开ip
 forward</h3>
-<pre class="shell"><code># 查看是否已经打开
-sudo sysctl net.ipv4.ip_forward
-# 打开
-sudo sysctl -w net.ipv4.ip_forward=1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看是否已经打开</span></span><br><span class="line">sudo sysctl net.ipv4.ip_forward</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打开</span></span><br><span class="line">sudo sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="创建netns"><a href="#创建netns">¶</a> 创建netns</h3>
 <p>将它的名字存入<code>$spacename</code>，以后需要绕过wireguard的进程就在这个netns里运行：</p>
-<pre class="shell"><code># spacename不要含有数字，因为veth的两个端口的名字似乎只有末尾可以有数字。
-spacename=全局唯一的名字
-sudo ip netns add $spacename</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">spacename不要含有数字，因为veth的两个端口的名字似乎只有末尾可以有数字。</span></span><br><span class="line">spacename=全局唯一的名字</span><br><span class="line">sudo ip netns add $spacename</span><br></pre></td></tr></tbody></table></figure>
 <p>查看所有netns: <code>ip netns</code></p>
 <p>删除netns: <code>ip netns del $spacename</code></p>
 <p>netns里的回环设备默认是关掉的，这样<code>ping localhost</code>会ping不通。为了避免以后发生奇怪的问题，我们将回环设备打开：</p>
-<pre class="shell"><code>sudo ip netns exec $spacename ip link set lo up</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip netns exec $spacename ip link set lo up</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="创建veth连接"><a href="#创建veth连接">¶</a> 创建veth连接</h3>
 <p>veth相当于一根虚拟的以太网线。将两端的名字分别设置为<code>${spacename}veth1</code>和<code>${spacename}veth2</code>：</p>
-<pre class="shell"><code>sudo ip link add ${spacename}veth1 type veth peer name ${spacename}veth2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip link add ${spacename}veth1 type veth peer name ${spacename}veth2</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="将一端放入netns里"><a href="#将一端放入netns里">¶</a>
 将一端放入netns里</h3>
 <p>这里将<code>${spacename}veth2</code>放入netns里：</p>
-<pre class="shell"><code>sudo ip link set ${spacename}veth2 netns $spacename</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip link set ${spacename}veth2 netns $spacename</span><br></pre></td></tr></tbody></table></figure>
 <p><code>${spacename}veth1</code>作为与物理网卡交互的端口，保留在宿主机中。</p>
 <h3 id="为veth的两端设置ip并启用"><a href="#为veth的两端设置ip并启用">¶</a> 为veth的两端设置IP并启用</h3>
 <p>这里将<code>${spacename}veth1</code>的IP设置为<code>192.168.45.2</code>，将netns里的<code>${spacename}veth2</code>的IP设置成<code>192.168.45.3</code>。它们的IP是可以换的，但要保证全局唯一。</p>
-<pre class="shell"><code>sudo ifconfig ${spacename}veth1 192.168.45.2 netmask 255.255.255.0 up
-sudo ip netns exec $spacename ifconfig ${spacename}veth2 192.168.45.3 netmask 255.255.255.0 up</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ifconfig ${spacename}veth1 192.168.45.2 netmask 255.255.255.0 up</span><br><span class="line">sudo ip netns exec $spacename ifconfig ${spacename}veth2 192.168.45.3 netmask 255.255.255.0 up</span><br></pre></td></tr></tbody></table></figure>
 <p>现在<code>${spacename}veth1</code>和<code>${spacename}veth2</code>已经连通了，可以相互ping通。</p>
 <h3 id="在netns里设置路由"><a href="#在netns里设置路由">¶</a>
 在netns里设置路由</h3>
 <p>将<code>${spacename}veth1</code>设置成默认网关：</p>
-<pre class="shell"><code>sudo ip netns exec $spacename route add default gw 192.168.45.2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip netns exec $spacename route add default gw 192.168.45.2</span><br></pre></td></tr></tbody></table></figure>
 <p>这样netns里的流量都会从<code>${spacename}veth1</code>出来。</p>
 <h3 id="配置nat"><a href="#配置nat">¶</a> 配置NAT</h3>
 <p>我们的netns的子网是<code>192.168.45.0/24</code>。我们将来自这个子网的流量的源IP都变成物理网卡的IP，这样物理网卡就相当于一个路由器，子网就相当于局域网了。</p>
-<pre class="shell"><code>sudo iptables -t nat -A POSTROUTING -s 192.168.45.0/24 -o $realdev -j MASQUERADE</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo iptables -t nat -A POSTROUTING -s 192.168.45.0/24 -o $realdev -j MASQUERADE</span><br></pre></td></tr></tbody></table></figure>
 <p>根据这篇博客：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/sammyliu/p/5760125.html">使用 NAT 将 Linux
 network namespace
 连接外网</a>，还需要做如下路由设置，以确保netns子网和物理网卡之间的流量不会被拦截：</p>
-<pre class="shell"><code>sudo iptables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT
-sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo iptables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT</span><br><span class="line">sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</span><br></pre></td></tr></tbody></table></figure>
 <p>然后将来自该NAT网络的所有流量的fwmark都设置成51820<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://ch1p.io/gentoo-wireguard-custom-resolver-captive-portal/>">[5]</span></a></sup>：</p>
-<pre class="shell"><code>sudo iptables -t mangle -A PREROUTING -s 192.168.45.0/24 -j MARK --set-mark 51820</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo iptables -t mangle -A PREROUTING -s 192.168.45.0/24 -j MARK --set-mark 51820</span><br></pre></td></tr></tbody></table></figure>
 <p>这样来自netns的所有流量都是直接流向物理网卡，不会经过wireguard了。</p>
 <h2 id="在netns中执行命令"><a href="#在netns中执行命令">¶</a>
 在netns中执行命令</h2>
 <p>格式：</p>
-<pre class="shell"><code>ip netns exec $spacename 命令 参数1 参数2 ...</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip netns exec $spacename 命令 参数1 参数2 ...</span><br></pre></td></tr></tbody></table></figure>
 <p>比如可以在netns里开一个shell:
 <code>ip netns exec $spacename bash</code></p>
 <p>在netns里ping：<code>ip netns exec $spacename ping google.com</code></p>
@@ -8234,42 +8221,29 @@ sudo iptables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</c
 <p><code>accept_ra</code>的全称是accept router
 advertisement，它有三个级别<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<https://sysctl-explorer.net/net/ipv6/accept_ra/>
 ">[6]</span></a></sup>：</p>
-<pre class="text"><code>0: Do not accept Router Advertisements.
-1: Accept Router Advertisements if forwarding is disabled.
-2: Overrule forwarding behaviour. Accept Router Advertisements even if forwarding is enabled.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">0: Do not accept Router Advertisements.</span><br><span class="line">1: Accept Router Advertisements if forwarding is disabled.</span><br><span class="line">2: Overrule forwarding behaviour. Accept Router Advertisements even if forwarding is enabled.</span><br></pre></td></tr></tbody></table></figure>
 <p>默认是1。此时直接打开IPv6的forwarding的话，如果default
 route是外界advertise进来的，就会导致default route消失：<a target="_blank" rel="noopener" href="https://serverfault.com/questions/976775/ipv6-default-route-is-removed-after-net-ipv6-conf-all-forwarding-is-set-to-1" class="uri">https://serverfault.com/questions/976775/ipv6-default-route-is-removed-after-net-ipv6-conf-all-forwarding-is-set-to-1</a></p>
 <p>因此我们需要先将<code>accept_ra</code>设置为2，再打开IPv6的forwarding：</p>
-<pre class="shell"><code>sysctl net.ipv6.conf.$realdev.accept_ra
-# 2: Accept Router Advertisements even if forwarding is enabled.
-sysctl -w net.ipv6.conf.$realdev.accept_ra=2
-
-sysctl net.ipv6.conf.all.forwarding
-sysctl -w net.ipv6.conf.all.forwarding=1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sysctl net.ipv6.conf.$realdev.accept_ra</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2: Accept Router Advertisements even <span class="keyword">if</span> forwarding is enabled.</span></span><br><span class="line">sysctl -w net.ipv6.conf.$realdev.accept_ra=2</span><br><span class="line"></span><br><span class="line">sysctl net.ipv6.conf.all.forwarding</span><br><span class="line">sysctl -w net.ipv6.conf.all.forwarding=1</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="为veth的两端设置私有ipv6地址"><a href="#为veth的两端设置私有ipv6地址">¶</a>
 为veth的两端设置私有IPv6地址</h3>
 <p><code>fd00::/8</code>是私有的IPv6地址块：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Private_network" class="uri">https://en.wikipedia.org/wiki/Private_network</a>。所以我们可以将<code>${spacename}veth1</code>的IP设置为<code>fd00::1/64</code>，将<code>${spacename}veth2</code>的IP设置为<code>fd00::2/64</code>：</p>
-<pre class="shell"><code>ip -6 addr add fd00::1/64 dev ${spacename}veth1
-ip link set dev ${spacename}veth1 up
-ip netns exec $spacename ip -6 addr add fd00::2/64 dev ${spacename}veth2
-ip netns exec $spacename ip link set dev ${spacename}veth2 up</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip -6 addr add fd00::1/64 dev ${spacename}veth1</span><br><span class="line">ip link set dev ${spacename}veth1 up</span><br><span class="line">ip netns exec $spacename ip -6 addr add fd00::2/64 dev ${spacename}veth2</span><br><span class="line">ip netns exec $spacename ip link set dev ${spacename}veth2 up</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="在netns里设置ipv6路由"><a href="#在netns里设置ipv6路由">¶</a>
 在netns里设置IPv6路由</h3>
 <p>将<code>${spacename}veth1</code>设置成默认网关，让netns里的IPv6流量都通过<code>${spacename}veth2</code>发往<code>${spacename}veth1</code>：</p>
-<pre class="shell"><code>ip netns exec $spacename ip -6 route add default dev ${spacename}veth2 via fd00::1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip netns exec $spacename ip -6 route add default dev ${spacename}veth2 via fd00::1</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="配置ipv6-nat"><a href="#配置ipv6-nat">¶</a> 配置IPv6 NAT</h3>
-<pre class="shell"><code>ip6tables -t nat -A POSTROUTING -o $realdev -j MASQUERADE</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o $realdev -j MASQUERADE</span><br></pre></td></tr></tbody></table></figure>
 <p>显式accept netns和物理网卡之间的流量：</p>
-<pre class="shell"><code>sudo ip6tables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT
-sudo ip6tables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip6tables -t filter -A FORWARD -i $realdev -o ${spacename}veth1 -j ACCEPT</span><br><span class="line">sudo ip6tables -t filter -A FORWARD -o $realdev -i ${spacename}veth1 -j ACCEPT</span><br></pre></td></tr></tbody></table></figure>
 <p>设置来自netns子网的流量的fwmark为51820，从而使得其bypass
 wireguard:</p>
-<pre class="shell"><code>sudo ip6tables -t mangle -A PREROUTING -s fd00::/64 -j MARK --set-mark 51820</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ip6tables -t mangle -A PREROUTING -s fd00::/64 -j MARK --set-mark 51820</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="在netns中访问公网的ipv6地址"><a href="#在netns中访问公网的ipv6地址">¶</a>
 在netns中访问公网的IPv6地址</h3>
-<pre class="shell"><code>$ sudo ip netns exec $spacename ping ipv6.google.com
-PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 data bytes
-64 bytes from nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e): icmp_seq=1 ttl=105 time=2.37 ms</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo ip netns <span class="built_in">exec</span> <span class="variable">$spacename</span> ping ipv6.google.com</span></span><br><span class="line">PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 data bytes</span><br><span class="line">64 bytes from nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e): icmp_seq=1 ttl=105 time=2.37 ms</span><br></pre></td></tr></tbody></table></figure>
 <p>大功告成。</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <div id="footnotes">

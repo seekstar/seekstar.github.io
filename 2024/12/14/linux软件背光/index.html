@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,17 +8142,17 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>有时候显示器的亮度已经调到最低了，但还是太亮了。这时候就需要软件背光了。</p>
 <p>可以先试试<code>redshift</code>:</p>
-<pre class="shell"><code>redshift -b 亮度</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">redshift -b 亮度</span><br></pre></td></tr></tbody></table></figure>
 <p>亮度是0.1到1之间的数。完整文档：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/redshift" class="uri">https://wiki.archlinux.org/title/redshift</a></p>
 <p>但不知道为什么我这里不管用。可能是因为我把内置显示器关了，只用外置显示器。</p>
 <p>如果<code>redshift</code>不行，可以试试<code>xrandr</code>。首先查看所有显示设备：</p>
-<pre class="shell"><code>xrandr</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xrandr</span><br></pre></td></tr></tbody></table></figure>
 <p>在里面找<code>connected primary</code>：</p>
-<pre class="text"><code>HDMI-1 connected primary 2560x1440+0+0 (normal left inverted right x axis y axis) 597mm x 336mm</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">HDMI-1 connected primary 2560x1440+0+0 (normal left inverted right x axis y axis) 597mm x 336mm</span><br></pre></td></tr></tbody></table></figure>
 <p>这就是我的显示器了。将其亮度调到原来的0.3倍：</p>
-<pre class="shell"><code>xrandr --output HDMI-1 --brightness 0.3</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xrandr --output HDMI-1 --brightness 0.3</span><br></pre></td></tr></tbody></table></figure>
 <p>如果要调回来：</p>
-<pre class="shell"><code>xrandr --output HDMI-1 --brightness 1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xrandr --output HDMI-1 --brightness 1</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，以上方法只在X11上有效。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

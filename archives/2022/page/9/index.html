@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8138,11 +8138,7 @@ collection)和引用计数(Reference counting)两大类。
 				</h2>
 				<div class="index-brief">
 					TLP是一款Linux的电源管理软件，装上可以省电。
-sudo pacman -S tlp
-sudo systemctl mask systemd-rfkill.service
-sudo systemctl mask systemd-rfkill.socket
-# sudo tlp start
-# 
+sudo pacman -S tlpsudo systemctl mask systemd-rfkill.servicesudo systemctl mask systemd-rfkill.socket# sudo tlp start# 开机自启
 					...
 				</div>
 			</a>
@@ -8162,9 +8158,7 @@ sudo systemctl mask systemd-rfkill.socket
 				<div class="index-brief">
 					用iostat可以查看各个存储设备的读写带宽占用情况。
 注意单独的一个iostat命令的输出是不准的，因为采样窗口太短了。正确的使用方法如下：
-# 每隔一秒钟打印一次过去的一秒钟里的I/O情况
-iostat 1
-# 收集一秒钟内的I/O情况，然后打印出来。第二个参数的含义是打印两次，只有第二次的才是
+# 每隔一秒钟打印一次过去的一秒钟里的I/O情况iostat 1# 收集一秒钟内的I/O情况，然后打印出来。第二个参数的含义是打印两次，只有第二次的才是准确
 					...
 				</div>
 			</a>
@@ -8183,8 +8177,7 @@ iostat 1
 				</h2>
 				<div class="index-brief">
 					find . -maxdepth 1 ! -path . -exec rm -r {} +
--exec command {} +
-        This  variant of the -exec action runs the specified command on the selected 
+-exec command {} +        This  variant of the -exec action runs the specified command on the selected f
 					...
 				</div>
 			</a>
@@ -8263,12 +8256,10 @@ manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344
 				</h2>
 				<div class="index-brief">
 					我把~/.gitconfig里的
-[http]
-        proxy = socks5://127.0.0.1:8235
+[http]        proxy = socks5://127.0.0.1:8235
 改成
-[http]
-        proxy = http://127.0.0.1:8234
-就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理
+[http]        proxy = http://127.0.0.1:8234
+就好了。但是我在另一台机器上用别人的socks5代理作为git的http代理就没
 					...
 				</div>
 			</a>
@@ -8287,11 +8278,8 @@ manager》，链接：https://www.eecg.utoronto.ca/~yuan/teaching/archive/ece344
 				</h2>
 				<div class="index-brief">
 					¶ mount
-cd /location/of/new/root
-mount -t proc /proc proc/
-mount -t sysfs /sys sys/
-mount --rbind /dev dev/
-按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b
+cd /location/of/new/rootmount -t proc /proc proc/mount -t sysfs /sys sys/mount --rbind /dev dev/
+按照我的理解，mount -rbind a b相当于把a目录挂载到b目录，这样访问b目录就
 					...
 				</div>
 			</a>

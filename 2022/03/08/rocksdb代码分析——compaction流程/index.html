@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8163,9 +8163,7 @@ mjx-container[display="true"] + br {
 <blockquote>
 <p><code>ColumnFamilyData::PickCompaction</code>调用<code>compaction_picker_-&gt;PickCompaction</code>。<br>
 <code>ColumnFamilyData::compaction_picker_</code>是在<code>ColumnFamilyData</code>的构造函数里根据<code>ioptions_.compaction_style</code>赋值的。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> AdvancedColumnFamilyOptions <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="co">// The compaction style. Default: kCompactionStyleLevel</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> CompactionStyle compaction_style <span class="op">=</span> kCompactionStyleLevel<span class="op">;</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">&gt;&gt;<span class="keyword">struct</span> <span class="title class_">AdvancedColumnFamilyOptions</span> {</span><br><span class="line"> <span class="comment">// The compaction style. Default: kCompactionStyleLevel</span></span><br><span class="line"> CompactionStyle compaction_style = kCompactionStyleLevel;</span><br></pre></td></tr></tbody></table></figure>
 <p>所以我们假设<code>ColumnFamilyData::compaction_picker_</code>是<code>LevelCompactionPicker</code>，即假设<code>ColumnFamilyData::PickCompaction</code>调用的<code>compaction_picker_-&gt;PickCompaction</code>其实是<code>LevelCompactionPicker::PickCompaction</code>。<br>
 <code>LevelCompactionPicker::PickCompaction</code>调用<code>LevelCompactionBuilder::PickCompaction</code>。</p>
 <blockquote>
@@ -8212,14 +8210,7 @@ CompactionJob::output_directory</h2>
 <p><code>c-&gt;output_path_id()</code>返回的是<code>Compaction::output_path_id_</code>。它是从Compaction的构造函数的参数来的。</p>
 <p>假如compaction任务（<code>Compaction</code>）是通过<code>cfd-&gt;PickCompaction</code>得到的。根据前面的分析，这些compaction任务默认是由<code>LevelCompactionBuilder::GetCompaction</code>构造的，其中<code>output_path_id</code>:
 <code>GetPathId(ioptions_, mutable_cf_options_, output_level_)</code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Find the optimal path to place a file</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * Given a level, finds the path where levels up to it will fit in levels</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * up to and including this path</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">uint32_t</span> LevelCompactionBuilder<span class="op">::</span>GetPathId<span class="op">(</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> ImmutableCFOptions<span class="op">&amp;</span> ioptions<span class="op">,</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> MutableCFOptions<span class="op">&amp;</span> mutable_cf_options<span class="op">,</span> <span class="dt">int</span> level<span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Find the optimal path to place a file</span></span><br><span class="line"><span class="comment"> * Given a level, finds the path where levels up to it will fit in levels</span></span><br><span class="line"><span class="comment"> * up to and including this path</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">uint32_t</span> <span class="title">LevelCompactionBuilder::GetPathId</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> ImmutableCFOptions&amp; ioptions,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> MutableCFOptions&amp; mutable_cf_options, <span class="type">int</span> level)</span> </span>{</span><br></pre></td></tr></tbody></table></figure>
 <p>大意就是检查<code>ImmutableCFOptions::cf_paths</code>的每个<code>cf_path</code>，直到找到某个path能放下要compact到的那个level。</p>
 <p>这个<code>ImmutableCFOptions</code>的来源见<a href="/2022/03/08/rocksdb%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E5%90%84%E7%A7%8Doption%E7%9A%84%E4%BC%A0%E9%80%92/" title="RocksDB代码分析——各种option的传递">RocksDB代码分析——各种option的传递</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

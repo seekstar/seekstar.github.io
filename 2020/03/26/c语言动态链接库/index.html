@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,78 +8144,57 @@ mjx-container[display="true"] + br {
 <p>使用gcc。</p>
 <h2 id="场景"><a href="#场景">¶</a> 场景</h2>
 <p>add.c</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> add<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> {</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>sub.c</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sub<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> a <span class="op">-</span> b<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> {</span><br><span class="line">	<span class="keyword">return</span> a - b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>main.c</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> add<span class="op">(</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">);</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sub<span class="op">(</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">);</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"%d, %d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> add<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">),</span> sub<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">));</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d, %d\n"</span>, add(<span class="number">1</span>, <span class="number">2</span>), sub(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>利用动态链接在main.c中使用add.c和sub.c中的add和sub函数。</p>
 <h2 id="windows"><a href="#windows">¶</a> windows</h2>
 <p>windows的动态链接库的后缀名一般叫做dll（Dynamic Link Library）。</p>
 <p>以下命令都是在powershell里运行的。</p>
 <h3 id="创建mymathdef"><a href="#创建mymathdef">¶</a>
 创建mymath.def</h3>
-<pre class="text"><code>LIBRARY mymath.dll
-EXPORTS
-add
-sub</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">LIBRARY mymath.dll</span><br><span class="line">EXPORTS</span><br><span class="line">add</span><br><span class="line">sub</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="得到mymathexp和mymathlib"><a href="#得到mymathexp和mymathlib">¶</a> 得到mymath.exp和mymath.lib</h3>
 <p>其中mymath.exp是导出符号表，定义哪些符号需要导出。mymath.lib是导入符号表，定义哪些符号需要导入。</p>
-<pre class="shell"><code>dlltool --input-def=mymath.def --output-exp=mymath.exp --output-lib=mymath.lib</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dlltool --input-def=mymath.def --output-exp=mymath.exp --output-lib=mymath.lib</span><br></pre></td></tr></tbody></table></figure>
 <p>可以简写成</p>
-<pre class="shell"><code>dlltool -d mymath.def -e mymath.exp -l mymath.lib</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dlltool -d mymath.def -e mymath.exp -l mymath.lib</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="生成mymathdll"><a href="#生成mymathdll">¶</a>
 生成mymath.dll</h3>
-<pre class="shell"><code>gcc -c add.c
-gcc -c sub.c
-gcc --shared mymath.exp add.o sub.o -o mymath.dll</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -c add.c</span><br><span class="line">gcc -c sub.c</span><br><span class="line">gcc --shared mymath.exp add.o sub.o -o mymath.dll</span><br></pre></td></tr></tbody></table></figure>
 <p>可以理解为利用导出符号表mymath.exp来把add.o和sub.o中无用的符号都弄掉，只保留要导出的符号。</p>
 <h3 id="生成mainexe"><a href="#生成mainexe">¶</a> 生成main.exe</h3>
-<pre class="shell"><code>gcc -c main.c
-gcc main.o mymath.lib -o main.exe</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -c main.c</span><br><span class="line">gcc main.o mymath.lib -o main.exe</span><br></pre></td></tr></tbody></table></figure>
 <p>可以理解为利用导入符号表告诉链接器这些符号可以在运行时动态导入，不需要静态链接这个符号了。</p>
 <p>或者直接使用mymath.dll</p>
-<pre class="shell"><code>gcc main.c mymath.dll -o main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc main.c mymath.dll -o main</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="运行"><a href="#运行">¶</a> 运行</h3>
 <p>要确保mymath.dll与可执行文件在同一目录或者在<code>C:\Windows\System32\</code></p>
-<pre class="shell"><code>.\main.exe</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">.\main.exe</span><br></pre></td></tr></tbody></table></figure>
 <p>输出</p>
-<pre class="text"><code>3, -1</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">3, -1</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="linux"><a href="#linux">¶</a> linux</h2>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zuofaqi/p/10440754.html" class="uri">https://www.cnblogs.com/zuofaqi/p/10440754.html</a><br>
 linux的动态链接库叫共享库，后缀名一般是so（Shared Object）。<br>
 先编辑好add.c、sub.c、mymath.def、main.c。</p>
 <h3 id="生成libmymathso"><a href="#生成libmymathso">¶</a>
 生成libmymath.so</h3>
-<pre class="shell"><code>gcc -fPIC -c add.c
-gcc -fPIC -c sub.c</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -fPIC -c add.c</span><br><span class="line">gcc -fPIC -c sub.c</span><br></pre></td></tr></tbody></table></figure>
 <p>PIC: Position Independent Code</p>
-<pre class="shell"><code>gcc -shared sub.o add.o -o libmymath.so</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -shared sub.o add.o -o libmymath.so</span><br></pre></td></tr></tbody></table></figure>
 <p>shared: 生成动态库而不是可执行文件</p>
 <p>合并成一个命令：</p>
-<pre class="shell"><code>gcc -fPIC -shared sub.c add.c -o libmymath.so</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -fPIC -shared sub.c add.c -o libmymath.so</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="生成main"><a href="#生成main">¶</a> 生成main</h3>
 <p>如果libmymath.so在当前目录，则</p>
-<pre class="shell"><code>gcc -c main.c
-gcc main.o -L. -lmymath -o main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc -c main.c</span><br><span class="line">gcc main.o -L. -lmymath -o main</span><br></pre></td></tr></tbody></table></figure>
 <p>或者一步到位：</p>
-<pre class="shell"><code>gcc main.c -L. -lmymath -o main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc main.c -L. -lmymath -o main</span><br></pre></td></tr></tbody></table></figure>
 <p><code>-L.</code>的作用是让操作系统在当前目录下找libmymath.so。<br>
 如果libmymath.so在共享库目录如<code>/lib</code>里，就不需要<code>-L.</code>。</p>
-<pre class="shell"><code>gcc main.c -lmymath -o main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc main.c -lmymath -o main</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="运行-1"><a href="#运行-1">¶</a> 运行</h3>
 <p>操作系统要找到libmymath.so，才能在运行时将其链接到main上。windows中当动态链接库与可执行文件在同一目录下时便会自动链接上，但是linux中只会去共享库目录下去找。</p>
 <p>让操作系统找到libmymath.so有几种方法：</p>
@@ -8223,10 +8202,9 @@ gcc main.o -L. -lmymath -o main</code></pre>
 <li>直接把它放到/lib或者/usr/lib里</li>
 <li>如果只是需要临时起效，可以这样把环境变量LD_LIBRARY_PATH设置到libmymath.so所在目录，例如</li>
 </ul>
-<pre class="shell"><code>LD_LIBRARY_PATH=~/lib ./main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">LD_LIBRARY_PATH=~/lib ./main</span><br></pre></td></tr></tbody></table></figure>
 <p>或者</p>
-<pre class="shell"><code>export LD_LIBRARY_PATH=~/lib
-./main</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=~/lib</span><br><span class="line">./main</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>编辑/etc/ld.so.conf文件，加入libmymath.so所在目录的绝对路径，然后<code>sudo ldconfig</code>重建/etc/ld.so.cache</li>
 </ul>

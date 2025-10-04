@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8149,22 +8149,19 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="查看unstaged-changes"><a href="#查看unstaged-changes">¶</a>
 查看unstaged changes</h2>
-<pre class="shell"><code>git diff</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></tbody></table></figure>
 <p>包含untracked file：</p>
-<pre class="shell"><code>git add -N . &amp;&amp; git diff</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git add -N . &amp;&amp; git diff</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/857696/13688160" class="uri">https://stackoverflow.com/a/857696/13688160</a></p>
 <h2 id="取消add"><a href="#取消add">¶</a> 取消add</h2>
-<pre class="shell"><code>git reset</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/348170/how-do-i-undo-git-add-before-commit" class="uri">https://stackoverflow.com/questions/348170/how-do-i-undo-git-add-before-commit</a></p>
 <h2 id="remote"><a href="#remote">¶</a> remote</h2>
 <p>查看remote的URL（无需联网）:</p>
-<pre class="shell"><code># https://stackoverflow.com/questions/4089430/how-to-determine-the-url-that-a-local-git-repository-was-originally-cloned-from
-git remote get-url origin</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/4089430/how-to-determine-the-url-that-a-local-git-repository-was-originally-cloned-from</span></span><br><span class="line">git remote get-url origin</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="clone"><a href="#clone">¶</a> clone</h2>
 <p>指定分支</p>
-<pre class="shell"><code>git clone -b 分支名 仓库地址
-# 如果只需要这个分支的话
-git clone -b 分支名 --single-branch 仓库地址</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git clone -b 分支名 仓库地址</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果只需要这个分支的话</span></span><br><span class="line">git clone -b 分支名 --single-branch 仓库地址</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Steve_XiaoHai/article/details/130533676">git
 clone 指定分支</a></p>
 <h2 id="tag"><a href="#tag">¶</a> tag</h2>
@@ -8177,107 +8174,88 @@ clone 指定分支</a></p>
 <h2 id="删除未跟踪的文件"><a href="#删除未跟踪的文件">¶</a>
 删除未跟踪的文件</h2>
 <p>预览有哪些未跟踪的文件</p>
-<pre class="shell"><code>git clean -dn</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git clean -dn</span><br></pre></td></tr></tbody></table></figure>
 <p>删除未跟踪的文件</p>
-<pre class="shell"><code>git clean -df</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git clean -df</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://koukia.ca/how-to-remove-local-untracked-files-from-the-current-git-branch-571c6ce9b6b1" class="uri">https://koukia.ca/how-to-remove-local-untracked-files-from-the-current-git-branch-571c6ce9b6b1</a></p>
 <h2 id="stash"><a href="#stash">¶</a> stash</h2>
 <p>暂存更改：</p>
-<pre class="shell"><code>git stash</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></tbody></table></figure>
 <p>列出所有stash:</p>
-<pre class="shell"><code>git stash list</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></tbody></table></figure>
 <p>应用并删除最近的stash:</p>
-<pre class="shell"><code>git stash pop</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></tbody></table></figure>
 <p>删除指定stash:</p>
-<pre class="shell"><code>git stash drop stash@{0}</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git stash drop stash@{0}</span><br></pre></td></tr></tbody></table></figure>
 <p>查看指定stash:</p>
-<pre class="shell"><code># 输出类似于git commit
-git stash show stash@{0} </code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输出类似于git commit</span></span><br><span class="line">git stash show stash@{0} </span><br></pre></td></tr></tbody></table></figure>
 <p>用patch的格式打印指定stash：</p>
-<pre class="shell"><code># -p: --patch
-git stash show stash@{0} -p</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-p: --patch</span></span><br><span class="line">git stash show stash@{0} -p</span><br></pre></td></tr></tbody></table></figure>
 <p>可以保存为patch:</p>
-<pre class="shell"><code># -p: --patch
-git stash show stash@{0} -p &gt; xxx.patch</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-p: --patch</span></span><br><span class="line">git stash show stash@{0} -p &gt; xxx.patch</span><br></pre></td></tr></tbody></table></figure>
 <p>使用patch:</p>
-<pre class="shell"><code>git apply --3way /path/to/xxx.patch</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git apply --3way /path/to/xxx.patch</span><br></pre></td></tr></tbody></table></figure>
 <p><code>--3way</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/47756467/13688160" class="uri">https://stackoverflow.com/a/47756467/13688160</a></p>
 <h2 id="恢复某个被删除的stash"><a href="#恢复某个被删除的stash">¶</a>
 恢复某个被删除的stash</h2>
-<pre class="shell"><code>git log --graph --oneline --decorate $(git fsck --no-reflog | awk '/dangling commit/ {print $3}')</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git log --graph --oneline --decorate $(git fsck --no-reflog | awk '/dangling commit/ {print $3}')</span><br></pre></td></tr></tbody></table></figure>
 <p>找到了之后：</p>
-<pre class="shell"><code>git stash apply stash的哈希</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git stash apply stash的哈希</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git" class="uri">https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git</a></p>
 <h2 id="git-log"><a href="#git-log">¶</a> <code>git log</code></h2>
 <h3 id="查看所有commit的列表"><a href="#查看所有commit的列表">¶</a>
 查看所有commit的列表</h3>
-<pre class="shell"><code>git log</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="查看某文件的commit历史"><a href="#查看某文件的commit历史">¶</a>
 查看某文件的commit历史</h3>
-<pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git log --all --full-history -- &lt;path-to-file&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>P.S. 可以是已经删除的文件。路径是相对shell的工作目录的相对路径。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history" class="uri">https://stackoverflow.com/questions/7203515/how-to-find-a-deleted-file-in-the-project-commit-history</a></p>
 <h3 id="查看某一个commit的diff"><a href="#查看某一个commit的diff">¶</a>
 查看某一个commit的diff</h3>
-<pre class="shell"><code>git show &lt;commit-id&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git show &lt;commit-id&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>原文：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did" class="uri">https://stackoverflow.com/questions/1157818/how-can-i-show-what-a-commit-did</a></p>
 <h2 id="cherry-pick"><a href="#cherry-pick">¶</a> cherry-pick</h2>
 <h3 id="指定commit"><a href="#指定commit">¶</a> 指定commit</h3>
-<pre class="shell"><code>git cherry-pick CommitHash</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git cherry-pick CommitHash</span><br></pre></td></tr></tbody></table></figure>
 <p>指定冲突解决方案：<code>--strategy-option</code>。如果在冲突时全部采用cherry-pick过来的commit的更改，则<code>--strategy-option theirs</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21051850/force-git-to-accept-cherry-picks-changes" class="uri">https://stackoverflow.com/questions/21051850/force-git-to-accept-cherry-picks-changes</a></p>
 <h3 id="一段连续的commit"><a href="#一段连续的commit">¶</a>
 一段连续的commit</h3>
-<pre class="shell"><code>git cherry-pick 开始..结束</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git cherry-pick 开始..结束</span><br></pre></td></tr></tbody></table></figure>
 <p>注意，<code>开始</code>是不包含在内的，而<code>结束</code>是包含在内的，也就是说这是个左开右闭区间。如果要让<code>开始</code>也被包含在内，即指定一个闭区间，则：</p>
-<pre class="shell"><code>git cherry-pick 开始^..结束</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git cherry-pick 开始^..结束</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1994463/how-to-cherry-pick-a-range-of-commits-and-merge-them-into-another-branch" class="uri">https://stackoverflow.com/questions/1994463/how-to-cherry-pick-a-range-of-commits-and-merge-them-into-another-branch</a></p>
 <h2 id="变基"><a href="#变基">¶</a> 变基</h2>
-<pre class="shell"><code>git rebase --onto &lt;newbase&gt; &lt;oldbase&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git rebase --onto &lt;newbase&gt; &lt;oldbase&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>相当于先保存当前的HEAD为<code>oldhead</code>，然后<code>reset --hard</code>到<code>newbase</code>，然后将从<code>oldbase</code>开始（不含）到<code>oldhead</code>（含）的所有commit给逐个cherry-pick过来。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase" class="uri">https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase</a></p>
 <h2 id="submodule"><a href="#submodule">¶</a> submodule</h2>
-<pre class="shell"><code># 添加
-git submodule add &lt;URL&gt; &lt;path&gt;
-# 更新
-git submodule update --remote
-# 令其reset到repo中指定的commit
-# https://stackoverflow.com/questions/7882603/how-to-revert-a-git-submodule-pointer-to-the-commit-stored-in-the-containing-rep
-git submodule update --init</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加</span></span><br><span class="line">git submodule add &lt;URL&gt; &lt;path&gt;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新</span></span><br><span class="line">git submodule update --remote</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">令其reset到repo中指定的commit</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/7882603/how-to-revert-a-git-submodule-pointer-to-the-commit-stored-in-the-containing-rep</span></span><br><span class="line">git submodule update --init</span><br></pre></td></tr></tbody></table></figure>
 <p>更改submodule的URL：直接编辑<code>.gitmodules</code>，然后</p>
-<pre class="shell"><code>git submodule sync --recursive
-git submodule update --init</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git submodule sync --recursive</span><br><span class="line">git submodule update --init</span><br></pre></td></tr></tbody></table></figure>
 <p>删除submodule比较麻烦：</p>
-<pre class="shell"><code># Remove the submodule entry from .git/config
-git submodule deinit -f path/to/submodule
-
-# Remove the submodule directory from the superproject's .git/modules directory
-rm -rf .git/modules/path/to/submodule
-
-# Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
-git rm -f path/to/submodule</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Remove the submodule entry from .git/config</span></span><br><span class="line">git submodule deinit -f path/to/submodule</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Remove the submodule directory from the superproject<span class="string">'s .git/modules directory</span></span></span><br><span class="line">rm -rf .git/modules/path/to/submodule</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule</span></span></span><br><span class="line">git rm -f path/to/submodule</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://gist.github.com/myusuf3/7f645819ded92bda6677" class="uri">https://gist.github.com/myusuf3/7f645819ded92bda6677</a></p>
 <h2 id="push到不同名的远程分支"><a href="#push到不同名的远程分支">¶</a>
 push到不同名的远程分支</h2>
-<pre class="shell"><code># https://stackoverflow.com/questions/19154302/git-push-to-specific-branch
-git push origin localBranchName:remoteBranchName</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://stackoverflow.com/questions/19154302/git-push-to-specific-branch</span></span><br><span class="line">git push origin localBranchName:remoteBranchName</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="squash-commits"><a href="#squash-commits">¶</a> Squash
 commits</h2>
-<pre class="shell"><code># -i: --interactive
-git rebase &lt;base-commit-hash&gt; -i</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-i: --interactive</span></span><br><span class="line">git rebase &lt;base-commit-hash&gt; -i</span><br></pre></td></tr></tbody></table></figure>
 <p>然后第一个commit标记为<code>pick</code>，其他的都标记为<code>squash</code>，即<code>s</code>。然后退出编辑器。</p>
 <p>然后会让你编辑新的commit的message。可以全删了然后编辑新的message，然后退出编辑器，从原来的HEAD到base
 commit（不含）的所有commit就都被squash成了一个commit了。</p>
 <h2 id="恢复某一被删除的文件"><a href="#恢复某一被删除的文件">¶</a>
 恢复某一被删除的文件</h2>
 <p>先用前面介绍的方法查看这个文件的commit历史：</p>
-<pre class="shell"><code>git log --all --full-history -- &lt;path-to-file&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git log --all --full-history -- &lt;path-to-file&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>找到删除这个文件的commit
 hash，然后checkout这个文件到它的前一个commit：</p>
-<pre class="shell"><code>git checkout &lt;deletion commit hash&gt;~1 -- &lt;filename&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git checkout &lt;deletion commit hash&gt;~1 -- &lt;filename&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.git-tower.com/learn/git/faq/restoring-deleted-files" class="uri">https://www.git-tower.com/learn/git/faq/restoring-deleted-files</a></p>
 <h2 id="把某个文件回退到某个版本"><a href="#把某个文件回退到某个版本">¶</a> 把某个文件回退到某个版本</h2>
-<pre class="shell"><code>git checkout c5f567 -- file1/to/restore file2/to/restore</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git checkout c5f567 -- file1/to/restore file2/to/restore</span><br></pre></td></tr></tbody></table></figure>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/215731/13688160" class="uri">https://stackoverflow.com/a/215731/13688160</a></p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history" class="uri">https://stackoverflow.com/questions/2928584/how-to-grep-search-committed-code-in-the-git-history</a></p>

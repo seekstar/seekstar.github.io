@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8153,97 +8153,63 @@ mjx-container[display="true"] + br {
 <h2 id="安装spdk"><a href="#安装spdk">¶</a> 安装SPDK</h2>
 <a href="/2022/01/23/debian-11-%E5%AE%89%E8%A3%85spdk/" title="Debian 11 安装SPDK">Debian 11 安装SPDK</a>
 <h2 id="可选把memlock的限制解除"><a href="#可选把memlock的限制解除">¶</a> （可选）把memlock的限制解除</h2>
-<pre class="shell"><code>sudo bash -c "ulimit -Hl unlimited"
-ulimit -Sl unlimited</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash -c "ulimit -Hl unlimited"</span><br><span class="line">ulimit -Sl unlimited</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="申请huge-page"><a href="#申请huge-page">¶</a> 申请huge page</h2>
-<pre class="shell"><code># 4GB
-sudo HUGEMEM=4096 scripts/setup.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">4GB</span></span><br><span class="line">sudo HUGEMEM=4096 scripts/setup.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>这个时候可能会提示：</p>
-<pre><code>Current user memlock limit: 3967 MB
-
-This is the maximum amount of memory you will be
-able to use with DPDK and VFIO if run as current user.
-To change this, please adjust limits.conf memlock limit for current user.</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">Current user memlock limit: 3967 MB</span><br><span class="line"></span><br><span class="line">This is the maximum amount of memory you will be</span><br><span class="line">able to use with DPDK and VFIO if run as current user.</span><br><span class="line">To change this, please adjust limits.conf memlock limit for current user.</span><br></pre></td></tr></tbody></table></figure>
 <p>但是查看<code>/proc/meminfo</code>的话，又能看到huge
 page已经分配好了：</p>
-<pre><code>HugePages_Total:   2048
-HugePages_Free:    2048
-HugePages_Rsvd:        0
-HugePages_Surp:        0
-Hugepagesize:       2048 kB</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">HugePages_Total:   2048</span><br><span class="line">HugePages_Free:    2048</span><br><span class="line">HugePages_Rsvd:        0</span><br><span class="line">HugePages_Surp:        0</span><br><span class="line">Hugepagesize:       2048 kB</span><br></pre></td></tr></tbody></table></figure>
 <p>SpanDB的TopFS的cache是从这里申请的。如果后面出现了内存分配失败，说明这里没有申请够，需要把数值改大，或者减小TopFS的cache大小。</p>
 <h2 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h2>
 <p>Debian 11：</p>
-<pre class="shell"><code>sudo apt-get install libgflags-dev
-sudo apt-get install libsnappy-dev
-sudo apt-get install zlib1g-dev
-sudo apt-get install libbz2-dev
-sudo apt-get install liblz4-dev
-sudo apt-get install libzstd-dev
-sudo apt-get install libtbb-dev</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-get install libgflags-dev</span><br><span class="line">sudo apt-get install libsnappy-dev</span><br><span class="line">sudo apt-get install zlib1g-dev</span><br><span class="line">sudo apt-get install libbz2-dev</span><br><span class="line">sudo apt-get install liblz4-dev</span><br><span class="line">sudo apt-get install libzstd-dev</span><br><span class="line">sudo apt-get install libtbb-dev</span><br></pre></td></tr></tbody></table></figure>
 <p>我怀疑其实并不需要这么多压缩算法。但是稳妥起见还是按照官方文档上的全装上吧。</p>
 <h2 id="编译spandb"><a href="#编译spandb">¶</a> 编译SpanDB</h2>
-<pre class="shell"><code>git clone https://github.com/SpanDB/SpanDB.git
-cd SpanDB
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX:PATH=. -DWITH_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true -DFAIL_ON_WARNINGS=false
-make -j$(nproc)
-# make install</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">git clone https://github.com/SpanDB/SpanDB.git</span><br><span class="line">cd SpanDB</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake .. -DCMAKE_INSTALL_PREFIX:PATH=. -DWITH_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true -DFAIL_ON_WARNINGS=false</span><br><span class="line">make -j$(nproc)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">make install</span></span><br></pre></td></tr></tbody></table></figure>
 <p>我这里make的时候会报错：</p>
-<pre><code>db_stress.cc:(.text.startup+0x1): undefined reference to `rocksdb::db_stress_tool(int, char**)'</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">db_stress.cc:(.text.startup+0x1): undefined reference to `rocksdb::db_stress_tool(int, char**)'</span><br></pre></td></tr></tbody></table></figure>
 <p>但是build文件夹下面<code>librocksdb</code>的静态库和动态库都编译好了，所以这条编译报错也许可以不用管？</p>
 <h2 id="编译spandb目录下面的ycsb测试程序"><a href="#编译spandb目录下面的ycsb测试程序">¶</a>
 编译SpanDB目录下面的YCSB测试程序</h2>
-<pre class="shell"><code>cd SpanDB/ycsb</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cd SpanDB/ycsb</span><br></pre></td></tr></tbody></table></figure>
 <p>这下面的<code>CMakeLists.txt</code>是错的，要把</p>
-<pre><code>INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build/include)</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build/include)</span><br></pre></td></tr></tbody></table></figure>
 <p>改成</p>
-<pre><code>INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../include)</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../include)</span><br></pre></td></tr></tbody></table></figure>
 <p>把</p>
-<pre><code>LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build/lib64)</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build/lib64)</span><br></pre></td></tr></tbody></table></figure>
 <p>改成</p>
-<pre><code>LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build)</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/../build)</span><br></pre></td></tr></tbody></table></figure>
 <p>然后再编译：</p>
-<pre class="shell"><code>mkdir build
-cd build
-cmake ../
-make</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake ../</span><br><span class="line">make</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="运行ycsb测试"><a href="#运行ycsb测试">¶</a> 运行YCSB测试</h2>
 <p>使用编译出来的<code>test</code>文件来测试，其参数：</p>
-<pre><code>usage: &lt;workload_file&gt; &lt;client_num&gt; &lt;data_dir&gt; &lt;log_dir&gt; &lt;is_load&gt; &lt;dbname&gt; &lt;db_bak&gt;</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">usage: &lt;workload_file&gt; &lt;client_num&gt; &lt;data_dir&gt; &lt;log_dir&gt; &lt;is_load&gt; &lt;dbname&gt; &lt;db_bak&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>在<code>ycsb/workloads</code>下面有一些自带的workload。</p>
 <h3 id="生成db"><a href="#生成db">¶</a> 生成DB</h3>
-<pre class="shell"><code>./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 1 rocksdb &lt;db_bak&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 1 rocksdb &lt;db_bak&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>这个时候最后一个参数<code>db_bak</code>会被忽略，生成的DB在<code>data_dir</code>里。需要手动把<code>data_dir</code>移动到<code>db_bak</code>。</p>
 <p>数据写入完成之后会sleep两个3分钟，可能是为了等待后台任务完成，然后打印一些信息之后才会退出，要耐心等待。</p>
 <p>注意，load模式不支持SpanDB，测试SpanDB的时候用的db_bak跟RocksDB是一样的。</p>
 <h3 id="测试rocksdb"><a href="#测试rocksdb">¶</a> 测试RocksDB</h3>
-<pre class="shell"><code># 临时起效
-ulimit -n 100000
-./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 0 rocksdb &lt;db_bak&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">临时起效</span></span><br><span class="line">ulimit -n 100000</span><br><span class="line">./test &lt;workload_file&gt; 40 &lt;data_dir&gt; &lt;log_dir&gt; 0 rocksdb &lt;db_bak&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>这一步会先把<code>data_path</code>给清空，然后把<code>db_bak</code>里的内容复制到<code>data_path</code>里，然后再跑workload。</p>
 <p>官方文档里这一步没有<code>ulimit -n 100000</code>，但是<code>workloada.spec</code>生成的DB里有1608个文件，而默认最多能同时打开1024个file
 descriptor：</p>
-<pre><code>$ ulimit -n
-1024</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">$ ulimit -n</span><br><span class="line">1024</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="测试spandb"><a href="#测试spandb">¶</a> 测试SpanDB</h3>
-<pre class="shell"><code>sudo -s
-# 临时生效
-ulimit -n 100000
-./test &lt;workload_file&gt; 8 &lt;data_dir&gt; $PCIE_ADDR 0 spandb &lt;db_bak&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo -s</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">临时生效</span></span><br><span class="line">ulimit -n 100000</span><br><span class="line">./test &lt;workload_file&gt; 8 &lt;data_dir&gt; $PCIE_ADDR 0 spandb &lt;db_bak&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>其中PCIe地址可以通过<code>sudo lspci</code>查找，我的是：</p>
-<pre><code>01:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller PM9A1/980PRO</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">01:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller PM9A1/980PRO</span><br></pre></td></tr></tbody></table></figure>
 <p>其中的<code>01:00.0</code>就是这个SSD的PCIe地址。</p>
 <p>SpanDB默认分配了90GB的SPDK缓存，如果前面huge
 page没有申请够，会分配失败：</p>
-<pre><code>SPDK memory allocation starts (90.00 GB)
-...0.0%
-already allocated 3.38 GB
-/home/searchstar/git/others/SpanDB/env/io_spdk.h:111: SPDK allocate memory failed</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">SPDK memory allocation starts (90.00 GB)</span><br><span class="line">...0.0%</span><br><span class="line">already allocated 3.38 GB</span><br><span class="line">/home/searchstar/git/others/SpanDB/env/io_spdk.h:111: SPDK allocate memory failed</span><br></pre></td></tr></tbody></table></figure>
 <p>这时要么多申请一些huge
 page，要么减少TopFS使用的cache，即将<code>ycsb/src/test.cc</code>中的<code>main</code>函数里的</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>options<span class="op">.</span>topfs_cache_size <span class="op">=</span> <span class="dv">90</span><span class="op">;</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">options.topfs_cache_size = <span class="number">90</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>改成更小的值，然后重新<code>make</code>，再跑就好了。</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/SpanDB/SpanDB" class="uri">https://github.com/SpanDB/SpanDB</a></p>

@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8137,14 +8137,8 @@ https://doc.rust-lang.org/stable/std/primitive.slice.html#method.binary_search
 				<div class="index-brief">
 					¶ 问题
 kill -2就是发送SIGINT信号。我们期望的行为是，进程接收到SIGINT信号后就停止运行。例如：
-yes &gt;/dev/null &amp;
-pid=$!
-echo $pid
-sleep 2
-kill -INT $pid
-sleep 2
-ps aux | grep yes
-将其
+yes &gt;/dev/null &amp;pid=$!echo $pidsleep 2kill -INT $pidsleep 2ps aux | grep yes
+将其保存为kil
 					...
 				</div>
 			</a>
@@ -8184,10 +8178,7 @@ ps aux | grep yes
 				</h2>
 				<div class="index-brief">
 					可以试试std::any::type_name。注意，这个是unstable的。
-use std::collections::HashSet;
-
-fn print_type_of&lt;T&gt;(_: &amp;T) {
-    println!("{}", std::any::type_name
+use std::collections::HashSet;fn print_type_of&lt;T&gt;(_: &amp;T) {    println!("{}", std::any::type_name::&
 					...
 				</div>
 			</a>
@@ -8245,8 +8236,7 @@ https://pypi.org/project/jsonrpccl
 					AttributeError: module ‘sha3‘ has no attribute ‘keccak_256‘
 				</h2>
 				<div class="index-brief">
-					pip uninstall sha3
-pip install pysha3
+					pip uninstall sha3pip install pysha3
 原文：https://stackoverflow.com/questions/46279121/how-can-i-find-keccak-256-hash-in-python
 
 					...

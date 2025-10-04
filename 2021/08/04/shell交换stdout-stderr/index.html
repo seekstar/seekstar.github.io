@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,16 +8140,11 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>比如这个脚本myscript.sh：</p>
-<pre class="shell"><code>#!/bin/sh
-
-echo "I'm stdout";
-echo "I'm stderr" &gt;&amp;2;</code></pre>
-<p>交换它的stdout和stderr可以这样做：</p>
-<pre class="shell"><code>(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&amp;3-) 2&gt;/dev/null
-(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&amp;3-) &gt;/dev/null </code></pre>
-<pre><code>I'm stderr
-I'm stdout</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>比如这个脚本myscript.sh：<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">echo "I'm stdout";</span><br><span class="line">echo "I'm stderr" &gt;&amp;2;</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>交换它的stdout和stderr可以这样做：<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&amp;3-) 2&gt;/dev/null</span><br><span class="line">(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&amp;3-) &gt;/dev/null </span><br></pre></td></tr></tbody></table></figure><p></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">I'm stderr</span><br><span class="line">I'm stdout</span><br></pre></td></tr></tbody></table></figure>
 <p><code>3&gt;&amp;2</code>表示将文件描述符2复制为文件描述符3（不是dup，tee才用的dup）。<br>
 <code>2&gt;&amp;1</code>表示把文件描述符1（stdout）复制为文件描述符2（stderr）。现在进程写入2（stderr）时，我们就能在1（stdout）收到了。<br>
 <code>1&gt;&amp;3-</code>表示把文件描述符3<a target="_blank" rel="noopener" href="http://www.gnu.org/software/bash/manual/bash.html#Moving-File-Descriptors">移动</a>到文件描述符1，移动完了之后3就被关掉了。所以现在的1存的是原来的2，现在的2存的是原来1。</p>

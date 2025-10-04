@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,26 +8140,24 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>首先要保证是在</p>
-<pre class="shell"><code>target remote :1234</code></pre>
-<p>之后设置的断点。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>首先要保证是在<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">target remote :1234</span><br></pre></td></tr></tbody></table></figure><br>
+之后设置的断点。<p></p>
 <p>如果使用了<code>-enable-kvm</code>，就必须要设置硬件断点，gdb命令为hbreak，缩写为hb。注意硬件断点需要硬件支持，所以不一定有效。</p>
 <p>如果是在内核模块里的断点，还需要按以下顺序进行操作：</p>
 <ol type="1">
-<li>编译带有debug symbol的内核模块</li>
+<li><p>编译带有debug symbol的内核模块<br>
+</p><figure class="highlight makefile"><table><tbody><tr><td class="code"><pre><span class="line">ccflags-y += -g -DDEBUG -O1</span><br></pre></td></tr></tbody></table></figure><br>
+不能用<code>-O0</code>，可能会报错。<p></p></li>
+<li><p>让gdb自动加载内核模块的符号</p></li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">ccflags-y </span><span class="ch">+=</span><span class="st"> -g -DDEBUG -O1</span></span></code></pre></div>
-<p>不能用<code>-O0</code>，可能会报错。</p>
-<ol start="2" type="1">
-<li>让gdb自动加载内核模块的符号</li>
-</ol>
-<p>先在<code>~/.gdbinit</code>里加上</p>
-<pre><code>add-auto-load-safe-path /full_path_to_kernel_build_dir/scripts/gdb/vmlinux-gdb.py</code></pre>
-<p>例如</p>
-<pre><code>add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</code></pre>
-<p>这样gdb里的<code>lx-symbols</code>就可以用了。</p>
-<p>然后在gdb里执行：</p>
-<pre class="gdb"><code>lx-symbols path/to/parent/of/modules/</code></pre>
+<p>先在<code>~/.gdbinit</code>里加上<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">add-auto-load-safe-path /full_path_to_kernel_build_dir/scripts/gdb/vmlinux-gdb.py</span><br></pre></td></tr></tbody></table></figure><br>
+例如<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">add-auto-load-safe-path /mnt/hdd/kernel/gdb/linux-nova/scripts/gdb/vmlinux-gdb.py</span><br></pre></td></tr></tbody></table></figure><br>
+这样gdb里的<code>lx-symbols</code>就可以用了。<p></p>
+<p>然后在gdb里执行：<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">lx-symbols path/to/parent/of/modules/</span><br></pre></td></tr></tbody></table></figure><p></p>
 <ol start="3" type="1">
 <li>insmod</li>
 </ol>

@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8124,8 +8124,7 @@ mjx-container[display="true"] + br {
 小端序：i16::from_le_bytes
 大端序：i16::from_be_bytes
 ¶ 例子
-fn main() {
-    let bytes: [u8; 2] = 
+fn main() {    let bytes: [u8; 2] = [
 					...
 				</div>
 			</a>
@@ -8200,8 +8199,7 @@ V23为例。
 ¶ 必要工具
 这些工具ArchLinux的启动盘已经提供了。我们不用启动盘的话就得自己编译安装。
 ¶ pacstrap 和 arch-chroot
-sudo apt install m4
-# 这个
+sudo apt install m4# 这个六
 					...
 				</div>
 			</a>
@@ -8219,15 +8217,8 @@ sudo apt install m4
 					sudo print multiple lines to file
 				</h2>
 				<div class="index-brief">
-					sudo bash -c "cat &gt; main.c" &lt;&lt; EndOfMessage
-int main() {
-	printf("test\n");
-	return 0;
-}
-EndOfMessage
-cat main.c
-int main() {
-        printf(
+					sudo bash -c "cat &gt; main.c" &lt;&lt; EndOfMessageint main() {	printf("test\n");	return 0;}EndOfMessagecat main.c
+int main() {        printf("test\n
 					...
 				</div>
 			</a>
@@ -8271,11 +8262,7 @@ git checkout 远程分支error
 					带名字的右值引用使用的时候会变成左值引用
 ¶
 result type must be constructible from input type
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;memory&gt;
-
-st
+#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;memory&gt;struct
 					...
 				</div>
 			</a>
@@ -8294,12 +8281,7 @@ st
 				</h2>
 				<div class="index-brief">
 					在Comparator里加上typedef std::true_type is_transparent;。原因主要是为了保持前向兼容。
-#include &lt;cassert&gt;
-#include &lt;set&gt;
-
-class Point {
-    public:
-        P
+#include &lt;cassert&gt;#include &lt;set&gt;class Point {    public:        Point(
 					...
 				</div>
 			</a>
@@ -8318,10 +8300,7 @@ class Point {
 				</h2>
 				<div class="index-brief">
 					不能直接转，只能将其移动到另一个用std::unique_ptr管理的对象里。
-#include &lt;iostream&gt;
-#include &lt;memory&gt;
-int main() {
-	std::shared_ptr&lt;std::string&gt; a = std::ma
+#include &lt;iostream&gt;#include &lt;memory&gt;int main() {	std::shared_ptr&lt;std::string&gt; a = std::make_
 					...
 				</div>
 			</a>
@@ -8339,12 +8318,7 @@ int main() {
 					C++ panic
 				</h2>
 				<div class="index-brief">
-					#define panic(...) do { \
-	fprintf(stderr, "panic: %s:%u: %s:", \
-		__FILE__, __LINE__, __func__); \
-	fprintf(stderr, " " __VA_ARGS__);	\
-	abort(); \
-
+					#define panic(...) do { \	fprintf(stderr, "panic: %s:%u: %s:", \		__FILE__, __LINE__, __func__); \	fprintf(stderr, " " __VA_ARGS__);	\	abort(); \} whi
 					...
 				</div>
 			</a>

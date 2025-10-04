@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8116,12 +8116,7 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					在Comparator里加上typedef std::true_type is_transparent;。原因主要是为了保持前向兼容。
-#include &lt;cassert&gt;
-#include &lt;set&gt;
-
-class Point {
-    public:
-        P
+#include &lt;cassert&gt;#include &lt;set&gt;class Point {    public:        Point(
 					...
 				</div>
 			</a>
@@ -8140,10 +8135,7 @@ class Point {
 				</h2>
 				<div class="index-brief">
 					不能直接转，只能将其移动到另一个用std::unique_ptr管理的对象里。
-#include &lt;iostream&gt;
-#include &lt;memory&gt;
-int main() {
-	std::shared_ptr&lt;std::string&gt; a = std::ma
+#include &lt;iostream&gt;#include &lt;memory&gt;int main() {	std::shared_ptr&lt;std::string&gt; a = std::make_
 					...
 				</div>
 			</a>
@@ -8161,12 +8153,7 @@ int main() {
 					C++ panic
 				</h2>
 				<div class="index-brief">
-					#define panic(...) do { \
-	fprintf(stderr, "panic: %s:%u: %s:", \
-		__FILE__, __LINE__, __func__); \
-	fprintf(stderr, " " __VA_ARGS__);	\
-	abort(); \
-
+					#define panic(...) do { \	fprintf(stderr, "panic: %s:%u: %s:", \		__FILE__, __LINE__, __func__); \	fprintf(stderr, " " __VA_ARGS__);	\	abort(); \} whi
 					...
 				</div>
 			</a>
@@ -8226,10 +8213,7 @@ git reset --hard HEAD~3
 				</h2>
 				<div class="index-brief">
 					可以用rsync。例子：
-# 相当于scp sshname:/path/to/file .
-rsync -zP -e ssh sshname:/path/to/file .
-# 类似于scp -r sshname:/path/to/dir .
-# 但是当/path/to/dir已经存在时不会在下面新
+# 相当于scp sshname:/path/to/file .rsync -zP -e ssh sshname:/path/to/file .# 类似于scp -r sshname:/path/to/dir .# 但是当/path/to/dir已经存在时不会在下面新建一个
 					...
 				</div>
 			</a>
@@ -8248,15 +8232,9 @@ rsync -zP -e ssh sshname:/path/to/file .
 				</h2>
 				<div class="index-brief">
 					例如这个objdump.c：
-#include &lt;stdio.h&gt;
-
-int main() {
-	printf("Hello world!\n");
-
-	return 0;
-}
+#include &lt;stdio.h&gt;int main() {	printf("Hello world!\n");	return 0;}
 编译选项中加入-g编译：gcc objdump.c -g -o objdump。
-然后查看编译结果的汇编码：o
+然后查看编译结果的汇编码：objdump
 					...
 				</div>
 			</a>

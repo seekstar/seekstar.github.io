@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8207,8 +8207,7 @@ sudo timedatectl set
 				<div class="index-brief">
 					有些桌面环境比如KDE没有提供禁用触摸屏的选项。不过可以通过修改配置文件来禁用触摸屏。
 编辑/usr/share/X11/xorg.conf.d/40-libinput.conf，找到touchscreen这项：
-Section "InputClass"
-        Identifier "li
+Section "InputClass"        Identifier "lib
 					...
 				</div>
 			</a>
@@ -8249,12 +8248,7 @@ file。只会在score &gt;=
 				</h2>
 				<div class="index-brief">
 					嵌套的quote的前面和后面都要留一个空行：
-&gt;a
-&gt;
-&gt;&gt;b
-&gt;&gt;b
-&gt;
-&gt;c
+&gt;a&gt;&gt;&gt;b&gt;&gt;b&gt;&gt;c
 效果：
 
 a
@@ -8265,12 +8259,14 @@ b
 c
 
 如果前面或者后面不留空行，显示就会不正常。后面不留空行：
-&gt;a
-&gt;
-&gt;&gt;b
-&gt;&gt;b
-&gt;c
+&gt;a&gt;&gt;&gt;b&gt;&gt;b&gt;c
 效果：
+
+a
+
+b
+b
+
 					...
 				</div>
 			</a>
@@ -8288,10 +8284,7 @@ c
 					RocksDB调整SSTable的大小
 				</h2>
 				<div class="index-brief">
-					struct AdvancedColumnFamilyOptions {
-  // Target file size for compaction.
-  // target_file_size_base is per-file size for level-1.
-  // Target file s
+					struct AdvancedColumnFamilyOptions {  // Target file size for compaction.  // target_file_size_base is per-file size for level-1.  // Target file size
 					...
 				</div>
 			</a>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,35 +8140,15 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><pre class="shell"><code>npm --version</code></pre>
-<pre><code>npm does not support Node.js v10.21.0
-You should probably upgrade to a newer version of node as we
-can't make any promises that npm will work with this version.
-You can find the latest version at https://nodejs.org/
-/usr/local/lib/node_modules/npm/lib/npm.js:32
-  #unloaded = false
-  ^
-
-SyntaxError: Invalid or unexpected token
-    at Module._compile (internal/modules/cjs/loader.js:723:23)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
-    at Module.load (internal/modules/cjs/loader.js:653:32)
-    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
-    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
-    at Module.require (internal/modules/cjs/loader.js:692:17)
-    at require (internal/modules/cjs/helpers.js:25:18)
-    at module.exports (/usr/local/lib/node_modules/npm/lib/cli.js:22:15)
-    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/npm/bin/npm-cli.js:2:25)
-    at Module._compile (internal/modules/cjs/loader.js:778:30)</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">npm --version</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">npm does not support Node.js v10.21.0</span><br><span class="line">You should probably upgrade to a newer version of node as we</span><br><span class="line">can't make any promises that npm will work with this version.</span><br><span class="line">You can find the latest version at https://nodejs.org/</span><br><span class="line">/usr/local/lib/node_modules/npm/lib/npm.js:32</span><br><span class="line">  #unloaded = false</span><br><span class="line">  ^</span><br><span class="line"></span><br><span class="line">SyntaxError: Invalid or unexpected token</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:723:23)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:653:32)</span><br><span class="line">    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:585:3)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:692:17)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:25:18)</span><br><span class="line">    at module.exports (/usr/local/lib/node_modules/npm/lib/cli.js:22:15)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/npm/bin/npm-cli.js:2:25)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:778:30)</span><br></pre></td></tr></tbody></table></figure>
 <p>这通常是因为先通过</p>
-<pre class="shell"><code>sudo npm install npm@latest -g</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo npm install npm@latest -g</span><br></pre></td></tr></tbody></table></figure>
 <p>升级了npm，但是没有升级node导致的。这时用包管理器安装的老版本npm升级一下node即可：</p>
-<pre class="shell"><code>sudo /bin/npm install -g n
-sudo n stable
-PATH="$PATH"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo /bin/npm install -g n</span><br><span class="line">sudo n stable</span><br><span class="line">PATH="$PATH"</span><br></pre></td></tr></tbody></table></figure>
 <p>然后就正常了</p>
-<pre class="shell"><code>npm --version</code></pre>
-<pre><code>8.3.0</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">npm --version</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">8.3.0</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

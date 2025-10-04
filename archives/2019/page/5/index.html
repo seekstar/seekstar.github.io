@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8117,15 +8117,9 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					参考：https://blog.csdn.net/shuzfan/article/details/52860664
 ¶ 基本语法
-#if CONDITION1
-...
-#elif CONDITION2
-...
-#else
-...
-#endif
+#if CONDITION1...#elif CONDITION2...#else...#endif
 ¶ 多行宏定义
-#define func(x, y) {
+#define func(x, y) {	\	sta
 					...
 				</div>
 			</a>
@@ -8147,10 +8141,7 @@ mjx-container[display="true"] + br {
 链接好像失效了
 我用的树套树写法。
 all in one 代码：
-#include &lt;cstdio&gt;
-#include &lt;cstring&gt;
-
-using namespace s
+#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;
 					...
 				</div>
 			</a>
@@ -8237,11 +8228,10 @@ r的点数最大，并输出最大点数。
 				<div class="index-brief">
 					cf链接：https://codeforces.com/gym/102253/problem/F
 把a和b都看成函数，那么表达式转化为
-
+f(i) = b(f(a(i)))
 显然f(i)可以由f(a(i))确定。表达式可以等价地转化为
-
-显然f(a(i))可以由f(i)确定。
-本来的思路是扫一遍a数组，把i和a[i]用并查集放到同一个
+f(a(i)) = b−1 * (f(i))
+显然f(a(i))可
 					...
 				</div>
 			</a>
@@ -8261,7 +8251,7 @@ r的点数最大，并输出最大点数。
 				<div class="index-brief">
 					题目链接：https://www.luogu.org/problemnew/show/P1484
 首先想到dp，但是复杂度是O(n*k)，本题吃不消。
-假设种k-1棵树时的最优解为Ak-1，种的树从小到大的下标是(x1,x2,x3,...,xi,...,xk-1)，那么种k棵树的最优解一定可以通过从
+假设种k-1棵树时的最优解为Ak-1，种的树从小到大的下标是(x1,x2,x3,…,xi,…,xk-1)，那么种k棵树的最优解一定可以通过从种k-1
 					...
 				</div>
 			</a>
@@ -8281,9 +8271,7 @@ r的点数最大，并输出最大点数。
 				<div class="index-brief">
 					参考的大佬的博客的链接：
 https://blog.csdn.net/onepointo/article/details/75083305
-//luogu_3369
-#include &lt;stdio.h&gt;
-#include &lt;ext/pb_ds/assoc_container.hpp
+//luogu_3369#include &lt;stdio.h&gt;#include &lt;ext/pb_ds/assoc_container.hpp&g
 					...
 				</div>
 			</a>
@@ -8304,10 +8292,7 @@ https://blog.csdn.net/onepointo/article/details/75083305
 					32位的正无穷一般表示为0x3f3f3f3f，相加仍然为正数。
 将其按位取反，得0xc0c0c0c0，就可以用来表示负无穷了，相加仍然为负数。
 测试代码：
-#include &lt;iostream&gt;
-#include &lt;limits.h&gt;
-
-using namespace std
+#include &lt;iostream&gt;#include &lt;limits.h&gt;using namespace std;in
 					...
 				</div>
 			</a>
@@ -8327,7 +8312,7 @@ using namespace std
 				<div class="index-brief">
 					在终端中执行：
 sudo apt-get install vim-gtk
-然后重启vim，就可以利用"+y把内容复制到系统剪切板了。
+然后重启vim，就可以利用”+y把内容复制到系统剪切板了。
 
 					...
 				</div>

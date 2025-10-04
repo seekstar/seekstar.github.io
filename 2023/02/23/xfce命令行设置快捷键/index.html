@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,30 +8142,17 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用<code>xfconf-query</code>可以实现用命令行设置快捷键。</p>
 <h2 id="命令行参数"><a href="#命令行参数">¶</a> 命令行参数</h2>
-<pre class="text"><code>Application Options:
-  -V, --version         Version information
-  -c, --channel         The channel to query/modify
-  -p, --property        The property to query/modify
-  -s, --set             The new value to set for the property
-  -l, --list            List properties (or channels if -c is not specified)
-  -v, --verbose         Print property and value in combination with -l or -m
-  -n, --create          Create a new property if it does not already exist
-  -t, --type            Specify the property value type
-  -r, --reset           Reset property
-  -R, --recursive       Recursive (use with -r)
-  -a, --force-array     Force array even if only one element
-  -T, --toggle          Invert an existing boolean property
-  -m, --monitor         Monitor a channel for property changes</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Application Options:</span><br><span class="line">  -V, --version         Version information</span><br><span class="line">  -c, --channel         The channel to query/modify</span><br><span class="line">  -p, --property        The property to query/modify</span><br><span class="line">  -s, --set             The new value to set for the property</span><br><span class="line">  -l, --list            List properties (or channels if -c is not specified)</span><br><span class="line">  -v, --verbose         Print property and value in combination with -l or -m</span><br><span class="line">  -n, --create          Create a new property if it does not already exist</span><br><span class="line">  -t, --type            Specify the property value type</span><br><span class="line">  -r, --reset           Reset property</span><br><span class="line">  -R, --recursive       Recursive (use with -r)</span><br><span class="line">  -a, --force-array     Force array even if only one element</span><br><span class="line">  -T, --toggle          Invert an existing boolean property</span><br><span class="line">  -m, --monitor         Monitor a channel for property changes</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="查看有哪些channel"><a href="#查看有哪些channel">¶</a>
 查看有哪些channel</h2>
-<pre class="shell"><code>xfconf-query -l</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xfconf-query -l</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>xfce4-keyboard-shortcuts</code>就是快捷键的channel。</p>
 <h2 id="查看有哪些快捷键"><a href="#查看有哪些快捷键">¶</a>
 查看有哪些快捷键</h2>
-<pre class="shell"><code>xfconf-query --channel xfce4-keyboard-shortcuts -lv</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xfconf-query --channel xfce4-keyboard-shortcuts -lv</span><br></pre></td></tr></tbody></table></figure>
 <p>其中第一列的property就是快捷键，其中<code>&lt;Primary&gt;</code>是<code>Ctrl</code>，<code>Super</code>是<code>Win</code>键。第二列的value就是对应的命令。</p>
 <p>例如：</p>
-<pre class="shell"><code>/xfwm4/custom/&lt;Primary&gt;&lt;Alt&gt;Left left_workspace_key</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/xfwm4/custom/&lt;Primary&gt;&lt;Alt&gt;Left left_workspace_key</span><br></pre></td></tr></tbody></table></figure>
 <p>代表<code>Ctrl+Alt+左箭头</code>的快捷键是<code>left_workspace_key</code>，即移动到左边的工作区。</p>
 <p>注意如果是同时按住<code>Shift</code>和<code>1</code>，那么实际上操作系统是识别成<code>Shift</code>+<code>!</code>的。在<code>xfconf-query</code>里，这些特殊字符是有名字的。部分符号和编码（有些是ASCII编码）和名字的对应关系如下：</p>
 <div class="line-block">符号 | 编码 | 名字 |<br>
@@ -8178,10 +8165,10 @@ $ | 0x24 | dollar |<br>
 右箭头 | 0x00ff53 | Right |</div>
 <p>完整的列表在这：<a target="_blank" rel="noopener" href="https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/keynames.txt" class="uri">https://gitlab.gnome.org/GNOME/gtk/-/blob/main/gdk/keynames.txt</a></p>
 <h2 id="取消快捷键"><a href="#取消快捷键">¶</a> 取消快捷键</h2>
-<pre class="shell"><code>xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/&lt;Primary&gt;&lt;Alt&gt;Left"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/&lt;Primary&gt;&lt;Alt&gt;Left"</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="设置新快捷键"><a href="#设置新快捷键">¶</a> 设置新快捷键</h2>
 <p>例如将<code>Ctrl+Alt+左箭头</code>设置成让窗口占用左下角四分之一屏：</p>
-<pre class="shell"><code>xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/&lt;Primary&gt;&lt;Shift&gt;&lt;Alt&gt;Left" --set tile_down_left_key --type string</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/&lt;Primary&gt;&lt;Shift&gt;&lt;Alt&gt;Left" --set tile_down_left_key --type string</span><br></pre></td></tr></tbody></table></figure>
 <p>但是奇怪的是，有时候重启之后有些用这种方式设置的快捷键在外接键盘上会失效，而内置键盘不会，比如<code>Alt+Shift+3</code>，即<code>&lt;Shift&gt;&lt;Alt&gt;numbersign</code>。解决方法是用内置键盘使用一下这个快捷键，或者重新跑一遍<code>xfconf-query</code>命令。把同功能的快捷键<code>--reset</code>掉好像也有用？</p>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.xfce.org/xfce/xfconf/xfconf-query" class="uri">https://docs.xfce.org/xfce/xfconf/xfconf-query</a></p>

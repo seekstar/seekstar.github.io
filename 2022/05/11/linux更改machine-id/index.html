@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,15 +8143,11 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用<code>systemd-machine-id-setup</code>可以重新生成machine ID。</p>
 <p>如果DBUS machine ID存在的话，会直接将其拷贝过来，所以可以先更新DBUS
 machine ID：</p>
-<pre class="shell"><code>sudo bash -c "dbus-uuidgen &gt; /var/lib/dbus/machine-id"
-sudo rm /etc/machine-id
-sudo systemd-machine-id-setup</code></pre>
-<pre class="text"><code>Initializing machine ID from D-Bus machine ID.</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash -c "dbus-uuidgen &gt; /var/lib/dbus/machine-id"</span><br><span class="line">sudo rm /etc/machine-id</span><br><span class="line">sudo systemd-machine-id-setup</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Initializing machine ID from D-Bus machine ID.</span><br></pre></td></tr></tbody></table></figure>
 <p>参考: <a target="_blank" rel="noopener" href="https://www.linuxquestions.org/questions/slackware-14/security-implications-of-var-lib-dbus-machine-id-thoughts-4175665203/" class="uri">https://www.linuxquestions.org/questions/slackware-14/security-implications-of-var-lib-dbus-machine-id-thoughts-4175665203/</a></p>
 <p>也可以把<code>/var/lib/dbus/machine-id</code>和<code>/etc/machine-id</code>一起删除，再用<code>systemd-machine-id-setup</code>重新生成<code>/etc/machine-id</code>，然后再创建一个符号链接：</p>
-<pre class="shell"><code>sudo rm /var/lib/dbus/machine-id /etc/machine-id
-sudo systemd-machine-id-setup
-sudo ln -s /etc/machine-id /var/lib/dbus/machine-id</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo rm /var/lib/dbus/machine-id /etc/machine-id</span><br><span class="line">sudo systemd-machine-id-setup</span><br><span class="line">sudo ln -s /etc/machine-id /var/lib/dbus/machine-id</span><br></pre></td></tr></tbody></table></figure>
 <p>ArchLinux的<code>/var/lib/dbus/machine-id</code>默认就是一个指向<code>/etc/machine-id</code>的符号链接。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010674953/article/details/117692068">Linux7重新生成Machine-ID</a></p>

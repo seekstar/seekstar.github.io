@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8147,49 +8147,24 @@ mjx-container[display="true"] + br {
 <h2 id="systemd-user-units"><a href="#systemd-user-units">¶</a> Systemd
 user units</h2>
 <p>编辑<code>~/.config/systemd/user/rc.service</code>：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Execute ~/.rc at startup</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">bash -c "~/.rc"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">default.target</span></span></code></pre></div>
-<pre class="shell"><code>systemctl --user daemon-reload
-systemctl --user enable rc.service</code></pre>
+<figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Execute ~/.rc at startup</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">ExecStart</span>=bash -c <span class="string">"~/.rc"</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=default.target</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">systemctl --user daemon-reload</span><br><span class="line">systemctl --user enable rc.service</span><br></pre></td></tr></tbody></table></figure>
 <p>脚本的输出可以通过<code>journalctl -xe</code>查看。</p>
 <p>注意<code>ExecStart=</code>后面第一个是可执行文件，后面都是参数，所以在这里重定向指令是没有用的，例如<code>ExecStart=echo test &gt;&gt; /tmp/test</code>，会被解析成<code>echo "test" "&gt;&gt;" "/tmp/test"</code>。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/systemd/User" class="uri">https://wiki.archlinux.org/title/systemd/User</a></p>
 <h2 id="supervisor"><a href="#supervisor">¶</a> supervisor</h2>
 <p>supervisor也可以免root运行。</p>
-<pre class="shell"><code>pip3 install supervisor
-mkdir -p ~/.local/supervisor
-mkdir -p ~/.config/supervisor.d</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pip3 install supervisor</span><br><span class="line">mkdir -p ~/.local/supervisor</span><br><span class="line">mkdir -p ~/.config/supervisor.d</span><br></pre></td></tr></tbody></table></figure>
 <p><code>~/.config/supervisord.conf</code>（把其中的<code>__home__</code>换成你自己的home目录）:</p>
-<pre class="text"><code>[unix_http_server]
-file=__home__/.local/supervisor/supervisor.sock
-
-[supervisord]
-logfile=__home__/.local/supervisor/supervisord.log
-pidfile=__home__/.local/supervisor/supervisord.pid
-
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
-
-[supervisorctl]
-serverurl=unix://__home__/.local/supervisor/supervisor.sock
-
-[include]
-files = __home__/.config/supervisor.d/*.ini</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[unix_http_server]</span><br><span class="line">file=__home__/.local/supervisor/supervisor.sock</span><br><span class="line"></span><br><span class="line">[supervisord]</span><br><span class="line">logfile=__home__/.local/supervisor/supervisord.log</span><br><span class="line">pidfile=__home__/.local/supervisor/supervisord.pid</span><br><span class="line"></span><br><span class="line">[rpcinterface:supervisor]</span><br><span class="line">supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line"></span><br><span class="line">[supervisorctl]</span><br><span class="line">serverurl=unix://__home__/.local/supervisor/supervisor.sock</span><br><span class="line"></span><br><span class="line">[include]</span><br><span class="line">files = __home__/.config/supervisor.d/*.ini</span><br></pre></td></tr></tbody></table></figure>
 <p>启动<code>supervisord</code>:</p>
-<pre class="shell"><code>supervisord -c $HOME/.config/supervisord.conf</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">supervisord -c $HOME/.config/supervisord.conf</span><br></pre></td></tr></tbody></table></figure>
 <p>开机自动启动supervisord:</p>
-<pre class="shell"><code>echo "supervisord -c $HOME/.config/supervisord.conf" &gt; ~/.rc.d/supervisor.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo "supervisord -c $HOME/.config/supervisord.conf" &gt; ~/.rc.d/supervisor.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>弄一个alias方便使用：</p>
-<pre class="shell"><code>alias mysupervisor="supervisorctl -c ~/.config/supervisord.conf"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">alias mysupervisor="supervisorctl -c ~/.config/supervisord.conf"</span><br></pre></td></tr></tbody></table></figure>
 <p>把任务的配置文件放进<code>~/.config/supervisor.d</code>，然后：</p>
-<pre class="shell"><code>mysupervisor update
-mysupervisor status</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mysupervisor update</span><br><span class="line">mysupervisor status</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8116,13 +8116,7 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					chroot_ln_file.sh
-#!/bin/bash
-
-mkdir -p $(dirname $2/$1)
-ln $1 $2/$1 &amp;&gt; /dev/null
-ori=$(readlink $1)
-if [ -n "$ori" ]; then
-	real=$(realpath -s
+#!/bin/bashmkdir -p $(dirname $2/$1)ln $1 $2/$1 &amp;&gt; /dev/nullori=$(readlink $1)if [ -n "$ori" ]; then	real=$(realpath -s $ori)
 					...
 				</div>
 			</a>
@@ -8141,9 +8135,7 @@ if [ -n "$ori" ]; then
 				</h2>
 				<div class="index-brief">
 					用realpath即可。
-searchstar@searchstar-PC:/tmp/test$ ls
-chroot  test2.sh  test3.sh  test4.sh  test5.sh  test.sh
-searchstar@searchstar-PC:/tmp/test$ realpa
+searchstar@searchstar-PC:/tmp/test$ lschroot  test2.sh  test3.sh  test4.sh  test5.sh  test.shsearchstar@searchstar-PC:/tmp/test$ realpath
 					...
 				</div>
 			</a>
@@ -8207,10 +8199,8 @@ sudo apt install inkscape
 				</h2>
 				<div class="index-brief">
 					我是用apt安装的
-sudo apt install -y libcppunit-dev libcppunit-doc
-mkdir -p ~/doc
-ln -s /usr/share/doc/libcppunit-doc/html/index.html ~/doc/cppunit.html
-安装的版
+sudo apt install -y libcppunit-dev libcppunit-docmkdir -p ~/docln -s /usr/share/doc/libcppunit-doc/html/index.html ~/doc/cppunit.html
+安装的版本是
 					...
 				</div>
 			</a>
@@ -8337,8 +8327,7 @@ Instructi
 					参考：https://blog.csdn.net/longxibendi/article/details/6387732
 上文的方法3在存在带有.的子文件夹时会出错。
 本文使用sed去掉文件后缀名，可以解决这个问题。
-#!/bin/bash
-# Change the filename extensi
+#!/bin/bash# Change the filename extensio
 					...
 				</div>
 			</a>

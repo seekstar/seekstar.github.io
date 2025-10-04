@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8175,68 +8175,43 @@ mjx-container[display="true"] + br {
 <p>找到要下载的镜像后，右键该链接，点击复制链接，然后到服务器上用wget下载之即可。wget
 403的话也可以尝试用<code>curl 链接 &gt; xxx.iso</code>下载。</p>
 <h2 id="安装qemu"><a href="#安装qemu">¶</a> 安装qemu</h2>
-<pre class="shell"><code># Debian 12
-sudo apt install qemu-kvm
-# Centos 8 &amp; Centos stream 8
-sudo yum install qemu-kvm</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian 12</span></span><br><span class="line">sudo apt install qemu-kvm</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Centos 8 &amp; Centos stream 8</span></span><br><span class="line">sudo yum install qemu-kvm</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="检查kvm是否可用"><a href="#检查kvm是否可用">¶</a>
 检查KVM是否可用</h2>
 <p>不开KVM的话性能会很低。</p>
-<pre class="shell"><code>grep -E 'vmx|svm' /proc/cpuinfo</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">grep -E 'vmx|svm' /proc/cpuinfo</span><br></pre></td></tr></tbody></table></figure>
 <p>如果有输出则表示硬件有虚拟化支持。其次要检查kvm模块是否已经加载：</p>
-<pre class="shell"><code>lsmod | grep kvm</code></pre>
-<pre class="text"><code>kvm_intel             315392  0
-kvm                   847872  1 kvm_intel
-irqbypass              16384  1 kvm</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">lsmod | grep kvm</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">kvm_intel             315392  0</span><br><span class="line">kvm                   847872  1 kvm_intel</span><br><span class="line">irqbypass              16384  1 kvm</span><br></pre></td></tr></tbody></table></figure>
 <p>如果kvm_intel/kvm_amd、kvm模块被显示出来，则kvm模块已经加载。</p>
 <p>如果少了模块，比如<code>kvm_intel</code>，那就</p>
-<pre class="shell"><code>modprobe kvm-intel</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">modprobe kvm-intel</span><br></pre></td></tr></tbody></table></figure>
 <p>如果输出</p>
-<pre class="text"><code>modprobe: ERROR: could not insert 'kvm_intel': Operation not supported</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">modprobe: ERROR: could not insert 'kvm_intel': Operation not supported</span><br></pre></td></tr></tbody></table></figure>
 <p>就看一下dmesg里有没有错误信息：</p>
-<pre class="shell"><code>dmesg | less</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dmesg | less</span><br></pre></td></tr></tbody></table></figure>
 <p>按G翻到最后，如果有</p>
-<pre class="text"><code>kvm: disabled by bios</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">kvm: disabled by bios</span><br></pre></td></tr></tbody></table></figure>
 <p>说明要去BIOS里开启一下KVM的支持。</p>
 <h2 id="启动虚拟机安装操作系统"><a href="#启动虚拟机安装操作系统">¶</a>
 启动虚拟机安装操作系统</h2>
 <h3 id="命令行安装"><a href="#命令行安装">¶</a> 命令行安装</h3>
-<pre class="shell"><code># Centos stream 8
-sudo yum install libvirt virt-install
-# Ubuntu 20.04, deepin 20
-sudo apt install virtinst
-# Debian 11
-sudo apt install virtinst libvirt-daemon-system
-sudo virsh net-start default</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Centos stream 8</span></span><br><span class="line">sudo yum install libvirt virt-install</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Ubuntu 20.04, deepin 20</span></span><br><span class="line">sudo apt install virtinst</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian 11</span></span><br><span class="line">sudo apt install virtinst libvirt-daemon-system</span><br><span class="line">sudo virsh net-start default</span><br></pre></td></tr></tbody></table></figure>
 <p>然后让普通用户使用libvirt时能使用KVM：<a href="/2022/04/17/libvirt%E8%AE%A9%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%94%A8kvm/" title="libvirt让普通用户能用kvm">libvirt让普通用户能用kvm</a></p>
 <p>然后就可以开始安装了：</p>
-<pre class="shell"><code>virt-install --name=centos8 --memory=1024 --vcpus=4 --osinfo detect=on,require=off --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virt-install --name=centos8 --memory=1024 --vcpus=4 --osinfo detect=on,require=off --location=/home/searchstar/Downloads/CentOS-8.4.2105-x86_64-dvd1.iso --disk path=centos.img,size=100 --graphics=none --console=pty,target_type=serial --extra-args="console=tty0 console=ttyS0"</span><br></pre></td></tr></tbody></table></figure>
 <p>注意虚拟机deepin以及CentOS的<code>-boot</code>后缀的镜像不能用这种方式安装，会报错：</p>
-<pre class="text"><code>ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'
-The location must be the root directory of an install tree.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">ERROR    验证安装位置出错：Could not find an installable distribution at 'deepin-desktop-community-20.2.2-amd64.iso'</span><br><span class="line">The location must be the root directory of an install tree.</span><br></pre></td></tr></tbody></table></figure>
 <p>CentOS的的<code>-dvd1</code>镜像没有这个问题。安装界面：</p>
-<pre class="text"><code>Installation
-
-1) [x] Language settings                 2) [x] Time settings
-       (English (United States))                (America/New_York timezone)
-3) [!] Installation source               4) [!] Software selection
-       (Processing...)                          (Processing...)
-5) [!] Installation Destination          6) [x] Kdumpch tab: Alt+Tab | Help: F1
-       (Processing...)                          (Kdump is enabled)
-7) [!] Network configuration             8) [!] Root password
-       (Not connected)                          (Root account is disabled.)
-9) [!] User creation
-       (No user will be created)
-Please make a selection from the above ['b' to begin installation, 'q' to quit,
-'r' to refresh]:</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Installation</span><br><span class="line"></span><br><span class="line">1) [x] Language settings                 2) [x] Time settings</span><br><span class="line">       (English (United States))                (America/New_York timezone)</span><br><span class="line">3) [!] Installation source               4) [!] Software selection</span><br><span class="line">       (Processing...)                          (Processing...)</span><br><span class="line">5) [!] Installation Destination          6) [x] Kdumpch tab: Alt+Tab | Help: F1</span><br><span class="line">       (Processing...)                          (Kdump is enabled)</span><br><span class="line">7) [!] Network configuration             8) [!] Root password</span><br><span class="line">       (Not connected)                          (Root account is disabled.)</span><br><span class="line">9) [!] User creation</span><br><span class="line">       (No user will be created)</span><br><span class="line">Please make a selection from the above ['b' to begin installation, 'q' to quit,</span><br><span class="line">'r' to refresh]:</span><br></pre></td></tr></tbody></table></figure>
 <p>要把带<code>[!]</code>的都处理完。不过下面写了<code>(Processing...)</code>的可以按<code>r</code>刷新，等它出结果。<br>
 安装好了之后会自动重启，然后就可以登录了。</p>
 <h3 id="使用vnc安装"><a href="#使用vnc安装">¶</a> 使用vnc安装</h3>
 <h4 id="创建虚拟机磁盘文件"><a href="#创建虚拟机磁盘文件">¶</a>
 创建虚拟机磁盘文件</h4>
 <p>不使用virt-install的话，要手动创建虚拟机的磁盘文件。</p>
-<pre class="shell"><code>qemu-img create -f qcow2 centos.img 256G</code></pre>
-<pre class="text"><code>Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">qemu-img create -f qcow2 centos.img 256G</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Formatting 'centos.img', fmt=qcow2 size=274877906944 cluster_size=65536 lazy_refcounts=off refcount_bits=16</span><br></pre></td></tr></tbody></table></figure>
 <p><code>-f</code>后面跟虚拟机镜像格式，支持的有：<br>
 raw: 默认格式。裸的磁盘文件。<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/bemind1/article/details/99678172">qcow2</a>:
@@ -8245,14 +8220,13 @@ raw: 默认格式。裸的磁盘文件。<br>
 QED。</p>
 <p>这些可以通过<code>man qemu-img</code>查到。</p>
 <h4 id="debian系"><a href="#debian系">¶</a> debian系</h4>
-<pre class="shell"><code># vnc=:2 可以换成其他可用端口。
-sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso -display vnc=:2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vnc=:2 可以换成其他可用端口。</span></span><br><span class="line">sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso -display vnc=:2</span><br></pre></td></tr></tbody></table></figure>
 <p>然后就会在<code>5902</code>端口（也可以换成其他可用端口）开一个vnc
 server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <h4 id="centos-8"><a href="#centos-8">¶</a> Centos 8</h4>
 <p>Centos 8比较特殊:</p>
-<pre class="shell"><code>sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</code></pre>
-<pre class="text"><code>VNC server running on ::1:5900</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo /usr/libexec/qemu-kvm -m 4096 -enable-kvm centos.img -cdrom ~/Downloads/CentOS-8.2.2004-x86_64-minimal.iso</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">VNC server running on ::1:5900</span><br></pre></td></tr></tbody></table></figure>
 <p>用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a></p>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210120225138249.png" alt="在这里插入图片描述"><br>
 <code>ctrl+alt+g</code>可以取消捕获。</p>
@@ -8262,59 +8236,22 @@ server。用这里的方法连上即可：<a href="/2021/01/20/vnc%E9%80%9A%E8%B
 <a href="/2021/08/08/virsh%E7%BB%88%E7%AB%AF%E8%AE%BF%E9%97%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B9%B6%E8%81%94%E7%BD%91/" title="virsh终端访问虚拟机并联网">virsh终端访问虚拟机并联网</a>
 <h3 id="桥接网卡有概率失败"><a href="#桥接网卡有概率失败">¶</a>
 桥接网卡（有概率失败）</h3>
-<pre class="shell"><code>sudo apt install bridge-utils uml-utilities</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install bridge-utils uml-utilities</span><br></pre></td></tr></tbody></table></figure>
 <p>先看自己的机器的网卡编号</p>
-<pre class="shell"><code>ip addr</code></pre>
-<pre class="text"><code>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host
-       valid_lft forever preferred_lft forever
-2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    link/ether 30:9c:23:f0:33:40 brd ff:ff:ff:ff:ff:ff
-    inet 10.249.41.236/21 brd 10.249.47.255 scope global dynamic noprefixroute eno1
-       valid_lft 40668sec preferred_lft 40668sec
-    inet6 fe80::140d:db62:feb5:b904/64 scope link noprefixroute
-       valid_lft forever preferred_lft forever</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 30:9c:23:f0:33:40 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.249.41.236/21 brd 10.249.47.255 scope global dynamic noprefixroute eno1</span><br><span class="line">       valid_lft 40668sec preferred_lft 40668sec</span><br><span class="line">    inet6 fe80::140d:db62:feb5:b904/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到我的编号是<code>eno1</code>。<br>
 由于操作网卡有可能导致连不上网，而连不上网的话服务器就失控了，所以最好是先设置一个定时重启，完成配置之后检测一下有没有网，有网则取消重启，否则就立即重启。由于操作过程有一段时间连不上网，所以需要把下面的保存为<code>net.sh</code>：</p>
-<pre class="shell"><code>set -e
-if [ ! $1 ]; then
-    echo Usage: $0 net_dev
-    exit
-fi
-shutdown -r 1
-
-brctl addbr br0
-brctl addif br0 $1
-# 这个时候会断网
-ifconfig br0 0.0.0.0 promisc up
-ifconfig $1 0.0.0.0 promisc up
-dhclient br0
-#brctl show br0
-#brctl showstp br0
-
-tunctl -t tap0 -u root              # 创建一个tap0接口，只允许root用户访问
-brctl addif br0 tap0                # 在虚拟网桥中增加一个tap0接口
-ifconfig tap0 0.0.0.0 promisc up    # 打开tap0接口
-#brctl showstp br0                   # 显示br0的各个接口
-
-if ping -c 1 baidu.com; then
-    shutdown -c
-    echo Shutdown canceled.
-else
-    shutdown -r now
-fi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">set -e</span><br><span class="line">if [ ! $1 ]; then</span><br><span class="line">    echo Usage: $0 net_dev</span><br><span class="line">    exit</span><br><span class="line">fi</span><br><span class="line">shutdown -r 1</span><br><span class="line"></span><br><span class="line">brctl addbr br0</span><br><span class="line">brctl addif br0 $1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个时候会断网</span></span><br><span class="line">ifconfig br0 0.0.0.0 promisc up</span><br><span class="line">ifconfig $1 0.0.0.0 promisc up</span><br><span class="line">dhclient br0</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">brctl show br0</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">brctl showstp br0</span></span><br><span class="line"></span><br><span class="line">tunctl -t tap0 -u root              # 创建一个tap0接口，只允许root用户访问</span><br><span class="line">brctl addif br0 tap0                # 在虚拟网桥中增加一个tap0接口</span><br><span class="line">ifconfig tap0 0.0.0.0 promisc up    # 打开tap0接口</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">brctl showstp br0                   <span class="comment"># 显示br0的各个接口</span></span></span><br><span class="line"></span><br><span class="line">if ping -c 1 baidu.com; then</span><br><span class="line">    shutdown -c</span><br><span class="line">    echo Shutdown canceled.</span><br><span class="line">else</span><br><span class="line">    shutdown -r now</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 <p><code>promisc</code>: 混杂模式（promiscuous
 mode）是电脑网络中的术语。是指一台机器的网卡能够接收所有经过它的数据流，而不论其目的地址是否是它。</p>
 <p>然后运行脚本</p>
-<pre class="shell"><code>sudo bash net.sh eno1</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash net.sh eno1</span><br></pre></td></tr></tbody></table></figure>
 <p>奇怪的是，在我的服务器上第一次失败了，但是重启之后第二次就成功了。</p>
 <p>然后用下面的命令重新启动虚拟机：</p>
-<pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,ifname=tap0,script=no,downscript=no</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,ifname=tap0,script=no,downscript=no</span><br></pre></td></tr></tbody></table></figure>
 <p>如果虚拟机是centos的话，还需要在虚拟机中执行一下</p>
-<pre class="shell"><code>dhclient</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">dhclient</span><br></pre></td></tr></tbody></table></figure>
 <p>才能拿到ip。</p>
 <p>这个相当于把虚拟机桥接到外面去了。如果外面的网络要登陆才能上网的话，还需要登陆一下。<br>
 <img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121113408209.png" alt="在这里插入图片描述"></p>
@@ -8323,141 +8260,12 @@ NAT（有概率失败）</h3>
 <p>如果装的虚拟机没有GUI，但是外面的网络又需要在网页上登陆才能使用，那桥接就不太可行了，这时要用NAT模式，使虚拟机直接使用主机的网络。</p>
 <p><a target="_blank" rel="noopener" href="https://wiki.qemu.org/Documentation/Networking/NAT" class="uri">https://wiki.qemu.org/Documentation/Networking/NAT</a><br>
 把下面的保存为<code>ifup_nat.sh</code></p>
-<pre class="shell"><code>#!/bin/sh
-#
-# Copyright IBM, Corp. 2010
-#
-# Authors:
-#  Anthony Liguori &lt;aliguori@us.ibm.com&gt;
-#
-# This work is licensed under the terms of the GNU GPL, version 2.  See
-# the COPYING file in the top-level directory.
-
-# Set to the name of your bridge
-BRIDGE=br0
-
-# Network information
-NETWORK=192.168.53.0
-NETMASK=255.255.255.0
-GATEWAY=192.168.53.1
-DHCPRANGE=192.168.53.2,192.168.53.254
-
-# Optionally parameters to enable PXE support
-TFTPROOT=
-BOOTP=
-
-do_brctl() {
-    brctl "$@"
-}
-
-do_ifconfig() {
-    ifconfig "$@"
-}
-
-do_dd() {
-    dd "$@"
-}
-
-do_iptables_restore() {
-    iptables-restore "$@"
-}
-
-do_dnsmasq() {
-    dnsmasq "$@"
-}
-
-check_bridge() {
-    if do_brctl show | grep "^$1" &gt; /dev/null 2&gt; /dev/null; then
-	return 1
-    else
-	return 0
-    fi
-}
-
-create_bridge() {
-    do_brctl addbr "$1"
-    do_brctl stp "$1" off
-    do_brctl setfd "$1" 0
-    do_ifconfig "$1" "$GATEWAY" netmask "$NETMASK" up
-}
-
-enable_ip_forward() {
-    echo 1 | do_dd of=/proc/sys/net/ipv4/ip_forward &gt; /dev/null
-}
-
-add_filter_rules() {
-do_iptables_restore &lt;&lt;EOF
-# Generated by iptables-save v1.3.6 on Fri Aug 24 15:20:25 2007
-*nat
-:PREROUTING ACCEPT [61:9671]
-:POSTROUTING ACCEPT [121:7499]
-:OUTPUT ACCEPT [132:8691]
--A POSTROUTING -s $NETWORK/$NETMASK -j MASQUERADE
-COMMIT
-# Completed on Fri Aug 24 15:20:25 2007
-# Generated by iptables-save v1.3.6 on Fri Aug 24 15:20:25 2007
-*filter
-:INPUT ACCEPT [1453:976046]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [1605:194911]
--A INPUT -i $BRIDGE -p tcp -m tcp --dport 67 -j ACCEPT
--A INPUT -i $BRIDGE -p udp -m udp --dport 67 -j ACCEPT
--A INPUT -i $BRIDGE -p tcp -m tcp --dport 53 -j ACCEPT
--A INPUT -i $BRIDGE -p udp -m udp --dport 53 -j ACCEPT
--A FORWARD -i $1 -o $1 -j ACCEPT
--A FORWARD -s $NETWORK/$NETMASK -i $BRIDGE -j ACCEPT
--A FORWARD -d $NETWORK/$NETMASK -o $BRIDGE -m state --state RELATED,ESTABLISHED -j ACCEPT
--A FORWARD -o $BRIDGE -j REJECT --reject-with icmp-port-unreachable
--A FORWARD -i $BRIDGE -j REJECT --reject-with icmp-port-unreachable
-COMMIT
-# Completed on Fri Aug 24 15:20:25 2007
-EOF
-}
-
-start_dnsmasq() {
-    do_dnsmasq \
-	--strict-order \
-	--except-interface=lo \
-	--interface=$BRIDGE \
-	--listen-address=$GATEWAY \
-	--bind-interfaces \
-	--dhcp-range=$DHCPRANGE \
-	--conf-file="" \
-	--pid-file=/var/run/qemu-dnsmasq-$BRIDGE.pid \
-	--dhcp-leasefile=/var/run/qemu-dnsmasq-$BRIDGE.leases \
-	--dhcp-no-override \
-	${TFTPROOT:+"--enable-tftp"} \
-	${TFTPROOT:+"--tftp-root=$TFTPROOT"} \
-	${BOOTP:+"--dhcp-boot=$BOOTP"}
-}
-
-setup_bridge_nat() {
-    if check_bridge "$1" ; then
-	create_bridge "$1"
-	enable_ip_forward
-	add_filter_rules "$1"
-	start_dnsmasq "$1"
-    fi
-}
-
-setup_bridge_vlan() {
-    if check_bridge "$1" ; then
-	create_bridge "$1"
-	start_dnsmasq "$1"
-    fi
-}
-
-setup_bridge_nat "$BRIDGE"
-
-if test "$1" ; then
-    do_ifconfig "$1" 0.0.0.0 up
-    do_brctl addif "$BRIDGE" "$1"
-fi</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Copyright IBM, Corp. 2010</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Authors:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> Anthony Liguori &lt;aliguori@us.ibm.com&gt;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This work is licensed under the terms of the GNU GPL, version 2.  See</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">the COPYING file <span class="keyword">in</span> the top-level directory.</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Set to the name of your bridge</span></span><br><span class="line">BRIDGE=br0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Network information</span></span><br><span class="line">NETWORK=192.168.53.0</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.53.1</span><br><span class="line">DHCPRANGE=192.168.53.2,192.168.53.254</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Optionally parameters to <span class="built_in">enable</span> PXE support</span></span><br><span class="line">TFTPROOT=</span><br><span class="line">BOOTP=</span><br><span class="line"></span><br><span class="line">do_brctl() {</span><br><span class="line">    brctl "$@"</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">do_ifconfig() {</span><br><span class="line">    ifconfig "$@"</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">do_dd() {</span><br><span class="line">    dd "$@"</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">do_iptables_restore() {</span><br><span class="line">    iptables-restore "$@"</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">do_dnsmasq() {</span><br><span class="line">    dnsmasq "$@"</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">check_bridge() {</span><br><span class="line">    if do_brctl show | grep "^$1" &gt; /dev/null 2&gt; /dev/null; then</span><br><span class="line">	return 1</span><br><span class="line">    else</span><br><span class="line">	return 0</span><br><span class="line">    fi</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">create_bridge() {</span><br><span class="line">    do_brctl addbr "$1"</span><br><span class="line">    do_brctl stp "$1" off</span><br><span class="line">    do_brctl setfd "$1" 0</span><br><span class="line">    do_ifconfig "$1" "$GATEWAY" netmask "$NETMASK" up</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">enable_ip_forward() {</span><br><span class="line">    echo 1 | do_dd of=/proc/sys/net/ipv4/ip_forward &gt; /dev/null</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">add_filter_rules() {</span><br><span class="line">do_iptables_restore &lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Generated by iptables-save v1.3.6 on Fri Aug 24 15:20:25 2007</span></span><br><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [61:9671]</span><br><span class="line">:POSTROUTING ACCEPT [121:7499]</span><br><span class="line">:OUTPUT ACCEPT [132:8691]</span><br><span class="line">-A POSTROUTING -s $NETWORK/$NETMASK -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Completed on Fri Aug 24 15:20:25 2007</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Generated by iptables-save v1.3.6 on Fri Aug 24 15:20:25 2007</span></span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [1453:976046]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [1605:194911]</span><br><span class="line">-A INPUT -i $BRIDGE -p tcp -m tcp --dport 67 -j ACCEPT</span><br><span class="line">-A INPUT -i $BRIDGE -p udp -m udp --dport 67 -j ACCEPT</span><br><span class="line">-A INPUT -i $BRIDGE -p tcp -m tcp --dport 53 -j ACCEPT</span><br><span class="line">-A INPUT -i $BRIDGE -p udp -m udp --dport 53 -j ACCEPT</span><br><span class="line">-A FORWARD -i $1 -o $1 -j ACCEPT</span><br><span class="line">-A FORWARD -s $NETWORK/$NETMASK -i $BRIDGE -j ACCEPT</span><br><span class="line">-A FORWARD -d $NETWORK/$NETMASK -o $BRIDGE -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A FORWARD -o $BRIDGE -j REJECT --reject-with icmp-port-unreachable</span><br><span class="line">-A FORWARD -i $BRIDGE -j REJECT --reject-with icmp-port-unreachable</span><br><span class="line">COMMIT</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Completed on Fri Aug 24 15:20:25 2007</span></span><br><span class="line">EOF</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">start_dnsmasq() {</span><br><span class="line">    do_dnsmasq \</span><br><span class="line">	--strict-order \</span><br><span class="line">	--except-interface=lo \</span><br><span class="line">	--interface=$BRIDGE \</span><br><span class="line">	--listen-address=$GATEWAY \</span><br><span class="line">	--bind-interfaces \</span><br><span class="line">	--dhcp-range=$DHCPRANGE \</span><br><span class="line">	--conf-file="" \</span><br><span class="line">	--pid-file=/var/run/qemu-dnsmasq-$BRIDGE.pid \</span><br><span class="line">	--dhcp-leasefile=/var/run/qemu-dnsmasq-$BRIDGE.leases \</span><br><span class="line">	--dhcp-no-override \</span><br><span class="line"><span class="meta prompt_">	$</span><span class="language-bash">{TFTPROOT:+<span class="string">"--enable-tftp"</span>} \</span></span><br><span class="line"><span class="language-bash">	<span class="variable">${TFTPROOT:+"--tftp-root=$TFTPROOT"}</span> \</span></span><br><span class="line"><span class="language-bash">	<span class="variable">${BOOTP:+"--dhcp-boot=$BOOTP"}</span></span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">setup_bridge_nat() {</span><br><span class="line">    if check_bridge "$1" ; then</span><br><span class="line">	create_bridge "$1"</span><br><span class="line">	enable_ip_forward</span><br><span class="line">	add_filter_rules "$1"</span><br><span class="line">	start_dnsmasq "$1"</span><br><span class="line">    fi</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">setup_bridge_vlan() {</span><br><span class="line">    if check_bridge "$1" ; then</span><br><span class="line">	create_bridge "$1"</span><br><span class="line">	start_dnsmasq "$1"</span><br><span class="line">    fi</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">setup_bridge_nat "$BRIDGE"</span><br><span class="line"></span><br><span class="line">if test "$1" ; then</span><br><span class="line">    do_ifconfig "$1" 0.0.0.0 up</span><br><span class="line">    do_brctl addif "$BRIDGE" "$1"</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 <p>并给执行权限：</p>
-<pre class="shell"><code>chmod +x ifup_nat.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">chmod +x ifup_nat.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>如果不给执行权限会报错(exit code 255)。</p>
 <p>然后启动虚拟机：</p>
-<pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,script=ifup_nat.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo qemu-system-x86_64 -m 4096 -enable-kvm centos.img -net nic -net tap,script=ifup_nat.sh</span><br></pre></td></tr></tbody></table></figure>
 <p><img src="/2021/01/21/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%94%A8qemu%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA/20210121153720100.png" alt="在这里插入图片描述"><br>
 这个方法我在家里的电脑上实验成功，但是在学校的服务器上失败了，不知道为什么。</p>
 <h2 id="其他"><a href="#其他">¶</a> 其他</h2>
@@ -8466,9 +8274,9 @@ fi</code></pre>
 <h3 id="嵌套虚拟化"><a href="#嵌套虚拟化">¶</a> 嵌套虚拟化</h3>
 <p>就是虚拟机里套虚拟机：<br>
 参数里添加</p>
-<pre class="text"><code>-enable-kvm -cpu host</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">-enable-kvm -cpu host</span><br></pre></td></tr></tbody></table></figure>
 <p>把所有宿主机CPU的特性都传下去。详情可见：</p>
-<pre class="shell"><code>/usr/libexec/qemu-kvm -cpu help</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/usr/libexec/qemu-kvm -cpu help</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jython/p/4458807.html" class="uri">https://www.cnblogs.com/jython/p/4458807.html</a><br>
 注：如果只放<code>-enable-kvm -cpu qemu64,+vmx</code>，我这<code>lsmod</code>里就没有<code>kvm_intel</code>。</p>
 <h3 id="centos开机自动联网"><a href="#centos开机自动联网">¶</a>
@@ -8479,7 +8287,7 @@ centos开机自动联网</h3>
 <p>启动之后，发现<code>/sys/firmware/efi</code>目录存在，说明确实是UEFI启动的。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50698817/article/details/123530442">linux怎么查看操作系统是uefi启动还是bios启动？</a></p>
 <h3 id="克隆虚拟机"><a href="#克隆虚拟机">¶</a> 克隆虚拟机</h3>
-<pre class="shell"><code>virt-clone --original 源虚拟机 --name 新虚拟机名字 --file 新虚拟机的磁盘文件路径</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">virt-clone --original 源虚拟机 --name 新虚拟机名字 --file 新虚拟机的磁盘文件路径</span><br></pre></td></tr></tbody></table></figure>
 <p>其好处是只会克隆磁盘文件中有效的部分，不会克隆其中为0的部分。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/" class="uri">https://www.cyberciti.biz/faq/how-to-clone-existing-kvm-virtual-machine-images-on-linux/</a></p>
 <h3 id="ttys0登录时输入用户名后卡住"><a href="#ttys0登录时输入用户名后卡住">¶</a>
@@ -8488,18 +8296,14 @@ ttyS0登录时输入用户名后卡住</h3>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
 <h3 id="network-disk-service卡住"><a href="#network-disk-service卡住">¶</a> network disk service卡住</h3>
 <p>centos虚拟机中出现过，要好几分钟才能进去，而且最终这几个服务会启动失败：</p>
-<pre class="text"><code>[FAILED] Failed to start System Security Services Daemon.
-[FAILED] Failed to start Disk Manager.
-[FAILED] Failed to start OpenSSH server daemon.
-[FAILED] Failed to start GSSAPI Proxy Daemon.
-[FAILED] Failed to start Crash recovery kernel arming.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[FAILED] Failed to start System Security Services Daemon.</span><br><span class="line">[FAILED] Failed to start Disk Manager.</span><br><span class="line">[FAILED] Failed to start OpenSSH server daemon.</span><br><span class="line">[FAILED] Failed to start GSSAPI Proxy Daemon.</span><br><span class="line">[FAILED] Failed to start Crash recovery kernel arming.</span><br></pre></td></tr></tbody></table></figure>
 <p>其实原因和解决方案都跟上一个一样，都是这个：</p>
 <a href="/2021/08/14/login-abort-requested-by-pam/" title="login: abort requested by PAM">login: abort requested by PAM</a>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://my.oschina.net/kelvinxupt/blog/265108">QEMU 1:
 使用QEMU创建虚拟机</a>
 其中软件安装的部分不全，要装<code>qemu-kvm</code><br>
-<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can't find
+<a target="_blank" rel="noopener" href="https://bugzilla.redhat.com/show_bug.cgi?id=1715806">Can’t find
 tool qemu-system-x86</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u014022631/article/details/53411557">qemu虚拟机与外部网络的通信</a><br>
 <a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/c910274bdcee218c371d2d36.html">kvm

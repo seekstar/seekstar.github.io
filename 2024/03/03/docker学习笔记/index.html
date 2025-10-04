@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8147,60 +8147,59 @@ mjx-container[display="true"] + br {
 <h2 id="创建image"><a href="#创建image">¶</a> 创建image</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/image/build/" class="uri">https://docs.docker.com/reference/cli/docker/image/build/</a></p>
 <p>image就是文件系统镜像。</p>
-<pre class="shell"><code>docker build -t &lt;image-name&gt; [-f &lt;Dockerfile-path&gt;] &lt;context-path&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker build -t &lt;image-name&gt; [-f &lt;Dockerfile-path&gt;] &lt;context-path&gt;</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="列出image"><a href="#列出image">¶</a> 列出image</h2>
-<pre class="shell"><code>docker images</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="删除image"><a href="#删除image">¶</a> 删除image</h2>
-<pre class="shell"><code>docker image rm [OPTIONS] IMAGE [IMAGE...]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker image rm [OPTIONS] IMAGE [IMAGE...]</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="创建container"><a href="#创建container">¶</a> 创建container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/run/" class="uri">https://docs.docker.com/reference/cli/docker/container/run/</a></p>
 <p>container基于image创建，相当于一个vm</p>
-<pre class="shell"><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></tbody></table></figure>
 <p>常用选项：</p>
 <p><code>--name</code>: Assign a name to the container<br>
 <code>-i, --interactive</code>: Keep STDIN open even if not
 attached<br>
 <code>-t, --tty</code>: Allocate a pseudo-TTY</p>
 <p>如果需要一个shell：</p>
-<pre class="shell"><code>docker run -it &lt;image&gt; /bin/bash</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker run -it &lt;image&gt; /bin/bash</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="启动container"><a href="#启动container">¶</a> 启动container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/start/" class="uri">https://docs.docker.com/reference/cli/docker/container/start/</a></p>
-<pre class="shell"><code>docker container start [OPTIONS] CONTAINER [CONTAINER...]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker container start [OPTIONS] CONTAINER [CONTAINER...]</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="列出container"><a href="#列出container">¶</a> 列出container</h2>
 <p>列出running container:</p>
-<pre class="shell"><code>docker container ls</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker container ls</span><br></pre></td></tr></tbody></table></figure>
 <p>列出所有container:</p>
-<pre class="shell"><code>docker container ls -a</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker container ls -a</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="复制文件到container"><a href="#复制文件到container">¶</a>
 复制文件到container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/cp/" class="uri">https://docs.docker.com/reference/cli/docker/container/cp/</a></p>
-<pre class="shell"><code>docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH
-docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH</span><br><span class="line">docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="在running-container中运行命令"><a href="#在running-container中运行命令">¶</a> 在running
 container中运行命令</h2>
-<pre class="shell"><code>docker exec -it &lt;container-ID&gt; /bin/bash</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker exec -it &lt;container-ID&gt; /bin/bash</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="删除container"><a href="#删除container">¶</a> 删除container</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/container/rm/" class="uri">https://docs.docker.com/reference/cli/docker/container/rm/</a></p>
-<pre class="shell"><code>docker rm &lt;container-name&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker rm &lt;container-name&gt;</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="查看正在运行的container"><a href="#查看正在运行的container">¶</a> 查看正在运行的container</h2>
-<pre class="shell"><code>docker ps</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="volume"><a href="#volume">¶</a> volume</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/" class="uri">https://docs.docker.com/storage/volumes/</a></p>
 <p>一个volume是host上的一个文件夹。容器将volume挂载到它自己的文件系统上时，相当于把volume对应的文件夹挂载到它自己的文件系统上。</p>
 <h2 id="列出所有volume"><a href="#列出所有volume">¶</a>
 列出所有volume</h2>
-<pre class="shell"><code>docker volume ls</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker volume ls</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="查看volume详细信息"><a href="#查看volume详细信息">¶</a>
 查看volume详细信息</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/volume/inspect/" class="uri">https://docs.docker.com/reference/cli/docker/volume/inspect/</a></p>
-<pre class="shell"><code>docker volume inspect [OPTIONS] VOLUME [VOLUME...]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker volume inspect [OPTIONS] VOLUME [VOLUME...]</span><br></pre></td></tr></tbody></table></figure>
 <p>好像看不到什么有用的信息。</p>
 <h2 id="删除volume"><a href="#删除volume">¶</a> 删除volume</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/volume/rm/" class="uri">https://docs.docker.com/reference/cli/docker/volume/rm/</a></p>
-<pre class="shell"><code>docker volume rm [OPTIONS] VOLUME [VOLUME...]</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker volume rm [OPTIONS] VOLUME [VOLUME...]</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="清理cache"><a href="#清理cache">¶</a> 清理cache</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/cli/docker/builder/prune/" class="uri">https://docs.docker.com/reference/cli/docker/builder/prune/</a></p>
-<pre class="shell"><code>docker builder prune</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">docker builder prune</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="docker-system-prune--a"><a href="#docker-system-prune--a">¶</a>
 <code>docker system prune -a</code></h2>
 <p>不删volume和手动创建的image。</p>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8147,9 +8147,9 @@ mjx-container[display="true"] + br {
 <p>官方教程：<a target="_blank" rel="noopener" href="https://docs.autolabproject.com/installation/docker-compose/#configuring-tlsssl" class="uri">https://docs.autolabproject.com/installation/docker-compose/#configuring-tlsssl</a></p>
 <h3 id="not-working-autolab自带的证书申请机制"><a href="#not-working-autolab自带的证书申请机制">¶</a> (not working)
 autolab自带的证书申请机制</h3>
-<pre class="shell"><code>sudo ./ssl/init-letsencrypt.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo ./ssl/init-letsencrypt.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>报错：</p>
-<pre class="text"><code>  Detail: 47.74.9.105: Fetching http://autolab.db.iiis.io/.well-known/acme-challenge/fCaVWPv4jdINFSnaBILQ4RToTJRZc1aiTrUed2ZOlyQ: Connection refused</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Detail: 47.74.9.105: Fetching http://autolab.db.iiis.io/.well-known/acme-challenge/fCaVWPv4jdINFSnaBILQ4RToTJRZc1aiTrUed2ZOlyQ: Connection refused</span><br></pre></td></tr></tbody></table></figure>
 <p>但是宿主机80和443都开着。</p>
 <p>结论：自带的SSL证书申请不work。</p>
 <h3 id="在宿主机申请ssl证书"><a href="#在宿主机申请ssl证书">¶</a>
@@ -8157,18 +8157,7 @@ autolab自带的证书申请机制</h3>
 <p>用acme申请，网上有很多教程，这里不再赘述。</p>
 <p>acme需要在宿主机运行nginx并监听80端口。一种比较简单的方法是直接让autolab的container的443端口映射到宿主机的443，宿主机的nginx不监听443。</p>
 <p>另一种方法是在宿主机上的nginx监听443，把autolab的container的443映射到一个随机端口，然后让宿主机的nginx把访问autolab域名的https流量转发给autolab监听的端口：</p>
-<pre class="text"><code>server {
-	listen 443 ssl;
-	listen [::]:443 ssl;
-	server_name autolab域名;
-	ssl_certificate /root/.acme.sh/autolab域名_ecc/fullchain.cer;
-	ssl_certificate_key /root/.acme.sh/autolab域名_ecc/autolab域名.key;
-	client_max_body_size 0;
-	location / {
-		proxy_pass https://localhost:autolab端口;
-		proxy_set_header Host autolab域名;
-	}
-}</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">server {</span><br><span class="line">	listen 443 ssl;</span><br><span class="line">	listen [::]:443 ssl;</span><br><span class="line">	server_name autolab域名;</span><br><span class="line">	ssl_certificate /root/.acme.sh/autolab域名_ecc/fullchain.cer;</span><br><span class="line">	ssl_certificate_key /root/.acme.sh/autolab域名_ecc/autolab域名.key;</span><br><span class="line">	client_max_body_size 0;</span><br><span class="line">	location / {</span><br><span class="line">		proxy_pass https://localhost:autolab端口;</span><br><span class="line">		proxy_set_header Host autolab域名;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>client_max_body_size 0;</code>防止附件过大的提交被宿主机nginx拦截。</p>
 <p>注意：不要把autolab配置成不使用ssl的同时在外面套一层SSL，因为这样tango和autolab之间的通信会出问题。可能是因为tango往autolab发消息仍然使用的http，然后被外面的nginx拒绝。</p>
 <h2 id="发送邮件"><a href="#发送邮件">¶</a> 发送邮件</h2>
@@ -8185,23 +8174,21 @@ sendgrid</h3>
 autograder要安装pkill</h2>
 <p>需要在Dockerfile里<code>apt install -y procps</code></p>
 <p>不然会报这个错：</p>
-<pre class="shell"><code>Autodriver: Unable to exec at line 277: No such file or directory
-Autodriver: Error killing user processes at line 365</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">Autodriver: Unable to exec at line 277: No such file or directory</span><br><span class="line">Autodriver: Error killing user processes at line 365</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="tangoconfigpy"><a href="#tangoconfigpy">¶</a>
 <code>Tango/config.py</code></h2>
 <p>更改了之后重启docker即可生效：</p>
-<pre class="shell"><code>sudo docker compose stop
-sudo docker compose up -d</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo docker compose stop</span><br><span class="line">sudo docker compose up -d</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="改大vm_ulimit_user_proc"><a href="#改大vm_ulimit_user_proc">¶</a>
 改大<code>VM_ULIMIT_USER_PROC</code></h3>
 <p><code>VM_ULIMIT_USER_PROC</code>默认100，太小了。改大一些：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>VM_ULIMIT_USER_PROC <span class="op">=</span> <span class="dv">10000</span></span></code></pre></div>
+<figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">VM_ULIMIT_USER_PROC = <span class="number">10000</span></span><br></pre></td></tr></tbody></table></figure>
 <p>太小的话分配太多<code>std::async</code>会失败，然后似乎会fall
 back到单线程模式。</p>
 <h3 id="vm_ulimit_file_size"><a href="#vm_ulimit_file_size">¶</a>
 <code>VM_ULIMIT_FILE_SIZE</code></h3>
 <p>如果autograde的时候报了这个错：</p>
-<pre class="shell"><code>Error running link command: SIGXFSZ</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">Error running link command: SIGXFSZ</span><br></pre></td></tr></tbody></table></figure>
 <p>说明编译产生的文件大小超限了。在<code>Tango/config.py</code>里把<code>VM_ULIMIT_FILE_SIZE</code>设置大一些（默认100MiB）</p>
 <p>注意，<code>VM_ULIMIT_FILE_SIZE</code>似乎是用32 bit
 integer存的，所以值一定要小于4G，不然会溢出。</p>

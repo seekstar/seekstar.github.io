@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8145,209 +8145,74 @@ mjx-container[display="true"] + br {
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/pycode/p/9495793.html" class="uri">https://www.cnblogs.com/pycode/p/9495793.html</a></p>
 <p>mariadb与mysql非常像，甚至安装mariadb后可以使用mysql命令运行mariadb。</p>
 <h1 id="安装软件"><a href="#安装软件">¶</a> 安装软件</h1>
-<pre class="shell"><code>sudo apt install -y mariadb-server mariadb-client</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y mariadb-server mariadb-client</span><br></pre></td></tr></tbody></table></figure>
 <p>我这里安装的是mariadb19。如果是mariadb18，请把下面的mariadb19换成mariadb18。</p>
 <h1 id="设置密码"><a href="#设置密码">¶</a> 设置密码</h1>
-<p>刚安装是没有密码的。先设置密码</p>
-<pre class="shell"><code>sudo -s</code></pre>
-<pre class="shell"><code>mysql</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> mysql.<span class="fu">user</span> <span class="kw">SET</span> plugin <span class="op">=</span> <span class="st">'mysql_native_password'</span>, <span class="kw">Password</span> <span class="op">=</span> <span class="kw">PASSWORD</span>(<span class="st">'a'</span>) <span class="kw">WHERE</span> <span class="fu">User</span> <span class="op">=</span> <span class="st">'root'</span>;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FLUSH</span> <span class="kw">PRIVILEGES</span>;</span></code></pre></div>
+<p>刚安装是没有密码的。先设置密码<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo -s</span><br></pre></td></tr></tbody></table></figure><p></p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> mysql.user <span class="keyword">SET</span> plugin <span class="operator">=</span> <span class="string">'mysql_native_password'</span>, Password <span class="operator">=</span> PASSWORD(<span class="string">'a'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span> <span class="operator">=</span> <span class="string">'root'</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></tbody></table></figure>
 <p>这里密码设置成了<code>a</code></p>
-<p>以后就可以使用</p>
-<pre class="shell"><code>mysql -u root -p</code></pre>
-<p>登录了</p>
+<p>以后就可以使用<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></tbody></table></figure><br>
+登录了<p></p>
 <h1 id="安装unixodbc"><a href="#安装unixodbc">¶</a> 安装unixodbc</h1>
-<pre class="shell"><code>sudo apt install -y unixodbc</code></pre>
-<p>测试一下是否安装成功</p>
-<pre class="shell"><code>odbcinst -j</code></pre>
-<p>成功：<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y unixodbc</span><br></pre></td></tr></tbody></table></figure>
+<p>测试一下是否安装成功<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">odbcinst -j</span><br></pre></td></tr></tbody></table></figure><br>
+成功：<br>
 <img src="/2020/03/27/linux-mariadb-odbc/2020032715473971.png" alt="在这里插入图片描述"><br>
-失败的话看参考链接。</p>
+失败的话看参考链接。<p></p>
 <h1 id="安装mariadb-connectorodbc"><a href="#安装mariadb-connectorodbc">¶</a> 安装MariaDB Connector/ODBC</h1>
 <p><a target="_blank" rel="noopener" href="https://downloads.mariadb.org/connector-odbc/+releases/" class="uri">https://downloads.mariadb.org/connector-odbc/+releases/</a></p>
 <p>这是目前的<a target="_blank" rel="noopener" href="https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.6/mariadb-connector-odbc-3.1.6-ga-debian-x86_64.tar.gz">最新版本</a></p>
-<p>然后cd到下载目录</p>
-<pre class="shell"><code>mkdir mariadb-connector-odbc-3.1.6-ga-debian-x86_64
-tar -zxvf mariadb-connector-odbc-3.1.6-ga-debian-x86_64.tar.gz -C mariadb-connector-odbc-3.1.6-ga-debian-x86_64
-cd mariadb-connector-odbc-3.1.6-ga-debian-x86_64/lib
-sudo cp libmaodbc.so /lib/x86_64-linux-gnu/mariadb19/</code></pre>
+<p>然后cd到下载目录<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir mariadb-connector-odbc-3.1.6-ga-debian-x86_64</span><br><span class="line">tar -zxvf mariadb-connector-odbc-3.1.6-ga-debian-x86_64.tar.gz -C mariadb-connector-odbc-3.1.6-ga-debian-x86_64</span><br><span class="line">cd mariadb-connector-odbc-3.1.6-ga-debian-x86_64/lib</span><br><span class="line">sudo cp libmaodbc.so /lib/x86_64-linux-gnu/mariadb19/</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="编辑etcodbcinstini"><a href="#编辑etcodbcinstini">¶</a>
 编辑/etc/odbcinst.ini</h1>
-<pre><code># Example driver definitions
-# Driver from the postgresql-odbc package
-# Setup from the unixODBC package
-
-# Driver from the mysql-connector-odbc package
-# Setup from the unixODBC package
-[mariadb]
-Description = ODBC for mariadb
-Driver = /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so
-Setup = /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so
-FileUsage = 1</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line"># Example driver definitions</span><br><span class="line"># Driver from the postgresql-odbc package</span><br><span class="line"># Setup from the unixODBC package</span><br><span class="line"></span><br><span class="line"># Driver from the mysql-connector-odbc package</span><br><span class="line"># Setup from the unixODBC package</span><br><span class="line">[mariadb]</span><br><span class="line">Description = ODBC for mariadb</span><br><span class="line">Driver = /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so</span><br><span class="line">Setup = /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so</span><br><span class="line">FileUsage = 1</span><br></pre></td></tr></tbody></table></figure>
 <p>这里实际上是定义了一个叫做mariadb的driver。<br>
-# 编辑/etc/odbc.ini</p>
-<pre><code>[dbexp2]
-Description = mariadb
-Driver = mariadb
-Server = 127.0.0.1
-Port = 3306
-USER = root
-Password = a
-CHARSET = UTF8</code></pre>
-<h1 id="测试"><a href="#测试">¶</a> 测试</h1>
-<pre class="shell"><code>isql dbexp2 -v</code></pre>
-<p>大概率会出错。</p>
-<pre><code>[01000][unixODBC][Driver Manager]Can't open lib '/usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so' : file not found
-[ISQL]ERROR: Could not SQLConnect</code></pre>
-<p>其实是因为libmaodbc.so的依赖不满足。<br>
-看看它的依赖：</p>
-<pre class="shell"><code>ldd /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so</code></pre>
-<p>输出：</p>
-<pre><code>	linux-vdso.so.1 (0x00007ffe223e4000)
-	libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007f78c000a000)
-	libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007f78bfe87000)
-	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78bfe82000)
-	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f78bfe61000)
-	libssl.so.1.0.0 =&gt; not found
-	libcrypto.so.1.0.0 =&gt; not found
-	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78bfc9e000)
-	libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007f78bfc93000)
-	/lib64/ld-linux-x86-64.so.2 (0x00007f78c04d0000)</code></pre>
-<p>可以看到找不到libssl.so.1.0.0和libcrypto.so.1.0.0。<br>
+# 编辑/etc/odbc.ini<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[dbexp2]</span><br><span class="line">Description = mariadb</span><br><span class="line">Driver = mariadb</span><br><span class="line">Server = 127.0.0.1</span><br><span class="line">Port = 3306</span><br><span class="line">USER = root</span><br><span class="line">Password = a</span><br><span class="line">CHARSET = UTF8</span><br></pre></td></tr></tbody></table></figure><br>
+# 测试<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">isql dbexp2 -v</span><br></pre></td></tr></tbody></table></figure><br>
+大概率会出错。<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[01000][unixODBC][Driver Manager]Can't open lib '/usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so' : file not found</span><br><span class="line">[ISQL]ERROR: Could not SQLConnect</span><br></pre></td></tr></tbody></table></figure><br>
+其实是因为libmaodbc.so的依赖不满足。<br>
+看看它的依赖：<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">ldd /usr/lib/x86_64-linux-gnu/mariadb19/libmaodbc.so</span><br></pre></td></tr></tbody></table></figure><br>
+输出：<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">linux-vdso.so.1 (0x00007ffe223e4000)</span><br><span class="line">libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007f78c000a000)</span><br><span class="line">libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007f78bfe87000)</span><br><span class="line">libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f78bfe82000)</span><br><span class="line">libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f78bfe61000)</span><br><span class="line">libssl.so.1.0.0 =&gt; not found</span><br><span class="line">libcrypto.so.1.0.0 =&gt; not found</span><br><span class="line">libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f78bfc9e000)</span><br><span class="line">libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007f78bfc93000)</span><br><span class="line">/lib64/ld-linux-x86-64.so.2 (0x00007f78c04d0000)</span><br></pre></td></tr></tbody></table></figure><br>
+可以看到找不到libssl.so.1.0.0和libcrypto.so.1.0.0。<br>
 解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41961459/article/details/105141622" class="uri">https://blog.csdn.net/qq_41961459/article/details/105141622</a><br>
-再查看依赖</p>
-<pre><code>linux-vdso.so.1 (0x00007fff634cb000)
-	libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007fe427f12000)
-	libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe427d8f000)
-	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe427d8a000)
-	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe427d69000)
-	libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fe427b08000)
-	libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fe42770b000)
-	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe427548000)
-	libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007fe42753d000)
-	/lib64/ld-linux-x86-64.so.2 (0x00007fe4283d9000)</code></pre>
-<p>已经满足了。</p>
-<p>再跑一遍</p>
-<pre class="shell"><code>isql dbexp2 -v</code></pre>
-<p>成功：</p>
-<pre><code>searchstar@searchstar-debian10-minimum:~/SetupFiles$ isql dbexp2 -v
-+---------------------------------------+
-| Connected!                            |
-|                                       |
-| sql-statement                         |
-| help [tablename]                      |
-| quit                                  |
-|                                       |
-+---------------------------------------+
-SQL&gt; </code></pre>
+再查看依赖<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">linux-vdso.so.1 (0x00007fff634cb000)</span><br><span class="line">	libodbcinst.so.2 =&gt; /lib/x86_64-linux-gnu/libodbcinst.so.2 (0x00007fe427f12000)</span><br><span class="line">	libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe427d8f000)</span><br><span class="line">	libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe427d8a000)</span><br><span class="line">	libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe427d69000)</span><br><span class="line">	libssl.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libssl.so.1.0.0 (0x00007fe427b08000)</span><br><span class="line">	libcrypto.so.1.0.0 =&gt; /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 (0x00007fe42770b000)</span><br><span class="line">	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe427548000)</span><br><span class="line">	libltdl.so.7 =&gt; /lib/x86_64-linux-gnu/libltdl.so.7 (0x00007fe42753d000)</span><br><span class="line">	/lib64/ld-linux-x86-64.so.2 (0x00007fe4283d9000)</span><br></pre></td></tr></tbody></table></figure><br>
+已经满足了。<p></p>
+<p>再跑一遍<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">isql dbexp2 -v</span><br></pre></td></tr></tbody></table></figure><br>
+成功：<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">searchstar@searchstar-debian10-minimum:~/SetupFiles$ isql dbexp2 -v</span><br><span class="line">+---------------------------------------+</span><br><span class="line">| Connected!                            |</span><br><span class="line">|                                       |</span><br><span class="line">| sql-statement                         |</span><br><span class="line">| help [tablename]                      |</span><br><span class="line">| quit                                  |</span><br><span class="line">|                                       |</span><br><span class="line">+---------------------------------------+</span><br><span class="line">SQL&gt; </span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="在cc中使用"><a href="#在cc中使用">¶</a> 在C/C++中使用</h1>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/techtitan/article/details/6774859" class="uri">https://blog.csdn.net/techtitan/article/details/6774859</a><br>
 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40861091/article/details/89345860" class="uri">https://blog.csdn.net/qq_40861091/article/details/89345860</a></p>
-<p>先安装头文件</p>
-<pre class="shell"><code>sudo apt install -y unixodbc-dev</code></pre>
-<p>之后相关头文件就在<code>/usr/include/</code>下了。编译的时候不需要用<code>-I</code>选项。</p>
-<p>如果还需要mysql的头文件</p>
-<pre class="shell"><code>sudo apt install -y default-libmysqlclient-dev</code></pre>
-<p>之后相关头文件就在<code>/usr/include/mysql</code>下了。编译的时候需要用<code>-I"/usr/include/mysql"</code>，或者代码里头文件前加<code>mysql/</code>，例如<code>#include &lt;mysql/mysql.h&gt;</code></p>
+<p>先安装头文件<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y unixodbc-dev</span><br></pre></td></tr></tbody></table></figure><br>
+之后相关头文件就在<code>/usr/include/</code>下了。编译的时候不需要用<code>-I</code>选项。<p></p>
+<p>如果还需要mysql的头文件<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install -y default-libmysqlclient-dev</span><br></pre></td></tr></tbody></table></figure><br>
+之后相关头文件就在<code>/usr/include/mysql</code>下了。编译的时候需要用<code>-I"/usr/include/mysql"</code>，或者代码里头文件前加<code>mysql/</code>，例如<code>#include &lt;mysql/mysql.h&gt;</code><p></p>
 <p>建议使用纯odbc，以保证可移植性。</p>
 <p>示例：<br>
-（代码参考自<a target="_blank" rel="noopener" href="https://blog.csdn.net/buptlihang/article/details/80275641" class="uri">https://blog.csdn.net/buptlihang/article/details/80275641</a>）</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sqlext.h&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    sqlhenv serverhenv<span class="op">;</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    sqlhdbc serverhdbc<span class="op">;</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    sqlhstmt serverhstmt<span class="op">;</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    sqlreturn ret<span class="op">;</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">static</span> sqlchar dname<span class="op">[</span><span class="dv">45</span><span class="op">],</span> dno<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    sqllen length<span class="op">;</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配环境句柄</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_env<span class="op">,</span>sql_null_handle<span class="op">,&amp;</span>serverhenv<span class="op">);</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">//设置环境属性</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlsetenvattr<span class="op">(</span>serverhenv<span class="op">,</span>sql_attr_odbc_version<span class="op">,(</span><span class="dt">void</span><span class="op">*)</span>sql_ov_odbc3<span class="op">,</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"allocenvhandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配连接句柄</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_dbc<span class="op">,</span>serverhenv<span class="op">,&amp;</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"allocdbchandle error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">//数据库连接</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlconnect<span class="op">(</span>serverhdbc<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"root"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"a"</span><span class="op">,</span>sql_nts<span class="op">);</span><span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!</span>sql_succeeded<span class="op">(</span>ret<span class="op">))</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"sql_connect error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">//分配执行语句句柄</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> sqlallochandle<span class="op">(</span>sql_handle_stmt<span class="op">,</span>serverhdbc<span class="op">,&amp;</span>serverhstmt<span class="op">);</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">//执行sql语句</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlexecdirect<span class="op">(</span>serverhstmt<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"select dname, dno from company.department;"</span><span class="op">,</span>sql_nts<span class="op">);</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>ret <span class="op">==</span> sql_success <span class="op">||</span> ret <span class="op">==</span> sql_success_with_info<span class="op">){</span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">//绑定数据</span></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>        sqlbindcol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">1</span><span class="op">,</span> sql_c_char<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>dname<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>dname<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>        sqlbindcol<span class="op">(</span>serverhstmt<span class="op">,</span><span class="dv">2</span><span class="op">,</span> sql_c_char<span class="op">,</span> <span class="op">(</span><span class="dt">void</span><span class="op">*)</span>dno<span class="op">,</span><span class="kw">sizeof</span><span class="op">(</span>dno<span class="op">),</span> <span class="op">&amp;</span>length<span class="op">);</span></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">//将光标移动到下行,即获得下行数据</span></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>        cout <span class="op">&lt;&lt;</span> <span class="st">"dname</span><span class="sc">\t\t</span><span class="st">dno</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>sql_no_data <span class="op">!=</span> sqlfetch<span class="op">(</span>serverhstmt<span class="op">))</span></span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>            cout <span class="op">&lt;&lt;</span> dname <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\t\t</span><span class="st">"</span> <span class="op">&lt;&lt;</span> dno <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放语句句柄</span></span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_stmt<span class="op">,</span>serverhstmt<span class="op">);</span></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret <span class="op">&amp;&amp;</span> sql_success_with_info <span class="op">!=</span> ret<span class="op">)</span></span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hstmt error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>    <span class="co">//断开数据库连接</span></span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqldisconnect<span class="op">(</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"disconnected error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放连接句柄</span></span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_dbc<span class="op">,</span>serverhdbc<span class="op">);</span></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free hdbc error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">//释放环境句柄句柄</span></span>
-<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a>    ret<span class="op">=</span>sqlfreehandle<span class="op">(</span>sql_handle_env<span class="op">,</span>serverhenv<span class="op">);</span></span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sql_success<span class="op">!=</span>ret<span class="op">&amp;&amp;</span>sql_success_with_info<span class="op">!=</span>ret<span class="op">)</span></span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>        cout<span class="op">&lt;&lt;</span><span class="st">"free henv error!"</span><span class="op">&lt;&lt;</span>endl<span class="op">;</span></span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>    cout <span class="op">&lt;&lt;</span> <span class="st">"done"</span> <span class="op">&lt;&lt;</span> endl<span class="op">;</span></span>
-<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>因为之前数据源中已经定义了用户名和密码，所以这里用户名和密码可以省掉，即</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> sqlconnect<span class="op">(</span>serverhdbc<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"root"</span><span class="op">,</span>sql_nts<span class="op">,(</span>sqlchar<span class="op">*)</span><span class="st">"a"</span><span class="op">,</span>sql_nts<span class="op">);</span><span class="co">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span></code></pre></div>
-<p>可以换成</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> SQLConnect<span class="op">(</span>serverhdbc<span class="op">,(</span>SQLCHAR<span class="op">*)</span><span class="st">"dbexp2"</span><span class="op">,</span>SQL_NTS<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span></code></pre></div>
-<pre class="shell"><code>g++ main.cpp -lodbc -o main
-./main</code></pre>
-<p>输出：</p>
-<pre><code>dname		dno
-Economy Department		000
-Sales Department		001
-Human Resource Department		010
-Produce Department		011
-Research Department		100
-done</code></pre>
+（代码参考自<a target="_blank" rel="noopener" href="https://blog.csdn.net/buptlihang/article/details/80275641" class="uri">https://blog.csdn.net/buptlihang/article/details/80275641</a>）<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sqlext.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    sqlhenv serverhenv;</span><br><span class="line">    sqlhdbc serverhdbc;</span><br><span class="line">    sqlhstmt serverhstmt;</span><br><span class="line">    sqlreturn ret;</span><br><span class="line"></span><br><span class="line">    <span class="type">static</span> sqlchar dname[<span class="number">45</span>], dno[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">    sqllen length;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//分配环境句柄</span></span><br><span class="line">    ret = <span class="built_in">sqlallochandle</span>(sql_handle_env,sql_null_handle,&amp;serverhenv);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置环境属性</span></span><br><span class="line">    ret = <span class="built_in">sqlsetenvattr</span>(serverhenv,sql_attr_odbc_version,(<span class="type">void</span>*)sql_ov_odbc3,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">sql_succeeded</span>(ret))</span><br><span class="line">    {</span><br><span class="line">        cout&lt;&lt;<span class="string">"allocenvhandle error!"</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//分配连接句柄</span></span><br><span class="line">    ret = <span class="built_in">sqlallochandle</span>(sql_handle_dbc,serverhenv,&amp;serverhdbc);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">sql_succeeded</span>(ret))</span><br><span class="line">    {</span><br><span class="line">        cout&lt;&lt;<span class="string">"allocdbchandle error!"</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//数据库连接</span></span><br><span class="line">    ret = <span class="built_in">sqlconnect</span>(serverhdbc,(sqlchar*)<span class="string">"dbexp2"</span>,sql_nts,(sqlchar*)<span class="string">"root"</span>,sql_nts,(sqlchar*)<span class="string">"a"</span>,sql_nts);<span class="comment">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">sql_succeeded</span>(ret))</span><br><span class="line">    {</span><br><span class="line">        cout&lt;&lt;<span class="string">"sql_connect error!"</span>&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//分配执行语句句柄</span></span><br><span class="line">    ret = <span class="built_in">sqlallochandle</span>(sql_handle_stmt,serverhdbc,&amp;serverhstmt);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行sql语句</span></span><br><span class="line">    ret=<span class="built_in">sqlexecdirect</span>(serverhstmt,(sqlchar*)<span class="string">"select dname, dno from company.department;"</span>,sql_nts);</span><br><span class="line">    <span class="keyword">if</span>(ret == sql_success || ret == sql_success_with_info){</span><br><span class="line">        <span class="comment">//绑定数据</span></span><br><span class="line">        <span class="built_in">sqlbindcol</span>(serverhstmt,<span class="number">1</span>, sql_c_char, (<span class="type">void</span>*)dname,<span class="built_in">sizeof</span>(dname), &amp;length);</span><br><span class="line">        <span class="built_in">sqlbindcol</span>(serverhstmt,<span class="number">2</span>, sql_c_char, (<span class="type">void</span>*)dno,<span class="built_in">sizeof</span>(dno), &amp;length);</span><br><span class="line">        <span class="comment">//将光标移动到下行,即获得下行数据</span></span><br><span class="line">        cout &lt;&lt; <span class="string">"dname\t\tdno\n"</span>;</span><br><span class="line">        <span class="keyword">while</span>(sql_no_data != <span class="built_in">sqlfetch</span>(serverhstmt))</span><br><span class="line">        {</span><br><span class="line">            cout &lt;&lt; dname &lt;&lt; <span class="string">"\t\t"</span> &lt;&lt; dno &lt;&lt; endl;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//释放语句句柄</span></span><br><span class="line">    ret=<span class="built_in">sqlfreehandle</span>(sql_handle_stmt,serverhstmt);</span><br><span class="line">    <span class="keyword">if</span>(sql_success!=ret &amp;&amp; sql_success_with_info != ret)</span><br><span class="line">        cout&lt;&lt;<span class="string">"free hstmt error!"</span>&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//断开数据库连接</span></span><br><span class="line">    ret=<span class="built_in">sqldisconnect</span>(serverhdbc);</span><br><span class="line">    <span class="keyword">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span><br><span class="line">        cout&lt;&lt;<span class="string">"disconnected error!"</span>&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//释放连接句柄</span></span><br><span class="line">    ret=<span class="built_in">sqlfreehandle</span>(sql_handle_dbc,serverhdbc);</span><br><span class="line">    <span class="keyword">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span><br><span class="line">        cout&lt;&lt;<span class="string">"free hdbc error!"</span>&lt;&lt;endl;</span><br><span class="line">    <span class="comment">//释放环境句柄句柄</span></span><br><span class="line">    ret=<span class="built_in">sqlfreehandle</span>(sql_handle_env,serverhenv);</span><br><span class="line">    <span class="keyword">if</span>(sql_success!=ret&amp;&amp;sql_success_with_info!=ret)</span><br><span class="line">        cout&lt;&lt;<span class="string">"free henv error!"</span>&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">"done"</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><br>
+因为之前数据源中已经定义了用户名和密码，所以这里用户名和密码可以省掉，即<br>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">ret = <span class="built_in">sqlconnect</span>(serverhdbc,(sqlchar*)<span class="string">"dbexp2"</span>,sql_nts,(sqlchar*)<span class="string">"root"</span>,sql_nts,(sqlchar*)<span class="string">"a"</span>,sql_nts);<span class="comment">//第二个参数是之前配置的数据源，后面是数据库用户名和密码</span></span><br></pre></td></tr></tbody></table></figure><br>
+可以换成<br>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">ret = <span class="built_in">SQLConnect</span>(serverhdbc,(SQLCHAR*)<span class="string">"dbexp2"</span>,SQL_NTS, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure><br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">g++ main.cpp -lodbc -o main</span><br><span class="line">./main</span><br></pre></td></tr></tbody></table></figure><br>
+输出：<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">dname		dno</span><br><span class="line">Economy Department		000</span><br><span class="line">Sales Department		001</span><br><span class="line">Human Resource Department		010</span><br><span class="line">Produce Department		011</span><br><span class="line">Research Department		100</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

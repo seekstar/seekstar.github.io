@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,56 +8142,32 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h2 id="安装"><a href="#安装">¶</a> 安装</h2>
 <h3 id="官方安装脚本"><a href="#官方安装脚本">¶</a> 官方安装脚本</h3>
-<pre class="shell"><code>wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda-latest-Linux-x86_64.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>安装过程会自动将以下内容加到.bashrc里：</p>
-<pre class="shell"><code># added by Miniconda2 4.0.5 installer
-export PATH="/home/用户名/miniconda2/bin:$PATH"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">added by Miniconda2 4.0.5 installer</span></span><br><span class="line">export PATH="/home/用户名/miniconda2/bin:$PATH"</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/" class="uri">https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangcassy/article/details/123578709">用Ubuntu子系统下载安装Miniconda3（小白版）</a></p>
 <h3 id="section"><a href="#section">¶</a> <a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">Nix包管理器</a></h3>
-<pre class="shell"><code>nix-channel --update
-nix-env -iA nixpkgs.conda
-# conda-shell会把基础环境安装到~/.conda，然后在conda-shell里执行`conda --version`，然后退出到原来的shell
-# 直接执行conda-shell也会安装环境到~/.conda，但是会留在conda-shell里，不会退出到原来的shell
-conda-shell -c "conda --version"
-echo "export PATH=\"$HOME/.conda/bin:\$PATH\"" &gt;&gt; ~/.profile
-. ~/.profile
-# 会往~/.bashrc里加入一段代码
-conda init</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nix-channel --update</span><br><span class="line">nix-env -iA nixpkgs.conda</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">conda-shell会把基础环境安装到~/.conda，然后在conda-shell里执行`conda --version`，然后退出到原来的shell</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接执行conda-shell也会安装环境到~/.conda，但是会留在conda-shell里，不会退出到原来的shell</span></span><br><span class="line">conda-shell -c "conda --version"</span><br><span class="line">echo "export PATH=\"$HOME/.conda/bin:\$PATH\"" &gt;&gt; ~/.profile</span><br><span class="line">. ~/.profile</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">会往~/.bashrc里加入一段代码</span></span><br><span class="line">conda init</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="配置镜像"><a href="#配置镜像">¶</a> 配置镜像</h2>
 <p>在<code>~/.condarc</code>里加入以下内容来使用清华镜像：</p>
-<pre class="text"><code>channels:
-  - defaults
-show_channel_urls: true
-default_channels:
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
-custom_channels:
-  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">default_channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="创建虚拟环境"><a href="#创建虚拟环境">¶</a> 创建虚拟环境</h2>
-<pre class="shell"><code>conda create -n 环境名字</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda create -n 环境名字</span><br></pre></td></tr></tbody></table></figure>
 <p>激活环境</p>
-<pre class="shell"><code>conda activate 环境名字</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda activate 环境名字</span><br></pre></td></tr></tbody></table></figure>
 <p>删除虚拟环境</p>
-<pre class="shell"><code>conda remove -n 环境名字 --all</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda remove -n 环境名字 --all</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="在虚拟环境中安装库"><a href="#在虚拟环境中安装库">¶</a>
 在虚拟环境中安装库</h2>
 <p>首先进入虚拟环境：<code>conda activate 环境名字</code></p>
 <p>然后：</p>
-<pre class="shell"><code>conda install 包1 包2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda install 包1 包2</span><br></pre></td></tr></tbody></table></figure>
 <p>如果是某个channel里的包：</p>
-<pre class="shell"><code>conda install -c channel名 包1 包2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda install -c channel名 包1 包2</span><br></pre></td></tr></tbody></table></figure>
 <p>也可以这样：</p>
-<pre class="shell"><code>conda install 包1 包2 channel名::包3 channel名::包4</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">conda install 包1 包2 channel名::包3 channel名::包4</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8197,11 +8197,7 @@ sudo qemu-system-x86_64 -m 4096 centos.i
 				</h2>
 				<div class="index-brief">
 					其实并不是崩了，只是gdb找不到目前在哪一行而已。为了验证，输入l命令打印附近的代码
-(gdb) n
-Cannot find bounds of current function
-(gdb) l
-221             unsigned long i;
-222             int
+(gdb) nCannot find bounds of current function(gdb) l221             unsigned long i;222             int ret
 					...
 				</div>
 			</a>
@@ -8220,8 +8216,7 @@ Cannot find bounds of current function
 				</h2>
 				<div class="index-brief">
 					在Makefile里加上-O0之后
-./include/linux/compiler-gcc.h:120:38: error: impossible constraint in ‘asm’
- #define asm_volatile_goto(x...) do { asm goto(x); asm 
+./include/linux/compiler-gcc.h:120:38: error: impossible constraint in ‘asm’ #define asm_volatile_goto(x...) do { asm goto(x); asm (
 					...
 				</div>
 			</a>

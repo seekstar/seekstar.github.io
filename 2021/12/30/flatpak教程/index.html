@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,36 +8144,18 @@ mjx-container[display="true"] + br {
 <p>flatpak是一款跨发行版的包管理器。官网：<a target="_blank" rel="noopener" href="https://flatpak.org/" class="uri">https://flatpak.org/</a></p>
 <p>这里有各个发行版的安装方法：<a target="_blank" rel="noopener" href="https://flatpak.org/setup/" class="uri">https://flatpak.org/setup/</a></p>
 <p>这里以Deepin为例。</p>
-<pre class="shell"><code>sudo apt install flatpak</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install flatpak</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="添加源"><a href="#添加源">¶</a> 添加源</h2>
 <p>官方源：</p>
-<pre class="shell"><code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</span><br></pre></td></tr></tbody></table></figure>
 <p>但是这个太慢了，建议添加国内镜像源，教程：<a href="https://seekstar.github.io/2021/12/30/%E7%BB%99flatpak%E6%B7%BB%E5%8A%A0%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90/" class="uri">https://seekstar.github.io/2021/12/30/%E7%BB%99flatpak%E6%B7%BB%E5%8A%A0%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90/</a></p>
 <h2 id="重启"><a href="#重启">¶</a> 重启</h2>
 <p>会有这样一个提示：</p>
-<pre class="shell"><code>Note that the directories
-
-'/var/lib/flatpak/exports/share'
-'/home/searchstar/.local/share/flatpak/exports/share'
-
-are not in the search path set by the XDG_DATA_DIRS environment variable, so
-applications installed by Flatpak may not appear on your desktop until the
-session is restarted.</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">Note that the directories</span><br><span class="line"></span><br><span class="line">'/var/lib/flatpak/exports/share'</span><br><span class="line">'/home/searchstar/.local/share/flatpak/exports/share'</span><br><span class="line"></span><br><span class="line">are not in the search path set by the XDG_DATA_DIRS environment variable, so</span><br><span class="line">applications installed by Flatpak may not appear on your desktop until the</span><br><span class="line">session is restarted.</span><br></pre></td></tr></tbody></table></figure>
 <p>意思是说，在重启之后，用flatpak安装的软件才能用桌面系统访问到。所以接下来先重启。</p>
 <p>重启之后就可以正常使用了。但是即使之后这两个目录加入到<code>XDG_DATA_DIRS</code>了，有些应用可能仍然需要注销并且重新登录才能在启动器找到。</p>
 <h2 id="常用的命令"><a href="#常用的命令">¶</a> 常用的命令</h2>
-<pre class="shell"><code>flatpak search xxx
-flatpak install xxx
-flatpak uninstall xxx
-# 删除没有被任何application使用的runtime和extension
-flatpak uninstall --unused
-# 列出已安装的包
-flatpak list
-flatpak run 包名(比如com.jgraph.drawio.desktop)
-# 查看源列表
-flatpak remotes
-# 或者flatpak remote-list
-# 似乎不能看某个remote的URL之类的: https://github.com/flatpak/flatpak/issues/1983</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak search xxx</span><br><span class="line">flatpak install xxx</span><br><span class="line">flatpak uninstall xxx</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除没有被任何application使用的runtime和extension</span></span><br><span class="line">flatpak uninstall --unused</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出已安装的包</span></span><br><span class="line">flatpak list</span><br><span class="line">flatpak run 包名(比如com.jgraph.drawio.desktop)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看源列表</span></span><br><span class="line">flatpak remotes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者flatpak remote-list</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">似乎不能看某个remote的URL之类的: https://github.com/flatpak/flatpak/issues/1983</span></span><br></pre></td></tr></tbody></table></figure>
 <p>不同于apt，flatpak可以并行安装。安装的软件存放在<code>~/.var/app/</code>和<code>/var/lib/flatpak/app</code>里。一般来讲，软件的启动入口一般在<code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin</code>。</p>
 <h2 id="为应用设置代理"><a href="#为应用设置代理">¶</a>
 为应用设置代理</h2>
@@ -8189,9 +8171,9 @@ flatpak remotes
 <p><code>com.valvesoftware.Steam</code></p>
 <h4 id="解决steam字体在高分屏下过小的问题"><a href="#解决steam字体在高分屏下过小的问题">¶</a>
 解决steam字体在高分屏下过小的问题</h4>
-<pre class="shell"><code>flatpak install com.github.tchx84.Flatseal</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak install com.github.tchx84.Flatseal</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在启动器里打开<code>Flatseal</code>，在<code>Environment</code>里加上：</p>
-<pre class="shell"><code>STEAM_FORCE_DESKTOPUI_SCALING=2</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">STEAM_FORCE_DESKTOPUI_SCALING=2</span><br></pre></td></tr></tbody></table></figure>
 <p>3000x2000的屏幕分辨率建议用<code>2</code>。</p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://superuser.com/questions/1762685/font-size-in-flatpak-obs" class="uri">https://superuser.com/questions/1762685/font-size-in-flatpak-obs</a></p>
@@ -8251,21 +8233,9 @@ flatpak remotes
 <h4 id="存在的问题"><a href="#存在的问题">¶</a> 存在的问题</h4>
 <p><a target="_blank" rel="noopener" href="https://github.com/alexhuntley/Plots/issues/146" class="uri">https://github.com/alexhuntley/Plots/issues/146</a></p>
 <p>不支持中文locale。会报错：</p>
-<pre class="text"><code>        Using the fallback 'C' locale.
-Traceback (most recent call last):
-  File "/app/bin/plots", line 8, in &lt;module&gt;
-    sys.exit(main())
-  File "/app/lib/python3.10/site-packages/plots/__init__.py", line 22, in main
-    plots.Plots().run(sys.argv)
-  File "/app/lib/python3.10/site-packages/plots/plots.py", line 42, in __init__
-    plots.i18n.bind()
-  File "/app/lib/python3.10/site-packages/plots/i18n.py", line 26, in bind
-    locale.setlocale(locale.LC_ALL, "")
-  File "/usr/lib/python3.10/locale.py", line 620, in setlocale
-    return _setlocale(category, locale)
-locale.Error: unsupported locale setting</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">        Using the fallback 'C' locale.</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/app/bin/plots", line 8, in &lt;module&gt;</span><br><span class="line">    sys.exit(main())</span><br><span class="line">  File "/app/lib/python3.10/site-packages/plots/__init__.py", line 22, in main</span><br><span class="line">    plots.Plots().run(sys.argv)</span><br><span class="line">  File "/app/lib/python3.10/site-packages/plots/plots.py", line 42, in __init__</span><br><span class="line">    plots.i18n.bind()</span><br><span class="line">  File "/app/lib/python3.10/site-packages/plots/i18n.py", line 26, in bind</span><br><span class="line">    locale.setlocale(locale.LC_ALL, "")</span><br><span class="line">  File "/usr/lib/python3.10/locale.py", line 620, in setlocale</span><br><span class="line">    return _setlocale(category, locale)</span><br><span class="line">locale.Error: unsupported locale setting</span><br></pre></td></tr></tbody></table></figure>
 <p>解决方法是用命令行指定locale：</p>
-<pre class="shell"><code>flatpak run --env=LC_ALL="en_US.UTF-8" com.github.alexhuntley.Plots</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak run --env=LC_ALL="en_US.UTF-8" com.github.alexhuntley.Plots</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="thunderbird"><a href="#thunderbird">¶</a> Thunderbird</h3>
 <p>Mozilla出品的邮件客户端。</p>
 <h3 id="xournal"><a href="#xournal">¶</a> Xournal++</h3>
@@ -8280,20 +8250,18 @@ locale.Error: unsupported locale setting</code></pre>
 <p>云盘客户端。但是截至<code>9.0.6</code>，flatpak版本没有单点登录。而且高分屏下窗口很小。</p>
 <h3 id="drawio"><a href="#drawio">¶</a> drawio</h3>
 <p>画图软件。装完之后Deepin系统的启动器里并找不到drawio，只能这样启动：</p>
-<pre class="shell"><code>flatpak run com.jgraph.drawio.desktop</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak run com.jgraph.drawio.desktop</span><br></pre></td></tr></tbody></table></figure>
 <p>而且如果执行其启动脚本的话：</p>
-<pre class="shell"><code>/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop</span><br></pre></td></tr></tbody></table></figure>
 <p>会报错：</p>
-<pre class="text"><code>bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">bash: /var/lib/flatpak/app/com.jgraph.drawio.desktop/current/active/export/bin/com.jgraph.drawio.desktop：/bin/sh：解释器错误: 没有那个文件或目录</span><br></pre></td></tr></tbody></table></figure>
 <p>这是因为这个脚本的后缀名是<code>.desktop</code>，然后系统以为它是启动器。</p>
 <h3 id="matrix客户端"><a href="#matrix客户端">¶</a> Matrix客户端</h3>
 <h4 id="element"><a href="#element">¶</a> Element</h4>
 <p>包名是im.riot.Riot。需要配置代理。有一个很大的问题，是flatpak运行在沙箱环境中，默认传文件时不能看到系统里的文件。可以设置其允许读取home目录下的文件：</p>
-<pre class="shell"><code># https://docs.flatpak.org/en/latest/sandbox-permissions.html#filesystem-access
-# https://github.com/flathub/im.riot.Riot/issues/33
-flatpak override --user --filesystem=home:ro im.riot.Riot</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://docs.flatpak.org/en/latest/sandbox-permissions.html<span class="comment">#filesystem-access</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://github.com/flathub/im.riot.Riot/issues/33</span></span><br><span class="line">flatpak override --user --filesystem=home:ro im.riot.Riot</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="nheko"><a href="#nheko">¶</a> Nheko</h4>
-<pre class="shell"><code>flatpak install io.github.NhekoReborn.Nehko</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak install io.github.NhekoReborn.Nehko</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="telegram"><a href="#telegram">¶</a> Telegram</h3>
 <p>包名是<code>org.telegram.desktop</code>。需要注销重新登录才能在deepin启动器里找到。需要配置代理，用<code>flatpak run --command=sh</code>的方法好像没用，貌似要在应用内设置代理。</p>
 <h3 id="torbrowser-launcher"><a href="#torbrowser-launcher">¶</a>
@@ -8301,7 +8269,7 @@ torbrowser-launcher</h3>
 <p>launcher能打开，但是在系统启动器死活打不开tor browser。。。</p>
 <p>通过launcher下载好tor
 browser之后，其实可以直接在命令行执行这个打开tor browser：</p>
-<pre class="shell"><code>~/.var/app/com.github.micahflee.torbrowser-launcher/data/torbrowser/tbb/x86_64/tor-browser_zh-CN/Browser/start-tor-browser</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">~/.var/app/com.github.micahflee.torbrowser-launcher/data/torbrowser/tbb/x86_64/tor-browser_zh-CN/Browser/start-tor-browser</span><br></pre></td></tr></tbody></table></figure>
 <p>注意如果选择下载的是英文版，那其中的<code>tor-browser_zh-CN</code>要换掉。</p>
 <p>关于tor browser本身能不能进flatpak可以看这个issue:</p>
 <p><a target="_blank" rel="noopener" href="https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/25578" class="uri">https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/25578</a></p>

@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8151,18 +8151,11 @@ mask相关systemd unit</h2>
 unit：<a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd.swap.html" class="uri">https://www.freedesktop.org/software/systemd/man/systemd.swap.html</a></p>
 <p>但是从<code>/etc/fstab</code>里把swap条目删除貌似并不会把这些swap
 systemd unit给禁用。所以得手动mask。先查询这些swap条目：</p>
-<pre class="shell"><code>systemctl --type swap</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">systemctl --type swap</span><br></pre></td></tr></tbody></table></figure>
 <p>输出：</p>
-<pre class="text"><code>  UNIT          LOAD   ACTIVE SUB    DESCRIPTION
-  dev-sda3.swap loaded active active Swap Partition
-
-LOAD   = Reflects whether the unit definition was properly loaded.
-ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
-SUB    = The low-level unit activation state, values depend on unit type.
-1 loaded units listed. Pass --all to see loaded but inactive units, too.
-To show all installed unit files use 'systemctl list-unit-files'.</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">  UNIT          LOAD   ACTIVE SUB    DESCRIPTION</span><br><span class="line">  dev-sda3.swap loaded active active Swap Partition</span><br><span class="line"></span><br><span class="line">LOAD   = Reflects whether the unit definition was properly loaded.</span><br><span class="line">ACTIVE = The high-level unit activation state, i.e. generalization of SUB.</span><br><span class="line">SUB    = The low-level unit activation state, values depend on unit type.</span><br><span class="line">1 loaded units listed. Pass --all to see loaded but inactive units, too.</span><br><span class="line">To show all installed unit files use 'systemctl list-unit-files'.</span><br></pre></td></tr></tbody></table></figure>
 <p>然后把这个条目给mask：</p>
-<pre class="shell"><code>sudo systemctl mask dev-sda3.swap</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo systemctl mask dev-sda3.swap</span><br></pre></td></tr></tbody></table></figure>
 <p>之后重启运行<code>free</code>就会看到swap那里为0了。</p>
 <h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>这里说最好不要<code>systemctl mask swap.target</code>：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1065503/how-to-remove-systemd-targets" class="uri">https://askubuntu.com/questions/1065503/how-to-remove-systemd-targets</a></p>

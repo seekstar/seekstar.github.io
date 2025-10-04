@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8123,7 +8123,7 @@ https://www.cnblogs.com/LzyRapx/p/7802790.html
 注意到后面那项减小很快，所以后面那项随便算一些项误差就几乎为0了。
 下面只看前面那项
 
-我们要算第n位小数。所以乘上之后，变成了求第
+我们要算第n位小数。所以乘上16n − 1之
 					...
 				</div>
 			</a>
@@ -8183,24 +8183,8 @@ https://www.cnblogs.com/LzyRapx/p/7802790.html
 					题意：一个人有p的概率输掉，如果连续赢k1次或连续输k2次就结束，问结束前打的次数的期望。
 定义f(i)为已经连续赢i次时到结束期望的次数，g(i)为已经连续输i次时到结束期望的次数。
 则有关系式：
-
-
-然后展开一下
-记
-
-
-同理，
-
-记
-
-
-则
-
-
-最终答案为
-
-代码：
-#include &lt;
+f(i) = pf(i+1) + ((1−p)g(1)+1)
+g(i) = (1−p)g(i+1) 
 					...
 				</div>
 			</a>
@@ -8313,11 +8297,7 @@ B_max]中能凑出多少中价值。其中n &lt;= 12, 0 &lt;= a[i] &lt;= 5e5, 1
 
 注意到总共有O(sqrt(k))种取值，可以数论分块。
 代码：
-#include &lt;iostream&gt;
-
-using namespace std;
-
-typedef long long
+#include &lt;iostream&gt;using namespace std;typedef long long LL;
 					...
 				</div>
 			</a>

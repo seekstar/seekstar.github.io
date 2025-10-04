@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8204,7 +8204,7 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					网上的半平面交一般不能区分半平面交不存在和面积无穷的情况。这里给出一个方法。
 为了叙述的简洁，先假设所有直线都不共线，并且一些边界情况不予讨论，详情请见代码。
-如果半平面交面积无穷，那么一定存在一个点，使得从这个点朝某个方向射去能够无限延伸。假设存在一条有向直线，其方向向量为v，极角为，那么从任意一
+如果半平面交面积无穷，那么一定存在一个点，使得从这个点朝某个方向射去能够无限延伸。假设存在一条有向直线，其方向向量为v，极角为θ，那么从任意
 					...
 				</div>
 			</a>
@@ -8224,10 +8224,10 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					设f[i]为第i天出售后最多能得到的钱数，枚举最后一次买入的天数j，那么有转移方程：
 
-化成斜率优化的形式
+化成斜率优化的形式y(j) = k(i)x(j) + b(i)
 
 注意到截距b(i)与f(i)成正相关，因此应该用直线切上凸包。
-这里斜率和点的坐标显然都不单调，因此要用动态凸包。然后又因为还要在凸包上二分，而set维护的动态凸包不支持凸包上二分，因此要手
+这里斜率和点的坐标显然都不单调，因此要用动态凸包。然后又因为还要在凸包上二分，而s
 					...
 				</div>
 			</a>
@@ -8247,15 +8247,7 @@ mjx-container[display="true"] + br {
 				<div class="index-brief">
 					用整形实现的。封装好了。就是不知道为什么有点慢。
 code(373ms):
-#include &lt;iostream&gt;
-#include &lt;set&gt;
-
-using namespace std;
-
-#define DEBUG 0
-
-typedef long long LL;
-typ
+#include &lt;iostream&gt;#include &lt;set&gt;using namespace std;#define DEBUG 0typedef long long LL;typedef LL 
 					...
 				</div>
 			</a>
@@ -8273,13 +8265,7 @@ typ
 					vscode javascript用firefox来debug
 				</h2>
 				<div class="index-brief">
-					{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "firefox",
-            "request": "launch",
-            "name": "Launc
+					{    "version": "0.2.0",    "configurations": [        {            "type": "firefox",            "request": "launch",            "name": "Launch fire
 					...
 				</div>
 			</a>
@@ -8299,12 +8285,7 @@ typ
 				<div class="index-brief">
 					目录结构：
 
-# Works only when there is only one target
-# You may want to modify it
-run_debug: debug
-	./$(TARGETS_EXE_DEBUG)
-
-# Works only when there is onl
+# Works only when there is only one target# You may want to modify itrun_debug: debug	./$(TARGETS_EXE_DEBUG)# Works only when there is only one
 					...
 				</div>
 			</a>
@@ -8326,10 +8307,7 @@ run_debug: debug
 原理与最小圆覆盖类似，只是要多求一个四面体的外接圆。
 坑点：poj不能srand(time(NULL))，会RE
 代码：
-#include &lt;cstdio&gt;
-#include &lt;cmath&gt;
-#include &lt;limits&gt;
-#include
+#include &lt;cstdio&gt;#include &lt;cmath&gt;#include &lt;limits&gt;#include &l
 					...
 				</div>
 			</a>

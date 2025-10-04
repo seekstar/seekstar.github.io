@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,19 +8140,8 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><pre class="shell"><code>find . -maxdepth 1 ! -path . -exec rm -r {} +</code></pre>
-<pre class="text"><code>-exec command {} +
-        This  variant of the -exec action runs the specified command on the selected files, but the command
-        line is built by appending each selected file name at the end; the total number of  invocations  of
-        the  command will be much less than the number of matched files.  The command line is built in much
-        the same way that xargs builds its command lines.  Only one instance of `{}' is allowed within  the
-        command,  and it must appear at the end, immediately before the `+'; it needs to be escaped (with a
-        `\') or quoted to protect it from interpretation by the shell.  The  command  is  executed  in  the
-        starting  directory.   If any invocation with the `+' form returns a non-zero value as exit status,
-        then find returns a non-zero exit status.  If find encounters an error, this can sometimes cause an
-        immediate  exit,  so  some  pending  commands may not be run at all.  For this reason -exec my-com‐
-        mand ... {} + -quit may not result in my-command actually being run.  This variant of -exec  always
-        returns true.</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">find . -maxdepth 1 ! -path . -exec rm -r {} +</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">-exec command {} +</span><br><span class="line">        This  variant of the -exec action runs the specified command on the selected files, but the command</span><br><span class="line">        line is built by appending each selected file name at the end; the total number of  invocations  of</span><br><span class="line">        the  command will be much less than the number of matched files.  The command line is built in much</span><br><span class="line">        the same way that xargs builds its command lines.  Only one instance of `{}' is allowed within  the</span><br><span class="line">        command,  and it must appear at the end, immediately before the `+'; it needs to be escaped (with a</span><br><span class="line">        `\') or quoted to protect it from interpretation by the shell.  The  command  is  executed  in  the</span><br><span class="line">        starting  directory.   If any invocation with the `+' form returns a non-zero value as exit status,</span><br><span class="line">        then find returns a non-zero exit status.  If find encounters an error, this can sometimes cause an</span><br><span class="line">        immediate  exit,  so  some  pending  commands may not be run at all.  For this reason -exec my-com‐</span><br><span class="line">        mand ... {} + -quit may not result in my-command actually being run.  This variant of -exec  always</span><br><span class="line">        returns true.</span><br></pre></td></tr></tbody></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/584919/delete-all-files-within-a-directory-without-deleting-the-directory" class="uri">https://unix.stackexchange.com/questions/584919/delete-all-files-within-a-directory-without-deleting-the-directory</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>

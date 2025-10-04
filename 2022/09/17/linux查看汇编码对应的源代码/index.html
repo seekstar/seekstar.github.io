@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,32 +8141,10 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>例如这个<code>objdump.c</code>：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>	printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello world!\n"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>编译选项中加入<code>-g</code>编译：<code>gcc objdump.c -g -o objdump</code>。</p>
 <p>然后查看编译结果的汇编码：<code>objdump -gS -D nova.ko</code></p>
-<pre class="text"><code>0000000000001139 &lt;main&gt;:
-#include &lt;stdio.h&gt;
-
-int main() {
-    1139:       55                      push   %rbp
-    113a:       48 89 e5                mov    %rsp,%rbp
-        printf("Hello world!\n");
-    113d:       48 8d 05 c0 0e 00 00    lea    0xec0(%rip),%rax        # 2004 &lt;_IO_stdin_u
-sed+0x4&gt;
-    1144:       48 89 c7                mov    %rax,%rdi
-    1147:       e8 e4 fe ff ff          call   1030 &lt;puts@plt&gt;
-
-        return 0;
-    114c:       b8 00 00 00 00          mov    $0x0,%eax
-}
-    1151:       5d                      pop    %rbp
-    1152:       c3                      ret</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">0000000000001139 &lt;main&gt;:</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() {</span><br><span class="line">    1139:       55                      push   %rbp</span><br><span class="line">    113a:       48 89 e5                mov    %rsp,%rbp</span><br><span class="line">        printf("Hello world!\n");</span><br><span class="line">    113d:       48 8d 05 c0 0e 00 00    lea    0xec0(%rip),%rax        # 2004 &lt;_IO_stdin_u</span><br><span class="line">sed+0x4&gt;</span><br><span class="line">    1144:       48 89 c7                mov    %rax,%rdi</span><br><span class="line">    1147:       e8 e4 fe ff ff          call   1030 &lt;puts@plt&gt;</span><br><span class="line"></span><br><span class="line">        return 0;</span><br><span class="line">    114c:       b8 00 00 00 00          mov    $0x0,%eax</span><br><span class="line">}</span><br><span class="line">    1151:       5d                      pop    %rbp</span><br><span class="line">    1152:       c3                      ret</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到<code>113d</code>到<code>1147</code>对应<code>printf("Hello world!\n");</code></p>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2511018/how-does-objdump-manage-to-display-source-code-with-the-s-option" class="uri">https://stackoverflow.com/questions/2511018/how-does-objdump-manage-to-display-source-code-with-the-s-option</a></p>

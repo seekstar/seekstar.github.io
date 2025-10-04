@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,30 +8141,17 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>比如有一个目录a需要复制：</p>
-<pre class="shell"><code>mkdir a
-touch a/a
-mkdir a/b
-touch a/b/c
-tree a</code></pre>
-<pre class="text"><code>a
-├── a
-└── b
-    └── c</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir a</span><br><span class="line">touch a/a</span><br><span class="line">mkdir a/b</span><br><span class="line">touch a/b/c</span><br><span class="line">tree a</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">a</span><br><span class="line">├── a</span><br><span class="line">└── b</span><br><span class="line">    └── c</span><br></pre></td></tr></tbody></table></figure>
 <p>将其复制为目录<code>d</code>只需要用find找出目录下所有的文件，然后用gnu-parallel开多线程逐个复制即可：</p>
-<pre class="shell"><code>mkdir d
-cd a
-find . -type f | parallel -j4 cp --parents {} ../d
-tree ../d</code></pre>
-<pre class="text"><code>../d
-├── a
-└── b
-    └── c</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir d</span><br><span class="line">cd a</span><br><span class="line">find . -type f | parallel -j4 cp --parents {} ../d</span><br><span class="line">tree ../d</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">../d</span><br><span class="line">├── a</span><br><span class="line">└── b</span><br><span class="line">    └── c</span><br></pre></td></tr></tbody></table></figure>
 <p><code>-type f</code>: 只打印文件，不打印目录<br>
 <code>-j4</code>:
 最多并行跑4个任务。这个并行数可以改成其他值，改成0表示越多越好（一个CPU核心跑一个任务）。<br>
 <code>--parents</code>: 路径也一起复制</p>
 <p>或者用xargs</p>
-<pre class="shell"><code>find . -type f | xargs -P 4 -I {} cp --parents {} ../d</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">find . -type f | xargs -P 4 -I {} cp --parents {} ../d</span><br></pre></td></tr></tbody></table></figure>
 <p><code>-P</code>: <code>--max-procs</code></p>
 <p>这种方法的缺点是分配给各个线程的文件总大小可能很不均匀。所以我写了mcp，先扫描目录然后尽量均匀地分配文件给各个线程：<a target="_blank" rel="noopener" href="https://github.com/light-Dedup/mcp" class="uri">https://github.com/light-Dedup/mcp</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

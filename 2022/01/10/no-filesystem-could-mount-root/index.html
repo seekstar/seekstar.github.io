@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,12 +8141,12 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>装完Arch之后，重启，结果kernel panic，报这个错：</p>
-<pre><code>No filesystem could mount root</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">No filesystem could mount root</span><br></pre></td></tr></tbody></table></figure>
 <p>检查了<code>/etc/fstab</code>和生成的<code>/boot/grub/grub.cfg</code>，都是对的。</p>
 <p>但是在grub的GUI界面在archlinux的项按<code>e</code>，进入grub编辑器之后，却发现<code>initrd</code>那行只有这个：</p>
-<pre><code>initrd /boot/intel-ucode.img</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">initrd /boot/intel-ucode.img</span><br></pre></td></tr></tbody></table></figure>
 <p>但是<code>/boot/grub/grub.cfg</code>里这行是这个：</p>
-<pre><code>initrd	/boot/intel-ucode.img /boot/initramfs-linux-lts.img</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">initrd	/boot/intel-ucode.img /boot/initramfs-linux-lts.img</span><br></pre></td></tr></tbody></table></figure>
 <p>在grub编辑器里手动加上<code>/boot/initramfs-linux-lts.img</code>之后，就能进系统了。</p>
 <p>所以问题的原因是GRUB GUI的界面是debian 11提供的，但是debian
 11的GRUB有BUG，在读取arch的<code>/boot/grub/grub.cfg</code>时在<code>initrd</code>这行少读了一项，生成了错误的GRUB菜单。</p>
@@ -8155,7 +8155,7 @@ mjx-container[display="true"] + br {
 <li>卸载intel-ucode</li>
 </ul>
 <p>这样initrd里就只有一项了：</p>
-<pre><code>initrd	/boot/initramfs-linux-lts.img</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">initrd	/boot/initramfs-linux-lts.img</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>手动修改GRUB menu</li>
 </ul>

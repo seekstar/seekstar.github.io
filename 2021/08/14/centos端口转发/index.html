@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,15 +8141,13 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>比方说监听本地的<code>23333</code>端口，将数据都转发到<code>10.249.40.227</code>的22端口上，可以这样：</p>
-<pre class="shell"><code>sudo yum install nmap-ncat
-ncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo yum install nmap-ncat</span><br><span class="line">ncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open</span><br></pre></td></tr></tbody></table></figure>
 <p>如果要后台运行：</p>
-<pre class="shell"><code>nohup ncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open &amp;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nohup ncat --sh-exec "ncat 10.249.40.227 22" -l 23333 --keep-open &amp;</span><br></pre></td></tr></tbody></table></figure>
 <p>然后查看一下<code>23333</code>端口是否开放了：</p>
-<pre class="shell"><code>sudo firewall-cmd --zone=public --list-ports</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-ports</span><br></pre></td></tr></tbody></table></figure>
 <p>如果里面有<code>23333/tcp</code>，就说明开放了，否则需要这样开放端口：</p>
-<pre class="shell"><code>sudo firewall-cmd --zone=public --add-port=23333/tcp --permanent
-sudo firewall-cmd --reload</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=23333/tcp --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></tbody></table></figure>
 <p>参考文献：<br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaozi/p/13553765.html">Linux端口转发的几种常用方法</a><br>
 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/heqiuyong/p/10460150.html">Centos7开放及查看端口</a></p>

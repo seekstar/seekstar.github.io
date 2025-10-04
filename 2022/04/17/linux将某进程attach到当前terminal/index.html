@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,9 +8142,9 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>用reptyr可以实现：<a target="_blank" rel="noopener" href="https://github.com/nelhage/reptyr" class="uri">https://github.com/nelhage/reptyr</a></p>
 <p>可以用包管理器安装：</p>
-<pre class="shell"><code>sudo apt install reptyr</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install reptyr</span><br></pre></td></tr></tbody></table></figure>
 <p>有些发行版可能禁用了<code>ptrace</code>，需要将其打开。临时打开（重启后恢复原样）：</p>
-<pre class="shell"><code>sudo bash -c "echo 0 &gt; /proc/sys/kernel/yama/ptrace_scope"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash -c "echo 0 &gt; /proc/sys/kernel/yama/ptrace_scope"</span><br></pre></td></tr></tbody></table></figure>
 <p>永久打开：编辑<code>/etc/sysctl.d/10-ptrace.conf</code>。但是我的ArchLinux上没有这个文件。。。</p>
 <p>下面介绍一些应用场景。</p>
 <h2 id="将终端的一个无子进程的进程attach到另一个终端"><a href="#将终端的一个无子进程的进程attach到另一个终端">¶</a>
@@ -8152,56 +8152,26 @@ mjx-container[display="true"] + br {
 <p>先在一个普通terminal上运行一个命令，比如<code>top</code>，然后另外开一个终端（可以开在tmux里），运行<code>reptyr &lt;PID&gt;</code>，然后这个命令就会被转移到新的terminal上了。</p>
 <p>这个方法对所有在某个终端里运行的前台进程和后台进程都适用。后台进程attach到新终端后会变成前台进程。</p>
 <p>但是对<code>nohup</code>的后台进程没有作用，即使这个进程的父进程仍然是这个终端。会报这个错：</p>
-<pre class="text"><code>[-] Target is not connected to a terminal.
-    Use -s to force attaching anyways.
-Unable to attach to pid 2354522: Inappropriate ioctl for device</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[-] Target is not connected to a terminal.</span><br><span class="line">    Use -s to force attaching anyways.</span><br><span class="line">Unable to attach to pid 2354522: Inappropriate ioctl for device</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="将终端的一个有子进程的进程attach到另一个终端"><a href="#将终端的一个有子进程的进程attach到另一个终端">¶</a>
 将终端的一个有子进程的进程attach到另一个终端</h2>
 <p><code>loop.sh</code>:</p>
-<pre class="shell"><code>while true; do
-	date
-	sleep 1
-done</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">while true; do</span><br><span class="line">	date</span><br><span class="line">	sleep 1</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 <p>然后在一个终端上<code>bash loop.sh</code>。</p>
 <p>这时，如果在目标终端上执行<code>reptyr &lt;PID&gt;</code>，会报这个错：</p>
-<pre class="text"><code>[-] Process 35789 (sleep) shares 35032's process group. Unable to attach.
-(This most commonly means that 35032 has sub-processes).
-Unable to attach to pid 35032: Invalid argument</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">[-] Process 35789 (sleep) shares 35032's process group. Unable to attach.</span><br><span class="line">(This most commonly means that 35032 has sub-processes).</span><br><span class="line">Unable to attach to pid 35032: Invalid argument</span><br></pre></td></tr></tbody></table></figure>
 <p>相关讨论：<a target="_blank" rel="noopener" href="https://github.com/nelhage/reptyr/issues/84" class="uri">https://github.com/nelhage/reptyr/issues/84</a></p>
 <p>github上有人说<code>reptyr</code>的<code>steal TTY</code>的功能可以解决这个问题。我的理解是相当于直接把整个终端偷过来。用法：</p>
-<pre class="shell"><code># &lt;PID&gt;是进程PID，不是终端PID
-reptyr -T &lt;PID&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">&lt;PID&gt;是进程PID，不是终端PID</span></span><br><span class="line">reptyr -T &lt;PID&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>但是有时候好像没反应？这时好像ctrl+c然后再试就有机会成功。</p>
 <p>偷TTY前后，<code>pstree -lp | grep bash</code>的结果对比如下（<code>l</code>表示打印长行，<code>p</code>表示打印PID）：</p>
-<pre class="text"><code>之前
-|-konsole(38654)-+-bash(38672)
-|-konsole(40813)-+-bash(40835)---bash(40875)---sleep(41465)
-之后
-|-konsole(38654)-+-bash(38672)---reptyr(41662)
-|-konsole(40813)-+-bash(40835)---bash(40875)---sleep(41686)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">之前</span><br><span class="line">|-konsole(38654)-+-bash(38672)</span><br><span class="line">|-konsole(40813)-+-bash(40835)---bash(40875)---sleep(41465)</span><br><span class="line">之后</span><br><span class="line">|-konsole(38654)-+-bash(38672)---reptyr(41662)</span><br><span class="line">|-konsole(40813)-+-bash(40835)---bash(40875)---sleep(41686)</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到似乎并没有真的把这个进程变成新终端的子进程，而且把老终端关闭后新终端里的也会显示进程已退出。</p>
 <p>上面的例子中，父终端是konsole，但是如果父终端是sshd的终端，那就需要以root身份执行才能把TTY偷过来了。TTY偷过来之后，原来的sshd终端就没响应了。奇妙的是，这是按<code>Enter</code>
 <code>~</code>
 <code>.</code>将原来的sshd终端退出之后，新终端里的进程并不会退出。</p>
 <p>查看偷TTY前后以及断开ssh连接前后的<code>pstree -lp</code>的输出：</p>
-<pre class="text"><code>偷TTY之前
-systemd(1)─┬─
-           ├─sshd(129723)─┬─
-           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)
-           │              ├─sshd(2355176)───sshd(2355182)───zsh(2355183)───bash(2356331)───sleep(2356373)
-           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)
-偷TTY之后，断开ssh连接之前
-systemd(1)─┬─
-           ├─sshd(129723)─┬─
-           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)
-           │              ├─sshd(2355176)───sshd(2355182)───zsh(2355183)───bash(2356331)───sleep(2356783)
-           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)
-断开ssh连接之后
-systemd(1)─┬─
-           ├─sshd(129723)─┬─
-           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)
-           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)
-           └─zsh(2355183)───bash(2356331)───sleep(2357023)</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">偷TTY之前</span><br><span class="line">systemd(1)─┬─</span><br><span class="line">           ├─sshd(129723)─┬─</span><br><span class="line">           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)</span><br><span class="line">           │              ├─sshd(2355176)───sshd(2355182)───zsh(2355183)───bash(2356331)───sleep(2356373)</span><br><span class="line">           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)</span><br><span class="line">偷TTY之后，断开ssh连接之前</span><br><span class="line">systemd(1)─┬─</span><br><span class="line">           ├─sshd(129723)─┬─</span><br><span class="line">           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)</span><br><span class="line">           │              ├─sshd(2355176)───sshd(2355182)───zsh(2355183)───bash(2356331)───sleep(2356783)</span><br><span class="line">           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)</span><br><span class="line">断开ssh连接之后</span><br><span class="line">systemd(1)─┬─</span><br><span class="line">           ├─sshd(129723)─┬─</span><br><span class="line">           │              ├─sshd(2083852)───sshd(2083858)───zsh(2083859)───tmux: client(2356318)</span><br><span class="line">           ├─tmux: server(2354986)───zsh(2354987)───sudo(2355034)───reptyr(2355041)</span><br><span class="line">           └─zsh(2355183)───bash(2356331)───sleep(2357023)</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到，偷TTY之后，进程的父终端(zsh)的父亲仍然没有改变，但是断开ssh连接之后，进程的父终端(zsh)的父亲变成init（1号进程）了。这可能是因为<code>Enter</code>
 <code>~</code>
 <code>.</code>并没有给子进程<code>zsh</code>发送<code>SIGHUP</code>，从而让它变成了孤儿进程，被init进程收养，因此新终端里的输出一直没有停。</p>

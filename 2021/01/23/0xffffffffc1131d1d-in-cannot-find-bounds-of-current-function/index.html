@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,34 +8140,9 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>其实并不是崩了，只是gdb找不到目前在哪一行而已。为了验证，输入<code>l</code>命令打印附近的代码</p>
-<pre><code>(gdb) n
-Cannot find bounds of current function
-(gdb) l
-221             unsigned long i;
-222             int ret = 0;
-223
-224             while (a * 5 &lt; (1 &lt;&lt; max_bits_a)) {
-225                     a = a * 5;
-226                     ++thread_num;
-227             }
-228             thread_num = 1UL &lt;&lt; floor_log_2(thread_num);
-229             thread_num = NOVA_MIN(thread_num, sbi-&gt;cpus);
-230             printk("Init blockmap using %lu threads\n", thread_num);
-(gdb) n
-Cannot find bounds of current function
-(gdb) l
-231             data = kmalloc(thread_num * sizeof(struct do_init_blockmap_data), GFP_KERNEL);
-232             if (data == NULL) {
-233                     ret = -ENOMEM;
-234                     goto out;
-235             }
-236             tasks = kzalloc(thread_num * sizeof(struct task_struct *), GFP_KERNEL);
-237             if (tasks == NULL) {
-238                     ret = -ENOMEM;
-239                     goto out;
-240             }</code></pre>
-<p>可以看到行数改变了，说明没有崩。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>其实并不是崩了，只是gdb找不到目前在哪一行而已。为了验证，输入<code>l</code>命令打印附近的代码<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">(gdb) n</span><br><span class="line">Cannot find bounds of current function</span><br><span class="line">(gdb) l</span><br><span class="line">221             unsigned long i;</span><br><span class="line">222             int ret = 0;</span><br><span class="line">223</span><br><span class="line">224             while (a * 5 &lt; (1 &lt;&lt; max_bits_a)) {</span><br><span class="line">225                     a = a * 5;</span><br><span class="line">226                     ++thread_num;</span><br><span class="line">227             }</span><br><span class="line">228             thread_num = 1UL &lt;&lt; floor_log_2(thread_num);</span><br><span class="line">229             thread_num = NOVA_MIN(thread_num, sbi-&gt;cpus);</span><br><span class="line">230             printk("Init blockmap using %lu threads\n", thread_num);</span><br><span class="line">(gdb) n</span><br><span class="line">Cannot find bounds of current function</span><br><span class="line">(gdb) l</span><br><span class="line">231             data = kmalloc(thread_num * sizeof(struct do_init_blockmap_data), GFP_KERNEL);</span><br><span class="line">232             if (data == NULL) {</span><br><span class="line">233                     ret = -ENOMEM;</span><br><span class="line">234                     goto out;</span><br><span class="line">235             }</span><br><span class="line">236             tasks = kzalloc(thread_num * sizeof(struct task_struct *), GFP_KERNEL);</span><br><span class="line">237             if (tasks == NULL) {</span><br><span class="line">238                     ret = -ENOMEM;</span><br><span class="line">239                     goto out;</span><br><span class="line">240             }</span><br></pre></td></tr></tbody></table></figure><br>
+可以看到行数改变了，说明没有崩。<p></p>
 <p>所以尝试降低优化等级，再试就正常了。</p>
 <p>相关：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3082570/debugging-with-bochs-gdb-cannot-find-bounds-of-current-function" class="uri">https://stackoverflow.com/questions/3082570/debugging-with-bochs-gdb-cannot-find-bounds-of-current-function</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

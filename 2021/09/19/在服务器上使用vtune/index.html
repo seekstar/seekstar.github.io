@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,8 +8143,7 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><h1 id="安装"><a href="#安装">¶</a> 安装</h1>
 <p>在这里选择合适的下载方式：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html" class="uri">https://software.intel.com/content/www/cn/zh/develop/tools/oneapi/base-toolkit/download.html</a></p>
 <p>如果没有GUI，就用<code>Command Line Installation</code>里的命令来下载安装。我的是这样的：</p>
-<pre class="shell"><code>wget https://registrationcenter-download.intel.com/akdlm/irc_nas/17769/l_BaseKit_p_2021.2.0.2883.sh
-sudo bash l_BaseKit_p_2021.2.0.2883.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">wget https://registrationcenter-download.intel.com/akdlm/irc_nas/17769/l_BaseKit_p_2021.2.0.2883.sh</span><br><span class="line">sudo bash l_BaseKit_p_2021.2.0.2883.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>注意在命令行下安装时，终端窗口要足够大，不然显示不全。</p>
 <h1 id="跑样例工程"><a href="#跑样例工程">¶</a> 跑样例工程</h1>
 <p>安装完成后可以使用vscode来连接服务器使用vtune。官方教程：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-intel-oneapi-base-linux/top/run-a-sample-project-with-vscode.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-intel-oneapi-base-linux/top/run-a-sample-project-with-vscode.html</a></p>
@@ -8155,110 +8154,26 @@ sudo bash l_BaseKit_p_2021.2.0.2883.sh</code></pre>
 <p>然后选择<code>cpp-&gt;Get Started-&gt;Base: Vector Add</code>，点击右边的加号，编辑路径后，vscode会新建一个样例工程并且在新窗口打开。可以查看<code>README.md</code>，里面有这个样例工程的介绍以及运行流程。对于Vector
 Add这个样例，流程是：</p>
 <p>先<code>Ctrl+Shift+P</code>跑<code>Intel oneAPI: Initialize environment variables</code>，然后新建终端，执行：</p>
-<pre class="shell"><code>make all
-./vector-add-buffers</code></pre>
-<pre><code>Running on device: Intel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz
-Vector size: 10000
-[0]: 0 + 0 = 0
-[1]: 1 + 1 = 2
-[2]: 2 + 2 = 4
-...
-[9999]: 9999 + 9999 = 19998
-Vector add successfully completed on device.</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">make all</span><br><span class="line">./vector-add-buffers</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">Running on device: Intel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz</span><br><span class="line">Vector size: 10000</span><br><span class="line">[0]: 0 + 0 = 0</span><br><span class="line">[1]: 1 + 1 = 2</span><br><span class="line">[2]: 2 + 2 = 4</span><br><span class="line">...</span><br><span class="line">[9999]: 9999 + 9999 = 19998</span><br><span class="line">Vector add successfully completed on device.</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="vtune"><a href="#vtune">¶</a> vtune</h1>
 <p>vtune的教程：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-vtune/top.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-vtune/top.html</a></p>
 <p>服务器上用的话，主要看命令行界面的用法：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/command-syntax.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/command-syntax.html</a></p>
 <p>注意如果是开普通终端，而不是在vscode里用的话，要先</p>
-<pre class="shell"><code>source /opt/intel/oneapi/setvars.sh</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">source /opt/intel/oneapi/setvars.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>可以运行<code>vtune --help</code>查看基本用法，运行<code>vtune -help collect</code>查看可以搜集的性能数据。</p>
 <p>例子：</p>
-<pre class="shell"><code>vtune -collect hotspots -result-dir hotspots -quiet ./vector-add-buffers</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vtune -collect hotspots -result-dir hotspots -quiet ./vector-add-buffers</span><br></pre></td></tr></tbody></table></figure>
 <p>注意这个<code>./</code>不能省略。<code>-collect</code>可以缩写为<code>-c</code>，<code>-result-dir</code>可以缩写为<code>-r</code>，<code>-quiet</code>可以缩写为<code>-q</code>。</p>
 <p>输出：</p>
-<pre><code>vtune: Warning: Hardware collection of CPU events is not possible on this system. Microarchitecture performance insights will not be available.
-Running on device: Intel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz
-Vector size: 10000
-[0]: 0 + 0 = 0
-[1]: 1 + 1 = 2
-[2]: 2 + 2 = 4
-...
-[9999]: 9999 + 9999 = 19998
-Vector add successfully completed on device.
-
-vtune: Warning: Cannot locate debugging information for file `/lib/x86_64-linux-gnu/libgcc_s.so.1'.
-
-vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/vtune/2021.2.0/lib64/runtime/libittnotify_collector.so'.
-
-vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/compiler/2021.2.0/linux/lib/libOpenCL.so.1'.
-
-vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/vtune/2021.2.0/lib64/libtpsstool.so'.
-
-vtune: Warning: Cannot locate debugging information for file `/usr/lib/x86_64-linux-gnu/libstdc++.so.6'.
-
-vtune: Warning: Cannot locate debugging information for file `/lib64/ld-linux-x86-64.so.2'.
-Elapsed Time: 1.510s
-    CPU Time: 1.450s
-        Effective Time: 1.450s
-            Idle: 0.030s
-            Poor: 1.420s
-            Ok: 0s
-            Ideal: 0s
-            Over: 0s
-        Spin Time: 0s
-            Imbalance or Serial Spinning: 0s
-            Lock Contention: 0s
-            Other: 0s
-        Overhead Time: 0s
-            Creation: 0s
-            Scheduling: 0s
-            Reduction: 0s
-            Atomics: 0s
-            Other: 0s
-    Total Thread Count: 4
-    Paused Time: 0s
-
-Top Hotspots
-Function                                   Module                        CPU Time
------------------------------------------  ----------------------------  --------
-clCreateContext                            libintelocl.so                  0.475s
-Intel::OpenCL::Utils::OclDynamicLib::Load  libcpu_device.so.2021.11.3.0    0.178s
-memcmp                                     libc-dynamic.so                 0.155s
-OS_BARESYSCALL_DoCallAsmIntel64Linux       libc-dynamic.so                 0.087s
-_GLOBAL__sub_I_acl_platform.cpp            libalteracl.so                  0.060s
-[Others]                                   N/A                             0.494s
-
-Top Tasks
-Task Type         Task Time  Task Count  Average Task Time
-----------------  ---------  ----------  -----------------
-tbb_parallel_for     0.086s          11             0.008s
-tbb_custom           0.033s           8             0.004s
-Collection and Platform Info
-    Application Command Line: ./vector-add-buffers 
-    Operating System: 4.15.0-144-generic DISTRIB_ID=Ubuntu DISTRIB_RELEASE=18.04 DISTRIB_CODENAME=bionic DISTRIB_DESCRIPTION="Ubuntu 18.04.5 LTS"
-    Computer Name: pubchain-dev
-    Result Size: 7.2 MB 
-    Collection start time: 06:18:08 19/09/2021 UTC
-    Collection stop time: 06:18:10 19/09/2021 UTC
-    Collector Type: User-mode sampling and tracing
-    CPU
-        Name: Intel(R) Xeon(R) Processor code named Cascadelake
-        Frequency: 2.500 GHz 
-        Logical CPU Count: 4
-        Cache Allocation Technology
-            Level 2 capability: not detected
-            Level 3 capability: not detected
-
-If you want to skip descriptions of detected performance issues in the report,
-enter: vtune -report summary -report-knob show-issues=false -r &lt;my_result_dir&gt;.
-Alternatively, you may view the report in the csv format: vtune -report
-&lt;report_name&gt; -format=csv.</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">vtune: Warning: Hardware collection of CPU events is not possible on this system. Microarchitecture performance insights will not be available.</span><br><span class="line">Running on device: Intel(R) Xeon(R) Platinum 8269CY CPU @ 2.50GHz</span><br><span class="line">Vector size: 10000</span><br><span class="line">[0]: 0 + 0 = 0</span><br><span class="line">[1]: 1 + 1 = 2</span><br><span class="line">[2]: 2 + 2 = 4</span><br><span class="line">...</span><br><span class="line">[9999]: 9999 + 9999 = 19998</span><br><span class="line">Vector add successfully completed on device.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/lib/x86_64-linux-gnu/libgcc_s.so.1'.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/vtune/2021.2.0/lib64/runtime/libittnotify_collector.so'.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/compiler/2021.2.0/linux/lib/libOpenCL.so.1'.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/opt/intel/oneapi/vtune/2021.2.0/lib64/libtpsstool.so'.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/usr/lib/x86_64-linux-gnu/libstdc++.so.6'.</span><br><span class="line"></span><br><span class="line">vtune: Warning: Cannot locate debugging information for file `/lib64/ld-linux-x86-64.so.2'.</span><br><span class="line">Elapsed Time: 1.510s</span><br><span class="line">    CPU Time: 1.450s</span><br><span class="line">        Effective Time: 1.450s</span><br><span class="line">            Idle: 0.030s</span><br><span class="line">            Poor: 1.420s</span><br><span class="line">            Ok: 0s</span><br><span class="line">            Ideal: 0s</span><br><span class="line">            Over: 0s</span><br><span class="line">        Spin Time: 0s</span><br><span class="line">            Imbalance or Serial Spinning: 0s</span><br><span class="line">            Lock Contention: 0s</span><br><span class="line">            Other: 0s</span><br><span class="line">        Overhead Time: 0s</span><br><span class="line">            Creation: 0s</span><br><span class="line">            Scheduling: 0s</span><br><span class="line">            Reduction: 0s</span><br><span class="line">            Atomics: 0s</span><br><span class="line">            Other: 0s</span><br><span class="line">    Total Thread Count: 4</span><br><span class="line">    Paused Time: 0s</span><br><span class="line"></span><br><span class="line">Top Hotspots</span><br><span class="line">Function                                   Module                        CPU Time</span><br><span class="line">-----------------------------------------  ----------------------------  --------</span><br><span class="line">clCreateContext                            libintelocl.so                  0.475s</span><br><span class="line">Intel::OpenCL::Utils::OclDynamicLib::Load  libcpu_device.so.2021.11.3.0    0.178s</span><br><span class="line">memcmp                                     libc-dynamic.so                 0.155s</span><br><span class="line">OS_BARESYSCALL_DoCallAsmIntel64Linux       libc-dynamic.so                 0.087s</span><br><span class="line">_GLOBAL__sub_I_acl_platform.cpp            libalteracl.so                  0.060s</span><br><span class="line">[Others]                                   N/A                             0.494s</span><br><span class="line"></span><br><span class="line">Top Tasks</span><br><span class="line">Task Type         Task Time  Task Count  Average Task Time</span><br><span class="line">----------------  ---------  ----------  -----------------</span><br><span class="line">tbb_parallel_for     0.086s          11             0.008s</span><br><span class="line">tbb_custom           0.033s           8             0.004s</span><br><span class="line">Collection and Platform Info</span><br><span class="line">    Application Command Line: ./vector-add-buffers </span><br><span class="line">    Operating System: 4.15.0-144-generic DISTRIB_ID=Ubuntu DISTRIB_RELEASE=18.04 DISTRIB_CODENAME=bionic DISTRIB_DESCRIPTION="Ubuntu 18.04.5 LTS"</span><br><span class="line">    Computer Name: pubchain-dev</span><br><span class="line">    Result Size: 7.2 MB </span><br><span class="line">    Collection start time: 06:18:08 19/09/2021 UTC</span><br><span class="line">    Collection stop time: 06:18:10 19/09/2021 UTC</span><br><span class="line">    Collector Type: User-mode sampling and tracing</span><br><span class="line">    CPU</span><br><span class="line">        Name: Intel(R) Xeon(R) Processor code named Cascadelake</span><br><span class="line">        Frequency: 2.500 GHz </span><br><span class="line">        Logical CPU Count: 4</span><br><span class="line">        Cache Allocation Technology</span><br><span class="line">            Level 2 capability: not detected</span><br><span class="line">            Level 3 capability: not detected</span><br><span class="line"></span><br><span class="line">If you want to skip descriptions of detected performance issues in the report,</span><br><span class="line">enter: vtune -report summary -report-knob show-issues=false -r &lt;my_result_dir&gt;.</span><br><span class="line">Alternatively, you may view the report in the csv format: vtune -report</span><br><span class="line">&lt;report_name&gt; -format=csv.</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="查看结果"><a href="#查看结果">¶</a> 查看结果</h1>
 <p>运行<code>vtune -help report</code>来查看如何生成报告。最简单的例子：</p>
-<pre class="shell"><code>vtune -report hotspots -r &lt;结果目录&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vtune -report hotspots -r &lt;结果目录&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>或者生成summary（其实就是刚跑完输出的那个东西）:</p>
-<pre class="shell"><code>vtune -report summary -r hotspots6/</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vtune -report summary -r hotspots6/</span><br></pre></td></tr></tbody></table></figure>
 <p>或者把结果目录传送到本地，然后在本地也安装vtune，然后</p>
-<pre class="shell"><code>vtune-gui &lt;结果目录&gt;</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">vtune-gui &lt;结果目录&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>来查看结果。相关文档：<a target="_blank" rel="noopener" href="https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/working-with-results-from-the-command-line/viewing-command-line-results-in-the-gui.html" class="uri">https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/command-line-interface/working-with-results-from-the-command-line/viewing-command-line-results-in-the-gui.html</a></p>
 <p>或者也可以参考这篇文章：<a href="/2021/01/20/vnc%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E8%BF%9E%E6%8E%A5%E5%88%B0linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="vnc通过ssh隧道连接到Linux服务器">vnc通过ssh隧道连接到Linux服务器</a>，然后直接用服务器上的<code>vtune-gui</code>打开结果文件，并把窗口显示在本地：</p>
 <p><img src="/2021/09/19/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8vtune/c6903226a2fc4683bbd2dcd9c347f1df.png" alt="在这里插入图片描述"><br>

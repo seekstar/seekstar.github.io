@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,19 +8143,17 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/">Policy-Based
 Data Structures</a></p>
 <p>相关文章：<a href="https://seekstar.github.io/2019/06/30/pb-ds%E5%BA%93%E5%AE%9E%E7%8E%B0%E6%94%AF%E6%8C%81%E5%A4%9A%E4%B8%AA%E7%9B%B8%E5%90%8C%E7%9A%84%E5%80%BC%E7%9A%84%E5%90%8D%E6%AC%A1%E6%A0%91/">pb_ds库实现支持多个相同的值的名次树</a></p>
-<p>建议使用</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> __gnu_pbds<span class="op">;</span></span></code></pre></div>
+<p>建议使用<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> __gnu_pbds;</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h1 id="tree"><a href="#tree">¶</a> tree</h1>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/keshuqi/p/6257895.html" class="uri">https://www.cnblogs.com/keshuqi/p/6257895.html</a><br>
 文档：<br>
 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.1/libstdc++/api/a00378.html">tree</a><br>
 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.1/libstdc++/api/a00379.html">tree_order_statistics_node_update</a></p>
 <h2 id="头文件"><a href="#头文件">¶</a> 头文件</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ext/pb_ds/tree_policy.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ext/pb_ds/assoc_container.hpp&gt;</span></span></span><br></pre></td></tr></tbody></table></figure>
 <h2 id="原型"><a href="#原型">¶</a> 原型</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> Key<span class="op">,</span> <span class="kw">typename</span> Mapped<span class="op">,</span> <span class="kw">typename</span> Cmp_Fn <span class="op">=</span> <span class="bu">std::</span>less<span class="op">&lt;</span>Key<span class="op">&gt;,</span> <span class="kw">typename</span> Tag <span class="op">=</span> rb_tree_tag<span class="op">,</span> <span class="kw">template</span><span class="op">&lt;</span> <span class="kw">typename</span> Node_CItr<span class="op">,</span> <span class="kw">typename</span> Node_Itr<span class="op">,</span> <span class="kw">typename</span> Cmp_Fn_<span class="op">,</span> <span class="kw">typename</span> _Alloc_ <span class="op">&gt;</span> <span class="kw">class</span> Node_Update <span class="op">=</span> null_node_update<span class="op">,</span> <span class="kw">typename</span> _Alloc <span class="op">=</span> <span class="bu">std::</span>allocator<span class="op">&lt;</span><span class="dt">char</span><span class="op">&gt;&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> __gnu_pbds<span class="op">::</span>tree<span class="op">&lt;</span> Key<span class="op">,</span> Mapped<span class="op">,</span> Cmp_Fn<span class="op">,</span> Tag<span class="op">,</span> Node_Update<span class="op">,</span> _Alloc <span class="op">&gt;</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Key, <span class="keyword">typename</span> Mapped, <span class="keyword">typename</span> Cmp_Fn = std::less&lt;Key&gt;, <span class="keyword">typename</span> Tag = rb_tree_tag, <span class="keyword">template</span>&lt; <span class="keyword">typename</span> Node_CItr, <span class="keyword">typename</span> Node_Itr, <span class="keyword">typename</span> Cmp_Fn_, <span class="keyword">typename</span> _Alloc_ &gt; <span class="keyword">class</span> Node_Update = null_node_update, <span class="keyword">typename</span> _Alloc = std::allocator&lt;<span class="type">char</span>&gt;&gt;</span><br><span class="line"><span class="keyword">class</span> __gnu_pbds::tree&lt; Key, Mapped, Cmp_Fn, Tag, Node_Update, _Alloc &gt;</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="说明"><a href="#说明">¶</a> 说明</h2>
 <ul>
 <li>Mapped<br>
@@ -8169,16 +8167,14 @@ Data Structures</a></p>
 <ol type="1">
 <li><code>size_type order_of_key(key_const_reference key) const</code><br>
 返回比<code>key</code>小的元素的个数</li>
-<li><code>iterator 	find_by_order (size_type order)</code>以及其const版本<br>
+<li><code>iterator    find_by_order (size_type order)</code>以及其const版本<br>
 返回第<code>order</code>大的元素的迭代器<br>
 ## 用法举例</li>
 </ol>
 <ul>
-<li>一颗名次红黑树</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tree<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">null_type</span><span class="op">,</span> less<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;,</span> rb_tree_tag<span class="op">,</span> tree_order_statistics_node_update<span class="op">&gt;</span> t<span class="op">;</span></span></code></pre></div>
-<h2 id="常用成员函数"><a href="#常用成员函数">¶</a> 常用成员函数</h2>
-<ul>
+<li>一颗名次红黑树<br>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">tree&lt;<span class="type">int</span>, null_type, less&lt;<span class="type">int</span>&gt;, rb_tree_tag, tree_order_statistics_node_update&gt; t;</span><br></pre></td></tr></tbody></table></figure><br>
+## 常用成员函数</li>
 <li>clear</li>
 <li>insert</li>
 <li>erase</li>
@@ -8194,26 +8190,22 @@ key小于等于v的元素属于a，其余的属于b。b原有的元素会被清�
 <h1 id="堆"><a href="#堆">¶</a> 堆</h1>
 <p>文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.7.0/libstdc++/api/a00356.html" class="uri">https://gcc.gnu.org/onlinedocs/gcc-4.7.0/libstdc++/api/a00356.html</a></p>
 <p>具体用法和普通优先队列差不多。<br>
-## 头文件</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;ext/pb_ds/priority_queue.hpp&gt;</span></span></code></pre></div>
+## 头文件<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;ext/pb_ds/priority_queue.hpp&gt;</span></span></span><br></pre></td></tr></tbody></table></figure><p></p>
 <h2 id="声明"><a href="#声明">¶</a> 声明</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> _Tv<span class="op">,</span> <span class="kw">typename</span> Cmp_Fn <span class="op">=</span> <span class="bu">std::</span>less<span class="op">&lt;</span>_Tv<span class="op">&gt;,</span> <span class="kw">typename</span> Tag <span class="op">=</span> pairing_heap_tag<span class="op">,</span> <span class="kw">typename</span> _Alloc <span class="op">=</span> <span class="bu">std::</span>allocator<span class="op">&lt;</span><span class="dt">char</span><span class="op">&gt;&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> __gnu_pbds<span class="op">::</span>priority_queue<span class="op">&lt;</span> _Tv<span class="op">,</span> Cmp_Fn<span class="op">,</span> Tag<span class="op">,</span> _Alloc <span class="op">&gt;</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tv, <span class="keyword">typename</span> Cmp_Fn = std::less&lt;_Tv&gt;, <span class="keyword">typename</span> Tag = pairing_heap_tag, <span class="keyword">typename</span> _Alloc = std::allocator&lt;<span class="type">char</span>&gt;&gt;</span><br><span class="line"><span class="keyword">class</span> __gnu_pbds::priority_queue&lt; _Tv, Cmp_Fn, Tag, _Alloc &gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>使用时必须带上<code>__gnu_pbds::</code>，因为它与<code>std::priority_queue</code>重名了。</p>
 <h2 id="迭代器"><a href="#迭代器">¶</a> 迭代器</h2>
-<p>它的迭代器叫做<code>point_iterator</code>。例如</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>__gnu_pbds<span class="op">::</span>priority_queue<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;::</span>point_iterator it<span class="op">;</span></span></code></pre></div>
-<h2 id="tag"><a href="#tag">¶</a> Tag</h2>
-<ul>
-<li>pairing_heap_tag<br>
-默认的，最快</li>
-<li>binary_heap_tag</li>
-<li>binomial_heap_tag</li>
-<li>rc_binomial_heap_tag</li>
-<li>thin_heap_tag</li>
-</ul>
-<h2 id="常用成员函数-1"><a href="#常用成员函数-1">¶</a>
-常用成员函数</h2>
+<p>它的迭代器叫做<code>point_iterator</code>。例如<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">__gnu_pbds::priority_queue&lt;<span class="type">int</span>&gt;::point_iterator it;</span><br></pre></td></tr></tbody></table></figure><br>
+## Tag<br>
+- pairing_heap_tag<br>
+默认的，最快<br>
+- binary_heap_tag<br>
+- binomial_heap_tag<br>
+- rc_binomial_heap_tag<br>
+- thin_heap_tag<p></p>
+<h2 id="常用成员函数"><a href="#常用成员函数">¶</a> 常用成员函数</h2>
 <p>同<code>std::priority_queue</code>的成员函数有<br>
 - top<br>
 - size<br>
@@ -8227,19 +8219,10 @@ key小于等于v的元素属于a，其余的属于b。b原有的元素会被清�
 合并两个堆,other会被清空<br>
 - <code>split(Pred prd,priority_queue &amp;other)</code><br>
 分离出两个堆。其中Pred是predicate（谓词）的缩写，用于判断哪些元素被放入other中。如果prd(key)返回true，key被放入other中。</p>
-<p>例如把a中小于３的数放入b中</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">,</span> T val<span class="op">&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> less_than <span class="op">{</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>	<span class="dt">bool</span> <span class="kw">operator</span> <span class="op">()</span> <span class="op">(</span>T x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> x <span class="op">&lt;</span> val<span class="op">;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>a<span class="op">.</span>split<span class="op">(</span>less_than<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dv">3</span><span class="op">&gt;(),</span> b<span class="op">);</span></span></code></pre></div>
-<ul>
-<li><code>modify(point_iterator it,const key)</code><br>
-修改迭代器<code>it</code>指向的值为<code>key</code>。</li>
-</ul>
+<p>例如把a中小于３的数放入b中<br>
+</p><figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, T val&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">less_than</span> {</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(T x)</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> x &lt; val;</span><br><span class="line">	}</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">a.<span class="built_in">split</span>(<span class="built_in">less_than</span>&lt;<span class="type">int</span>, <span class="number">3</span>&gt;(), b);</span><br></pre></td></tr></tbody></table></figure><br>
+- <code>modify(point_iterator it,const key)</code><br>
+修改迭代器<code>it</code>指向的值为<code>key</code>。<p></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

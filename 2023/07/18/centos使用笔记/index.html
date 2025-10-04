@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8144,13 +8144,11 @@ mjx-container[display="true"] + br {
 glibc升级失败进不去系统的解决方法</h2>
 <p>以CentOS 8 stream为例。</p>
 <p>因为CentOS的dvd1做的启动盘貌似没有live模式，所以得做一个Debian的live启动盘。进入Debian的live环境之后，先挂载根目录到<code>/mnt</code>：</p>
-<pre class="shell"><code>sudo mount /dev/mapper/cl-root /mnt</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo mount /dev/mapper/cl-root /mnt</span><br></pre></td></tr></tbody></table></figure>
 <p>然后下载glibc的包，这里以<code>glibc-2.28.228</code>为例：</p>
-<pre class="shell"><code>wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-2.28-228.el8.x86_64.rpm
-wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-common-2.28-228.el8.x86_64.rpm
-wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-langpack-en-2.28-228.el8.x86_64.rpm</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-2.28-228.el8.x86_64.rpm</span><br><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-common-2.28-228.el8.x86_64.rpm</span><br><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/baseos/x86_64/os/packages/glibc-langpack-en-2.28-228.el8.x86_64.rpm</span><br></pre></td></tr></tbody></table></figure>
 <p>安装：</p>
-<pre class="shell"><code>rpm -ivh --nodeps --root=/mnt glibc-*.rpm</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">rpm -ivh --nodeps --root=/mnt glibc-*.rpm</span><br></pre></td></tr></tbody></table></figure>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

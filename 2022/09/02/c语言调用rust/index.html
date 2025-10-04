@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,39 +8141,24 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>比方说要把这个函数暴露给C语言使用：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> add(a<span class="op">:</span> <span class="dt">i32</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<pre class="shell"><code>cargo new add --lib</code></pre>
+<figure class="highlight rust"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">add</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> {</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cargo new add --lib</span><br></pre></td></tr></tbody></table></figure>
 <p>在<code>add/src/lib.rs</code>里写入：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>no_mangle<span class="at">]</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">extern</span> <span class="st">"C"</span> <span class="kw">fn</span> add(a<span class="op">:</span> <span class="dt">i32</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight rust"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">extern</span> <span class="string">"C"</span> <span class="keyword">fn</span> <span class="title function_">add</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> {</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>其中<code>#[no_mangle]</code>表示使得这个函数的符号保持为函数名，而不要加入参数类型之类的乱七八糟的。</p>
 <p><code>extern "C"</code>表示使用C语言的ABI，这样C语言就能直接调用这个函数了。</p>
 <p>然后在<code>add/Cargo.toml</code>里加入：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">lib</span><span class="kw">]</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">crate-type</span> <span class="op">=</span> <span class="op">[</span><span class="st">"staticlib"</span><span class="op">,</span> <span class="st">"dylib"</span><span class="op">]</span></span></code></pre></div>
+<figure class="highlight toml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[lib]</span></span><br><span class="line"><span class="attr">crate-type</span> = [<span class="string">"staticlib"</span>, <span class="string">"dylib"</span>]</span><br></pre></td></tr></tbody></table></figure>
 <p>表示同时编译出静态库和动态库。</p>
 <p>然后新建文件<code>add/include/add.h</code>，用来提供C语言的接口：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="dt">int</span> add<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">);</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br></pre></td></tr></tbody></table></figure>
 <p>然后就完成了。现在试着编译一下：</p>
-<pre class="shell"><code>cd add
-cargo build
-ls target/debug</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cd add</span><br><span class="line">cargo build</span><br><span class="line">ls target/debug</span><br></pre></td></tr></tbody></table></figure>
 <p>就可以在<code>target/debug</code>下面看到静态库<code>libadd.a</code>和动态库<code>libadd.so</code>。</p>
 <p>现在测试一下。在<code>add</code>目录的旁边新建一个<code>test.c</code>：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"add.h"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> printf<span class="op">(</span><span class="st">"%d</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> add<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">));</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"add.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>编译运行：</p>
-<pre class="shell"><code>gcc test.c -I add/include/ -L"add/target/debug/" -l add -o test
-LD_LIBRARY_PATH=add/target/debug/ ./test</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">gcc test.c -I add/include/ -L"add/target/debug/" -l add -o test</span><br><span class="line">LD_LIBRARY_PATH=add/target/debug/ ./test</span><br></pre></td></tr></tbody></table></figure>
 <p>成功输出<code>3</code>。</p>
 <h2 id="参考"><a href="#参考">¶</a> 参考</h2>
 <p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/reference/linkage.html" class="uri">https://doc.rust-lang.org/reference/linkage.html</a></p>

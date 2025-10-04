@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8143,27 +8143,11 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>参考：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/851fbc371d8c907e1e15ab79.html" class="uri">https://jingyan.baidu.com/article/851fbc371d8c907e1e15ab79.html</a></p>
 <p>ssh私钥很长，不可能记下来，所以可能需要放入U盘随身携带，但是这样有失窃的风险。所以可以把私钥加密，要用的时候解密即可。</p>
 <ul>
-<li>加密</li>
+<li><p>加密<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ori=$(pwd)</span><br><span class="line">cd $(dirname $1)</span><br><span class="line">if [ $2 ]; then</span><br><span class="line">	tar -zcf - $(basename $1) | openssl aes256 -salt -md sha256 &gt; $ori/$2</span><br><span class="line">else</span><br><span class="line">	echo Must specify the name of output file</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+<li><p>解密<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ $2 ]; then</span><br><span class="line">	cat $1 | openssl aes256 -md sha256 -d | tar zx -C $2</span><br><span class="line">else</span><br><span class="line">	cat $1 | openssl aes256 -md sha256 -d | tar zx</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure><p></p></li>
 </ul>
-<pre class="shell"><code>#!/bin/bash
-
-ori=$(pwd)
-cd $(dirname $1)
-if [ $2 ]; then
-	tar -zcf - $(basename $1) | openssl aes256 -salt -md sha256 &gt; $ori/$2
-else
-	echo Must specify the name of output file
-fi</code></pre>
-<ul>
-<li>解密</li>
-</ul>
-<pre class="shell"><code>#!/bin/bash
-
-if [ $2 ]; then
-	cat $1 | openssl aes256 -md sha256 -d | tar zx -C $2
-else
-	cat $1 | openssl aes256 -md sha256 -d | tar zx
-fi</code></pre>
 <p>参考自：<a target="_blank" rel="noopener" href="http://www.chinaoc.com.cn/p/1141270.html" class="uri">http://www.chinaoc.com.cn/p/1141270.html</a><br>
 由于openssl 1.1
 版本默认使用的摘要算法是sha256，而1.0默认使用的是md5，所以需要用-md选项指定摘要算法为sha256，防止不能解密不同版本的openssl加密的文件。</p>

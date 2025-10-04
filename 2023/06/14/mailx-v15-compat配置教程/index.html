@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8142,70 +8142,24 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>GNU的mailutils里的mailx好像不太好使，所以这里使用s-nail。</p>
 <h2 id="安装"><a href="#安装">¶</a> 安装</h2>
-<pre class="shell"><code># ArchLinux
-sudo pacman -S s-nail
-# Debian
-sudo apt install s-nail</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ArchLinux</span></span><br><span class="line">sudo pacman -S s-nail</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Debian</span></span><br><span class="line">sudo apt install s-nail</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="mailrc"><a href="#mailrc">¶</a> <code>~/.mailrc</code></h2>
 <p>主要参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/S-nail" class="uri">https://wiki.archlinux.org/title/S-nail</a></p>
-<pre class="text"><code># All the examples require v15-compat!
-set v15-compat
-
-# Essential setting: select allowed character sets
-# (Have a look at the "Character sets" manual section)
-set sendcharsets=utf-8,iso-8859-1
-
-# A very kind option: when replying to a message, first try to
-# use the same encoding that the original poster used herself!
-set reply-in-same-charset
-# When replying to or forwarding a message the comment and name
-# parts of email addresses are removed unless this variable is set
-set fullnames
-
-# When sending messages, wait until the Mail-Transfer-Agent finishs.
-set sendwait
-
-# Only use builtin MIME types, no mime.types(5) files.
-# That set is often sufficient, but look at the output of the
-# `mimetype' command to ensure this is true for you, too
-set mimetypes-load-control
-
-# Default directory where we act in (relative to $HOME if not absolute)
-set folder=mail
-# A leading "+" (often) means: under folder
-# record is used to save copies of sent messages, $DEAD is error storage
-# inbox: system mailbox, by default /var/mail/$USER: file %
-# $MBOX: secondary mailbox: file &amp;
-set MBOX=+mbox.mbox record=+sent.mbox DEAD=+dead.mbox
-set inbox=+system.mbox
-
-# It can be as easy as
-# (Remember USER and PASS must be URL percent encoded)
-set mta=smtp://用户名:授权码@smtp.163.com \
-    smtp-use-starttls
-
-# It may be necessary to set hostname and/or smtp-hostname
-# if the "SERVER" of smtp and "domain" of from do not match.
-# Reading the "ON URL SYNTAX.." and smtp manual entries may be worthwhile
-set from="用户名@163.com"</code></pre>
-<pre class="shell"><code>mkdir ~/mail</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># All the examples require v15-compat!</span><br><span class="line">set v15-compat</span><br><span class="line"></span><br><span class="line"># Essential setting: select allowed character sets</span><br><span class="line"># (Have a look at the "Character sets" manual section)</span><br><span class="line">set sendcharsets=utf-8,iso-8859-1</span><br><span class="line"></span><br><span class="line"># A very kind option: when replying to a message, first try to</span><br><span class="line"># use the same encoding that the original poster used herself!</span><br><span class="line">set reply-in-same-charset</span><br><span class="line"># When replying to or forwarding a message the comment and name</span><br><span class="line"># parts of email addresses are removed unless this variable is set</span><br><span class="line">set fullnames</span><br><span class="line"></span><br><span class="line"># When sending messages, wait until the Mail-Transfer-Agent finishs.</span><br><span class="line">set sendwait</span><br><span class="line"></span><br><span class="line"># Only use builtin MIME types, no mime.types(5) files.</span><br><span class="line"># That set is often sufficient, but look at the output of the</span><br><span class="line"># `mimetype' command to ensure this is true for you, too</span><br><span class="line">set mimetypes-load-control</span><br><span class="line"></span><br><span class="line"># Default directory where we act in (relative to $HOME if not absolute)</span><br><span class="line">set folder=mail</span><br><span class="line"># A leading "+" (often) means: under folder</span><br><span class="line"># record is used to save copies of sent messages, $DEAD is error storage</span><br><span class="line"># inbox: system mailbox, by default /var/mail/$USER: file %</span><br><span class="line"># $MBOX: secondary mailbox: file &amp;</span><br><span class="line">set MBOX=+mbox.mbox record=+sent.mbox DEAD=+dead.mbox</span><br><span class="line">set inbox=+system.mbox</span><br><span class="line"></span><br><span class="line"># It can be as easy as</span><br><span class="line"># (Remember USER and PASS must be URL percent encoded)</span><br><span class="line">set mta=smtp://用户名:授权码@smtp.163.com \</span><br><span class="line">    smtp-use-starttls</span><br><span class="line"></span><br><span class="line"># It may be necessary to set hostname and/or smtp-hostname</span><br><span class="line"># if the "SERVER" of smtp and "domain" of from do not match.</span><br><span class="line"># Reading the "ON URL SYNTAX.." and smtp manual entries may be worthwhile</span><br><span class="line">set from="用户名@163.com"</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">mkdir ~/mail</span><br></pre></td></tr></tbody></table></figure>
 <p>然后已发送的邮件就会存入<code>~/mail/sent.mbox</code></p>
 <p>Arch
 wiki里还设置了<code>ssl-ca-file</code>等变量，但我这里运行后会报这种错：</p>
-<pre class="text"><code>mail: Warning: variable superseded or obsoleted: ssl-ca-file
-mail: Warning: variable superseded or obsoleted: ssl-ca-no-defaults
-mail: Warning: variable superseded or obsoleted: ssl-protocol
-mail: Warning: variable superseded or obsoleted: ssl-cipher-list
-mail: Warning: variable superseded or obsoleted: ssl-verify</code></pre>
+<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">mail: Warning: variable superseded or obsoleted: ssl-ca-file</span><br><span class="line">mail: Warning: variable superseded or obsoleted: ssl-ca-no-defaults</span><br><span class="line">mail: Warning: variable superseded or obsoleted: ssl-protocol</span><br><span class="line">mail: Warning: variable superseded or obsoleted: ssl-cipher-list</span><br><span class="line">mail: Warning: variable superseded or obsoleted: ssl-verify</span><br></pre></td></tr></tbody></table></figure>
 <p>所以我没有设置这些ssl相关的配置，实测也能跑。</p>
 <h2 id="发邮件"><a href="#发邮件">¶</a> 发邮件</h2>
 <p>ArchLinux用<code>mailx</code>命令：</p>
-<pre class="shell"><code>echo "test mailx" | mailx --subject="test" 接收人@163.com</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo "test mailx" | mailx --subject="test" 接收人@163.com</span><br></pre></td></tr></tbody></table></figure>
 <p>Debian用<code>s-nail</code>命令：</p>
-<pre class="shell"><code>echo "test s-nail" | s-nail --subject="test" 接收人@163.com</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo "test s-nail" | s-nail --subject="test" 接收人@163.com</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="使用代理"><a href="#使用代理">¶</a> 使用代理</h2>
 <p>云服务器商似乎会拦截SMTP协议的流量，aliyun和AWS上邮件都发不出去。走socks5代理给一台不存在此限制的服务器上即可：</p>
-<pre class="shell"><code>echo "test s-nail" | s-nail -Ssocks-proxy=socks5://地址:端口号 --subject="test" 接收人@163.com</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">echo "test s-nail" | s-nail -Ssocks-proxy=socks5://地址:端口号 --subject="test" 接收人@163.com</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="相关"><a href="#相关">¶</a> 相关</h2>
 <p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/send-email-linux-command-line" class="uri">https://www.digitalocean.com/community/tutorials/send-email-linux-command-line</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

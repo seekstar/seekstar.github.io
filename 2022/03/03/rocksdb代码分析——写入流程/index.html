@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8151,10 +8151,7 @@ mjx-container[display="true"] + br {
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>分析均基于<code>v6.27.3</code>。以下流程为了方便理解均经过了简化。</p>
 <p>首先，我们通过调用<code>DB::Open</code>来创建数据库，它返回了一个<code>DB*</code>。<code>DB::Open</code>内部调用了<code>DBImpl::Open</code>，在里面构造了一个<code>DBImpl*</code>并转换成<code>DB*</code>返回。所以我们拿到的<code>DB*</code>其实是<code>DBImpl*</code>。</p>
 <p>然后我们调用<code>DB::Put</code>来写入数据。<code>DB::Put</code>是个virtual函数，它被<code>DBImpl::Put</code>给override了：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Status DBImpl<span class="op">::</span>Put<span class="op">(</span><span class="at">const</span> WriteOptions<span class="op">&amp;</span> o<span class="op">,</span> ColumnFamilyHandle<span class="op">*</span> column_family<span class="op">,</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">const</span> Slice<span class="op">&amp;</span> key<span class="op">,</span> <span class="at">const</span> Slice<span class="op">&amp;</span> val<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> DB<span class="op">::</span>Put<span class="op">(</span>o<span class="op">,</span> column_family<span class="op">,</span> key<span class="op">,</span> val<span class="op">);</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">DBImpl::Put</span><span class="params">(<span class="type">const</span> WriteOptions&amp; o, ColumnFamilyHandle* column_family,</span></span></span><br><span class="line"><span class="params"><span class="function">                   <span class="type">const</span> Slice&amp; key, <span class="type">const</span> Slice&amp; val)</span> </span>{</span><br><span class="line">  <span class="keyword">return</span> DB::<span class="built_in">Put</span>(o, column_family, key, val);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>它显式调用了<code>DB::Put</code>。<code>DB::Put</code>中首先构造了WriteBatch，然后调用了<code>DB::Write</code>，它是个纯虚函数，被<code>DBImpl::Write</code>
 override了。<code>DBImpl::Write</code>调用了<code>DBImpl::WriteImpl</code>。</p>
 <p><code>DBImpl::WriteImpl</code>先检查了一堆option，这里我们先不管。然后将<code>WriteBatch *my_batch</code>以及<code>WriteOption</code>都转移到了<code>WriteThread::Writer w</code>中。然后调用<code>WriteThread::JoinBatchGroup</code>。</p>
@@ -8188,8 +8185,7 @@ mutex的。可能这是因为其他非leader的writer都在等leader给出指示
 <p><code>WriteBatchInternal::Iterate</code>中将WriteBatch中的record逐个读出来，按照record上的tag执行相应的操作。我们这里只关注tag为<code>kTypeValue</code>和<code>kTypeColumnFamilyValue</code>的record，对这种record，执行<code>handler-&gt;PutCF(column_family, key, value)</code>，即调用<code>WriteBatch::Handler::PutCF</code>，将对应的key和value插入。<code>WriteBatch::Handler::PutCF</code>是个virtual函数，注意到这里的<code>handler</code>其实是<code>MemTableInserter*</code>类型的，所以这里调用的其实是<code>MemTableInserter::PutCF</code>。<code>MemTableInserter::PutCF</code>中又调用了<code>MemTableInserter::PutCFImpl</code>。</p>
 <p><code>MemTableInserter::PutCFImpl</code>先调用<code>MemTable::Add</code>将key和value插入到MemTable中，再调用<code>MemTableInserter::CheckMemtableFull</code>。</p>
 <p><code>MemTableInserter::CheckMemtableFull</code>大意：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>cfd<span class="op">-&gt;</span>mem<span class="op">()-&gt;</span>ShouldScheduleFlush<span class="op">())</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">flush_scheduler_</span><span class="op">-&gt;</span>ScheduleWork<span class="op">(</span>cfd<span class="op">);</span></span></code></pre></div>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (cfd-&gt;<span class="built_in">mem</span>()-&gt;<span class="built_in">ShouldScheduleFlush</span>())</span><br><span class="line">    flush_scheduler_-&gt;<span class="built_in">ScheduleWork</span>(cfd);</span><br></pre></td></tr></tbody></table></figure>
 <p><code>FlushScheduler::ScheduleWork</code>中，先<code>cfd-&gt;Ref()</code>，然后把cfd放进链表里。前面提到了，在<code>DBImpl::WriteImpl</code>中作为leader时，会检查<code>FlushScheduler flush_scheduler_</code>中有没有任务，有的话就拿出来放到<code>DBImpl::flush_queue_</code>中。</p>
 <p>我的问题：为什么不直接放到<code>DBImpl::flush_queue_</code>中？</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

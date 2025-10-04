@@ -7417,9 +7417,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7428,9 +7428,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8116,9 +8116,8 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					比如我有一个远程分支origin/test，正常情况下git checkout test的输出应该是
-Branch 'test' set up to track remote branch 'test' from 'origin'.
-Switched to a new branch 'test'
-但
+Branch 'test' set up to track remote branch 'test' from 'origin'.Switched to a new branch 'test'
+但是
 					...
 				</div>
 			</a>
@@ -8137,12 +8136,9 @@ Switched to a new branch 'test'
 				</h2>
 				<div class="index-brief">
 					比如这个脚本myscript.sh：
-#!/bin/sh
-
-echo "I'm stdout";
-echo "I'm stderr" &gt;&amp;2;
+#!/bin/shecho "I'm stdout";echo "I'm stderr" &gt;&amp;2;
 交换它的stdout和stderr可以这样做：
-(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&a
+(sh myscript.sh 3&gt;&amp;2 2&gt;&amp;1 1&gt;&amp;
 					...
 				</div>
 			</a>
@@ -8160,16 +8156,7 @@ echo "I'm stderr" &gt;&amp;2;
 					rust private super trait
 				</h2>
 				<div class="index-brief">
-					pub(crate) mod private {
-
-    #[doc(hidden)]
-    pub trait FooPrivate&lt;Arg&gt; {
-        fn foo(&amp;self, arg: Arg);
-    }
-
-}
-
-pub trait Foo&lt;Arg
+					pub(crate) mod private {    #[doc(hidden)]    pub trait FooPrivate&lt;Arg&gt; {        fn foo(&amp;self, arg: Arg);    }}pub trait Foo&lt;Arg&gt;: pri
 					...
 				</div>
 			</a>
@@ -8192,12 +8179,7 @@ pub trait Foo&lt;Arg
 
 打开或创建文件
 
-#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-
-int open(const char *pathname, int flags);
-
+#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt;int open(const char *pathname, int flags);int o
 					...
 				</div>
 			</a>
@@ -8215,12 +8197,7 @@ int open(const char *pathname, int flags);
 					使得两次编译linux内核产生一样的结果
 				</h2>
 				<div class="index-brief">
-					export INSTALL_MOD_STRIP=-s
-export KBUILD_BUILD_TIMESTAMP=0
-export KBUILD_BUILD_USER=root
-export KBUILD_BUILD_HOST=localhost
-make mrproper
-make allnoc
+					export INSTALL_MOD_STRIP=-sexport KBUILD_BUILD_TIMESTAMP=0export KBUILD_BUILD_USER=rootexport KBUILD_BUILD_HOST=localhostmake mrpropermake allnoconfig
 					...
 				</div>
 			</a>
@@ -8241,9 +8218,7 @@ make allnoc
 					首先安装XQuartz：
 brew install xquartz
 安装程序会自动在/etc/ssh/ssh_config里加上
-# XAuthLocation added by XQuartz (https://www.xquartz.org)
-Host *
-    XAuthLocation /
+# XAuthLocation added by XQuartz (https://www.xquartz.org)Host *    XAuthLocation /op
 					...
 				</div>
 			</a>
@@ -8263,8 +8238,7 @@ Host *
 				<div class="index-brief">
 					进程被杀了。查一下日志：
 dmesg | egrep -i -B100 'killed process'
-[2352218.368085] Out of memory: Kill process 1462 (transaction-exp) score 834 or sacrifice child
-
+[2352218.368085] Out of memory: Kill process 1462 (transaction-exp) score 834 or sacrifice child[
 					...
 				</div>
 			</a>
@@ -8283,15 +8257,7 @@ dmesg | egrep -i -B100 'killed process'
 				</h2>
 				<div class="index-brief">
 					直接存取不可以：
-use std::io;
-
-use serde::{Serialize, Deserialize};
-
-extern crate bincode;
-
-#[derive(Debug, Serialize, Deserialize)]
-struct A&lt;'a&gt; {
-    
+use std::io;use serde::{Serialize, Deserialize};extern crate bincode;#[derive(Debug, Serialize, Deserialize)]struct A&lt;'a&gt; {    a: &amp;
 					...
 				</div>
 			</a>

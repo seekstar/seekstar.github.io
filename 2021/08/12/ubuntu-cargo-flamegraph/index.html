@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,41 +8140,31 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><pre class="shell"><code>cargo flamegraph</code></pre>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cargo flamegraph</span><br></pre></td></tr></tbody></table></figure>
 <p>有如下选项：</p>
 <h1 id="运行指定binnary"><a href="#运行指定binnary">¶</a>
 运行指定binnary</h1>
-<pre class="shell"><code>-b your-binnary</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">-b your-binnary</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="指定采样频率"><a href="#指定采样频率">¶</a> 指定采样频率</h1>
-<pre class="shell"><code>-F xxx</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">-F xxx</span><br></pre></td></tr></tbody></table></figure>
 <p>单位好像是Hz</p>
 <h1 id="传参"><a href="#传参">¶</a> 传参</h1>
-<pre class="shell"><code>-- your-arg your-value</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">-- your-arg your-value</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="传入perf参数"><a href="#传入perf参数">¶</a> 传入perf参数</h1>
-<pre><code>-c "要给perf的参数</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">-c "要给perf的参数</span><br></pre></td></tr></tbody></table></figure>
 <p>比如</p>
-<pre class="shell"><code>cargo flamegraph -c "record -e branch-misses -c 100 --call-graph lbr -g"</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cargo flamegraph -c "record -e branch-misses -c 100 --call-graph lbr -g"</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="例子"><a href="#例子">¶</a> 例子</h1>
-<pre class="shell"><code>cargo flamegraph -F 1 --bin transaction-replayer -- --perf-log data/perf-log.txt</code></pre>
-<pre class="shell"><code>cargo flamegraph -c "recor
-d -a -F 1 --call-graph=dwarf" --bin transaction-replayer -- --start-epoch 18000000 --epoch-to-execute 1000000 --commit-interval 10000</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cargo flamegraph -F 1 --bin transaction-replayer -- --perf-log data/perf-log.txt</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">cargo flamegraph -c "recor</span><br><span class="line">d -a -F 1 --call-graph=dwarf" --bin transaction-replayer -- --start-epoch 18000000 --epoch-to-execute 1000000 --commit-interval 10000</span><br></pre></td></tr></tbody></table></figure>
 <p>注意用了<code>-c</code>时，<code>-F 1</code>要放到<code>-c</code>后面的perf参数里。</p>
 <h1 id="常见错误的处理"><a href="#常见错误的处理">¶</a>
 常见错误的处理</h1>
-<pre><code>could not spawn perf</code></pre>
-<pre class="shell"><code>sudo apt install linux-tools-common</code></pre>
-<pre><code>WARNING: perf not found for kernel 4.15.0-144
-
-  You may need to install the following packages for this specific kernel:
-    linux-tools-4.15.0-144-generic
-    linux-cloud-tools-4.15.0-144-generic
-
-  You may also want to install one of the following packages to keep up to date:
-    linux-tools-generic
-    linux-cloud-tools-generic
-failed to sample program</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">could not spawn perf</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install linux-tools-common</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">WARNING: perf not found for kernel 4.15.0-144</span><br><span class="line"></span><br><span class="line">  You may need to install the following packages for this specific kernel:</span><br><span class="line">    linux-tools-4.15.0-144-generic</span><br><span class="line">    linux-cloud-tools-4.15.0-144-generic</span><br><span class="line"></span><br><span class="line">  You may also want to install one of the following packages to keep up to date:</span><br><span class="line">    linux-tools-generic</span><br><span class="line">    linux-cloud-tools-generic</span><br><span class="line">failed to sample program</span><br></pre></td></tr></tbody></table></figure>
 <p>按照提示安装即可：</p>
-<pre class="shell"><code>sudo apt install linux-tools-4.15.0-144-generic linux-cloud-tools-4.15.0-144-generic linux-tools-generic linux-cloud-tools-generic</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install linux-tools-4.15.0-144-generic linux-cloud-tools-4.15.0-144-generic linux-tools-generic linux-cloud-tools-generic</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h1>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36974075/article/details/82491219">ubuntu18.04安装perf</a><br>
 <a target="_blank" rel="noopener" href="https://github.com/brendangregg/FlameGraph/issues/209" class="uri">https://github.com/brendangregg/FlameGraph/issues/209</a><br>

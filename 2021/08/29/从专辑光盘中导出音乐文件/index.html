@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8149,8 +8149,7 @@ Media Player打开。</p>
 还可以点击“翻录”把歌曲翻录到mp3。文件输出路径可以通过“翻录设置”指定。</p>
 <h1 id="linux"><a href="#linux">¶</a> Linux</h1>
 <p>Linux下貌似识别不出来cda文件。不过可以这样直接把光盘里的音乐翻录出来：</p>
-<pre class="shell"><code>sudo apt install abcde flac
-abcde -o flac</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt install abcde flac</span><br><span class="line">abcde -o flac</span><br></pre></td></tr></tbody></table></figure>
 <p>如果不编辑CDDB
 data的话，导出之后的音乐文件即使是重命名了，导入到音乐软件比如网易云音乐之后，标题和歌手也可能是错误的。所以最好是编辑一下CDDB
 data，各个域的含义在这里可以看到：</p>
@@ -8167,49 +8166,7 @@ TTITLExx: 第xx首歌曲的标题</p>
 TTITLExx:
 <code>作者 / 歌曲名字</code>，有多个作者的话，就<code>作者1,作者2 / 歌曲名字</code></p>
 <p>一个例子：</p>
-<pre><code># xmcd CD database file
-#
-# Track frame offsets:
-#	150
-#	21424
-#	37590
-#	56273
-#	70903
-#	89359
-#	109119
-#	125356
-#	148082
-#
-# Disc length: 2253 seconds
-#
-# Submitted via: cddb-tool 0.4.7
-#
-#blues,classical,country,data,folk,jazz,newage,reggae,rock,soundtrack,misc
-#CATEGORY=misc
-DISCID=7308c909
-DTITLE=平行四界X-1
-DYEAR=
-DGENRE=
-TTITLE0=牧心 / 光晕
-TTITLE1=诗岸 / SAD星人
-TTITLE2=海伊 / 第一反应
-TTITLE3=星尘,海伊,诗岸 / 热伤风
-TTITLE4=苍穹,赤羽 / 童铃谣
-TTITLE5=海伊 / 黑花鸢尾之歌
-TTITLE6=赤羽,公兔-Manrabbit / 悠久
-TTITLE7=Minus,Zeno / 魔女之愿
-TTITLE8=星尘 / 种魂川上忽地笑
-EXTD=
-EXTT0=
-EXTT1=
-EXTT2=
-EXTT3=
-EXTT4=
-EXTT5=
-EXTT6=
-EXTT7=
-EXTT8=
-PLAYORDER=</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line"># xmcd CD database file</span><br><span class="line">#</span><br><span class="line"># Track frame offsets:</span><br><span class="line">#	150</span><br><span class="line">#	21424</span><br><span class="line">#	37590</span><br><span class="line">#	56273</span><br><span class="line">#	70903</span><br><span class="line">#	89359</span><br><span class="line">#	109119</span><br><span class="line">#	125356</span><br><span class="line">#	148082</span><br><span class="line">#</span><br><span class="line"># Disc length: 2253 seconds</span><br><span class="line">#</span><br><span class="line"># Submitted via: cddb-tool 0.4.7</span><br><span class="line">#</span><br><span class="line">#blues,classical,country,data,folk,jazz,newage,reggae,rock,soundtrack,misc</span><br><span class="line">#CATEGORY=misc</span><br><span class="line">DISCID=7308c909</span><br><span class="line">DTITLE=平行四界X-1</span><br><span class="line">DYEAR=</span><br><span class="line">DGENRE=</span><br><span class="line">TTITLE0=牧心 / 光晕</span><br><span class="line">TTITLE1=诗岸 / SAD星人</span><br><span class="line">TTITLE2=海伊 / 第一反应</span><br><span class="line">TTITLE3=星尘,海伊,诗岸 / 热伤风</span><br><span class="line">TTITLE4=苍穹,赤羽 / 童铃谣</span><br><span class="line">TTITLE5=海伊 / 黑花鸢尾之歌</span><br><span class="line">TTITLE6=赤羽,公兔-Manrabbit / 悠久</span><br><span class="line">TTITLE7=Minus,Zeno / 魔女之愿</span><br><span class="line">TTITLE8=星尘 / 种魂川上忽地笑</span><br><span class="line">EXTD=</span><br><span class="line">EXTT0=</span><br><span class="line">EXTT1=</span><br><span class="line">EXTT2=</span><br><span class="line">EXTT3=</span><br><span class="line">EXTT4=</span><br><span class="line">EXTT5=</span><br><span class="line">EXTT6=</span><br><span class="line">EXTT7=</span><br><span class="line">EXTT8=</span><br><span class="line">PLAYORDER=</span><br></pre></td></tr></tbody></table></figure>
 <p><code>Is the CD multi-artist?</code>这个问题回答<code>Yes</code></p>
 <p><code>Which style of multiple artist entries is it?</code>选择<code>1) Artist / Title</code></p>
 <p><img src="/2021/08/29/%E4%BB%8E%E4%B8%93%E8%BE%91%E5%85%89%E7%9B%98%E4%B8%AD%E5%AF%BC%E5%87%BA%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6/0520c3ee3a4a434db84dedafde64607f.png" alt="在这里插入图片描述"><br>

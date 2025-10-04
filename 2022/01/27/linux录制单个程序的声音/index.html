@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8141,17 +8141,15 @@ mjx-container[display="true"] + br {
 <!-- content -->
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>列出正在发出声音的程序：</p>
-<pre class="shell"><code>pacmd list-sink-inputs</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">pacmd list-sink-inputs</span><br></pre></td></tr></tbody></table></figure>
 <p>主要看<code>media.name</code>，找到要录制的是哪个，比如这里就是index为2358的那个。然后：</p>
-<pre class="shell"><code>INDEX=2358
-pactl load-module module-null-sink sink_name=steam
-pactl move-sink-input $INDEX steam</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">INDEX=2358</span><br><span class="line">pactl load-module module-null-sink sink_name=steam</span><br><span class="line">pactl move-sink-input $INDEX steam</span><br></pre></td></tr></tbody></table></figure>
 <p>这个时候这个程序的声音会从扬声器消失。然后开始录制：</p>
-<pre class="shell"><code>parec -d steam.monitor | oggenc -b 192 -o steam.ogg --raw -</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">parec -d steam.monitor | oggenc -b 192 -o steam.ogg --raw -</span><br></pre></td></tr></tbody></table></figure>
 <p>注意如果暂停再重新播放的话，index可能会变，不过好像不用重新<code>move-sink-input</code>？</p>
 <p>可以用Audacity把没用的部分删掉。先用鼠标划出要删掉的部分，可以用键盘精确设置范围，然后再点上面的剪刀图案来把这个区域剪掉。最后导出即可。</p>
 <p>如果ogg的时长是错的：</p>
-<pre class="shell"><code>sox xxx.ogg xxx.mp3</code></pre>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sox xxx.ogg xxx.mp3</span><br></pre></td></tr></tbody></table></figure>
 <p>参考文献：</p>
 <p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/60837/record-a-programs-output-with-pulseaudio" class="uri">https://askubuntu.com/questions/60837/record-a-programs-output-with-pulseaudio</a></p>
 <p><a target="_blank" rel="noopener" href="https://tech.wmzhe.com/article/14979.html">audacity剪切音乐教程</a></p>

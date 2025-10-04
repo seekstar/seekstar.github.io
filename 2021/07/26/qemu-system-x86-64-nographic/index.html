@@ -7419,9 +7419,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
+									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
                      
-										    编译安装linux内核时Possible missing firmware
+										    编译安装linux内核
                      
 									</a>
 								</li>
@@ -7430,9 +7430,9 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2020/12/28/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8/">
+									<a href="/2021/07/18/%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85linux%E5%86%85%E6%A0%B8%E6%97%B6possible-missing-firmware/">
                      
-										    编译安装linux内核
+										    编译安装linux内核时Possible missing firmware
                      
 									</a>
 								</li>
@@ -8140,18 +8140,15 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>即使把图形界面删掉了，仍然是默认输出到显示器上的，这样nographic选项就没啥用。为了使其产生作用，在虚拟机中将<code>/etc/default/grub</code>里的</p>
-<pre><code>GRUB_CMDLINE_LINUX=""</code></pre>
-<p>改成</p>
-<pre><code>GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"</code></pre>
-<p>然后</p>
-<pre class="shell"><code># debian系
-sudo update-grub
-# Centos 8
-sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
-<p>这样输出就会被重定向到终端了。然后</p>
-<pre class="shell"><code>sudo qemu-system-x86_64 -m 4096 -enable-kvm deepin.img -nographic</code></pre>
-<p>就起作用了。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>即使把图形界面删掉了，仍然是默认输出到显示器上的，这样nographic选项就没啥用。为了使其产生作用，在虚拟机中将<code>/etc/default/grub</code>里的<br>
+</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX=""</span><br></pre></td></tr></tbody></table></figure><br>
+改成<br>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"</span><br></pre></td></tr></tbody></table></figure><br>
+然后<br>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">debian系</span></span><br><span class="line">sudo update-grub</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Centos 8</span></span><br><span class="line">sudo grub2-mkconfig -o /boot/grub2/grub.cfg</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>这样输出就会被重定向到终端了。然后<br>
+</p><figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo qemu-system-x86_64 -m 4096 -enable-kvm deepin.img -nographic</span><br></pre></td></tr></tbody></table></figure><br>
+就起作用了。<p></p>
 <p>参考文献：<br>
 <a target="_blank" rel="noopener" href="https://serverfault.com/questions/471719/how-to-start-qemu-directly-in-the-console-not-in-curses-or-sdl" class="uri">https://serverfault.com/questions/471719/how-to-start-qemu-directly-in-the-console-not-in-curses-or-sdl</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
