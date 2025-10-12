@@ -8162,7 +8162,7 @@ mjx-container[display="true"] + br {
 <li>并非所见即所得，有时在编辑器里写好的markdown文档放到博客上就有点不太一样了。</li>
 </ul>
 <h2 id="新建代码仓库"><a href="#新建代码仓库">¶</a> 新建代码仓库</h2>
-<p>最好建立两个代码仓库，一个存放网站，一个存放生成网站的博客源码。存放网站的代码仓库可以自动同时push到gitee和github上。博客源码的代码仓库只能手动push，所以最好只放到一个代码托管平台上（非得写脚本一起push当我没说）。由于gitee国内访问比较稳定，所以我选择把博客源码放到gitee上。</p>
+<p>最好建立两个代码仓库，一个存放网站，一个存放生成网站的博客源码。存放网站的代码仓库可以自动同时push到gitee和github上。博客源码的代码仓库只能手动push，所以最好只放到一个代码托管平台上。</p>
 <h3 id="gitee"><a href="#gitee">¶</a> gitee</h3>
 <p>新建一个名字同自己的用户名的仓库用来存放网站。新建一个任意名字（我的叫blog）的代码仓库用来放博客源码。</p>
 <h3 id="github"><a href="#github">¶</a> github</h3>
@@ -8173,7 +8173,7 @@ mjx-container[display="true"] + br {
 <h2 id="初始化博客"><a href="#初始化博客">¶</a> 初始化博客</h2>
 <p>在本地新建一个<code>blog</code>空文件夹（不要clone），然后执行</p>
 <pre class="shell"><code>hexo init</code></pre>
-<p>就初始化了目录结构。然后才能<code>git init</code>，把gitee上的remote加上去。</p>
+<p>就初始化了目录结构。然后才能<code>git init</code>，把remote加上去。</p>
 <h2 id="预览"><a href="#预览">¶</a> 预览</h2>
 <pre class="shell"><code>hexo s -g</code></pre>
 <p>就会编译并且在本地<code>4000</code>端口开一个网站</p>
@@ -8295,8 +8295,16 @@ Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适
 npm uninstall hexo-renderer-marked
 npm install hexo-renderer-pandoc --save</code></pre>
 <p>更换渲染器之后要在<code>_config.yml</code>中把默认的highlight关掉，才能使用新的渲染器提供的highlight：</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://hexo.io/docs/syntax-highlight#Disabled</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本是v7.0.0以上（含）</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">syntax_highlighter</span><span class="kw">:</span><span class="co"> # empty</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本不到v7.0.0</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prismjs</span><span class="kw">:</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
 <p>然后就可以开启对Latex风格的公式的支持了：<a href="/2021/11/16/hexo%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BC%96%E8%BE%91/" title="Hexo支持Latex风格的公式编辑">Hexo支持Latex风格的公式编辑</a></p>
 <h2 id="写博客"><a href="#写博客">¶</a> 写博客</h2>
@@ -8311,13 +8319,33 @@ npm install hexo-renderer-pandoc --save</code></pre>
 <pre class="shell"><code>sudo apt install -y pandoc
 npm install hexo-cli -g
 pip3 install panflute</code></pre>
-<p>然后把gitee上的博客源码仓库clone下来，再把网站的仓库clone到源码仓库的<code>.deploy_git</code>下。然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。比如我的：</p>
+<p>然后把博客源码仓库clone下来，再把网站的仓库clone到源码仓库的<code>.deploy_git</code>下。然后<code>npm install</code>，然后就可以正常<code>hexo g &amp;&amp; hexo s</code>预览和<code>hexo d -g</code>部署了。比如我的：</p>
 <pre class="shell"><code># 源码
-git clone --recursive git@gitee.com:searchstar/blog.git
+git clone --recursive git@github.com:seekstar/blog.git
 cd blog
 # 网站
 git clone git@github.com:seekstar/seekstar.github.io.git .deploy_git
 npm install</code></pre>
+<p>如果博客的front
+matter里没有<code>updated</code>的话，hexo会自动把updated设置成<code>.md</code>文件的mtime。然而clone一个repo之后文件的mtime都会变成当前时间，这会导致依赖<code>updated</code>不对。而sitemap的<code>lastmod</code>又依赖<code>updated</code>，所以会导致sitemap不对。所以clone之后最好把文件的mtime改成git里最新的author
+time：</p>
+<pre class="shell"><code># cd /path/to/your/git/repo
+
+# Iterate over all files tracked by Git
+# -z: 使用\0分隔
+# read
+#	IFS=: 禁止去掉首尾空格
+#	-r: 禁用转义
+#	-d '': 用\0分隔
+git ls-tree -z -r --name-only HEAD | while IFS= read -r -d '' filename; do
+	# %aI provides the author date in ISO 8601 format, suitable for 'touch -d'
+	author_date=$(git log -1 --format="%aI" -- "$filename")
+
+	# If an author date is found, set the file's modification time
+	if [ -n "$author_date" ]; then
+		touch -d "$author_date" "$filename"
+	fi
+done</code></pre>
 <h2 id="上传图片"><a href="#上传图片">¶</a> 上传图片</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="uri">https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</a></p>
 <h2 id="让文章的url中不含目录"><a href="#让文章的url中不含目录">¶</a>
@@ -8345,14 +8373,15 @@ npm i</code></pre>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a>
 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">extra</span><span class="kw">:</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">preserve-tabs</span><span class="kw">:</span><span class="co">  # note this colon!!</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="st">'--preserve-tabs'</span><span class="kw">,</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">]</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
 <p>如果发现即使清了cache
 tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>

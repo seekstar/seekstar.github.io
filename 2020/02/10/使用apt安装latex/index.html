@@ -8162,14 +8162,14 @@ make -j$(nproc)</code></pre>
 <p>测试环境：deepin 15.11</p>
 <p>由于xetex对中文的支持较好，为了节约磁盘空间和安装时间，就只安装xetex。</p>
 <p>在终端中执行以下命令</p>
-<pre class="shell"><code>sudo apt-get install -y texstudio perl-tk 
-sudo apt-get install -y texlive-xetex
-#Install chinese font package
+<pre class="shell"><code>sudo apt-get install -y texlive-xetex
+# Install chinese font package
 sudo apt-get install -y latex-cjk-all
-#Install fonts such as consolas
+# Install fonts such as consolas
 sudo apt-get install -y texlive-fonts-extra
-#也许可以不要？
-sudo apt-get install -y texlive-lang-english texlive-lang-chinese</code></pre>
+# 也许可以不要？
+sudo apt-get install -y texlive-lang-english texlive-lang-chinese
+sudo apt-get install -y texstudio perl-tk</code></pre>
 <p>安装时间较长。安装完后就可以使用vim或vscode或texstudio编写latex了。</p>
 <p>样例（第一行用于指定编译器）：</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">% !TEX program = xelatex</span></span>

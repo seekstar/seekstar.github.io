@@ -8145,10 +8145,17 @@ mjx-container[display="true"] + br {
 使用方法：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand</span>{<span class="ex">name</span>}[num][default]{definition}</span></code></pre></div>
 <p>例子：</p>
-<p>```tex<br>
-\newcommand{}[2][Wikimedia]{<br>
-This is the Wikibook about LaTeX<br>
-supported by</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand</span>{<span class="ex">\wbalTwo</span>}[2][Wikimedia]{</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  This is the Wikibook about LaTeX</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  supported by {#1} and {#2}!}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">% in the document body:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">itemize</span>}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\item</span> <span class="fu">\wbalTwo</span>{John Doe}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">\item</span> <span class="fu">\wbalTwo</span>[lots of users]{John Doe}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">itemize</span>}</span></code></pre></div>
+<p>输出：</p>
+<pre><code>    This is the Wikibook about LaTeX supported by Wikimedia and John Doe!
+    This is the Wikibook about LaTeX supported by lots of users and John Doe!</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

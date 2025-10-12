@@ -8144,62 +8144,103 @@ mjx-container[display="true"] + br {
 <li><a href="/2022/10/08/%E5%85%8D%E5%90%AF%E5%8A%A8%E7%9B%98%E5%AE%89%E8%A3%85archlinux/" title="免启动盘安装ArchLinux">免启动盘安装ArchLinux</a></li>
 <li><a href="/2022/05/08/archlinux-tlp/" title="ArchLinux TLP">ArchLinux TLP</a></li>
 </ul>
-<h2 id="安装nvidia驱动">安装NVIDIA驱动</h2>
+<h2 id="安装nvidia驱动"><a href="#安装nvidia驱动">¶</a>
+安装NVIDIA驱动</h2>
 <p>官方完整教程：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/NVIDIA" class="uri">https://wiki.archlinux.org/title/NVIDIA</a></p>
 <p>只要卡不是太老，一般情况下，如果用的是stable内核(<code>linux</code>)，就安装<code>nvidia</code>，如果用的是LTS内核(<code>linux-lts</code>)，就安装<code>nvidia-lts</code>。包里自带了把<code>nouveau</code>屏蔽掉的配置文件，因此重启即可。<code>Turing (NV160/TUXXX)</code>之后的卡也可以装<code>nvidia-open</code>或<code>nvidia-open-lts</code>。</p>
 <p>然后执行<code>nvidia-smi</code>，有这种输出就说明安装成功了：</p>
-<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">Sat Dec 10 11:54:20 2022</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |</span><br><span class="line">| N/A   74C    P0    50W /  N/A |     67MiB /  4096MiB |     94%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                  |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |</span><br><span class="line">|        ID   ID                                                   Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|    0   N/A  N/A       950      G   /usr/lib/Xorg                       4MiB |</span><br><span class="line">|    0   N/A  N/A     18194      C   ...psieveCUDA_0.2.3b_linux64       58MiB |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></tbody></table></figure>
+<pre class="text"><code>Sat Dec 10 11:54:20 2022
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
+| N/A   74C    P0    50W /  N/A |     67MiB /  4096MiB |     94%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A       950      G   /usr/lib/Xorg                       4MiB |
+|    0   N/A  N/A     18194      C   ...psieveCUDA_0.2.3b_linux64       58MiB |
++-----------------------------------------------------------------------------+</code></pre>
 <p>有些应用依赖<code>opencl</code>，一款编程框架，类似于CUDA，因此也建议安装<code>opencl-nvidia</code>，这样使用opencl的程序就可以调用NVIDIA
 GPU的算力了。</p>
-<h2 id="aur">aur</h2>
+<h2 id="aur"><a href="#aur">¶</a> aur</h2>
 <p>孤立包其实就是orphan，也就是没有Maintainer。</p>
 <p>尽量不要安装aur上的软件包，因为包的维护者往往不是官方，而且安装脚本有root权限，不安全。</p>
-<h2 id="常用软件的安装">常用软件的安装</h2>
-<h3 id="seafile">Seafile</h3>
+<h2 id="常用软件的安装"><a href="#常用软件的安装">¶</a>
+常用软件的安装</h2>
+<h3 id="seafile"><a href="#seafile">¶</a> Seafile</h3>
 <p>可以使用linglong安装：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed linyaps</span><br><span class="line">sudo ll-cli install com.seafile-gui.linyaps</span><br></pre></td></tr></tbody></table></figure>
+<pre class="shell"><code>sudo pacman -S --needed linyaps
+sudo ll-cli install com.seafile-gui.linyaps</code></pre>
 <p>注销再重新登录就可以在启动器里看到了seafile了。</p>
-<h3 id="微信">微信</h3>
-<h4 id="flatpak">flatpak</h4>
+<h3 id="微信"><a href="#微信">¶</a> 微信</h3>
+<h4 id="flatpak"><a href="#flatpak">¶</a> flatpak</h4>
 <p>原生微信。</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">flatpak install com.tencent.WeChat</span><br><span class="line">flatpak run com.tencent.WeChat</span><br></pre></td></tr></tbody></table></figure>
+<pre class="shell"><code>flatpak install com.tencent.WeChat
+flatpak run com.tencent.WeChat</code></pre>
 <p>也可以从系统的启动器里启动。</p>
 <a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a>
-<h4 id="deepin-wine-wechat">deepin-wine-wechat</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">yay -S deepin-wine-wechat</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="deepin-wine-wechat"><a href="#deepin-wine-wechat">¶</a>
+deepin-wine-wechat</h4>
+<pre class="shell"><code>yay -S deepin-wine-wechat</code></pre>
 <p>我尝试的版本：3.9.0.28-3</p>
 <p>如果是KDE的话，大概会报这个错：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">/opt/apps/com.qq.weixin.deepin/files/run.sh</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line">==&gt; Creating /home/searchstar/.deepinwine/Deepin-WeChat/PACKAGE_VERSION ...</span><br><span class="line">  X Error of failed request:  BadWindow (invalid Window parameter)</span><br><span class="line">  Major opcode of failed request:  20 (X_GetProperty)</span><br><span class="line">  Resource id in failed request:  0x0</span><br><span class="line">  Serial number of failed request:  10</span><br><span class="line">  Current serial number in output stream:  10</span><br></pre></td></tr></tbody></table></figure>
+<pre class="shell"><code>/opt/apps/com.qq.weixin.deepin/files/run.sh</code></pre>
+<pre class="text"><code>==&gt; Creating /home/searchstar/.deepinwine/Deepin-WeChat/PACKAGE_VERSION ...
+  X Error of failed request:  BadWindow (invalid Window parameter)
+  Major opcode of failed request:  20 (X_GetProperty)
+  Resource id in failed request:  0x0
+  Serial number of failed request:  10
+  Current serial number in output stream:  10</code></pre>
 <p>相关issue: <a target="_blank" rel="noopener" href="https://github.com/vufa/deepin-wine-wechat-arch/issues/293">Xorg显示服务器无法运行微信
 #293</a></p>
 <p>解决方案参考<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Deepin-wine" class="uri">https://wiki.archlinux.org/title/Deepin-wine</a>的3.1部分：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S xsettingsd</span><br><span class="line">cat &gt; $HOME/.config/autostart/xsettingsd.desktop &lt;&lt;EOF</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Name=xsettingsd</span><br><span class="line">Exec=/usr/bin/xsettingsd</span><br><span class="line">Type=Application</span><br><span class="line">EOF</span><br></pre></td></tr></tbody></table></figure>
+<pre class="shell"><code>sudo pacman -S xsettingsd
+cat &gt; $HOME/.config/autostart/xsettingsd.desktop &lt;&lt;EOF
+[Desktop Entry]
+Name=xsettingsd
+Exec=/usr/bin/xsettingsd
+Type=Application
+EOF</code></pre>
 <p>注销再重新登录就好了。</p>
 <p>第一次启动可能会报一个serious bug的错，不用管，再启动一次就好了。</p>
-<h3 id="qq">QQ</h3>
+<h3 id="qq"><a href="#qq">¶</a> QQ</h3>
 <p>flatpak的版本经常会显示一片空白，可能GPU的兼容性有问题。可以用linglong安装：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">sudo pacman -S --needed linyaps</span><br><span class="line">sudo ll-cli install linux.qq.com</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="wps">WPS</h3>
+<pre class="shell"><code>sudo pacman -S --needed linyaps
+sudo ll-cli install linux.qq.com</code></pre>
+<h3 id="wps"><a href="#wps">¶</a> WPS</h3>
 <p>flatpak里只有英文版，建议用nix安装中文版：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">nix-env -iA nixpkgs.wpsoffice-cn</span><br></pre></td></tr></tbody></table></figure>
+<pre class="shell"><code>nix-env -iA nixpkgs.wpsoffice-cn</code></pre>
 <p>教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
-<h2 id="修复系统目录和文件的权限">修复系统目录和文件的权限</h2>
+<h2 id="修复系统目录和文件的权限"><a href="#修复系统目录和文件的权限">¶</a> 修复系统目录和文件的权限</h2>
 <p>根目录权限有时会变成777。可能是AUR里的<code>wps-office-cn</code>导致的：<a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049" class="uri">https://aur.archlinux.org/packages/wps-office-cn?O=40#comment-836049</a>。可以用flatpak安装国际版的WPS。教程：<a href="/2021/12/30/flatpak%E6%95%99%E7%A8%8B/" title="flatpak教程">flatpak教程</a></p>
 <p>权限修复教程：<a href="/2022/07/11/archlinux%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90/" title="ArchLinux修复系统目录和文件的权限">ArchLinux修复系统目录和文件的权限</a></p>
-<h2 id="wayland">Wayland</h2>
+<h2 id="wayland"><a href="#wayland">¶</a> Wayland</h2>
 <p>ArchLinux在某次升级之后就默认wayland了。需要更改<code>/etc/environment</code>来确保输入法可以正常使用：</p>
-<figure class="highlight text"><table><tbody><tr><td class="code"><pre><span class="line"># For XWayland applications such as WeChat</span><br><span class="line">XMODIFIERS=@im=fcitx</span><br><span class="line"># For Electron applications such as vscode</span><br><span class="line">ELECTRON_OZONE_PLATFORM_HINT=auto</span><br></pre></td></tr></tbody></table></figure>
+<pre class="text"><code># For XWayland applications such as WeChat
+XMODIFIERS=@im=fcitx
+# For Electron applications such as vscode
+ELECTRON_OZONE_PLATFORM_HINT=auto</code></pre>
 <p>然后重启或者注销重新登录。</p>
 <p>不要设置这几个环境变量，它们与wayland不兼容：GTK_IM_MODULE，QT_IM_MODULE，SDL_IM_MODULE。</p>
 <p>如果设置了<code>GTK_IM_MODULE</code>或者<code>QT_IM_MODULE</code>，会出现这个问题：<a target="_blank" rel="noopener" href="https://fcitx-im.org/wiki/FAQ#Candidate_window_is_blinking_under_wayland_with_Fcitx_5" class="uri">https://fcitx-im.org/wiki/FAQ#Candidate_window_is_blinking_under_wayland_with_Fcitx_5</a></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland" class="uri">https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland</a></p>
-<h3 id="failed-to-connect-to-wayland-display">Failed to connect to
+<h3 id="failed-to-connect-to-wayland-display"><a href="#failed-to-connect-to-wayland-display">¶</a> Failed to connect to
 Wayland display</h3>
 <p>由于我们全局设置了<code>ELECTRON_OZONE_PLATFORM_HINT=auto</code>，因此flatpak里支持wayland的软件会使用wayland模式启动。但是flatpak默认又不允许软件访问wayland
 socket，因此如果一个图形界面的包没有在manifest里声明访问wayland
 socket的权限，就会在<code>flatpak run</code>的时候会报错：<code>Failed to connect to Wayland display: No such file or directory</code>。解决方法是在flatseal里手动打开这个包的<code>socket=wayland</code>选项。</p>
-<h3 id="暂时无法解决的问题">暂时无法解决的问题</h3>
+<h3 id="暂时无法解决的问题"><a href="#暂时无法解决的问题">¶</a>
+暂时无法解决的问题</h3>
 <p>如果有需要的话可以在登录界面的左上角选择X11 session。</p>
 <ul>
 <li>keepass桌面客户端不能执行auto-type，因为wayland没有提供向另一个窗口发送keypress的API：<a target="_blank" rel="noopener" href="https://keepass.info/help/kb/autotype_wayland.html" class="uri">https://keepass.info/help/kb/autotype_wayland.html</a></li>
@@ -8208,7 +8249,7 @@ socket的权限，就会在<code>flatpak run</code>的时候会报错：<code>Fa
 Auto-Type on Wayland</a></p>
 <p>相关PR: <a target="_blank" rel="noopener" href="https://github.com/keepassxreboot/keepassxc/pull/10905">Wayland
 autotype implementation (using xdg-desktop-portal)</a></p>
-<h3 id="已解决的问题">已解决的问题</h3>
+<h3 id="已解决的问题"><a href="#已解决的问题">¶</a> 已解决的问题</h3>
 <ul>
 <li>腾讯会议无法共享屏幕。</li>
 </ul>

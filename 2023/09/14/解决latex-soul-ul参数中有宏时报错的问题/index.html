@@ -8153,8 +8153,35 @@ mjx-container[display="true"] + br {
 <div class="sourceCode" id="cb3"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\soulregister\testc</span>7</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/139463/how-to-make-hl-highlighting-to-automatically-place-incompatible-commands-in/139500#139500" class="uri">https://tex.stackexchange.com/questions/139463/how-to-make-hl-highlighting-to-automatically-place-incompatible-commands-in/139500#139500</a></p>
 <p>可以做一个宏来自动化register:</p>
-<p>```tex<br>
-\newcommand{}[2]</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand</span>{<span class="ex">\defmacro</span>}[2]{<span class="co">%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\expandafter\def\csname</span>#1<span class="fu">\endcsname</span>##{#2}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\expandafter\soulregister\csname</span>#1<span class="fu">\endcsname</span>7</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\defmacro</span>{test}{<span class="fu">\emph</span>{Test}}</span></code></pre></div>
+<p><code>\expandafter\def</code>表示先展开<code>\def</code>后面的宏。第一个参数<code>#1</code>是<code>test</code>，所以<code>\csname#1\endcsname</code>展开之后会变成<code>\test</code>。<code>##</code>展开之后会变成<code>#</code>。第二个参数<code>#2</code>是<code>\emph{Test}</code>。所以第一句展开之后就变成了<code>\def\test#{\emph{Test}}</code>。</p>
+<p>同样，<code>\expandafter\soulregister</code>表示先展开<code>\soulregister</code>之后的宏，所以第二句展开之后就变成了<code>\soulregister\test7</code>。</p>
+<h2 id="提前expand"><a href="#提前expand">¶</a> 提前expand</h2>
+<p>这种方案需要定义一个新的宏。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\makeatletter</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\def\myul</span>#1{<span class="co">%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\protected@edef\tempa</span>{#1}<span class="co">%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\ul\tempa</span><span class="co">%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\makeatother</span></span></code></pre></div>
+<p>然后用这个新的宏就好了：</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\myul</span>{233 <span class="fu">\testc</span>{} 2333}</span></code></pre></div>
+<p>注意这里面<code>\protected@edef</code>不能换成<code>\edef</code>，不然碰上<code>\emph</code>就会炸。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/126244/256676" class="uri">https://tex.stackexchange.com/a/126244/256676</a></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/244694/writing-to-aux-you-cant-use-a-prefix-with-the-character" class="uri">https://tex.stackexchange.com/questions/244694/writing-to-aux-you-cant-use-a-prefix-with-the-character</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikibooks.org/wiki/TeX/edef" class="uri">https://en.wikibooks.org/wiki/TeX/edef</a></p>
+<h2 id="失败的方案"><a href="#失败的方案">¶</a> 失败的方案</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\def\myul</span>#1{</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\def\arga</span>{#1}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\ul\arga</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>这种方法遇到嵌套宏就不行了。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/496833/package-soul-underline-problem-with-macro-text" class="uri">https://tex.stackexchange.com/questions/496833/package-soul-underline-problem-with-macro-text</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
