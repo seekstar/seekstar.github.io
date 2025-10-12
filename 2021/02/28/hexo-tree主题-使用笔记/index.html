@@ -8326,31 +8326,26 @@ cd blog
 # 网站
 git clone git@github.com:seekstar/seekstar.github.io.git .deploy_git
 npm install</code></pre>
-<p>如果博客的front
-matter里没有<code>updated</code>的话，hexo会自动把updated设置成<code>.md</code>文件的mtime。然而clone一个repo之后文件的mtime都会变成当前时间，这会导致依赖<code>updated</code>不对。而sitemap的<code>lastmod</code>又依赖<code>updated</code>，所以会导致sitemap不对。所以clone之后最好把文件的mtime改成git里最新的author
-time：</p>
-<pre class="shell"><code># cd /path/to/your/git/repo
-
-# Iterate over all files tracked by Git
-# -z: 使用\0分隔
-# read
-#	IFS=: 禁止去掉首尾空格
-#	-r: 禁用转义
-#	-d '': 用\0分隔
-git ls-tree -z -r --name-only HEAD | while IFS= read -r -d '' filename; do
-	# %aI provides the author date in ISO 8601 format, suitable for 'touch -d'
-	author_date=$(git log -1 --format="%aI" -- "$filename")
-
-	# If an author date is found, set the file's modification time
-	if [ -n "$author_date" ]; then
-		touch -d "$author_date" "$filename"
-	fi
-done</code></pre>
 <h2 id="上传图片"><a href="#上传图片">¶</a> 上传图片</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="uri">https://seekstar.github.io/2021/11/16/hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</a></p>
 <h2 id="让文章的url中不含目录"><a href="#让文章的url中不含目录">¶</a>
 让文章的URL中不含目录</h2>
 <p><a href="https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/" class="uri">https://seekstar.github.io/2021/11/16/hexo-tree%E4%B8%BB%E9%A2%98%E8%AE%A9%E6%96%87%E7%AB%A0%E7%9A%84url%E4%B8%AD%E4%B8%8D%E5%90%AB%E7%9B%AE%E5%BD%95/</a></p>
+<h2 id="sitemap"><a href="#sitemap">¶</a> Sitemap</h2>
+<p>给网站添加sitemap有利于搜索引擎收录。这里主要介绍如何生成sitemap。</p>
+<pre class="shell"><code>npm install hexo-generator-sitemap --save</code></pre>
+<p>然后在<code>_config.xml</code>里：</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sitemap:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>path: sitemap.xml</span></code></pre></div>
+<p>然后<code>hexo d -g</code>，sitemap就会生成在<code>xxx.github.io/sitemap.xml</code>。然后在google
+search console里的indexing -&gt; Sitemaps -&gt; Add a new
+sitemap，会有<code>https://xxx.github.io/ Enter sitemap URL</code>，在<code>Enter sitemap URL</code>里填入<code>sitemap.xml</code>即可。</p>
+<p>可能会提示<code>couldn't fetch</code>。可能其实是pending，多等几天可能就好了。</p>
+<p>需要注意的是，<code>sitemap.xml</code>里的<code>lastmod</code>默认被置为<code>post.updated</code>，而如果front-matter里没有显式指定<code>updated</code>时间，<code>post.updated</code>默认又会被置为<code>.md</code>文件的修改时间。而在另一台机器上clone之后<code>.md</code>文件的修改时间通常会被设置为clone的时间，从而导致<code>sitemap.xml</code>里的<code>lastmod</code>全部变成clone的时间，而且条目的顺序也会乱掉。考虑到sitemap.xml一般是用git管理的，这会导致git
+history里有很多无用的更改。</p>
+<p>可以用<code>hexo-filter-updated-from-git</code>解决这个问题：<a target="_blank" rel="noopener" href="https://github.com/seekstar/hexo-filter-updated-from-git" class="uri">https://github.com/seekstar/hexo-filter-updated-from-git</a></p>
+<p>原理是在front-matter里没有显式指定<code>updated</code>时间时，让hexo不设置<code>post.updated</code>。然后弄一个<code>before_post_render</code>的filter，在发现<code>post.updated</code>未定义的时候将其设为对应的<code>.md</code>文件的最后一个commit的author
+time。</p>
 <h2 id="升级"><a href="#升级">¶</a> 升级</h2>
 <h3 id="升级某个包的版本"><a href="#升级某个包的版本">¶</a>
 升级某个包的版本</h3>
@@ -8373,15 +8368,15 @@ npm i</code></pre>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a>
 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="st">'--preserve-tabs'</span><span class="kw">,</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="st">'--preserve-tabs'</span><span class="kw">,</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">]</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span>: <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
 <p>如果发现即使清了cache
 tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>
