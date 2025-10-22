@@ -7078,6 +7078,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2025/10/21/%E7%BC%96%E8%AF%91folly/">
+                     
+										    编译folly
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2024/03/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-lsm-bush/">
                      
 										    论文阅读笔记-LSM-bush
@@ -8124,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2022-10-05 16:10:45</span>
   
-    <span>Updated: 2025-05-10 11:55:17</span>
+    <span>Updated: 2025-10-15 14:33:49</span>
   
 
   <div id="article-categories">
@@ -8236,7 +8247,8 @@ git stash show stash@{0} -p &gt; xxx.patch</code></pre>
 <pre class="shell"><code>git cherry-pick 开始^..结束</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1994463/how-to-cherry-pick-a-range-of-commits-and-merge-them-into-another-branch" class="uri">https://stackoverflow.com/questions/1994463/how-to-cherry-pick-a-range-of-commits-and-merge-them-into-another-branch</a></p>
 <h2 id="变基"><a href="#变基">¶</a> 变基</h2>
-<pre class="shell"><code>git rebase --onto &lt;newbase&gt; &lt;oldbase&gt;</code></pre>
+<pre class="shell"><code># 如果不填oldbase，就默认从分岔点开始rebase
+git rebase --onto &lt;newbase&gt; [oldbase]</code></pre>
 <p>相当于先保存当前的HEAD为<code>oldhead</code>，然后<code>reset --hard</code>到<code>newbase</code>，然后将从<code>oldbase</code>开始（不含）到<code>oldhead</code>（含）的所有commit给逐个cherry-pick过来。</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase" class="uri">https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase</a></p>
 <h2 id="submodule"><a href="#submodule">¶</a> submodule</h2>
