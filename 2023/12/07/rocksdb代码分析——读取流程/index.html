@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-12-07 21:38:51</span>
   
-    <span>Updated: 2023-12-08 18:34:42</span>
+    <span>Updated: 2025-10-25 22:59:21</span>
   
 
   <div id="article-categories">
@@ -8154,8 +8154,9 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>分析均基于<code>v6.27.3</code>。以下流程为了方便理解均经过了简化。</p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>以下流程为了方便理解均经过了简化。</p>
 <p>首先，我们通过调用<code>DB::Open</code>来创建数据库，它返回了一个<code>DB*</code>。<code>DB::Open</code>内部调用了<code>DBImpl::Open</code>，在里面构造了一个<code>DBImpl*</code>并转换成<code>DB*</code>返回。所以我们拿到的<code>DB*</code>其实是<code>DBImpl*</code>。</p>
+<h2 id="get"><a href="#get">¶</a> Get</h2>
 <p>然后我们调用<code>DB::Get</code>来读取数据。<code>DB::Get</code>是个virtual函数，它被<code>DBImpl::Get</code>给override了。</p>
 <p><code>DBImpl::Get</code>里调用了<code>DBImpl::GetImpl</code>。</p>
 <p><code>DBImpl::GetImpl</code>中，先调用<code>DBImpl::GetAndRefSuperVersion</code>拿到thread
@@ -8179,6 +8180,56 @@ next在里面查找key。</p>
 <p><code>BlockFetcher::ReadBlockContents</code>中，先尝试从persistent
 cache和prefetch
 buffer中读取。如果不成功的话，就调用<code>RandomAccessFileReader::Read</code>从文件中读取。</p>
+<h2 id="newiterator"><a href="#newiterator">¶</a> NewIterator</h2>
+<p>这里假设table是默认的BlockBasedTable。</p>
+<p><code>DB::NewIterator</code>实际是<code>DBImpl::NewIterator</code>。在其中调用<code>DBImpl::NewIteratorImpl</code>。</p>
+<p><code>DBImpl::NewIteratorImpl</code>中，先调用<code>NewArenaWrappedDbIterator</code>构造一个<code>ArenaWrappedDBIter* db_iter</code>，然后调用<code>DBImpl::NewInternalIterator</code>，在<code>db_iter</code>管理的Arena里构造<code>MergingIterator *internal_iter</code>。</p>
+<p><code>DBImpl::NewInternalIterator</code>中：</p>
+<blockquote>
+<p><code>super_version-&gt;mem-&gt;NewIterator</code>, 构建memory
+table的iterator<br>
+<code>super_version-&gt;imm-&gt;AddIterators</code>, 构建immutable
+memory table的iterator。<br>
+调用<code>Version::AddIterators</code>，对每层都调用<code>Version::AddIteratorsForLevel</code><br>
+&gt;L0的每个SSTable都调用<code>TableCache::NewIterator</code>。在里面调用<code>TableReader::NewIterator</code>。<code>TableReader</code>默认是<code>BlockBasedTable</code>，所以默认调用的是<code>BlockBasedTable::NewIterator</code>，创建一个<code>BlockBasedTableIterator</code>。<br>
+&gt;其他层每层构造一个LevelIterator<br>
+把memory table的，immutable memory
+table的，L0的每个SSTable的<code>BlockBasedTableIterator</code>，以及其他层的<code>LevelIterator</code>都合并成一个<code>MergingIterator</code>返回。</p>
+</blockquote>
+<h2 id="seek"><a href="#seek">¶</a> Seek</h2>
+<p>根据上文所述，<code>DB::NewIterator</code>返回的实际上是<code>ArenaWrappedDBIter</code>，所以<code>Iterator::Seek</code>调用的是<code>ArenaWrappedDBIter::Seek</code>。其中调用<code>DBIter::Seek</code>。其中调用<code>MergingIterator::Seek</code>。</p>
+<p><code>MergingIterator::Seek</code>中，对每个子iterator调用<code>Seek</code>，比如memory
+table的iterator，L0中每个SSTable的<code>BlockBasedTableIterator</code>，以及其他层的<code>LevelIterator</code>。然后构建子iterator的小根堆，按照子iterator
+<code>Seek</code>之后的key排序。<code>MergingIterator</code>的key和value就是key最小的子iterator的key和value。</p>
+<p><code>BlockBasedTableIterator::Seek</code>调用<code>BlockBasedTableIterator::SeekImpl</code>。</p>
+<p><code>BlockBasedTableIterator::SeekImpl</code>中</p>
+<blockquote>
+<p>如果有prefix bloom
+filter，就调用<code>BlockBasedTableIterator::CheckPrefixMayMatch</code>检查filter。如果filter返回negative就调用<code>ResetDataIter</code>把状态变成invalid然后返回。如果filter返回positive，就正常继续执行seek操作。<br>
+通过block
+index找到数据属于哪个block。如果找不到，就调用<code>ResetDataIter</code>把状态变成invalid然后返回。找到了data
+block的话，调用<code>BlockBasedTableIterator::InitDataBlock</code>，在里面构建<code>block_iter_</code>，</p>
+</blockquote>
+<h2 id="next"><a href="#next">¶</a> Next</h2>
+<p><code>Iterator::Next</code>调用的是<code>ArenaWrappedDBIter::Next</code>。其中调用<code>DBIter::Next</code>。其中调用<code>MergingIterator::Next</code>。</p>
+<p><code>MergingIterator::Next</code>中，先给堆顶的子iterator调用<code>Next</code>。如果子iterator没有下一个了，就将其从堆里移出。否则调用<code>BinaryHeap::replace_top</code>来将这个原先在堆顶的子iterator往下挪，从而维护堆的性质。值得注意的是，LSM-tree通常越下面的sorted
+run越大，这就意味着当一个iterator在堆顶时，它倾向于保持在堆顶。可以证明，这种方式下，对于大于1的size
+ratio，每次<code>Next</code>里堆的维护成本均摊下来是常数。</p>
+<p>对于同一个user key，<code>MergingIterator</code>会先返回sequence
+number大的，所以调用了<code>MergingIterator::Next</code>之后，下一个key可能是同一个user
+key，但是sequence number更小，也就是同一个user
+key的旧版本。而<code>DBIter</code>只需要返回一个最新版本即可。所以<code>DBIter::Next</code>接下来会调用<code>DBIter::FindNextUserEntry</code>，跳过那些可能的旧版本。值得注意的是，如果连续跳过的旧版本个数超过了<code>max_sequential_skip_in_iterations</code>，<code>DBIter</code>就会直接seek下一个user
+key（通过把seek key设置成那个user key并把sequence number置0）。</p>
+<p><code>max_sequential_skip_in_iterations</code>的注释：</p>
+<pre class="text"><code>  // An iteration-&gt;Next() sequentially skips over keys with the same
+  // user-key unless this option is set. This number specifies the number
+  // of keys (with the same userkey) that will be sequentially
+  // skipped before a reseek is issued.
+  //
+  // Default: 8
+  //
+  // Dynamically changeable through SetOptions() API
+  uint64_t max_sequential_skip_in_iterations = 8;</code></pre>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-03-22 20:28:45</span>
   
-    <span>Updated: 2024-10-30 23:55:18</span>
+    <span>Updated: 2025-10-25 22:58:55</span>
   
 
   <div id="article-categories">
@@ -8171,12 +8171,33 @@ Debug: attach到某个进程</h2>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="debug-连接到gdbserver"><a href="#debug-连接到gdbserver">¶</a>
+Debug: 连接到gdbserver</h2>
+<p>安装插件：<code>WebFreak</code>的<code>Native Debug</code></p>
+<pre class="shell"><code>gdbserver :2345 /path/to/executable args...</code></pre>
+<p>在<code>.vscode/launch.json</code>里：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>	<span class="dt">"version"</span><span class="fu">:</span> <span class="st">"0.2.0"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>	<span class="dt">"configurations"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>		<span class="fu">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Attach to port"</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"type"</span><span class="fu">:</span> <span class="st">"gdb"</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"request"</span><span class="fu">:</span> <span class="st">"attach"</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"executable"</span><span class="fu">:</span> <span class="st">"/path/to/executable"</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"target"</span><span class="fu">:</span> <span class="st">":2345"</span><span class="fu">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"cwd"</span><span class="fu">:</span> <span class="st">"${workspaceRoot}"</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>			<span class="dt">"remote"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>			<span class="er">//</span> <span class="dt">"stopAtConnect"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>		<span class="fu">}</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>	<span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>然后按<code>F5</code>即可连接到gdbserver。</p>
 <h2 id="只对特定语言开启保存时自动格式化"><a href="#只对特定语言开启保存时自动格式化">¶</a>
 只对特定语言开启保存时自动格式化</h2>
 <p>例如只对js开启保存时自动格式化：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">javascript</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">javascript</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"editor.formatOnSave"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Language Identifiers: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/languages/identifiers" class="uri">https://code.visualstudio.com/docs/languages/identifiers</a></p>
 <p>补充：</p>
 <table>

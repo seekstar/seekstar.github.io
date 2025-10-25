@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2022-04-21 19:59:17</span>
   
-    <span>Updated: 2025-10-22 23:14:06</span>
+    <span>Updated: 2025-10-24 21:48:15</span>
   
 
   <div id="article-categories">
@@ -8191,7 +8191,8 @@ IO</h3>
 
 cd build
 # -DPORTABLE=ON: 因为folly编译的时候没有-march=native，所以rocksdb编译的时候也不要-march-native
-cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true -DFAIL_ON_WARNINGS=OFF -DUSE_COROUTINES=true -DROCKSDB_BUILD_SHARED=OFF -DPORTABLE=ON
+# -DWITH_LIBURING=OFF: 不知道为什么，如果WITH_LIBURING=ON，db_bench执行完成之后reader不知道为什么会卡住没法返回
+cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_RTTI=true -DFAIL_ON_WARNINGS=OFF -DUSE_COROUTINES=true -DROCKSDB_BUILD_SHARED=OFF -DPORTABLE=ON -DWITH_LIBURING=OFF
 make -j$(nproc)</code></pre>
 <p>然后就可以在<code>ReadOptions</code>里开<code>async_io</code>了。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

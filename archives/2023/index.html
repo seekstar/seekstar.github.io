@@ -8216,9 +8216,10 @@ sudo apt install linux-perf
 					RocksDB代码分析——读取流程
 				</h2>
 				<div class="index-brief">
-					分析均基于v6.27.3。以下流程为了方便理解均经过了简化。
+					以下流程为了方便理解均经过了简化。
 首先，我们通过调用DB::Open来创建数据库，它返回了一个DB*。DB::Open内部调用了DBImpl::Open，在里面构造了一个DBImpl*并转换成DB*返回。所以我们拿到的DB*其实是DBImpl*。
-然后我们调用DB::Ge
+¶ Get
+然后我们调用DB::Get来读取数据。
 					...
 				</div>
 			</a>

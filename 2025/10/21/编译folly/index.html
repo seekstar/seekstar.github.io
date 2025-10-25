@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2025-10-21 17:19:14</span>
   
-    <span>Updated: 2025-10-22 23:14:06</span>
+    <span>Updated: 2025-10-25 17:31:44</span>
   
 
   <div id="article-categories">
@@ -8154,7 +8154,8 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>在这里选择要安装的版本：<a target="_blank" rel="noopener" href="https://github.com/facebook/folly/releases" class="uri">https://github.com/facebook/folly/releases</a></p>
+	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>由于folly没有兼容性保证，所以系统一般是依赖某一个特定版本的folly。编译folly的时候应该checkout到目标系统依赖的folly版本。如果是你自己开发的系统，可以自由选择依赖的folly版本，可以在这里查看最新版本：<a target="_blank" rel="noopener" href="https://github.com/facebook/folly/releases" class="uri">https://github.com/facebook/folly/releases</a></p>
+<p>这里以<code>v2025.10.20.00</code>为例：</p>
 <pre class="shell"><code>git clone https://github.com/facebook/folly
 cd folly
 git checkout v2025.10.20.00</code></pre>
@@ -8183,24 +8184,40 @@ export CXX=g++-13</code></pre>
 13：</p>
 <pre class="shell"><code>ln -s /usr/bin/g++-13 ~/.venvs/folly/bin/g++
 ln -s /usr/bin/gcc-13 ~/.venvs/folly/bin/gcc</code></pre>
+<h2 id="liburing--210"><a href="#liburing--210">¶</a> liburing &gt;=
+2.10</h2>
+<p>根据 <a target="_blank" rel="noopener" href="https://github.com/microsoft/vcpkg/pull/44232" class="uri">https://github.com/microsoft/vcpkg/pull/44232</a>，从<code>v2025.02.24.00</code>开始，folly要求liburing
+&gt;= 2.10，不然会报这个错：</p>
+<pre class="text"><code>error: ‘io_uring_zcrx_cqe’ does not name a type</code></pre>
+<p>Debian 13的liburing是2.9，不满足要求。可以卸载liburing-dev：</p>
+<pre class="shell"><code>sudo apt remove liburing-dev</code></pre>
+<p>也可以手动编译安装新版本liburing。在这里选择要安装的版本：<a target="_blank" rel="noopener" href="https://github.com/axboe/liburing/releases" class="uri">https://github.com/axboe/liburing/releases</a></p>
+<pre class="shell"><code>version=2.12
+wget https://github.com/axboe/liburing/archive/refs/tags/liburing-$version.tar.gz
+tar xzf liburing-$version.tar.gz
+cd liburing-liburing-$version
+./configure --prefix=$workspace/deps
+make -j$(nproc) install</code></pre>
 <h2 id="numpy-10"><a href="#numpy-10">¶</a> numpy 1.0</h2>
 <p>不兼容<code>numpy 2.0</code>，会报错：</p>
 <pre class="text"><code>libs/python/src/numpy/dtype.cpp: In member function ‘int boost::python::numpy::dtype::get_itemsize() const’:
 libs/python/src/numpy/dtype.cpp:101:83: error: ‘PyArray_Descr’ has no member named ‘elsize’
   101 | int dtype::get_itemsize() const { return reinterpret_cast&lt;PyArray_Descr*&gt;(ptr())-&gt;elsize;}
       |                                                                                   ^~~~~~</code></pre>
-<p>需要安装<code>numpy 1.0</code></p>
+<p>可以把numpy卸载再编译。或者安装<code>numpy 1.0</code>：</p>
 <pre class="shell"><code># 可以在虚拟环境里安装
 pip3 install numpy~=1.0
 # 要编译一段时间</code></pre>
-<p>Update: 好像把numpy卸掉也行？</p>
+<p>numpy 1.x 在2025年9月就EOL了：<a target="_blank" rel="noopener" href="https://www.herodevs.com/blog-posts/numpy-version-1-x-end-of-life-what-you-need-to-know" class="uri">https://www.herodevs.com/blog-posts/numpy-version-1-x-end-of-life-what-you-need-to-know</a>。2023年8月11日发布的boost
+1.83依赖numpy 1.x无可厚非。但现在folly应该考虑处理这个问题了。</p>
 <h2 id="安装其他依赖"><a href="#安装其他依赖">¶</a> 安装其他依赖</h2>
 <pre class="shell"><code>sudo apt install -y libssl-dev</code></pre>
 <h2 id="编译"><a href="#编译">¶</a> 编译</h2>
 <p>默认会把编译过程中生成的文件放在<code>/tmp</code>下面，但是有些服务器<code>/tmp</code>是tmpfs，容量有限，编译生成的文件很容易占满<code>/tmp</code>。所以这里把编译过程中生成的文件放在<code>$workspace/build</code>。</p>
 <pre class="shell"><code># 根据自己的系统选择。Debian 12是python3.11。Debian 13是python3.13
 python=python3.13
-CPLUS_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/$python/:/usr/include/$python/:$CPLUS_INCLUDE_PATH python3 ./build/fbcode_builder/getdeps.py --scratch-path=$workspace/build --install-prefix=$workspace/deps build</code></pre>
+CPLUS_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/$python/:/usr/include/$python/:$CPLUS_INCLUDE_PATH python3 ./build/fbcode_builder/getdeps.py --scratch-path=$workspace/build --install-prefix=$workspace/deps build
+# 官方文档里加了--allow-system-packages，但是系统里安装的库不一定跟folly兼容，所以这里不加--allow-system-packages，让folly自己下载编译跟自己兼容的库。</code></pre>
 <p>然后就安装到了<code>$workspace/deps</code>。</p>
 <p>以后用之前把这个目录加到cmake搜索目录即可：</p>
 <pre class="shell"><code>export CMAKE_PREFIX_PATH=$workspace/deps:$CMAKE_PREFIX_PATH</code></pre>
