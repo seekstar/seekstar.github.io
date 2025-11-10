@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-02-23 20:35:40</span>
   
-    <span>Updated: 2024-11-28 16:54:25</span>
+    <span>Updated: 2025-11-06 00:42:30</span>
   
 
   <div id="article-categories">
@@ -8239,6 +8239,17 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main 
 <pre class="text"><code>deb https://mirrors.tuna.tsinghua.edu.cn/armbian bookworm main bookworm-utils bookworm-desktop</code></pre>
 <p>可能需要把<code>armbian-config.list</code>删掉，不然<code>apt update</code>可能会报未签名的错。反正里面的<code>armbian-config</code>大概用不上：</p>
 <pre class="shell"><code>sudo mv armbian-config.list /root/armbian-config.list-$(date +%s%N)</code></pre>
+<p>然后就可以更新了（可能会断网，最好在tmux里跑）：</p>
+<pre class="shell"><code>sudo apt update
+sudo apt dist-upgrade</code></pre>
+<h2 id="升级debian-12到debian-13"><a href="#升级debian-12到debian-13">¶</a> 升级Debian 12到Debian 13</h2>
+<p><code>/etc/apt/sources.list</code>:</p>
+<pre class="text"><code>deb http://mirrors.tuna.tsinghua.edu.cn/debian trixie main contrib non-free non-free-firmware
+deb http://mirrors.tuna.tsinghua.edu.cn/debian trixie-updates main contrib non-free non-free-firmware
+deb http://mirrors.tuna.tsinghua.edu.cn/debian trixie-backports main contrib non-free non-free-firmware
+deb https://mirrors.tuna.tsinghua.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware</code></pre>
+<p><code>/etc/apt/sources.list.d/armbian.list</code>:</p>
+<pre class="text"><code>deb https://mirrors.tuna.tsinghua.edu.cn/armbian trixie main trixie-utils trixie-desktop</code></pre>
 <p>然后就可以更新了（可能会断网，最好在tmux里跑）：</p>
 <pre class="shell"><code>sudo apt update
 sudo apt dist-upgrade</code></pre>
