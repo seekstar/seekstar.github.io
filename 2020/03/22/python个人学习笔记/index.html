@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-03-22 00:16:52</span>
   
-    <span>Updated: 2025-03-14 20:19:28</span>
+    <span>Updated: 2025-11-11 17:44:33</span>
   
 
   <div id="article-categories">
@@ -8379,25 +8379,26 @@ code。如果正常退出，exit code就是0。</p>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-s'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">int</span>)</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-k'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">float</span>, required<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'-R'</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">int</span>, required<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--print-a'</span>, action<span class="op">=</span><span class="st">'store_true'</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Long argument with optional value</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--export-policy'</span>, nargs<span class="op">=</span><span class="st">'?'</span>, default<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> parser.parse_args()</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># str or None</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> args.a</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># int or None</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> args.s</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co"># float</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> args.k</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># int</span></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> args.R</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co"># bool</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>print_a <span class="op">=</span> args.print_a</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># False if not in command line</span></span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="co"># None if --export-policy</span></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># str if --export-policy=str</span></span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>export_policy <span class="op">=</span> args.export_policy</span></code></pre></div>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--policy'</span>, choices<span class="op">=</span>[<span class="st">'leveling'</span>, <span class="st">'tiering'</span>], required<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--print-a'</span>, action<span class="op">=</span><span class="st">'store_true'</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Long argument with optional value</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>parser.add_argument(<span class="st">'--export-policy'</span>, nargs<span class="op">=</span><span class="st">'?'</span>, default<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> parser.parse_args()</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co"># str or None</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> args.a</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co"># int or None</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> args.s</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co"># float</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> args.k</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># int</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> args.R</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co"># bool</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>print_a <span class="op">=</span> args.print_a</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="co"># False if not in command line</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># None if --export-policy</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="co"># str if --export-policy=str</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>export_policy <span class="op">=</span> args.export_policy</span></code></pre></div>
 <h3 id="getopt"><a href="#getopt">¶</a> <code>getopt</code></h3>
 <p>用法跟C语言的<code>getopt</code>差不多。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.twle.cn/l/yufei/python30/python-30-command-line-arguments.html">Python

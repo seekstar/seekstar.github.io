@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-11-17 16:53:50</span>
   
-    <span>Updated: 2023-11-17 17:27:20</span>
+    <span>Updated: 2025-11-11 17:44:24</span>
   
 
   <div id="article-categories">
@@ -8174,8 +8174,14 @@ list创建一维数组</h3>
 <pre class="text"><code>array([1, 2, 3, 4, 5, 6])</code></pre>
 <p>来源：<a target="_blank" rel="noopener" href="https://thispointer.com/python-numpy-create-a-ndarray-from-list-tuple-or-list-of-lists-using-numpy-array/" class="uri">https://thispointer.com/python-numpy-create-a-ndarray-from-list-tuple-or-list-of-lists-using-numpy-array/</a></p>
 <h3 id="等差数列"><a href="#等差数列">¶</a> 等差数列</h3>
-<p>文档：<a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.linspace.html</a></p>
+<h4 id="numpylinspace"><a href="#numpylinspace">¶</a> <a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html">numpy.linspace</a></h4>
+<p>指定个数</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>numpy.linspace(start, stop, num<span class="op">=</span><span class="dv">50</span>, endpoint<span class="op">=</span><span class="va">True</span>, retstep<span class="op">=</span><span class="va">False</span>, dtype<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<h4 id="numpyarange"><a href="#numpyarange">¶</a> <a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html">numpy.arange</a></h4>
+<p>指定差</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>numpy.arange([start,] stop, [step,] <span class="op">*</span>)</span></code></pre></div>
+<p>start: default 0</p>
+<p>step: default 1</p>
 <h3 id="二分搜索"><a href="#二分搜索">¶</a> 二分搜索</h3>
 <p><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html</a></p>
 <p>left相当于lower_bound, right相当于upper_bound, 默认是left。</p>
@@ -8185,12 +8191,12 @@ list创建一维数组</h3>
 </ul>
 <h2 id="percentile"><a href="#percentile">¶</a> percentile</h2>
 <p><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#" class="uri">https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 10000个0到1的随机数</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.rand(<span class="dv">10000</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 求20%分位数，即小于此数的值的数量占总数的20%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>np.percentile(a, <span class="dv">20</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 求多个分位数</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>np.percentile(a, [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="fl">99.9</span>, <span class="fl">99.99</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 10000个0到1的随机数</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.rand(<span class="dv">10000</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 求20%分位数，即小于此数的值的数量占总数的20%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>np.percentile(a, <span class="dv">20</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 求多个分位数</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>np.percentile(a, [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="fl">99.9</span>, <span class="fl">99.99</span>])</span></code></pre></div>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
