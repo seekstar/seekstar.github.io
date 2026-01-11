@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-03-22 00:16:52</span>
   
-    <span>Updated: 2025-11-11 17:44:33</span>
+    <span>Updated: 2026-01-11 15:37:59</span>
   
 
   <div id="article-categories">
@@ -8336,20 +8336,26 @@ print 函数用法总结</a></p>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">10</span>)</span></code></pre></div>
 <h3 id="正则"><a href="#正则">¶</a> 正则</h3>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/re.html" class="uri">https://docs.python.org/3/library/re.html</a></p>
-<h3 id="执行命令"><a href="#执行命令">¶</a> 执行命令</h3>
-<h4 id="简单执行命令"><a href="#简单执行命令">¶</a> 简单执行命令</h4>
-<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'命令 参数...'</span>)</span></code></pre></div>
+<h3 id="subprocess"><a href="#subprocess">¶</a> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/subprocess.html">subprocess</a></h3>
+<p>一般用来运行可执行文件。</p>
+<h4 id="subprocessrun"><a href="#subprocessrun">¶</a> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/subprocess.html#subprocess.run">subprocess.run</a></h4>
+<p>阻塞式执行。</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果不需要拿到输出</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>subprocess.run([<span class="st">'/path/to/executable'</span>, arg1, arg2])</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果只需要拿到stdout</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>subprocess.run([<span class="st">'/path/to/executable'</span>, arg1, arg2], stdout<span class="op">=</span>subprocess.PIPE, text<span class="op">=</span><span class="va">True</span>).stdout</span></code></pre></div>
+<h4 id="subprocesspopen"><a href="#subprocesspopen">¶</a> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/subprocess.html#popen-constructor">subprocess.Popen</a></h4>
+<p>后台执行。可以kill。</p>
+<p>教程：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43322201/how-to-kill-process-which-created-by-python-os-system" class="uri">https://stackoverflow.com/questions/43322201/how-to-kill-process-which-created-by-python-os-system</a></p>
+<h3 id="执行shell命令"><a href="#执行shell命令">¶</a> 执行shell命令</h3>
+<h4 id="ossystem"><a href="#ossystem">¶</a> os.system</h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">'命令 参数...'</span>)</span></code></pre></div>
 <p>返回值是OS-dependant：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6466711/what-is-the-return-value-of-os-system-in-python" class="uri">https://stackoverflow.com/questions/6466711/what-is-the-return-value-of-os-system-in-python</a></p>
 <p>可以用<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/os.html#os.waitstatus_to_exitcode">os.waitstatus_to_exitcode</a>来将返回值变成exit
 code。如果正常退出，exit code就是0。</p>
-<h4 id="带参数命令"><a href="#带参数命令">¶</a> 带参数命令</h4>
-<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>subprocess.run([<span class="st">'./executable'</span>, arg1, arg2])</span></code></pre></div>
-<p>文档：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/subprocess.html#subprocess.run" class="uri">https://docs.python.org/3/library/subprocess.html#subprocess.run</a></p>
-<h4 id="可kill的命令"><a href="#可kill的命令">¶</a> 可kill的命令</h4>
-<p>用<code>subprocess.Popen</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43322201/how-to-kill-process-which-created-by-python-os-system" class="uri">https://stackoverflow.com/questions/43322201/how-to-kill-process-which-created-by-python-os-system</a></p>
-<p>文档：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/subprocess.html#popen-constructor" class="uri">https://docs.python.org/3/library/subprocess.html#popen-constructor</a></p>
-<h4 id="获取命令输出"><a href="#获取命令输出">¶</a> 获取命令输出</h4>
+<h4 id="ospopen"><a href="#ospopen">¶</a> os.popen</h4>
+<p>可以获取命令输出。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Z_Stand/article/details/89375589">python的popen函数</a></p>
 <h3 id="排序"><a href="#排序">¶</a> 排序</h3>
 <p>用<code>sorted</code>。</p>

@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2021-09-20 10:38:42</span>
   
-    <span>Updated: 2025-05-17 12:32:07</span>
+    <span>Updated: 2026-01-09 00:10:10</span>
   
 
   <div id="article-categories">
@@ -8158,7 +8158,8 @@ mjx-container[display="true"] + br {
 <p>由于系统库通常是采用高优化等级编译的，因此调用系统库函数时仍然会破坏栈帧。这时需要用<code>-fno-omit-frame-pointer</code>重新编译系统库。</p>
 <h2 id="glibc"><a href="#glibc">¶</a> <code>glibc</code></h2>
 <h3 id="安装依赖"><a href="#安装依赖">¶</a> 安装依赖</h3>
-<p>可以用nix安装，不需要root权限：</p>
+<pre class="shell"><code>sudo apt install bison</code></pre>
+<p>也可以用nix安装，不需要root权限：</p>
 <pre class="shell"><code>nix-env -iA nixpkgs.bison</code></pre>
 <p>Nix包管理器安装和使用教程：<a href="/2023/02/04/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nix%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" title="使用国内源安装和使用Nix包管理器">使用国内源安装和使用Nix包管理器</a></p>
 <h3 id="获取源码"><a href="#获取源码">¶</a> 获取源码</h3>
@@ -8168,13 +8169,35 @@ version的branch，比如<code>release/2.31/master</code>，以后的bug
 fix都commit到这个branch上，不再单独发布bug fix
 version。因此我们可以先clone glibc的repo，然后checkout到目标minor
 version的branch即可。</p>
-<p>debian
-12上glibc版本是<code>2.36-9+deb12u7</code>，所以应该获取<code>2.36</code>的源码。<br>
-debian
-11上glibc版本是<code>2.31-13+deb11u7</code>，应该获取<code>2.31</code>的源码。</p>
+<table>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>glibc版本</th>
+<th>推荐版本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Debian 13</td>
+<td>2.41-12</td>
+<td>2.41</td>
+</tr>
+<tr class="even">
+<td>Debian 12</td>
+<td>2.36-9+deb12u7</td>
+<td>2.36</td>
+</tr>
+<tr class="odd">
+<td>Debian 11</td>
+<td>2.31-13+deb11u7</td>
+<td>2.31</td>
+</tr>
+</tbody>
+</table>
 <pre class="shell"><code>git clone https://mirrors.tuna.tsinghua.edu.cn/git/glibc.git
 cd glibc
-git checkout release/2.36/master</code></pre>
+git checkout release/2.41/master</code></pre>
 <h3 id="编译"><a href="#编译">¶</a> 编译</h3>
 <pre class="shell"><code>mkdir -p build
 cd build
@@ -8194,12 +8217,33 @@ libpthread.so.0</code></pre>
 <h3 id="获取源码-1"><a href="#获取源码-1">¶</a> 获取源码</h3>
 <p>gcc的功能更新会更新major version，后面的minor version都是bug fix
 version，官方文档：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/develop.html" class="uri">https://gcc.gnu.org/develop.html</a></p>
-<p>debian 12
-上的gcc版本是<code>12.2.0-14</code>，这里应该编译安装它的最新bug
-fix版本<code>12.4.0</code>。<br>
-debian 11 上的gcc版本是<code>10.2.1</code>，这里应该编译安装它的最新bug
-fix版本<code>10.5.0</code>。</p>
-<pre class="shell"><code>version=12.4.0
+<table>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>GCC版本</th>
+<th>推荐版本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Debian 13</td>
+<td>14.2.0</td>
+<td>14.3.0</td>
+</tr>
+<tr class="even">
+<td>Debian 12</td>
+<td>12.2.0-14</td>
+<td>12.4.0</td>
+</tr>
+<tr class="odd">
+<td>Debian 11</td>
+<td>10.2.1</td>
+<td>10.5.0</td>
+</tr>
+</tbody>
+</table>
+<pre class="shell"><code>version=14.3.0
 wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-$version/gcc-$version.tar.gz
 tar xzf gcc-$version.tar.gz
 cd gcc-$version</code></pre>
@@ -8232,6 +8276,7 @@ export CXX=$INSTALL_ROOT/bin/g++
 export CFLAGS="-O2 -fno-omit-frame-pointer"
 export CXXFLAGS=$CFLAGS
 export LDFLAGS="-Wl,-rpath=$INSTALL_ROOT/lib -Wl,-rpath=$INSTALL_ROOT/lib64 -Wl,--dynamic-linker=$INSTALL_ROOT/lib/ld-linux-x86-64.so.2"
+export CMAKE_PREFIX_PATH="$HOME/no-omit-frame-pointer:$CMAKE_PREFIX_PATH"
 unset LD_LIBRARY_PATH</code></pre>
 <p><code>-Wl,-rpath</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/6562437/13688160" class="uri">https://stackoverflow.com/a/6562437/13688160</a></p>
 <p><code>-Wl,--dynamic-linker</code>: <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/25355236/13688160">Specifying the
@@ -8291,11 +8336,31 @@ make -j$(nproc)
 make install PREFIX=$INSTALL_ROOT
 cd ..</code></pre>
 <h3 id="liburing"><a href="#liburing">¶</a> <code>liburing</code></h3>
-<p>Debian
-12上的版本是<code>2.3-3</code>，所以应该安装<code>2.3</code>。</p>
-<pre class="shell"><code>wget https://git.kernel.dk/cgit/liburing/snapshot/liburing-2.3.tar.bz2
-tar xjf liburing-2.3.tar.bz2
-cd liburing-2.3/
+<table>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>版本</th>
+<th>推荐版本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Debian 13</td>
+<td>2.9-1</td>
+<td>2.9</td>
+</tr>
+<tr class="even">
+<td>Debian 12</td>
+<td>2.3-3</td>
+<td>2.3</td>
+</tr>
+</tbody>
+</table>
+<pre class="shell"><code>version=2.9
+wget https://github.com/axboe/liburing/archive/refs/tags/liburing-$version.tar.gz
+tar xzf liburing-2.9.tar.gz
+cd liburing-liburing-$version
 ./configure --prefix=$INSTALL_ROOT
 make -j$(nproc)
 make install
@@ -8309,7 +8374,7 @@ cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=$INSTALL_ROOT -DTBB_TEST=OFF
 make -j$(nproc)
 make install
-cd ..</code></pre>
+cd ../..</code></pre>
 <h3 id="libfmt"><a href="#libfmt">¶</a> <code>libfmt</code></h3>
 <p>Debian12上的版本是<code>9.1.0</code></p>
 <pre class="shell"><code>wget https://github.com/fmtlib/fmt/archive/refs/tags/9.1.0.tar.gz
@@ -8332,11 +8397,11 @@ find . -name "lib*.so*" -exec patchelf {} --set-rpath "$(pwd)/lib:$(pwd)/lib64" 
 <p>export上面说的编译选项后就可以照常编译了。</p>
 <h3 id="直接使用gcc"><a href="#直接使用gcc">¶</a> 直接使用gcc</h3>
 <p><code>hello.c</code>:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello world!</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CC hello.c -o hello $CFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>
@@ -8350,11 +8415,11 @@ Hello world!</code></pre>
 is linux-vdso.so.1 present on the file system</a></p>
 <h3 id="直接使用g"><a href="#直接使用g">¶</a> 直接使用g++</h3>
 <p><code>hello.cpp</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello world!"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello world!"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre class="shell"><code>$CXX hello.cpp -o hello $CXXFLAGS $LDFLAGS
 ldd hello
 ./hello</code></pre>

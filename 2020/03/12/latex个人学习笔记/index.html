@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-03-12 11:36:20</span>
   
-    <span>Updated: 2025-05-24 13:42:49</span>
+    <span>Updated: 2026-01-06 22:09:31</span>
   
 
   <div id="article-categories">
@@ -8856,8 +8856,229 @@ footnote\footref{note1}.</code></pre>
 <h3 id="tikz"><a href="#tikz">¶</a> tikz</h3>
 <p>基于<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/a/218842">Ch'en
 Meng的回答</a>，把<code>sep</code>改成了0.5pt，参数外面套了一层<code>\small</code>，从而变得更紧凑：</p>
-```tex<br>
-<p>\newcommand{}[2][]</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">\newcommand</span>{<span class="ex">\smallcircled</span>}[2][]{%
+  \tikz[baseline=(char.base)]{%
+    \node[shape = circle, draw, inner sep = 0.5pt]
+    (char) {\phantom{\ifblank{#1}{\small{#2}}{\small{#1}}}};%
+    \node at (char.center) {\makebox[0pt][c]{\small{#2}}};}}
+\robustify{\smallcircled}
+```
+
+因为reputation不够所以没有把这个贴上去。
+
+测试代码：
+
+```tex
+% 10是占位符，让所有圆圈大小一样。
+\smallcircled[10]{1}
+\smallcircled[10]{2}
+\smallcircled[10]{3}
+\smallcircled[10]{4}
+\smallcircled[10]{5}
+\smallcircled[10]{6}
+\smallcircled[10]{7}
+\smallcircled[10]{8}
+\smallcircled[10]{9}
+\smallcircled[10]{10}
+\smallcircled[10]{11}
+\smallcircled[10]{22}
+\smallcircled[10]{33}
+\smallcircled[10]{44}
+\smallcircled[10]{55}
+\smallcircled[10]{66}
+\smallcircled[10]{77}
+\smallcircled[10]{88}
+\smallcircled[10]{99}
+fg
+```
+
+效果：
+
+![](latex个人学习笔记/202401022316.png)
+
+### `\ding`
+
+```tex
+\usepackage{pifont}
+
+% 1到10空心圆圈
+\ding{172}--\ding{181}
+```
+
+缺点是只有1到10。
+
+## 一行放多个独立的Figure或Table
+
+用minipage:
+
+```tex
+\begin{figure*}[t!]
+\begin{minipage}[b]{.475\linewidth}
+	\centering
+	\includegraphics[width=\textwidth]{example-image}
+    \vspace{-0.3cm}
+	\caption{XXX}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{.475\linewidth}
+	\centering
+	\includegraphics[width=\textwidth]{example-image}
+    \vspace{-0.3cm}
+	\caption{XXX}
+\end{minipage}
+\end{figure*}
+```
+
+<https:>
+
+<https:>
+
+这个不管用：<https:>
+
+相关：
+
+<https:>
+
+<https:>
+
+## 指定fontsize
+
+`\fontsize{size}{skip}\selectfont This is <size>pt text`
+
+例子：
+
+```text
+\fontsize{12}{14}\selectfont This is 12pt text.
+```
+
+一般来说`skip`设置为大约`1.2 * size`: <https:>
+
+来源：
+
+<https:>
+
+## Bibliography
+
+### URL
+
+Bibliography里URL不要用`url = {https://xxx}`的形式，要用`note = {\url{https://xxx}}`的形式，因为有些论文模板不认前者。
+
+让URL自动换行：
+
+```tex
+% https://tex.stackexchange.com/questions/3033/forcing-linebreaks-in-url
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\def\UrlBreaks{%
+  \do\/%
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+     \do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+  \do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+     \do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+  \do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+  \do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+```
+
+让URL使用跟正文一样的字体：
+
+```tex
+\renewcommand{\UrlFont}{\normalfont}
+```
+
+### 不cite也列出参考文献
+
+`\nocite{xxx}`来强制列出单个参考文献。`\nocite{*}`强制列出所有参考文献。
+
+来源：<https:>
+
+## 指定字体
+
+### Linux Libertine
+
+```tex
+% https://www.tug.org/FontCatalogue/linuxlibertine/
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+```
+
+### 去掉标题
+
+```tex
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+```
+
+来源：<https:>
+
+## 定理和证明
+
+```tex
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+```
+
+```tex
+\begin{theorem}
+定理内容。会变成斜体字。
+\end{theorem}
+
+\begin{proof}
+证明。
+\end{proof}
+```
+
+参考：<https:>
+
+## algorithm2e
+
+- {% post_link Latex/'algorithm2e包参数' %}</https:></https:></https:></https:></https:></size></https:></https:></https:></https:></https:></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>- {% post_link Latex/'algorithm2e无限循环' %}</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>```tex</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[linesnumbered, ruled, vlined]{<span class="ex">algorithm2e</span>}</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">algorithm</span>}</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">\caption</span>{xxx}<span class="kw">\label</span>{<span class="ex">alg:xxx</span>}</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="fu">\DontPrintSemicolon</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu">\SetKw</span>{Continue}{continue}</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="fu">\SetKw</span>{And}{and}</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="fu">\SetKw</span>{True}{true}</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="fu">\For</span>{xxx}{</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\textcolor</span>{gray}{// 注释} <span class="fu">\;</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\If</span> {条件1 <span class="fu">\And</span> 条件2} {</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">\Continue</span> <span class="fu">\;</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>	<span class="co">% https://tex.stackexchange.com/a/281240</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\uIf</span> {条件} {</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        xxx <span class="fu">\;</span></span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>    } <span class="fu">\uElseIf</span> {条件} {</span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>        xxx <span class="fu">\;</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>    } <span class="fu">\Else</span> {</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>        xxx <span class="fu">\;</span></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="fu">\While</span>{条件}{</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\eIf</span> {条件} {</span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a>        xxx <span class="fu">\;</span></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a>    } {</span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>        xxx <span class="fu">\;</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a><span class="fu">\Return</span> <span class="fu">\True</span> <span class="fu">\;</span></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">algorithm</span>}</span></code></pre></div>
+<h2 id="其他"><a href="#其他">¶</a> 其他</h2>
+<p><code>\ \par</code>可以避免换行时underfull warning</p>
+<p>取消section前编号: <code>\section*{...}</code></p>
+<h2 id="异常处理"><a href="#异常处理">¶</a> 异常处理</h2>
+<h3 id="textbf加粗对英文无效"><a href="#textbf加粗对英文无效">¶</a>
+<code>textbf{}</code>加粗对英文无效</h3>
+<p><code>\usepackage[T1]{fontenc}</code></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dongqing0315/article/details/125385922">latex
+字体加粗失效</a></p>
+<p>相关：<a target="_blank" rel="noopener" href="https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc" class="uri">https://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
