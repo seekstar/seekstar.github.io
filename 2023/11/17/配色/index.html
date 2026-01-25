@@ -8135,7 +8135,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-11-17 16:18:38</span>
   
-    <span>Updated: 2024-12-29 20:11:06</span>
+    <span>Updated: 2026-01-24 20:16:04</span>
   
 
   <div id="article-categories">
@@ -8156,12 +8156,34 @@ mjx-container[display="true"] + br {
 <div id="article-content">
 	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>配色教程：<a target="_blank" rel="noopener" href="https://chartio.com/learn/charts/how-to-choose-colors-data-visualization/" class="uri">https://chartio.com/learn/charts/how-to-choose-colors-data-visualization/</a></p>
 <h2 id="matplotlib"><a href="#matplotlib">¶</a> matplotlib</h2>
-<p>默认的蓝色叫<code>C0</code>:</p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/47074423/how-to-get-default-blue-colour-of-matplotlib-pyplot-scatter" class="uri">https://stackoverflow.com/questions/47074423/how-to-get-default-blue-colour-of-matplotlib-pyplot-scatter</a></p>
-<p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html" class="uri">https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html</a></p>
 <p>colormap: <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html" class="uri">https://matplotlib.org/stable/users/explain/colors/colormaps.html</a></p>
-<p><code>Set2</code>适合柱状图，颜色较浅，能看清pattern，但因为颜色不够深，所以不适合折线图。但<code>plt.get_cmap('Set2')(6)</code>这个颜色跟<code>Set2</code>里其他颜色对比度不高，建议换成蓝色：<code>plt.get_cmap('tab20c')(1)</code></p>
-<p><code>Set3</code>颜色太浅了。</p>
+<h3 id="折线图"><a href="#折线图">¶</a> 折线图</h3>
+<p>建议直接用默认颜色<code>C0</code>到<code>C9</code>: <a target="_blank" rel="noopener" href="https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html" class="uri">https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html</a></p>
+<p>也可以这样获得<code>C0</code>到<code>C9</code>里的第<code>i</code>个：<code>plt.cm.tab10(i)</code></p>
+<ul>
+<li><code>C0</code>: 蓝色</li>
+<li><code>C1</code>: 橘色</li>
+<li><code>C2</code>: 绿色</li>
+<li><code>C3</code>: 红色</li>
+<li><code>C4</code>: 紫色</li>
+<li><code>C5</code>: 棕色</li>
+<li><code>C6</code>: 粉色</li>
+<li><code>C7</code>: 灰色</li>
+<li><code>C8</code>: 黄绿色</li>
+<li><code>C9</code>: 青蓝色</li>
+</ul>
+<h3 id="柱状图"><a href="#柱状图">¶</a> 柱状图</h3>
+<p>个人觉得默认颜色用来画柱状图的话颜色太深了。下面给出一个跟默认颜色对应的柱状图配色方案。</p>
+<ul>
+<li>淡蓝色：<code>plt.get_cmap('tab20c')(1)</code></li>
+<li>淡橘色：<code>plt.get_cmap('tab20c')(6)</code></li>
+<li>淡绿色：<code>plt.get_cmap('Set2')(0)</code></li>
+<li>淡红色：<code>#ff6060</code></li>
+<li>淡紫色：<code>plt.get_cmap('tab20c')(13)</code></li>
+<li>淡棕色：<code>plt.get_cmap('tab20')(11)</code></li>
+<li>粉色：<code>C6</code>。因为粉色本身已经够亮了，所以可以直接用在柱状图里。</li>
+<li>浅灰色：<code>plt.get_cmap('tab20c')(17)</code></li>
+</ul>
 <h3 id="paired"><a href="#paired">¶</a> <code>Paired</code></h3>
 <h4 id="蓝色"><a href="#蓝色">¶</a> 蓝色</h4>
 <ul>

@@ -8169,7 +8169,7 @@ found。</p>
 <p><code>TableCache::Get</code>中，调用<code>TableReader::Get</code></p>
 <p>Table默认是<code>BlockBasedTable</code>，所以这里的<code>TableReader</code>应该是<code>BlockBasedTable</code>的reader：</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BlockBasedTable <span class="op">:</span> <span class="kw">public</span> TableReader <span class="op">{</span></span></code></pre></div>
-<p><code>BlockBasedTable::Get</code>中，调用<code>BlockBasedTable::NewIndexIterator</code>获得block
+<p><code>BlockBasedTable::Get</code>中，先检查filter，如果返回negative就可以直接返回了。如果filter返回positive，就调用<code>BlockBasedTable::NewIndexIterator</code>获得block
 index的iterator，然后遍历key range包含目标key的data
 block。对每个遍历到的data
 block，调用<code>BlockBasedTable::NewDataBlockIterator</code>构造<code>DataBlockIter biter</code>，然后seek
