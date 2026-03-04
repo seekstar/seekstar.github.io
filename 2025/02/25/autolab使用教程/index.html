@@ -7452,6 +7452,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/03/04/%E8%A7%A3%E5%86%B3alloc-iova%E8%80%97%E6%97%B6%E5%BE%88%E5%A4%9A%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决alloc_iova耗时很多的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/10/29/%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E6%97%B6-lib-modules%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/">
                      
 										    解决编译安装内核时/lib/modules过大的问题
@@ -8135,7 +8146,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2025-02-25 00:14:50</span>
   
-    <span>Updated: 2025-02-25 18:20:30</span>
+    <span>Updated: 2026-03-02 23:19:42</span>
   
 
   <div id="article-categories">
@@ -8161,6 +8172,21 @@ mjx-container[display="true"] + br {
 <code>Configure Autolab</code> -&gt; <code>SMTP CONFIG</code></p>
 <p>填完了之后点击<code>UPDATE CONFIGURATION</code>，配置才会生效。</p>
 <p>可以在<code>Configuration Testing</code>里试试配置对不对：在<code>From</code>里填入助教邮箱，在<code>To</code>里填入要接收邮件的邮箱（可以跟<code>From</code>一样），然后点击<code>SEND TEST EMAIL</code>，如果能收到邮件说明成功了。</p>
+<p>SMTP的配置网上有很多教程。这里主要分享一些坑点。</p>
+<ul>
+<li>gmail</li>
+</ul>
+<p>绑定手机号开启两步验证，然后就可以创建app password了。</p>
+<ul>
+<li>Amazon SES</li>
+</ul>
+<p>一定要申请production
+mode。sandbox模式下只能发信给指定地址。只有production
+mode才能发信给任意地址：<a target="_blank" rel="noopener" href="https://repost.aws/knowledge-center/ses-554-400-message-rejected-error" class="uri">https://repost.aws/knowledge-center/ses-554-400-message-rejected-error</a></p>
+<ul>
+<li>(不推荐) sendgrid</li>
+</ul>
+<p>不知道为什么注册不了。而且帐号过一段时间不用就不能再用了：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status" class="uri">https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status</a></p>
 <h2 id="添加管理员"><a href="#添加管理员">¶</a> 添加管理员</h2>
 <p><code>Manage Autolab</code> -&gt;
 <code>Manage Users</code>，点击要设置为管理员的用户，<code>EDIT INFORMATION</code>，勾上<code>Administrator</code>，<code>SAVE CHANGES</code>即可。</p>

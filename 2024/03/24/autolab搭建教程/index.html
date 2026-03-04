@@ -7452,6 +7452,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/03/04/%E8%A7%A3%E5%86%B3alloc-iova%E8%80%97%E6%97%B6%E5%BE%88%E5%A4%9A%E7%9A%84%E9%97%AE%E9%A2%98/">
+                     
+										    解决alloc_iova耗时很多的问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2020/10/29/%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%86%85%E6%A0%B8%E6%97%B6-lib-modules%E8%BF%87%E5%A4%A7%E7%9A%84%E9%97%AE%E9%A2%98/">
                      
 										    解决编译安装内核时/lib/modules过大的问题
@@ -8135,7 +8146,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2024-03-24 16:54:48</span>
   
-    <span>Updated: 2025-02-25 19:25:31</span>
+    <span>Updated: 2026-03-02 23:19:42</span>
   
 
   <div id="article-categories">
@@ -8185,16 +8196,6 @@ autolab自带的证书申请机制</h3>
 }</code></pre>
 <p>其中<code>client_max_body_size 0;</code>防止附件过大的提交被宿主机nginx拦截。</p>
 <p>注意：不要把autolab配置成不使用ssl的同时在外面套一层SSL，因为这样tango和autolab之间的通信会出问题。可能是因为tango往autolab发消息仍然使用的http，然后被外面的nginx拒绝。</p>
-<h2 id="发送邮件"><a href="#发送邮件">¶</a> 发送邮件</h2>
-<h3 id="gmail"><a href="#gmail">¶</a> gmail</h3>
-<p>绑定手机号开启两步验证，然后就可以创建app password了。</p>
-<h3 id="amazon-ses"><a href="#amazon-ses">¶</a> Amazon SES</h3>
-<p>一定要申请production
-mode。sandbox模式下只能发信给指定地址。只有production
-mode才能发信给任意地址：<a target="_blank" rel="noopener" href="https://repost.aws/knowledge-center/ses-554-400-message-rejected-error" class="uri">https://repost.aws/knowledge-center/ses-554-400-message-rejected-error</a></p>
-<h3 id="不推荐-sendgrid"><a href="#不推荐-sendgrid">¶</a> (不推荐)
-sendgrid</h3>
-<p>不知道为什么注册不了。而且帐号过一段时间不用就不能再用了：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status" class="uri">https://stackoverflow.com/questions/68056093/sendgrid-mails-are-always-in-pending-status</a></p>
 <h2 id="autograder要安装pkill"><a href="#autograder要安装pkill">¶</a>
 autograder要安装pkill</h2>
 <p>需要在Dockerfile里<code>apt install -y procps</code></p>
