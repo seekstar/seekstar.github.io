@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2024-07-23 15:12:24</span>
   
-    <span>Updated: 2026-07-08 23:22:04</span>
+    <span>Updated: 2026-07-24 03:24:37</span>
   
 
   <div id="article-categories">
@@ -8236,12 +8236,16 @@ GPU的算力了。</p>
 <h2 id="常用软件的安装"><a href="#常用软件的安装">¶</a>
 常用软件的安装</h2>
 <h3 id="seafile"><a href="#seafile">¶</a> Seafile</h3>
-<p>可以使用linglong安装：</p>
+<h4 id="flatpak"><a href="#flatpak">¶</a> flatpak</h4>
+<pre class="shell"><code>flatpak install com.seafile.Client
+# 开机自启
+ln -s /var/lib/flatpak/exports/share/applications/com.seafile.Client.desktop ~/.config/autostart/</code></pre>
+<h4 id="linglong"><a href="#linglong">¶</a> linglong</h4>
 <pre class="shell"><code>sudo pacman -S --needed linyaps
 sudo ll-cli install com.seafile-gui</code></pre>
 <p>注销再重新登录就可以在启动器里看到了seafile了。</p>
 <h3 id="微信"><a href="#微信">¶</a> 微信</h3>
-<h4 id="flatpak"><a href="#flatpak">¶</a> flatpak</h4>
+<h4 id="flatpak-1"><a href="#flatpak-1">¶</a> flatpak</h4>
 <p>原生微信。</p>
 <pre class="shell"><code>flatpak install com.tencent.WeChat
 flatpak run com.tencent.WeChat</code></pre>
