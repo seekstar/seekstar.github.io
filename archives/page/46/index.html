@@ -4414,6 +4414,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5180,6 +5191,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7115,6 +7137,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7956,17 +8000,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8130,6 +8163,53 @@ mjx-container[display="true"] + br {
 	<!-- 引入正文 -->
 	<div id="content" class="content">
 		<div id="index">
+	
+		<div class="index-li">
+			<a href="/2021/01/22/qemu-gdb%E4%B8%8D%E5%81%9C%E5%9C%A8%E6%96%AD%E7%82%B9/">
+				<h2 class="index-title">
+					qemu gdb不停在断点
+				</h2>
+				<div class="index-brief">
+					首先要保证是在
+target remote :1234
+之后设置的断点。
+如果使用了-enable-kvm，就必须要设置硬件断点，gdb命令为hbreak，缩写为hb。注意硬件断点需要硬件支持，所以不一定有效。
+如果是在内核模块里的断点，还需要按以下顺序进行操作：
+
+编译带有debug symbol
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
+	
+		<div class="index-li">
+			<a href="/2021/01/22/qemu-gdb-lx-symbols-python-exception-%EF%BC%9Cclass-%E2%80%98gdb-memoryerror%E2%80%98%EF%BC%9E-cannot-access-memory-at-address-0xfff/">
+				<h2 class="index-title">
+					qemu gdb lx-symbols Python Exception ＜class ‘gdb.MemoryError‘＞ Cannot access memory at address 0xfff
+				</h2>
+				<div class="index-brief">
+					在/etc/default/grub里的GRUB_CMDLINE_LINUX里加上nokaslr，然后更新一下grub.cfg：
+centos上用
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+debian系好像是
+sudo update-grub
+然后重启
+					...
+				</div>
+			</a>
+                <div class="article-meta">
+				    <span>2021-01-22</span>
+                    
+                            
+                    
+                </div>
+		</div>	
 	
 		<div class="index-li">
 			<a href="/2021/01/21/qemu%E6%8C%82%E8%BD%BD%E7%89%A9%E7%90%86%E7%A3%81%E7%9B%98/">
@@ -8323,45 +8403,6 @@ ps -e -o uid --no-headers | awk '$1 &gt;= 1000' | sort -u |
 			</a>
                 <div class="article-meta">
 				    <span>2021-01-07</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/01/01/latex%E5%8E%BB%E6%8E%89lstlisting%E5%90%8E%E9%9D%A2%E7%9A%84%E7%A9%BA%E8%A1%8C/">
-				<h2 class="index-title">
-					Latex去掉lstlisting后面的空行
-				</h2>
-				<div class="index-brief">
-					转自：https://tex.stackexchange.com/questions/167305/how-do-i-get-rid-of-the-extra-blank-line-at-the-end-of-my-listing
-如果在lstset里设置了keepspaces=true，那代码后面
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-01-01</span>
-                    
-                            
-                    
-                </div>
-		</div>	
-	
-		<div class="index-li">
-			<a href="/2021/01/01/latex%E5%AF%BC%E5%85%A5pgf%E5%9B%BE%E7%89%87/">
-				<h2 class="index-title">
-					Latex导入pgf图片
-				</h2>
-				<div class="index-brief">
-					转自：https://tex.stackexchange.com/questions/117042/set-the-size-of-pgf-picture
-			\begin{figure}\label{HPL}
-                \resizebox{\textwidth}{!}{\
-					...
-				</div>
-			</a>
-                <div class="article-meta">
-				    <span>2021-01-01</span>
                     
                             
                     

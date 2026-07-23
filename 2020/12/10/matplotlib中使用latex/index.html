@@ -4416,6 +4416,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5182,6 +5193,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7117,6 +7139,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7958,17 +8002,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8146,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-12-10 18:13:06</span>
   
-    <span>Updated: 2023-12-07 12:02:33</span>
+    <span>Updated: 2026-03-23 13:24:04</span>
   
 
   <div id="article-categories">
@@ -8178,35 +8211,40 @@ mjx-container[display="true"] + br {
 如果使用xelatex，那就<code>\usepackage{amsmath}</code><br>
 如果使用pdflatex，就<code>\usepackage{textcomb}</code><br>
 然后text模式下的<code>\textperthousand</code>就是<code>千分之</code>符号了。</p>
+<h3 id="安装latex"><a href="#安装latex">¶</a> 安装Latex</h3>
+<pre class="shell"><code># Debian
+# pdflatex
+sudo apt install -y texlive-latex-base
+# type1cm.sty
+sudo apt install -y texlive-latex-extra
+# type1ec.sty
+sudo apt install -y cm-super-minimal
+# dvipng
+sudo apt install -y dvipng</code></pre>
 <h3 id="import"><a href="#import">¶</a> import</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span></code></pre></div>
 <h3 id="加载latex宏包"><a href="#加载latex宏包">¶</a> 加载latex宏包</h3>
 <p>参考：<br>
 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/41453109/how-to-write-your-own-latex-preamble-in-matplotlib" class="uri">https://stackoverflow.com/questions/41453109/how-to-write-your-own-latex-preamble-in-matplotlib</a><br>
-<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32725483/matplotllib-and-xelatex" class="uri">https://stackoverflow.com/questions/32725483/matplotllib-and-xelatex</a><br>
-如果使用pdflatex的话，就这样</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mpl.rcParams.update({</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.usetex'</span>: <span class="va">True</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pgf.preamble'</span>: <span class="vs">r'\usepackage</span><span class="sc">{textcomb}</span><span class="vs">'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<p>如果使用xelatex的话，就这样</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">## TeX preamble</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mpl.rcParams.update({</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.usetex'</span>: <span class="va">True</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pgf.texsystem'</span>: <span class="st">'xelatex'</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#'pgf.preamble': r'\usepackage{amsmath} `...'</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pgf.preamble'</span>: <span class="vs">r'\usepackage</span><span class="sc">{amsmath}</span><span class="vs">'</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32725483/matplotllib-and-xelatex" class="uri">https://stackoverflow.com/questions/32725483/matplotllib-and-xelatex</a></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mpl.rcParams.update({</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.usetex'</span>: <span class="va">True</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pgf.preamble'</span>: <span class="vs">r'\usepackage</span><span class="sc">{textcomb}</span><span class="vs">'</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<p>默认是pdflatex。如果要使用xelatex的话，加上<code>'pgf.texsystem': 'xelatex',</code>即可。</p>
+<p>如果要使用<code>Linux Libertine</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mpl.rcParams.update({</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.family'</span>: <span class="st">'serif'</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.serif'</span>: [<span class="st">'Linux Libertine O'</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.usetex'</span>: <span class="va">True</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.latex.preamble'</span>: <span class="vs">r'\usepackage</span><span class="sc">{amsmath}</span><span class="vs"> \usepackage</span><span class="sc">{libertine}</span><span class="vs">'</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <h3 id="使用"><a href="#使用">¶</a> 使用</h3>
 <p>类似这样</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="vs">r"DRAM consumption(\textperthousand)"</span>)</span></code></pre></div>
-<h3 id="latex-error-file-type1ecsty-not-found"><a href="#latex-error-file-type1ecsty-not-found">¶</a> LaTeX Error: File
-`type1ec.sty' not found.</h3>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/11354149/python-unable-to-render-tex-in-matplotlib" class="uri">https://stackoverflow.com/questions/11354149/python-unable-to-render-tex-in-matplotlib</a></p>
-<pre class="shell"><code>sudo apt install cm-super</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="vs">r"DRAM consumption(\textperthousand)"</span>)</span></code></pre></div>
 <h3 id="legend消失"><a href="#legend消失">¶</a> legend消失</h3>
 <p>检查一下Latex的报错信息。比如说用了下划线啥的。<br>
 如果没有问题的话，留意一下是不是没有把开启usetex的语句放到开头。一个图中可能不能一部分usetex，一部分不用？</p>

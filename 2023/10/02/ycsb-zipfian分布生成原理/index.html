@@ -4416,6 +4416,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5182,6 +5193,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7117,6 +7139,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7958,17 +8002,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8146,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-10-02 21:54:32</span>
   
-    <span>Updated: 2023-10-05 15:26:13</span>
+    <span>Updated: 2026-03-26 14:43:59</span>
   
 
   <div id="article-categories">
@@ -8334,44 +8367,46 @@ Generating Billion-Record Synthetic Databases</a></p>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>		<span class="va">alpha_</span><span class="op">(</span><span class="dv">1</span> <span class="op">/</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> theta<span class="op">)),</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>		<span class="va">zeta2_</span><span class="op">(</span><span class="dv">1</span> <span class="op">+</span> pow<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="op">-</span>theta<span class="op">))</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>	<span class="op">{</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>		<span class="ot">assert</span><span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">2</span><span class="op">);</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>		<span class="va">zetan_</span> <span class="op">=</span> <span class="va">zeta2_</span><span class="op">;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>		<span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>			<span class="va">zetan_</span> <span class="op">+=</span> pow<span class="op">((</span><span class="dt">double</span><span class="op">)</span>i<span class="op">,</span> <span class="op">-</span>theta<span class="op">);</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>		<span class="op">}</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>		<span class="va">eta_</span> <span class="op">=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> pow<span class="op">(</span><span class="fl">2.0</span> <span class="op">/</span> n<span class="op">,</span> <span class="dv">1</span> <span class="op">-</span> theta<span class="op">))</span> <span class="op">/</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> <span class="va">zeta2_</span> <span class="op">/</span> <span class="va">zetan_</span><span class="op">);</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>	<span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> E<span class="op">&gt;</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> <span class="kw">operator</span><span class="op">()(</span>E <span class="op">&amp;</span>e<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>uniform_real_distribution<span class="op">&lt;&gt;</span> dis<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>		<span class="dt">double</span> u <span class="op">=</span> dis<span class="op">(</span>e<span class="op">);</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>		<span class="dt">double</span> uz <span class="op">=</span> u <span class="op">*</span> <span class="va">zetan_</span><span class="op">;</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>		<span class="cf">if</span> <span class="op">(</span>uz <span class="op">&lt;</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>			<span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>		<span class="cf">if</span> <span class="op">(</span>uz <span class="op">&lt;</span> <span class="va">zeta2_</span><span class="op">)</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>			<span class="cf">return</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> <span class="op">(</span><span class="dt">size_t</span><span class="op">)(</span><span class="va">n_</span> <span class="op">*</span> pow<span class="op">(</span><span class="va">eta_</span> <span class="op">*</span> u <span class="op">-</span> <span class="va">eta_</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="va">alpha_</span><span class="op">));</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> <span class="va">n_</span><span class="op">;</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">alpha_</span><span class="op">;</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">zeta2_</span><span class="op">;</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">zetan_</span><span class="op">;</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">eta_</span><span class="op">;</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>random_device<span class="op"> </span>rd<span class="op">;</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>mt19937<span class="op"> </span>e<span class="op">(</span>rd<span class="op">());</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> n <span class="op">=</span> <span class="dv">20000000</span><span class="op">;</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>	ZipfianGenerator g<span class="op">(</span>n<span class="op">,</span> <span class="fl">0.99</span><span class="op">);</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>	<span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> g<span class="op">(</span>e<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>		<span class="co">// theta &gt;= 1 is not supported by this implementation</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>		<span class="ot">assert</span><span class="op">(</span>theta <span class="op">&lt;</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>		<span class="ot">assert</span><span class="op">(</span><span class="va">n_</span> <span class="op">&gt;</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>		<span class="va">zetan_</span> <span class="op">=</span> <span class="va">zeta2_</span><span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>		<span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="va">n_</span><span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>			<span class="va">zetan_</span> <span class="op">+=</span> pow<span class="op">((</span><span class="dt">double</span><span class="op">)</span>i<span class="op">,</span> <span class="op">-</span>theta<span class="op">);</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>		<span class="op">}</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>		<span class="va">eta_</span> <span class="op">=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> pow<span class="op">(</span><span class="fl">2.0</span> <span class="op">/</span> <span class="va">n_</span><span class="op">,</span> <span class="dv">1</span> <span class="op">-</span> theta<span class="op">))</span> <span class="op">/</span> <span class="op">(</span><span class="dv">1</span> <span class="op">-</span> <span class="va">zeta2_</span> <span class="op">/</span> <span class="va">zetan_</span><span class="op">);</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>	<span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> E<span class="op">&gt;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> <span class="kw">operator</span><span class="op">()(</span>E <span class="op">&amp;</span>e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>uniform_real_distribution<span class="op">&lt;&gt;</span> dis<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>		<span class="dt">double</span> u <span class="op">=</span> dis<span class="op">(</span>e<span class="op">);</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>		<span class="dt">double</span> uz <span class="op">=</span> u <span class="op">*</span> <span class="va">zetan_</span><span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>		<span class="cf">if</span> <span class="op">(</span>uz <span class="op">&lt;</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>			<span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>		<span class="cf">if</span> <span class="op">(</span>uz <span class="op">&lt;</span> <span class="va">zeta2_</span><span class="op">)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>			<span class="cf">return</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>		<span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> <span class="op">(</span><span class="dt">size_t</span><span class="op">)(</span><span class="va">n_</span> <span class="op">*</span> pow<span class="op">(</span><span class="va">eta_</span> <span class="op">*</span> u <span class="op">-</span> <span class="va">eta_</span> <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> <span class="va">alpha_</span><span class="op">));</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> <span class="va">n_</span><span class="op">;</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">alpha_</span><span class="op">;</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">zeta2_</span><span class="op">;</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">zetan_</span><span class="op">;</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>	<span class="dt">double</span> <span class="va">eta_</span><span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>random_device<span class="op"> </span>rd<span class="op">;</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>	<span class="bu">std::</span>mt19937<span class="op"> </span>e<span class="op">(</span>rd<span class="op">());</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>	<span class="dt">size_t</span> n <span class="op">=</span> <span class="dv">20000000</span><span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>	ZipfianGenerator g<span class="op">(</span>n<span class="op">,</span> <span class="fl">0.99</span><span class="op">);</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>	<span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>		<span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> g<span class="op">(</span>e<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>	<span class="op">}</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>	<span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <h2 id="注意事项"><a href="#注意事项">¶</a> 注意事项</h2>
 <p>YCSB里的zipfian似乎默认是scrambled zipfian，它的item
 count被指定为了1e10，导致它生成的分布跟zipfian的理论分布不一致。建议不要用YCSB生成zipfian，而是用它的公式自己写一个。</p>

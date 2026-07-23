@@ -4416,6 +4416,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5182,6 +5193,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7117,6 +7139,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7958,17 +8002,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8146,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-10-25 20:43:07</span>
   
-    <span>Updated: 2024-12-02 15:16:17</span>
+    <span>Updated: 2026-07-10 17:27:44</span>
   
 
   <div id="article-categories">
@@ -8378,6 +8411,29 @@ the second column.)</p></li>
 <h3 id="存在的问题-1"><a href="#存在的问题-1">¶</a> 存在的问题</h3>
 <p>跑得很慢。这里说libtcmalloc开了heap
 profiling之后会让程序慢5倍以上：<a target="_blank" rel="noopener" href="https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html" class="uri">https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html</a></p>
+<h2 id="jemalloc"><a href="#jemalloc">¶</a> jemalloc</h2>
+<pre class="shell"><code>MALLOC_CONF=prof:true,prof_active:true,lg_prof_interval:&lt;N&gt;,prof_prefix:/path/to/dir/jeprof ./xxx</code></pre>
+<ul>
+<li><code>prof:true</code>:
+free的时候，如果相应的地址被采样了，就记录这个地址已经free了。</li>
+<li><code>prof_active:true</code>:
+开启采样。默认每分配512KiB，就对一个内存分配进行采样。</li>
+<li><code>lg_prof_interval:&lt;N&gt;</code>: 每 2^N 字节分配活动dump一次
+.heap 文件到磁盘。比如<code>lg_prof_interval:30</code>就是每 1GiB
+(2^30字节) dump一次。</li>
+<li><code>prof_prefix:/path/to/dir/jeprof</code>:
+dump到<code>/path/to/dir/jeprof.xxx.heap</code>。</li>
+</ul>
+<p>安装<code>jeprof</code>:</p>
+<pre class="shell"><code>dnf install jemalloc-devel</code></pre>
+<p>查看哪些内存分配点分配了最多内存：</p>
+<pre class="shell"><code>jeprof --text --lines 可执行文件 heap文件</code></pre>
+<p><code>--text</code>: Generate text report<br>
+<code>--lines</code>：打印<code>文件名:行号</code>。</p>
+<p>生成调用图：</p>
+<pre class="shell"><code># 安装dot
+sudo dnf install graphviz</code></pre>
+<pre class="shell"><code>jeprof --svg 可执行文件 heap文件 &gt; jeprof.svg</code></pre>
 <h2 id="没试过"><a href="#没试过">¶</a> 没试过</h2>
 <h3 id="mtuner"><a href="#mtuner">¶</a> MTuner</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/RudjiGames/MTuner" class="uri">https://github.com/RudjiGames/MTuner</a></p>

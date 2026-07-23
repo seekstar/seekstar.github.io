@@ -4416,6 +4416,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5182,6 +5193,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7117,6 +7139,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7958,17 +8002,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8146,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2025-07-31 16:53:36</span>
   
-    <span>Updated: 2025-07-31 17:03:07</span>
+    <span>Updated: 2026-07-10 12:25:51</span>
   
 
   <div id="article-categories">
@@ -8169,6 +8202,38 @@ mjx-container[display="true"] + br {
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010164190/article/details/60772827">解决Mac终端exit退出不爽</a></p></li>
 <li><a href="/2021/08/26/macos%E8%AF%BB%E5%86%99ntfs%E7%A3%81%E7%9B%98/" title="MacOS读写NTFS磁盘">MacOS读写NTFS磁盘</a></li>
 </ul>
+<h2 id="外置键盘键位调整"><a href="#外置键盘键位调整">¶</a>
+外置键盘键位调整</h2>
+<p>默认是alt对应Option，win键对应Meta，跟Mac的键位不一样。可以改成alt对应Meta，win对应Option：</p>
+<p>系统设置 -&gt; 键盘 -&gt; 键盘快捷键 -&gt;
+修饰键，把<code>Option键</code>设置成<code>Command键</code>，把<code>Command键</code>设置成<code>Option键</code>。</p>
+<h2 id="禁止自动重新排列空间"><a href="#禁止自动重新排列空间">¶</a>
+禁止自动重新排列空间</h2>
+<p>系统设置 -&gt; 桌面与程序坞 -&gt; 调度中心 -&gt;
+关闭<code>根据最近使用情况自动重新排列空间</code></p>
+<h2 id="外置显示器字小"><a href="#外置显示器字小">¶</a>
+外置显示器字小</h2>
+<p>MacOS不支持调整外置显示器上的缩放比，所以好像只能把分辨率调低了。</p>
+<h2 id="设置开机自启应用"><a href="#设置开机自启应用">¶</a>
+设置开机自启应用</h2>
+<p>系统设置 -&gt; 通用 -&gt; 登录时打开 -&gt; 加号 -&gt;
+应用程序，选择要开机自启的应用，点击<code>打开</code>即可。</p>
+<h2 id="快捷键"><a href="#快捷键">¶</a> 快捷键</h2>
+<p>系统设置 -&gt; 键盘 -&gt;
+键盘快捷键。这里放一些个人觉得比较有用的快捷键。</p>
+<p>调度中心 -&gt; 调度中心 -&gt; 切换到桌面1/2/3/...</p>
+<p>窗口 -&gt; 四等分</p>
+<ul>
+<li>emoji: ctrl+cmd+空格</li>
+</ul>
+<h2 id="第三方应用"><a href="#第三方应用">¶</a> 第三方应用</h2>
+<h3 id="alttab"><a href="#alttab">¶</a> AltTab</h3>
+<pre class="shell"><code>brew install alt-tab</code></pre>
+<p>打开AltTab，授予权限，然后打开app的设置，在里面把快捷键1
+<code>Option+tab</code>删掉，因为免费版只支持一个快捷键，然后把剩下的那个快捷键（以前的快捷键2）从<code>Option + `</code>
+改成 <code>Command + `</code>。会提示快捷键冲突，要到系统设置 -&gt; 键盘
+-&gt; 键盘快捷键 -&gt; 键盘
+里取消勾选<code>将焦点移到下一个窗口</code>。</p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 

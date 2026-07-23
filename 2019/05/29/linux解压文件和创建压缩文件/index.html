@@ -4416,6 +4416,17 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
+									<a href="/2026/05/14/%E5%9C%A8linux%E4%B8%8A%E4%BD%BF%E7%94%A8mac%E9%94%AE%E4%BD%8D/">
+                     
+										    在Linux上使用Mac键位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
 									<a href="/2022/04/27/%E5%9C%A8chroot%E7%8E%AF%E5%A2%83%E4%B8%AD%E6%8C%82%E8%BD%BDdev-proc-sys/">
                      
 										    在chroot环境中挂载dev, proc, sys
@@ -5182,6 +5193,17 @@ mjx-container[display="true"] + br {
 			
 								</li>
 								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/2026/06/09/vibe-coding%E7%AC%94%E8%AE%B0/">
+                     
+										    Vibe coding笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
 							</ul>
 			
 							<ul>
@@ -7117,6 +7139,28 @@ mjx-container[display="true"] + br {
 								<li class="directory">
 									<a href="#" class="directory">
 										<i class="fa fa-plus-square-o"></i>
+										archive
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/2022/11/10/vscode-clang-tidy/">
+                     
+										    vscode clang-tidy
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
 										kernel
 									</a>
 									
@@ -7958,17 +8002,6 @@ mjx-container[display="true"] + br {
 			
 							<ul>
 								<li class="file">
-									<a href="/2022/11/10/vscode-clang-tidy/">
-                     
-										    vscode clang-tidy
-                     
-									</a>
-								</li>
-								<div class="article-toc" style="display: none;"></div>
-							</ul>
-			
-							<ul>
-								<li class="file">
 									<a href="/2022/06/06/vscode-command-liveshare-join-not-found/">
                      
 										    vscode command liveshare.join not found
@@ -8146,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2019-05-29 18:45:49</span>
   
-    <span>Updated: 2024-05-27 21:34:14</span>
+    <span>Updated: 2026-06-09 23:02:47</span>
   
 
   <div id="article-categories">
@@ -8257,6 +8290,7 @@ c: 压缩(compress)</p>
 <p>来源：<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/703696/creating-a-tar-gz-archive-of-multiple-directories-of-different-locations-tar" class="uri">https://unix.stackexchange.com/questions/703696/creating-a-tar-gz-archive-of-multiple-directories-of-different-locations-tar</a></p>
 <h2 id="gz"><a href="#gz">¶</a> .gz</h2>
 <p>参考网站：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zdx1515888659/article/details/82841100" class="uri">https://blog.csdn.net/zdx1515888659/article/details/82841100</a></p>
+<p>缺点是不能多线程解压。</p>
 <h3 id="单线程解压"><a href="#单线程解压">¶</a> 单线程解压</h3>
 <pre class="shell"><code># 到当前目录
 gzip -d FileName.gz</code></pre>
@@ -8294,18 +8328,19 @@ pigz 文件名</code></pre>
 <a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/9844116.html" class="uri">https://zhidao.baidu.com/question/9844116.html</a></p>
 <p>顾名思义，.tar.gz就是对tar文件用gzip压缩得到的文件。所以解压可以先解压gz，再解压tar，压缩也可以先压缩成tar，再压缩成gz。</p>
 <p>也可以使用一条命令完成解压或压缩。</p>
+<p>缺点是不能多线程解压。</p>
 <h3 id="单线程解压-1"><a href="#单线程解压-1">¶</a> 单线程解压</h3>
 <ul>
 <li>解压到当前目录</li>
 </ul>
-<pre class="shell"><code>tar -zxvf FileName.tar.gz</code></pre>
+<pre class="shell"><code>tar -xzf FileName.tar.gz</code></pre>
 <p>z表示gz</p>
 <ul>
 <li>解压到指定目录</li>
 </ul>
-<pre class="shell"><code>tar -zxvf FileName.tar.gz -C path</code></pre>
+<pre class="shell"><code>tar -xzf FileName.tar.gz -C path</code></pre>
 <h3 id="单线程压缩-1"><a href="#单线程压缩-1">¶</a> 单线程压缩</h3>
-<pre class="shell"><code>tar -zcvf FileName.tar.gz files</code></pre>
+<pre class="shell"><code>tar -czf FileName.tar.gz files</code></pre>
 <p>其中files可以是文件夹名，也可以是表示文件的正则表达式（如*.jpg）</p>
 <h3 id="多线程压缩-1"><a href="#多线程压缩-1">¶</a> 多线程压缩</h3>
 <pre class="shell"><code># tar
@@ -8405,6 +8440,11 @@ zstdmt path/FileName</code></pre>
 <p>也可以压缩多个文件：</p>
 <pre class="shell"><code>zstdmt path/FileName1 path/FileName2</code></pre>
 <p>会压缩为<code>path/FileName1.zst</code>和<code>path/FileName2.zst</code>。</p>
+<h2 id="tarzst"><a href="#tarzst">¶</a> .tar.zst</h2>
+<h3 id="多线程解压-3"><a href="#多线程解压-3">¶</a> 多线程解压</h3>
+<pre class="shell"><code>nice zstd -d -T0 FileName.tar.zst --stdout | tar -xvf -</code></pre>
+<h3 id="多线程压缩-4"><a href="#多线程压缩-4">¶</a> 多线程压缩</h3>
+<pre class="shell"><code>tar -cf - 文件或目录 | nice zstd -T0 &gt; FileName.tar.zst</code></pre>
 <h2 id="参考文献"><a href="#参考文献">¶</a> 参考文献</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sinsenliu/p/9369729.html" class="uri">https://www.cnblogs.com/sinsenliu/p/9369729.html</a></p>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
