@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2026-06-09 23:19:34</span>
   
-    <span>Updated: 2026-07-17 14:19:58</span>
+    <span>Updated: 2026-08-10 16:40:49</span>
   
 
   <div id="article-categories">
@@ -8230,7 +8230,11 @@ opencode session list
 # attach到session
 opencode -s &lt;sessionID&gt;
 # 删除session
-opencode session delete &lt;sessionID&gt;</code></pre>
+opencode session delete &lt;sessionID&gt;
+# 列出所有已添加API key的provider
+opencode auth list
+# 删除某provider的API key
+opencode auth logout --provider "xxx"</code></pre>
 <p>如果想让AI自动读某个自定义AGENTS.md，可以在<code>~/.config/opencode/opencode.jsonc</code>里加一行：</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="er">"instructions":</span> <span class="ot">[</span><span class="st">"~/path/to/your/AGENTS.md"</span><span class="ot">]</span></span></code></pre></div>
 <p>存在的问题：</p>
@@ -8285,6 +8289,15 @@ codex resume --last</code></pre>
 <h3 id="google-antigravity"><a href="#google-antigravity">¶</a> Google
 Antigravity</h3>
 <p>好像不能设置代理。</p>
+<h2 id="模型个人评价"><a href="#模型个人评价">¶</a> 模型个人评价</h2>
+<ul>
+<li><p>GLM 5.2:
+感觉指令遵循不行，不尊重AGENTS.md里的指令。智谱平台发票只能逐月开，报销回血太慢了。</p></li>
+<li><p>GPT 5.6 luna, terra:
+感觉对用户指令的理解能力比较差。sol就能正确理解意图。</p></li>
+<li><p>Opus 4.6:
+过于自信了，回答问题不check源代码，导致对逻辑的理解错误，浪费了很多时间。</p></li>
+</ul>
 </body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
 </div>
 
