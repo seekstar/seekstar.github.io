@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-03-22 00:16:52</span>
   
-    <span>Updated: 2026-03-09 00:11:24</span>
+    <span>Updated: 2026-08-15 15:47:51</span>
   
 
   <div id="article-categories">
@@ -8266,8 +8266,11 @@ pet dog</code></pre>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wsq119/article/details/105385142">Python中Tuple（元组）</a></li>
 </ul>
 <h2 id="类"><a href="#类">¶</a> 类</h2>
+<p>python的类默认其实是一个dict，维护field名到field数据的映射。好处是可以动态往类里添加field，坏处是多了dict的开销。如果不想要dict的开销，可以设置slots，只允许指定的field。</p>
+<p>可以用dataclass定义类，会自动生成构造函数<code>__init__</code>,
+表示方法<code>__repr__</code>用于打印，判等<code>__eq__</code>。例子：</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(slots<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    a: <span class="bu">int</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    b: <span class="bu">str</span></span>

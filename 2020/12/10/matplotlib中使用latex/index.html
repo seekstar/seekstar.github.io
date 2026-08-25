@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2020-12-10 18:13:06</span>
   
-    <span>Updated: 2026-03-23 13:24:04</span>
+    <span>Updated: 2026-08-15 18:44:48</span>
   
 
   <div id="article-categories">
@@ -8240,8 +8240,13 @@ sudo apt install -y dvipng</code></pre>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.family'</span>: <span class="st">'serif'</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'font.serif'</span>: [<span class="st">'Linux Libertine O'</span>],</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.usetex'</span>: <span class="va">True</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.latex.preamble'</span>: <span class="vs">r'\usepackage</span><span class="sc">{amsmath}</span><span class="vs"> \usepackage</span><span class="sc">{libertine}</span><span class="vs">'</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text.latex.preamble'</span>: <span class="vs">r'''</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="vs">        \usepackage</span><span class="sc">{amsmath}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="vs">        \usepackage</span><span class="sc">{libertine}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="vs">        # 让数学公式也使用 Libertine</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="vs">        \usepackage[libertine]</span><span class="sc">{newtxmath}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="vs">    '''</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <h3 id="使用"><a href="#使用">¶</a> 使用</h3>
 <p>类似这样</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="vs">r"DRAM consumption(\textperthousand)"</span>)</span></code></pre></div>

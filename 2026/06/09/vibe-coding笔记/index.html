@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2026-06-09 23:19:34</span>
   
-    <span>Updated: 2026-08-10 16:40:49</span>
+    <span>Updated: 2026-08-15 15:47:18</span>
   
 
   <div id="article-categories">
@@ -8219,7 +8219,8 @@ zellij a
 zellij a session名字
 # delete-all-sessions: 删除所有EXITED session
 zellij da</code></pre>
-<h2 id="opencode"><a href="#opencode">¶</a> opencode</h2>
+<h2 id="agent"><a href="#agent">¶</a> Agent</h2>
+<h3 id="opencode"><a href="#opencode">¶</a> opencode</h3>
 <p>比较知名的开源agent。大部分模型应该都支持。</p>
 <p>安装：<a target="_blank" rel="noopener" href="https://opencode.ai/download" class="uri">https://opencode.ai/download</a></p>
 <pre class="shell"><code>npm i -g opencode-ai</code></pre>
@@ -8242,7 +8243,7 @@ opencode auth logout --provider "xxx"</code></pre>
 <li><p>CPU占用很高。</p></li>
 <li><p>似乎没有原生支持在后台运行长时间任务。</p></li>
 </ul>
-<h2 id="codex"><a href="#codex">¶</a> Codex</h2>
+<h3 id="codex"><a href="#codex">¶</a> Codex</h3>
 <p>可以在后台运行长时任务并且周期性监测。</p>
 <p>感觉对第三方的模型提供商的支持不太好。最好还是买一个Chatgpt
 Plus订阅。</p>
@@ -8268,8 +8269,8 @@ codex resume --last</code></pre>
 <ul>
 <li>不能撤回之前的消息</li>
 </ul>
-<h2 id="失败的尝试"><a href="#失败的尝试">¶</a> 失败的尝试</h2>
-<h3 id="kimi-code"><a href="#kimi-code">¶</a> Kimi code</h3>
+<h3 id="失败的尝试"><a href="#失败的尝试">¶</a> 失败的尝试</h3>
+<h4 id="kimi-code"><a href="#kimi-code">¶</a> Kimi code</h4>
 <p>好处是可以立刻使用Kimi最新发布的模型。体验也比较现代。但好像不能设置允许访问的目录，要么忍受及其繁琐的审批，要么就<code>/auto</code>全自动。</p>
 <p>官网：<a target="_blank" rel="noopener" href="https://www.kimi.com/code" class="uri">https://www.kimi.com/code</a></p>
 <p>安装：</p>
@@ -8286,15 +8287,25 @@ codex resume --last</code></pre>
  have response messages: TaskOutput:96</code></pre>
 <p>会话导出为<code>.md</code>，可以让其他agent看了之后继续工作：<code>/export-md</code></p>
 <p>卸载：<code>rm -r ~/.kimi-code</code></p>
-<h3 id="google-antigravity"><a href="#google-antigravity">¶</a> Google
-Antigravity</h3>
+<h4 id="google-antigravity"><a href="#google-antigravity">¶</a> Google
+Antigravity</h4>
 <p>好像不能设置代理。</p>
 <h2 id="模型个人评价"><a href="#模型个人评价">¶</a> 模型个人评价</h2>
 <ul>
 <li><p>GLM 5.2:
 感觉指令遵循不行，不尊重AGENTS.md里的指令。智谱平台发票只能逐月开，报销回血太慢了。</p></li>
 <li><p>GPT 5.6 luna, terra:
-感觉对用户指令的理解能力比较差。sol就能正确理解意图。</p></li>
+感觉对用户指令的理解能力比较差，在指令说得比较清楚的情况下仍然不理解意图。sol就能正确理解意图。</p>
+<ul>
+<li>GPT 5.6 terra
+感觉后训练有问题，在监控长期实验的时候有时候会自己停住。</li>
+</ul></li>
+<li><p>Opus 4.7:</p>
+<ul>
+<li>把一个stash里的一部分单独提出来之后更新stash漏掉了不少东西。Opus
+4.8解决得很好，教会了我通过比较diff的方式无遗漏地rebase stash。</li>
+<li>感觉对模糊指令的理解能力比较差。手感不是很好。</li>
+</ul></li>
 <li><p>Opus 4.6:
 过于自信了，回答问题不check源代码，导致对逻辑的理解错误，浪费了很多时间。</p></li>
 </ul>

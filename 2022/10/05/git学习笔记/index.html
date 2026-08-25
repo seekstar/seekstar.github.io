@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2022-10-05 16:10:45</span>
   
-    <span>Updated: 2025-10-15 14:33:49</span>
+    <span>Updated: 2026-08-15 15:46:25</span>
   
 
   <div id="article-categories">
@@ -8248,6 +8248,17 @@ clone 指定分支</a></p>
 <pre class="shell"><code>git stash pop</code></pre>
 <p>删除指定stash:</p>
 <pre class="shell"><code>git stash drop stash@{0}</code></pre>
+<p>导出stash（好像是2.51开始）:</p>
+<pre class="shell"><code># 导出全部到ref
+git stash export --to-ref refs/backup/stash
+# 导出某一个到ref
+git stash export --to-ref refs/backup/stash stash@{0}
+
+# 打包。排除已经在main分支上的commit，防止打包之后体积太大。
+git bundle create /path/to/xxx refs/backup/stash ^main
+
+# 删除ref
+git update-ref -d refs/backup/stash</code></pre>
 <p>查看指定stash:</p>
 <pre class="shell"><code># 输出类似于git commit
 git stash show stash@{0} </code></pre>

@@ -8179,7 +8179,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2023-10-18 19:28:00</span>
   
-    <span>Updated: 2026-08-06 22:24:45</span>
+    <span>Updated: 2026-08-17 17:57:45</span>
   
 
   <div id="article-categories">
@@ -8227,6 +8227,7 @@ pip3 install PyQt6</code></pre>
 <li>'//////'</li>
 <li>'<span>\</span><span>\</span><span>\</span>'</li>
 <li>'XXXX'</li>
+<li>'------'</li>
 </ul>
 <h2 id="pyplot"><a href="#pyplot">¶</a> pyplot</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
@@ -8567,99 +8568,112 @@ formatter</h3>
 <h2 id="翻转坐标轴"><a href="#翻转坐标轴">¶</a> 翻转坐标轴</h2>
 <p><a target="_blank" rel="noopener" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html" class="uri">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.invert_yaxis.html</a></p>
 <h2 id="子图"><a href="#子图">¶</a> 子图</h2>
+<h3 id="一行一列"><a href="#一行一列">¶</a> 一行一列</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(common.single_col_inch, <span class="dv">1</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fig.get_layout_engine().<span class="bu">set</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 上下的padding</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    h_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左右的padding</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    w_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">"CreationDate"</span>: <span class="va">None</span>})</span></code></pre></div>
 <h3 id="一行多列"><a href="#一行多列">¶</a> 一行多列</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fig_sa_max.get_layout_engine().<span class="bu">set</span>(</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 上下的padding</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    h_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左右的padding</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    w_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左，下，宽，高。一般上面预留出来放legend。</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    rect<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.74</span>),</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 1行2列</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, figure<span class="op">=</span>fig)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.subplot(gs[<span class="dv">0</span>, col])</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.53</span>, <span class="fl">1.04</span>),</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
-<h3 id="多行多列"><a href="#多行多列">¶</a> 多行多列</h3>
 <div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2行3列</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">3</span>, figure<span class="op">=</span>fig)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/layout_engine_api.html#matplotlib.layout_engine.ConstrainedLayoutEngine.set</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>fig.get_layout_engine().<span class="bu">set</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>fig.get_layout_engine().<span class="bu">set</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 上下的padding</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    h_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左右的padding</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    w_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图纵向间距，可以用来放子图title。</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    hspace<span class="op">=</span><span class="fl">0.13</span>,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左，下，宽，高。一般下面预留出来放子图title。上面预留出来放legend。</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    rect<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, <span class="dv">1</span>, <span class="fl">0.85</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图横向距离</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    wspace<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左，下，宽，高。一般上面预留出来放legend。</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    rect<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.74</span>),</span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> plt.subplot(gs[row, col])</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        ...</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 放title一般用fig.text</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    fig.text(x, y, title, ...)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.54</span>, <span class="fl">1.0</span>),</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 跟图片上沿的距离</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    borderaxespad<span class="op">=</span><span class="fl">0.01</span>,</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 1行2列</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, figure<span class="op">=</span>fig)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.subplot(gs[<span class="dv">0</span>, col])</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.53</span>, <span class="fl">1.04</span>),</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
+<h3 id="多行多列"><a href="#多行多列">¶</a> 多行多列</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(xx, xx), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2行3列</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">3</span>, figure<span class="op">=</span>fig)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/layout_engine_api.html#matplotlib.layout_engine.ConstrainedLayoutEngine.set</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>fig.get_layout_engine().<span class="bu">set</span>(</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左右的padding</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    w_pad<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图纵向间距，可以用来放子图title。</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    hspace<span class="op">=</span><span class="fl">0.13</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左，下，宽，高。一般下面预留出来放子图title。上面预留出来放legend。</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    rect<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, <span class="dv">1</span>, <span class="fl">0.85</span>),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> plt.subplot(gs[row, col])</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 放title一般用fig.text</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    fig.text(x, y, title, ...)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.54</span>, <span class="fl">1.0</span>),</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 跟图片上沿的距离</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    borderaxespad<span class="op">=</span><span class="fl">0.01</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
 <h3 id="嵌套子图"><a href="#嵌套子图">¶</a> 嵌套子图</h3>
 <p>如果是嵌套的子图，比如外面是2行2列，每个子图又是3个小子图，可以用<code>GridSpecFromSubplotSpec</code>。如果要求子图坐标轴对齐的话，就不能用<code>constrained_layout</code>了。这里我们手动配置layout。</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">2.8</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 外面是2行2列的大子图</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>outer_grid <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">2</span>, figure<span class="op">=</span>fig,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左边距</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    left<span class="op">=</span><span class="fl">0.06</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 下边距</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    bottom<span class="op">=</span><span class="fl">0.12</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 右边距</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    right<span class="op">=</span><span class="fl">0.998</span>,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 上边距</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    top<span class="op">=</span><span class="fl">0.93</span>,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图横向距离</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    wspace<span class="op">=</span><span class="fl">0.2</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图纵向距离</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    hspace<span class="op">=</span><span class="fl">0.4</span>,</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 每个子图又分为1行3列的小子图</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        inner_grid <span class="op">=</span> gridspec.GridSpecFromSubplotSpec(<span class="dv">1</span>, <span class="dv">3</span>, subplot_spec<span class="op">=</span>outer_grid[row, col], wspace<span class="op">=</span><span class="fl">0.4</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            ax <span class="op">=</span> fig.add_subplot(inner_grid[i])</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>            ...</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 给每个大子图加title可以这样加</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        bbox <span class="op">=</span> outer_grid[row, col].get_position(fig)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        fig.text(bbox.x0 <span class="op">+</span> bbox.width<span class="op">/</span><span class="dv">2</span>, bbox.y0 <span class="op">-</span> <span class="fl">0.07</span>, title, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.02</span>),</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    ...</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(dpi<span class="op">=</span><span class="dv">300</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">2.8</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 外面是2行2列的大子图</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/stable/api/_as_gen/matplotlib.gridspec.GridSpec.html</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>outer_grid <span class="op">=</span> gridspec.GridSpec(<span class="dv">2</span>, <span class="dv">2</span>, figure<span class="op">=</span>fig,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 左边距</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    left<span class="op">=</span><span class="fl">0.06</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 下边距</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    bottom<span class="op">=</span><span class="fl">0.12</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 右边距</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    right<span class="op">=</span><span class="fl">0.998</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 上边距</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    top<span class="op">=</span><span class="fl">0.93</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图横向距离</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    wspace<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 子图纵向距离</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    hspace<span class="op">=</span><span class="fl">0.4</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 每个子图又分为1行3列的小子图</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        inner_grid <span class="op">=</span> gridspec.GridSpecFromSubplotSpec(<span class="dv">1</span>, <span class="dv">3</span>, subplot_spec<span class="op">=</span>outer_grid[row, col], wspace<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>            ax <span class="op">=</span> fig.add_subplot(inner_grid[i])</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>            ...</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 给每个大子图加title可以这样加</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>        bbox <span class="op">=</span> outer_grid[row, col].get_position(fig)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>        fig.text(bbox.x0 <span class="op">+</span> bbox.width<span class="op">/</span><span class="dv">2</span>, bbox.y0 <span class="op">-</span> <span class="fl">0.07</span>, title, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>fig.legend(</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="st">'upper center'</span>,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 精确定位</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.02</span>),</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>fig.savefig(pdf_path, metadata<span class="op">=</span>{<span class="st">'CreationDate'</span>: <span class="va">None</span>})</span></code></pre></div>
 <h2 id="调整坐标轴label与tick-label之间的空隙"><a href="#调整坐标轴label与tick-label之间的空隙">¶</a>
 调整坐标轴label与tick label之间的空隙</h2>
 <p>用<code>labelpad</code></p>
@@ -8667,39 +8681,39 @@ formatter</h3>
 <h2 id="设置tick的个数"><a href="#设置tick的个数">¶</a>
 设置tick的个数</h2>
 <p>比如让y轴有4个tick:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/13418954/13688160" class="uri">https://stackoverflow.com/a/13418954/13688160</a></p>
 <p>很坑的是，log scale用这种方式无效，需要手动设置ticks:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置成log scale似乎会清空ticks，所以要把设置ticks放后面</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.yticks([<span class="fl">1e5</span>, <span class="fl">1e6</span>, <span class="fl">1e7</span>], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.yticks似乎会消除minor ticks，所以还得把它们补上</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中numticks比较玄学，似乎大于3就行。这里直接设置成一个大数，就肯定不会有问题了。</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_minor_locator(LogLocator(base<span class="op">=</span><span class="dv">10</span>, subs<span class="op">=</span>np.arange(<span class="dv">2</span>, <span class="dv">10</span>) <span class="op">*</span> <span class="fl">0.1</span>, numticks<span class="op">=</span><span class="dv">233</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置成log scale似乎会清空ticks，所以要把设置ticks放后面</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.yticks([<span class="fl">1e5</span>, <span class="fl">1e6</span>, <span class="fl">1e7</span>], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.yticks似乎会消除minor ticks，所以还得把它们补上</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中numticks比较玄学，似乎大于3就行。这里直接设置成一个大数，就肯定不会有问题了。</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_minor_locator(LogLocator(base<span class="op">=</span><span class="dv">10</span>, subs<span class="op">=</span>np.arange(<span class="dv">2</span>, <span class="dv">10</span>) <span class="op">*</span> <span class="fl">0.1</span>, numticks<span class="op">=</span><span class="dv">233</span>))</span></code></pre></div>
 <h2 id="设置tick和坐标轴的间距"><a href="#设置tick和坐标轴的间距">¶</a>
 设置tick和坐标轴的间距</h2>
 <p>来源：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2969867/how-do-i-add-space-between-the-ticklabels-and-the-axes" class="uri">https://stackoverflow.com/questions/2969867/how-do-i-add-space-between-the-ticklabels-and-the-axes</a></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'major'</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <h2 id="双y轴"><a href="#双y轴">¶</a> 双Y轴</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 手动控制颜色，不然两个ax上画出的线会出现相同颜色</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>color_list <span class="op">=</span> plt.rcParams[<span class="st">'axes.prop_cycle'</span>].by_key()[<span class="st">'color'</span>]</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> plt.gca()</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'ylabel1'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>ax1.plot(x, y, label<span class="op">=</span><span class="st">'legend1'</span>, color<span class="op">=</span>color_list[color_index])</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'ylabel2'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, y, label<span class="op">=</span><span class="st">'legend2'</span>, color<span class="op">=</span>color_list[color_index])</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>lines1, labels1 <span class="op">=</span> ax1.get_legend_handles_labels()</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>lines2, labels2 <span class="op">=</span> ax2.get_legend_handles_labels()</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>ax1.legend(lines1 <span class="op">+</span> lines2, labels1 <span class="op">+</span> labels2, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 手动控制颜色，不然两个ax上画出的线会出现相同颜色</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>color_list <span class="op">=</span> plt.rcParams[<span class="st">'axes.prop_cycle'</span>].by_key()[<span class="st">'color'</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> plt.gca()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'ylabel1'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ax1.plot(x, y, label<span class="op">=</span><span class="st">'legend1'</span>, color<span class="op">=</span>color_list[color_index])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'ylabel2'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, y, label<span class="op">=</span><span class="st">'legend2'</span>, color<span class="op">=</span>color_list[color_index])</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>color_index <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>lines1, labels1 <span class="op">=</span> ax1.get_legend_handles_labels()</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>lines2, labels2 <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>ax1.legend(lines1 <span class="op">+</span> lines2, labels1 <span class="op">+</span> labels2, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <h2 id="疑难杂症"><a href="#疑难杂症">¶</a> 疑难杂症</h2>
 <h3 id="matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure"><a href="#matplotlib-is-currently-using-agg-which-is-a-non-gui-backend-so-cannot-show-the-figure">¶</a>
 <code>Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.</code></h3>
