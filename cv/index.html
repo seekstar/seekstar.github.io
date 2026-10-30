@@ -30,6 +30,13 @@
     .row time {
       flex-shrink: 0;
     }
+    .publications {
+      margin: 0;
+      padding-left: 2em;
+    }
+    .publications li::marker {
+      content: "[" counter(list-item) "] ";
+    }
     @page {
       size: A4;
       margin: 30mm;
@@ -67,14 +74,14 @@
   <div class="row"><span>Silver Medal of China Collegiate Programming Contest (CCPC), Harbin Site</span><time>Oct 2019</time></div>
 
   <h2>Project Experience</h2>
-  <div class="row"><strong>(USENIX ATC '25) HotRAP <a href="#atc2025hotrap">[1]</a></strong><time>2022 - 2025</time></div>
+  <div class="row"><strong>(USENIX ATC '25) HotRAP <a class="publication-reference" href="#atc2025hotrap"></a></strong><time>2022 - 2025</time></div>
   <div>HotRAP is my first PhD work supervised by Prof. Huanchen Zhang. HotRAP is a key-value store based on RocksDB that can timely promote hot records from slow to fast storage and retain them in fast storage while they remain hot. It has two primary contributions:</div>
   <ol style="margin-block: 0;">
     <li>Previous approaches track hotness of records in memory, which can consume much memory if records are small. HotRAP uses an on-disk data structure to perform record-level hotness tracking while maintaining modest memory consumption.</li>
     <li>Previous systems promote hot data only through compactions, which is insufficient under read-heavy workloads. HotRAP batches hot records and promotes them to the fast storage by flushing them as an SSTable, enabling efficient performance even under read-heavy workloads.</li>
   </ol>
 
-  <div class="row"><strong>(USENIX ATC '23) Light-Dedup <a href="#atc2023lightdedup">[2]</a></strong><time>2020 - 2023</time></div>
+  <div class="row"><strong>(USENIX ATC '23) Light-Dedup <a class="publication-reference" href="#atc2023lightdedup"></a></strong><time>2020 - 2023</time></div>
   <div>Light-Dedup is my undergraduate work advised by Prof. Wen Xia. Light-Dedup is an inline deduplication framework for Non-Volatile Memory (NVM) file systems. It has two main contributions:</div>
   <ol style="margin-block: 0;">
     <li>Light-Dedup observes that the CPU prefetcher is too conservative for NVM and optimizes content comparison by speculatively prefetching in-NVM data blocks.</li>
@@ -82,7 +89,16 @@
   </ol>
 
   <h2>Publications</h2>
-  <div id="atc2025hotrap">[1] <strong>Jiansheng Qiu</strong>, Fangzhou Yuan, Mingyu Gao, and Huanchen Zhang. HotRAP: Hot Record Retention and Promotion for LSM-trees with Tiered Storage. In <em>2025 USENIX Annual Technical Conference (USENIX ATC 25)</em>, 2025.</div>
-  <div id="atc2023lightdedup">[2] <strong>Jiansheng Qiu</strong>, Yanqi Pan, Wen Xia, Xiaojia Huang, Wenjun Wu, Xiangyu Zou, Shiyi Li, and Yu Hua. Light-Dedup: A Light-weight Inline Deduplication Framework for Non-Volatile Memory File Systems. In <em>2023 USENIX Annual Technical Conference (USENIX ATC 23)</em>, 2023.</div>
+  <ol class="publications">
+    <li id="atc2025hotrap"><strong>Jiansheng Qiu</strong>, Fangzhou Yuan, Mingyu Gao, and Huanchen Zhang. HotRAP: Hot Record Retention and Promotion for LSM-trees with Tiered Storage. In <em>2025 USENIX Annual Technical Conference (USENIX ATC 25)</em>, 2025.</li>
+    <li id="atc2023lightdedup"><strong>Jiansheng Qiu</strong>, Yanqi Pan, Wen Xia, Xiaojia Huang, Wenjun Wu, Xiangyu Zou, Shiyi Li, and Yu Hua. Light-Dedup: A Light-weight Inline Deduplication Framework for Non-Volatile Memory File Systems. In <em>2023 USENIX Annual Technical Conference (USENIX ATC 23)</em>, 2023.</li>
+  </ol>
+  <script>
+    const publications = [...document.querySelectorAll(".publications li")];
+    for (const reference of document.querySelectorAll(".publication-reference")) {
+      const publication = document.getElementById(reference.hash.slice(1));
+      reference.textContent = `[${publications.indexOf(publication) + 1}]`;
+    }
+  </script>
 </body>
 </html>
