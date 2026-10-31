@@ -8420,24 +8420,15 @@ PING ipv6.google.com(nrt20s09-in-x0e.1e100.net (2404:6800:4004:80b::200e)) 56 da
 
 <!-- comment - valine -->
 
-	<div id="vcomments"></div>
-
 
 <script>
 	
-		// 评论
-		new Valine({
-			el: '#vcomments',
+	
+		// Valine 初始化时会调用 AV.init，关闭评论后需要单独初始化
+		AV.init({
 			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
-			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO',
-			placeholder: '请输入评论',
-			path: window.location.pathname,
-			avatar: 'retro',
-			highlight: false,
-      recordIP: true,
-      enableQQ: true,
-			requiredFields: ['nick','mail']
-		})
+			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO'
+		});
 	
 	
     // 显示次数
