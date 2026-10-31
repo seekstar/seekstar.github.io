@@ -37,10 +37,9 @@
 	</script>
 
 	
-		<script>
-			var headerPrefix = '<span></span>';
-		</script>
-	
+	<script>
+		var headerPrefix = "";
+	</script>
 
 	
 <link rel="stylesheet" href="/css/main.css">
@@ -72,15 +71,10 @@
 
 
 	
-		
-<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
-
-		
-<script src="https://cdn.jsdelivr.net/npm/valine@v1.5.1/dist/Valine.min.js"></script>
-
+		<script data-goatcounter="https://seekstar.goatcounter.com/count"
+		        async src="//gc.zgo.at/count.js"></script>
 	
 	
-		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
 
 <meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
@@ -8205,8 +8199,9 @@ mjx-container[display="true"] + br {
 <div class="article-meta">
 	
 		<span>
-			阅读量:<span id="/2020/05/01/clang-constexpr-specifier-is-incompatible-with-c-98-semantic-issue/" class="leancloud_visitors" data-flag-title="Clang 'constexpr' specifier is incompatible with C++98 [Semantic Issue]"></span>
+			阅读量:<span class="goatcounter_visitors">--</span>
 		</span>
+	
 	
 
 	<span>searchstar</span>
@@ -8276,7 +8271,7 @@ mjx-container[display="true"] + br {
           data-strict="1"
           data-reactions-enabled="1"
           data-emit-metadata="0"
-          data-input-position="bottom"
+          data-input-position="top"
           data-theme="preferred_color_scheme"
           data-lang="zh-CN"
           data-loading="lazy"
@@ -8285,50 +8280,28 @@ mjx-container[display="true"] + br {
   </script>
 
 
+<!-- goatcounter -->
+
+
+
+	<script>
+		// post view count
+		(function () {
+			var el = document.querySelector('.goatcounter_visitors');
+			if (!el) return;
+			fetch('https://seekstar.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json')
+				.then(function (res) { return res.json(); })
+				.then(function (data) { if (data && data.count) el.textContent = data.count; })
+				.catch(function (err) { console.error('goatcounter post count:', err); });
+		})();
+	</script>
+
+
 <!-- comment - valine -->
 
 
 <script>
 	
-	
-		// Valine 初始化时会调用 AV.init，关闭评论后需要单独初始化
-		AV.init({
-			appId: 'zLsL74hgrlCBA3xJu74xOken-gzGzoHsz',
-			appKey: 'RwHHvgzlLCMew6ViBVMX2YVO'
-		});
-	
-	
-    // 显示次数
-		function showTime(Counter) {
-			var query = new AV.Query("Counter");
-			if($(".leancloud_visitors").length > 0){
-				var url = $(".leancloud_visitors").attr('id').trim();
-				// where field
-				query.equalTo("words", url);
-				// count
-				query.count().then(function (number) {
-					// There are number instances of MyClass where words equals url.
-					$(document.getElementById(url)).text(number?  number : '--');
-				}, function (error) {
-					// error is an instance of AVError.
-				});
-			}
-		}
-		// 追加pv
-		function addCount(Counter) {
-			var url = $(".leancloud_visitors").length > 0 ? $(".leancloud_visitors").attr('id').trim() : 'wujun234.github.io';
-			var Counter = AV.Object.extend("Counter");
-			var query = new Counter;
-			query.save({
-				words: url
-			}).then(function (object) {
-			})
-		}
-		$(function () {
-			var Counter = AV.Object.extend("Counter");
-			addCount(Counter);
-			showTime(Counter);
-		});
 	
 </script>
 
@@ -8346,15 +8319,11 @@ mjx-container[display="true"] + br {
 	
 	
 		|
-		<span id="busuanzi_container_site_pv">
-			pv
-			<span id="busuanzi_value_site_pv"></span>
+		<span id="goatcounter_container_site_pv">
+			总访问量
+			<span id="goatcounter_value_site_pv">--</span>
 		</span>
-		|
-		<span id="busuanzi_container_site_uv"> 
-			uv
-			<span id="busuanzi_value_site_uv"></span>
-		</span>
+	
 	
 	<br>
 	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
@@ -8367,6 +8336,18 @@ mjx-container[display="true"] + br {
 <script type="text/javascript">
 	document.getElementById('footerYear-end').innerHTML = new Date().getFullYear() + '';
 </script>
+
+<script type="text/javascript">
+	(function () {
+		var el = document.getElementById('goatcounter_value_site_pv');
+		if (!el) return;
+		fetch('https://seekstar.goatcounter.com/counter/TOTAL.json')
+			.then(function (res) { return res.json(); })
+			.then(function (data) { if (data && data.count) el.textContent = data.count; })
+			.catch(function (err) { console.error('goatcounter total:', err); });
+	})();
+</script>
+
 
 	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
 </body>

@@ -35,10 +35,9 @@
 	</script>
 
 	
-		<script>
-			var headerPrefix = '<span></span>';
-		</script>
-	
+	<script>
+		var headerPrefix = "";
+	</script>
 
 	
 <link rel="stylesheet" href="/css/main.css">
@@ -70,15 +69,10 @@
 
 
 	
-		
-<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
-
-		
-<script src="https://cdn.jsdelivr.net/npm/valine@v1.5.1/dist/Valine.min.js"></script>
-
+		<script data-goatcounter="https://seekstar.goatcounter.com/count"
+		        async src="//gc.zgo.at/count.js"></script>
 	
 	
-		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	
 
 <meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
@@ -8243,15 +8237,11 @@ mjx-container[display="true"] + br {
 	
 	
 		|
-		<span id="busuanzi_container_site_pv">
-			pv
-			<span id="busuanzi_value_site_pv"></span>
+		<span id="goatcounter_container_site_pv">
+			总访问量
+			<span id="goatcounter_value_site_pv">--</span>
 		</span>
-		|
-		<span id="busuanzi_container_site_uv"> 
-			uv
-			<span id="busuanzi_value_site_uv"></span>
-		</span>
+	
 	
 	<br>
 	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
@@ -8264,6 +8254,18 @@ mjx-container[display="true"] + br {
 <script type="text/javascript">
 	document.getElementById('footerYear-end').innerHTML = new Date().getFullYear() + '';
 </script>
+
+<script type="text/javascript">
+	(function () {
+		var el = document.getElementById('goatcounter_value_site_pv');
+		if (!el) return;
+		fetch('https://seekstar.goatcounter.com/counter/TOTAL.json')
+			.then(function (res) { return res.json(); })
+			.then(function (data) { if (data && data.count) el.textContent = data.count; })
+			.catch(function (err) { console.error('goatcounter total:', err); });
+	})();
+</script>
+
 
 	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
 </body>
