@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1484" class="uri">https://www.luogu.org/problemnew/show/P1484</a><br>
+	<html><head></head><body><p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1484" class="uri">https://www.luogu.org/problemnew/show/P1484</a><br>
 首先想到dp，但是复杂度是O(n*k)，本题吃不消。</p>
 <p>假设种k-1棵树时的最优解为A<sub>k-1</sub>，种的树从小到大的下标是(x1,x2,x3,...,xi,...,x<sub>k-1</sub>)，那么种k棵树的最优解一定可以通过从种k-1棵树的最优解中删除一棵树并增加两棵树在它两边或者只增加一棵树得到。证明如下：<br>
 首先证明如果删除了树，则插入的树一定要在删除的树的两边。因为假如某棵树a没有插入到被删除的树的两边，那么一定能够找到一棵被删除的树b，使得它旁边不是都有插入的树，否则，假设删除了n棵树，则至少n+1棵树在被删除的树旁边，又有一棵树不在被删除的树旁边，故总共插入至少n+2棵树，与插入n+1棵树矛盾。下面对b分情况讨论<br>

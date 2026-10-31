@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>对于borrowed成员，deserializer可以借用输入里的对应部分。serde_json序列化时会将所有部分转换成字符串，这样除非这个成员是字符串，否则deserializer就不能借用到了，会报错：</p>
+	<html><head></head><body><p>对于borrowed成员，deserializer可以借用输入里的对应部分。serde_json序列化时会将所有部分转换成字符串，这样除非这个成员是字符串，否则deserializer就不能借用到了，会报错：</p>
 <pre><code>invalid type: sequence, expected a borrowed byte array</code></pre>
 <p>bincode序列化时会将各部分保存为二进制码，比如<code>&amp;'a [u8]</code>成员被序列化之后仍然是一个u8字符串，因此对于大部分情况都能直接借用。</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">serde::</span><span class="op">{</span>Serialize<span class="op">,</span> Deserialize<span class="op">};</span></span>

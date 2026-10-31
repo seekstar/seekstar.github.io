@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>大意：一个无向有权图，权值代表从一个点到另一个点所需时间。有n个点，标号0到n-1，初始点在0。定义一个点是好的，当且仅当这个点没去过，且从这个点能够沿着一条简单路径经过所有没去过的点。如果所在的点周围有cnt个好的点，那么有1/(cnt+1)的概率在当前点停留5min，各有1/(cnt+1)的概率前往周围那些点。当当前点周围没有好的点时终止。问期望的能坚持的时间是多久。<br>
+	<html><head></head><body><p>大意：一个无向有权图，权值代表从一个点到另一个点所需时间。有n个点，标号0到n-1，初始点在0。定义一个点是好的，当且仅当这个点没去过，且从这个点能够沿着一条简单路径经过所有没去过的点。如果所在的点周围有cnt个好的点，那么有1/(cnt+1)的概率在当前点停留5min，各有1/(cnt+1)的概率前往周围那些点。当当前点周围没有好的点时终止。问期望的能坚持的时间是多久。<br>
 1 &lt;= n &lt;= 15</p>
 <p>这么小的数据量当然是状压dp了。</p>
 <p>定义f[i][st]为当前点是i，经过的点的集合为st。然后转移方程为<br>

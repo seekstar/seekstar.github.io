@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>如果依赖是通过<code>add_subdirectory</code>添加的，那么<code>find_package</code>的时候会报错找不到<code>xxx-config.cmake</code>。</p>
+	<html><head></head><body><p>如果依赖是通过<code>add_subdirectory</code>添加的，那么<code>find_package</code>的时候会报错找不到<code>xxx-config.cmake</code>。</p>
 <p>实际上通过<code>add_subdirectory</code>添加的话，对应的target已经存在了。所以我们可以直接判断如果target已经存在就跳过<code>find_package</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="ot">NOT</span> <span class="ot">TARGET</span> 依赖<span class="bn">1</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">find_package</span>(依赖1 <span class="ot">CONFIG</span> <span class="ot">REQUIRED</span>)</span>

@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>RCU的全称是Read-Copy Update。详解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479785704">浅谈Linux内核源码RCU机制</a>。基本思路是不阻塞读，而更新的时候先把原来的数据复制一份，在副本上修改，修改完了一次性更新到受RCU保护的数据结构上。但是由于可能还有并发的reader在读老的副本，所以不能马上把老的副本释放掉。那么什么时候可以释放掉老的副本呢？</p>
+	<html><head></head><body><p>RCU的全称是Read-Copy Update。详解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479785704">浅谈Linux内核源码RCU机制</a>。基本思路是不阻塞读，而更新的时候先把原来的数据复制一份，在副本上修改，修改完了一次性更新到受RCU保护的数据结构上。但是由于可能还有并发的reader在读老的副本，所以不能马上把老的副本释放掉。那么什么时候可以释放掉老的副本呢？</p>
 <p>Linux内核做了一个很精妙的设计：读的时候不发生上下文切换，因此假如处理器发生了上下文切换，那么就说明读肯定已经完成了，而接下来的读都是读取新的数据。因此当所有处理器都完成了一次上下文切换之后，就可以确保所有可能读取老的副本的reader都已经退出了，这时就可以把老的副本释放掉。等待所有处理器完成一次上下文切换的时间就叫做grace
 period。用户态的RCU由于没有这些底层信息，因此采用的是别的实现方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmo187J3X1/article/details/80992945">Userspace
 RCU原理</a>。</p>

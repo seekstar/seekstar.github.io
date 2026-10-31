@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>先说巨坑：如果<code>kthread_run</code>之后立马<code>kthread_stop</code>，<code>threadfn</code>可能不会被执行，<code>kthread_stop</code>返回<code>-EINTR</code>。这一点网上的教程很少有提及。<br>
+	<html><head></head><body><p>先说巨坑：如果<code>kthread_run</code>之后立马<code>kthread_stop</code>，<code>threadfn</code>可能不会被执行，<code>kthread_stop</code>返回<code>-EINTR</code>。这一点网上的教程很少有提及。<br>
 参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65987208/kthread-stopped-without-running" class="uri">https://stackoverflow.com/questions/65987208/kthread-stopped-without-running</a></p>
 <h2 id="创建线程"><a href="#创建线程">¶</a> 创建线程</h2>
 <p>可以用<code>kthread_create</code>和<code>kthread_run</code>。</p>

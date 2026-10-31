@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>背景：EFI分区由于意外被清空了。首先修复了Linux的引导，现在需要修复Windows引导。</p>
+	<html><head></head><body><p>背景：EFI分区由于意外被清空了。首先修复了Linux的引导，现在需要修复Windows引导。</p>
 <p>首先烧一个windows启动盘，进去之后不安装，而是选择<code>修复这台计算机</code>，选择<code>疑难解答</code>，选择<code>命令提示符</code>。</p>
 <p>然后首先<code>C:</code>切换到C盘，然后<code>bootrec /FixBoot</code>。如果提示拒绝访问，就<code>bootsect /nt60 sys</code>，然后再<code>bootrec /FixBoot</code>，应该就好了。方法来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xw988tom/article/details/118788664">bootrec
 /fixboot拒绝访问真正的修复，好多文章都是假的不起作用</a></p>

@@ -77,7 +77,7 @@
 	
 	
 
-<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+<!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><style>.hexo-reference-list{list-style:none;padding-left:0;margin-left:40px}.hexo-reference-list>li{list-style:none!important}.hexo-reference-index{display:inline-block;vertical-align:top;padding-right:10px;margin-left:-40px}.hexo-reference-text{display:inline-block;vertical-align:top;margin-left:10px}@media(max-width:480px){.hexo-reference.hint--top:after,.hexo-reference.hint--top:before{display:none!important}}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -8226,7 +8226,7 @@ mjx-container[display="true"] + br {
 
 <!-- content -->
 <div id="article-content">
-	<link rel="stylesheet" type="text&#x2F;css" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"><html><head></head><body><p>将节点的值定义为其输入中1的个数。观察发现，每次修改的都是一条链上的值：如果是将某个节点的值从1改成0，那么就是要将这个节点到其祖先中离该节点最近的值非2的节点的值全部减一，如果是将某个节点的值从0改成1，那么就是要将这个节点到其祖先中离该节点最近的值非1的节点的值全部加1。</p>
+	<html><head></head><body><p>将节点的值定义为其输入中1的个数。观察发现，每次修改的都是一条链上的值：如果是将某个节点的值从1改成0，那么就是要将这个节点到其祖先中离该节点最近的值非2的节点的值全部减一，如果是将某个节点的值从0改成1，那么就是要将这个节点到其祖先中离该节点最近的值非1的节点的值全部加1。</p>
 <p>所以维护splay表示的链中最后一个值非1和值非2的节点的位置即可。修改节点x的值的时候，先<code>access(x)</code>，然后将最后一个值非1（或者非2）的节点（记为y）splay到根，然后对y节点做单点修改，对y的右子树做区间加。有一个特殊情况，就是找不到这样的节点y，这说明从x一直到根都是1（或者2），这时直接对整条链做区间加就好了，而且此时根的输出必然会翻转。</p>
 <p>注意，这题中，LCT并不需要做换根操作。</p>
 <p>这题告诉我们，LCT要灵活应用，不要只记得<code>link</code>和<code>cut</code>以及区间操作之类的标准化的用法。灵活运用<code>splay</code>和<code>access</code>更强大。</p>
