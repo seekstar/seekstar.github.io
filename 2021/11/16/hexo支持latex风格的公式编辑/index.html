@@ -8207,7 +8207,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2021-11-16 20:06:13</span>
   
-    <span>Updated: 2025-10-12 22:56:42</span>
+    <span>Updated: 2026-11-01 19:11:29</span>
   
 
   <div id="article-categories">
@@ -8249,7 +8249,10 @@ mathjax: true
 ---</code></pre>
 <p>如果懒得在每篇博客前面加上<code>mathjax: true</code>，就在<code>_config.yml</code>里加上</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mathjax</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">every_page</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">every_page</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="co"># ams 提供的 cases、aligned、matrix 等环境和 \binom、\tag，不显式加载会报 Unknown environment</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="co"># 不要写 tags: 'ams'，它也会加载 ams，但会顺带打开公式编号</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'ams'</span><span class="kw">]</span></span></code></pre></div>
 <p>这样所有博客都会自动使用MathJax。然后就可以像在Latex里面一样编辑公式了：</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$</span><span class="sc">\underset</span><span class="ss">{theta}{</span><span class="sc">\bowtie</span><span class="ss">}$</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ss">$N^+ = </span><span class="sc">\{</span><span class="ss">x | x</span><span class="sc">\in</span><span class="ss"> N </span><span class="sc">\wedge</span><span class="ss"> x </span><span class="sc">\ne</span><span class="ss"> 0</span><span class="sc">\}</span><span class="ss">$</span></span></code></pre></div>
