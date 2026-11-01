@@ -8257,7 +8257,7 @@ mjx-container[display="true"] + br {
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>编译运行之后，可以看到内存使用量在<code>a0</code>被释放之后就减少了，这说明<code>a0</code>被释放之后，<code>a</code>的底层数组的前面没有被slice引用的部分的空间就会被回收了。</p>
 <p>因此在go语言里用slice实现队列不会导致内存泄漏（前提是前面没有被slice引用的部分也没有被其他地方引用）。pop的时候直接<code>a = a[1:]</code>即可。</p>
-</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</body></html>
 </div>
 
 <!-- post-guide -->

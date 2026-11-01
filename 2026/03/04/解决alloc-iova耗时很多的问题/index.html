@@ -8229,7 +8229,7 @@ mjx-container[display="true"] + br {
 	<html><head></head><body><p>在Debian12上跑实验，在perf火焰图上发现<code>alloc_iova</code>消耗了很多CPU时间。GPT说是因为IOVA碎片化了。</p>
 <p>我发现升级到Debian13之后好像就没这个问题了。可能是因为Debian13的新内核缓解了IOVA碎片化的问题。</p>
 <p>另一种方法是把IOMMU模式改成passthrough：在<code>/etc/default/grub</code>里的<code>GRUB_CMDLINE_LINUX_DEFAULT</code>里加上<code>intel_iommu=on iommu=pt</code>，然后<code>sudo update-grub</code>，然后重启。然后<code>sudo dmesg | grep iommu:</code>就可以看到<code>Default domain type</code>是Passthrough。这会降低安全性。在保证驱动和设备都是可信的情况下才能用这个。</p>
-</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</body></html>
 </div>
 
 <!-- post-guide -->

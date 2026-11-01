@@ -8278,7 +8278,7 @@ mutex的。可能这是因为其他非leader的writer都在等leader给出指示
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">flush_scheduler_</span><span class="op">-&gt;</span>ScheduleWork<span class="op">(</span>cfd<span class="op">);</span></span></code></pre></div>
 <p><code>FlushScheduler::ScheduleWork</code>中，先<code>cfd-&gt;Ref()</code>，然后把cfd放进链表里。前面提到了，在<code>DBImpl::WriteImpl</code>中作为leader时，会检查<code>FlushScheduler flush_scheduler_</code>中有没有任务，有的话就拿出来放到<code>DBImpl::flush_queue_</code>中。</p>
 <p>我的问题：为什么不直接放到<code>DBImpl::flush_queue_</code>中？</p>
-</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</body></html>
 </div>
 
 <!-- post-guide -->

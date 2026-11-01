@@ -8313,7 +8313,7 @@ family的<code>ColumnFamilyData</code>，然后可能执行<code>flush_scheduler
 <p><code>ColumnFamilyData::PickCompaction</code>执行了<code>compaction_picker_-&gt;PickCompaction</code>，即调用了<code>LevelCompactionPicker::PickCompaction</code>。</p>
 <p><code>LevelCompactionPicker::PickCompaction</code>中构造了<code>LevelCompactionBuilder builder</code>，将<code>ImmutableOptions</code>类型的<code>LevelCompactionPicker::ioptions_</code>存入<code>LevelCompactionBuilder::ioptions_</code>。</p>
 <p>由上文可知，<code>LevelCompactionPicker::ioptions_</code>是在构造<code>ColumnFamilyData</code>时初始化的，其<code>ioptions_</code>来自<code>ColumnFamilyData::ioptions_</code>。</p>
-</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</body></html>
 </div>
 
 <!-- post-guide -->

@@ -8237,7 +8237,7 @@ mjx-container[display="true"] + br {
 <p>库B在编译时，看不到程序A中的<code>Timers</code>，因此调用库B中的<code>Timers</code>却实际调用程序A中的<code>Timers</code>的原因肯定是链接的时候发生了符号覆盖。也就是说，库B中的<code>Timers</code>和程序A中的<code>Timers</code>中的构造器的signature一样的话，它们对应的符号也是一样的，而由于程序A和库B是动态链接的，因此链接的时候不会提示符号冲突，而是直接使用了程序A中的符号，这就导致了库B中的代码想调用库B中的<code>Timers</code>的构造函数，却意外调用了程序A中具有相同符号的<code>Timers</code>的构造函数。这也解释了为什么release编译时没有问题，因为此时<code>Timers</code>的构造器和其他method都被内联了，没有符号。</p>
 <h2 id="解决方案"><a href="#解决方案">¶</a> 解决方案</h2>
 <p>把库B中的所有代码都包在一个B自己的namespace里。这样B里的所有符号都是以这个全局唯一的namespace为前缀的，就不会跟其他库或者程序里的符号重名了。</p>
-</body></html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</body></html>
 </div>
 
 <!-- post-guide -->
