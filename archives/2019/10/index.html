@@ -8198,11 +8198,8 @@ mjx-container[display="true"] + br {
 				</h2>
 				<div class="index-brief">
 					设f[i]为第i天出售后最多能得到的钱数，枚举最后一次买入的天数j，那么有转移方程：
-
-化成斜率优化的形式
-
-注意到截距b(i)与f(i)成正相关，因此应该用直线切上凸包。
-这里斜率和点的坐标显然都不单调，因此要用动态凸包。然后又因为还要在凸包上二分，而set维护的动态凸包不支持凸包上二分，因此要手
+<g data-mml-node="math" data-latex="f[i] = \frac{f[j]}{a[j] r[j] + b[j]} b[i] +
+\frac{r[j] f[j]}{a[j] r[j] 
 					...
 				</div>
 			</a>
@@ -8323,10 +8320,7 @@ run_debug: debug
 				</h2>
 				<div class="index-brief">
 					参考链接：https://unix.stackexchange.com/questions/23179/how-to-send-variable-to-an-inline-shell-script
-to=to'
-输出2333，没有to指向的路径。
-解决方案：把to变成环境变量。
-to=$(pwd)/
+to=<g data-mml-node="math" data-latex="(pwd)/table.
 					...
 				</div>
 			</a>

@@ -8221,24 +8221,7 @@ mjx-container[display="true"] + br {
 					题意：一个人有p的概率输掉，如果连续赢k1次或连续输k2次就结束，问结束前打的次数的期望。
 定义f(i)为已经连续赢i次时到结束期望的次数，g(i)为已经连续输i次时到结束期望的次数。
 则有关系式：
-
-
-然后展开一下
-记
-
-
-同理，
-
-记
-
-
-则
-
-
-最终答案为
-
-代码：
-#include &lt;
+<g data-mml-node="math" data-latex="f(i) = p f(i+1
 					...
 				</div>
 			</a>
@@ -8322,12 +8305,8 @@ B_max]中能凑出多少中价值。其中n &lt;= 12, 0 &lt;= a[i] &lt;= 5e5, 1
 其中0&lt;N&lt;=2^32
 看起来是莫比乌斯反演，其实不是。。。。。。
 化一波式子先
-
-然后别化了（手动喷血
-后面那个求和号不就是欧拉函数的定义么（手动喷血
-然后变成了求
-什么？枚举因子个数和求欧拉函数都是的，所以总的是O(N)？
-注意到这里要求的都是N的因子的欧拉函数的值，因此可以对
+<g data-mml-node="math" data-latex="\sum_{i=1}^N gcd(i, N) = \sum_{d\mid N}
+d\sum_{i=1}^{\frac N d} 
 					...
 				</div>
 			</a>
@@ -8348,14 +8327,9 @@ B_max]中能凑出多少中价值。其中n &lt;= 12, 0 &lt;= a[i] &lt;= 5e5, 1
 					求
 其中1 &lt;= n &lt;= 1e9, 1 &lt;= k &lt;= 1e9
 把取模拆开
-
-注意到总共有O(sqrt(k))种取值，可以数论分块。
-代码：
-#include &lt;iostream&gt;
-
-using namespace std;
-
-typedef long long
+<g data-mml-node="math" data-latex="k \% i = k - \lfloor\frac{k}{i}\rfloor *
+i">
+注意到总共有O(sqrt(k))种取
 					...
 				</div>
 			</a>
