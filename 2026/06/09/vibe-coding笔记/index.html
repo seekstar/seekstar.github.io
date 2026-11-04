@@ -8207,7 +8207,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2026-06-09 23:19:34</span>
   
-    <span>Updated: 2026-10-29 00:21:40</span>
+    <span>Updated: 2026-11-02 17:55:11</span>
   
 
   <div id="article-categories">
@@ -8251,7 +8251,10 @@ zellij da</code></pre>
 <h3 id="opencode"><a href="#opencode">¶</a> opencode</h3>
 <p>比较知名的开源agent。大部分模型应该都支持。</p>
 <p>安装：<a target="_blank" rel="noopener" href="https://opencode.ai/download" class="uri">https://opencode.ai/download</a></p>
-<pre class="shell"><code>npm install -g @opencode/cli
+<pre class="shell"><code># 新版npm需要显式允许运行包里自带的安装脚本
+npm config set allow-scripts=@opencode/cli --location=user
+
+npm install -g @opencode/cli
 
 # 如果没有npm
 curl -fsSL https://opencode.ai/v2/install | bash

@@ -8207,7 +8207,7 @@ mjx-container[display="true"] + br {
 	<span>searchstar</span>
 	<span>Created: 2021-02-28 13:59:30</span>
   
-    <span>Updated: 2026-10-30 18:05:53</span>
+    <span>Updated: 2026-11-04 21:49:35</span>
   
 
   <div id="article-categories">
@@ -8296,7 +8296,7 @@ pages：进入仓库，点击<code>Service</code>，然后点击里面的<code>G
 <p>缺点也很明显：</p>
 <ul>
 <li>手机版上<code>标签</code>和<code>分类</code>入口所在的header过短，不能智能收成一个目录，所以header不能放太多东西。</li>
-<li>访问量和评论的key是博客url，若url改变则访问量和评论全部会清空。</li>
+<li>评论和阅读量都不以文章id为key：giscus认的是文章标题（og:title），GoatCounter认的是URL，改标题或URL会让评论对不上、阅读量清零。</li>
 </ul>
 <h2 id="更换主题"><a href="#更换主题">¶</a> 更换主题</h2>
 <p>这里选择tree主题。在<code>themes</code>下执行</p>
@@ -8338,41 +8338,50 @@ theme的配置文件。主题的配置说明详见<code>themes/tree/README.md</c
 <p>分类就不开了，因为tree主题的文件夹自带了分类功能。不开分类有助于节约header的空间。</p>
 <h2 id="开启评论统计访问量"><a href="#开启评论统计访问量">¶</a>
 开启评论，统计访问量</h2>
-<p>已经默认开启了“不蒜子”，可以统计PV(Page View)和UV(Unique
-Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适合用“不蒜子”。tree主题使用<code>leancloud</code>来存储评论以及访问量。</p>
-<p>注册一下<code>leancloud</code>：<a target="_blank" rel="noopener" href="https://www.leancloud.cn/" class="uri">https://www.leancloud.cn/</a><br>
-点击免费试用，然后注册就好了。有一定的免费额度。</p>
-<p>登陆进去之后可以切换中文，然后<code>创建应用</code>，应用名称随便，我的是<code>blog</code>，类别选<code>开发版</code>，创建好了之后点进去，点击左边<code>设置</code>里的<code>应用keys</code>，把AppID和AppKey放到<code>_config.tree.yml</code>里，并且把<code>enableComment</code>和<code>enableCounter</code>都设置成<code>true</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># valine </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">valine</span><span class="kw">:</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="co"># 评论</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enableComment</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="co"># 阅读量</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enableCounter</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="co"># valine appID</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">appID</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxx</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="co"># valine appKey</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">appKey</span><span class="kw">:</span><span class="at"> xxxxxxxxxxxxxxxxxxxxxxxx</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">placeholder</span><span class="kw">:</span><span class="at"> 请输入评论</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">avatar</span><span class="kw">:</span><span class="at"> retro</span></span></code></pre></div>
-<p>然后预览一下，可以看到每篇文章下面多出了评论输入框，文章开头多了访问量</p>
-<p>注意，评论和访问量都是以博客的url作为key的，所以如果博客的url变了（如重命名），那评论和访问量都会清空。要是可以在创建博文的时候生成一个类似uuid的东西，然后以uuid作为key就好了（我为什么这么菜）。</p>
-<h2 id="邮件提醒"><a href="#邮件提醒">¶</a> 邮件提醒</h2>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://valine.js.org/notify.html" class="uri">https://valine.js.org/notify.html</a></p>
-<p>但是官方文档里推荐的<a target="_blank" rel="noopener" href="https://github.com/zhaojun1998/Valine-Admin" class="uri">https://github.com/zhaojun1998/Valine-Admin</a>看起来已经无人维护了，部署会出错：</p>
-<pre class="text"><code>build failed: npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142 npm WARN deprecated superagent@3.8.3: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net npm WARN deprecated formidable@1</code></pre>
-<p>而且这个repo连issue都没有。</p>
-<p>修复方法：<a target="_blank" rel="noopener" href="https://github.com/DesertsP/Valine-Admin/issues/151" class="uri">https://github.com/DesertsP/Valine-Admin/issues/151</a></p>
-<p>也可以直接用这个：<a target="_blank" rel="noopener" href="https://github.com/Druadach/Valine-Admin" class="uri">https://github.com/Druadach/Valine-Admin</a></p>
-<p>按照readme里的步骤部署即可。</p>
-<p>环境变量里可以指定<code>TO_EMAIL</code>，提醒邮件就会发送给这个邮箱。如果不指定<code>TO_EMAIL</code>，提醒邮件是发送给<code>SMTP_USER</code>。</p>
+<p>评论用 giscus，阅读量用 GoatCounter，配置写在主题配置文件里（本博客是
+<code>_config.tree.yml</code>）。各字段的含义见<a target="_blank" rel="noopener" href="https://github.com/wujun234/hexo-theme-tree#3-评论与访问统计">主题
+readme 的“评论与访问统计”一节</a>，这里只做补充。</p>
+<h3 id="giscus"><a href="#giscus">¶</a> giscus</h3>
+<p>giscus 把评论存进 GitHub Discussions，靠 GitHub
+登录挡机器人，不需要服务器和数据库。</p>
+<p>主题里 <code>data-category</code> 写死成
+<code>Announcements</code>，<code>data-mapping</code> 是
+<code>og:title</code>，<code>data-strict</code> 是
+<code>1</code>，所以建类目和生成配置时都得按这三个值来。</p>
+<ul>
+<li>仓库必须是公开的。在仓库的 <code>Settings</code> →
+<code>General</code> → <code>Features</code> 里勾上
+<code>Discussions</code>，建一个 <code>Announcements</code>
+类型的类目，giscus 推荐这个类型，这样只有维护者和 giscus 能新建
+discussion。</li>
+<li>安装 giscus App：<a target="_blank" rel="noopener" href="https://github.com/apps/giscus" class="uri">https://github.com/apps/giscus</a>，选中这个仓库。</li>
+<li>打开 <a target="_blank" rel="noopener" href="https://giscus.app/zh-CN" class="uri">https://giscus.app/zh-CN</a>，填入仓库，映射方式选“Discussion
+的标题包含页面的
+<code>og:title</code>”，勾上“使用严格的标题匹配”，类目选
+<code>Announcements</code>。</li>
+</ul>
+<p>把生成的配置填进 <code>_config.tree.yml</code> 的 <code>giscus</code>
+段并打开
+<code>enable</code>，预览一下就能看到文章底部的评论区。第一次有人评论时，giscus
+会自动建一个标题为文章标题的 discussion。</p>
+<p>严格匹配模式下，giscus 是拿映射值的 SHA-1 去 discussion
+正文里匹配的，正文末尾有一行 <code>&lt;!-- sha1: ... --&gt;</code>
+注释。所以以后如果改了文章标题，要把新标题的 hash 补进对应 discussion
+的正文，否则评论会对不上。</p>
+<p>giscus 的提醒直接走 GitHub 的通知。在仓库上点 <code>Watch</code>，选
+<code>All Activity</code>，新的 discussion 和评论就会有通知。</p>
+<h3 id="goatcounter"><a href="#goatcounter">¶</a> GoatCounter</h3>
+<p>GoatCounter 的注册和配置见 readme。默认按 visit
+计；想按页面浏览（PV）计，去 GoatCounter 的 <code>Settings</code> →
+<code>Data collection</code> → <code>Sessions</code> 里关掉
+sessions。</p>
 <h2 id="修改底部版权开始年份"><a href="#修改底部版权开始年份">¶</a>
 修改底部版权开始年份</h2>
 <p><code>_config.tree.yml</code>里的<code>siteStartYear: 2019</code>修改成你想要的年份。结束年份会自己计算出来。</p>
 <h2 id="更改网站图标"><a href="#更改网站图标">¶</a> 更改网站图标</h2>
 <p>将自己的网站图标（文件名不要跟默认的<code>favicon.ico</code>相同）放进<code>source</code>文件夹里。假如文件名是<code>seekstar.ico</code>，那么就可以通过<code>https://博客网站/seekstar.ico</code>访问到这个图标。然后更改<code>_config.tree.yml</code>：</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 改成自己的图标文件名，比如 /seekstar.ico</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">favicon</span><span class="kw">:</span><span class="at"> /favicon.ico</span></span></code></pre></div>
 <p>即可让网站使用新的网站图标。</p>
 <h2 id="将渲染器更换为hexo-renderer-pandoc"><a href="#将渲染器更换为hexo-renderer-pandoc">¶</a> 将渲染器更换为<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a></h2>
 <p>默认的渲染器是<code>hexo-renderer-marked</code>，没有语法高亮，而且有BUG，行内代码有时候会被处理成行间代码，然后全乱了。所以需要更换渲染器。<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-markdown-it">hexo-renderer-markdown-it</a>比较流行，但是不支持Latex风格的数学公式。所以这里把渲染器换成<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-pandoc">hexo-renderer-pandoc</a>：</p>
@@ -8381,16 +8390,16 @@ Visitor)并在页面下方显示，但是评论和单篇文章访问量却不适
 npm uninstall hexo-renderer-marked
 npm install hexo-renderer-pandoc --save</code></pre>
 <p>更换渲染器之后要在<code>_config.yml</code>中把默认的highlight关掉，才能使用新的渲染器提供的highlight：</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://hexo.io/docs/syntax-highlight#Disabled</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本是v7.0.0以上（含）</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">syntax_highlighter</span><span class="kw">:</span><span class="at"> </span><span class="co"># empty</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本不到v7.0.0</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prismjs</span><span class="kw">:</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://hexo.io/docs/syntax-highlight#Disabled</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本是v7.0.0以上（含）</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">syntax_highlighter</span><span class="kw">:</span><span class="at"> </span><span class="co"># empty</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果你的hexo版本不到v7.0.0</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight</span><span class="kw">:</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">prismjs</span><span class="kw">:</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
 <p>注意这里要把之前的预览<code>ctrl+c</code>关掉，然后重新<code>hexo g &amp;&amp; hexo s</code>才能生效。</p>
 <p>然后就可以开启对Latex风格的公式的支持了：<a href="/2021/11/16/hexo%E6%94%AF%E6%8C%81latex%E9%A3%8E%E6%A0%BC%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BC%96%E8%BE%91/" title="Hexo支持Latex风格的公式编辑">Hexo支持Latex风格的公式编辑</a></p>
 <h2 id="写博客"><a href="#写博客">¶</a> 写博客</h2>
@@ -8451,15 +8460,15 @@ npm i</code></pre>
 <p><a target="_blank" rel="noopener" href="https://github.com/fletchto99/hexo-sliding-spoiler" class="uri">https://github.com/fletchto99/hexo-sliding-spoiler</a></p>
 <h3 id="保留代码块中的tab"><a href="#保留代码块中的tab">¶</a>
 保留代码块中的tab</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="st">'--preserve-tabs'</span><span class="kw">,</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pandoc</span><span class="kw">:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="st">'--preserve-tabs'</span><span class="kw">,</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">]</span></span></code></pre></div>
 <p>然后<code>hexo clean &amp;&amp; hexo g</code>使其生效。</p>
 <p>默认tab宽度是8。可以在<code>themes/tree/source/css/main.css</code>里改成4：</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span><span class="ch">:</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pre{</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>	<span class="kw">tab-size</span><span class="ch">:</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>来源：<a target="_blank" rel="noopener" href="https://matrix4f.com/Web/FrontEnd/tabsize/" class="uri">https://matrix4f.com/Web/FrontEnd/tabsize/</a></p>
 <p>如果发现即使清了cache
 tab宽度仍然是4的话，检查<code>public/css/main.css</code>是不是新版本，如果不是的话把<code>public</code>文件夹删了重新生成：</p>
